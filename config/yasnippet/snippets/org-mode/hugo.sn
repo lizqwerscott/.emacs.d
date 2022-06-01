@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: hugo
+# key: h
+# --
+#+HUGO_BASE_DIR: ~/MyProject/website/saveLife
+#+TITLE: $1
+#+DATE: `(format-time-string "%Y-%m-%d")`
+#+HUGO_AUTO_SET_LASTMOD: t
+#+HUGO_TAGS: $2
+#+HUGO_CATEGORIES: $3
+#+HUGO_DRAFT: false
+# #+HUGO_MENU: :menu "main" :parent "docs" :weight 3
+#+options: author:nil
+#+HUGO_CUSTOM_FRONT_MATTER: :katex true
+
+$0

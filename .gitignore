@@ -1,0 +1,8 @@
+auto-save-list
+custom.el
+pyim
+./tmp/*
+history
+data/
+var
+.cache
