@@ -1,11 +1,16 @@
 
+(use-package pyim
+  :ensure t)
+(use-package pyim-basedict
+  :ensure t)
+
 (require 'pyim)
 (require 'pyim-basedict)
-(pyim-basedict-enable)
+;(pyim-basedict-enable)
 
-(setq default-input-method "pyim")
-(setq pyim-cloduim 'baidu)
-(global-set-key (kbd "C-i") 'toggle-input-method)
+;(setq default-input-method "pyim")
+;(setq pyim-cloduim 'baidu)
+;(global-set-key (kbd "C-i") 'toggle-input-method)
 
 
 (provide 'init-input)

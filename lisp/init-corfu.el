@@ -9,10 +9,11 @@
   :init
   (global-corfu-mode)
   (setq corfu-auto t
-        corfu-quit-no-match 'separator
+        ;corfu-quit-no-match 'separator
+        corfu-quit-no-match t
         corfu-preview-current t
         corfu-preselect-first t
-        corfu-cycle t
+        ;corfu-cycle t
         corfu-auto-prefix 2
         corfu-quit-at-boundary t
         corfu-auto-delay 0.0)
@@ -36,11 +37,12 @@
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-symbol)
   (add-to-list 'completion-at-point-functions #'cape-keyword)
-  (add-to-list 'completion-at-point-functions #'cape-abbrev)
+  ;(add-to-list 'completion-at-point-functions #'cape-abbrev)
   ;(add-to-list 'completion-at-point-functions #'cape-ispell)
   )
 
 (use-package corfu-doc
+  :ensure t
   :hook (corfu-mode . corfu-doc-mode))
 
 (use-package kind-icon

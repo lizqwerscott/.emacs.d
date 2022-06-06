@@ -28,6 +28,20 @@
       inhibit-startup-screen t
       inhibit-startup-message t)
 
+(use-package no-littering
+  :ensure t)
+
+(setq no-littering-etc-directory
+      (expand-file-name "config/" user-emacs-directory))
+(setq no-littering-var-directory
+      (expand-file-name "data/" user-emacs-directory))
+
+(require 'no-littering)
+
+(require 'recentf)
+(add-to-list 'recentf-exclude no-littering-var-directory)
+(add-to-list 'recentf-exclude no-littering-etc-directory)
+
 (use-package saveplace
   :ensure t
   :hook (after-init . (lambda () (save-place-mode t))))

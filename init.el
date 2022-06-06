@@ -7,15 +7,6 @@
                (expand-file-name (concat user-emacs-directory "site-lisp/corfu-english-helper/")))
   )
 
-(setq no-littering-etc-directory
-      (expand-file-name "config/" user-emacs-directory))
-(setq no-littering-var-directory
-      (expand-file-name "data/" user-emacs-directory))
-(require 'no-littering)
-
-(require 'recentf)
-(add-to-list 'recentf-exclude no-littering-var-directory)
-(add-to-list 'recentf-exclude no-littering-etc-directory)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
