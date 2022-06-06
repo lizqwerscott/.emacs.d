@@ -1,2 +1,0 @@
-;;; Generated package description from corfu-doc.el  -*- no-byte-compile: t -*-
-(define-package "corfu-doc" "20220530.908" "Documentation popup for Corfu" '((emacs "26.0") (corfu "0.16.0")) :commit "d7d7c27703cdbe8b42497b300e82706c6edce96e" :authors '(("Yuwei Tian" . "ibluefocus@NOSPAM.gmail.com")) :maintainer '("Yuwei Tian" . "ibluefocus@NOSPAM.gmail.com") :keywords '("corfu" "popup" "documentation" "convenience") :url "https://github.com/galeo/corfu-doc")

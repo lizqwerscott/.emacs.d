@@ -1,2 +1,0 @@
-;;; Generated package description from all-the-icons-completion.el  -*- no-byte-compile: t -*-
-(define-package "all-the-icons-completion" "20220409.1204" "Add icons to completion candidates" '((emacs "26.1") (all-the-icons "5.0")) :commit "286e2c064a1298be0d8d4100dc91d7a7a554d04a" :authors '(("Itai Y. Efrat <https://github.com/iyefrat>")) :maintainer '("Itai Y. Efrat" . "itai3397@gmail.com") :keywords '("convenient" "lisp") :url "https://github.com/iyefrat/all-the-icons-completion")
