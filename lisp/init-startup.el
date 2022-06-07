@@ -175,4 +175,27 @@
           '(lambda ()
              (c-toggle-auto-state 1)))
 
+(use-package dired
+  :config
+  (setq dired-recursive-deletes 'always)
+  (setq delete-by-moving-to-trash t)
+  (setq dired-dwin-target t)
+  (setq dired-listing-switches
+        "-l --almost-all --human-readable --time-style=long-iso --group-directories-first --no-group"))
+
+(use-package dired-x
+  :config
+  (setq dired-omit-files
+        (concat dired-omit-files "\\|^\\..*$")))
+
+(use-package dirvish
+  :ensure t
+  :custom
+  (dirvish-mode-line-format
+   '(:left (sort file-time " " file-size symlink) :right (omit yank index)))
+  (dirvish-attributes '(subtree-state all-the-icons))
+  :config
+  (dirvish-override-dired-mode)
+  (dirvish-peek-mode))
+
 (provide 'init-startup)
