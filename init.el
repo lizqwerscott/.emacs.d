@@ -5,6 +5,8 @@
                (expand-file-name (concat user-emacs-directory "company")))
   (add-to-list 'load-path
                (expand-file-name (concat user-emacs-directory "site-lisp/corfu-english-helper/")))
+  (add-to-list 'load-path
+               (expand-file-name (concat user-emacs-directory "site-lisp/lsp-bridge")))
   )
 
 

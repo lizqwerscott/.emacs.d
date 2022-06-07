@@ -20,7 +20,7 @@
 
   "a" 'eaf-open
 
-  "w" 'ace-window
+  "o" 'ace-window
 
   "1" 'ace-delete-other-windows
   "2" 'split-window-below
@@ -41,9 +41,11 @@
   "v" 'list-lisp-funcs
   "rs" 'sly-restart-inferior-lisp
   "rn" 'eglot-rename
-  "oa" 'org-agenda
-  "oc" 'org-capture
-  "os" 'org-store-link
+
+  "wa" 'org-agenda
+  "wc" 'org-capture
+  "ws" 'org-store-link
+
   "ms" 'vc-msg-show
   "t" 'gts-do-translate
   "ha" 'hs-hide-all

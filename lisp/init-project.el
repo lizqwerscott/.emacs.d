@@ -15,8 +15,8 @@
   (mapcan #'my/project-files-in-directory
           (or dirs (list (project-root project)))))
 
-(defun generate-cmake-ccls ()
-  "Generated cmake for ccls (support cmake project)."
+(defun generate-cmake-lsp ()
+  "Generated cmake for lsp (support cmake project)."
   (interactive)
   (let ((root-project (project-root (project-current))))
     (shell-command

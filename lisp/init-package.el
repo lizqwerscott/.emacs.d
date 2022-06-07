@@ -8,23 +8,29 @@
 
 ;(require 'init-company)
 
-(use-package eglot
-  :ensure t
-  :init
-  (add-hook 'python-mode-hook 'eglot-ensure)
-  (add-hook 'cmake-mode-hook 'eglot-ensure)
-  (add-hook 'c-mode-hook 'eglot-ensure)
-  (add-hook 'c++-mode-hook 'eglot-ensure)
-  :config
-  (progn
-    (setq eldoc-echo-area-use-multiline-p 3
-          eldoc-echo-area-display-truncation-message nil)
-    (set-face-attribute 'eglot-highlight-symbol-face nil
-                        :background "#b3d7ff")
-    (add-to-list 'eglot-server-programs
-                 '((c-mode c++-mode) . ("ccls")))
-    (add-to-list 'eglot-server-programs
-                 '(python-mode . ("jedi-language-server")))))
+;; (use-package eglot
+;;   :ensure t
+;;   :init
+;;   (add-hook 'python-mode-hook 'eglot-ensure)
+;;   (add-hook 'cmake-mode-hook 'eglot-ensure)
+;;   (add-hook 'c-mode-hook 'eglot-ensure)
+;;   (add-hook 'c++-mode-hook 'eglot-ensure)
+;;   :config
+;;   (progn
+;;     (setq eldoc-echo-area-use-multiline-p 3
+;;           eldoc-echo-area-display-truncation-message nil)
+;;     (set-face-attribute 'eglot-highlight-symbol-face nil
+;;                         :background "#b3d7ff")
+;;     (add-to-list 'eglot-server-programs
+;;                  '((c-mode c++-mode) . ("ccls")))
+;;     (add-to-list 'eglot-server-programs
+;;                  '(python-mode . ("jedi-language-server")))))
+
+;;; Lsp bridge
+(require 'lsp-bridge)
+(require 'lsp-bridge-jdtls)
+(global-lsp-bridge-mode)
+(setq acm-enable-doc t)
 
 (use-package yasnippet
   :ensure t

@@ -5,9 +5,8 @@
       (corfu-next)))
 
 (use-package corfu
-  :ensure t
-  :init
-  (global-corfu-mode)
+  :ensure t :init
+  ;(global-corfu-mode)
   (setq corfu-auto t
         ;corfu-quit-no-match 'separator
         corfu-quit-no-match t
@@ -22,7 +21,9 @@
         ("TAB" . +complete)
         ([tab] . +complete)
         ("S-TAB" . corfu-previous)
-        ([backtab] . corfu-previous)))
+        ([backtab] . corfu-previous))
+  :hook
+  (sly-mode . corfu-mode))
 
 (use-package emacs
   :init
@@ -53,5 +54,9 @@
   (kind-icon-use-icons nil)
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+(corfu-history-mode 1)
+(savehist-mode 1)
+(add-to-list 'savehist-additional-variables 'corfu-history)
 
 (provide 'init-corfu)
