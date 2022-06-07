@@ -1,16 +1,17 @@
 
 (use-package pyim
-  :ensure t)
+  :ensure t
+  :config
+  (setq default-input-method "pyim")
+  (setq pyim-cloudim 'baidu)
+  (global-set-key (kbd "C-\\") 'toggle-input-method)
+  (setq-default pyim-english-input-switch-functions
+                `(pyim-probe-program-mode
+                  pyim-probe-org-structure-template)))
+
 (use-package pyim-basedict
-  :ensure t)
-
-(require 'pyim)
-(require 'pyim-basedict)
-;(pyim-basedict-enable)
-
-;(setq default-input-method "pyim")
-;(setq pyim-cloduim 'baidu)
-;(global-set-key (kbd "C-i") 'toggle-input-method)
-
+  :ensure t
+  :config
+  (pyim-basedict-enable))
 
 (provide 'init-input)

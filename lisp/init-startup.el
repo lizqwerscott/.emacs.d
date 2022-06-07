@@ -94,8 +94,7 @@
 
 (use-package vertico
   :ensure t
-  :init
-  (vertico-mode))
+  :init (vertico-mode))
 
 (use-package savehist
   :init
@@ -136,7 +135,7 @@
 
 (use-package consult
   :ensure t
-  :hook (completion-list-mode . consult-preview-at-point-mode)
+  ;:hook (completion-list-mode . consult-preview-at-point-mode)
   :init
   (setq register-preview-delay 0.5
         register-preview-function #'consult-register-format)
@@ -153,14 +152,14 @@
    consult--source-bookmark consult--source-recent-file
    consult--source-project-recent-file
    :preview-key (kbd "M-."))
-
-  (setq consult-narrow-key "<"))
+  (setq consult-narrow-key "<")
+  (consult-preview-at-point-mode))
 
 (require 'init-corfu)
 
 (use-package marginalia
   :ensure t
-  :config
+  :init
   (marginalia-mode))
 
 ;config c++ style

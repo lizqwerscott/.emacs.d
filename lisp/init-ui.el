@@ -20,14 +20,23 @@
 
 (use-package doom-themes
   :ensure t
-  :init (load-theme 'doom-one t))
-
-(use-package lab-themes
-  :ensure t)
+  :init (load-theme 'doom-one t)
+  )
 
 (use-package doom-modeline
   :ensure t
-  :hook (after-init . doom-modeline-mode))
+  ;:hook (after-init . doom-modeline-mode)
+  )
+
+(use-package awesome-tray
+  :hook (after-init . awesome-tray-mode)
+  :custom
+  (awesome-tray-active-modules
+   '("location" "belong" "file-path" "mode-name" "git" "input-method" "flymake")
+   "My tray config"))
+
+(use-package sort-tab
+  :hook (after-init . sort-tab-mode))
 
 (use-package all-the-icons
   :ensure t)

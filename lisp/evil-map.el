@@ -42,6 +42,7 @@
   "rs" 'sly-restart-inferior-lisp
   "rn" 'eglot-rename
 
+  "ww" 'open-my-org-file
   "wa" 'org-agenda
   "wc" 'org-capture
   "ws" 'org-store-link

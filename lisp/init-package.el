@@ -27,16 +27,19 @@
 ;;                  '(python-mode . ("jedi-language-server")))))
 
 ;;; Lsp bridge
-(require 'lsp-bridge)
-(require 'lsp-bridge-jdtls)
-(global-lsp-bridge-mode)
-(setq acm-enable-doc t)
+(use-package lsp-bridge
+  :bind
+  (:map acm-mode-map ("TAB" . #'acm-select-next))
+  (:map acm-mode-map ([backtab] . #'acm-select-prev))
+  :hook (after-init . global-lsp-bridge-mode))
+
+(use-package lsp-bridge-jdtls)
 
 (use-package yasnippet
   :ensure t
   :config
   (setq yas-snippet-dirs '("~/.emacs.d/config/yasnippet/snippets/"))
-  (yas-global-mode 1))
+  :hook (after-init . yas-global-mode))
 
 (use-package common-lisp-snippets
   :ensure t
@@ -109,7 +112,8 @@
   (setq ag-highlight-search t))
 
 (use-package magit
-  :ensure t)
+  :ensure t
+  :defer 2)
 
 (use-package vc-msg
   :ensure t)
@@ -127,12 +131,12 @@
   :ensure t
   :after evil
   :init
-  (evil-collection-init)
-  )
+  (evil-collection-init))
 
 (use-package evil-matchit
   :ensure t
-  :init (global-evil-matchit-mode 1))
+  :init
+  (global-evil-matchit-mode))
 
 (setq browse-url-browser-function 'browse-url-chrome)
 
@@ -148,7 +152,8 @@
          :render (gts-posframe-pop-render))))
 
 (use-package json-mode
-  :ensure t)
+  :ensure t
+  :defer 2)
 
 (use-package ox-hugo
   :ensure t
@@ -156,11 +161,6 @@
   (setq org-hugo-base-dir "~/MyProject/website/saveLife")
   (setq org-hugo-default-section-directory "zh-CN/post")
   :after ox)
-
-(use-package srefactor
-  :ensure t
-  :config
-  (semantic-mode 1))
 
 ;format c++ or c
 (defun format-this-buffer ()
