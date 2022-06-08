@@ -5,8 +5,6 @@
                (expand-file-name (concat user-emacs-directory "site-lisp/lsp-bridge")))
   (add-to-list 'load-path
                (expand-file-name (concat user-emacs-directory "site-lisp/awesome-tray")))
-  (add-to-list 'load-path
-               (expand-file-name (concat user-emacs-directory "site-lisp/sort-tab")))
   )
 
 
@@ -16,7 +14,6 @@
 ;(require 'init-elpa)
 (require 'init-melpa)
 (require 'init-startup)
-;(require 'company-sql)
 (require 'init-package)
 
 (require 'init-project)

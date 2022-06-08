@@ -35,9 +35,6 @@
    '("location" "belong" "file-path" "mode-name" "git" "input-method" "flymake")
    "My tray config"))
 
-(use-package sort-tab
-  :hook (after-init . sort-tab-mode))
-
 (use-package all-the-icons
   :ensure t)
 
