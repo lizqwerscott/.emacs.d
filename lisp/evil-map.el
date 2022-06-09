@@ -19,6 +19,7 @@
   "b" 'consult-buffer
 
   "a" 'eaf-open
+  "d" 'lsp-bridge-jump-to-next-diagnostic
 
   "o" 'ace-window
 
@@ -57,6 +58,8 @@
 
 (evil-define-key 'normal 'global (kbd "C-s") 'save-buffer)
 (evil-define-key 'normal 'global (kbd "Q") 'save-buffers-kill-emacs)
+(evil-define-key 'normal 'global (kbd "gd") 'lsp-bridge-find-def)
+(evil-define-key 'normal 'global (kbd "gr") 'lsp-bridge-find-references)
 
 (global-set-key (kbd "C-SPC") nil)
 

@@ -48,6 +48,8 @@
 (use-package flycheck
   :ensure t
   :hook (after-init . global-flycheck-mode)
+  :custom
+  (flycheck-disable-checker '(c/c++-clang))
   :config
   (setq flycheck-global-modes '(not text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
         flycheck-emacs-lisp-load-path 'inherit
@@ -186,6 +188,25 @@
 
 (use-package focus
   :ensure t)
+
+(use-package eaf
+  :load-path "~/.emacs.d/site-lisp/emacs-application-framework/"
+  :custom
+  (eaf-browser-continue-where-left-off t)
+  (browse-url-browser-function 'eaf-open-browser)
+  :config
+  (defalias 'browse-web #'eaf-open-browser))
+
+(require 'eaf)
+(require 'eaf-browser)
+(require 'eaf-evil)
+(require 'eaf-pdf-viewer)
+(require 'eaf-markdown-previewer)
+(require 'eaf-org-previewer)
+(require 'eaf-git)
+(require 'eaf-mindmap)
+(require 'eaf-demo)
+;(require 'eaf-mermaid)
 
 (provide 'init-package)
 ;;; init-package.el ends here

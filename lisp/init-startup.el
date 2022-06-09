@@ -190,9 +190,12 @@
 (use-package dirvish
   :ensure t
   :custom
-  (dirvish-mode-line-format
-   '(:left (sort file-time " " file-size symlink) :right (omit yank index)))
-  (dirvish-attributes '(subtree-state all-the-icons))
+  ;; (dirvish-mode-line-format
+  ;;  '(:left (sort file-time " " file-size symlink) :right (omit yank index)))
+  (dirvish-attributes '(subtree-state all-the-icons vc-state git-msg))
+  ;(dirvish-preview-dispatchers '(vc-diff))
+  (dirvish-mode-line-height 0)
+  (dirvish-header-line-height 0)
   :config
   (dirvish-override-dired-mode)
   (dirvish-peek-mode))
