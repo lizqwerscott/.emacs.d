@@ -6,7 +6,7 @@
   :init (benchmark-init/activate)
   :hook (after-init . benchmark-init/activate))
 
-;(require 'init-company)
+;;(require 'init-company)
 
 ;; (use-package eglot
 ;;   :ensure t
@@ -49,7 +49,7 @@
 
 (use-package flycheck
   :ensure t
-  ;:hook (after-init . global-flycheck-mode)
+  ;;:hook (after-init . global-flycheck-mode)
   :custom
   (flycheck-disable-checker '(c/c++-clang))
   :config
@@ -82,8 +82,8 @@
 (use-package evil-leader
   :ensure t
   :config (progn
-	   (evil-leader/set-leader "<SPC>")
-	   (global-evil-leader-mode)))
+	    (evil-leader/set-leader "<SPC>")
+	    (global-evil-leader-mode)))
 
 (use-package evil-paredit
   :ensure t
@@ -99,7 +99,7 @@
                         (save-excursion (sly)))))
   :config
   (setq sly-complete-symbol-function 'sly-simple-completions)
-  ;(setq sly-complete-symbol-function 'sly-flex-completions)
+  ;;(setq sly-complete-symbol-function 'sly-flex-completions)
   (setq inferior-lisp-program "ccl"))
 
 (use-package sly-quicklisp
@@ -172,7 +172,10 @@
   (setq org-hugo-default-section-directory "zh-CN/post")
   :after ox)
 
-;format c++ or c
+(use-package format-all
+  :ensure t)
+
+;; format c++ or c
 (defun format-this-buffer ()
   "Format this all buffer."
   (interactive "")
@@ -181,7 +184,7 @@
       (shell-command (concat "astyle "
                              (buffer-file-name)))))
 
-;code hide
+;; code hide
 (add-hook 'c-mode-hook
           'hs-minor-mode)
 
@@ -214,7 +217,11 @@
 (require 'eaf-git)
 (require 'eaf-mindmap)
 (require 'eaf-demo)
-;(require 'eaf-mermaid)
+;;(require 'eaf-mermaid)
+
+;; (use-package lispy
+;;   :ensure t
+;;   :hook (lisp-mode . lispy-mode))
 
 (provide 'init-package)
 ;;; init-package.el ends here

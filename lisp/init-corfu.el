@@ -28,7 +28,7 @@
 (use-package emacs
   :init
   (setq completion-cycle-threshold 3)
-  (setq tab-always-indent 'complete)
+  ;(setq tab-always-indent 'complete)
   )
 
 (use-package cape
