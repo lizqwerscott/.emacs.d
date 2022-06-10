@@ -31,9 +31,11 @@
   :bind
   (:map acm-mode-map ("TAB" . #'acm-select-next))
   (:map acm-mode-map ([backtab] . #'acm-select-prev))
-  :hook (after-init . global-lsp-bridge-mode))
+  :hook (after-init . global-lsp-bridge-mode)
+  :custom
+  (acm-candidate-match-function #'orderless-literal))
 
-(use-package lsp-bridge-jdtls)
+
 
 (use-package yasnippet
   :ensure t
@@ -47,19 +49,25 @@
 
 (use-package flycheck
   :ensure t
-  :hook (after-init . global-flycheck-mode)
+  ;:hook (after-init . global-flycheck-mode)
   :custom
   (flycheck-disable-checker '(c/c++-clang))
   :config
   (setq flycheck-global-modes '(not text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
-        flycheck-emacs-lisp-load-path 'inherit
-        ))
+        flycheck-emacs-lisp-load-path 'inherit))
 
 (use-package flymake
   :ensure t
+  :hook (after-init . flymake-mode)
   :config
   (setq flymake-run-in-place nil)
   (setq temporary-file-directory "~/.emacs.d/tmp/"))
+
+(use-package cmake-mode
+  :ensure t)
+
+(use-package cmake-project
+  :ensure t)
 
 (setq evil-want-keybinding nil)
 

@@ -1,6 +1,4 @@
 
-;; ga org-agenda gc org-capture gs org-store-link
-
 (defun evil-org-insert-item (&optional checkbox)
   "使用evil 在org mode 插入新行"
   (interactive "p")
@@ -12,7 +10,8 @@
             (evil-local-set-key 'normal
                                 (kbd "t")
                                 'evil-org-insert-item)))
-;; space w
+
+;; space ww
 (defun open-my-org-file ()
   "打开我的org文件."
   (interactive)
@@ -52,7 +51,8 @@
 (require 'org)
 
 (setq org-startup-indented t
-      org-src-tab-acts-natively t)
+      org-src-tab-acts-natively t
+      org-startup-folded t)
 
 (setq org-fontify-done-headline t
       org-hide-leading-stars t
@@ -80,13 +80,13 @@
   (org-mode . org-fancy-priorities-mode)
   :config
   (setq org-fancy-priorities-list
-        '((?A . "❗")
+        '((?A . "A")
           (?B . "⬆")
           (?C . "⬇")
           (?D . "☕")
           (?1 . "⚡")
-          (?2 . "⮬")
-          (?3 . "⮮")
+          (?2 . "2")
+          (?3 . "3")
           (?4 . "☕")
           (?I . "Important"))))
 
@@ -126,5 +126,16 @@
              '("i" "Inbox" entry
                (file "~/Documents/Sync/org/index.org")
                "* %U - %^{heading} %^g\n %?\n"))
+
+(setq org-todo-keywords
+      '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d@/!)" "CANCEL(c@/!)")
+        (sequence "REPORT(r!)" "BUG(b@/!)" "|" "FIXED(f@/!)")))
+
+(setq org-log-done 'note)
+
+(setq org-tag-alist
+      '(("@work" . ?w)
+        ("@home" . ?h)
+        ("@laptop" . ?l)))
 
 (provide 'init-org)
