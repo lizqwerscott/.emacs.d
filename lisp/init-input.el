@@ -6,12 +6,18 @@
   (setq pyim-cloudim 'baidu)
   (global-set-key (kbd "C-\\") 'toggle-input-method)
   (setq-default pyim-english-input-switch-functions
-                `(pyim-probe-program-mode
+                `(
+                  ;;pyim-probe-program-mode
                   pyim-probe-org-structure-template)))
 
 (use-package pyim-basedict
   :ensure t
   :config
   (pyim-basedict-enable))
+
+(require 'insert-translated-name)
+(setq insert-translated-name-translate-engine "youdao")
+
+(evil-define-key 'insert 'global (kbd "C-c i") #'insert-translated-name-insert)
 
 (provide 'init-input)

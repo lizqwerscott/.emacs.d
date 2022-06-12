@@ -17,6 +17,18 @@
            (concat user-emacs-directory
                    "site-lisp/"))))
 
+(defun update-site-lisp ()
+  (interactive)
+  (let ((output-buffer (generate-new-buffer "*Update site lisp*")))
+    (mapcar #'(lambda (dir)
+                (let ((default-directory dir))
+                  (when (not (cl-search "emacs-application-framework" dir))
+                    (async-shell-command "git pull"
+                                         output-buffer))))
+          (directory-dirs
+           (concat user-emacs-directory
+                   "site-lisp/")))))
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 (require 'init-const)

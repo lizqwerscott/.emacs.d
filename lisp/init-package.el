@@ -122,8 +122,7 @@
   (setq ag-highlight-search t))
 
 (use-package magit
-  :ensure t
-  :defer 2)
+  :ensure t)
 
 (use-package vc-msg
   :ensure t)

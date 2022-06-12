@@ -69,11 +69,13 @@
 
 (setq-default fill-column 80)
 
-(add-hook 'after-change-major-mode-hook (lambda ()
-                                          (modify-syntax-entry ?_ "w")))
+(add-hook 'after-change-major-mode-hook
+          #'(lambda ()
+              (modify-syntax-entry ?_ "w")))
 
-(add-hook 'after-change-major-mode-hook (lambda ()
-                                          (modify-syntax-entry ?- "w")))
+(add-hook 'after-change-major-mode-hook
+          #'(lambda ()
+              (modify-syntax-entry ?- "w")))
 
 (use-package which-key
   :ensure t
@@ -167,12 +169,12 @@
       c-basic-offset 4)
 
 (add-hook 'c-mode-hook
-          '(lambda ()
-             (c-toggle-auto-state 1)))
+          #'(lambda ()
+              (c-toggle-auto-state 1)))
 
 (add-hook 'c++-mode-hook
-          '(lambda ()
-             (c-toggle-auto-state 1)))
+          #'(lambda ()
+              (c-toggle-auto-state 1)))
 
 (use-package dired
   :config
