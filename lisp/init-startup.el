@@ -1,6 +1,5 @@
-(fset 'yes-or-no-p 'y-or-n-p)
 
-(setq gc-cons-threshold most-positive-fixnum)
+(fset 'yes-or-no-p 'y-or-n-p)
 
 (set-charset-priority 'unicode)
 (setq locale-coding-system 'utf-8)
@@ -22,7 +21,7 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(global-auto-revert-mode +1)
+(global-auto-revert-mode 1)
 (setq use-file-dialog nil
       use-dialog-box nil
       inhibit-startup-screen t

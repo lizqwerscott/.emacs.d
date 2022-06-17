@@ -33,9 +33,7 @@
   (:map acm-mode-map ([backtab] . #'acm-select-prev))
   :hook (after-init . global-lsp-bridge-mode)
   :custom
-  (acm-candidate-match-function #'orderless-literal))
-
-
+  (acm-candidate-match-function 'orderless-flex))
 
 (use-package yasnippet
   :ensure t
@@ -45,7 +43,9 @@
 
 (use-package common-lisp-snippets
   :ensure t
-  :hook (common-lisp-mode . common-lisp-snippets-initialize))
+  ;:hook (common-lisp-mode . common-lisp-snippets-initialize)
+  :hook (after-init . common-lisp-snippets-initialize)
+  )
 
 (use-package flycheck
   :ensure t

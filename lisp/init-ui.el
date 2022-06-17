@@ -1,12 +1,12 @@
 ;;theme
 
-(set-frame-font "Source Code Pro 15")
-(set-face-attribute 'default t :font "Source Code Pro 15")
+(set-frame-font "Source Code Pro 16")
+(set-face-attribute 'default t :font "Source Code Pro 16")
 ;(set-face-attribute 'default nil :height 140)
 
 (when (member "Symbola" (font-family-list))
   (set-fontset-font "fontset-default" nil
-                    (font-spec :size 20 :name "Symbola")))
+                    (font-spec :size 16 :name "Symbola")))
 
 (when (member "Symbola" (font-family-list))
   (set-fontset-font t 'unicode "Symbola" nil 'prepend))
@@ -20,16 +20,22 @@
 
 (use-package doom-themes
   :ensure t
-  :init (load-theme 'doom-one t)
+  ;;:init (load-theme 'doom-one t)
   )
+
+(use-package monokai-theme
+  :ensure t)
+
+(load-theme 'doom-one t)
+;(load-theme 'tango-dark t)
 
 (use-package doom-modeline
   :ensure t
-  :hook (after-init . doom-modeline-mode)
+  ;:hook (after-init . doom-modeline-mode)
   )
 
 (use-package awesome-tray
-  ;:hook (after-init . awesome-tray-mode)
+  :hook (after-init . awesome-tray-mode)
   :custom
   (awesome-tray-active-modules
    '("location" "belong" "file-path" "mode-name" "git" "input-method" "flymake")
