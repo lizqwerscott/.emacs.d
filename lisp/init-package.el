@@ -2,8 +2,7 @@
   :ensure t)
 
 (use-package benchmark-init
-  :ensure t
-  :init (benchmark-init/activate)
+  :ensure t :init (benchmark-init/activate)
   :hook (after-init . benchmark-init/activate))
 
 ;;(require 'init-company)
@@ -213,14 +212,49 @@
 (require 'eaf-pdf-viewer)
 (require 'eaf-markdown-previewer)
 (require 'eaf-org-previewer)
+(require 'eaf-org)
 (require 'eaf-git)
-(require 'eaf-mindmap)
+;(require 'eaf-mindmap)
+(use-package eaf-mindmap
+  ;; :custom
+  ;; (eaf-mindmap-keybinding
+  ;;  '(("c" . "update_node_topic")
+  ;;    ("TAB" . "add_sub_node")
+  ;;    ("RET" . "add_brother_node")
+  ;;    ("<deletechar>" . "remove_node")
+  ;;    ("r" . "refresh_page")
+  ;;    ("C-n" . "eaf-send-down-key")
+  ;;    ("C-p" . "eaf-send-up-key")
+  ;;    ("C-f" . "eaf-send-right-key")
+  ;;    ("C-b" . "eaf-send-left-key")
+  ;;    ("x" . "insert_or_close_buffer")
+  ;;    ("j" . "insert_or_select_down_node")
+  ;;    ("k" . "insert_or_select_up_node")
+  ;;    ("h" . "insert_or_select_left_node")
+  ;;    ("l" . "insert_or_select_right_node")
+  ;;    ))
+  )
 (require 'eaf-demo)
 ;;(require 'eaf-mermaid)
 
 ;; (use-package lispy
 ;;   :ensure t
 ;;   :hook (lisp-mode . lispy-mode))
+
+(use-package tree-sitter
+  :ensure t
+  )
+
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook
+          #'tree-sitter-hl-mode)
+
+(use-package tree-sitter-langs
+  :ensure t)
+
+(use-package symbol-overlay
+  :ensure t
+  :hook (prog-mode . symbol-overlay-mode))
 
 (provide 'init-package)
 ;;; init-package.el ends here
