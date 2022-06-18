@@ -48,7 +48,7 @@
   "wc" 'org-capture
 
   "vn" 'sort-tab-select-next-tab
-  "vp" 'sort-tab-select-prev-tab
+s "vp" 'sort-tab-select-prev-tab
   "vc" 'sort-tab-close-current-tab
 
   "ms" 'vc-msg-show
