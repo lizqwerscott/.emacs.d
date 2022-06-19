@@ -49,8 +49,8 @@
 ;; (advice-add #'package-initialize :after #'add-subdirs-to-load-path)
 
 ;; (update-load-path)
-
 (defun update-site-lisp ()
+  "Update site-lisp packages."
   (interactive)
   (let ((output-buffer (generate-new-buffer "*Update site lisp*"))
         (update-git-file (expand-file-name
@@ -62,10 +62,10 @@
     (async-shell-command (concat update-git-file
                                  " "
                                  site-lisp-dir)
-                         output-buffer)))
+                         output-buffer)
+    (switch-to-buffer-other-window output-buffer)))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-
 
 (require 'init-const)
 ;(require 'init-elpa)

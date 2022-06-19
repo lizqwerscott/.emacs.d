@@ -23,11 +23,13 @@ def isGitDir(path):
 def runGitPull(path):
     if os.path.isdir(path):
         os.chdir(path)
-        os.system("git pull .")
+        os.system("git pull")
 
 for i in g:
     path = site_lisp + i
-    if isGitDir(path) and "emacs-application-framework" != i:
-        print("git update", i)
-        runGitPull(path)
+    print("git update", i)
+    runGitPull(path)
+    #if isGitDir(path) and "emacs-application-framework" != i:
+
+print("Update All Finish")
 
