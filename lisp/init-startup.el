@@ -32,8 +32,6 @@
 
 (setq no-littering-etc-directory
       (expand-file-name "config/" user-emacs-directory))
-(setq no-littering-var-directory
-      (expand-file-name "data/" user-emacs-directory))
 
 (require 'no-littering)
 

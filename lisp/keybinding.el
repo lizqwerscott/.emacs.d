@@ -26,12 +26,15 @@
  '("rs" . sly-restart-inferior-lisp))
 
 (meow-leader-define-key
- '("W" . paredit-wrap-sexp)
- '("S" . paredit-splice-sexp))
+ ;; '("W" . paredit-wrap-sexp)
+ '("W" . awesome-pair-wrap-round)
+ ;; '("S" . paredit-splice-sexp)
+ '("S" . awesome-pair-unwrap))
 
 ;;window key
 (meow-leader-define-key
- '("o" . ace-window)
+ ;; '("o" . ace-window)
+ '("o" . other-window)
  '("1" . ace-delete-other-windows)
  '("2" . split-window-below)
  '("3" . split-window-horizontally)
@@ -63,7 +66,8 @@
 (meow-leader-define-key
  '("vn" . sort-tab-select-next-tab)
  '("vp" . sort-tab-select-prev-tab)
- '("vc" . sort-tab-close-current-tab))
+ '("vc" . sort-tab-close-current-tab)
+ '("vm" . sort-tab-close-mode-tabs))
 
 ;;hide
 (meow-leader-define-key

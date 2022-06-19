@@ -99,4 +99,10 @@
   :config
   (setq highlight-indent-guides-method 'column))
 
+(use-package rainbow-delimiters
+  :ensure t
+  :hook
+  (emacs-lisp-mode . rainbow-delimiters-mode)
+  (lisp-mode . rainbow-delimiters-mode))
+
 (provide 'init-ui)
