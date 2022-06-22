@@ -1,15 +1,15 @@
 
-(defun evil-org-insert-item (&optional checkbox)
-  "使用evil 在org mode 插入新行"
-  (interactive "p")
-  (evil-open-below 1)
-  (org-insert-item))
+;; (defun evil-org-insert-item (&optional checkbox)
+;;   "使用evil 在org mode 插入新行"
+;;   (interactive "p")
+;;   (evil-open-below 1)
+;;   (org-insert-item))
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (evil-local-set-key 'normal
-                                (kbd "t")
-                                'evil-org-insert-item)))
+;; (add-hook 'org-mode-hook
+;;           (lambda ()
+;;             (evil-local-set-key 'normal
+;;                                 (kbd "t")
+;;                                 'evil-org-insert-item)))
 
 ;; space ww
 (defun open-my-org-file ()

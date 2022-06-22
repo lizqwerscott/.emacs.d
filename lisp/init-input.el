@@ -1,4 +1,9 @@
 
+(require 'cl-lib)
+(defun pyim-probe-meow-normal-mode ()
+  "probe meow normal mode"
+  (symbol-value 'meow-normal-mode))
+
 (use-package pyim
   :ensure t
   :config
@@ -8,6 +13,7 @@
   (setq-default pyim-english-input-switch-functions
                 `(
                   ;;pyim-probe-program-mode
+                  pyim-probe-meow-normal-mode
                   pyim-probe-org-structure-template)))
 
 (use-package pyim-basedict

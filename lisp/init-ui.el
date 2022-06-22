@@ -1,17 +1,20 @@
 ;;theme
 
-(set-frame-font "Source Code Pro 16")
-(set-face-attribute 'default t :font "Source Code Pro 16")
+(set-frame-font "Source Code Pro 18")
+(set-face-attribute 'default t :font "Source Code Pro 18")
 ;(set-face-attribute 'default nil :height 140)
 
 (when (member "Symbola" (font-family-list))
   (set-fontset-font "fontset-default" nil
-                    (font-spec :size 16 :name "Symbola")))
+                    (font-spec :size 18 :name "Symbola")))
 
 (when (member "Symbola" (font-family-list))
   (set-fontset-font t 'unicode "Symbola" nil 'prepend))
 
 (global-hl-line-mode 1)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 (use-package gruvbox-theme
   :ensure t
@@ -52,6 +55,19 @@
   :hook (marginalia-mode . #'all-the-icons-completion-marginalia-setup)
   :init
   (all-the-icons-completion-mode))
+
+(use-package git-gutter
+  :ensure t
+  :config
+  (global-git-gutter-mode +1)
+  (setq git-gutter:modified-sign " ")
+  (setq git-gutter:added-sign "+")
+  (setq git-gutter:deleted-sign "-")
+  (setq git-gutter:hide-gutter t))
+
+(use-package symbol-overlay
+  :ensure t
+  :hook (prog-mode . symbol-overlay-mode))
 
 (use-package emacs
   :unless *is-windows*
@@ -99,10 +115,22 @@
   :config
   (setq highlight-indent-guides-method 'column))
 
+(use-package paren
+  :ensure nil
+  :hook (after-init . show-paren-mode)
+  :custom
+  (show-paren-when-point-inside-paren t)
+  (show-paren-when-point-in-periphery t))
+
 (use-package rainbow-delimiters
   :ensure t
   :hook
   (emacs-lisp-mode . rainbow-delimiters-mode)
   (lisp-mode . rainbow-delimiters-mode))
+
+(use-package text-mode
+  :ensure nil
+  :custom
+  (word-wrap-by-category t))
 
 (provide 'init-ui)

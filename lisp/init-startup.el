@@ -15,12 +15,8 @@
 (setq auto-save-default nil)
 
 (electric-pair-mode nil)
-(show-paren-mode t)
 (setq-default indent-tabs-mode nil)
 
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
 (global-auto-revert-mode 1)
 (setq use-file-dialog nil
       use-dialog-box nil

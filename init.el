@@ -29,29 +29,12 @@
                           inhibit-message nil)
             (redisplay)))
 
-;; (update-load-path)
-(defun update-site-lisp ()
-  "Update site-lisp packages."
-  (interactive)
-  (let ((output-buffer (generate-new-buffer "*Update site lisp*"))
-        (update-git-file (expand-file-name
-                          (concat user-emacs-directory
-                                  "scripts/updategit.py")))
-        (site-lisp-dir (expand-file-name
-                        (concat user-emacs-directory
-                                "site-lisp/"))))
-    (async-shell-command (concat update-git-file
-                                 " "
-                                 site-lisp-dir)
-                         output-buffer)
-    (switch-to-buffer-other-window output-buffer)))
-
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 (require 'init-const)
-;(require 'init-elpa)
 (require 'init-melpa)
 (require 'init-startup)
+(require 'init-tool)
 (require 'init-package)
 ;(require 'flycheck-cmake)
 
