@@ -18,7 +18,7 @@
   (package-install 'use-package))
 
 ;; (update-load-path)
-(defun update-site-lisp ()
+(defun site-lisp-update ()
   "Update site-lisp packages."
   (interactive)
   (let ((output-buffer (generate-new-buffer "*Update site lisp*"))

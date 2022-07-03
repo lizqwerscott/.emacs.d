@@ -22,14 +22,24 @@
 (use-package markdown-mode
   :ensure t)
 
+(use-package conda
+  :ensure t
+  :init
+  (setq conda-anaconda-home
+        (expand-file-name "/opt/anaconda"))
+  (setq conda-env-home-directory
+        (expand-file-name "~/.conda")))
+
 ;;; Lsp bridge
 (use-package lsp-bridge
   :bind
   (:map acm-mode-map ("TAB" . #'acm-select-next))
   (:map acm-mode-map ([backtab] . #'acm-select-prev))
   :hook (after-init . global-lsp-bridge-mode)
-  :custom
-  (acm-candidate-match-function 'orderless-flex))
+  ;; :custom
+  ;; (acm-candidate-match-function 'orderless-flex)
+  :config
+ )
 
 (use-package yasnippet
   :ensure t
@@ -45,16 +55,17 @@
 
 (use-package flycheck
   :ensure t
-  ;;:hook (after-init . global-flycheck-mode)
-  :custom
-  (flycheck-disable-checker '(c/c++-clang))
+  :hook (after-init . global-flycheck-mode)
+  ;; :custom
+  ;; (flycheck-disable-checker '(c/c++-clang))
   :config
   (setq flycheck-global-modes '(not text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
-        flycheck-emacs-lisp-load-path 'inherit))
+        flycheck-emacs-lisp-load-path 'inherit)
+  (setq flycheck-clang-language-standard "c++11"))
 
 (use-package flymake
   :ensure t
-  :hook (after-init . flymake-mode)
+  ;; :hook (after-init . flymake-mode)
   :config
   (setq flymake-run-in-place nil)
   (setq temporary-file-directory "~/.emacs.d/tmp/"))
@@ -62,14 +73,15 @@
 (use-package cmake-mode
   :ensure t)
 
-(use-package cmake-project
-  :ensure t)
+(use-package cmake-ide
+  :ensure t
+  :config
+  (setq cmake-ide-compile-command "make -j16"))
 
 ;;evil
 ;;evil evil-leader evil-paredit evil-matchit evil-collection
 
-;;(setq evil-want-keybinding nil)
-
+;; (setq evil-want-keybinding nil)
 ;; (use-package evil
 ;;   :ensure t
 ;;   :hook (after-init . evil-mode)
@@ -90,6 +102,17 @@
 
 ;; (add-hook 'paredit-mode-hook #'(lambda ()
 ;;                                  (evil-paredit-mode 1)))
+
+;; (use-package evil-collection
+;;   :ensure t
+;;   :after evil
+;;   :init
+;;   (evil-collection-init))
+
+;; (use-package evil-matchit
+;;   :ensure t
+;;   :init
+;;   (global-evil-matchit-mode))
 
 (use-package sly
   :ensure t
@@ -115,9 +138,9 @@
 (require 'awesome-pair)
 (defun awesome-pair-add-hook ()
   (dolist (hook (list
-               'c-mode-common-hook
-               'c-mode-hook
-               'c++-mode-hook
+               ;; 'c-mode-common-hook
+               ;; 'c-mode-hook
+               ;; 'c++-mode-hook
                'haskell-mode-hook
                'emacs-lisp-mode-hook
                'lisp-interaction-mode-hook
@@ -169,16 +192,6 @@
 (use-package vc-msg
   :ensure t)
 
-;; (use-package evil-collection
-;;   :ensure t
-;;   :after evil
-;;   :init
-;;   (evil-collection-init))
-
-;; (use-package evil-matchit
-;;   :ensure t
-;;   :init
-;;   (global-evil-matchit-mode))
 
 (setq browse-url-browser-function 'browse-url-chrome)
 
@@ -217,71 +230,36 @@
                              (buffer-file-name)))))
 
 ;; code hide
-(add-hook 'c-mode-hook
+(add-hook 'prog-mode-hook
           'hs-minor-mode)
+;; (add-hook 'c-mode-hook
+;;           'hs-minor-mode)
 
-(add-hook 'c++-mode-hook
-          'hs-minor-mode)
+;; (add-hook 'c++-mode-hook
+;;           'hs-minor-mode)
 
-(add-hook 'emacs-lisp-mode-hook
-          'hs-minor-mode)
+;; (add-hook 'emacs-lisp-mode-hook
+;;           'hs-minor-mode)
 
-(add-hook 'python-mode-hook
-          'hs-minor-mode)
-
-(use-package eaf
-  :load-path "~/.emacs.d/site-lisp/emacs-application-framework/"
-  :custom
-  (eaf-browser-continue-where-left-off t)
-  (browse-url-browser-function 'eaf-open-browser)
-  :config
-  (defalias 'browse-web #'eaf-open-browser))
-
-(require 'eaf)
-(require 'eaf-browser)
-;;(require 'eaf-evil)
-(require 'eaf-pdf-viewer)
-(require 'eaf-markdown-previewer)
-(require 'eaf-org-previewer)
-(require 'eaf-org)
-(require 'eaf-git)
-;(require 'eaf-mindmap)
-(use-package eaf-mindmap
-  ;; :custom
-  ;; (eaf-mindmap-keybinding
-  ;;  '(("c" . "update_node_topic")
-  ;;    ("TAB" . "add_sub_node")
-  ;;    ("RET" . "add_brother_node")
-  ;;    ("<deletechar>" . "remove_node")
-  ;;    ("r" . "refresh_page")
-  ;;    ("C-n" . "eaf-send-down-key")
-  ;;    ("C-p" . "eaf-send-up-key")
-  ;;    ("C-f" . "eaf-send-right-key")
-  ;;    ("C-b" . "eaf-send-left-key")
-  ;;    ("x" . "insert_or_close_buffer")
-  ;;    ("j" . "insert_or_select_down_node")
-  ;;    ("k" . "insert_or_select_up_node")
-  ;;    ("h" . "insert_or_select_left_node")
-  ;;    ("l" . "insert_or_select_right_node")
-  ;;    ))
-  )
-(require 'eaf-demo)
-(require 'eaf-image-viewer)
-;;(require 'eaf-mermaid)
+;; (add-hook 'python-mode-hook
+;;           'hs-minor-mode)
 
 ;; (use-package lispy
 ;;   :ensure t
 ;;   :hook (lisp-mode . lispy-mode))
 
-;;(use-package tree-sitter
- ;; :ensure t
-  ;;:config
- ;; (global-tree-sitter-mode)
- ;; (add-hook 'tree-sitter-after-on-hook
+;; (use-package tree-sitter
+;;  :ensure t
+;;   :config
+;;  (global-tree-sitter-mode)
+;;  (add-hook 'tree-sitter-after-on-hook
 ;;            #'tree-sitter-hl-mode))
 
-;;(use-package tree-sitter-langs
+;; (use-package tree-sitter-langs
 ;;  :ensure t)
+
+(add-to-list 'auto-mode-alist
+             '("\\.h\\'" . c++-mode))
 
 (provide 'init-package)
 ;;; init-package.el ends here

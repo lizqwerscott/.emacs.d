@@ -70,4 +70,34 @@ Support Lisp, python, c++."
   (find-file (read-directory-name "find temp project:"
                                   temp-file-dir)))
 
+(defun c++-generate-class (name)
+  "generate c++ class"
+  (interactive "sClass name:")
+  (let ((generate-path (read-directory-name "make class directory:"
+                                            (project-root (project-current))))
+        (auto-generate-command "python ~/MyProject/AutoGenerate/main.py"))
+    (shell-command (concat auto-generate-command
+                           " "
+                           (concat "--name "
+                                   name)
+                           (concat " --path "
+                                   generate-path)))))
+
+(defun c++-generate-class-and-dir (name)
+  "generate c++ class and create class directory"
+  (interactive "sClass name:")
+  (let ((generate-path (read-directory-name "make class directory:"
+                                            (project-root (project-current))))
+        (auto-generate-command "python ~/MyProject/AutoGenerate/main.py"))
+    (let ((dir-path (concat generate-path
+                            name
+                            "/")))
+      (make-directory dir-path)
+      (shell-command (concat auto-generate-command
+                             " "
+                             (concat "--name "
+                                     name)
+                             (concat " --path "
+                                     dir-path))))))
+
 (provide 'init-project)

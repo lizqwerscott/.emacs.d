@@ -21,7 +21,8 @@
   "a" 'eaf-open
   "d" 'lsp-bridge-jump-to-next-diagnostic
 
-  "o" 'ace-window
+  ;; "o" 'ace-window
+  "o" 'other-window
 
   "1" 'ace-delete-other-windows
   "2" 'split-window-below
@@ -48,7 +49,7 @@
   "wc" 'org-capture
 
   "vn" 'sort-tab-select-next-tab
-s "vp" 'sort-tab-select-prev-tab
+  "vp" 'sort-tab-select-prev-tab
   "vc" 'sort-tab-close-current-tab
 
   "ms" 'vc-msg-show
@@ -59,8 +60,16 @@ s "vp" 'sort-tab-select-prev-tab
   ;"hb" 'hs-show-block
   "c" 'comment-or-uncomment-region)
 
+(defun my-quit ()
+  "Quit current window or buffer"
+  (interactive)
+  (if (> (seq-length (window-list (selected-frame))) 1)
+      (delete-window)
+    (previous-buffer)))
+
 (evil-define-key 'normal 'global (kbd "C-s") 'save-buffer)
 (evil-define-key 'normal 'global (kbd "Q") 'save-buffers-kill-emacs)
+(evil-define-key 'normal 'global (kbd "q") 'my-quit)
 
 (evil-define-key 'normal 'lsp-bridge-mode (kbd "gd") 'lsp-bridge-find-def)
 (evil-define-key 'normal 'lsp-bridge-mode (kbd "gr") 'lsp-bridge-find-references)

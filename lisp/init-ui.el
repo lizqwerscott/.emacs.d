@@ -65,9 +65,9 @@
   (setq git-gutter:deleted-sign "-")
   (setq git-gutter:hide-gutter t))
 
-(use-package symbol-overlay
-  :ensure t
-  :hook (prog-mode . symbol-overlay-mode))
+;; (use-package symbol-overlay
+;;   :ensure t
+;;   :hook (prog-mode . symbol-overlay-mode))
 
 (use-package emacs
   :unless *is-windows*
@@ -111,7 +111,7 @@
 
 (use-package highlight-indent-guides
   :ensure t
-  :hook (prog-mode . highlight-indent-guides-mode)
+  ;; :hook (prog-mode . highlight-indent-guides-mode)
   :config
   (setq highlight-indent-guides-method 'column))
 
