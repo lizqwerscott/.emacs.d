@@ -13,7 +13,7 @@
   (setq-default pyim-english-input-switch-functions
                 `(
                   ;;pyim-probe-program-mode
-                  ;;pyim-probe-meow-normal-mode
+                  pyim-probe-meow-normal-mode
                   pyim-probe-org-structure-template)))
 
 (use-package pyim-basedict

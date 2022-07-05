@@ -15,7 +15,7 @@
   (mapcan #'my/project-files-in-directory
           (or dirs (list (project-root project)))))
 
-(defun generate-cmake-lsp ()
+(defun cmake-generate-command-json ()
   "Generated cmake for lsp (support cmake project)."
   (interactive)
   (let ((root-project (project-root (project-current))))

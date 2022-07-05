@@ -117,7 +117,7 @@
 
 (use-package paren
   :ensure nil
-  :hook (after-init . show-paren-mode)
+  :hook (afte-init . show-paren-mode)
   :custom
   (show-paren-when-point-inside-paren t)
   (show-paren-when-point-in-periphery t))

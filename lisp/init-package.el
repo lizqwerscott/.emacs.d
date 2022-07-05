@@ -55,7 +55,7 @@
 
 (use-package flycheck
   :ensure t
-  :hook (after-init . global-flycheck-mode)
+  ;; :hook (after-init . global-flycheck-mode)
   ;; :custom
   ;; (flycheck-disable-checker '(c/c++-clang))
   :config
@@ -72,11 +72,6 @@
 
 (use-package cmake-mode
   :ensure t)
-
-(use-package cmake-ide
-  :ensure t
-  :config
-  (setq cmake-ide-compile-command "make -j16"))
 
 ;;evil
 ;;evil evil-leader evil-paredit evil-matchit evil-collection
