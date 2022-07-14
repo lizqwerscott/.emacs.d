@@ -86,9 +86,10 @@
 (use-package dashboard
   :ensure t
   :config
-  (setq dashboard-banner-logo-title "EMACS - Enjoy Programming & Writing")
+  ;; (setq dashboard-banner-logo-title "EMACS - Enjoy Programming & Writing")
+  (setq dashboard-banner-logo-title "EMACS - The God's Editor")
   (setq dashboard-startup-banner 'official)
-  (setq dashboard-page-separator "\n\f\n")
+  (setq dashboard-page-separator "\n\f\f\n")
   (setq dashboard-center-content t)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)

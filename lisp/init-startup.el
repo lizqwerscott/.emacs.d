@@ -150,6 +150,12 @@
   (setq consult-narrow-key "<")
   (consult-preview-at-point-mode))
 
+(use-package consult-project-extra
+  :ensure t)
+
+(use-package affe
+  :ensure t)
+
 (require 'init-corfu)
 
 (use-package marginalia

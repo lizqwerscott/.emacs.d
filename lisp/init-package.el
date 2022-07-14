@@ -39,6 +39,8 @@
   ;; :custom
   ;; (acm-candidate-match-function 'orderless-flex)
   :config
+  (setq lsp-bridge-default-mode-hooks
+        (remove 'org-mode-hook lsp-bridge-default-mode-hooks))
  )
 
 (use-package yasnippet
@@ -61,7 +63,7 @@
   :config
   (setq flycheck-global-modes '(not text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
         flycheck-emacs-lisp-load-path 'inherit)
-  (setq flycheck-clang-language-standard "c++11"))
+  (setq flycheck-clang-language-standard "c++17"))
 
 (use-package flymake
   :ensure t
@@ -153,7 +155,8 @@
                'swift-mode-hook
                'minibuffer-inactive-mode-hook
                ))
-  (add-hook hook '(lambda () (awesome-pair-mode 1)))))
+  (add-hook hook #'(lambda ()
+                     (awesome-pair-mode 1)))))
 
 (use-package awesome-pair
   :init
@@ -225,8 +228,8 @@
                              (buffer-file-name)))))
 
 ;; code hide
-(add-hook 'prog-mode-hook
-          'hs-minor-mode)
+;; (add-hook 'prog-mode-hook
+;;           'hs-minor-mode)
 ;; (add-hook 'c-mode-hook
 ;;           'hs-minor-mode)
 
@@ -243,15 +246,15 @@
 ;;   :ensure t
 ;;   :hook (lisp-mode . lispy-mode))
 
-;; (use-package tree-sitter
-;;  :ensure t
-;;   :config
-;;  (global-tree-sitter-mode)
-;;  (add-hook 'tree-sitter-after-on-hook
-;;            #'tree-sitter-hl-mode))
+(use-package tree-sitter
+ :ensure t
+  :config
+ (global-tree-sitter-mode)
+ (add-hook 'tree-sitter-after-on-hook
+           #'tree-sitter-hl-mode))
 
-;; (use-package tree-sitter-langs
-;;  :ensure t)
+(use-package tree-sitter-langs
+ :ensure t)
 
 (add-to-list 'auto-mode-alist
              '("\\.h\\'" . c++-mode))

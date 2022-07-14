@@ -67,7 +67,7 @@
   ;;consult and file
   (meow-leader-define-key
    '("sl" . consult-line)
-   '("sg" . consult-grep)
+   '("sg" . consult-ripgrep)
    
    '("gi" . consult-imenu)
    '("gm" . consult-imenu-multi)

@@ -46,6 +46,7 @@
 (require 'init-org)
 (require 'init-ui)
 (require 'init-input)
+(require 'crefactor)
 
 (when (file-exists-p custom-file)
   (load-file custom-file))
