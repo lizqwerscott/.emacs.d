@@ -34,7 +34,7 @@
 
 (use-package doom-modeline
   :ensure t
-  ;:hook (after-init . doom-modeline-mode)
+  ;;:hook (after-init . doom-modeline-mode)
   )
 
 (use-package awesome-tray
@@ -87,7 +87,7 @@
   :ensure t
   :config
   ;; (setq dashboard-banner-logo-title "EMACS - Enjoy Programming & Writing")
-  (setq dashboard-banner-logo-title "EMACS - The God's Editor")
+  (setq dashboard-banner-logo-title "My name is God, God is me.")
   (setq dashboard-startup-banner 'official)
   (setq dashboard-page-separator "\n\f\f\n")
   (setq dashboard-center-content t)

@@ -4,6 +4,11 @@
             'find-temp-project)
 (fset 'project-command-map project-prefix-map)
 
+(defun my/meow-quit ()
+  (interactive)
+  (if (meow-quit)
+      (message "finish")))
+
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
@@ -33,8 +38,9 @@
   ;;Another command
   (meow-leader-define-key
    '("t" . gts-do-translate)
-   '("m" . vc-msg-show)
-   '("a" . eaf-open))
+   ;;'("m" . vc-msg-show)
+   ;;'("a" . eaf-open)
+   )
 
   (meow-leader-define-key
    '("rn" . lsp-bridge-rename)
@@ -67,12 +73,11 @@
   ;;consult and file
   (meow-leader-define-key
    '("sl" . consult-line)
-   '("sg" . consult-ripgrep)
-   
-   '("gi" . consult-imenu)
-   '("gm" . consult-imenu-multi)
-   '("gl" . consult-goto-line)
-   '("go" . consult-outline)
+   ;; '("sg" . consult-ripgrep)
+   '("si" . consult-imenu)
+   '("sm" . consult-imenu-multi)
+   '("sg" . consult-goto-line)
+   '("so" . consult-outline)
 
    '("ff" . consult-find)
    '("fs" . ff-find-other-file)
@@ -144,7 +149,7 @@
    '("o" . meow-block)
    '("O" . meow-to-block)
    '("p" . meow-yank)
-   '("q" . meow-quit)
+   '("q" . my/meow-quit)
    ;;   '("Q" . meow-goto-line)
    '("r" . meow-replace)
    '("R" . meow-swap-grab)
@@ -171,7 +176,8 @@
     '("gd" . lsp-bridge-find-def-other-window)
     '("gr" . lsp-bridge-find-references)
     '("gf" . xref-find-definitions)
-    '("C-o" . xref-go-back))
+    '("C-o" . xref-go-back)
+    '("/" . consult-ripgrep))
   )
 
 (use-package meow

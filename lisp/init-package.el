@@ -41,6 +41,7 @@
   :config
   (setq lsp-bridge-default-mode-hooks
         (remove 'org-mode-hook lsp-bridge-default-mode-hooks))
+  (setq acm-enable-doc t)
  )
 
 (use-package yasnippet
