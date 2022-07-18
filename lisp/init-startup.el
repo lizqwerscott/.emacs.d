@@ -89,7 +89,9 @@
 
 (use-package vertico
   :ensure t
-  :init (vertico-mode))
+  :init (vertico-mode)
+  :bind
+  (:map vertico-map ("M-TAB" . #'minibuffer-complete)))
 
 (use-package savehist
   :init

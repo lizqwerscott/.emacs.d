@@ -29,16 +29,25 @@
 (use-package monokai-theme
   :ensure t)
 
-(load-theme 'doom-one t)
-;(load-theme 'tango-dark t)
+(use-package solarized-theme
+  :ensure t)
+
+;;(load-theme 'doom-one t)
+;;(load-theme 'tango-dark t)
+;;(load-theme 'monokai-gray t)
+(load-theme 'solarized-dark t)
+
+(setq default-frame-alist '((width . 90)
+                            (height . 50)
+                            (alpha-background . 100)))
 
 (use-package doom-modeline
   :ensure t
-  ;;:hook (after-init . doom-modeline-mode)
+  :hook (after-init . doom-modeline-mode)
   )
-
+;;(setq-default header-line-format '(" %l %b " default-directory))
 (use-package awesome-tray
-  :hook (after-init . awesome-tray-mode)
+  ;;:hook (after-init . awesome-tray-mode)
   :custom
   (awesome-tray-active-modules
    '("location" "belong" "file-path" "mode-name" "git" "input-method" "flymake")
@@ -86,9 +95,9 @@
 (use-package dashboard
   :ensure t
   :config
-  ;; (setq dashboard-banner-logo-title "EMACS - Enjoy Programming & Writing")
-  (setq dashboard-banner-logo-title "My name is God, God is me.")
-  (setq dashboard-startup-banner 'official)
+  (setq dashboard-banner-logo-title "EMACS - Enjoy Programming & Writing")
+  ;; (setq dashboard-banner-logo-title "My name is God, God is me.")
+  (setq dashboard-startup-banner 'logo)
   (setq dashboard-page-separator "\n\f\f\n")
   (setq dashboard-center-content t)
   (setq dashboard-set-heading-icons t)
@@ -116,6 +125,9 @@
   :config
   (setq highlight-indent-guides-method 'column))
 
+(use-package indent-guide
+  :ensure t)
+
 (use-package paren
   :ensure nil
   :hook (afte-init . show-paren-mode)
@@ -133,5 +145,8 @@
   :ensure nil
   :custom
   (word-wrap-by-category t))
+
+(require 'zone)
+(zone-when-idle 60)
 
 (provide 'init-ui)

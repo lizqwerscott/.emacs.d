@@ -130,9 +130,6 @@
   :ensure t
   :after sly)
 
-(use-package paredit
-  :ensure t)
-
 (require 'awesome-pair)
 (defun awesome-pair-add-hook ()
   (dolist (hook (list
@@ -190,7 +187,6 @@
 
 (use-package vc-msg
   :ensure t)
-
 
 (setq browse-url-browser-function 'browse-url-chrome)
 
@@ -259,6 +255,9 @@
 
 (add-to-list 'auto-mode-alist
              '("\\.h\\'" . c++-mode))
+
+(use-package helpful
+  :ensure t)
 
 (provide 'init-package)
 ;;; init-package.el ends here

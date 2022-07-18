@@ -9,6 +9,11 @@
   (if (meow-quit)
       (message "finish")))
 
+(defun help-helfup-lsp-bridge ()
+  (interactive)
+  (helpful-at-point)
+  (lsp-bridge-lookup-documentation))
+
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
@@ -30,21 +35,24 @@
    ;; '("8" . meow-digit-argument)
    ;; '("9" . meow-digit-argument)
    ;; '("0" . meow-digit-argument)
-   '("/" . meow-keypad-describe-key)
+   ;; '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet))
   (meow-leader-define-key
    '("p" . project-command-map))
 
   ;;Another command
   (meow-leader-define-key
-   '("t" . gts-do-translate)
+   '("tt" . gts-do-translate)
+   '("th" . helpful-at-point)
    ;;'("m" . vc-msg-show)
-   ;;'("a" . eaf-open)
    )
 
+  ;;lsp bridge
   (meow-leader-define-key
    '("rn" . lsp-bridge-rename)
-   '("d" . lsp-bridge-jump-to-next-diagnostic))
+   '("aa" . lsp-bridge-list-diagnostics)
+   '("ah" . lsp-bridge-lookup-documentation)
+   )
 
   ;;sly
   (meow-leader-define-key
@@ -67,6 +75,8 @@
    '("o" . other-window)
    '("1" . ace-delete-other-windows)
    '("2" . split-window-below)
+   '("-" . split-window-horizontally)
+   '("/" . split-window-vertically)
    '("3" . split-window-horizontally)
    '("0" . ace-delete-window))
 
@@ -78,12 +88,19 @@
    '("sm" . consult-imenu-multi)
    '("sg" . consult-goto-line)
    '("so" . consult-outline)
+   '("sb" . consult-bookmark)
 
    '("ff" . consult-find)
    '("fs" . ff-find-other-file)
 
-   '("b" . consult-buffer))
-
+   '("bb" . consult-buffer)
+   '("bB" . consult-buffer-other-window)
+   '("bm" . bookmark-set))
+  ;;dired
+  (meow-leader-define-key
+   '("dj" . dired-jump)
+   '("dJ" . dired-jump-other-window))
+  
   ;;org
   (meow-leader-define-key
    '("ww" . open-my-org-file)
@@ -100,9 +117,9 @@
 
   ;;hide
   (meow-leader-define-key
-   '("ha" . hs-hide-all)
-   '("hs" . hs-show-all)
-   '("ht" . hs-toggle-hiding))
+   '("na" . hs-hide-all)
+   '("ns" . hs-show-all)
+   '("nt" . hs-toggle-hiding))
   
   (meow-normal-define-key
    '("0" . meow-expand-0)
@@ -172,12 +189,13 @@
   
   (meow-normal-define-key
     '("C-s" . save-buffer)
-    '("Q" . save-buffers-kill-emacs)
+    '("Q" . kill-buffer-and-window)
     '("gd" . lsp-bridge-find-def-other-window)
     '("gr" . lsp-bridge-find-references)
     '("gf" . xref-find-definitions)
     '("C-o" . xref-go-back)
-    '("/" . consult-ripgrep))
+    '("/" . consult-ripgrep)
+    '("?" . help-helfup-lsp-bridge))
   )
 
 (use-package meow
