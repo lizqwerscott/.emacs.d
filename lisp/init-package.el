@@ -76,6 +76,9 @@
 (use-package cmake-mode
   :ensure t)
 
+(use-package paredit
+  :ensure t)
+
 ;;evil
 ;;evil evil-leader evil-paredit evil-matchit evil-collection
 

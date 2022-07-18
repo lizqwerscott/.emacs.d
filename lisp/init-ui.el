@@ -1,21 +1,26 @@
-;;theme
-
-(set-frame-font "Source Code Pro 18")
-(set-face-attribute 'default t :font "Source Code Pro 18")
-;(set-face-attribute 'default nil :height 140)
-
-(when (member "Symbola" (font-family-list))
-  (set-fontset-font "fontset-default" nil
-                    (font-spec :size 18 :name "Symbola")))
-
-(when (member "Symbola" (font-family-list))
-  (set-fontset-font t 'unicode "Symbola" nil 'prepend))
+;;Font
+(if *is-windows*
+    (progn
+      (set-face-attribute 'default nil :height 170)
+      (dolist (charset '(kan han symbol cjk-misc bopomofo))
+        (set-fontset-font (frame-parameter nil 'font)
+                          charset
+                          (font-spec :family "Microsoft Yahei UI" :size 17))))
+  (progn
+    (set-frame-font "Source Code Pro 18")
+    (set-face-attribute 'default t :font "Source Code Pro 18")
+    (when (member "Symbola" (font-family-list))
+      (set-fontset-font "fontset-default" nil
+                        (font-spec :size 18 :name "Symbola")))
+    (when (member "Symbola" (font-family-list))
+      (set-fontset-font t 'unicode "Symbola" nil 'prepend))))
 
 (global-hl-line-mode 1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+;;Theme
 (use-package gruvbox-theme
   :ensure t
   ;:init (load-theme 'gruvbox-dark-soft t)
@@ -43,11 +48,11 @@
 
 (use-package doom-modeline
   :ensure t
-  :hook (after-init . doom-modeline-mode)
+  ;;:hook (after-init . doom-modeline-mode)
   )
 ;;(setq-default header-line-format '(" %l %b " default-directory))
 (use-package awesome-tray
-  ;;:hook (after-init . awesome-tray-mode)
+  :hook (after-init . awesome-tray-mode)
   :custom
   (awesome-tray-active-modules
    '("location" "belong" "file-path" "mode-name" "git" "input-method" "flymake")
