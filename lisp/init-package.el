@@ -246,15 +246,15 @@
 ;;   :ensure t
 ;;   :hook (lisp-mode . lispy-mode))
 
-(use-package tree-sitter
- :ensure t
-  :config
- (global-tree-sitter-mode)
- (add-hook 'tree-sitter-after-on-hook
-           #'tree-sitter-hl-mode))
-
-(use-package tree-sitter-langs
- :ensure t)
+(when *is-linux*
+  (use-package tree-sitter
+    :ensure t
+    :config
+    (global-tree-sitter-mode)
+    (add-hook 'tree-sitter-after-on-hook
+              #'tree-sitter-hl-mode))
+  (use-package tree-sitter-langs
+    :ensure t))
 
 (add-to-list 'auto-mode-alist
              '("\\.h\\'" . c++-mode))
