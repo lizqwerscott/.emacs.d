@@ -204,5 +204,7 @@
   (meow-setup)
   (meow-global-mode 1))
 
+(global-set-key (kbd "RET") 'newline-and-indent)
+(global-set-key (kbd "S-<return>") 'comment-indent-new-line)
 
 (provide 'keybinding)
