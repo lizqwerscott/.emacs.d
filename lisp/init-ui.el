@@ -2,7 +2,7 @@
 (if *is-windows*
     (progn
       (set-face-attribute 'default nil :height 170)
-      (dolist (charset '(kan han symbol cjk-misc bopomofo))
+      (dolist (charset '(han symbol cjk-misc bopomofo))
         (set-fontset-font (frame-parameter nil 'font)
                           charset
                           (font-spec :family "Microsoft Yahei UI" :size 17))))
@@ -37,10 +37,11 @@
 (use-package solarized-theme
   :ensure t)
 
-;;(load-theme 'doom-one t)
+(load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
-;;(load-theme 'monokai-gray t)
-(load-theme 'solarized-dark t)
+;;(load-theme 'monokai t)
+;;(load-theme 'solarized-dark t)
+;;(load-theme 'vscode-dark-plus t)
 
 (setq default-frame-alist '((width . 90)
                             (height . 50)
@@ -131,7 +132,12 @@
   (setq highlight-indent-guides-method 'column))
 
 (use-package indent-guide
-  :ensure t)
+  :ensure t
+  :hook (after-init . indent-guide-global-mode)
+  :config
+  (set-face-background 'indent-guide-face
+                       "dimgray")
+  )
 
 (use-package paren
   :ensure nil
@@ -152,6 +158,6 @@
   (word-wrap-by-category t))
 
 (require 'zone)
-(zone-when-idle 60)
+(zone-when-idle 600)
 
 (provide 'init-ui)

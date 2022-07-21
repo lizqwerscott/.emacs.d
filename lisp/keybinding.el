@@ -90,7 +90,9 @@
    '("so" . consult-outline)
    '("sb" . consult-bookmark)
 
-   '("ff" . consult-find)
+   '("ff" . find-file)
+   '("fr" . consult-find)
+   '("F" . affe-find)
    '("fs" . ff-find-other-file)
 
    '("bb" . consult-buffer)

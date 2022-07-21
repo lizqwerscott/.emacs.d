@@ -1,4 +1,3 @@
-
 ;;(require 'init-company)
 
 ;; (use-package eglot
@@ -36,13 +35,13 @@
   (:map acm-mode-map ("TAB" . #'acm-select-next))
   (:map acm-mode-map ([backtab] . #'acm-select-prev))
   :hook (after-init . global-lsp-bridge-mode)
-  ;; :custom
+  :custom
+  (lsp-bridge-c-lsp-server "ccls")
   ;; (acm-candidate-match-function 'orderless-flex)
   :config
   (setq lsp-bridge-default-mode-hooks
         (remove 'org-mode-hook lsp-bridge-default-mode-hooks))
-  (setq acm-enable-doc t)
- )
+  (setq acm-enable-doc t))
 
 (use-package yasnippet
   :ensure t
@@ -58,11 +57,11 @@
 
 (use-package flycheck
   :ensure t
-  ;; :hook (after-init . global-flycheck-mode)
+  :hook (after-init . global-flycheck-mode)
   ;; :custom
   ;; (flycheck-disable-checker '(c/c++-clang))
   :config
-  (setq flycheck-global-modes '(not text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
+  (setq flycheck-global-modes '(not c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
         flycheck-emacs-lisp-load-path 'inherit)
   (setq flycheck-clang-language-standard "c++17"))
 

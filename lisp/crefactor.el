@@ -3,7 +3,7 @@
 ;; Copyright (C) 2022
 
 ;; Author:  <lizqwerscott@gmail.com>
-;; Keywords: c
+;; Keywords: c++
 
 
 ;;; Commentary:
@@ -27,25 +27,23 @@
 (cl-defun get-c++-class (&optional (node 1))
   (let ((class-node (tsc-get-parent
                      (if (equal node 1)
-                         (tree-sitter-node-at-point)
+                         (tree-sitter-node-at-pos)
                        node))))
     (if (equal 'class_specifier
                (tsc-node-type class-node))
         class-node
       (get-c++-class class-node))))
 
-(defun get-c++-class-funs-node ()
-  (let ((class-node (get-c++-class)))
-    (let ((n (tsc-count-children class-node)))
+(defun get-c++-class-funs-node (class-node)
+  (let ((n (tsc-count-children class-node)))
       (if (< n 4)
           (tsc-get-nth-child class-node 2)
-        (tsc-get-nth-child class-node 3)))))
+        (tsc-get-nth-child class-node 3))))
 
-(defun get-c++-class-name ()
-  (let ((class-node (get-c++-class)))
-    (when class-node
+(defun get-c++-class-name (class-node)
+  (when class-node
       (tsc-node-text
-       (tsc-get-nth-child class-node 1)))))
+       (tsc-get-nth-child class-node 1))))
 
 (defun get-class-name ()
   (interactive)
@@ -134,51 +132,31 @@
     (pop-list-front (cdr lst)
                     (- n 1))))
 
-;; TODO 需要简化
-(defun convert-class-function-node (node)
-  (let ((nodes nil))
-    (dotimes (i (tsc-count-named-children node))
-      (let ((child-node (tsc-get-nth-named-child node i)))
-        (when (c++-class-function-need child-node)
-          (setq nodes
-                (append nodes
-                        (list child-node))))))
-    nodes))
+(defun last-1 (lst)
+  (car (last lst)))
 
-(defun get-class-functions ()
-  (let ((class-node (get-c++-class-funs-node))
-        (funs nil))
-    (dotimes (i (tsc-count-children class-node))
-      (let ((node (tsc-get-nth-child class-node
-                                     i)))
-        (when (c++-class-functionp node)
-          (setf funs
-                (append funs
-                        (list node))))))
-    funs))
+(defun append-1 (lst item)
+  (append lst
+          (list item)))
 
-(defun get-c++-class-functions ()
+(defun get-c++-class-functions (class-node)
   (cl-remove-if-not #'(lambda (node)
                         (c++-class-functionp node))
                     (get-child-nodes
-                     (get-c++-class-funs-node))))
+                     (get-c++-class-funs-node
+                      class-node))))
 
 (defun get-class-funs-d ()
   (interactive)
   (message "%s"
            (mapcar #'(lambda (node)
                        (list-child-node node))
-                   (get-c++-class-functions))))
-
-(defun get-class-funs ()
-  (interactive)
-  (message "%s"
-           (tsc-node-text
-            (get-c++-class-funs-node))))
+                   (get-c++-class-functions
+                    (get-c++-class)))))
 
 (cl-defun get-now-node (&optional (node 1))
   (if (equal node 1)
-      (let ((now-node (tree-sitter-node-at-point)))
+      (let ((now-node (tree-sitter-node-at-pos)))
         (if (c++-class-functionp now-node)
             now-node
           (get-now-node (tsc-get-parent now-node))))
@@ -186,41 +164,6 @@
       (if (c++-class-functionp node)
           node
         (get-now-node (tsc-get-parent node))))))
-
-;; TODO 需要在实现列表里面找到这个前一个节点，才能插入
-(defun get-previous-node (now-node)
-  (let ((funs (get-c++-class-functions))
-        (i 0)
-        (result nil))
-    (while (and (< i (length funs))
-                (not result))
-      (when (tsc-node-eq now-node
-                         (elt funs i))
-        (setq result (- i 1)))
-      (setq i (+ i 1)))
-    (when (>= result 0)
-      (elt funs result))))
-
-(defun is-return-pointer-function (node)
-  (let ((isp nil)
-        (i 0))
-    (while (and (< i (length node))
-                (not isp))
-      (when (equal 'pointer_declarator
-                    (tsc-node-type (elt node i)))
-        (setq isp t))
-      (setq i (+ i 1)))
-    isp))
-
-(defun get-function-return-type (node)
-  (concat (tsc-node-text (car node))
-          (if (is-return-pointer-function node)
-              " * "
-            "")))
-
-(defun append-1 (lst item)
-  (append lst
-          (list item)))
 
 (defun handle-type (node type)
   (concat (tsc-node-text node)
@@ -278,37 +221,28 @@
 (defun handle-type-name (node)
   (handle-type-name-l (get-child-nodes node)))
 
-(defun generate-function-implement-tt ()
-  (let ((result (handle-type-name (get-now-node))))
-    (concat (string-join (car result)
-                         " ")
+(defun handle-function-name-parms (node)
+  (string-join (mapcar #'(lambda (parm)
+                           (let ((res (handle-type-name parm)))
+                             (concat (string-join (car res)
+                                                  " ")
+                                     " "
+                                     (tsc-node-text (cl-second res)))))
+                       (get-named-child-node node))
+               ", "))
+
+(defun generate-function-implement (node)
+  (let ((result (handle-type-name node)))
+    (concat (last-1 (car result))
             " "
             (get-class-name)
             "::"
             (tsc-node-text (car (cl-second result)))
             "("
-            (string-join (mapcar #'(lambda (parm)
-                                     (let ((res (handle-type-name parm)))
-                                       (concat (string-join (car res)
-                                                            " ")
-                                               " "
-                                               (tsc-node-text (cl-second res)))))
-                                 (get-named-child-node
-                                  (cl-second
-                                   (cl-second result))))
-                         ", ")
+            (handle-function-name-parms
+             (cl-second
+              (cl-second result)))
             ")")))
-
-(defun test-handle-type-name ()
-  (interactive)
-  (message "%s"
-           (mapcar #'(lambda (node)
-                       (handle-type-name node))
-                   (get-named-child-node (tsc-get-nth-child (tsc-get-nth-child (elt (convert-class-function-node
-                                                                                     (get-now-node))
-                                                                                    1)
-                                                                               1)
-                                                            1)))))
 
 (defun test-handle-fun ()
   (interactive)
@@ -316,82 +250,12 @@
            (handle-type-name
             (get-now-node))))
 
-(defun test-generate-funciotn-tt ()
-  (interactive)
-  (message "%s"
-           (generate-function-implement-tt)))
-
-(defun test-child-node ()
-  (interactive)
-  (message "%s"
-           (list-child-node (tsc-get-nth-child (get-now-node)
-                                               1))))
-
-(defun handle-optional-function (nodes)
-  (let ((result nil))
-    (dotimes (i (tsc-count-named-children nodes))
-      (let ((child-node (tsc-get-nth-named-child nodes i)))
-        (if (equal 'optional_parameter_declaration
-                   (tsc-node-type child-node))
-            (setq result
-                  (append result
-                          (list
-                           (s-join " "
-                                   (mapcar #'tsc-node-text
-                                           (pop-list (get-child-nodes child-node)
-                                                     2))))))
-          (setq result
-                (append result
-                        (list (tsc-node-text child-node)))))))
-    (s-join ", "
-            result)))
-
-(defun get-function-name-and-params (node)
-  (let ((body (car (cdr node))))
-    (concat (tsc-node-text (tsc-get-nth-named-child body 0))
-            "("
-            ;; (handle-optional-function (tsc-get-nth-named-child body 1))
-            ")")))
-
-(defun generate-function-implement-l ()
-  (let ((now-node (convert-class-function-node (get-now-node))))
-    (concat (get-function-return-type now-node)
-            " "
-            (get-c++-class-name)
-            "::"
-            (get-function-name-and-params now-node))))
-
 (defun test-generate-funciotn ()
   (interactive)
   (message "%s"
-           (generate-function-implement)))
+           (generate-function-implement
+            (get-now-node))))
 
-;; 1. 生成implement
-;; 2. 首先简单的插入最后
-;; TODO: 排序插入
-(defun insert-implement ()
-  (interactive)
-  (let ((function-implement (generate-function-implement-tt)))
-    (ff-find-other-file)
-    (goto-char (point-max))
-    (insert function-implement)
-    (insert "\n")
-    (insert "{")
-    (insert "\n")
-    (insert "\n")
-    (insert "}")
-    (previous-line)
-    (execute-kbd-macro [?\t])
-    (meow-insert)))
-
-;; ＃ 除了构造函数，每个函数由三部分组成
-;; 1. 函数返回值
-;; 2. 函数实现
-;; 3. 函数体
-;; 函数定义部分，生成函数实现，看是否相等。
-;; 返回值，函数名字，参数列表，若是这个要插入的函数的前一个，着在函数体后插入。
-;;
-;; ＃ 如何获得当前函数的前一个函数的信息。
 (defun list-function-defination ()
   (let ((result nil)
         (root-node (tsc-root-node tree-sitter-tree)))
@@ -400,42 +264,104 @@
         (if (equal #'function_definition
                    (tsc-node-type child-node))
             (setq result
-                  (append result
-                          (list
-                           (pop-list (get-child-nodes child-node)
-                                     1)))))))
+                  (append-1 result
+                            child-node)))))
     result))
 
 (defun convert-function-def-stand-param (nodes)
   (concat (tsc-node-text
            (car nodes))
           "("
-          (handle-optional-function (elt nodes 1))
+          (handle-function-name-parms
+           (cl-second nodes))
           ")"))
 
 (defun convert-function-def-stand (node)
-  (concat (tsc-node-text
-           (car node))
-          " "
-          (convert-function-def-stand-param
-           (get-child-nodes
-            (elt node 1)))))
+  (let ((res (handle-type-name node)))
+    (concat (last-1 (car res))
+            " "
+            (tsc-node-text (car (cl-second res)))
+            "("
+            (handle-function-name-parms
+             (cl-second
+              (cl-second res)))
+            ")")))
 
-(defun find-function-defination (nodes now-node)
-  (let ((result nil)
-        (i 0))
-    (while (and (< i (length nodes))
-                (not result))
-      (let ((node (elt nodes i)))
-        (when ()))
-      (setq i (+ i 1)))))
+(cl-defun get-previous-nodes (funs function-implement &optional (pre-nodes nil))
+  (when funs
+    (if (string= (car funs)
+                 function-implement)
+        pre-nodes
+      (get-previous-nodes (cdr funs)
+                          function-implement
+                          (push (car funs)
+                                pre-nodes)))))
 
-(defun list-function-defination-i ()
+(defun find-fun-def-node-pos-l (nodes previous-nodes)
+  (when previous-nodes
+    (let ((pos (cl-position (car previous-nodes)
+                            nodes
+                            :test #'string=)))
+      (if pos
+          pos
+        (find-fun-def-node-pos-l nodes
+                                 (cdr previous-nodes))))))
+
+(defun find-fun-def-node-pos (nodes previous-nodes)
+  "Find function defination nodes position."
+  (let ((res (find-fun-def-node-pos-l (mapcar #'convert-function-def-stand
+                                              (pop-list-front nodes
+                                                              2))
+                                      previous-nodes)))
+    (tsc-node-end-position
+     (elt nodes
+          (+ 2
+             (if res
+                 res
+               0))))))
+
+(defun test-list-function-defination-i ()
+  "Test list function defination."
   (interactive)
   (message "%s"
-           (mapcar #'convert-function-def-stand
+           (mapcar #'(lambda (x)
+                       (convert-function-def-stand x))
                    (pop-list-front (list-function-defination)
-                                   2))))
+                                   2))
+           )
+  )
+
+(defun crefactor-insert-implement ()
+  "Insert a c++ class implement."
+  (interactive)
+  (let ((function-implement (generate-function-implement (get-now-node)))
+        (funs (mapcar #'generate-function-implement
+                      (get-c++-class-functions
+                       (get-c++-class)))))
+    (ff-find-other-file)
+    (let ((nodes (list-function-defination)))
+      (if (cl-find function-implement
+                   (mapcar #'convert-function-def-stand
+                           (pop-list-front nodes
+                                           2))
+                   :test #'string=)
+          (ff-find-other-file)
+        (progn
+          (goto-char
+           (find-fun-def-node-pos nodes
+                                  (get-previous-nodes funs
+                                                      function-implement)))
+          (insert "\n")
+          (insert "\n")
+          (insert function-implement)
+          (insert "\n")
+          (insert "{")
+          (insert "\n")
+          (insert "\n")
+          (insert "}")
+          (forward-line -1)
+          (execute-kbd-macro [?\t])
+          (meow-insert))))))
 
 (provide 'crefactor)
 ;;; crefactor.el ends here
