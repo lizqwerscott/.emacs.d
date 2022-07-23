@@ -6,13 +6,14 @@
 (require 'cl-lib)
 
 (defun directory-dirs (path)
-  "get the path all directory"
+  "Get the path all directory."
   (when (file-directory-p path)
     (cl-remove-if-not #'file-directory-p
                       (cdr (cdr (directory-files path t))))))
 
 (add-to-list 'load-path
-       (expand-file-name (concat user-emacs-directory "lisp")))
+             (expand-file-name
+              (concat user-emacs-directory "lisp")))
 
 (mapcar #'(lambda (file)
               (add-to-list 'load-path

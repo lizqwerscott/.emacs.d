@@ -55,9 +55,6 @@
 (setq auto-window-vscroll nil)
 (setq truncate-partial-width-windows nil)
 
-(global-set-key (kbd "RET") 'newline-and-indent)
-(global-set-key (kbd "S-<return>") 'comment-indent-new-line)
-
 (setq mouse-yank-at-point nil)
 
 (setq-default fill-column 80)
@@ -72,8 +69,7 @@
 
 (use-package which-key
   :ensure t
-  :hook (after-init . which-key-mode)
-  :config (which-key-mode 1))
+  :hook (after-init . which-key-mode))
 
 (use-package ace-window
   :ensure t
@@ -195,12 +191,30 @@
   :custom
   (dirvish-mode-line-format
    '(:left (sort file-time " " file-size symlink) :right (omit yank index)))
-  (dirvish-attributes '(subtree-state all-the-icons vc-state git-msg))
+  ;; (dirvish-attributes '(subtree-state all-the-icons vc-state git-msg))
+  (dirvish-attributes '(all-the-icons vc-state file-size))
   (dirvish-preview-dispatchers '(vc-diff))
-  ;; (dirvish-mode-line-height 0)
-  ;; (dirvish-header-line-height 0)
+  (dirvish-mode-line-height 0)
+  (dirvish-header-line-height 0)
+  :bind
+  (:map dirvish-mode-map
+        ("h" . dired-up-directory))
   :config
   (dirvish-override-dired-mode)
   (dirvish-peek-mode))
+
+(setq recentf-exclude `(,tramp-file-name-regexp
+                        "COMMIT_EDITMSG")
+      tramp-auto-save-directory temporary-file-directory
+      backup-directory-alist (list (cons tramp-file-name-regexp nil)))
+
+(setq tramp-default-method "ssh")
+
+(use-package auto-save
+  :hook
+  (after-init . auto-save-enable)
+  :config
+  (setq auto-save-silent t)
+  (setq auto-save-delete-trailing-whitespace t))
 
 (provide 'init-startup)
