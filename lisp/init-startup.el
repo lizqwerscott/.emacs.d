@@ -205,6 +205,8 @@
 
 (use-package dirvish
   :ensure t
+  :init
+  (dirvish-override-dired-mode)
   :custom
   (dirvish-mode-line-format
    '(:left (sort file-time " " file-size symlink) :right (omit yank index)))
@@ -217,7 +219,6 @@
   (:map dirvish-mode-map
         ("h" . dired-up-directory))
   :config
-  (dirvish-override-dired-mode)
   (dirvish-peek-mode))
 
 (let ((path "~/.emacs.d/tmp/"))

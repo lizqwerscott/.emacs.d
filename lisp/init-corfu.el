@@ -23,7 +23,7 @@
         ("S-TAB" . corfu-previous)
         ([backtab] . corfu-previous))
   :hook
-  ((sly-mode eshell-mode ;; python-mode
+  ((sly-mode eshell-mode
              ) . corfu-mode)
   )
 

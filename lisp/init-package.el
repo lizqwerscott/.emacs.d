@@ -7,6 +7,8 @@
 ;;   :init
 ;;   ;; (add-hook 'python-mode-hook 'eglot-ensure)
 ;;   (add-hook 'cmake-mode-hook 'eglot-ensure)
+;;   (add-hook 'web-mode-hook 'eglot-ensure)
+;;   (add-hook 'vue-mode-hook 'eglot-ensure)
 ;;   ;; (add-hook 'c-mode-hook 'eglot-ensure)
 ;;   ;; (add-hook 'c++-mode-hook 'eglot-ensure)
 ;;   :config
@@ -18,7 +20,9 @@
 ;;     (add-to-list 'eglot-server-programs
 ;;                  '((c-mode c++-mode) . ("ccls")))
 ;;     (add-to-list 'eglot-server-programs
-;;                  '(python-mode . ("jedi-language-server")))))
+;;                  '(python-mode . ("jedi-language-server")))
+;;     (add-to-list 'eglot-server-programs
+;;                  '(vue-mode . "vls"))))
 
 (use-package markdown-mode
   :ensure t)
@@ -44,7 +48,7 @@
 
   :custom
   (lsp-bridge-c-lsp-server "ccls")
-  (lsp-bridge-python-lsp-server "jedi")
+  ;; (lsp-bridge-python-lsp-server "jedi")
   ;; (acm-candidate-match-function 'orderless-flex)
   :config
   (setq lsp-bridge-default-mode-hooks
@@ -272,6 +276,17 @@
               #'tree-sitter-hl-mode))
   (use-package tree-sitter-langs
     :ensure t))
+
+(use-package typescript-mode
+  :ensure t
+  :after tree-sitter
+  :config
+  (define-derived-mode typescript-tsx-mode typescript-mode
+    "TypeScript TSX")
+  (add-to-list 'auto-mode-alist
+               '("\\.tsx?\\'" . typescript-tsx-mode))
+  (add-to-list 'tree-sitter-major-mode-language-alist
+               '(typescript-tsx-mode . tsx)))
 
 (add-to-list 'auto-mode-alist
              '("\\.h\\'" . c++-mode))
