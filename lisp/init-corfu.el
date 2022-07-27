@@ -6,7 +6,7 @@
 
 (use-package corfu
   :ensure t :init
- ;; (global-corfu-mode)
+  ;; (global-corfu-mode)
   (setq corfu-auto t
         ;corfu-quit-no-match 'separator
         corfu-quit-no-match t
@@ -23,14 +23,14 @@
         ("S-TAB" . corfu-previous)
         ([backtab] . corfu-previous))
   :hook
-  ((sly-mode . corfu-mode)
-   (eshell-mode . corfu-mode))
+  ((sly-mode eshell-mode ;; python-mode
+             ) . corfu-mode)
   )
 
 (use-package emacs
   :init
   (setq completion-cycle-threshold 3)
-  ;(setq tab-always-indent 'complete)
+  ;; (setq tab-always-indent 'complete)
   )
 
 (use-package cape

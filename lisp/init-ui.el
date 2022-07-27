@@ -13,9 +13,7 @@
     (set-face-attribute 'default t :font "Fira Code 18")
     ;; (when (member "Symbola" (font-family-list))
     ;;   (set-fontset-font "fontset-default" nil
-    ;;                     (font-spec :size 18 :name "Symbola")))
-    ;; (when (member "Symbola" (font-family-list))
-    ;;   (set-fontset-font t 'unicode "Symbola" nil 'prepend))
+    ;;                     (font-spec :size 18 :name "Symbola"))) (when (member "Symbola" (font-family-list)) (set-fontset-font t 'unicode "Symbola" nil 'prepend))
     (when (member "霞鹜文楷" (font-family-list))
       (set-fontset-font 'fontset-default nil
                         (font-spec :size 18 :name "霞鹜文楷")))))
@@ -41,26 +39,26 @@
                             "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%")))
 
 ;;Theme
-(use-package gruvbox-theme
-  :ensure t)
+;; (use-package gruvbox-theme
+;;   :ensure t)
 
-(use-package doom-themes
-  :ensure t)
+;; (use-package doom-themes
+;;   :ensure t)
 
-(use-package monokai-theme
-  :ensure t)
+;; (use-package monokai-theme
+;;   :ensure t)
 
 (use-package solarized-theme
   :ensure t)
 
-(use-package modus-themes
-  :ensure t)
+;; (use-package modus-themes
+;;   :ensure t)
 
 ;; (load-theme 'gruvbox-dark-soft t)
-(load-theme 'doom-one t)
+;; (load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
 ;;(load-theme 'monokai t)
-;; (load-theme 'solarized-dark t)
+(load-theme 'solarized-dark t)
 ;;(load-theme 'vscode-dark-plus t)
 ;;(load-theme 'modus-vivendi t)
 
@@ -76,14 +74,14 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
-(use-package doom-modeline
-  :ensure t
-  ;; :hook (after-init . doom-modeline-mode)
-  )
+;; (use-package doom-modeline
+;;   :ensure t
+;;   :hook (after-init . doom-modeline-mode)
+;;   )
 
-(use-package nyan-mode
-  :ensure t
-  :hook (doom-modeline-mode . nyan-mode))
+;; (use-package nyan-mode
+;;   :ensure t
+;;   :hook (doom-modeline-mode . nyan-mode))
 
 ;; (setq-default header-line-format '(" %l %b " default-directory))
 (use-package awesome-tray
@@ -159,15 +157,9 @@
   ;:hook ((after-init . dashboard-refresh-buffer))
   )
 
-(use-package highlight-indent-guides
-  :ensure t
-  ;; :hook (prog-mode . highlight-indent-guides-mode)
-  :config
-  (setq highlight-indent-guides-method 'column))
-
 (use-package indent-guide
   :ensure t
-  :hook (after-init . indent-guide-global-mode)
+  ;; :hook (after-init . indent-guide-global-mode)
   :config
   (set-face-background 'indent-guide-face
                        "dimgray")

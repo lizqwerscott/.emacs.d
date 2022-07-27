@@ -1,5 +1,9 @@
 
-(fset 'yes-or-no-p 'y-or-n-p)
+(if (boundp 'use-short-answers)
+    (setq use-short-answers t)
+  (advice-add 'yes-or-no-p :override #'y-or-n-p))
+
+(customize-set-variable 'kill-do-not-save-duplicates t)
 
 (set-charset-priority 'unicode)
 (setq locale-coding-system 'utf-8)
@@ -14,7 +18,20 @@
 (setq default-buffer-file-coding-system 'utf-8)
 (setq auto-save-default nil)
 
+(setq-default bidi-display-reordering nil)
+
+;;; performance
+;; Disable garbage collection when entering commands.
+(defun max-gc-limit ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(defun reset-gc-limit ()
+  (setq gc-cons-threshold 800000))
+
 (electric-pair-mode nil)
+;; (add-hook 'minibuffer-setup-hook #'max-gc-limit)
+;; (add-hook 'minibuffer-exit-hook #'reset-gc-limit)
+
 (setq-default indent-tabs-mode nil)
 
 (global-auto-revert-mode 1)
@@ -202,6 +219,12 @@
   :config
   (dirvish-override-dired-mode)
   (dirvish-peek-mode))
+
+(let ((path "~/.emacs.d/tmp/"))
+  (when (not (file-directory-p path))
+    (setq temporary-file-directory
+          "~/.emacs.d/tmp/")))
+
 
 (setq recentf-exclude `(,tramp-file-name-regexp
                         "COMMIT_EDITMSG")

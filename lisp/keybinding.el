@@ -11,8 +11,11 @@
 
 (defun help-helfup-lsp-bridge ()
   (interactive)
-  (helpful-at-point)
-  (lsp-bridge-lookup-documentation))
+  (if (equal major-mode 'emacs-lisp-mode)
+      (helpful-at-point)
+    (if (bound-and-true-p lsp-bridge-mode)
+        (lsp-bridge-lookup-documentation)
+      (message "dont't know how to help"))))
 
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
@@ -102,7 +105,7 @@
   (meow-leader-define-key
    '("dj" . dired-jump)
    '("dJ" . dired-jump-other-window))
-  
+
   ;;org
   (meow-leader-define-key
    '("ww" . open-my-org-file)
@@ -122,7 +125,7 @@
    '("na" . hs-hide-all)
    '("ns" . hs-show-all)
    '("nt" . hs-toggle-hiding))
-  
+
   (meow-normal-define-key
    '("0" . meow-expand-0)
    '("9" . meow-expand-9)
@@ -168,6 +171,7 @@
    '("o" . meow-block)
    '("O" . meow-to-block)
    '("p" . meow-yank)
+   '("P" . meow-yank-pop)
    '("q" . my/meow-quit)
    ;;   '("Q" . meow-goto-line)
    '("r" . meow-replace)
@@ -188,7 +192,7 @@
    '("z" . meow-pop-selection)
    '("'" . repeat)
    '("<escape>" . ignore))
-  
+
   (meow-normal-define-key
     '("C-s" . save-buffer)
     '("Q" . kill-buffer-and-window)
@@ -208,5 +212,22 @@
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "S-<return>") 'comment-indent-new-line)
+
+(global-set-key (kbd "C-h f") #'helpful-callable)
+(global-set-key (kbd "C-h v") #'helpful-variable)
+(global-set-key (kbd "C-h k") #'helpful-key)
+
+;; Look up *F*unctions (excludes macros).
+;;
+;; By default, C-h F is bound to `Info-goto-emacs-command-node'. Helpful
+;; already links to the manual, if a function is referenced there.
+(global-set-key (kbd "C-h F") #'helpful-function)
+
+;; Look up *C*ommands.
+;;
+;; By default, C-h C is bound to describe `describe-coding-system'. I
+;; don't find this very useful, but it's frequently useful to only
+;; look at interactive functions.
+(global-set-key (kbd "C-h C") #'helpful-command)
 
 (provide 'keybinding)

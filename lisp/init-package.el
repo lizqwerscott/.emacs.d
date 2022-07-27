@@ -2,17 +2,19 @@
 
 ;; (use-package eglot
 ;;   :ensure t
+;;   :hook
+;;   (cmake-mode-hook 'eglot-ensure)
 ;;   :init
-;;   (add-hook 'python-mode-hook 'eglot-ensure)
+;;   ;; (add-hook 'python-mode-hook 'eglot-ensure)
 ;;   (add-hook 'cmake-mode-hook 'eglot-ensure)
-;;   (add-hook 'c-mode-hook 'eglot-ensure)
-;;   (add-hook 'c++-mode-hook 'eglot-ensure)
+;;   ;; (add-hook 'c-mode-hook 'eglot-ensure)
+;;   ;; (add-hook 'c++-mode-hook 'eglot-ensure)
 ;;   :config
 ;;   (progn
 ;;     (setq eldoc-echo-area-use-multiline-p 3
 ;;           eldoc-echo-area-display-truncation-message nil)
-;;     (set-face-attribute 'eglot-highlight-symbol-face nil
-;;                         :background "#b3d7ff")
+;;     ;; (set-face-attribute 'eglot-highlight-symbol-face nil
+;;     ;;                     :background "#b3d7ff")
 ;;     (add-to-list 'eglot-server-programs
 ;;                  '((c-mode c++-mode) . ("ccls")))
 ;;     (add-to-list 'eglot-server-programs
@@ -29,14 +31,20 @@
   (setq conda-env-home-directory
         (expand-file-name "~/.conda")))
 
-;;; Lsp bridge
+;; Lsp bridge
 (use-package lsp-bridge
   :bind
-  (:map acm-mode-map ("TAB" . #'acm-select-next))
-  (:map acm-mode-map ([backtab] . #'acm-select-prev))
+  ;; (:map acm-mode-map ("TAB" . #'acm-select-next))
+  ;; (:map acm-mode-map ([backtab] . #'acm-select-prev))
+  (:map acm-mode-map ("C-n" . #'acm-select-next))
+  (:map acm-mode-map ("C-p" . #'acm-select-prev))
   :hook (after-init . global-lsp-bridge-mode)
+  ;; (((c++-mode . c-mode) . lsp-bridge-mode)
+  ;;  (elisp-mode . lsp-bridge-mode))
+
   :custom
   (lsp-bridge-c-lsp-server "ccls")
+  (lsp-bridge-python-lsp-server "jedi")
   ;; (acm-candidate-match-function 'orderless-flex)
   :config
   (setq lsp-bridge-default-mode-hooks
@@ -45,15 +53,26 @@
 
 (use-package yasnippet
   :ensure t
+  ;; :hook (after-init . yas-global-mode)
   :config
-  (setq yas-snippet-dirs '("~/.emacs.d/config/yasnippet/snippets/"))
-  :hook (after-init . yas-global-mode))
+  ;; (setq yas-snippet-dirs
+  ;;       '("~/.emacs.d/config/yasnippet/snippets/"))
+  )
 
 (use-package common-lisp-snippets
   :ensure t
-  ;:hook (common-lisp-mode . common-lisp-snippets-initialize)
-  :hook (after-init . common-lisp-snippets-initialize)
+  ;; :hook (common-lisp-mode . common-lisp-snippets-initialize)
+  ;; :hook (after-init . common-lisp-snippets-initialize)
   )
+
+(use-package tempel
+  :ensure t
+  :bind
+ (:map tempel-map
+        ("TAB" . tempel-next))
+  :config
+  (setq tempel-path
+        "~/.emacs.d/config/tempel/templates"))
 
 (use-package flycheck
   :ensure t
@@ -61,7 +80,7 @@
   ;; :custom
   ;; (flycheck-disable-checker '(c/c++-clang))
   :config
-  (setq flycheck-global-modes '(not c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
+  (setq flycheck-global-modes '(not python-mode c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
         flycheck-emacs-lisp-load-path 'inherit)
   (setq flycheck-clang-language-standard "c++17"))
 
@@ -69,8 +88,7 @@
   :ensure t
   ;; :hook (after-init . flymake-mode)
   :config
-  (setq flymake-run-in-place nil)
-  (setq temporary-file-directory "~/.emacs.d/tmp/"))
+  (setq flymake-run-in-place nil))
 
 (use-package cmake-mode
   :ensure t)
@@ -260,6 +278,10 @@
 
 (use-package helpful
   :ensure t)
+
+(use-package docstr
+  :ensure t
+  :hook (prog-mode . docstr-mode))
 
 (provide 'init-package)
 ;;; init-package.el ends here
