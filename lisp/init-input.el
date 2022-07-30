@@ -14,7 +14,7 @@
   (global-set-key (kbd "C-\\") 'toggle-input-method)
   (setq-default pyim-english-input-switch-functions
                 `(
-                  pyim-probe-program-mode
+                  ;; pyim-probe-program-mode
                   pyim-probe-meow-normal-mode
                   pyim-probe-org-structure-template)))
 

@@ -281,7 +281,7 @@
   :ensure t
   :after tree-sitter
   :config
-  (define-derived-mode typescript-tsx-mode typescript-mode
+  (define-derived-mode typescript-tsx-mode rjsx-mode
     "TypeScript TSX")
   (add-to-list 'auto-mode-alist
                '("\\.tsx?\\'" . typescript-tsx-mode))
