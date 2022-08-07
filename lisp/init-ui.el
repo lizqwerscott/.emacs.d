@@ -42,25 +42,27 @@
 ;; (use-package gruvbox-theme
 ;;   :ensure t)
 
-;; (use-package doom-themes
-;;   :ensure t)
+(use-package doom-themes
+  :ensure t)
 
 ;; (use-package monokai-theme
 ;;   :ensure t)
 
-(use-package solarized-theme
-  :ensure t)
+;; (use-package solarized-theme
+;;   :ensure t)
 
 ;; (use-package modus-themes
 ;;   :ensure t)
 
 ;; (load-theme 'gruvbox-dark-soft t)
-;; (load-theme 'doom-one t)
+(load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
 ;;(load-theme 'monokai t)
-(load-theme 'solarized-dark t)
+;; (load-theme 'solarized-dark t)
 ;;(load-theme 'vscode-dark-plus t)
 ;;(load-theme 'modus-vivendi t)
+;; (require 'lazycat-theme)
+;; (lazycat-theme-load-dark)
 
 ;;Background
 (setq default-frame-alist
@@ -157,20 +159,22 @@
   ;:hook ((after-init . dashboard-refresh-buffer))
   )
 
+;; (use-package hl-indent-scope
+;;   :hook ((prog-mode . hl-indent-scope-mode)))
+
 (use-package indent-guide
   :ensure t
-  ;; :hook (after-init . indent-guide-global-mode)
-  :config
-  (set-face-background 'indent-guide-face
-                       "dimgray")
-  )
+  :hook ((prog-mode . indent-guide-mode)))
 
 (use-package paren
   :ensure nil
   :hook (afte-init . show-paren-mode)
   :custom
   (show-paren-when-point-inside-paren t)
-  (show-paren-when-point-in-periphery t))
+  (show-paren-when-point-in-periphery t)
+  :config
+  (setq show-paren-style 'parenthesis
+        show-paren-context-when-offscreen 'overlay))
 
 (use-package rainbow-delimiters
   :ensure t
@@ -183,7 +187,7 @@
   :custom
   (word-wrap-by-category t))
 
-(require 'zone)
-(zone-when-idle 600)
+;; (require 'zone)
+;; (zone-when-idle 600)
 
 (provide 'init-ui)

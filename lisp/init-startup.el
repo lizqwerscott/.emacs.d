@@ -12,11 +12,12 @@
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 (setq default-process-coding-system '(utf-8 . utf-8))
+(setq default-buffer-file-coding-system 'utf-8)
 
 (setq delete-old-versions t)
-(setq backup-directory-alist (quote (("." . "~/.backups"))))
-(setq default-buffer-file-coding-system 'utf-8)
-(setq auto-save-default nil)
+(setq make-backup-files nil
+      auto-save-default nil)
+(setq create-lockfiles nil)
 
 (setq-default bidi-display-reordering nil)
 

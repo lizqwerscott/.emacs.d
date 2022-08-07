@@ -30,7 +30,8 @@
                           inhibit-message nil)
             (redisplay)))
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+;; (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(setq custom-file "~/.config/emacs-custom.el")
 
 (require 'init-const)
 (require 'init-melpa)
@@ -51,4 +52,3 @@
 
 (when (file-exists-p custom-file)
   (load-file custom-file))
-

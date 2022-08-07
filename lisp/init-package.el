@@ -49,7 +49,7 @@
   :custom
   (lsp-bridge-c-lsp-server "ccls")
   ;; (lsp-bridge-python-lsp-server "jedi")
-  ;; (acm-candidate-match-function 'orderless-flex)
+  (acm-candidate-match-function 'orderless-regexp)
   :config
   (setq lsp-bridge-default-mode-hooks
         (remove 'org-mode-hook lsp-bridge-default-mode-hooks))
@@ -239,6 +239,11 @@
 (use-package format-all
   :ensure t)
 
+(use-package apheleia
+  :ensure t
+  :hook ((typescript-tsx-mode . apheleia-mode)
+         (json-mode . apheleia-mode)))
+
 ;; format c++ or c
 (defun format-this-buffer ()
   "Format this all buffer."
@@ -279,17 +284,27 @@
 
 (use-package typescript-mode
   :ensure t
-  :after tree-sitter
   :config
-  (define-derived-mode typescript-tsx-mode rjsx-mode
+  (define-derived-mode typescript-tsx-mode typescript-mode
     "TypeScript TSX")
   (add-to-list 'auto-mode-alist
                '("\\.tsx?\\'" . typescript-tsx-mode))
   (add-to-list 'tree-sitter-major-mode-language-alist
-               '(typescript-tsx-mode . tsx)))
+               '(typescript-tsx-mode . tsx))
+  )
 
 (add-to-list 'auto-mode-alist
              '("\\.h\\'" . c++-mode))
+
+(use-package tsi
+  :after tree-sitter
+  ;; define autoload definitions which when actually invoked will cause package to be loaded
+  :commands (tsi-typescript-mode tsi-json-mode tsi-css-mode)
+  :init
+  (add-hook 'typescript-mode-hook (lambda () (tsi-typescript-mode 1)))
+  (add-hook 'json-mode-hook (lambda () (tsi-json-mode 1)))
+  (add-hook 'css-mode-hook (lambda () (tsi-css-mode 1)))
+  (add-hook 'scss-mode-hook (lambda () (tsi-scss-mode 1))))
 
 (use-package helpful
   :ensure t)
@@ -297,6 +312,30 @@
 (use-package docstr
   :ensure t
   :hook (prog-mode . docstr-mode))
+
+(use-package vterm
+ :ensure t)
+
+(use-package vterm-toggle
+  :ensure t
+  :bind
+  ("M-m" . vterm-toggle)
+  :config
+  (setq vterm-toggle-fullscreen-p nil)
+  (add-to-list 'display-buffer-alist
+               '((lambda (buffer-or-name _)
+                   (let ((buffer (get-buffer buffer-or-name)))
+                     (with-current-buffer buffer
+                       (or (equal major-mode 'vterm-mode)
+                           (string-prefix-p vterm-buffer-name (buffer-name buffer))))))
+                 (display-buffer-reuse-window display-buffer-at-bottom)
+                 ;;(display-buffer-reuse-window display-buffer-in-direction)
+                 ;;display-buffer-in-direction/direction/dedicated is added in emacs27
+                 ;;(direction . bottom)
+                 ;;(dedicated . t) ;dedicated is supported in emacs27
+                 (reusable-frames . visible)
+                 (window-height . 0.3))))
+
 
 (provide 'init-package)
 ;;; init-package.el ends here
