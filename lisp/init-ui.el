@@ -1,4 +1,15 @@
-;;Font
+;;; init-ui.el --- init ui packages                  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2022
+
+;; Author:  <lizqwer@lzb>
+;; Keywords:
+
+;;; Commentary:
+
+;;; Code:
+
+;;; Font
 (if *is-windows*
     (progn
       (set-face-attribute 'default nil :height 170)
@@ -38,39 +49,39 @@
                             "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
                             "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%")))
 
-;;Theme
+;;; Theme
 ;; (use-package gruvbox-theme
 ;;   :ensure t)
 
-(use-package doom-themes
-  :ensure t)
+;; (use-package doom-themes
+;;   :ensure t)
 
 ;; (use-package monokai-theme
 ;;   :ensure t)
 
-;; (use-package solarized-theme
-;;   :ensure t)
+(use-package solarized-theme
+  :ensure t)
 
 ;; (use-package modus-themes
 ;;   :ensure t)
 
 ;; (load-theme 'gruvbox-dark-soft t)
-(load-theme 'doom-one t)
+;; (load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
 ;;(load-theme 'monokai t)
-;; (load-theme 'solarized-dark t)
-;;(load-theme 'vscode-dark-plus t)
-;;(load-theme 'modus-vivendi t)
+(load-theme 'solarized-dark t)
+;; (load-theme 'vscode-dark-plus t)
+;; (load-theme 'modus-vivendi t)
 ;; (require 'lazycat-theme)
 ;; (lazycat-theme-load-dark)
 
-;;Background
+;;; Background
 (setq default-frame-alist
       '((width . 90)
         (height . 50)
         (alpha-background . 100)))
 
-;;UI
+;;; UI
 (global-hl-line-mode 1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -85,17 +96,18 @@
 ;;   :ensure t
 ;;   :hook (doom-modeline-mode . nyan-mode))
 
-;; (setq-default header-line-format '(" %l %b " default-directory))
+;; (setq-default header-line-format '(" "))
 (use-package awesome-tray
   :hook (after-init . awesome-tray-mode)
   :custom
   (awesome-tray-active-modules
-   '("location" "belong" "file-path" "mode-name" "git" "input-method" "flymake")
+   '("location" "mode-name" "git" "input-method" "flymake")
    "My tray config"))
 
 (use-package sort-tab
   :hook (after-init . sort-tab-mode))
 
+;;; Icons
 (use-package all-the-icons
   :ensure t)
 
@@ -105,6 +117,7 @@
   :init
   (all-the-icons-completion-mode))
 
+;;; Git message
 (use-package git-gutter
   :ensure t
   :config
@@ -114,16 +127,21 @@
   (setq git-gutter:deleted-sign "-")
   (setq git-gutter:hide-gutter t))
 
+(use-package vc-msg
+  :ensure t)
+
 ;; (use-package symbol-overlay
 ;;   :ensure t
 ;;   :hook (prog-mode . symbol-overlay-mode))
 
+;;; Line number
 (use-package emacs
   :unless *is-windows*
   :hook (((prog-mode text-mode) . display-line-numbers-mode))
   :config
   (setq display-line-numbers-type 'relative))
 
+;;; Dashboard
 (use-package page-break-lines
   :ensure t
   :hook (dashboard-mode . page-break-lines-mode)
@@ -135,7 +153,8 @@
 (use-package dashboard
   :ensure t
   :config
-  (setq dashboard-banner-logo-title "EMACS - Enjoy Programming & Writing")
+  ;; (setq dashboard-banner-logo-title "EMACS - Enjoy Programming & Writing")
+  (setq dashboard-banner-logo-title "LizqwerScott - Enjoy Yourself")
   ;; (setq dashboard-banner-logo-title "My name is God, God is me.")
   (setq dashboard-startup-banner 'logo)
   (setq dashboard-page-separator "\n\f\f\n")
@@ -159,13 +178,15 @@
   ;:hook ((after-init . dashboard-refresh-buffer))
   )
 
+;;; hl indetn
 ;; (use-package hl-indent-scope
 ;;   :hook ((prog-mode . hl-indent-scope-mode)))
 
-(use-package indent-guide
-  :ensure t
-  :hook ((prog-mode . indent-guide-mode)))
+;; (use-package indent-guide
+;;   :ensure t
+;;   :hook ((prog-mode . indent-guide-mode)))
 
+;;; Paren
 (use-package paren
   :ensure nil
   :hook (afte-init . show-paren-mode)
@@ -182,6 +203,23 @@
   (emacs-lisp-mode . rainbow-delimiters-mode)
   (lisp-mode . rainbow-delimiters-mode))
 
+;;; Window
+(use-package ace-window
+  :ensure t
+  :init
+  :bind ("M-o" . 'ace-window))
+
+(use-package shackle
+  :ensure t
+  :hook (after-init . shackle-mode)
+  :custom
+  (shackle-default-size 0.5)
+  (shackle-default-alignment 'below)
+  (shackle-rules '((help-mode :select t :align t :size 0.4)
+                   ("*quickrun*" :select t :align t :size 0.4)
+                   ("*Process List*" :select t :align t))))
+
+;;; Another
 (use-package text-mode
   :ensure nil
   :custom
@@ -190,4 +228,10 @@
 ;; (require 'zone)
 ;; (zone-when-idle 600)
 
+(use-package highlight-defined
+  :ensure t
+  :hook (elisp-lisp-mode . highlight-defined-mode))
+
+
 (provide 'init-ui)
+;;; init-ui.el ends here.

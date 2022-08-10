@@ -30,6 +30,31 @@
                root-project))))
   (message "cmake ccls finish"))
 
+(defun cmake-run-command-in-debug (command)
+  "Run command in project."
+  (let ((root-project (project-root (project-current)))
+        (compile-buffer (generate-new-buffer "*Compile cmake*")))
+    (if (file-directory-p (concat root-project
+                                  "Debug"))
+        (progn
+          (async-shell-command (concat "cd "
+                                       root-project
+                                       "Debug && "
+                                       command)
+                               compile-buffer)
+          (switch-to-buffer-other-window compile-buffer))
+      (message "not generate cmake Debug dir"))))
+
+(defun cmake-compile ()
+  "Compile cmake project."
+  (interactive)
+  (cmake-run-command-in-debug "make -j16"))
+
+(defun cmake-compile-clean ()
+  "Clean make cmake project."
+  (interactive)
+  (cmake-run-command-in-debug "make clean"))
+
 (defvar temp-file-dir "~/temp/" "set default temp file dir.")
 
 (defun make-lisp-temp (name)

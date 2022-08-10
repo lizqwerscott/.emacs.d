@@ -2,7 +2,8 @@
 (setq gc-cons-threshold most-positive-fixnum)
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (setq gc-cons-threshold 800000)))
+            (setq gc-cons-threshold most-positive-fixnum)
+            (setq gc-cons-percentage 0.6)))
 (require 'cl-lib)
 
 (defun directory-dirs (path)
@@ -33,22 +34,33 @@
 ;; (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (setq custom-file "~/.config/emacs-custom.el")
 
+;; (setq debug-on-error t)
 (require 'init-const)
-(require 'init-melpa)
+(require 'init-package)
 (require 'init-startup)
 (require 'init-tool)
-(require 'init-package)
-;(require 'flycheck-cmake)
+(require 'init-edit)
+
+(require 'init-program)
+(require 'init-python)
+(require 'init-c++)
+(require 'init-web)
+(require 'init-common-lisp)
 
 (require 'init-project)
 (require 'init-func)
-;(require 'fcitx)
 ;(require 'evil-map)
 (require 'keybinding)
-(require 'init-org)
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (require 'init-org)))
+
 (require 'init-ui)
 (require 'init-input)
 (require 'crefactor)
 
 (when (file-exists-p custom-file)
   (load-file custom-file))
+
+;;; init.el ends here.

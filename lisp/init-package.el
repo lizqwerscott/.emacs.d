@@ -1,341 +1,52 @@
-;;(require 'init-company)
+;;; init-package.el --- init packages                -*- lexical-binding: t; -*-
 
-;; (use-package eglot
-;;   :ensure t
-;;   :hook
-;;   (cmake-mode-hook 'eglot-ensure)
-;;   :init
-;;   ;; (add-hook 'python-mode-hook 'eglot-ensure)
-;;   (add-hook 'cmake-mode-hook 'eglot-ensure)
-;;   (add-hook 'web-mode-hook 'eglot-ensure)
-;;   (add-hook 'vue-mode-hook 'eglot-ensure)
-;;   ;; (add-hook 'c-mode-hook 'eglot-ensure)
-;;   ;; (add-hook 'c++-mode-hook 'eglot-ensure)
-;;   :config
-;;   (progn
-;;     (setq eldoc-echo-area-use-multiline-p 3
-;;           eldoc-echo-area-display-truncation-message nil)
-;;     ;; (set-face-attribute 'eglot-highlight-symbol-face nil
-;;     ;;                     :background "#b3d7ff")
-;;     (add-to-list 'eglot-server-programs
-;;                  '((c-mode c++-mode) . ("ccls")))
-;;     (add-to-list 'eglot-server-programs
-;;                  '(python-mode . ("jedi-language-server")))
-;;     (add-to-list 'eglot-server-programs
-;;                  '(vue-mode . "vls"))))
+;; Copyright (C) 2022
 
-(use-package markdown-mode
-  :ensure t)
+;; Author:  <lizqwer@lzb>
+;; Keywords: processes
 
-(use-package conda
-  :ensure t
-  :init
-  (setq conda-anaconda-home
-        (expand-file-name "/opt/anaconda"))
-  (setq conda-env-home-directory
-        (expand-file-name "~/.conda")))
 
-;; Lsp bridge
-(use-package lsp-bridge
-  :bind
-  ;; (:map acm-mode-map ("TAB" . #'acm-select-next))
-  ;; (:map acm-mode-map ([backtab] . #'acm-select-prev))
-  (:map acm-mode-map ("C-n" . #'acm-select-next))
-  (:map acm-mode-map ("C-p" . #'acm-select-prev))
-  :hook (after-init . global-lsp-bridge-mode)
-  ;; (((c++-mode . c-mode) . lsp-bridge-mode)
-  ;;  (elisp-mode . lsp-bridge-mode))
+;;; Commentary:
 
-  :custom
-  (lsp-bridge-c-lsp-server "ccls")
-  ;; (lsp-bridge-python-lsp-server "jedi")
-  (acm-candidate-match-function 'orderless-regexp)
-  :config
-  (setq lsp-bridge-default-mode-hooks
-        (remove 'org-mode-hook lsp-bridge-default-mode-hooks))
-  (setq acm-enable-doc t))
 
-(use-package yasnippet
-  :ensure t
-  ;; :hook (after-init . yas-global-mode)
-  :config
-  ;; (setq yas-snippet-dirs
-  ;;       '("~/.emacs.d/config/yasnippet/snippets/"))
-  )
+;;; Code:
 
-(use-package common-lisp-snippets
-  :ensure t
-  ;; :hook (common-lisp-mode . common-lisp-snippets-initialize)
-  ;; :hook (after-init . common-lisp-snippets-initialize)
-  )
+(require 'package)
 
-(use-package tempel
-  :ensure t
-  :bind
- (:map tempel-map
-        ("TAB" . tempel-next))
-  :config
-  (setq tempel-path
-        "~/.emacs.d/config/tempel/templates"))
+;; (setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
+;; 			 ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
 
-(use-package flycheck
-  :ensure t
-  :hook (after-init . global-flycheck-mode)
-  ;; :custom
-  ;; (flycheck-disable-checker '(c/c++-clang))
-  :config
-  (setq flycheck-global-modes '(not python-mode c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
-        flycheck-emacs-lisp-load-path 'inherit)
-  (setq flycheck-clang-language-standard "c++17"))
+(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+                         ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
 
-(use-package flymake
-  :ensure t
-  ;; :hook (after-init . flymake-mode)
-  :config
-  (setq flymake-run-in-place nil))
+(setq package-quickstart t)
 
-(use-package cmake-mode
-  :ensure t)
+(package-initialize)
 
-(use-package paredit
-  :ensure t)
+;; (when (not package-archive-contents)
+;;   (package-refresh-contents))
 
-;;evil
-;;evil evil-leader evil-paredit evil-matchit evil-collection
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-;; (setq evil-want-keybinding nil)
-;; (use-package evil
-;;   :ensure t
-;;   :hook (after-init . evil-mode)
-;;   :init
-;;   (progn
-;;     (setq evil-want-integration t)
-;;     (setq evil-want-minibuffer nil)))
-
-;; (use-package evil-leader
-;;   :ensure t
-;;   :config (progn
-;; 	    (evil-leader/set-leader "<SPC>")
-;; 	    (global-evil-leader-mode)))
-
-;; (use-package evil-paredit
-;;   :ensure t
-;;   :after evil)
-
-;; (add-hook 'paredit-mode-hook #'(lambda ()
-;;                                  (evil-paredit-mode 1)))
-
-;; (use-package evil-collection
-;;   :ensure t
-;;   :after evil
-;;   :init
-;;   (evil-collection-init))
-
-;; (use-package evil-matchit
-;;   :ensure t
-;;   :init
-;;   (global-evil-matchit-mode))
-
-(use-package sly
-  :ensure t
-  :hook (sly-mode . (lambda ()
-                      (unless (sly-connected-p)
-                        (save-excursion (sly)))))
-  :config
-  (setq sly-complete-symbol-function 'sly-simple-completions)
-  ;;(setq sly-complete-symbol-function 'sly-flex-completions)
-  (setq inferior-lisp-program "ccl"))
-
-(use-package sly-quicklisp
-  :ensure t
-  :after sly)
-
-(use-package sly-asdf
-  :ensure t
-  :after sly)
-
-(require 'awesome-pair)
-(defun awesome-pair-add-hook ()
-  (dolist (hook (list
-               ;; 'c-mode-common-hook
-               ;; 'c-mode-hook
-               ;; 'c++-mode-hook
-               'haskell-mode-hook
-               'emacs-lisp-mode-hook
-               'lisp-interaction-mode-hook
-               'lisp-mode-hook
-               'common-lisp-mode-hook
-               'maxima-mode-hook
-               'sh-mode-hook
-               'python-mode-hook
-               'js-mode-hook
-               'go-mode-hook
-               'css-mode-hook
-               'ruby-mode-hook
-               'rust-mode-hook
-               'lua-mode-hook
-               'swift-mode-hook
-               'minibuffer-inactive-mode-hook
-               ))
-  (add-hook hook #'(lambda ()
-                     (awesome-pair-mode 1)))))
-
-(use-package awesome-pair
-  :init
-  (awesome-pair-add-hook)
-  :bind
-  (:map awesome-pair-mode-map
-        ("(" . awesome-pair-open-round)
-        ("[" . awesome-pair-open-bracket)
-        ("{" . awesome-pair-open-curly)
-        (")" . awesome-pair-close-round)
-        ("]" . awesome-pair-close-bracket)
-        ("}" . awesome-pair-close-curly)
-        ("%" . awesome-pair-match-paren)
-        ("\"" . awesome-pair-double-quote)
-        ("SPC" . awesome-pair-space)
-        ("RET" . awesome-pair-newline)
-        ("M-(" . awesome-pair-wrap-round)
-        ("M-[" . awesome-pair-wrap-bracket)))
-
-(add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
-(add-hook 'lisp-mode-hook #'enable-paredit-mode)
-
-(use-package ag
-  :ensure t
-  :config
-  (setq ag-highlight-search t))
-
-(use-package magit
-  :ensure t)
-
-(use-package vc-msg
-  :ensure t)
-
-(setq browse-url-browser-function 'browse-url-chrome)
-
-(use-package go-translate
-  :ensure t
-  :config
-  (setq gts-translate-list '(("en" "zh")))
-  (setq gts-default-translator
-        (gts-translator
-         :picker (gts-noprompt-picker)
-         :engines (list (gts-bing-engine)
-                        (gts-google-engine))
-         :render (gts-posframe-pop-render))))
-
-(use-package json-mode
-  :ensure t
-  :defer 2)
-
-(use-package ox-hugo
-  :ensure t
-  :init
-  (setq org-hugo-base-dir "~/MyProject/website/saveLife")
-  (setq org-hugo-default-section-directory "zh-CN/post")
-  :after ox)
-
-(use-package format-all
-  :ensure t)
-
-(use-package apheleia
-  :ensure t
-  :hook ((typescript-tsx-mode . apheleia-mode)
-         (json-mode . apheleia-mode)))
-
-;; format c++ or c
-(defun format-this-buffer ()
-  "Format this all buffer."
-  (interactive "")
-  (if (or (equal major-mode 'c-mode)
-          (equal major-mode 'c++-mode))
-      (shell-command (concat "astyle "
-                             (buffer-file-name)))))
-
-;; code hide
-;; (add-hook 'prog-mode-hook
-;;           'hs-minor-mode)
-;; (add-hook 'c-mode-hook
-;;           'hs-minor-mode)
-
-;; (add-hook 'c++-mode-hook
-;;           'hs-minor-mode)
-
-;; (add-hook 'emacs-lisp-mode-hook
-;;           'hs-minor-mode)
-
-;; (add-hook 'python-mode-hook
-;;           'hs-minor-mode)
-
-;; (use-package lispy
-;;   :ensure t
-;;   :hook (lisp-mode . lispy-mode))
-
-(when *is-linux*
-  (use-package tree-sitter
-    :ensure t
-    :config
-    (global-tree-sitter-mode)
-    (add-hook 'tree-sitter-after-on-hook
-              #'tree-sitter-hl-mode))
-  (use-package tree-sitter-langs
-    :ensure t))
-
-(use-package typescript-mode
-  :ensure t
-  :config
-  (define-derived-mode typescript-tsx-mode typescript-mode
-    "TypeScript TSX")
-  (add-to-list 'auto-mode-alist
-               '("\\.tsx?\\'" . typescript-tsx-mode))
-  (add-to-list 'tree-sitter-major-mode-language-alist
-               '(typescript-tsx-mode . tsx))
-  )
-
-(add-to-list 'auto-mode-alist
-             '("\\.h\\'" . c++-mode))
-
-(use-package tsi
-  :after tree-sitter
-  ;; define autoload definitions which when actually invoked will cause package to be loaded
-  :commands (tsi-typescript-mode tsi-json-mode tsi-css-mode)
-  :init
-  (add-hook 'typescript-mode-hook (lambda () (tsi-typescript-mode 1)))
-  (add-hook 'json-mode-hook (lambda () (tsi-json-mode 1)))
-  (add-hook 'css-mode-hook (lambda () (tsi-css-mode 1)))
-  (add-hook 'scss-mode-hook (lambda () (tsi-scss-mode 1))))
-
-(use-package helpful
-  :ensure t)
-
-(use-package docstr
-  :ensure t
-  :hook (prog-mode . docstr-mode))
-
-(use-package vterm
- :ensure t)
-
-(use-package vterm-toggle
-  :ensure t
-  :bind
-  ("M-m" . vterm-toggle)
-  :config
-  (setq vterm-toggle-fullscreen-p nil)
-  (add-to-list 'display-buffer-alist
-               '((lambda (buffer-or-name _)
-                   (let ((buffer (get-buffer buffer-or-name)))
-                     (with-current-buffer buffer
-                       (or (equal major-mode 'vterm-mode)
-                           (string-prefix-p vterm-buffer-name (buffer-name buffer))))))
-                 (display-buffer-reuse-window display-buffer-at-bottom)
-                 ;;(display-buffer-reuse-window display-buffer-in-direction)
-                 ;;display-buffer-in-direction/direction/dedicated is added in emacs27
-                 ;;(direction . bottom)
-                 ;;(dedicated . t) ;dedicated is supported in emacs27
-                 (reusable-frames . visible)
-                 (window-height . 0.3))))
-
+;; (update-load-path)
+(defun site-lisp-update ()
+  "Update site-lisp packages."
+  (interactive)
+  (let ((output-buffer (generate-new-buffer "*Update site lisp*"))
+        (update-git-file (expand-file-name
+                          (concat user-emacs-directory
+                                  "scripts/updategit.py")))
+        (site-lisp-dir (expand-file-name
+                        (concat user-emacs-directory
+                                "site-lisp/"))))
+    (async-shell-command (concat update-git-file
+                                 " "
+                                 site-lisp-dir)
+                         output-buffer)
+    (switch-to-buffer-other-window output-buffer)))
 
 (provide 'init-package)
 ;;; init-package.el ends here

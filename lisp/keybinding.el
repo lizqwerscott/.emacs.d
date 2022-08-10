@@ -47,6 +47,7 @@
   (meow-leader-define-key
    '("tt" . gts-do-translate)
    '("th" . helpful-at-point)
+   '("tg" . google-this)
    ;;'("m" . vc-msg-show)
    )
 
@@ -92,6 +93,7 @@
    '("sg" . consult-goto-line)
    '("so" . consult-outline)
    '("sb" . consult-bookmark)
+   '("ss" . consult-dash)
 
    '("ff" . find-file)
    '("fr" . consult-find)
@@ -104,7 +106,8 @@
   ;;dired
   (meow-leader-define-key
    '("dj" . dired-jump)
-   '("dJ" . dired-jump-other-window))
+   '("dJ" . dired-jump-other-window)
+   '("dd" . dirvish))
 
   ;;org
   (meow-leader-define-key

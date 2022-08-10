@@ -1,3 +1,15 @@
+;;; init-startup.el --- init startup need packages   -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2022
+
+;; Author:  <lizqwer@lzb>
+;; Keywords:
+;;; Commentary:
+
+;;; Code:
+
+;;; Emacs Config
+(setq-default lexical-binding t)
 
 (if (boundp 'use-short-answers)
     (setq use-short-answers t)
@@ -85,32 +97,6 @@
           #'(lambda ()
               (modify-syntax-entry ?- "w")))
 
-(use-package which-key
-  :ensure t
-  :hook (after-init . which-key-mode))
-
-(use-package ace-window
-  :ensure t
-  :init
-  :bind ("M-o" . 'ace-window))
-
-(use-package xclip
-  :ensure t
-  :hook (after-init . xclip-mode))
-
-(use-package posframe
-  :ensure t)
-
-(use-package vertico
-  :ensure t
-  :init (vertico-mode)
-  :bind
-  (:map vertico-map ("M-TAB" . #'minibuffer-complete)))
-
-(use-package savehist
-  :init
-  (savehist-mode))
-
 (use-package emacs
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
@@ -136,6 +122,19 @@
 
   ;; Enable recursive minibuffers
   (setq enable-recursive-minibuffers t))
+
+(use-package savehist
+  :init
+  (savehist-mode))
+
+
+
+;;; Minibuffer
+(use-package vertico
+  :ensure t
+  :init (vertico-mode)
+  :bind
+  (:map vertico-map ("M-TAB" . #'minibuffer-complete)))
 
 (use-package orderless
   :ensure t
@@ -169,28 +168,23 @@
 (use-package consult-project-extra
   :ensure t)
 
-(use-package affe
-  :ensure t)
-
-(require 'init-corfu)
+(use-package consult-dash
+  :ensure t
+  :config
+  (consult-customize consult-dash :initial (thing-at-point 'symbol)))
 
 (use-package marginalia
   :ensure t
   :init
   (marginalia-mode))
 
-;config c++ style
-(setq c-default-style "linux"
-      c-basic-offset 4)
+;;; compleations
+(use-package affe
+  :ensure t)
 
-(add-hook 'c-mode-hook
-          #'(lambda ()
-              (c-toggle-auto-state 1)))
+(require 'init-corfu)
 
-(add-hook 'c++-mode-hook
-          #'(lambda ()
-              (c-toggle-auto-state 1)))
-
+;;; Dired
 (use-package dired
   :config
   (setq dired-recursive-deletes 'always)
@@ -227,6 +221,7 @@
     (setq temporary-file-directory
           "~/.emacs.d/tmp/")))
 
+;;; Tramp
 
 (setq recentf-exclude `(,tramp-file-name-regexp
                         "COMMIT_EDITMSG")
@@ -235,11 +230,5 @@
 
 (setq tramp-default-method "ssh")
 
-(use-package auto-save
-  :hook
-  (after-init . auto-save-enable)
-  :config
-  (setq auto-save-silent t)
-  (setq auto-save-delete-trailing-whitespace t))
-
 (provide 'init-startup)
+;;; init-startup.el ends here.
