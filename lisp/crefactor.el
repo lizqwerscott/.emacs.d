@@ -65,14 +65,18 @@
                   (not child-p))
         (let ((child-node-type (tsc-node-type
                                 (tsc-get-nth-child node i))))
-          (message "node-type: %s" child-node-type)
-          (if (or (equal 'pointer_declarator
-                         child-node-type)
-                  (equal 'reference_declarator
-                         child-node-type)
-                  (equal 'function_declarator
-                         child-node-type))
-              (setq child-p t)))
+          (if (equal 'function_declarator
+                     child-node-type)
+              (setq child-p t)
+            (when (and (or (equal 'pointer_declarator
+                                  child-node-type)
+                           (equal 'reference_declarator
+                                  child-node-type))
+                       (> 1
+                          (length
+                           (get-named-child-node
+                            (tsc-get-nth-child node i)))))
+              (setq child-p t))))
         (setq i (+ i 1)))
       child-p)))
 
@@ -139,6 +143,7 @@
   (append lst
           (list item)))
 
+;;; TODO    srv_net_st * pinfo; need fix
 (defun get-c++-class-functions (class-node)
   (cl-remove-if-not #'(lambda (node)
                         (c++-class-functionp node))
@@ -176,21 +181,24 @@
                 (t ""))))
 
 (defun handle-name-parm (node)
-  (if (= (tsc-count-named-children node)
-         0)
+  (if (equal 'array_declarator
+             (tsc-node-type node))
       node
-    (let ((node-list (cl-remove-if #'(lambda (child-node)
-                                       (equal (tsc-node-type child-node)
-                                              'virtual_specifier))
-                                   (get-named-child-node node))))
-      (if (= (length node-list)
-             1)
-          (if (= (tsc-count-named-children (car node-list))
-                 0)
-              (car node-list)
-            (get-child-nodes
-             (car node-list)))
-        node-list))))
+    (if (= (tsc-count-named-children node)
+           0)
+        node
+      (let ((node-list (cl-remove-if #'(lambda (child-node)
+                                         (equal (tsc-node-type child-node)
+                                                'virtual_specifier))
+                                     (get-named-child-node node))))
+        (if (= (length node-list)
+               1)
+            (if (= (tsc-count-named-children (car node-list))
+                   0)
+                (car node-list)
+              (get-child-nodes
+               (car node-list)))
+          node-list)))))
 
 (cl-defun handle-type-name-l (nodes &optional (i 0) (result nil))
   (if (= (- (length nodes)
@@ -203,7 +211,8 @@
                    (list 'pointer_declarator
                          'reference_declarator
                          'identifier
-                         'function_declarator)
+                         'function_declarator
+                         'array_declarator)
                    :test #'equal)
           (list (append-1 result
                           (handle-type (elt nodes i)
@@ -247,8 +256,10 @@
 (defun test-handle-fun ()
   (interactive)
   (message "%s"
-           (handle-type-name
-            (get-now-node))))
+           (mapcar #'(lambda (node)
+                       (get-named-child-node node))
+                   (get-child-nodes
+                       (get-now-node)))))
 
 (defun test-generate-funciotn ()
   (interactive)
@@ -315,10 +326,10 @@
                                       previous-nodes)))
     (tsc-node-end-position
      (elt nodes
-          (+ 2
-             (if res
-                 res
-               0))))))
+          (if res
+              (+ 2
+                 res)
+            1)))))
 
 (defun test-list-function-defination-i ()
   "Test list function defination."
@@ -326,10 +337,19 @@
   (message "%s"
            (mapcar #'(lambda (x)
                        (convert-function-def-stand x))
-                   (pop-list-front (list-function-defination)
-                                   2))
-           )
-  )
+                   (list-function-defination)
+                   )))
+
+(defun test-get-class-function ()
+  (interactive)
+  (message "%s"
+           (mapcar #'tsc-node-text
+                   (get-c++-class-functions
+                    (get-c++-class)))))
+
+(defun test-get-previous-nodes ()
+  (interactive)
+  (message "hello"))
 
 (defun crefactor-insert-implement ()
   "Insert a c++ class implement."

@@ -199,7 +199,7 @@
   (meow-normal-define-key
     '("C-s" . save-buffer)
     '("Q" . kill-buffer-and-window)
-    '("gd" . lsp-bridge-find-def-other-window)
+    '("gd" . lsp-bridge-find-def)
     '("gr" . lsp-bridge-find-references)
     '("gf" . xref-find-definitions)
     '("C-o" . xref-go-back)
@@ -234,3 +234,4 @@
 (global-set-key (kbd "C-h C") #'helpful-command)
 
 (provide 'keybinding)
+;;; keybinding.el ends here.

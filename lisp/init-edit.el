@@ -49,8 +49,8 @@
 ;;   :init
 ;;   (global-evil-matchit-mode))
 
-(require 'awesome-pair)
 (defun awesome-pair-add-hook ()
+  (require 'awesome-pair)
   (dolist (hook (list
                ;; 'c-mode-common-hook
                ;; 'c-mode-hook

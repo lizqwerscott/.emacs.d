@@ -106,5 +106,8 @@
 (use-package posframe
   :ensure t)
 
+(use-package disk-usage
+  :ensure t)
+
 (provide 'init-tool)
 ;;; init-tool.el ends here.

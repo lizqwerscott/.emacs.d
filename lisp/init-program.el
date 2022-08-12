@@ -53,7 +53,7 @@
   :custom
   (lsp-bridge-c-lsp-server "ccls")
   ;; (lsp-bridge-python-lsp-server "jedi")
-  (acm-candidate-match-function 'orderless-regexp)
+  ;; (acm-candidate-match-function 'orderless-regexp)
   :config
   (setq lsp-bridge-default-mode-hooks
         (remove 'org-mode-hook lsp-bridge-default-mode-hooks))
@@ -74,7 +74,6 @@
 ;;   :hook (common-lisp-mode . common-lisp-snippets-initialize)
 ;;   :hook (after-init . common-lisp-snippets-initialize)
 ;;   )
-
 (use-package tempel
   :ensure t
   :bind
