@@ -143,7 +143,6 @@
   (append lst
           (list item)))
 
-;;; TODO    srv_net_st * pinfo; need fix
 (defun get-c++-class-functions (class-node)
   (cl-remove-if-not #'(lambda (node)
                         (c++-class-functionp node))

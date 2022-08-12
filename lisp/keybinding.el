@@ -58,15 +58,6 @@
    '("ah" . lsp-bridge-lookup-documentation)
    )
 
-  ;;sly
-  (meow-leader-define-key
-   '("lf" . sly-load-file)
-   '("qf" . sly-quickload)
-   '("ef" . sly-eval-defun)
-   '("el" . sly-eval-last-expression)
-   '("C-j" . sly-next-completion)
-   '("rs" . sly-restart-inferior-lisp))
-
   (meow-leader-define-key
    ;; '("W" . paredit-wrap-sexp)
    '("W" . awesome-pair-wrap-round)
@@ -232,6 +223,8 @@
 ;; don't find this very useful, but it's frequently useful to only
 ;; look at interactive functions.
 (global-set-key (kbd "C-h C") #'helpful-command)
+
+(define-key emacs-lisp-mode-map (kbd "C-c l") #'eval-defun)
 
 (provide 'keybinding)
 ;;; keybinding.el ends here.
