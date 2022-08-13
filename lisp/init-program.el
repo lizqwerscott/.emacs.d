@@ -52,12 +52,42 @@
 
   :custom
   (lsp-bridge-c-lsp-server "ccls")
+  ;; (lsp-bridge-enable-debug t)
   ;; (lsp-bridge-python-lsp-server "jedi")
   ;; (acm-candidate-match-function 'orderless-regexp)
   :config
   (setq lsp-bridge-default-mode-hooks
         (remove 'org-mode-hook lsp-bridge-default-mode-hooks))
   (setq acm-enable-doc t))
+
+(use-package dumb-jump
+  :ensure t)
+
+(require 'xref)
+(require 'lsp-bridge)
+(defun find-definition-with-lsp-bridge ()
+  (interactive)
+  (cond
+   ((eq major-mode 'emacs-lisp-mode)
+    (let ((symb (current-word)))
+      (funcall #'xref-find-definitions symb))
+    )
+   (lsp-bridge-mode
+    (lsp-bridge-find-def))
+   (t
+    (require 'dumb-jump)
+    (dumb-jump-go))))
+
+(defun return-find-def ()
+  (interactive)
+  (cond
+   ((eq major-mode 'emacs-lisp-mode)
+    (call-interactively 'xref-go-back))
+   (lsp-bridge-mode
+    (lsp-bridge-return-from-def))
+   (t
+    (require 'dumb-jump)
+    (dumb-jump-back))))
 
 ;;; snippet
 

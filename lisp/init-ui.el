@@ -90,18 +90,23 @@
 ;; (use-package doom-modeline
 ;;   :ensure t
 ;;   :hook (after-init . doom-modeline-mode)
-;;   )
+;;   :config
+;;   (setq doom-modeline-buffer-file-name-style
+;;         'file-name)
+;;   (setq doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode)))
 
 ;; (use-package nyan-mode
 ;;   :ensure t
 ;;   :hook (doom-modeline-mode . nyan-mode))
 
-;; (setq-default header-line-format '(" "))
+;; (which-function-mode 1)
+
+;; (setq-default header-line-format '("" default-directory))
 (use-package awesome-tray
   :hook (after-init . awesome-tray-mode)
   :custom
   (awesome-tray-active-modules
-   '("location" "mode-name" "git" "input-method" "flymake")
+   '("location" "belong" "mode-name" "git" "input-method" "flymake")
    "My tray config"))
 
 (use-package sort-tab

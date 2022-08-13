@@ -4,6 +4,7 @@
           (lambda ()
             (setq gc-cons-threshold most-positive-fixnum)
             (setq gc-cons-percentage 0.6)))
+
 (require 'cl-lib)
 
 (defun directory-dirs (path)
