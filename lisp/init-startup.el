@@ -168,11 +168,6 @@
 (use-package consult-project-extra
   :ensure t)
 
-(use-package consult-dash
-  :ensure t
-  :config
-  (consult-customize consult-dash :initial (thing-at-point 'symbol)))
-
 (use-package marginalia
   :ensure t
   :init

@@ -66,8 +66,8 @@
 
   ;;window key
   (meow-leader-define-key
-   ;; '("o" . ace-window)
    '("o" . other-window)
+   '("ag" . avy-goto-line)
    '("1" . ace-delete-other-windows)
    '("2" . split-window-below)
    '("-" . split-window-horizontally)
@@ -84,7 +84,6 @@
    '("sg" . consult-goto-line)
    '("so" . consult-outline)
    '("sb" . consult-bookmark)
-   '("ss" . consult-dash)
 
    '("ff" . find-file)
    '("fr" . consult-find)

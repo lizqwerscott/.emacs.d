@@ -21,7 +21,11 @@
 (use-package pyim-basedict
   :ensure t
   :config
-  (pyim-basedict-enable))
+  ;; (pyim-basedict-enable)
+  )
+
+(require 'pyim-tsinghua-dict)
+(pyim-tsinghua-dict-enable)
 
 (require 'insert-translated-name)
 (setq insert-translated-name-translate-engine "youdao")

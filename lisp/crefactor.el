@@ -346,41 +346,116 @@
                    (get-c++-class-functions
                     (get-c++-class)))))
 
-(defun test-get-previous-nodes ()
-  (interactive)
-  (message "hello"))
+(defun return-center ()
+  (forward-line -1)
+  (execute-kbd-macro [?\t])
+  (meow-insert))
 
-(defun crefactor-insert-implement ()
-  "Insert a c++ class implement."
-  (interactive)
-  (let ((function-implement (generate-function-implement (get-now-node)))
-        (funs (mapcar #'generate-function-implement
+(cl-defun insert-implement (function-implement &optional (pos (point)) (is-return t))
+  (goto-char pos)
+  (insert "\n")
+  (insert "\n")
+  (insert function-implement)
+  (insert "\n")
+  (insert "{")
+  (insert "\n")
+  (insert "\n")
+  (insert "}")
+  (when is-return
+    (return-center)))
+
+(defun insert-implement-s (fun-implement funs nodes)
+  (let ((pre-node (get-previous-nodes funs
+                                      fun-implement)))
+    (when (not (cl-find fun-implement
+                        (mapcar #'convert-function-def-stand
+                                (pop-list-front nodes
+                                                2))
+                        :test #'string=))
+      (insert-implement fun-implement
+                        (find-fun-def-node-pos nodes
+                                               pre-node)))))
+(defun insert-implement-a (fun-implement funs nodes)
+  (let ((pre-node (get-previous-nodes funs
+                                      fun-implement)))
+    (when (not (cl-find fun-implement
+                        (mapcar #'convert-function-def-stand
+                                (pop-list-front nodes
+                                                2))
+                        :test #'string=))
+      (goto-char (find-fun-def-node-pos nodes
+                                        pre-node))
+      (insert "\n")
+      (insert "\n")
+      (insert fun-implement)
+      (insert "\n")
+      (insert "{")
+      (insert "\n")
+      (insert "\n")
+      (insert "}")
+      ;; (forward-line -1)
+      ;; (execute-kbd-macro [?\t])
+      ;; (meow-insert)
+      )))
+
+;;; insert fragment.
+(defun insert-implement-fragment (fun-implements first-pos)
+  (goto-char first-pos)
+  (mapcar #'(lambda (fun)
+              (insert-implement (point) nil))
+          fun-implements)
+  (return-center))
+
+(cl-defun insert-implement-l (node &optional (funs (mapcar #'generate-function-implement
+                                                         (get-c++-class-functions
+                                                          (get-c++-class)))))
+  (let ((function-implement (generate-function-implement node)))
+    (ff-find-other-file)
+    (let ((res (insert-implement-s function-implement
+                                   funs
+                                   (list-function-defination))))
+      (when res
+        (ff-find-other-file)))))
+
+(defun insert-implement-all ()
+  (let ((funs (mapcar #'generate-function-implement
                       (get-c++-class-functions
                        (get-c++-class)))))
     (ff-find-other-file)
     (let ((nodes (list-function-defination)))
-      (if (cl-find function-implement
-                   (mapcar #'convert-function-def-stand
-                           (pop-list-front nodes
-                                           2))
-                   :test #'string=)
-          (ff-find-other-file)
-        (progn
-          (goto-char
-           (find-fun-def-node-pos nodes
-                                  (get-previous-nodes funs
-                                                      function-implement)))
-          (insert "\n")
-          (insert "\n")
-          (insert function-implement)
-          (insert "\n")
-          (insert "{")
-          (insert "\n")
-          (insert "\n")
-          (insert "}")
-          (forward-line -1)
-          (execute-kbd-macro [?\t])
-          (meow-insert))))))
+      (let ((nodes-i (mapcar #'convert-function-def-stand
+                             (pop-list-front nodes
+                                             2))))
+        (let ((need-insert-funs (cl-remove-if #'(lambda (fun)
+                                                  (cl-find fun
+                                                           nodes-i
+                                                           :test #'string=))
+                                              funs)))
+          (insert-implement-fragment need-insert-funs
+                                     (find-fun-def-node-pos nodes
+                                                            (get-previous-nodes funs
+                                                                                (car need-insert-funs))))))
+      ;; (mapcar #'(lambda (fun-implement)
+      ;;             (insert-implement-a fun-implement
+      ;;                                 funs
+      ;;                                 nodes)
+      ;;             (save-buffer))
+      ;;         funs)
+      )))
+
+(defun crefactor-insert-implement ()
+  "Insert a c++ class implement."
+  (interactive)
+  (insert-implement-l (get-now-node)))
+
+;;; 如果是插入的情况中只是向尾部追加的，直接用插片段法。
+;;; 就是找到片段第一个然后依次插入，每个隔三行。
+;;;
+;;; 如果有，就把原本的都删除，然后在依次插入。
+(defun crefactor-insert-all-class-implement ()
+  "Insert a c++ class implement."
+  (interactive)
+  (message "%s" (insert-implement-all)))
 
 (provide 'crefactor)
 ;;; crefactor.el ends here
