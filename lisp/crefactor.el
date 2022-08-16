@@ -399,16 +399,16 @@
   (if lst
       (if (stringp (car lst))
           (split-node-fun (cdr lst)
-                            (append-1 fragment
-                                      (car lst))
-                            res)
+                          (append-1 fragment
+                                    (car lst))
+                          res)
         (split-node-fun (cdr lst)
-                          (list (tsc-node-end-position (car lst)))
-                          (if (> (length fragment)
-                                   1)
-                                (append-1 res
-                                          fragment)
-                              res)))
+                        (list (tsc-node-end-position (car lst)))
+                        (if (> (length fragment)
+                               1)
+                            (append-1 res
+                                      fragment)
+                          res)))
     (if fragment
         (append-1 res
                   fragment)
