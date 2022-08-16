@@ -202,6 +202,7 @@
 (use-package meow
   :ensure t
   :config
+  (setq meow-keypad-leader-dispatch "C-c")
   (meow-setup)
   (meow-global-mode 1))
 

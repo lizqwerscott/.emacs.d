@@ -7,7 +7,7 @@
 
 
 ;;; Commentary:
-;;; 基于tree-sitter的c++的类refactor
+;;; 基于tree-sitter的对c++类进行refactor
 
 ;;; Code:
 
@@ -375,34 +375,49 @@
       (insert-implement fun-implement
                         (find-fun-def-node-pos nodes
                                                pre-node)))))
-(defun insert-implement-a (fun-implement funs nodes)
-  (let ((pre-node (get-previous-nodes funs
-                                      fun-implement)))
-    (when (not (cl-find fun-implement
-                        (mapcar #'convert-function-def-stand
-                                (pop-list-front nodes
-                                                2))
-                        :test #'string=))
-      (goto-char (find-fun-def-node-pos nodes
-                                        pre-node))
-      (insert "\n")
-      (insert "\n")
-      (insert fun-implement)
-      (insert "\n")
-      (insert "{")
-      (insert "\n")
-      (insert "\n")
-      (insert "}")
-      ;; (forward-line -1)
-      ;; (execute-kbd-macro [?\t])
-      ;; (meow-insert)
-      )))
 
-;;; insert fragment.
+(cl-defun merge-node-fun (funs nodes &optional (res nil) (i 0))
+  (if funs
+      (if (< i (length nodes))
+          (if (string= (car funs)
+                       (convert-function-def-stand (elt nodes i)))
+              (merge-node-fun (cdr funs)
+                              nodes
+                              (append-1 res
+                                        (elt nodes i))
+                              (+ i 1))
+            (merge-node-fun (cdr funs)
+                            nodes
+                            (append-1 res
+                                      (car funs))
+                            i))
+        (append res
+                funs))
+    res))
+
+(cl-defun split-node-fun (lst &optional (fragment nil) (res nil))
+  (if lst
+      (if (stringp (car lst))
+          (split-node-fun (cdr lst)
+                            (append-1 fragment
+                                      (car lst))
+                            res)
+        (split-node-fun (cdr lst)
+                          (list (tsc-node-end-position (car lst)))
+                          (if (> (length fragment)
+                                   1)
+                                (append-1 res
+                                          fragment)
+                              res)))
+    (if fragment
+        (append-1 res
+                  fragment)
+      res)))
+
 (defun insert-implement-fragment (fun-implements first-pos)
   (goto-char first-pos)
   (mapcar #'(lambda (fun)
-              (insert-implement (point) nil))
+              (insert-implement fun (point) nil))
           fun-implements)
   (return-center))
 
@@ -422,40 +437,26 @@
                       (get-c++-class-functions
                        (get-c++-class)))))
     (ff-find-other-file)
-    (let ((nodes (list-function-defination)))
-      (let ((nodes-i (mapcar #'convert-function-def-stand
-                             (pop-list-front nodes
-                                             2))))
-        (let ((need-insert-funs (cl-remove-if #'(lambda (fun)
-                                                  (cl-find fun
-                                                           nodes-i
-                                                           :test #'string=))
-                                              funs)))
-          (insert-implement-fragment need-insert-funs
-                                     (find-fun-def-node-pos nodes
-                                                            (get-previous-nodes funs
-                                                                                (car need-insert-funs))))))
-      ;; (mapcar #'(lambda (fun-implement)
-      ;;             (insert-implement-a fun-implement
-      ;;                                 funs
-      ;;                                 nodes)
-      ;;             (save-buffer))
-      ;;         funs)
-      )))
+    (let ((nodes (pop-list-front (list-function-defination)
+                                 1)))
+      (mapcar #'(lambda (item)
+                  (apply #'insert-implement-fragment
+                         (list (cdr item)
+                               (car item))))
+              (reverse
+               (split-node-fun
+                (append (list (elt nodes 0))
+                        (merge-node-fun funs (cdr nodes)))))))))
 
 (defun crefactor-insert-implement ()
   "Insert a c++ class implement."
   (interactive)
   (insert-implement-l (get-now-node)))
 
-;;; 如果是插入的情况中只是向尾部追加的，直接用插片段法。
-;;; 就是找到片段第一个然后依次插入，每个隔三行。
-;;;
-;;; 如果有，就把原本的都删除，然后在依次插入。
 (defun crefactor-insert-all-class-implement ()
   "Insert a c++ class implement."
   (interactive)
-  (message "%s" (insert-implement-all)))
+  (insert-implement-all))
 
 (provide 'crefactor)
 ;;; crefactor.el ends here
