@@ -127,8 +127,6 @@
   :init
   (savehist-mode))
 
-
-
 ;;; Minibuffer
 (use-package vertico
   :ensure t

@@ -154,14 +154,14 @@
   (let (len-to-cover-until-end
 	pos-cen-of-pair
 	start
-	end)    
+	end)
     (if (org-region-active-p) ; 如果有选中文字
 	(progn
 	  (setq start (region-beginning)
 		end (region-end))
 	  (goto-char end)
 	  (skip-chars-backward "[:blank:]​") ; 跳过所有的 SPC \t 和零宽空格. 注意这里非常非常地 tricky, looking-at/back 中的参量必须是 [[:blank:]], 而 skip-chars-forward/backward 中的参量必须是 [:blank:]
-	  (setq end (point)) 
+	  (setq end (point))
 	  (goto-char end)
 	  (when (<= end start)
 	    (ding)
@@ -171,25 +171,25 @@
 	      (cond
 	       ((looking-at "[[:blank:]​.,:!?;'\"]") ; 当右边为 SPC \t 零宽空格, 或常用的标点符号时
 		(insert mark) ; 仅仅插入 /
-		(cl-incf end))  
+		(cl-incf end))
 	       ((or (me/non-western-notation-p "after")
 		    (looking-at "\n")) ; 当右边同为“中文”时 (当右边换行, 也假设接下来我们可能在之后继续输入中文)
 		(insert (concat mark "​")) ;插入 / + 零宽空格
-		(cl-incf end 2)) 
+		(cl-incf end 2))
 	       (t
 		(insert (concat mark " ")) ; 剩余情况(主要是西文和常用字符), 插入 / + 空格
 		(cl-incf end 2)))
 	    (cond ; 当左边不为“中文”时 (“西文”以及常用字符)
 	     ((looking-at "[[:blank:]​.,:!?;'\"]") ; 当右边为 SPC \t 零宽空格, 或常用的标点符号时
 	      (insert mark) ; 仅仅插入 /
-	      (cl-incf end))  
+	      (cl-incf end))
 	     ((or (me/non-western-notation-p "after")
 		  (looking-at "\n")) ; 当右边为“中文”时 (当右边换行, 也假设接下来我们可能在之后继续输入中文)
 	      (insert (concat mark " "))  ;插入 / + 空格
 	      (cl-incf end 2))
 	     (t
 	      (insert (concat mark "​")) ; 剩余情况(主要是非“中文”符号)时, 插入 / + 零宽空格
-	      (cl-incf end 2))))  
+	      (cl-incf end 2))))
 	  (goto-char start)
 	  (skip-chars-forward "[:blank:]​") ; 跳过所有的 SPC \t 和零宽空格
 	  (setq len-to-cover-until-end (- end (point)))
@@ -211,7 +211,7 @@
       (cond ; 当没有区域选中时, 当 markup symbol 为斜体、粗体、中横线时, 直接假设我们接下来要输入的是中文
        ((or (equal mark "/")
 	    (equal mark "*")
-	    (equal mark "+"))		
+	    (equal mark "+"))
 	 (cond		; 分情况插入左半边的 mark
 	  ((looking-back "[[:space:]]")
 	   (insert mark))
@@ -221,7 +221,7 @@
 	   (insert (concat " " mark))))
 	 (setq pos-cen-of-pair (point))
 	 (cond				; 分情况插入右半边的 mark
-	  ((looking-at "[[:blank:]​.,:!?;'\"]") 
+	  ((looking-at "[[:blank:]​.,:!?;'\"]")
 	   (insert mark))
 	  ((or (me/non-western-notation-p "after")
 	       (looking-at "\n")) ; 当出现换行符时, 依然假设我们可能会在之后补写中文
@@ -239,7 +239,7 @@
 	   (insert (concat "​" mark))))
 	 (setq pos-cen-of-pair (point))
 	 (cond				; 分情况插入右半边的 mark
-	  ((looking-at "[[:blank:]​.,:!?;'\"]") 
+	  ((looking-at "[[:blank:]​.,:!?;'\"]")
 	   (insert mark))
 	  ((or (me/non-western-notation-p "after")
 	       (looking-at "\n")) ; 当出现换行符时, 依然假设我们可能会在之后补写中文
@@ -257,6 +257,6 @@
   :ensure t
   :hook (org-mode . valign-mode))
 
-;(setq org-hide-emphasis-markers t)
+(setq org-hide-emphasis-markers t)
 
 (provide 'init-org)

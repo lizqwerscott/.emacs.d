@@ -235,7 +235,12 @@
                              (concat (string-join (car res)
                                                   " ")
                                      " "
-                                     (tsc-node-text (cl-second res)))))
+                                     (if (listp (cl-second res))
+                                         (string-join (mapcar #'tsc-node-text
+                                                              (cl-second res))
+                                                      "")
+                                       (tsc-node-text
+                                        (cl-second res))))))
                        (get-named-child-node node))
                ", "))
 
@@ -255,16 +260,35 @@
 (defun test-handle-fun ()
   (interactive)
   (message "%s"
-           (mapcar #'(lambda (node)
-                       (get-named-child-node node))
-                   (get-child-nodes
-                       (get-now-node)))))
+           ;; (let ((res (get-named-child-node (elt (get-child-nodes
+           ;;                                        (get-now-node))
+           ;;                                       2))))
+           ;;   (list-child-node
+           ;;    (cl-second
+           ;;     (get-named-child-node
+           ;;      (cl-second
+           ;;       res)))))
+           (mapcar #'(lambda (x)
+                       (let ((res (cl-second (handle-type-name x))))
+                         (when (listp res)
+                           (mapcar #'tsc-node-text
+                                   res))))
+                   (get-named-child-node
+                    (cl-second
+                     (cl-second
+                      (handle-type-name
+                       (get-now-node))))))
+           ))
 
 (defun test-generate-funciotn ()
   (interactive)
   (message "%s"
-           (generate-function-implement
-            (get-now-node))))
+           ;; (generate-function-implement
+           ;;  (get-now-node))
+           (mapcar #'generate-function-implement
+                   (get-c++-class-functions
+                    (get-c++-class)))
+           ))
 
 (defun list-function-defination ()
   (let ((result nil)
@@ -457,6 +481,37 @@
   "Insert a c++ class implement."
   (interactive)
   (insert-implement-all))
+
+;;; TODO 添加对cpp文件定义排序
+;;; * 步骤
+;;; ** 首先先获取头文件中的定义顺序
+;;; ** 计算出需要最小改动的步骤
+;;; 权重是函数区域的长短。
+;;; 使用向后插入排序。
+;;; *** 需要有两个函数
+;;; ***** 需要可以比较大小
+;;; 可以给原本给每个函数定义从小到大设置一个值，让后比较函数就可以写一个getId来
+;;; 获取他的值，值之间可以进行比较。
+;;; ***** 如何插入（交换）
+;;; 把大的函数向后插入到小的后面。
+;;; ** 开始排序
+
+(cl-defun get-function-id (fun &optional (funs (mapcar #'generate-function-implement
+                                                       (get-c++-class-functions
+                                                        (get-c++-class)))))
+  (cl-find fun
+           funs
+           :test #'string=))
+
+(defun test-get-function-id ()
+  (interactive)
+  (let ((funs (mapcar #'generate-function-implement
+                      (get-c++-class-functions
+                       (get-c++-class)))))
+    (message "%s"
+             (mapcar #'(lambda (fun)
+                         (get-function-id fun funs))
+                     funs))))
 
 (provide 'crefactor)
 ;;; crefactor.el ends here

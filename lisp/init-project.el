@@ -33,7 +33,7 @@
 (defun cmake-run-command-in-debug (command)
   "Run command in project."
   (let ((root-project (project-root (project-current)))
-        (compile-buffer (generate-new-buffer "*Compile cmake*")))
+        (compile-buffer (get-buffer-create "*Compile cmake*")))
     (if (file-directory-p (concat root-project
                                   "Debug"))
         (progn
@@ -55,7 +55,7 @@
   (interactive)
   (cmake-run-command-in-debug "make clean"))
 
-(defvar temp-file-dir "~/temp/" "set default temp file dir.")
+(defvar temp-file-dir "~/temp/" "Set default temp file dir.")
 
 (defun make-lisp-temp (name)
   (let ((file-name (concat name "/main.lisp")))
@@ -74,6 +74,7 @@
 
 (defun make-temp-project (args)
   "Make temp file.
+ARGS is temp project name
 Support Lisp, python, c++."
   (interactive (list (completing-read "choose one create:"
                                       `(("Lisp" . 1)
@@ -90,13 +91,14 @@ Support Lisp, python, c++."
   (message args))
 
 (defun find-temp-project ()
-  "Find temp project"
+  "Find temp project."
   (interactive "")
   (find-file (read-directory-name "find temp project:"
                                   temp-file-dir)))
 
 (defun c++-generate-class (name)
-  "generate c++ class"
+  "Generate c++ class.
+NAME is class name."
   (interactive "sClass name:")
   (let ((generate-path (read-directory-name "make class directory:"
                                             (project-root (project-current))))
@@ -109,7 +111,8 @@ Support Lisp, python, c++."
                                    generate-path)))))
 
 (defun c++-generate-class-and-dir (name)
-  "generate c++ class and create class directory"
+  "Generate c++ class and create class directory.
+NAME is class name."
   (interactive "sClass name:")
   (let ((generate-path (read-directory-name "make class directory:"
                                             (project-root (project-current))))

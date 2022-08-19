@@ -35,7 +35,7 @@
 (defun site-lisp-update ()
   "Update site-lisp packages."
   (interactive)
-  (let ((output-buffer (generate-new-buffer "*Update site lisp*"))
+  (let ((output-buffer (get-buffer-create "*Update site lisp*"))
         (update-git-file (expand-file-name
                           (concat user-emacs-directory
                                   "scripts/updategit.py")))

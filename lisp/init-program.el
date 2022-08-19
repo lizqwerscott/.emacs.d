@@ -188,5 +188,9 @@
 (use-package quickrun
   :ensure t)
 
+;; write code
+(use-package eacl
+  :ensure t)
+
 (provide 'init-program)
 ;;; init-program.el ends heres.
