@@ -41,7 +41,7 @@
 (defun reset-gc-limit ()
   (setq gc-cons-threshold 800000))
 
-(electric-pair-mode nil)
+;; (electric-pair-mode nil)
 ;; (add-hook 'minibuffer-setup-hook #'max-gc-limit)
 ;; (add-hook 'minibuffer-exit-hook #'reset-gc-limit)
 

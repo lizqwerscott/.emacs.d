@@ -188,7 +188,7 @@
 
   (meow-normal-define-key
     '("C-s" . save-buffer)
-    '("Q" . kill-buffer)
+    '("Q" . kill-this-buffer)
     ;; '("gd" . lsp-bridge-find-def)
     '("gr" . lsp-bridge-find-references)
     ;; '("gf" . xref-find-definitions)
@@ -204,7 +204,8 @@
   :config
   (setq meow-keypad-leader-dispatch "C-c")
   (meow-setup)
-  (meow-global-mode 1))
+  (meow-global-mode 1)
+  )
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "S-<return>") 'comment-indent-new-line)

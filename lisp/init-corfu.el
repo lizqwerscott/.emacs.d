@@ -5,7 +5,8 @@
       (corfu-next)))
 
 (use-package corfu
-  :ensure t :init
+  :ensure t
+  :init
   ;; (global-corfu-mode)
   (setq corfu-auto t
         ;corfu-quit-no-match 'separator
