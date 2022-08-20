@@ -53,9 +53,7 @@
 ;(require 'evil-map)
 (require 'keybinding)
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (require 'init-org)))
+(require 'init-org)
 
 (require 'init-ui)
 (require 'init-input)

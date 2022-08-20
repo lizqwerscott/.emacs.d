@@ -482,36 +482,75 @@
   (interactive)
   (insert-implement-all))
 
-;;; TODO 添加对cpp文件定义排序
-;;; * 步骤
-;;; ** 首先先获取头文件中的定义顺序
-;;; ** 计算出需要最小改动的步骤
-;;; 权重是函数区域的长短。
-;;; 使用向后插入排序。
-;;; *** 需要有两个函数
-;;; ***** 需要可以比较大小
-;;; 可以给原本给每个函数定义从小到大设置一个值，让后比较函数就可以写一个getId来
-;;; 获取他的值，值之间可以进行比较。
-;;; ***** 如何插入（交换）
-;;; 把大的函数向后插入到小的后面。
-;;; ** 开始排序
+;;; * 方法2
+;;; *** 全部删除
+;;; 先全部删除，记住原先的开始位置和结束位置。
+;;; 提取函数定义和实现对应表。函数与函数中间的一些变量和其他东西作为中间值。即占
+;;; 位符。在排序时候他们不变，让后删除第一个函数起始位置到结束的所有东西。
+;;; *** 计算插入位置和先插入导致位置改变
+;;; *****
+;;; *** 最后插入
+;;;
+;;;
 
-(cl-defun get-function-id (fun &optional (funs (mapcar #'generate-function-implement
-                                                       (get-c++-class-functions
-                                                        (get-c++-class)))))
-  (cl-find fun
-           funs
-           :test #'string=))
+;; 方法2
+(cl-defun find-function-def-n (nodes &optional (n 3))
+  (when nodes
+    (if (equal (tsc-node-type (car nodes))
+                'function_definition)
+        (if (= n 1)
+            nodes
+          (find-function-def-n (cdr nodes)
+                               (- n 1)))
+      (find-function-def-n (cdr nodes) n))))
 
-(defun test-get-function-id ()
-  (interactive)
+(defun get-fun-implement-def-lst (node)
+  (if (equal (tsc-node-type node)
+             'function_definition)
+      (list (convert-function-def-stand node)
+            (tsc-node-text node)
+            node)
+    (tsc-node-text node)))
+
+(cl-defun get-sort-def (nodes funs &optional (res nil))
+  (if funs
+      (let ((node (cl-find (car funs)
+                           nodes
+                           :test #'string=
+                           :key #'(lambda (x)
+                                    (car x)))))
+        (if node
+            (get-sort-def nodes
+                          (cdr funs)
+                          (append-1 res
+                                    (cl-second node)))
+          (get-sort-def nodes
+                        (cdr funs)
+                        res)))
+    res))
+
+(defun sort-implement-2 ()
+  (ff-find-other-file)
   (let ((funs (mapcar #'generate-function-implement
                       (get-c++-class-functions
                        (get-c++-class)))))
-    (message "%s"
-             (mapcar #'(lambda (fun)
-                         (get-function-id fun funs))
-                     funs))))
+    (ff-find-other-file)
+    (let ((nodes (mapcar #'get-fun-implement-def-lst
+                         (find-function-def-n
+                          (get-child-nodes
+                           (tsc-root-node
+                            tree-sitter-tree))))))
+      (kill-region (tsc-node-start-position
+                    (cl-third
+                     (car nodes)))
+                   (point-max))
+      (insert (string-join (get-sort-def nodes funs)
+                           "\n\n")))))
+
+(defun crefactor-sort-implement ()
+  "Sort c++ function implement."
+  (interactive)
+  (sort-implement-2))
 
 (provide 'crefactor)
 ;;; crefactor.el ends here

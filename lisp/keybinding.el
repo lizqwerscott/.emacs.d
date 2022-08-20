@@ -188,7 +188,7 @@
 
   (meow-normal-define-key
     '("C-s" . save-buffer)
-    '("Q" . kill-buffer-and-window)
+    '("Q" . kill-buffer)
     ;; '("gd" . lsp-bridge-find-def)
     '("gr" . lsp-bridge-find-references)
     ;; '("gf" . xref-find-definitions)

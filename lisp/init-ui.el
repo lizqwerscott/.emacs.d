@@ -65,6 +65,9 @@
 ;; (use-package modus-themes
 ;;   :ensure t)
 
+;; (use-package ef-themes
+;;   :ensure t)
+
 ;; (load-theme 'gruvbox-dark-soft t)
 ;; (load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
@@ -72,6 +75,8 @@
 (load-theme 'solarized-dark t)
 ;; (load-theme 'vscode-dark-plus t)
 ;; (load-theme 'modus-vivendi t)
+;; (load-theme 'ef-summer t)
+;; (load-theme 'modus-operandi t)
 ;; (require 'lazycat-theme)
 ;; (lazycat-theme-load-dark)
 
@@ -112,7 +117,6 @@
           #'(lambda ()
               (netease-cloud-music-add-header-lyrics)))
 
-;; (setq-default header-line-format '("" default-directory))
 (use-package awesome-tray
   :hook (after-init . awesome-tray-mode)
   :custom
@@ -172,7 +176,9 @@
   ;; (setq dashboard-banner-logo-title "EMACS - Enjoy Programming & Writing")
   (setq dashboard-banner-logo-title "LizqwerScott - Enjoy Yourself")
   ;; (setq dashboard-banner-logo-title "My name is God, God is me.")
-  (setq dashboard-startup-banner 'logo)
+  ;; (setq dashboard-startup-banner 'logo)
+  (setq dashboard-startup-banner "~/.emacs.d/logo.png")
+  ;; (setq dashboard-startup-banner "~/Downloads/logo.png")
   (setq dashboard-page-separator "\n\f\f\n")
   (setq dashboard-center-content t)
   (setq dashboard-set-heading-icons t)
