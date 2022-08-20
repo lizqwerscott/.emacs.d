@@ -377,14 +377,9 @@
 
 (cl-defun insert-implement (function-implement &optional (pos (point)) (is-return t))
   (goto-char pos)
-  (insert "\n")
-  (insert "\n")
+  (insert "\n\n")
   (insert function-implement)
-  (insert "\n")
-  (insert "{")
-  (insert "\n")
-  (insert "\n")
-  (insert "}")
+  (insert "\n{\n\n}")
   (when is-return
     (return-center)))
 
