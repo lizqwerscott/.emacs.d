@@ -33,6 +33,8 @@
 
 (setq-default bidi-display-reordering nil)
 
+(setq confirm-kill-processes nil)
+
 ;;; performance
 ;; Disable garbage collection when entering commands.
 (defun max-gc-limit ()

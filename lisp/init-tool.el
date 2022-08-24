@@ -44,8 +44,11 @@
 (use-package request
   :ensure t)
 
-(require 'netease-cloud-music)
-(require 'netease-cloud-music-ui)
+(defun netease-cloud-music-init ()
+  (interactive)
+  (require 'netease-cloud-music)
+  (require 'netease-cloud-music-ui)
+  (netease-cloud-music))
 
 (use-package ag
   :ensure t

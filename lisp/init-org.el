@@ -1,16 +1,4 @@
 
-;; (defun evil-org-insert-item (&optional checkbox)
-;;   "使用evil 在org mode 插入新行"
-;;   (interactive "p")
-;;   (evil-open-below 1)
-;;   (org-insert-item))
-
-;; (add-hook 'org-mode-hook
-;;           (lambda ()
-;;             (evil-local-set-key 'normal
-;;                                 (kbd "t")
-;;                                 'evil-org-insert-item)))
-
 ;; space ww
 (defun open-my-org-file ()
   "打开我的org文件."
@@ -74,30 +62,67 @@
               ("a." . "-")
               ("b." . "-"))))
 
-(use-package org-fancy-priorities
-  :ensure t
-  :hook
-  (org-mode . org-fancy-priorities-mode)
-  :config
-  (setq org-fancy-priorities-list
-        '((?A . "A")
-          (?B . "⬆")
-          (?C . "⬇")
-          (?D . "☕")
-          (?1 . "⚡")
-          (?2 . "2")
-          (?3 . "3")
-          (?4 . "☕")
-          (?I . "Important"))))
+;; (use-package org-fancy-priorities
+;;   :ensure t
+;;   :hook
+;;   (org-mode . org-fancy-priorities-mode)
+;;   :config
+;;   (setq org-fancy-priorities-list
+;;         '((?A . "A")
+;;           (?B . "⬆")
+;;           (?C . "⬇")
+;;           (?D . "☕")
+;;           (?1 . "⚡")
+;;           (?2 . "2")
+;;           (?3 . "3")
+;;           (?4 . "☕")
+;;           (?I . "Important"))))
 
-(use-package org-bullets
+;; (use-package org-bullets
+;;   :ensure t
+;;   :custom
+;;   (org-bullets-bullet-list '("◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
+;;   (org-ellipsis "⤵")
+;;   :hook (org-mode . org-bullets-mode))
+(setq org-tag-alist
+      '(("@work" . ?w)
+        ("@home" . ?h)
+        ("@laptop" . ?l)))
+
+;; Make verbatim with highlight text background.
+(add-to-list 'org-emphasis-alist
+           '("=" (:background "#fef7ca")))
+;; Make deletion(obsolote) text foreground with dark gray.
+(add-to-list 'org-emphasis-alist
+           '("+" (:foreground "dark gray"
+                  :strike-through t)))
+;; Make code style around with box.
+(add-to-list 'org-emphasis-alist
+           '("~" (:box (:line-width 1
+                        :color "grey75"
+                        :style released-button))))
+
+(use-package valign
   :ensure t
-  :custom
-  (org-bullets-bullet-list '("◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
-  (org-ellipsis "⤵")
-  :hook (org-mode . org-bullets-mode))
+  :hook (org-mode . valign-mode)
+  :config
+  (setq valign-fancy-bar t))
+
+;; (setq org-hide-emphasis-markers t)
+
+(require 'org-bars)
+(add-hook 'org-mode-hook
+          #'org-bars-mode)
+(add-hook 'org-mode-hook
+          #'org-num-mode)
+
+(setq org-bars-stars '(:empty "◉"
+                       :invisible "▶"
+                       :visible "▼"))
 
 (define-key org-mode-map (kbd "C-c TAB") 'org-insert-item)
+(define-key org-mode-map (kbd "M-h") 'org-metaleft)
+(define-key org-mode-map (kbd "M-l") 'org-metaright)
 
 (setq org-default-notes-file "~/Documents/Sync/org/index.org")
 
@@ -133,21 +158,9 @@
 
 (setq org-log-done 'note)
 
-(setq org-tag-alist
-      '(("@work" . ?w)
-        ("@home" . ?h)
-        ("@laptop" . ?l)))
-
-(use-package valign
-  :ensure t
-  :hook (org-mode . valign-mode)
-  :config
-  (setq valign-fancy-bar t))
-
-(setq org-hide-emphasis-markers t)
-
 (use-package org-roam
   :ensure t
+  ;; :hook (org-mode . org-roam-mode)
   :custom
   (org-roam-directory (file-truename "~/Documents/Sync/roam/"))
   (org-roam-db-location (expand-file-name ".cache/org-roam.db" user-emacs-directory))
@@ -160,10 +173,15 @@
   :ensure t
   :after org-roam
   ;; :hook (after-init . org-roam-ui-mode)
+  ;; :hook (org-roam . org-roam-ui-mode)
   :config
   (setq org-roam-ui-sync-theme t
           org-roam-ui-follow t
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
+
+(use-package org-download
+  :ensure t
+  :hook (dired-mode . org-download-enable))
 
 (provide 'init-org)

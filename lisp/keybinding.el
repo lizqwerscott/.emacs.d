@@ -229,5 +229,7 @@
 
 (define-key emacs-lisp-mode-map (kbd "C-c l") #'eval-defun)
 
+(global-set-key (kbd "s-x") #'execute-extended-command)
+
 (provide 'keybinding)
 ;;; keybinding.el ends here.

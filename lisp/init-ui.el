@@ -24,7 +24,8 @@
     (set-face-attribute 'default t :font "Fira Code 18")
     ;; (when (member "Symbola" (font-family-list))
     ;;   (set-fontset-font "fontset-default" nil
-    ;;                     (font-spec :size 18 :name "Symbola"))) (when (member "Symbola" (font-family-list)) (set-fontset-font t 'unicode "Symbola" nil 'prepend))
+    ;;                     (font-spec :size 18 :name "Symbola")))
+    ;; (when (member "Symbola" (font-family-list)) (set-fontset-font t 'unicode "Symbola" nil 'prepend))
     (when (member "霞鹜文楷" (font-family-list))
       (set-fontset-font 'fontset-default nil
                         (font-spec :size 18 :name "霞鹜文楷")))))
@@ -53,14 +54,14 @@
 ;; (use-package gruvbox-theme
 ;;   :ensure t)
 
-;; (use-package doom-themes
-;;   :ensure t)
+(use-package doom-themes
+  :ensure t)
 
 ;; (use-package monokai-theme
 ;;   :ensure t)
 
-(use-package solarized-theme
-  :ensure t)
+;; (use-package solarized-theme
+;;   :ensure t)
 
 ;; (use-package modus-themes
 ;;   :ensure t)
@@ -69,10 +70,10 @@
 ;;   :ensure t)
 
 ;; (load-theme 'gruvbox-dark-soft t)
-;; (load-theme 'doom-one t)
+(load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
 ;;(load-theme 'monokai t)
-(load-theme 'solarized-dark t)
+;; (load-theme 'solarized-dark t)
 ;; (load-theme 'vscode-dark-plus t)
 ;; (load-theme 'modus-vivendi t)
 ;; (load-theme 'ef-summer t)
@@ -115,7 +116,8 @@
 
 (add-hook 'prog-mode-hook
           #'(lambda ()
-              (netease-cloud-music-add-header-lyrics)))
+              (if (get-buffer "*Netease-Cloud-Music*")
+                  (netease-cloud-music-add-header-lyrics))))
 
 (use-package awesome-tray
   :hook (after-init . awesome-tray-mode)
@@ -204,9 +206,9 @@
 ;; (use-package hl-indent-scope
 ;;   :hook ((prog-mode . hl-indent-scope-mode)))
 
-;; (use-package indent-guide
-;;   :ensure t
-;;   :hook ((prog-mode . indent-guide-mode)))
+(use-package indent-guide
+  :ensure t
+  :hook ((prog-mode . indent-guide-mode)))
 
 ;;; Paren
 (use-package paren
