@@ -35,7 +35,6 @@
 ;; (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (setq custom-file "~/.config/emacs-custom.el")
 
-;;(setq debug-on-error )
 (require 'init-const)
 (require 'init-package)
 (require 'init-startup)
