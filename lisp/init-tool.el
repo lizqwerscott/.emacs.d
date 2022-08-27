@@ -9,6 +9,12 @@
 
 ;;; Code:
 
+;;; Look require cl package
+(defun check-package-use-cl ()
+  (interactive)
+  (require 'loadhist)
+  (file-dependents (feature-file 'cl)))
+
 (use-package restart-emacs
   :ensure t)
 
