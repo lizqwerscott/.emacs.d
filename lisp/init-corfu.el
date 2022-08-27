@@ -39,15 +39,15 @@
   :init
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-symbol)
-  (add-to-list 'completion-at-point-functions #'cape-keyword)
+  ;; (add-to-list 'completion-at-point-functions #'cape-symbol)
+  ;; (add-to-list 'completion-at-point-functions #'cape-keyword)
   ;(add-to-list 'completion-at-point-functions #'cape-abbrev)
   ;(add-to-list 'completion-at-point-functions #'cape-ispell)
   )
 
-(use-package corfu-doc
-  :ensure t
-  :hook (corfu-mode . corfu-doc-mode))
+;; (use-package corfu-doc
+;;   :ensure t
+;;   :hook (corfu-mode . corfu-doc-mode))
 
 (use-package kind-icon
   :ensure t

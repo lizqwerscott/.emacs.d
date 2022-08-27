@@ -17,11 +17,20 @@
 
 (customize-set-variable 'kill-do-not-save-duplicates t)
 
-(set-charset-priority 'unicode)
-(setq locale-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
+;; Encoding
+;; UTF-8 as the default coding system
+(when (fboundp 'set-charset-priority)
+  (set-charset-priority 'unicode))
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(set-clipboard-coding-system 'utf-8)
+(set-file-name-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
+(modify-coding-system-alist 'process "*" 'utf-8)
+(setq locale-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 (setq default-process-coding-system '(utf-8 . utf-8))
 (setq default-buffer-file-coding-system 'utf-8)
@@ -44,8 +53,8 @@
   (setq gc-cons-threshold 800000))
 
 ;; (electric-pair-mode nil)
-;; (add-hook 'minibuffer-setup-hook #'max-gc-limit)
-;; (add-hook 'minibuffer-exit-hook #'reset-gc-limit)
+(add-hook 'minibuffer-setup-hook #'max-gc-limit)
+(add-hook 'minibuffer-exit-hook #'reset-gc-limit)
 
 (setq-default indent-tabs-mode nil)
 
@@ -63,13 +72,27 @@
 
 (require 'no-littering)
 
+
+;;; History
 (require 'recentf)
 (add-to-list 'recentf-exclude no-littering-var-directory)
 (add-to-list 'recentf-exclude no-littering-etc-directory)
 
 (use-package saveplace
-  :ensure t
-  :hook (after-init . (lambda () (save-place-mode t))))
+  :ensure nil
+  :hook (after-init . save-place-mode))
+
+(use-package savehist
+  :ensure nil
+  :hook (after-init . savehist-mode)
+  :init (setq enable-recursive-minibuffers t  ; Allow commands in minibuffers
+              history-length 1000
+              savehist-additional-variables '(mark-ring
+                                              global-mark-ring
+                                              search-ring
+                                              regexp-search-ring
+                                              extended-command-history)
+              savehist-autosave-interval 300))
 
 (setq load-prefer-newer t)
 
@@ -123,11 +146,8 @@
   ;;       #'command-completion-default-include-p)
 
   ;; Enable recursive minibuffers
-  (setq enable-recursive-minibuffers t))
-
-(use-package savehist
-  :init
-  (savehist-mode))
+  ;; (setq enable-recursive-minibuffers t)
+  )
 
 ;;; Minibuffer
 (use-package vertico

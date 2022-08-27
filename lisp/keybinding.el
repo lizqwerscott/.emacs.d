@@ -9,13 +9,15 @@
   (if (meow-quit)
       (message "finish")))
 
-(defun help-helfup-lsp-bridge ()
+(defun help-helfup-lsp-bridge-sly ()
   (interactive)
-  (if (equal major-mode 'emacs-lisp-mode)
-      (helpful-at-point)
-    (if (bound-and-true-p lsp-bridge-mode)
-        (lsp-bridge-lookup-documentation)
-      (message "dont't know how to help"))))
+  (if (bound-and-true-p sly-mode)
+      (call-interactively #'sly-documentation)
+    (if (equal major-mode 'emacs-lisp-mode)
+        (helpful-at-point)
+      (if (bound-and-true-p lsp-bridge-mode)
+          (lsp-bridge-lookup-documentation)
+        (message "dont't know how to help")))))
 
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
@@ -189,14 +191,11 @@
   (meow-normal-define-key
     '("C-s" . save-buffer)
     '("Q" . kill-this-buffer)
-    ;; '("gd" . lsp-bridge-find-def)
     '("gr" . lsp-bridge-find-references)
-    ;; '("gf" . xref-find-definitions)
     '("gd" . find-definition-with-lsp-bridge)
     '("C-o" . return-find-def)
-    ;; '("C-o" . xref-go-back)
     '("/" . consult-ripgrep)
-    '("?" . help-helfup-lsp-bridge))
+    '("?" . help-helfup-lsp-bridge-sly))
   )
 
 (use-package meow
@@ -226,8 +225,6 @@
 ;; don't find this very useful, but it's frequently useful to only
 ;; look at interactive functions.
 (global-set-key (kbd "C-h C") #'helpful-command)
-
-(define-key emacs-lisp-mode-map (kbd "C-c l") #'eval-defun)
 
 (global-set-key (kbd "s-x") #'execute-extended-command)
 

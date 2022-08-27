@@ -95,7 +95,8 @@
 (define-key awesome-pair-mode-map (kbd "C-d") 'awesome-pair-forward-delete)
 (define-key awesome-pair-mode-map (kbd "C-k") 'awesome-pair-kill)
 
-(add-hook 'prog-mode-hook 'electric-pair-local-mode)
+;; (add-hook 'prog-mode-hook 'electric-pair-local-mode)
+(electric-pair-mode 1)
 ;; (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
 ;; (add-hook 'lisp-mode-hook #'enable-paredit-mode)
 

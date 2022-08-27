@@ -54,8 +54,8 @@
 ;; (use-package gruvbox-theme
 ;;   :ensure t)
 
-(use-package doom-themes
-  :ensure t)
+;; (use-package doom-themes
+;;   :ensure t)
 
 ;; (use-package monokai-theme
 ;;   :ensure t)
@@ -70,7 +70,7 @@
 ;;   :ensure t)
 
 ;; (load-theme 'gruvbox-dark-soft t)
-(load-theme 'doom-one t)
+;; (load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
 ;;(load-theme 'monokai t)
 ;; (load-theme 'solarized-dark t)
@@ -78,8 +78,8 @@
 ;; (load-theme 'modus-vivendi t)
 ;; (load-theme 'ef-summer t)
 ;; (load-theme 'modus-operandi t)
-;; (require 'lazycat-theme)
-;; (lazycat-theme-load-dark)
+(require 'lazycat-theme)
+(lazycat-theme-load-dark)
 
 ;;; Background
 (setq default-frame-alist
@@ -253,6 +253,11 @@
 (use-package highlight-defined
   :ensure t
   :hook (elisp-lisp-mode . highlight-defined-mode))
+
+(use-package so-long
+  :ensure nil
+  :hook (after-init . global-so-long-mode)
+  :config (setq so-long-threshold 400))
 
 
 (provide 'init-ui)

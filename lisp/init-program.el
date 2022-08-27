@@ -68,10 +68,11 @@
 (defun find-definition-with-lsp-bridge ()
   (interactive)
   (cond
+   ((bound-and-true-p sly-mode)
+    (call-interactively #'sly-edit-definition))
    ((eq major-mode 'emacs-lisp-mode)
     (let ((symb (current-word)))
-      (funcall #'xref-find-definitions symb))
-    )
+      (funcall #'xref-find-definitions symb)))
    (lsp-bridge-mode
     (lsp-bridge-find-def))
    (t
