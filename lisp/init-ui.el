@@ -60,8 +60,8 @@
 ;; (use-package monokai-theme
 ;;   :ensure t)
 
-;; (use-package solarized-theme
-;;   :ensure t)
+(use-package solarized-theme
+  :ensure t)
 
 ;; (use-package modus-themes
 ;;   :ensure t)
@@ -72,14 +72,14 @@
 ;; (load-theme 'gruvbox-dark-soft t)
 ;; (load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
-;;(load-theme 'monokai t)
-;; (load-theme 'solarized-dark t)
+;; (load-theme 'monokai t)
+(load-theme 'solarized-dark t)
 ;; (load-theme 'vscode-dark-plus t)
 ;; (load-theme 'modus-vivendi t)
 ;; (load-theme 'ef-summer t)
 ;; (load-theme 'modus-operandi t)
-(require 'lazycat-theme)
-(lazycat-theme-load-dark)
+;; (require 'lazycat-theme)
+;; (lazycat-theme-load-dark)
 
 ;;; Background
 (setq default-frame-alist

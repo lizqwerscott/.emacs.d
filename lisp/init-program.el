@@ -52,6 +52,7 @@
 
   :custom
   (lsp-bridge-c-lsp-server "ccls")
+  ;; (acm-enable-tabnine-helper t)
   ;; (lsp-bridge-enable-debug t)
   ;; (lsp-bridge-python-lsp-server "jedi")
   ;; (acm-candidate-match-function 'orderless-regexp)
@@ -192,6 +193,9 @@
 ;; write code
 (use-package eacl
   :ensure t)
+
+;; search
+(require 'color-rg)
 
 (provide 'init-program)
 ;;; init-program.el ends heres.

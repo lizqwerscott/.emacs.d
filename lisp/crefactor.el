@@ -547,5 +547,23 @@
   (interactive)
   (sort-implement-2))
 
+(defun crefactor-remove-implement ()
+  "Remove c++ function implement."
+  (interactive)
+  (let ((fun-implement (generate-function-implement
+                        (get-now-node))))
+    (ff-find-other-file)
+    (let* ((nodes (pop-list-front (list-function-defination)
+                                  2))
+           (node (cl-find fun-implement
+                          nodes
+                          :test #'string=
+                          :key #'convert-function-def-stand)))
+      (when node
+        (kill-region (tsc-node-start-position node)
+                     (tsc-node-end-position node))
+        (ff-find-other-file)
+        (kill-whole-line)))))
+
 (provide 'crefactor)
 ;;; crefactor.el ends here
