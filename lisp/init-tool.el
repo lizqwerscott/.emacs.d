@@ -103,6 +103,7 @@
   :hook (after-init . xclip-mode))
 
 (use-package auto-save
+  :ensure nil
   :hook
   (after-init . auto-save-enable)
   :config

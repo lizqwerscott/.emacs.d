@@ -200,11 +200,13 @@
 
 (use-package meow
   :ensure t
+  :init
+  (meow-global-mode 1)
+  :custom
+  (meow-esc-delay 0.001)
   :config
   (setq meow-keypad-leader-dispatch "C-c")
-  (meow-setup)
-  (meow-global-mode 1)
-  )
+  (meow-setup))
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "S-<return>") 'comment-indent-new-line)

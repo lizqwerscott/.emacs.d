@@ -57,8 +57,8 @@
   ;; (lsp-bridge-python-lsp-server "jedi")
   ;; (acm-candidate-match-function 'orderless-regexp)
   :config
-  (setq lsp-bridge-default-mode-hooks
-        (remove 'org-mode-hook lsp-bridge-default-mode-hooks))
+  ;; (setq lsp-bridge-default-mode-hooks
+  ;;       (remove 'org-mode-hook lsp-bridge-default-mode-hooks))
   (setq acm-enable-doc t))
 
 (use-package dumb-jump
@@ -127,11 +127,11 @@
         flycheck-emacs-lisp-load-path 'inherit)
   (setq flycheck-clang-language-standard "c++17"))
 
-(use-package flymake
-  :ensure t
-  ;; :hook (after-init . flymake-mode)
-  :config
-  (setq flymake-run-in-place nil))
+;; (use-package flymake
+;;   :ensure t
+;;   ;; :hook (after-init . flymake-mode)
+;;   :config
+;;   (setq flymake-run-in-place nil))
 
 ;;; format code
 

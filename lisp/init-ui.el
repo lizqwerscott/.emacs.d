@@ -114,7 +114,7 @@
             ;; invisible here anyway.
             (assq-delete-all 'which-func-mode mode-line-misc-info))
 
-(add-hook 'prog-mode-hook
+(add-hook 'after-init-hook
           #'(lambda ()
               (if (get-buffer "*Netease-Cloud-Music*")
                   (netease-cloud-music-add-header-lyrics))))
@@ -149,8 +149,8 @@
   (setq git-gutter:deleted-sign "-")
   (setq git-gutter:hide-gutter t))
 
-(use-package vc-msg
-  :ensure t)
+;; (use-package vc-msg
+;;   :ensure t)
 
 ;; (use-package symbol-overlay
 ;;   :ensure t
