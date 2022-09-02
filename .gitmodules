@@ -1,3 +1,36 @@
 [submodule "site-lisp/auto-save"]
 	path = site-lisp/auto-save
 	url = https://github.com/manateelazycat/auto-save.git
+[submodule "site-lisp/awesome-tray"]
+	path = site-lisp/awesome-tray
+	url = https://github.com/manateelazycat/awesome-tray.git
+[submodule "site-lisp/awesome-pair"]
+	path = site-lisp/awesome-pair
+	url = https://github.com/manateelazycat/awesome-pair.git
+[submodule "site-lisp/color-rg"]
+	path = site-lisp/color-rg
+	url = https://github.com/manateelazycat/color-rg.git
+[submodule "site-lisp/lazycat-theme"]
+	path = site-lisp/lazycat-theme
+	url = https://github.com/manateelazycat/lazycat-theme.git
+[submodule "site-lisp/lsp-bridge"]
+	path = site-lisp/lsp-bridge
+	url = https://github.com/manateelazycat/lsp-bridge.git
+[submodule "site-lisp/sort-tab"]
+	path = site-lisp/sort-tab
+	url = https://github.com/manateelazycat/sort-tab.git
+[submodule "site-lisp/ligature.el"]
+	path = site-lisp/ligature.el
+	url = https://github.com/mickeynp/ligature.el.git
+[submodule "site-lisp/netease-cloud-music.el"]
+	path = site-lisp/netease-cloud-music.el
+	url = https://github.com/SpringHan/netease-cloud-music.el.git
+[submodule "site-lisp/org-bars"]
+	path = site-lisp/org-bars
+	url = https://github.com/tonyaldon/org-bars.git
+[submodule "site-lisp/pyim-tsinghua-dict"]
+	path = site-lisp/pyim-tsinghua-dict
+	url = https://github.com/redguardtoo/pyim-tsinghua-dict.git
+[submodule "site-lisp/tsi.el"]
+	path = site-lisp/tsi.el
+	url = https://github.com/orzechowskid/tsi.el.git
