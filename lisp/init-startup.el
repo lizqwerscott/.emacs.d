@@ -16,6 +16,7 @@
   (advice-add 'yes-or-no-p :override #'y-or-n-p))
 
 (customize-set-variable 'kill-do-not-save-duplicates t)
+(setq auto-revert-interval 1)
 
 ;; Encoding
 ;; UTF-8 as the default coding system

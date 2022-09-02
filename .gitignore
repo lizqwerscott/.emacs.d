@@ -7,6 +7,5 @@ data/
 var
 .cache
 elpa
-site-lisp
 eaf
 netease-cloud-music
