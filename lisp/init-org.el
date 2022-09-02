@@ -160,28 +160,6 @@
 
 (setq org-log-done 'note)
 
-(use-package org-roam
-  :ensure t
-  ;; :hook (org-mode . org-roam-mode)
-  :custom
-  (org-roam-directory (file-truename "~/Documents/Sync/roam/"))
-  (org-roam-db-location (expand-file-name ".cache/org-roam.db" user-emacs-directory))
-  :config
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode)
-  )
-
-(use-package org-roam-ui
-  :ensure t
-  :after org-roam
-  ;; :hook (after-init . org-roam-ui-mode)
-  ;; :hook (org-roam . org-roam-ui-mode)
-  :config
-  (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
-
 (use-package org-download
   :ensure t
   :hook (dired-mode . org-download-enable))

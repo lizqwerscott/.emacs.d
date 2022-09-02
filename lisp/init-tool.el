@@ -95,8 +95,8 @@
                  (reusable-frames . visible)
                  (window-height . 0.3))))
 
-;; (use-package magit
-;;   :ensure t)
+(use-package magit
+  :ensure t)
 
 (use-package xclip
   :ensure t
