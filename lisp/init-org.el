@@ -1,3 +1,13 @@
+;;; init-org.el --- init about org mode some config  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2022
+
+;; Author:  <lizqwer@lzb>
+;; Keywords: org
+
+;;; Commentary:
+
+;;; Code:
 
 ;; space ww
 (defun open-my-org-file ()
