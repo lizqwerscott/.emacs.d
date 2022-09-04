@@ -109,5 +109,13 @@
 
 (require-package 'posframe)
 
+;; Nice writing
+(use-package olivetti
+  :diminish
+  :init (setq olivetti-body-width 0.618))
+
+;; eaf
+
+
 (provide 'init-tool)
 ;;; init-tool.el ends here.
