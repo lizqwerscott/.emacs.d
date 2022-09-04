@@ -13,9 +13,10 @@
 (setq browse-url-browser-function 'browse-url-chrome)
 
 ;;; Json
-(use-package json-mode
-  :ensure t
-  :defer 2)
+;; (use-package json-mode
+;;   :ensure t
+;;   :defer 2)
+(require-package 'json-mode)
 
 ;;; typescript and react
 (use-package typescript-mode

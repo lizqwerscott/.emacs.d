@@ -61,8 +61,9 @@
   ;;       (remove 'org-mode-hook lsp-bridge-default-mode-hooks))
   (setq acm-enable-doc t))
 
-(use-package dumb-jump
-  :ensure t)
+;; (use-package dumb-jump
+;;   :ensure t)
+(require-package 'dumb-jump)
 
 (require 'xref)
 (require 'lsp-bridge)
@@ -135,8 +136,9 @@
 
 ;;; format code
 
-(use-package format-all
-  :ensure t)
+;; (use-package format-all
+;;   :ensure t)
+(require-package 'format-all)
 
 (use-package apheleia
   :ensure t
@@ -179,20 +181,19 @@
     :ensure t))
 
 ;;; Doc
-(use-package helpful
-  :ensure t)
+(require-package 'helpful)
 
 (use-package docstr
   :ensure t
   :hook (prog-mode . docstr-mode))
 
 ;;; Run code
-(use-package quickrun
-  :ensure t)
+(require-package 'quickrun)
 
 ;; write code
-(use-package eacl
-  :ensure t)
+;; (use-package eacl
+;;   :ensure t)
+(require-package 'eacl)
 
 ;; search
 (require 'color-rg)

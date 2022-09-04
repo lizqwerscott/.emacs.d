@@ -26,13 +26,15 @@
 ;;             (local-set-key (kbd "C-c C-r") #'sly-restart-inferior-lisp)))
 
 
-(use-package sly-quicklisp
-  :ensure t
-  :after sly)
+;; (use-package sly-quicklisp
+;;   :ensure t
+;;   :after sly)
+(require-package 'sly-quicklisp)
 
-(use-package sly-asdf
-  :ensure t
-  :after sly)
+;; (use-package sly-asdf
+;;   :ensure t
+;;   :after sly)
+(require-package 'sly-asdf)
 
 (provide 'init-common-lisp)
 ;;; init-common-lisp.el ends here.

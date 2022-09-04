@@ -130,8 +130,7 @@
   :hook (after-init . sort-tab-mode))
 
 ;;; Icons
-(use-package all-the-icons
-  :ensure t)
+(require-package 'all-the-icons)
 
 (use-package all-the-icons-completion
   :ensure t
@@ -225,8 +224,9 @@
   (lisp-mode . rainbow-delimiters-mode))
 
 ;;; Window
-(use-package avy
-  :ensure t)
+;; (use-package avy
+;;   :ensure t)
+(require-package 'avy)
 
 (use-package shackle
   :ensure t

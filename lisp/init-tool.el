@@ -15,8 +15,7 @@
   (require 'loadhist)
   (file-dependents (feature-file 'cl)))
 
-(use-package restart-emacs
-  :ensure t)
+(require-package 'restart-emacs)
 
 (use-package benchmark-init
   :ensure t :init (benchmark-init/activate)
@@ -40,15 +39,13 @@
   (separedit-continue-fill-column t)
   (separedit-buffer-creation-hook #'auto-fill-mode))
 
-(use-package focus
-  :ensure t)
+(require-package 'focus)
 
 (use-package which-key
   :ensure t
   :hook (after-init . which-key-mode))
 
-(use-package request
-  :ensure t)
+(require-package 'focus)
 
 (defun netease-cloud-music-init ()
   (interactive)
@@ -72,8 +69,7 @@
                         (gts-google-engine))
          :render (gts-posframe-pop-render))))
 
-(use-package vterm
- :ensure t)
+(require-package 'vterm)
 
 (use-package vterm-toggle
   :ensure t
@@ -95,8 +91,7 @@
                  (reusable-frames . visible)
                  (window-height . 0.3))))
 
-(use-package magit
-  :ensure t)
+(require-package 'magit)
 
 (use-package xclip
   :ensure t
@@ -110,11 +105,9 @@
   (setq auto-save-silent t)
   (setq auto-save-delete-trailing-whitespace t))
 
-(use-package markdown-mode
-  :ensure t)
+(require-package 'markdown-mode)
 
-(use-package posframe
-  :ensure t)
+(require-package 'posframe)
 
 (provide 'init-tool)
 ;;; init-tool.el ends here.

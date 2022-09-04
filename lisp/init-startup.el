@@ -65,8 +65,7 @@
       inhibit-startup-screen t
       inhibit-startup-message t)
 
-(use-package no-littering
-  :ensure t)
+(require-package 'no-littering)
 
 (setq no-littering-etc-directory
       (expand-file-name "config/" user-emacs-directory))
@@ -79,9 +78,10 @@
 (add-to-list 'recentf-exclude no-littering-var-directory)
 (add-to-list 'recentf-exclude no-littering-etc-directory)
 
-(use-package saveplace
-  :ensure nil
-  :hook (after-init . save-place-mode))
+(add-hook 'after-init-hook 'save-place-mode)
+;; (use-package saveplace
+;;   :ensure nil
+;;   :hook (after-init . save-place-mode))
 
 (use-package savehist
   :ensure nil
@@ -186,8 +186,7 @@
   (setq consult-narrow-key "<")
   (consult-preview-at-point-mode))
 
-(use-package consult-project-extra
-  :ensure t)
+(require-package 'consult-project-extra)
 
 (use-package marginalia
   :ensure t
@@ -195,8 +194,7 @@
   (marginalia-mode))
 
 ;;; compleations
-(use-package affe
-  :ensure t)
+(require-package 'affe)
 
 (require 'init-corfu)
 
