@@ -47,11 +47,11 @@
 
 (require-package 'focus)
 
-(defun netease-cloud-music-init ()
-  (interactive)
-  (require 'netease-cloud-music)
-  (require 'netease-cloud-music-ui)
-  (netease-cloud-music))
+;; (defun netease-cloud-music-init ()
+;;   (interactive)
+;;   (require 'netease-cloud-music)
+;;   (require 'netease-cloud-music-ui)
+;;   (netease-cloud-music))
 
 (use-package ag
   :ensure t
@@ -115,7 +115,12 @@
   :init (setq olivetti-body-width 0.618))
 
 ;; eaf
-
+(require 'eaf)
+(require 'eaf-pdf-viewer)
+(require 'eaf-git)
+(require 'eaf-file-manager)
+(require 'eaf-terminal)
+(require 'eaf-browser)
 
 (provide 'init-tool)
 ;;; init-tool.el ends here.

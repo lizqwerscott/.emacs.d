@@ -34,3 +34,6 @@
 [submodule "site-lisp/tsi.el"]
 	path = site-lisp/tsi.el
 	url = https://github.com/orzechowskid/tsi.el.git
+[submodule "site-lisp/emacs-application-framework"]
+	path = site-lisp/emacs-application-framework
+	url = https://github.com/emacs-eaf/emacs-application-framework.git
