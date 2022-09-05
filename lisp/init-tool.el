@@ -122,5 +122,7 @@
 (require 'eaf-terminal)
 (require 'eaf-browser)
 
+(setf eaf-terminal-font-size 30)
+
 (provide 'init-tool)
 ;;; init-tool.el ends here.
