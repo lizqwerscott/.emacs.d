@@ -85,8 +85,6 @@
                  (reusable-frames . visible)
                  (window-height . 0.3))))
 
-(require-package 'magit)
-
 (use-package xclip
   :ensure t
   :hook (after-init . xclip-mode))
@@ -116,7 +114,11 @@
 (require 'eaf-terminal)
 (require 'eaf-browser)
 
-(setf eaf-terminal-font-size 30)
+(setq eaf-terminal-font-size 30)
+(setq eaf-proxy-type "http")
+(setq eaf-proxy-host "192.168.3.3")
+(setq eaf-proxy-port "20172")
+(setq eaf-webengine-default-zoom 1.25)
 
 (provide 'init-tool)
 ;;; init-tool.el ends here.
