@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2022
 
-;; Author:  <lizqwerscott@163.com>
+;; Author:  <lizqwerscott@gmail.com>
 ;; Keywords: processes,
 
 ;;; Commentary:

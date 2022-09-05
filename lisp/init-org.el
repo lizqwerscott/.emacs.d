@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2022
 
-;; Author:  <lizqwer@lzb>
+;; Author:  <lizqwerscott@gmail.com>
 ;; Keywords: org
 
 ;;; Commentary:

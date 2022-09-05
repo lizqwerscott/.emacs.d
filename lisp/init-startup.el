@@ -2,11 +2,16 @@
 
 ;; Copyright (C) 2022
 
-;; Author:  <lizqwer@lzb>
+;; Author:  <lizqwerscott@gmail.com>
 ;; Keywords:
 ;;; Commentary:
 
 ;;; Code:
+
+;;; User config
+
+(setq user-full-name "lizqwer scott")
+(setq user-mail-address "lizqwerscott@gmail.com")
 
 ;;; Emacs Config
 (setq-default lexical-binding t)
