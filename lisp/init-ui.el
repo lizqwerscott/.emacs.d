@@ -88,6 +88,9 @@
         (alpha-background . 100)))
 
 ;;; UI
+(setq frame-resize-pixelwise t)
+(dotimes (n 3)
+  (toggle-frame-maximized))
 (global-hl-line-mode 1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)

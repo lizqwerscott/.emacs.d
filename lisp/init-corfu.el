@@ -24,9 +24,7 @@
         ("S-TAB" . corfu-previous)
         ([backtab] . corfu-previous))
   :hook
-  ((sly-mode eshell-mode
-             ) . corfu-mode)
-  )
+  ((sly-mode eshell-mode) . corfu-mode))
 
 (use-package emacs
   :init

@@ -51,7 +51,6 @@
 
 (require 'init-project)
 (require 'init-func)
-;(require 'evil-map)
 (require 'keybinding)
 
 (require 'init-org)
