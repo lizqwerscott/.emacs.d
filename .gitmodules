@@ -22,9 +22,6 @@
 [submodule "site-lisp/ligature.el"]
 	path = site-lisp/ligature.el
 	url = https://github.com/mickeynp/ligature.el.git
-[submodule "site-lisp/netease-cloud-music.el"]
-	path = site-lisp/netease-cloud-music.el
-	url = https://github.com/SpringHan/netease-cloud-music.el.git
 [submodule "site-lisp/org-bars"]
 	path = site-lisp/org-bars
 	url = https://github.com/tonyaldon/org-bars.git
