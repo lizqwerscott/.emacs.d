@@ -206,6 +206,12 @@
   (meow-esc-delay 0.001)
   :config
   (setq meow-keypad-leader-dispatch "C-c")
+  (setq meow-mode-state-list
+        '((fundamental-mode . normal)
+          (text-mode . normal)
+          (prog-mode . normal)
+          (conf-mode . normal)
+          (eaf-mode . insert)))
   (meow-setup))
 
 (global-set-key (kbd "RET") 'newline-and-indent)
