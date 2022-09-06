@@ -48,6 +48,7 @@
 (require 'init-common-lisp)
 
 (require 'init-reader)
+(require 'init-paper)
 
 (require 'init-project)
 (require 'init-func)
