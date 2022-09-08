@@ -177,8 +177,8 @@
 (use-package dashboard
   :ensure t
   :config
-  ;; (setq dashboard-banner-logo-title "EMACS - Enjoy Programming & Writing")
-  (setq dashboard-banner-logo-title "LizqwerScott - Enjoy Yourself")
+  (setq dashboard-banner-logo-title "EMACS - Enjoy Programming & Writing")
+  ;; (setq dashboard-banner-logo-title "LizqwerScott - Enjoy Yourself")
   ;; (setq dashboard-banner-logo-title "My name is God, God is me.")
   ;; (setq dashboard-startup-banner 'logo)
   (setq dashboard-startup-banner "~/.emacs.d/logo.png")
