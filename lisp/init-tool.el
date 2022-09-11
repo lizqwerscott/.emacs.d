@@ -103,6 +103,7 @@
 
 ;; Nice writing
 (use-package olivetti
+  :ensure t
   :diminish
   :init (setq olivetti-body-width 0.618))
 
