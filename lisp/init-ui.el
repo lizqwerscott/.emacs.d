@@ -250,9 +250,10 @@
 ;; (require 'zone)
 ;; (zone-when-idle 600)
 
-(use-package highlight-defined
-  :ensure t
-  :hook (elisp-lisp-mode . highlight-defined-mode))
+;; (use-package highlight-defined
+;;   :ensure t
+;;   ;; :hook (elisp-lisp-mode . highlight-defined-mode)
+;;   )
 
 (use-package so-long
   :ensure nil
