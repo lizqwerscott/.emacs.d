@@ -52,9 +52,9 @@
 
   :custom
   (lsp-bridge-c-lsp-server "ccls")
-  ;; (acm-enable-tabnine-helper t)
+  (acm-enable-tabnine-helper t)
   ;; (lsp-bridge-enable-debug t)
-  (lsp-bridge-python-lsp-server "jedi")
+  ;; (lsp-bridge-python-lsp-server "jedi")
   ;; (acm-candidate-match-function 'orderless-regexp)
   :config
   ;; (setq lsp-bridge-default-mode-hooks

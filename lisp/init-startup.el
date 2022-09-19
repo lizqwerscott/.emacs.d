@@ -204,18 +204,18 @@
 (require 'init-corfu)
 
 ;;; Dired
-;; (use-package dired
-;;   :config
-;;   (setq dired-recursive-deletes 'always)
-;;   (setq delete-by-moving-to-trash t)
-;;   (setq dired-dwin-target t)
-;;   (setq dired-listing-switches
-;;         "-l --almost-all --human-readable --time-style=long-iso --group-directories-first --no-group"))
+(use-package dired
+  :config
+  (setq dired-recursive-deletes 'always)
+  (setq delete-by-moving-to-trash t)
+  (setq dired-dwin-target t)
+  (setq dired-listing-switches
+        "-l --almost-all --human-readable --time-style=long-iso --group-directories-first --no-group"))
 
-;; (use-package dired-x
-;;   :config
-;;   (setq dired-omit-files
-;;         (concat dired-omit-files "\\|^\\..*$")))
+(use-package dired-x
+  :config
+  (setq dired-omit-files
+        (concat dired-omit-files "\\|^\\..*$")))
 
 ;; (use-package dirvish
 ;;   :ensure t

@@ -121,9 +121,5 @@
 (setq eaf-proxy-port "20172")
 (setq eaf-webengine-default-zoom 1.25)
 
-(use-package wakatime-mode
-  :ensure t
-  :hook (after-init . wakatime-mode))
-
 (provide 'init-tool)
 ;;; init-tool.el ends here.
