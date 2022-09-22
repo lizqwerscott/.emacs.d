@@ -12,6 +12,11 @@
 
 ;;(require 'init-company)
 
+;; Ctags
+
+(use-package citre
+  :ensure t)
+
 ;;; Lsp Server
 
 ;; Eglot
@@ -51,8 +56,10 @@
   ;;  (elisp-mode . lsp-bridge-mode))
 
   :custom
+  (acm-enable-citre t)
   (lsp-bridge-c-lsp-server "ccls")
   (acm-enable-tabnine-helper t)
+  (lsp-bridge-use-wenls-in-org-mode nil)
   ;; (lsp-bridge-enable-debug t)
   ;; (lsp-bridge-python-lsp-server "jedi")
   ;; (acm-candidate-match-function 'orderless-regexp)

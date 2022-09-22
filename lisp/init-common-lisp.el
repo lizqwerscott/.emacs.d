@@ -20,21 +20,13 @@
   (setq sly-complete-symbol-function 'sly-flex-completions)
   (setq inferior-lisp-program "ccl"))
 
-;; (add-hook 'lisp-mode
-;;           (lambda ()
-;;             (local-set-key (kbd "C-c C-l") #'sly-eval-last-expression)
-;;             (local-set-key (kbd "C-c C-r") #'sly-restart-inferior-lisp)))
+(use-package sly-quicklisp
+  :ensure t
+  :after sly)
 
-
-;; (use-package sly-quicklisp
-;;   :ensure t
-;;   :after sly)
-(require-package 'sly-quicklisp)
-
-;; (use-package sly-asdf
-;;   :ensure t
-;;   :after sly)
-(require-package 'sly-asdf)
+(use-package sly-asdf
+  :ensure t
+  :after sly)
 
 (provide 'init-common-lisp)
 ;;; init-common-lisp.el ends here.

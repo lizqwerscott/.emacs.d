@@ -74,28 +74,29 @@
               ("a." . "-")
               ("b." . "-"))))
 
-;; (use-package org-fancy-priorities
-;;   :ensure t
-;;   :hook
-;;   (org-mode . org-fancy-priorities-mode)
-;;   :config
-;;   (setq org-fancy-priorities-list
-;;         '((?A . "A")
-;;           (?B . "⬆")
-;;           (?C . "⬇")
-;;           (?D . "☕")
-;;           (?1 . "⚡")
-;;           (?2 . "2")
-;;           (?3 . "3")
-;;           (?4 . "☕")
-;;           (?I . "Important"))))
+(use-package org-fancy-priorities
+  :ensure t
+  :hook
+  (org-mode . org-fancy-priorities-mode)
+  :config
+  (setq org-fancy-priorities-list
+        '((?A . "A")
+          (?B . "⬆")
+          (?C . "⬇")
+          (?D . "☕")
+          (?1 . "⚡")
+          (?2 . "2")
+          (?3 . "3")
+          (?4 . "☕")
+          (?I . "Important"))))
 
-;; (use-package org-bullets
-;;   :ensure t
-;;   :custom
-;;   (org-bullets-bullet-list '("◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
-;;   (org-ellipsis "⤵")
-;;   :hook (org-mode . org-bullets-mode))
+(use-package org-bullets
+  :ensure t
+  :custom
+  (org-bullets-bullet-list '("◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
+  (org-ellipsis "⤵")
+  :hook (org-mode . org-bullets-mode))
+
 (setq org-tag-alist
       '(("@work" . ?w)
         ("@home" . ?h)
@@ -120,17 +121,17 @@
   :config
   (setq valign-fancy-bar t))
 
-;; (setq org-hide-emphasis-markers t)
+(setq org-hide-emphasis-markers t)
 
-(require 'org-bars)
-(add-hook 'org-mode-hook
-          #'org-bars-mode)
-(add-hook 'org-mode-hook
-          #'org-num-mode)
+;; (require 'org-bars)
+;; (add-hook 'org-mode-hook
+;;           #'org-bars-mode)
+;; (add-hook 'org-mode-hook
+;;           #'org-num-mode)
 
-(setq org-bars-stars '(:empty "◉"
-                       :invisible "▶"
-                       :visible "▼"))
+;; (setq org-bars-stars '(:empty "◉"
+;;                        :invisible "▶"
+;;                        :visible "▼"))
 
 (define-key org-mode-map (kbd "C-c TAB") 'org-insert-item)
 (define-key org-mode-map (kbd "M-h") 'org-metaleft)
