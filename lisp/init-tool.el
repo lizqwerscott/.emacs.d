@@ -121,5 +121,10 @@
 (setq eaf-proxy-port "20172")
 (setq eaf-webengine-default-zoom 1.25)
 
+(use-package request
+  :ensure t)
+(require 'netease-cloud-music)
+(require 'netease-cloud-music-ui)
+
 (provide 'init-tool)
 ;;; init-tool.el ends here.
