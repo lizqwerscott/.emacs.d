@@ -43,11 +43,10 @@ path = site-lisp/emacs-application-framework
 url = https://github.com/emacs-eaf/emacs-application-framework.git
 
 [submodule "site-lisp/netease-cloud-music.el"]
-	path = site-lisp/netease-cloud-music.el
-	url = https://github.com/SpringHan/netease-cloud-music.el.git
+path = site-lisp/netease-cloud-music.el
+url = https://github.com/SpringHan/netease-cloud-music.el.git
+
 [submodule "site-lisp/acm-terminal"]
-	path = site-lisp/acm-terminal
-	url = https://github.com/twlz0ne/acm-terminal.git
-[submodule "site-lisp/emacs-popon"]
-	path = site-lisp/emacs-popon
-	url = https://codeberg.org/akib/emacs-popon.git
+path = site-lisp/acm-terminal
+url = https://github.com/twlz0ne/acm-terminal.git
+
