@@ -76,13 +76,13 @@
 ;; (load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
 ;; (load-theme 'monokai t)
-(load-theme 'solarized-dark t)
+;; (load-theme 'solarized-dark t)
 ;; (load-theme 'vscode-dark-plus t)
 ;; (load-theme 'modus-vivendi t)
 ;; (load-theme 'ef-summer t)
 ;; (load-theme 'modus-operandi t)
-;; (require 'lazycat-theme)
-;; (lazycat-theme-load-dark)
+(require 'lazycat-theme)
+(lazycat-theme-load-dark)
 ;; (load-theme 'ef-night t)
 ;; (load-theme 'ef-day t)
 ;; (load-theme 'ef-summer t)
@@ -124,10 +124,10 @@
 ;;             ;; invisible here anyway.
 ;;             (assq-delete-all 'which-func-mode mode-line-misc-info))
 
-;; (add-hook 'after-init-hook
-;;           #'(lambda ()
-;;               (if (get-buffer "*Netease-Cloud-Music*")
-;;                   (netease-cloud-music-add-header-lyrics))))
+(add-hook 'after-init-hook
+          #'(lambda ()
+              (if (get-buffer "*Netease-Cloud-Music*")
+                  (netease-cloud-music-add-header-lyrics))))
 
 (use-package awesome-tray
   :hook (after-init . awesome-tray-mode)

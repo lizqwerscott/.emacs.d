@@ -117,12 +117,13 @@
 
 (setq eaf-terminal-font-size 30)
 (setq eaf-proxy-type "http")
-(setq eaf-proxy-host "192.168.3.3")
-(setq eaf-proxy-port "20172")
+;; (setq eaf-proxy-host "192.168.3.3")
+;; (setq eaf-proxy-port "20172")
 (setq eaf-webengine-default-zoom 1.25)
 
 (use-package request
   :ensure t)
+
 (require 'netease-cloud-music)
 (require 'netease-cloud-music-ui)
 
