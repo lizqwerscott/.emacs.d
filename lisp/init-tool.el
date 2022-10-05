@@ -124,6 +124,8 @@
 (use-package request
   :ensure t)
 
+(require 'popon)
+
 (require 'netease-cloud-music)
 (require 'netease-cloud-music-ui)
 

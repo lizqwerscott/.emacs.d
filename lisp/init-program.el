@@ -68,6 +68,10 @@
   ;;       (remove 'org-mode-hook lsp-bridge-default-mode-hooks))
   (setq acm-enable-doc t))
 
+(unless (display-graphic-p)
+  (with-eval-after-load 'acm
+    (require 'acm-terminal)))
+
 ;; (use-package dumb-jump
 ;;   :ensure t)
 (require-package 'dumb-jump)
