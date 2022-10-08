@@ -1,5 +1,14 @@
+;;; init-input.el --- init input package             -*- lexical-binding: t; -*-
 
-(require 'cl-lib)
+;; Copyright (C) 2022  lizqwer scott
+
+;; Author: lizqwer scott(require 'cl-lib) <lizqwerscott@gmail.com>
+;; Keywords: input
+
+;;; Commentary:
+
+;;; Code:
+
 (require 'posframe)
 (defun pyim-probe-meow-normal-mode ()
   "probe meow normal mode"

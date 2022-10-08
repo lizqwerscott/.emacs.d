@@ -50,3 +50,6 @@ url = https://github.com/SpringHan/netease-cloud-music.el.git
 path = site-lisp/acm-terminal
 url = https://github.com/twlz0ne/acm-terminal.git
 
+[submodule "site-lisp/emacs-popon"]
+	path = site-lisp/emacs-popon
+	url = https://codeberg.org/akib/emacs-popon.git
