@@ -131,7 +131,7 @@
 
 (use-package flycheck
   :ensure t
-  :hook (after-init . global-flycheck-mode)
+  ;; :hook (after-init . global-flycheck-mode)
   ;; :custom
   ;; (flycheck-disable-checker '(c/c++-clang))
   :config

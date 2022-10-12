@@ -53,3 +53,6 @@ url = https://github.com/twlz0ne/acm-terminal.git
 [submodule "site-lisp/emacs-popon"]
 	path = site-lisp/emacs-popon
 	url = https://codeberg.org/akib/emacs-popon.git
+[submodule "site-lisp/deno-bridge"]
+	path = site-lisp/deno-bridge
+	url = https://github.com/manateelazycat/deno-bridge.git

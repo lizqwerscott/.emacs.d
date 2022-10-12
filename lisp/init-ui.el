@@ -81,18 +81,18 @@
 ;; (load-theme 'modus-vivendi t)
 ;; (load-theme 'ef-summer t)
 ;; (load-theme 'modus-operandi t)
-(require 'lazycat-theme)
-(lazycat-theme-load-dark)
+;; (require 'lazycat-theme)
+;; (lazycat-theme-load-dark)
 ;; (load-theme 'ef-night t)
 ;; (load-theme 'ef-day t)
-;; (load-theme 'ef-summer t)
+(load-theme 'ef-summer t)
 ;; (flucui-themes-load-style 'dark)
 
 ;;; Background
 (setq default-frame-alist
       '((width . 90)
         (height . 50)
-        (alpha-background . 100)))
+        (alpha-background . 90)))
 
 ;;; UI
 (setq frame-resize-pixelwise t)
@@ -266,7 +266,6 @@
   :ensure nil
   :hook (after-init . global-so-long-mode)
   :config (setq so-long-threshold 400))
-
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.

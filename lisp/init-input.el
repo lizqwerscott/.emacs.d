@@ -36,8 +36,8 @@
 (require 'pyim-tsinghua-dict)
 (pyim-tsinghua-dict-enable)
 
-(require 'insert-translated-name)
-(setq insert-translated-name-translate-engine "youdao")
+;; (require 'insert-translated-name)
+;; (setq insert-translated-name-translate-engine "youdao")
 
 ;;(evil-define-key 'insert 'global (kbd "C-c i") #'insert-translated-name-insert)
 (meow-define-keys

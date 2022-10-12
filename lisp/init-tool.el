@@ -129,5 +129,10 @@
 (require 'netease-cloud-music)
 (require 'netease-cloud-music-ui)
 
+(use-package websocket
+  :ensure t)
+
+(require 'deno-bridge)
+
 (provide 'init-tool)
 ;;; init-tool.el ends here.
