@@ -108,18 +108,18 @@
   :init (setq olivetti-body-width 0.618))
 
 ;; eaf
-(require 'eaf)
-(require 'eaf-pdf-viewer)
-(require 'eaf-git)
-(require 'eaf-file-manager)
-(require 'eaf-terminal)
-(require 'eaf-browser)
+;; (require 'eaf)
+;; (require 'eaf-pdf-viewer)
+;; (require 'eaf-git)
+;; (require 'eaf-file-manager)
+;; (require 'eaf-terminal)
+;; (require 'eaf-browser)
 
-(setq eaf-terminal-font-size 30)
-(setq eaf-proxy-type "http")
-(setq eaf-proxy-host "127.0.0.1")
-(setq eaf-proxy-port "20172")
-(setq eaf-webengine-default-zoom 1.25)
+;; (setq eaf-terminal-font-size 30)
+;; (setq eaf-proxy-type "http")
+;; (setq eaf-proxy-host "127.0.0.1")
+;; (setq eaf-proxy-port "20172")
+;; (setq eaf-webengine-default-zoom 1.25)
 
 (use-package request
   :ensure t)
