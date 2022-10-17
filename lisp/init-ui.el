@@ -76,7 +76,7 @@
 ;; (load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
 ;; (load-theme 'monokai t)
-;; (load-theme 'solarized-dark t)
+(load-theme 'solarized-dark t)
 ;; (load-theme 'vscode-dark-plus t)
 ;; (load-theme 'modus-vivendi t)
 ;; (load-theme 'ef-summer t)
@@ -85,14 +85,14 @@
 ;; (lazycat-theme-load-dark)
 ;; (load-theme 'ef-night t)
 ;; (load-theme 'ef-day t)
-(load-theme 'ef-summer t)
+;; (load-theme 'ef-summer t)
 ;; (flucui-themes-load-style 'dark)
 
 ;;; Background
 (setq default-frame-alist
       '((width . 90)
         (height . 50)
-        (alpha-background . 90)))
+        (alpha-background . 100)))
 
 ;;; UI
 (setq frame-resize-pixelwise t)
@@ -149,14 +149,14 @@
   (all-the-icons-completion-mode))
 
 ;;; Git message
-;; (use-package git-gutter
-;;   :ensure t
-;;   :config
-;;   (global-git-gutter-mode +1)
-;;   (setq git-gutter:modified-sign " ")
-;;   (setq git-gutter:added-sign "+")
-;;   (setq git-gutter:deleted-sign "-")
-;;   (setq git-gutter:hide-gutter t))
+(use-package git-gutter
+  :ensure t
+  :config
+  (global-git-gutter-mode +1)
+  (setq git-gutter:modified-sign " ")
+  (setq git-gutter:added-sign "+")
+  (setq git-gutter:deleted-sign "-")
+  (setq git-gutter:hide-gutter t))
 
 ;; (use-package vc-msg
 ;;   :ensure t)

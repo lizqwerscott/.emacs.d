@@ -17,5 +17,9 @@
   (setq conda-env-home-directory
         (expand-file-name "~/.conda")))
 
+;;; Format
+(use-package python-black
+  :ensure t)
+
 (provide 'init-python)
 ;;; init-python.el ends here.

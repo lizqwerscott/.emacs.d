@@ -70,7 +70,7 @@
 
 (unless (display-graphic-p)
   (with-eval-after-load 'acm
-    (require 'acm-terminal)))
+    (require 'acm-termial)))
 
 ;; (use-package dumb-jump
 ;;   :ensure t)
@@ -131,17 +131,17 @@
 
 (use-package flycheck
   :ensure t
-  ;; :hook (after-init . global-flycheck-mode)
-  ;; :custom
-  ;; (flycheck-disable-checker '(c/c++-clang))
+  :hook (after-init . global-flycheck-mode)
+  :custom
+  (flycheck-disable-checker '(c/c++-clang))
   :config
-  (setq flycheck-global-modes '(not python-mode c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
+  (setq flycheck-global-modes '(not c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
         flycheck-emacs-lisp-load-path 'inherit)
   (setq flycheck-clang-language-standard "c++17"))
 
 ;; (use-package flymake
 ;;   :ensure t
-;;   ;; :hook (after-init . flymake-mode)
+;;   :hook (after-init . flymake-mode)
 ;;   :config
 ;;   (setq flymake-run-in-place nil))
 
