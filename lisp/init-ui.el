@@ -92,7 +92,7 @@
 (setq default-frame-alist
       '((width . 90)
         (height . 50)
-        (alpha-background . 100)))
+        (alpha-background . 90)))
 
 ;;; UI
 (setq frame-resize-pixelwise t)
