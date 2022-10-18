@@ -50,6 +50,8 @@
 
 (setq confirm-kill-processes nil)
 
+(setq word-wrap-by-category t) ;按照中文折行
+
 ;;; performance
 ;; Disable garbage collection when entering commands.
 (defun max-gc-limit ()

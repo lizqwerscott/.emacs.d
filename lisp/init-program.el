@@ -14,9 +14,6 @@
 
 ;; Ctags
 
-(use-package citre
-  :ensure t)
-
 ;;; Lsp Server
 
 ;; Eglot
@@ -47,25 +44,19 @@
 ;; Lsp bridge
 (use-package lsp-bridge
   :bind
-  ;; (:map acm-mode-map ("TAB" . #'acm-select-next))
-  ;; (:map acm-mode-map ([backtab] . #'acm-select-prev))
   (:map acm-mode-map ("C-n" . #'acm-select-next))
   (:map acm-mode-map ("C-p" . #'acm-select-prev))
   :hook (after-init . global-lsp-bridge-mode)
-  ;; (((c++-mode . c-mode) . lsp-bridge-mode)
-  ;;  (elisp-mode . lsp-bridge-mode))
-
   :custom
-  (acm-enable-citre t)
   (lsp-bridge-c-lsp-server "ccls")
-  (acm-enable-tabnine-helper t)
+  (acm-enable-tabnine t)
+  (acm-enable-yas nil)
   (lsp-bridge-use-wenls-in-org-mode nil)
+  (lsp-bridge-diagnostic-fetch-idle 0.1)
   ;; (lsp-bridge-enable-debug t)
   ;; (lsp-bridge-python-lsp-server "jedi")
   ;; (acm-candidate-match-function 'orderless-regexp)
   :config
-  ;; (setq lsp-bridge-default-mode-hooks
-  ;;       (remove 'org-mode-hook lsp-bridge-default-mode-hooks))
   (setq acm-enable-doc t))
 
 (unless (display-graphic-p)
@@ -95,8 +86,6 @@
 (defun return-find-def ()
   (interactive)
   (cond
-   ((eq major-mode 'emacs-lisp-mode)
-    (call-interactively 'xref-go-back))
    (lsp-bridge-mode
     (lsp-bridge-return-from-def))
    (t
@@ -135,7 +124,7 @@
   :custom
   (flycheck-disable-checker '(c/c++-clang))
   :config
-  (setq flycheck-global-modes '(not c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
+  (setq flycheck-global-modes '(not python-mode c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
         flycheck-emacs-lisp-load-path 'inherit)
   (setq flycheck-clang-language-standard "c++17"))
 

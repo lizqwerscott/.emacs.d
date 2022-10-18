@@ -58,7 +58,8 @@
    '("rn" . lsp-bridge-rename)
    '("aa" . lsp-bridge-list-diagnostics)
    '("ah" . lsp-bridge-lookup-documentation)
-   )
+   '("an" . lsp-bridge-jump-to-next-diagnostic)
+   '("ap" . lsp-bridge-jump-to-prev-diagnostic))
 
   (meow-leader-define-key
    ;; '("W" . paredit-wrap-sexp)

@@ -88,6 +88,7 @@ python-mode
 (fori "for " (p "item") "" " in " p ":" n> r>)
 (forn "for " (p "i") " in range(" p "):" n> r>)
 (withof "with open(" p ")" " as " (p "f") ":" n r>)
+(main "if __name__ == \"__main__\":" n r>)
 
 ;; Local Variables:
 ;; mode: lisp-data

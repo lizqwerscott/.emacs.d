@@ -116,9 +116,9 @@
 ;;   :hook (doom-modeline-mode . nyan-mode))
 
 ;; Show the current function name in the header line
-;; (which-function-mode)
-;; (setq-default header-line-format
-;;               '((which-func-mode ("" which-func-format " "))))
+(which-function-mode)
+(setq-default header-line-format
+              '((which-func-mode ("" which-func-format " "))))
 ;; (setq mode-line-misc-info
 ;;             ;; We remove Which Function Mode from the mode line, because it's mostly
 ;;             ;; invisible here anyway.
@@ -132,9 +132,12 @@
 (use-package awesome-tray
   :hook (after-init . awesome-tray-mode)
   :custom
+  ;; (awesome-tray-active-modules
+  ;;  '( "git" "mode-name" "location" "flymake" "date")
+  ;;  "My tray config")
   (awesome-tray-active-modules
-   '( "git" "mode-name" "location" "flymake" "date")
-   "My tray config"))
+   '("location" "belong" "file-path" "mode-name" "date")
+   "Lazycat config"))
 
 (use-package sort-tab
   :hook (after-init . sort-tab-mode))
