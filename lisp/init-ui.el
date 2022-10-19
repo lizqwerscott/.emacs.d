@@ -76,13 +76,13 @@
 ;; (load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
 ;; (load-theme 'monokai t)
-(load-theme 'solarized-dark t)
+;; (load-theme 'solarized-dark t)
 ;; (load-theme 'vscode-dark-plus t)
 ;; (load-theme 'modus-vivendi t)
 ;; (load-theme 'ef-summer t)
 ;; (load-theme 'modus-operandi t)
-;; (require 'lazycat-theme)
-;; (lazycat-theme-load-dark)
+(require 'lazycat-theme)
+(lazycat-theme-load-dark)
 ;; (load-theme 'ef-night t)
 ;; (load-theme 'ef-day t)
 ;; (load-theme 'ef-summer t)
@@ -116,9 +116,9 @@
 ;;   :hook (doom-modeline-mode . nyan-mode))
 
 ;; Show the current function name in the header line
-(which-function-mode)
-(setq-default header-line-format
-              '((which-func-mode ("" which-func-format " "))))
+;; (which-function-mode)
+;; (setq-default header-line-format
+;;               '((which-func-mode ("" which-func-format " "))))
 ;; (setq mode-line-misc-info
 ;;             ;; We remove Which Function Mode from the mode line, because it's mostly
 ;;             ;; invisible here anyway.

@@ -134,6 +134,27 @@
 ;;   :config
 ;;   (setq flymake-run-in-place nil))
 
+;; spell
+(setq ispell-program-name "hunspell")
+;; reset the hunspell so it STOPS querying locale!
+;; "en_US" is the key to lookup in `ispell-local-dictionary-alist`
+(setq ispell-local-dictionary "en_US")
+;; two dictionaries "en_US" and "zh_CN" are used. Feel free to remove "zh_CN"
+;; If `ispell-local-dictionary-alist' is nil, `ispell-local-dictionary' is passed
+;; to hunpsell cli program as dictionary.
+(setq ispell-local-dictionary-alist
+      '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)))
+;; new variable `ispell-hunspell-dictionary-alist' is defined in Emacs
+;; If it's nil, Emacs tries to automatically set up the dictionaries.
+(when (boundp 'ispell-hunspell-dictionary-alist)
+      (setq ispell-hunspell-dictionary-alist ispell-local-dictionary-alist))
+
+(use-package wucuo
+  :ensure t
+  :hook
+  ((prog-mode . wucuo-start)
+   (text-mode . wucuo-start)))
+
 ;;; format code
 
 ;; (use-package format-all
