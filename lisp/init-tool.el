@@ -123,8 +123,8 @@
 
 (require 'popon)
 
-(require 'netease-cloud-music)
-(require 'netease-cloud-music-ui)
+;(require 'netease-cloud-music)
+;(require 'netease-cloud-music-ui)
 
 (use-package websocket
   :ensure t)

@@ -15,6 +15,29 @@
   (mapcan #'my/project-files-in-directory
           (or dirs (list (project-root project)))))
 
+(defun ros-generate-command-json ()
+  "Generated ros for lsp ."
+  (interactive)
+  (let ((root-project (project-root (project-current))))
+    (shell-command
+     (concat (concat "cd " root-project)
+             "&& catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1"))
+    (when (not (file-exists-p
+                (concat root-project
+                        "compile_commands.json")))
+      (shell-command
+       (concat "ln -s ./Debug/compile_commands.json "
+               root-project))))
+  (message "ros ccls finish"))
+
+(defun ros-build ()
+  "Build ros code."
+  (interactive)
+  (let ((root-project (project-root (project-current))))
+    (shell-command
+     (concat (concat "cd " root-project)
+             "&& catkin_make"))))
+
 (defun cmake-generate-command-json ()
   "Generated cmake for lsp (support cmake project)."
   (interactive)

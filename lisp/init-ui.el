@@ -90,8 +90,7 @@
 
 ;;; Background
 (setq default-frame-alist
-      '((width . 90)
-        (height . 50)
+      '((fullscreen . fullboth)
         (alpha-background . 90)))
 
 ;;; UI
