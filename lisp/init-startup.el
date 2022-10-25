@@ -240,7 +240,7 @@
 (let ((path "~/.emacs.d/tmp/"))
   (when (not (file-directory-p path))
     (setq temporary-file-directory
-          "~/.emacs.d/tmp/")))
+          path)))
 
 ;;; Tramp
 

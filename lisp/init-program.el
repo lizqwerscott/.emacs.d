@@ -107,6 +107,8 @@
 ;;   :hook (common-lisp-mode . common-lisp-snippets-initialize)
 ;;   :hook (after-init . common-lisp-snippets-initialize)
 ;;   )
+(require-package 'yasnippet)
+
 (use-package tempel
   :ensure t
   :bind
@@ -218,6 +220,11 @@
 
 ;; search
 (require 'color-rg)
+
+(use-package yaml-mode)
+
+;; ros
+(add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
 
 (provide 'init-program)
 ;;; init-program.el ends heres.
