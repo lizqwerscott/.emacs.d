@@ -221,7 +221,8 @@
 ;; search
 (require 'color-rg)
 
-(use-package yaml-mode)
+(use-package yaml-mode
+  :ensure t)
 
 ;; ros
 (add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
