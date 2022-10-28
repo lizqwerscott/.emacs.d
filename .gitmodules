@@ -50,10 +50,6 @@ url = https://codeberg.org/akib/emacs-popon.git
 path = site-lisp/deno-bridge
 url = https://github.com/manateelazycat/deno-bridge.git
 
-[submodule "site-lisp/insert-translated-name"]
-path = site-lisp/insert-translated-name
-url = https://github.com/manateelazycat/insert-translated-name.git
-
 [submodule "site-lisp/emacs-application-framework"]
 	path = site-lisp/emacs-application-framework
 	url = https://github.com/emacs-eaf/emacs-application-framework.git
