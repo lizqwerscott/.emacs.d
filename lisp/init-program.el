@@ -220,6 +220,7 @@
 
 ;; search
 (require 'color-rg)
+(require 'blink-search)
 
 (use-package yaml-mode
   :ensure t)

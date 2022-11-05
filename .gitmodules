@@ -53,3 +53,6 @@ url = https://github.com/manateelazycat/deno-bridge.git
 [submodule "site-lisp/emacs-application-framework"]
 	path = site-lisp/emacs-application-framework
 	url = https://github.com/emacs-eaf/emacs-application-framework.git
+[submodule "site-lisp/blink-search"]
+	path = site-lisp/blink-search
+	url = https://github.com/manateelazycat/blink-search.git
