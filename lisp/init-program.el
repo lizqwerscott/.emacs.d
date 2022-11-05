@@ -57,40 +57,40 @@
   ;; (lsp-bridge-python-lsp-server "jedi")
   ;; (acm-candidate-match-function 'orderless-regexp)
   :config
-  (setq acm-enable-doc t))
+  (setq acm-enable-doc t)
+
+  (require 'xref)
+  (defun find-definition-with-lsp-bridge ()
+    (interactive)
+    (cond
+     ((bound-and-true-p sly-mode)
+      (call-interactively #'sly-edit-definition))
+     ((eq major-mode 'emacs-lisp-mode)
+      (let ((symb (current-word)))
+        (funcall #'xref-find-definitions symb)))
+     (lsp-bridge-mode
+      (lsp-bridge-find-def))
+     (t
+      (require 'dumb-jump)
+      (dumb-jump-go))))
+
+  (defun return-find-def ()
+    (interactive)
+    (cond
+     (lsp-bridge-mode
+      (lsp-bridge-return-from-def))
+     (t
+      (require 'dumb-jump)
+      (dumb-jump-back)))))
 
 (unless (display-graphic-p)
   (with-eval-after-load 'acm
-    (require 'acm-termial)))
+    (use-package acm-termial
+      :quelpa (acm-termial :fetcher git :url "https://github.com/twlz0ne/acm-terminal.git")
+      :ensure t)))
 
-;; (use-package dumb-jump
-;;   :ensure t)
-(require-package 'dumb-jump)
-
-(require 'xref)
-(require 'lsp-bridge)
-(defun find-definition-with-lsp-bridge ()
-  (interactive)
-  (cond
-   ((bound-and-true-p sly-mode)
-    (call-interactively #'sly-edit-definition))
-   ((eq major-mode 'emacs-lisp-mode)
-    (let ((symb (current-word)))
-      (funcall #'xref-find-definitions symb)))
-   (lsp-bridge-mode
-    (lsp-bridge-find-def))
-   (t
-    (require 'dumb-jump)
-    (dumb-jump-go))))
-
-(defun return-find-def ()
-  (interactive)
-  (cond
-   (lsp-bridge-mode
-    (lsp-bridge-return-from-def))
-   (t
-    (require 'dumb-jump)
-    (dumb-jump-back))))
+(use-package dumb-jump
+  :ensure t)
 
 ;;; snippet
 
@@ -107,6 +107,7 @@
 ;;   :hook (common-lisp-mode . common-lisp-snippets-initialize)
 ;;   :hook (after-init . common-lisp-snippets-initialize)
 ;;   )
+
 (require-package 'yasnippet)
 
 (use-package tempel

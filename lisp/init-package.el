@@ -20,16 +20,15 @@
                          ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
                          ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
 
-(setq package-quickstart t)
+;; (setq package-quickstart t)
 
 (package-initialize)
-
-;; (when (not package-archive-contents)
-;;   (package-refresh-contents))
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+
+(require 'use-package)
 
 ;; (update-load-path)
 (defun site-lisp-update ()
@@ -73,6 +72,13 @@ locate PACKAGE."
     (require-package package min-version no-refresh)
     (error
       (message "Couldn't install optional package `%s': %S" package err))))
+
+(use-package quelpa
+  :custom
+  (quelpa-update-melpa-p nil)
+  :config
+  (use-package quelpa-use-package)
+  (quelpa-use-package-activate-advice))
 
 (provide 'init-package)
 ;;; init-package.el ends here

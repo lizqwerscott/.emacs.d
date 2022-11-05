@@ -30,6 +30,8 @@
                '(typescript-tsx-mode . tsx)))
 
 (use-package tsi
+  :quelpa (tsi :fetcher git :url "https://github.com/orzechowskid/tsi.el.git")
+  :ensure t
   :after tree-sitter
   ;; define autoload definitions which when actually invoked will cause package to be loaded
   :commands (tsi-typescript-mode tsi-json-mode tsi-css-mode)

@@ -33,8 +33,11 @@
   ;; (pyim-basedict-enable)
   )
 
-(require 'pyim-tsinghua-dict)
-(pyim-tsinghua-dict-enable)
+(use-package pyim-tsinghua-dict
+  :quelpa (pyim-tsinghua-dict :fetcher git :url "https://github.com/redguardtoo/pyim-tsinghua-dict.git")
+  :ensure t
+  :config
+  (pyim-tsinghua-dict-enable))
 
 ;; (require 'insert-translated-name)
 ;; (setq insert-translated-name-translate-engine "youdao")

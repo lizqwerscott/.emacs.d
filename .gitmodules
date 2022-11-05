@@ -18,30 +18,6 @@ url = https://github.com/manateelazycat/color-rg.git
 path = site-lisp/lazycat-theme
 url = https://github.com/manateelazycat/lazycat-theme.git
 
-[submodule "site-lisp/lsp-bridge"]
-path = site-lisp/lsp-bridge
-url = https://github.com/manateelazycat/lsp-bridge.git
-
-[submodule "site-lisp/sort-tab"]
-path = site-lisp/sort-tab
-url = https://github.com/manateelazycat/sort-tab.git
-
-[submodule "site-lisp/ligature.el"]
-path = site-lisp/ligature.el
-url = https://github.com/mickeynp/ligature.el.git
-
-[submodule "site-lisp/pyim-tsinghua-dict"]
-path = site-lisp/pyim-tsinghua-dict
-url = https://github.com/redguardtoo/pyim-tsinghua-dict.git
-
-[submodule "site-lisp/tsi.el"]
-path = site-lisp/tsi.el
-url = https://github.com/orzechowskid/tsi.el.git
-
-[submodule "site-lisp/acm-terminal"]
-path = site-lisp/acm-terminal
-url = https://github.com/twlz0ne/acm-terminal.git
-
 [submodule "site-lisp/emacs-popon"]
 path = site-lisp/emacs-popon
 url = https://codeberg.org/akib/emacs-popon.git
@@ -51,8 +27,10 @@ path = site-lisp/deno-bridge
 url = https://github.com/manateelazycat/deno-bridge.git
 
 [submodule "site-lisp/emacs-application-framework"]
-	path = site-lisp/emacs-application-framework
-	url = https://github.com/emacs-eaf/emacs-application-framework.git
+path = site-lisp/emacs-application-framework
+url = https://github.com/emacs-eaf/emacs-application-framework.git
+
 [submodule "site-lisp/blink-search"]
-	path = site-lisp/blink-search
-	url = https://github.com/manateelazycat/blink-search.git
+path = site-lisp/blink-search
+url = https://github.com/manateelazycat/blink-search.git
+

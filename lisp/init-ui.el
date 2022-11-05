@@ -30,7 +30,10 @@
       (set-fontset-font 'fontset-default nil
                         (font-spec :size 18 :name "霞鹜文楷")))))
 
+;; (quelpa '(ligature :fetcher git :url "https://github.com/mickeynp/ligature.el.git"))
+
 (use-package ligature
+  :quelpa (ligature :fetcher git :url "https://github.com/mickeynp/ligature.el.git")
   :hook
   (after-init . global-ligature-mode)
   :config
@@ -139,6 +142,7 @@
    "Lazycat config"))
 
 (use-package sort-tab
+  :quelpa (sort-tab :fetcher git :url "https://github.com/manateelazycat/sort-tab.git")
   :hook (after-init . sort-tab-mode))
 
 ;;; Icons
