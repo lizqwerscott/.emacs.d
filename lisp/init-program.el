@@ -165,9 +165,9 @@
 
 ;;; format code
 
-;; (use-package format-all
-;;   :ensure t)
-(require-package 'format-all)
+(use-package format-all
+  :ensure t
+  :diminish t)
 
 (use-package apheleia
   :ensure t

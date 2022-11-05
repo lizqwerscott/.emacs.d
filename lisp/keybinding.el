@@ -80,6 +80,7 @@
 
   ;;consult and file
   (meow-leader-define-key
+   '("sj" . blink-search)
    '("sl" . consult-line)
    ;; '("sg" . consult-ripgrep)
    '("si" . consult-imenu)
