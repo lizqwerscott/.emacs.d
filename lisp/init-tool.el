@@ -90,7 +90,8 @@
   :hook (after-init . xclip-mode))
 
 (use-package auto-save
-  :ensure nil
+  :quelpa (auto-save :fetcher git :url "https://github.com/manateelazycat/auto-save.git")
+  :ensure t
   :hook
   (after-init . auto-save-enable)
   :config
@@ -121,15 +122,15 @@
 (use-package request
   :ensure t)
 
-(require 'popon)
-
 ;(require 'netease-cloud-music)
 ;(require 'netease-cloud-music-ui)
 
 (use-package websocket
   :ensure t)
 
-(require 'deno-bridge)
+(use-package deno-bridge
+  :quelpa (deno-bridge :fetcher git :url "https://github.com/manateelazycat/deno-bridge.git")
+  :ensure t)
 
 (provide 'init-tool)
 ;;; init-tool.el ends here.

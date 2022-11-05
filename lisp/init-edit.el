@@ -13,6 +13,10 @@
 ;; (use-package paredit
 ;;   :ensure t)
 
+(use-package awesome-pair
+  :quelpa (awesome-pair :fetcher git :url "https://github.com/manateelazycat/awesome-pair.git")
+  :ensure t)
+
 (require 'awesome-pair)
 
 (dolist (hook (list

@@ -132,6 +132,8 @@
                   (netease-cloud-music-add-header-lyrics))))
 
 (use-package awesome-tray
+  :quelpa (awesome-tray :fetcher git :url "https://github.com/manateelazycat/awesome-tray.git")
+  :ensure t
   :hook (after-init . awesome-tray-mode)
   :custom
   ;; (awesome-tray-active-modules

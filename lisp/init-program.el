@@ -85,6 +85,9 @@
 
 (unless (display-graphic-p)
   (with-eval-after-load 'acm
+    (use-package emacs-popon
+      :quelpa (popon :fetcher git :url "https://codeberg.org/akib/emacs-popon.git")
+      :ensure t)
     (use-package acm-termial
       :quelpa (acm-termial :fetcher git :url "https://github.com/twlz0ne/acm-terminal.git")
       :ensure t)))
@@ -108,7 +111,9 @@
 ;;   :hook (after-init . common-lisp-snippets-initialize)
 ;;   )
 
-(require-package 'yasnippet)
+(use-package yasnippet
+  :ensure t
+  :diminish t)
 
 (use-package tempel
   :ensure t
@@ -220,7 +225,9 @@
 (require-package 'eacl)
 
 ;; search
-(require 'color-rg)
+(use-package color-rg
+  :quelpa (color-rg :fetcher git :url "https://github.com/manateelazycat/color-rg.git")
+  :ensure t)
 (require 'blink-search)
 
 (use-package yaml-mode
