@@ -79,13 +79,13 @@
 ;; (load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
 ;; (load-theme 'monokai t)
-;; (load-theme 'solarized-dark t)
+(load-theme 'solarized-dark t)
 ;; (load-theme 'vscode-dark-plus t)
 ;; (load-theme 'modus-vivendi t)
 ;; (load-theme 'ef-summer t)
 ;; (load-theme 'modus-operandi t)
-(require 'lazycat-theme)
-(lazycat-theme-load-dark)
+;; (require 'lazycat-theme)
+;; (lazycat-theme-load-dark)
 ;; (load-theme 'ef-night t)
 ;; (load-theme 'ef-day t)
 ;; (load-theme 'ef-summer t)
@@ -105,17 +105,17 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
-;; (use-package doom-modeline
-;;   :ensure t
-;;   :hook (after-init . doom-modeline-mode)
-;;   :config
-;;   (setq doom-modeline-buffer-file-name-style
-;;         'file-name)
-;;   (setq doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode)))
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode)
+  :config
+  (setq doom-modeline-buffer-file-name-style
+        'file-name)
+  (setq doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode)))
 
-;; (use-package nyan-mode
-;;   :ensure t
-;;   :hook (doom-modeline-mode . nyan-mode))
+(use-package nyan-mode
+  :ensure t
+  :hook (doom-modeline-mode . nyan-mode))
 
 ;; Show the current function name in the header line
 ;; (which-function-mode)
@@ -126,29 +126,28 @@
 ;;             ;; invisible here anyway.
 ;;             (assq-delete-all 'which-func-mode mode-line-misc-info))
 
-(add-hook 'after-init-hook
-          #'(lambda ()
-              (if (get-buffer "*Netease-Cloud-Music*")
-                  (netease-cloud-music-add-header-lyrics))))
+;; (add-hook 'after-init-hook
+;;           #'(lambda ()
+;;               (if (get-buffer "*Netease-Cloud-Music*")
+;;                   (netease-cloud-music-add-header-lyrics))))
 
-(use-package awesome-tray
-  :quelpa (awesome-tray :fetcher git :url "https://github.com/manateelazycat/awesome-tray.git")
-  :ensure t
-  :hook (after-init . awesome-tray-mode)
-  :custom
-  ;; (awesome-tray-active-modules
-  ;;  '( "git" "mode-name" "location" "flymake" "date")
-  ;;  "My tray config")
-  (awesome-tray-active-modules
-   '("location" "belong" "file-path" "mode-name" "date")
-   "Lazycat config"))
+;; (use-package awesome-tray
+;;   :quelpa (awesome-tray :fetcher git :url "https://github.com/manateelazycat/awesome-tray.git")
+;;   :ensure t
+;;   :hook (after-init . awesome-tray-mode)
+;;   :custom
+;;   (awesome-tray-active-modules
+;;    '("location" "belong" "file-path" "mode-name" "date")
+;;    "Lazycat config"))
 
 (use-package sort-tab
   :quelpa (sort-tab :fetcher git :url "https://github.com/manateelazycat/sort-tab.git")
   :hook (after-init . sort-tab-mode))
 
 ;;; Icons
-(require-package 'all-the-icons)
+(use-package all-the-icons
+  :ensure t
+  :diminish t)
 
 (use-package all-the-icons-completion
   :ensure t

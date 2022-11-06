@@ -219,23 +219,23 @@
   (setq dired-omit-files
         (concat dired-omit-files "\\|^\\..*$")))
 
-;; (use-package dirvish
-;;   :ensure t
-;;   :init
-;;   (dirvish-override-dired-mode)
-;;   :custom
-;;   (dirvish-mode-line-format
-;;    '(:left (sort file-time " " file-size symlink) :right (omit yank index)))
-;;   ;; (dirvish-attributes '(subtree-state all-the-icons vc-state git-msg))
-;;   (dirvish-attributes '(all-the-icons vc-state file-size))
-;;   (dirvish-preview-dispatchers '(vc-diff))
-;;   (dirvish-mode-line-height 0)
-;;   (dirvish-header-line-height 0)
-;;   :bind
-;;   (:map dirvish-mode-map
-;;         ("h" . dired-up-directory))
-;;   :config
-;;   (dirvish-peek-mode))
+(use-package dirvish
+  :ensure t
+  :init
+  (dirvish-override-dired-mode)
+  :custom
+  (dirvish-mode-line-format
+   '(:left (sort file-time " " file-size symlink) :right (omit yank index)))
+  ;; (dirvish-attributes '(subtree-state all-the-icons vc-state git-msg))
+  (dirvish-attributes '(all-the-icons vc-state file-size))
+  (dirvish-preview-dispatchers '(vc-diff))
+  (dirvish-mode-line-height 0)
+  (dirvish-header-line-height 0)
+  :bind
+  (:map dirvish-mode-map
+        ("h" . dired-up-directory))
+  :config
+  (dirvish-peek-mode))
 
 (let ((path "~/.emacs.d/tmp/"))
   (when (not (file-directory-p path))
