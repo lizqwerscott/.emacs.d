@@ -13,9 +13,9 @@
 
 ;; (require 'flycheck-cmake)
 
-;; (use-package cmake-mode
-;;   :ensure t)
-(require-package 'cmake-mode)
+(use-package cmake-mode
+  :ensure t
+  :diminish t)
 
 (add-to-list 'auto-mode-alist
              '("\\.h\\'" . c++-mode))

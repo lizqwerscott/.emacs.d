@@ -7,12 +7,6 @@
 
 (require 'cl-lib)
 
-(defun directory-dirs (path)
-  "Get the path all directory."
-  (when (file-directory-p path)
-    (cl-remove-if-not #'file-directory-p
-                      (cdr (cdr (directory-files path t))))))
-
 (add-to-list 'load-path
              (expand-file-name
               (concat user-emacs-directory "lisp")))
@@ -50,13 +44,6 @@
 (add-subdirs-to-load-path
  (concat user-emacs-directory
          "site-lisp/"))
-
-;; (mapcar #'(lambda (file)
-;;               (add-to-list 'load-path
-;;                            file))
-;;           (directory-dirs
-;;            (concat user-emacs-directory
-;;                    "site-lisp/")))
 
 (setq-default inhibit-redisplay t
               inhibit-message t)

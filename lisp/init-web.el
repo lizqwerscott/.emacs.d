@@ -13,10 +13,10 @@
 (setq browse-url-browser-function 'browse-url-chrome)
 
 ;;; Json
-;; (use-package json-mode
-;;   :ensure t
-;;   :defer 2)
-(require-package 'json-mode)
+(use-package json-mode
+  :ensure t
+  :diminish t
+  :defer 2)
 
 ;;; typescript and react
 (use-package typescript-mode
@@ -50,4 +50,5 @@
   :after ox)
 
 (provide 'init-web)
+;; (require-package 'cmake-mode)
 ;;; init-web.el ends here.

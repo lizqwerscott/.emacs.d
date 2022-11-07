@@ -105,17 +105,17 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
-(use-package doom-modeline
-  :ensure t
-  :hook (after-init . doom-modeline-mode)
-  :config
-  (setq doom-modeline-buffer-file-name-style
-        'file-name)
-  (setq doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode)))
+;; (use-package doom-modeline
+;;   :ensure t
+;;   :hook (after-init . doom-modeline-mode)
+;;   :config
+;;   (setq doom-modeline-buffer-file-name-style
+;;         'file-name)
+;;   (setq doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode)))
 
-(use-package nyan-mode
-  :ensure t
-  :hook (doom-modeline-mode . nyan-mode))
+;; (use-package nyan-mode
+;;   :ensure t
+;;   :hook (doom-modeline-mode . nyan-mode))
 
 ;; Show the current function name in the header line
 ;; (which-function-mode)
@@ -131,14 +131,14 @@
 ;;               (if (get-buffer "*Netease-Cloud-Music*")
 ;;                   (netease-cloud-music-add-header-lyrics))))
 
-;; (use-package awesome-tray
-;;   :quelpa (awesome-tray :fetcher git :url "https://github.com/manateelazycat/awesome-tray.git")
-;;   :ensure t
-;;   :hook (after-init . awesome-tray-mode)
-;;   :custom
-;;   (awesome-tray-active-modules
-;;    '("location" "belong" "file-path" "mode-name" "date")
-;;    "Lazycat config"))
+(use-package awesome-tray
+  :quelpa (awesome-tray :fetcher git :url "https://github.com/manateelazycat/awesome-tray.git")
+  :ensure t
+  :hook (after-init . awesome-tray-mode)
+  :custom
+  (awesome-tray-active-modules
+   '("location" "belong" "file-path" "mode-name" "date")
+   "Lazycat config"))
 
 (use-package sort-tab
   :quelpa (sort-tab :fetcher git :url "https://github.com/manateelazycat/sort-tab.git")
@@ -241,9 +241,9 @@
   (lisp-mode . rainbow-delimiters-mode))
 
 ;;; Window
-;; (use-package avy
-;;   :ensure t)
-(require-package 'avy)
+(use-package avy
+  :ensure t
+  :diminish t)
 
 (use-package shackle
   :ensure t

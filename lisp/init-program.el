@@ -51,6 +51,7 @@
   (lsp-bridge-c-lsp-server "ccls")
   (acm-enable-tabnine t)
   (acm-enable-yas nil)
+  (acm-enable-tempel t)
   (lsp-bridge-use-wenls-in-org-mode nil)
   (lsp-bridge-diagnostic-fetch-idle 0.1)
   ;; (lsp-bridge-enable-debug t)
@@ -210,19 +211,25 @@
     :ensure t))
 
 ;;; Doc
-(require-package 'helpful)
+(use-package helpful
+  :ensure t
+  :diminish t)
 
 (use-package docstr
   :ensure t
   :hook (prog-mode . docstr-mode))
 
 ;;; Run code
-(require-package 'quickrun)
+(use-package quickrun
+  :ensure t
+  :diminish t)
 
 ;; write code
 ;; (use-package eacl
 ;;   :ensure t)
-(require-package 'eacl)
+(use-package eacl
+  :ensure t
+  :diminish t)
 
 ;; search
 (use-package color-rg

@@ -152,3 +152,4 @@ NAME is class name."
                                      dir-path))))))
 
 (provide 'init-project)
+;;; init-project.el ends heres.
