@@ -15,7 +15,9 @@
   (require 'loadhist)
   (file-dependents (feature-file 'cl)))
 
-(require-package 'restart-emacs)
+(use-package restart-emacs
+  :ensure t
+  :diminish t)
 
 (use-package benchmark-init
   :ensure t :init (benchmark-init/activate)
@@ -39,13 +41,13 @@
   (separedit-continue-fill-column t)
   (separedit-buffer-creation-hook #'auto-fill-mode))
 
-(require-package 'focus)
-
 (use-package which-key
   :ensure t
   :hook (after-init . which-key-mode))
 
-(require-package 'focus)
+(use-package focus
+  :ensure t
+  :diminish)
 
 (use-package ag
   :ensure t
@@ -63,7 +65,10 @@
                         (gts-google-engine))
          :render (gts-posframe-pop-render))))
 
-(require-package 'vterm)
+
+(use-package vterm
+  :ensure t
+  :diminish t)
 
 (use-package vterm-toggle
   :ensure t
@@ -98,9 +103,13 @@
   (setq auto-save-silent t)
   (setq auto-save-delete-trailing-whitespace t))
 
-(require-package 'markdown-mode)
+(use-package markdown-mode
+  :ensure t
+  :diminish t)
 
-(require-package 'posframe)
+(use-package posframe
+  :ensure t
+  :diminish t)
 
 ;; Nice writing
 (use-package olivetti

@@ -9,12 +9,13 @@
 
 ;;; Code:
 
-(require-package 'ebib)
-(require 'ebib)
-(setq ebib-preload-bib-files
+(use-package ebib
+  :ensure t
+  :config
+  (setq ebib-preload-bib-files
       '("~/Documents/Sync/paper/bib/references.bib"))
-(setq ebib-bib-search-dirs
-      "~/Documents/Sync/paper/bib/")
+  (setq ebib-bib-search-dirs
+      "~/Documents/Sync/paper/bib/"))
 
 (use-package citar
   :ensure t

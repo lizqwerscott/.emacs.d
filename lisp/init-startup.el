@@ -72,7 +72,9 @@
       inhibit-startup-screen t
       inhibit-startup-message t)
 
-(require-package 'no-littering)
+(use-package no-littering
+  :ensure t
+  :diminish t)
 
 (setq no-littering-etc-directory
       (expand-file-name "config/" user-emacs-directory))
@@ -193,7 +195,9 @@
   (setq consult-narrow-key "<")
   (consult-preview-at-point-mode))
 
-(require-package 'consult-project-extra)
+(use-package consult-project-extra
+  :ensure t
+  :diminish t)
 
 (use-package marginalia
   :ensure t
@@ -201,7 +205,9 @@
   (marginalia-mode))
 
 ;;; compleations
-(require-package 'affe)
+(use-package affe
+  :ensure t
+  :diminish t)
 
 (require 'init-corfu)
 
