@@ -11,5 +11,6 @@ path = site-lisp/lsp-bridge
 url = https://github.com/manateelazycat/lsp-bridge.git
 
 [submodule "site-lisp/blink-search"]
-	path = site-lisp/blink-search
-	url = https://github.com/manateelazycat/blink-search.git
+path = site-lisp/blink-search
+url = https://github.com/manateelazycat/blink-search.git
+
