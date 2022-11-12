@@ -1,0 +1,29 @@
+* My Emacs Config
+This is my little emacs config.
+* Install On Arch Linux
+*** Install emacs git version:
+#+begin_src shell
+  sudo pacman -S emacs-git
+#+end_src
+*** Download source code:
+Use ssh:
+#+begin_src shell
+  git clone git@github.com:lizqwerscott/.emacs.d.git ~/.emacs.d/
+#+end_src
+Use http:
+#+begin_src shell
+  git clone https://github.com/lizqwerscott/.emacs.d.git  ~/.emacs.d/
+#+end_src
+*** Fetch all submodules:
+#+begin_src shell
+
+  git submodule update --init --recursive
+
+  git submodule foreach git reset --hard
+
+  git submodule foreach git checkout master
+#+end_src
+* Update extensions:
+#+begin_src shell
+  git submodule foreach git pull --rebase
+#+end_src

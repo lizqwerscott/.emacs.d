@@ -61,10 +61,12 @@
   (setq gts-default-translator
         (gts-translator
          :picker (gts-noprompt-picker)
-         :engines (list (gts-bing-engine)
-                        (gts-google-engine))
+         :engines (list (gts-bing-engine))
          :render (gts-posframe-pop-render))))
 
+;; Chinese-English translation popup
+(require 'popweb-dict-bing) ; Translation using Bing
+(require 'popweb-dict-youdao) ; Translation using Youdao
 
 (use-package vterm
   :ensure t
