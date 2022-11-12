@@ -15,5 +15,6 @@ path = site-lisp/blink-search
 url = https://github.com/manateelazycat/blink-search.git
 
 [submodule "site-lisp/popweb"]
-	path = site-lisp/popweb
-	url = https://github.com/manateelazycat/popweb.git
+path = site-lisp/popweb
+url = https://github.com/manateelazycat/popweb.git
+

@@ -86,10 +86,10 @@
 ;; (load-theme 'modus-operandi t)
 ;; (require 'lazycat-theme)
 ;; (lazycat-theme-load-dark)
-;; (load-theme 'ef-night t)
+(load-theme 'ef-night t)
 ;; (load-theme 'ef-day t)
 ;; (load-theme 'ef-summer t)
-(flucui-themes-load-style 'dark)
+;; (flucui-themes-load-style 'dark)
 
 ;;; Background
 (setq default-frame-alist
