@@ -239,6 +239,7 @@
   (dirvish-header-line-height 0)
   :bind
   (:map dirvish-mode-map
+        ("/" . dirvish-fd)
         ("a"   . dirvish-quick-access)
         ("f"   . dirvish-file-info-menu)
         ("y"   . dirvish-yank-menu)
