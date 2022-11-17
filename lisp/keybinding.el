@@ -6,8 +6,10 @@
 
 (defun my/meow-quit ()
   (interactive)
-  (if (meow-quit)
-      (message "finish")))
+  (if (derived-mode-p 'dired-mode)
+      (kill-this-buffer)
+    (if (meow-quit)
+        (message "finish"))))
 
 (defun help-helfup-lsp-bridge-sly ()
   (interactive)
@@ -185,13 +187,15 @@
    '("x" . meow-line)
    ;; '("X" . meow-goto-line)
    '("y" . meow-save)
-   '("Y" . meow-sync-grab)
+   ;; '("Y" . meow-sync-grab)
+   '("Y" . meow-clipboard-save)
    '("z" . meow-pop-selection)
    '("'" . repeat)
    '("<escape>" . ignore))
 
   (meow-normal-define-key
     '("C-s" . save-buffer)
+    '("C-y" . meow-clipboard-yank)
     '("Q" . kill-this-buffer)
     '("gr" . lsp-bridge-find-references)
     '("gd" . find-definition-with-lsp-bridge)

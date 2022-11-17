@@ -239,7 +239,17 @@
   (dirvish-header-line-height 0)
   :bind
   (:map dirvish-mode-map
-        ("h" . dired-up-directory))
+        ("a"   . dirvish-quick-access)
+        ("f"   . dirvish-file-info-menu)
+        ("y"   . dirvish-yank-menu)
+        ("N"   . dirvish-narrow)
+        ("^"   . dirvish-history-last)
+        ("h"   . dirvish-history-jump) ; remapped `describe-mode'
+        ("s"   . dirvish-quicksort)    ; remapped `dired-sort-toggle-or-edit'
+        ("v"   . dirvish-vc-menu)      ; remapped `dired-view-file'
+        ("TAB" . dirvish-subtree-toggle)
+        ("h" . dired-up-directory)
+        ("q" . my/meow-quit))
   :config
   (dirvish-peek-mode))
 
@@ -249,6 +259,18 @@
           path)))
 
 ;;; Tramp
+
+(use-package tramp
+  :config
+  ;; Enable full-featured Dirvish over TRAMP on certain connections
+  ;; https://www.gnu.org/software/tramp/#Improving-performance-of-asynchronous-remote-processes-1.
+  (add-to-list 'tramp-connection-properties
+               (list (regexp-quote "/ssh:YOUR_HOSTNAME:")
+                     "direct-async-process" t))
+  ;; Tips to speed up connections
+  (setq tramp-verbose 0)
+  (setq tramp-chunksize 2000)
+  (setq tramp-use-ssh-controlmaster-options nil))
 
 (setq recentf-exclude `(,tramp-file-name-regexp
                         "COMMIT_EDITMSG")
