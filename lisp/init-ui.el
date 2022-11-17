@@ -64,16 +64,19 @@
 ;;   :ensure t)
 
 (use-package solarized-theme
-  :ensure t)
+  :ensure t
+  :defer)
 
 ;; (use-package modus-themes
 ;;   :ensure t)
 
 (use-package ef-themes
-  :ensure t)
+  :ensure t
+  :defer)
 
 (use-package flucui-themes
-  :ensure t)
+  :ensure t
+  :defer)
 
 ;; (load-theme 'gruvbox-dark-soft t)
 ;; (load-theme 'doom-one t)
@@ -86,10 +89,19 @@
 ;; (load-theme 'modus-operandi t)
 ;; (require 'lazycat-theme)
 ;; (lazycat-theme-load-dark)
-(load-theme 'ef-night t)
+;; (load-theme 'ef-night t)
 ;; (load-theme 'ef-day t)
 ;; (load-theme 'ef-summer t)
 ;; (flucui-themes-load-style 'dark)
+
+(use-package circadian
+  :ensure t
+  :config
+  (setq calendar-latitude 37)
+  (setq calendar-longitude 112)
+  (setq circadian-themes '((:sunrise . ef-summer)
+                           (:sunset  . ef-night)))
+  (circadian-setup))
 
 ;;; Background
 (setq default-frame-alist
