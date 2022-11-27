@@ -47,6 +47,9 @@
   (meow-leader-define-key
    '("p" . project-command-map))
 
+  (meow-leader-define-key
+   '("j" . blink-search))
+
   ;;Another command
   (meow-leader-define-key
    '("tt" . gts-do-translate)
@@ -82,7 +85,6 @@
 
   ;;consult and file
   (meow-leader-define-key
-   '("sj" . blink-search)
    '("sl" . consult-line)
    ;; '("sg" . consult-ripgrep)
    '("si" . consult-imenu)

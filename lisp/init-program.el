@@ -56,7 +56,7 @@
   (lsp-bridge-enable-diagnostics nil)
   ;; (lsp-bridge-diagnostic-fetch-idle 0.1)
   ;; (lsp-bridge-enable-debug t)
-  (lsp-bridge-python-lsp-server "jedi")
+  ;; (lsp-bridge-python-lsp-server "jedi")
   ;; (acm-candidate-match-function 'orderless-regexp)
   :config
   (setq acm-enable-doc t)

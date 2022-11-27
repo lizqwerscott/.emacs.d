@@ -39,8 +39,10 @@
   :config
   (pyim-tsinghua-dict-enable))
 
-;; (meow-define-keys
-;;     'insert
-;;   '("C-c i" . insert-translated-name-insert))
+(require 'insert-translated-name)
+
+(meow-define-keys
+    'insert
+  '("C-c i" . insert-translated-name-insert))
 
 (provide 'init-input)

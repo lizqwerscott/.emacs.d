@@ -143,5 +143,21 @@
   :quelpa (deno-bridge :fetcher git :url "https://github.com/manateelazycat/deno-bridge.git")
   :ensure t)
 
+;;some tool function
+
+(defun remember-init ()
+  "Remember current position and setup."
+  (interactive)
+  (point-to-register 8)
+  (message "Have remember one position"))
+
+(defun remember-jump ()
+  "Jump to latest position and setup."
+  (interactive)
+  (let ((tmp (point-marker)))
+    (jump-to-register 8)
+    (set-register 8 tmp))
+  (message "Have back to remember position"))
+
 (provide 'init-tool)
 ;;; init-tool.el ends here.
