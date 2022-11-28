@@ -50,7 +50,7 @@
   :custom
   (lsp-bridge-c-lsp-server "ccls")
   (acm-enable-tabnine t)
-  (acm-enable-yas nil)
+  (acm-enable-yas t)
   (acm-enable-tempel t)
   (lsp-bridge-use-wenls-in-org-mode nil)
   (lsp-bridge-enable-diagnostics nil)
@@ -99,19 +99,19 @@
 
 ;;; snippet
 
-;; (use-package yasnippet
-;;   :ensure t
-;;   :hook (after-init . yas-global-mode)
-;;   :config
-;;   (setq yas-snippet-dirs
-;;         '("~/.emacs.d/config/yasnippet/snippets/"))
-;;   )
+(use-package yasnippet
+  :ensure t
+  :hook (after-init . yas-global-mode)
+  :config
+  (setq yas-snippet-dirs
+        '("~/.emacs.d/config/yasnippet/snippets/"))
+  )
 
-;; (use-package common-lisp-snippets
-;;   :ensure t
-;;   :hook (common-lisp-mode . common-lisp-snippets-initialize)
-;;   :hook (after-init . common-lisp-snippets-initialize)
-;;   )
+(use-package common-lisp-snippets
+  :ensure t
+  :hook (common-lisp-mode . common-lisp-snippets-initialize)
+  :hook (after-init . common-lisp-snippets-initialize)
+  )
 
 (use-package yasnippet
   :ensure t
@@ -134,7 +134,9 @@
   :custom
   (flycheck-disable-checker '(c/c++-clang))
   :config
-  (setq flycheck-global-modes '(not python-mode c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
+  ;; (setq flycheck-global-modes '(not python-mode c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
+  ;;       flycheck-emacs-lisp-load-path 'inherit)
+  (setq flycheck-global-modes '(not c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
         flycheck-emacs-lisp-load-path 'inherit)
   (setq flycheck-clang-language-standard "c++17"))
 
