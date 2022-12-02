@@ -61,10 +61,14 @@
   ;;lsp bridge
   (meow-leader-define-key
    '("rn" . lsp-bridge-rename)
-   '("aa" . lsp-bridge-list-diagnostics)
-   '("ah" . lsp-bridge-lookup-documentation)
-   '("an" . lsp-bridge-jump-to-next-diagnostic)
-   '("ap" . lsp-bridge-jump-to-prev-diagnostic))
+   ;; '("aa" . lsp-bridge-diagnostic-list)
+   '("aa" . consult-flycheck)
+   '("ah" . lsp-bridge-popup-documentation)
+   '("an" . flycheck-next-error)
+   '("ap" . flycheck-previous-error)
+   ;; '("an" . lsp-bridge-diagnostic-jump-next)
+   ;; '("ap" . lsp-bridge-diagnostic-jump-prev)
+)
 
   (meow-leader-define-key
    ;; '("W" . paredit-wrap-sexp)
@@ -92,6 +96,7 @@
    '("sg" . consult-goto-line)
    '("so" . consult-outline)
    '("sb" . consult-bookmark)
+   '("se" . consult-flycheck)
 
    '("ff" . find-file)
    '("fr" . consult-find)

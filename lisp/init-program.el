@@ -51,7 +51,7 @@
   (lsp-bridge-c-lsp-server "ccls")
   (acm-enable-tabnine t)
   (acm-enable-yas t)
-  (acm-enable-tempel t)
+  (acm-enable-tempel nil)
   (lsp-bridge-use-wenls-in-org-mode nil)
   (lsp-bridge-enable-diagnostics nil)
   ;; (lsp-bridge-diagnostic-fetch-idle 0.1)
@@ -80,7 +80,7 @@
     (interactive)
     (cond
      (lsp-bridge-mode
-      (lsp-bridge-return-from-def))
+      (lsp-bridge-find-def-return))
      (t
       (require 'dumb-jump)
       (dumb-jump-back)))))
@@ -113,9 +113,9 @@
   :hook (after-init . common-lisp-snippets-initialize)
   )
 
-(use-package yasnippet
-  :ensure t
-  :diminish t)
+;; (use-package yasnippet
+;;   :ensure t
+;;   :diminish t)
 
 (use-package tempel
   :ensure t
@@ -139,6 +139,9 @@
   (setq flycheck-global-modes '(not c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
         flycheck-emacs-lisp-load-path 'inherit)
   (setq flycheck-clang-language-standard "c++17"))
+
+(use-package consult-flycheck
+  :ensure t)
 
 ;; (use-package flymake
 ;;   :ensure t

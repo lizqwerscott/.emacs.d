@@ -106,7 +106,7 @@
 ;;; Background
 (setq default-frame-alist
       '((fullscreen . fullboth)
-        (alpha-background . 90)))
+        (alpha-background . 100)))
 
 ;;; UI
 (setq frame-resize-pixelwise t)

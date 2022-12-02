@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: with_open
+# key: wiop
+# group : control structure
+# --
+with open(${1:file}, ${2:mode}) as ${3:f}:
+     $0

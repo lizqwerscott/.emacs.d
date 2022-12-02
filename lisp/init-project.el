@@ -1,6 +1,43 @@
 (require 'project)
 
 ;configure project.el
+
+(defun my/project-try-local (dir)
+  "Determine if DIR is a non-Git project."
+  (catch 'ret
+    (let ((pr-flags '((".project")
+                      ("go.mod" "Cargo.toml" "pom.xml") ;; higher priority
+                      ("Makefile"))))
+      (dolist (current-level pr-flags)
+        (dolist (f current-level)
+          (when-let ((root (locate-dominating-file dir f)))
+            (throw 'ret (cons 'local root))))))))
+
+(setq project-find-functions '(my/project-try-local project-try-vc))
+
+(defun my/project-info ()
+  (interactive)
+  (message "%s" (project-current t)))
+
+(defun my/add-dot-project ()
+  (interactive)
+  (let* ((root-dir (read-directory-name "Root: "))
+         (f (expand-file-name ".project" root-dir)))
+    (message "Create %s..." f)
+    (make-empty-file f)))
+
+(defun my/project-discover ()
+  "Add dir under search-path to project."
+  (interactive)
+  (dolist (search-path '("~/code/" "~/git/"))
+    (dolist (file (file-name-all-completions  "" search-path))
+      (when (not (member file '("./" "../")))
+        (let ((full-name (expand-file-name file search-path)))
+          (when (file-directory-p full-name)
+            (when-let ((pr (project-current nil full-name)))
+              (project-remember-project pr)
+              (message "add project %s..." pr))))))))
+
 (defun my/project-files-in-directory (dir)
   "Use `fd' to list files in DIR."
   (let* ((default-directory dir)
