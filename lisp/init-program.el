@@ -10,6 +10,36 @@
 
 ;;; Code:
 
+;;; snippet
+
+;; (use-package yasnippet
+;;   :ensure t
+;;   :hook (after-init . yas-global-mode)
+;;   :config
+;;   (setq yas-snippet-dirs
+;;         '("~/.emacs.d/config/yasnippet/snippets/"))
+;;   )
+
+;; (use-package common-lisp-snippets
+;;   :ensure t
+;;   :hook (common-lisp-mode . common-lisp-snippets-initialize)
+;;   :hook (after-init . common-lisp-snippets-initialize)
+  ;; )
+
+(use-package yasnippet
+  :ensure t
+  :diminish t)
+
+(use-package tempel
+  :ensure t
+  :bind
+ (:map tempel-map
+        ("TAB" . tempel-next))
+  :config
+  (setq tempel-path
+        "~/.emacs.d/config/tempel/templates"))
+
+
 ;;(require 'init-company)
 
 ;; Ctags
@@ -50,8 +80,8 @@
   :custom
   (lsp-bridge-c-lsp-server "ccls")
   (acm-enable-tabnine t)
-  (acm-enable-yas t)
-  (acm-enable-tempel nil)
+  (acm-enable-yas nil)
+  (acm-enable-tempel t)
   (lsp-bridge-use-wenls-in-org-mode nil)
   (lsp-bridge-enable-diagnostics nil)
   ;; (lsp-bridge-diagnostic-fetch-idle 0.1)
@@ -96,35 +126,6 @@
 
 (use-package dumb-jump
   :ensure t)
-
-;;; snippet
-
-(use-package yasnippet
-  :ensure t
-  :hook (after-init . yas-global-mode)
-  :config
-  (setq yas-snippet-dirs
-        '("~/.emacs.d/config/yasnippet/snippets/"))
-  )
-
-(use-package common-lisp-snippets
-  :ensure t
-  :hook (common-lisp-mode . common-lisp-snippets-initialize)
-  :hook (after-init . common-lisp-snippets-initialize)
-  )
-
-;; (use-package yasnippet
-;;   :ensure t
-;;   :diminish t)
-
-(use-package tempel
-  :ensure t
-  :bind
- (:map tempel-map
-        ("TAB" . tempel-next))
-  :config
-  (setq tempel-path
-        "~/.emacs.d/config/tempel/templates"))
 
 ;;; check error
 

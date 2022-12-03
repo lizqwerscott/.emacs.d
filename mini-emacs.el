@@ -25,8 +25,8 @@
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/lsp-bridge")
 
-;; (require 'yasnippet)
-;; (yas-global-mode 1)
+(require 'yasnippet)
+(yas-global-mode 1)
 
 (require 'lsp-bridge)
 ;; (setq lsp-bridge-c-lsp-server "ccls")
