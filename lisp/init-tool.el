@@ -11,6 +11,7 @@
 
 ;;; Look require cl package
 (defun check-package-use-cl ()
+  "Check package is use cl."
   (interactive)
   (require 'loadhist)
   (file-dependents (feature-file 'cl)))
@@ -125,9 +126,10 @@
 (require 'eaf-git)
 (require 'eaf-browser)
 
-(setq eaf-proxy-type "http")
-(setq eaf-proxy-host "127.0.0.1")
-(setq eaf-proxy-port "20172")
+;; (setq eaf-proxy-type "http")
+;; (setq eaf-proxy-host "127.0.0.1")
+;; (setq eaf-proxy-host "192.168.3.3")
+;; (setq eaf-proxy-port "20172")
 (setq eaf-webengine-default-zoom 1.25)
 
 (use-package request
@@ -158,6 +160,11 @@
     (jump-to-register 8)
     (set-register 8 tmp))
   (message "Have back to remember position"))
+
+(defun tianqi ()
+  "获取天气."
+  (interactive)
+  (eww "zh-cn.wttr.in/"))
 
 (provide 'init-tool)
 ;;; init-tool.el ends here.

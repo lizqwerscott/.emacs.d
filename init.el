@@ -53,7 +53,6 @@
                           inhibit-message nil)
             (redisplay)))
 
-;; (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (setq custom-file "~/.config/emacs-custom.el")
 
 (require 'init-const)
@@ -72,7 +71,6 @@
 ;; (require 'init-paper)
 
 (require 'init-project)
-(require 'init-func)
 (require 'keybinding)
 
 (require 'init-org)

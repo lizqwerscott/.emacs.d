@@ -10,4 +10,4 @@
 ;;; Code:
 
 (provide 'init-reader)
-;;; init-tool.el ends here.
+;;; init-reader.el ends here.

@@ -21,7 +21,7 @@
   (advice-add 'yes-or-no-p :override #'y-or-n-p))
 
 (customize-set-variable 'kill-do-not-save-duplicates t)
-(setq auto-revert-interval 1)
+(customize-set-variable 'auto-revert-interval 1)
 
 ;; Encoding
 ;; UTF-8 as the default coding system
@@ -54,15 +54,14 @@
 
 ;;; performance
 ;; Disable garbage collection when entering commands.
-(defun max-gc-limit ()
-  (setq gc-cons-threshold most-positive-fixnum))
-
-(defun reset-gc-limit ()
-  (setq gc-cons-threshold 800000))
 
 ;; (electric-pair-mode nil)
-(add-hook 'minibuffer-setup-hook #'max-gc-limit)
-(add-hook 'minibuffer-exit-hook #'reset-gc-limit)
+(add-hook 'minibuffer-setup-hook
+          #'(lambda ()
+              (setq gc-cons-threshold most-positive-fixnum)))
+(add-hook 'minibuffer-exit-hook
+          #'(lambda ()
+             (setq gc-cons-threshold 800000)))
 
 (setq-default indent-tabs-mode nil)
 

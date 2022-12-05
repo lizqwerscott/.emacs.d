@@ -29,7 +29,7 @@
 (defun my/project-discover ()
   "Add dir under search-path to project."
   (interactive)
-  (dolist (search-path '("~/code/" "~/git/"))
+  (dolist (search-path '("~/MyProject/" "~/github/"))
     (dolist (file (file-name-all-completions  "" search-path))
       (when (not (member file '("./" "../")))
         (let ((full-name (expand-file-name file search-path)))

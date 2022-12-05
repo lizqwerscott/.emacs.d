@@ -109,6 +109,9 @@
   (defun return-find-def ()
     (interactive)
     (cond
+     ((eq major-mode 'emacs-lisp-mode)
+      (require 'dumb-jump)
+      (dumb-jump-back))
      (lsp-bridge-mode
       (lsp-bridge-find-def-return))
      (t
