@@ -34,17 +34,12 @@
 (defun site-lisp-update ()
   "Update site-lisp packages."
   (interactive)
-  (let ((output-buffer (get-buffer-create "*Update site lisp*"))
-        (update-git-file (expand-file-name
-                          (concat user-emacs-directory
-                                  "scripts/updategit.py")))
-        (site-lisp-dir (expand-file-name
-                        (concat user-emacs-directory
-                                "site-lisp/"))))
-    (async-shell-command (concat update-git-file
-                                 " "
-                                 site-lisp-dir)
-                         output-buffer)
+  (let ((output-buffer (get-buffer-create "*Update site lisp*")))
+    (async-shell-command
+     (concat "cd "
+             user-emacs-directory
+             " && git submodule foreach git pull")
+     output-buffer)
     (switch-to-buffer-other-window output-buffer)))
 
 (use-package quelpa

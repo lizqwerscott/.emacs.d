@@ -66,8 +66,7 @@
          :render (gts-posframe-pop-render))))
 
 ;; Chinese-English translation popup
-(require 'popweb-dict-bing) ; Translation using Bing
-(require 'popweb-dict-youdao) ; Translation using Youdao
+(require 'popweb-dict)
 
 (use-package vterm
   :ensure t
