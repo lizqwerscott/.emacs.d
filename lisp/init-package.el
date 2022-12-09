@@ -49,5 +49,13 @@
   (use-package quelpa-use-package)
   (quelpa-use-package-activate-advice))
 
+(defun emacs-update ()
+  "Update Emacs all packages."
+  (interactive)
+  (site-lisp-update)
+  (when (version<= "29" emacs-version)
+    (package-update-all))
+  (quelpa-upgrade-all-maybe))
+
 (provide 'init-package)
 ;;; init-package.el ends here
