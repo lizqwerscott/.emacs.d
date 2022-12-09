@@ -55,7 +55,7 @@
   (site-lisp-update)
   (when (version<= "29" emacs-version)
     (package-update-all))
-  (quelpa-upgrade-all-maybe))
+  (quelpa-upgrade-all))
 
 (provide 'init-package)
 ;;; init-package.el ends here
