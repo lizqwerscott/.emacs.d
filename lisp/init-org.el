@@ -19,9 +19,8 @@
 
 (defun org-export-docx ()
   (interactive)
-  (let ((docx-file (concat (file-name-sans-extension (buffer-file-name))
-                           ".docx"))
-        (template-file "/home/lizqwer/Documents/Templates/template.docx"))
+  (let ((docx-file (concat (file-name-sans-extension (buffer-file-name)) ".docx"))
+        (template-file (expand-file-name "config/template/template.docx" user-emacs-directory)))
     (shell-command
      (format "pandoc %s -o %s --reference-doc=%s"
              (buffer-file-name)
