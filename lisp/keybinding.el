@@ -120,11 +120,16 @@
    '("wc" . org-capture))
 
   ;;tab
+  ;; (meow-leader-define-key
+  ;;  '("vn" . sort-tab-select-next-tab)
+  ;;  '("vp" . sort-tab-select-prev-tab)
+  ;;  '("vc" . sort-tab-close-current-tab)
+  ;;  '("vm" . sort-tab-close-mode-tabs))
   (meow-leader-define-key
-   '("vn" . sort-tab-select-next-tab)
-   '("vp" . sort-tab-select-prev-tab)
-   '("vc" . sort-tab-close-current-tab)
-   '("vm" . sort-tab-close-mode-tabs))
+   '("vn" . centaur-tabs-forward)
+   '("vp" . centaur-tabs-backward)
+   '("vc" . centaur-tabs-switch-group)
+   '("vg" . centaur-tabs-kill-all-buffers-in-current-group))
 
   ;;hide
   (meow-leader-define-key

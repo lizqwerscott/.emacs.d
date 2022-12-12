@@ -152,9 +152,59 @@
    '("location" "belong" "file-path" "mode-name" "date")
    "Lazycat config"))
 
-(use-package sort-tab
-  :quelpa (sort-tab :fetcher git :url "https://github.com/manateelazycat/sort-tab.git")
-  :hook (after-init . sort-tab-mode))
+(defun my/centaur-tabs-hide-tab (x)
+  "Do no to show buffer X in tabs."
+  (let ((name (format "%s" x)))
+    (or
+     ;; Current window is not dedicated window.
+     (window-dedicated-p (selected-window))
+
+     ;; Buffer name not match below blacklist.
+     (string-prefix-p "*epc" name)
+     (string-prefix-p "*helm" name)
+     (string-prefix-p "*Helm" name)
+     (string-prefix-p "*Compile-Log*" name)
+     (string-prefix-p "*lsp" name)
+     (string-prefix-p "*company" name)
+     (string-prefix-p "*Flycheck" name)
+     (string-prefix-p "*tramp" name)
+     (string-prefix-p " *Mini" name)
+     (string-prefix-p "*help" name)
+     (string-prefix-p "*straight" name)
+     (string-prefix-p " *temp" name)
+     (string-prefix-p "*Help" name)
+     (string-prefix-p "*mybuf" name)
+     (string-prefix-p "*popweb" name)
+     (string-prefix-p "*eaf" name)
+
+     ;; Is not magit buffer.
+     (and (string-prefix-p "magit" name)
+	  (not (file-name-extension name)))
+     )))
+
+(use-package centaur-tabs
+  :demand
+  :custom
+  (centaur-tabs-style "bar")
+  ;; (centaur-tabs-set-icons t)
+  (centaur-tabs-gray-out-icons 'buffer)
+  (centaur-tabs-modified-marker t)
+  (centaur-tabs-set-close-button nil)
+  :config
+  (centaur-tabs-headline-match)
+  (centaur-tabs-mode t)
+  (setq uniquify-separator "/")
+  (setq uniquify-buffer-name-style 'forward)
+  :hook
+  (dashboard-mode . centaur-tabs-local-mode)
+  (term-mode . centaur-tabs-local-mode)
+  (calendar-mode . centaur-tabs-local-mode)
+  (org-agenda-mode . centaur-tabs-local-mode)
+  (helpful-mode . centaur-tabs-local-mode))
+
+;; (use-package sort-tab
+;;   :quelpa (sort-tab :fetcher git :url "https://github.com/manateelazycat/sort-tab.git")
+;;   :hook (after-init . sort-tab-mode))
 
 ;;; Icons
 (use-package all-the-icons
