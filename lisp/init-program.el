@@ -245,7 +245,6 @@
 (use-package color-rg
   :quelpa (color-rg :fetcher git :url "https://github.com/manateelazycat/color-rg.git")
   :ensure t)
-
 (require 'blink-search)
 
 (use-package yaml-mode
