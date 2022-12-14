@@ -13,7 +13,7 @@
           (when-let ((root (locate-dominating-file dir f)))
             (throw 'ret (cons 'local root))))))))
 
-(setq project-find-functions '(my/project-try-local project-try-vc))
+(setq project-find-functions '(project-try-vc my/project-try-local))
 
 (defun my/project-info ()
   (interactive)

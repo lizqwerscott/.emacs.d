@@ -83,10 +83,11 @@
   (acm-enable-yas nil)
   (acm-enable-tempel t)
   (lsp-bridge-use-wenls-in-org-mode nil)
-  (lsp-bridge-enable-diagnostics nil)
+  (lsp-bridge-enable-diagnostics t)
   ;; (lsp-bridge-diagnostic-fetch-idle 0.1)
   ;; (lsp-bridge-enable-debug t)
   ;; (lsp-bridge-python-lsp-server "jedi")
+  ;; (lsp-bridge-python-lsp-server "pyright-background-analysis")
   ;; (acm-candidate-match-function 'orderless-regexp)
   :config
   (setq acm-enable-doc t)
@@ -134,7 +135,7 @@
 
 (use-package flycheck
   :ensure t
-  :hook (after-init . global-flycheck-mode)
+  ;; :hook (after-init . global-flycheck-mode)
   :custom
   (flycheck-disable-checker '(c/c++-clang))
   :config
@@ -229,14 +230,7 @@
   :ensure t
   :hook (prog-mode . docstr-mode))
 
-;;; Run code
-(use-package quickrun
-  :ensure t
-  :diminish t)
-
 ;; write code
-;; (use-package eacl
-;;   :ensure t)
 (use-package eacl
   :ensure t
   :diminish t)

@@ -92,6 +92,26 @@
                  (reusable-frames . visible)
                  (window-height . 0.3))))
 
+(require 'vterm-toggle)
+
+(defvar vterm-compile-buffer nil)
+  (defun vterm-compile ()
+    "Compile the program including the current buffer in `vterm'."
+    (interactive)
+    (let* ((command (eval compile-command))
+           (w (vterm-toggle--get-window)))
+      (setq compile-command (compilation-read-command command))
+      (let ((vterm-toggle-use-dedicated-buffer t)
+            (vterm-toggle--vterm-dedicated-buffer (if w (vterm-toggle-hide)
+                                                    vterm-compile-buffer)))
+        (with-current-buffer (vterm-toggle-cd)
+          (setq vterm-compile-buffer (current-buffer))
+          (rename-buffer "*vterm compilation*")
+          (compilation-shell-minor-mode 1)
+          (vterm-send-M-w)
+          (vterm-send-string compile-command t)
+          (vterm-send-return)))))
+
 (use-package xclip
   :ensure t
   :hook (after-init . xclip-mode))
