@@ -87,6 +87,10 @@
    '("3" . split-window-horizontally)
    '("0" . ace-delete-window))
 
+  ;;run file
+  (meow-leader-define-key
+   '("r" . vterm-compile))
+
   ;;consult and file
   (meow-leader-define-key
    '("sl" . consult-line)

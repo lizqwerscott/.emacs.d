@@ -66,7 +66,7 @@
 (require 'init-c++)
 (require 'init-web)
 (require 'init-common-lisp)
-
+(require 'init-rust)
 
 (require 'init-reader)
 ;; (require 'init-paper)

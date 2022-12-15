@@ -105,6 +105,8 @@
 (meow-setup)
 (meow-global-mode 1)
 
+(require 'rust-mode)
+
 (add-to-list 'load-path "~/.emacs.d/site-lisp/awesome-pair")
 (require 'awesome-pair)
 (dolist (hook (list

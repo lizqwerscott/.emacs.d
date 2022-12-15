@@ -135,15 +135,21 @@
 
 (use-package flycheck
   :ensure t
-  ;; :hook (after-init . global-flycheck-mode)
+  :hook (after-init . global-flycheck-mode)
   :custom
   (flycheck-disable-checker '(c/c++-clang))
   :config
-  ;; (setq flycheck-global-modes '(not python-mode c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
-  ;;       flycheck-emacs-lisp-load-path 'inherit)
-  (setq flycheck-global-modes '(not c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
+  (setq flycheck-global-modes '(not rust-mode python-mode c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
         flycheck-emacs-lisp-load-path 'inherit)
+  ;; (setq flycheck-global-modes '(not c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
+  ;;       flycheck-emacs-lisp-load-path 'inherit)
   (setq flycheck-clang-language-standard "c++17"))
+
+(use-package flycheck-rust
+  :ensure t)
+
+(with-eval-after-load 'rust-mode
+  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
 (use-package consult-flycheck
   :ensure t)
@@ -219,7 +225,8 @@
     (add-hook 'tree-sitter-after-on-hook
               #'tree-sitter-hl-mode))
   (use-package tree-sitter-langs
-    :ensure t))
+    :ensure t)
+  )
 
 ;;; Doc
 (use-package helpful
