@@ -117,7 +117,7 @@
   :hook (after-init . xclip-mode))
 
 (use-package auto-save
-  :quelpa (auto-save :fetcher git :url "https://github.com/manateelazycat/auto-save.git")
+  :quelpa (auto-save :fetcher github :url "manateelazycat/auto-save")
   :ensure t
   :hook
   (after-init . auto-save-enable)

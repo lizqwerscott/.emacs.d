@@ -43,10 +43,12 @@
     (switch-to-buffer-other-window output-buffer)))
 
 (use-package quelpa
+  :ensure t
   :custom
   (quelpa-update-melpa-p nil)
   :config
-  (use-package quelpa-use-package)
+  (use-package quelpa-use-package
+    :ensure t)
   (quelpa-use-package-activate-advice))
 
 (defun emacs-update ()
