@@ -90,17 +90,17 @@
  ;; (lazycat-theme-load-dark)
 ;; (load-theme 'ef-night t)
 ;; (load-theme 'ef-day t)
-(load-theme 'ef-summer t)
+;; (load-theme 'ef-summer t)
 ;; (flucui-themes-load-style 'dark)
 
-;; (use-package circadian
-;;   :ensure t
-;;   :config
-;;   (setq calendar-latitude 37)
-;;   (setq calendar-longitude 112)
-;;   (setq circadian-themes '((:sunrise . ef-summer)
-;;                            (:sunset  . ef-night)))
-;;   (circadian-setup))
+(use-package circadian
+  :ensure t
+  :config
+  (setq calendar-latitude 37)
+  (setq calendar-longitude 112)
+  (setq circadian-themes '((:sunrise . ef-summer)
+                           (:sunset  . ef-night)))
+  (circadian-setup))
 
 ;;; Background
 (setq default-frame-alist
