@@ -86,21 +86,21 @@
 ;; (load-theme 'modus-vivendi t)
 ;; (load-theme 'ef-summer t)
 ;; (load-theme 'modus-operandi t)
-;; (require 'lazycat-theme)
-;; (lazycat-theme-load-dark)
+ ;; (require 'lazycat-theme)
+ ;; (lazycat-theme-load-dark)
 ;; (load-theme 'ef-night t)
 ;; (load-theme 'ef-day t)
-;; (load-theme 'ef-summer t)
+(load-theme 'ef-summer t)
 ;; (flucui-themes-load-style 'dark)
 
-(use-package circadian
-  :ensure t
-  :config
-  (setq calendar-latitude 37)
-  (setq calendar-longitude 112)
-  (setq circadian-themes '((:sunrise . ef-summer)
-                           (:sunset  . ef-night)))
-  (circadian-setup))
+;; (use-package circadian
+;;   :ensure t
+;;   :config
+;;   (setq calendar-latitude 37)
+;;   (setq calendar-longitude 112)
+;;   (setq circadian-themes '((:sunrise . ef-summer)
+;;                            (:sunset  . ef-night)))
+;;   (circadian-setup))
 
 ;;; Background
 (setq default-frame-alist
@@ -191,43 +191,43 @@
   (setq display-line-numbers-type 'relative))
 
 ;;; Dashboard
-(use-package page-break-lines
-  :ensure t
-  :hook (dashboard-mode . page-break-lines-mode)
-  :config
-  (set-fontset-font "fontset-default"
-                    (cons page-break-lines-char page-break-lines-char)
-                    (face-attribute 'default :family)))
+;; (use-package page-break-lines
+;;   :ensure t
+;;   :hook (dashboard-mode . page-break-lines-mode)
+;;   :config
+;;   (set-fontset-font "fontset-default"
+;;                     (cons page-break-lines-char page-break-lines-char)
+;;                     (face-attribute 'default :family)))
 
-(use-package dashboard
-  :ensure t
-  :config
-  (setq dashboard-banner-logo-title "EMACS - Enjoy Programming & Writing")
-  ;; (setq dashboard-banner-logo-title "LizqwerScott - Enjoy Yourself")
-  ;; (setq dashboard-banner-logo-title "My name is God, God is me.")
-  ;; (setq dashboard-startup-banner 'logo)
-  (setq dashboard-startup-banner "~/.emacs.d/logo.png")
-  ;; (setq dashboard-startup-banner "~/Downloads/logo.png")
-  (setq dashboard-page-separator "\n\f\f\n")
-  (setq dashboard-center-content t)
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
-  (setq dashboard-projects-backend 'project-el)
-  (setq dashboard-items '((recents . 10)
-                          (bookmarks . 5)
-                          (projects . 5)
-                          (agenda . 5)))
-  (setq dashboard-set-init-info t)
-  (setq dashboard-set-footer t)
-  (setq dashboard-footer (format "Powered by Lizqwer Scott, %s" (format-time-string "%Y")))
-  ;; (setq dashboard-footer-icon (or (all-the-icons-faicon "heart"
-  ;;                                                       :height 1.1
-  ;;                                                       :v-adjust -0.05
-  ;;                                                       :face 'error)
-  ;;                                 (propertize ">" 'face 'dashboard-footer)))
-  (dashboard-setup-startup-hook)
-  ;:hook ((after-init . dashboard-refresh-buffer))
-  )
+;; (use-package dashboard
+;;   :ensure t
+;;   :config
+;;   (setq dashboard-banner-logo-title "EMACS - Enjoy Programming & Writing")
+;;   ;; (setq dashboard-banner-logo-title "LizqwerScott - Enjoy Yourself")
+;;   ;; (setq dashboard-banner-logo-title "My name is God, God is me.")
+;;   ;; (setq dashboard-startup-banner 'logo)
+;;   (setq dashboard-startup-banner "~/.emacs.d/logo.png")
+;;   ;; (setq dashboard-startup-banner "~/Downloads/logo.png")
+;;   (setq dashboard-page-separator "\n\f\f\n")
+;;   (setq dashboard-center-content t)
+;;   (setq dashboard-set-heading-icons t)
+;;   (setq dashboard-set-file-icons t)
+;;   (setq dashboard-projects-backend 'project-el)
+;;   (setq dashboard-items '((recents . 10)
+;;                           (bookmarks . 5)
+;;                           (projects . 5)
+;;                           (agenda . 5)))
+;;   (setq dashboard-set-init-info t)
+;;   (setq dashboard-set-footer t)
+;;   (setq dashboard-footer (format "Powered by Lizqwer Scott, %s" (format-time-string "%Y")))
+;;   ;; (setq dashboard-footer-icon (or (all-the-icons-faicon "heart"
+;;   ;;                                                       :height 1.1
+;;   ;;                                                       :v-adjust -0.05
+;;   ;;                                                       :face 'error)
+;;   ;;                                 (propertize ">" 'face 'dashboard-footer)))
+;;   (dashboard-setup-startup-hook)
+;;   ;:hook ((after-init . dashboard-refresh-buffer))
+;;   )
 
 ;;; hl indetn
 (use-package indent-guide

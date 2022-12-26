@@ -50,26 +50,31 @@
 ;; (use-package eglot
 ;;   :ensure t
 ;;   :hook
-;;   (cmake-mode-hook 'eglot-ensure)
+;;   (rust-mode 'eglot-ensure)
+;;   ;; (cmake-mode-hook 'eglot-ensure)
 ;;   :init
 ;;   ;; (add-hook 'python-mode-hook 'eglot-ensure)
-;;   (add-hook 'cmake-mode-hook 'eglot-ensure)
-;;   (add-hook 'web-mode-hook 'eglot-ensure)
-;;   (add-hook 'vue-mode-hook 'eglot-ensure)
+;;   ;; (add-hook 'cmake-mode-hook 'eglot-ensure)
+;;   ;; (add-hook 'web-mode-hook 'eglot-ensure)
+;;   ;; (add-hook 'vue-mode-hook 'eglot-ensure)
 ;;   ;; (add-hook 'c-mode-hook 'eglot-ensure)
 ;;   ;; (add-hook 'c++-mode-hook 'eglot-ensure)
 ;;   :config
 ;;   (progn
 ;;     (setq eldoc-echo-area-use-multiline-p 3
 ;;           eldoc-echo-area-display-truncation-message nil)
-;;     ;; (set-face-attribute 'eglot-highlight-symbol-face nil
-;;     ;;                     :background "#b3d7ff")
+;;     (set-face-attribute 'eglot-highlight-symbol-face nil
+;;                         :background "#b3d7ff")
 ;;     (add-to-list 'eglot-server-programs
 ;;                  '((c-mode c++-mode) . ("ccls")))
 ;;     (add-to-list 'eglot-server-programs
 ;;                  '(python-mode . ("jedi-language-server")))
 ;;     (add-to-list 'eglot-server-programs
-;;                  '(vue-mode . "vls"))))
+;;                  '(vue-mode . "vls"))
+;;     (add-to-list 'eglot-server-programs
+;;                  `(rust-mode . ("rust-analyzer"
+;;                                 :initializationOptions (:cargo (:features "all")))))
+;;     ))
 
 ;; Lsp bridge
 (use-package lsp-bridge
@@ -81,14 +86,14 @@
   (lsp-bridge-c-lsp-server "ccls")
   (acm-enable-tabnine t)
   (acm-enable-yas nil)
-  (acm-enable-tempel t)
+  (acm-enable-tempel nil)
   (lsp-bridge-use-wenls-in-org-mode nil)
-  (lsp-bridge-enable-diagnostics t)
+  (lsp-bridge-enable-diagnostics nil)
   ;; (lsp-bridge-diagnostic-fetch-idle 0.1)
   ;; (lsp-bridge-enable-debug t)
   ;; (lsp-bridge-python-lsp-server "jedi")
   ;; (lsp-bridge-python-lsp-server "pyright-background-analysis")
-  ;; (acm-candidate-match-function 'orderless-regexp)
+  (acm-candidate-match-function 'orderless-regexp)
   :config
   (setq acm-enable-doc t)
 
@@ -139,10 +144,10 @@
   :custom
   (flycheck-disable-checker '(c/c++-clang))
   :config
-  (setq flycheck-global-modes '(not rust-mode python-mode c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
-        flycheck-emacs-lisp-load-path 'inherit)
-  ;; (setq flycheck-global-modes '(not c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
+  ;; (setq flycheck-global-modes '(not rust-mode python-mode c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
   ;;       flycheck-emacs-lisp-load-path 'inherit)
+  (setq flycheck-global-modes '(not c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
+        flycheck-emacs-lisp-load-path 'inherit)
   (setq flycheck-clang-language-standard "c++17"))
 
 (use-package flycheck-rust

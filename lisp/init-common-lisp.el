@@ -18,7 +18,7 @@
   :config
   ;; (setq sly-complete-symbol-function 'sly-simple-completions)
   (setq sly-complete-symbol-function 'sly-flex-completions)
-  (setq inferior-lisp-program "ccl"))
+  (setq inferior-lisp-program "sbcl"))
 
 (use-package sly-quicklisp
   :ensure t
