@@ -94,23 +94,39 @@
 
 (require 'vterm-toggle)
 
+(defvar vterm-run-buffer nil)
+(defun vterm-run (run-command)
+  "Run the program including the current buffer in `vterm'."
+  (interactive)
+  (let* ((w (vterm-toggle--get-window)))
+    (let ((vterm-toggle-use-dedicated-buffer t)
+          (vterm-toggle--vterm-dedicated-buffer (if w (vterm-toggle-hide)
+                                                  vterm-compile-buffer)))
+      (with-current-buffer (vterm-toggle-cd)
+        (setq vterm-compile-buffer (current-buffer))
+        (rename-buffer "*vterm run*")
+        (compilation-shell-minor-mode 1)
+        (vterm-send-M-w)
+        (vterm-send-string run-command t)
+        (vterm-send-return)))))
+
 (defvar vterm-compile-buffer nil)
-  (defun vterm-compile ()
-    "Compile the program including the current buffer in `vterm'."
-    (interactive)
-    (let* ((command (eval compile-command))
-           (w (vterm-toggle--get-window)))
-      (setq compile-command (compilation-read-command command))
-      (let ((vterm-toggle-use-dedicated-buffer t)
-            (vterm-toggle--vterm-dedicated-buffer (if w (vterm-toggle-hide)
-                                                    vterm-compile-buffer)))
-        (with-current-buffer (vterm-toggle-cd)
-          (setq vterm-compile-buffer (current-buffer))
-          (rename-buffer "*vterm compilation*")
-          (compilation-shell-minor-mode 1)
-          (vterm-send-M-w)
-          (vterm-send-string compile-command t)
-          (vterm-send-return)))))
+(defun vterm-compile ()
+  "Compile the program including the current buffer in `vterm'."
+  (interactive)
+  (let* ((command (eval compile-command))
+         (w (vterm-toggle--get-window)))
+    (setq compile-command (compilation-read-command command))
+    (let ((vterm-toggle-use-dedicated-buffer t)
+          (vterm-toggle--vterm-dedicated-buffer (if w (vterm-toggle-hide)
+                                                  vterm-compile-buffer)))
+      (with-current-buffer (vterm-toggle-cd)
+        (setq vterm-compile-buffer (current-buffer))
+        (rename-buffer "*vterm compilation*")
+        (compilation-shell-minor-mode 1)
+        (vterm-send-M-w)
+        (vterm-send-string compile-command t)
+        (vterm-send-return)))))
 
 (use-package xclip
   :ensure t
@@ -145,10 +161,10 @@
 (require 'eaf-git)
 (require 'eaf-browser)
 
-;; (setq eaf-proxy-type "http")
+(setq eaf-proxy-type "http")
 ;; (setq eaf-proxy-host "127.0.0.1")
-;; (setq eaf-proxy-host "192.168.3.3")
-;; (setq eaf-proxy-port "20172")
+(setq eaf-proxy-host "192.168.3.3")
+(setq eaf-proxy-port "20172")
 (setq eaf-webengine-default-zoom 1.25)
 
 (use-package request

@@ -4,6 +4,28 @@
             'find-temp-project)
 (fset 'project-command-map project-prefix-map)
 
+(defun sly-switch-mrepl (&optional display-action)
+  "Find or create the first useful REPL for the default connection."
+  (interactive
+   (list (lambda (buf)
+           (let ((w (get-buffer-window buf)))
+             (if w (select-window w) (switch-to-buffer-other-window buf))))))
+  (let* ((buffer (sly-mrepl--find-create (sly-current-connection))))
+    (when display-action
+      (funcall display-action buffer))
+    buffer))
+
+(defun run-or-compile ()
+  (interactive)
+  (if (bound-and-true-p sly-mode)
+      (call-interactively #'sly-switch-mrepl)
+    (if (equal major-mode 'python-mode)
+        (let ((command (concat "python "
+                               (file-truename (buffer-name)))))
+          (setq command (compilation-read-command command))
+          (vterm-run command))
+      (vterm-compile))))
+
 (defun my/meow-quit ()
   (interactive)
   (if (derived-mode-p 'dired-mode)
@@ -89,7 +111,7 @@
 
   ;;run file
   (meow-leader-define-key
-   '("r" . vterm-compile))
+   '("r" . run-or-compile))
 
   ;;consult and file
   (meow-leader-define-key
