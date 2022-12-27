@@ -4,17 +4,6 @@
             'find-temp-project)
 (fset 'project-command-map project-prefix-map)
 
-(defun sly-switch-mrepl (&optional display-action)
-  "Find or create the first useful REPL for the default connection."
-  (interactive
-   (list (lambda (buf)
-           (let ((w (get-buffer-window buf)))
-             (if w (select-window w) (switch-to-buffer-other-window buf))))))
-  (let* ((buffer (sly-mrepl--find-create (sly-current-connection))))
-    (when display-action
-      (funcall display-action buffer))
-    buffer))
-
 (defun run-or-compile ()
   (interactive)
   (if (bound-and-true-p sly-mode)
