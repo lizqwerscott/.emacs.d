@@ -201,5 +201,9 @@
   (interactive)
   (eww "zh-cn.wttr.in/"))
 
+(use-package google-this
+  :ensure t
+  :hook (after-init . google-this-mode))
+
 (provide 'init-tool)
 ;;; init-tool.el ends here.
