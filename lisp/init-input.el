@@ -25,7 +25,8 @@
                 `(
                   ;; pyim-probe-program-mode
                   pyim-probe-meow-normal-mode
-                  pyim-probe-org-structure-template)))
+                  pyim-probe-org-structure-template))
+  (setq-default pyim-punctuation-translate-p '(no)))
 
 (use-package pyim-basedict
   :ensure t
