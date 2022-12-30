@@ -10,27 +10,66 @@
 ;;; Code:
 
 ;;; Font
-(if *is-windows*
-    (progn
-      (set-face-attribute 'default nil :height 170)
-      (dolist (charset '(han symbol cjk-misc bopomofo))
-        (set-fontset-font (frame-parameter nil 'font)
-                          charset
-                          (font-spec :family "Microsoft Yahei UI" :size 17))))
-  (progn
-    ;; (set-frame-font "Source Code Pro 18")
-    ;; (set-face-attribute 'default t :font "Source Code Pro 18")
-    (set-frame-font "Fira Code 18")
-    (set-face-attribute 'default t :font "Fira Code 18")
-    ;; (when (member "Symbola" (font-family-list))
-    ;;   (set-fontset-font "fontset-default" nil
-    ;;                     (font-spec :size 18 :name "Symbola")))
-    ;; (when (member "Symbola" (font-family-list)) (set-fontset-font t 'unicode "Symbola" nil 'prepend))
-    (when (member "霞鹜文楷" (font-family-list))
-      (set-fontset-font 'fontset-default nil
-                        (font-spec :size 18 :name "霞鹜文楷")))))
+(defun font-installed-p (font-name)
+  "Check if font with FONT-NAME is available."
+  (find-font (font-spec :name font-name)))
 
-;; (quelpa '(ligature :fetcher git :url "https://github.com/mickeynp/ligature.el.git"))
+(defun setup-fonts ()
+  "Setup fonts."
+  (when (display-graphic-p)
+    ;; Set default font
+    (cl-loop for font in '("Cascadia Code" "Jetbrains Mono" "Fira Code" "Source Code Pro"
+                           "SF Mono" "Hack" "Menlo"
+                           "Monaco" "DejaVu Sans Mono" "Consolas")
+             when (font-installed-p font)
+             return (set-face-attribute 'default nil
+                                        :family font
+                                        :height (cond (sys/macp 130)
+                                                      (sys/win32p 110)
+                                                      (t 180))))
+
+    ;; Set mode-line font
+    ;; (cl-loop for font in '("Menlo" "SF Pro Display" "Helvetica")
+    ;;          when (font-installed-p font)
+    ;;          return (progn
+    ;;                   (set-face-attribute 'mode-line nil :family font :height 120)
+    ;;                   (when (facep 'mode-line-active)
+    ;;                     (set-face-attribute 'mode-line-active nil :family font :height 120))
+    ;;                   (set-face-attribute 'mode-line-inactive nil :family font :height 120)))
+
+    ;; Specify font for all unicode characters
+    (cl-loop for font in '("Segoe UI Symbol" "Symbola" "Symbol")
+             when (font-installed-p font)
+             return (if (< emacs-major-version 27)
+                        (set-fontset-font "fontset-default" 'unicode font nil 'prepend)
+                      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend)))
+
+    ;; Emoji
+    (cl-loop for font in '("Noto Color Emoji" "Apple Color Emoji" "Segoe UI Emoji")
+             when (font-installed-p font)
+             return (cond
+                     ((< emacs-major-version 27)
+                      (set-fontset-font "fontset-default" 'unicode font nil 'prepend))
+                     ((< emacs-major-version 28)
+                      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
+                     (t
+                      (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
+
+    ;; Specify font for Chinese characters
+    (cl-loop for font in '("WenQuanYi Micro Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
+             when (font-installed-p font)
+             return (progn
+                      (setq face-font-rescale-alist `((,font . 1.3)))
+                      (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))))))
+
+
+(setup-fonts)
+(add-hook 'window-setup-hook #'setup-fonts)
+(add-hook 'server-after-make-frame-hook #'setup-fonts)
+
+(use-package pretty-mode
+  :ensure t
+  :hook (prog-mode . pretty-mode))
 
 (use-package ligature
   :quelpa (ligature :fetcher git :url "https://github.com/mickeynp/ligature.el.git")
@@ -185,7 +224,7 @@
 
 ;;; Line number
 (use-package emacs
-  :unless *is-windows*
+  :unless sys/win32p
   :hook (((prog-mode text-mode) . display-line-numbers-mode))
   :config
   (setq display-line-numbers-type 'relative))

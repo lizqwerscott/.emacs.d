@@ -222,7 +222,7 @@
 ;;           'hs-minor-mode)
 
 ;;; tree sitter
-(when *is-linux*
+(when sys/linuxp
   (use-package tree-sitter
     :ensure t
     :config

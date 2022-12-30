@@ -184,6 +184,10 @@
   :quelpa (deno-bridge :fetcher git :url "https://github.com/manateelazycat/deno-bridge.git")
   :ensure t)
 
+;; log
+(use-package interaction-log
+  :ensure t)
+
 ;;some tool function
 
 (defun remember-init ()
