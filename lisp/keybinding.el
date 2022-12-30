@@ -1,7 +1,10 @@
 ;;project key
 (define-key project-prefix-map
-            "t"
-            'find-temp-project)
+  "t"
+  #'find-temp-project)
+(define-key project-prefix-map
+  "f"
+  #'consult-project-extra-find)
 (fset 'project-command-map project-prefix-map)
 
 (defun run-or-compile ()
@@ -58,9 +61,6 @@
   (meow-leader-define-key
    '("p" . project-command-map))
 
-  (meow-leader-define-key
-   '("j" . blink-search))
-
   ;;Another command
   (meow-leader-define-key
    '("tt" . gts-do-translate)
@@ -81,12 +81,6 @@
    ;; '("ap" . lsp-bridge-diagnostic-jump-prev)
 )
 
-  (meow-leader-define-key
-   ;; '("W" . paredit-wrap-sexp)
-   '("W" . awesome-pair-wrap-round)
-   ;; '("S" . paredit-splice-sexp)
-   '("S" . awesome-pair-unwrap))
-
   ;;window key
   (meow-leader-define-key
    '("o" . other-window)
@@ -102,25 +96,34 @@
   (meow-leader-define-key
    '("r" . run-or-compile))
 
+  (meow-leader-define-key
+   '("j" . blink-search))
+
   ;;consult and file
   (meow-leader-define-key
    '("sl" . consult-line)
-   ;; '("sg" . consult-ripgrep)
    '("si" . consult-imenu)
    '("sm" . consult-imenu-multi)
    '("sg" . consult-goto-line)
-   '("so" . consult-outline)
-   '("sb" . consult-bookmark)
-   '("se" . consult-flycheck)
+   '("so" . consult-outline))
 
-   '("ff" . find-file)
-   '("fr" . consult-find)
-   '("F" . affe-find)
-   '("fs" . ff-find-other-file)
+  ;;file
+  (meow-leader-define-key
+   '("f" . find-file)
+   ;; '("fr" . consult-find)
+   ;; '("F" . affe-find)
+   '("sf" . ff-find-other-file)
+   )
 
-   '("bb" . consult-buffer)
-   '("bB" . consult-buffer-other-window)
-   '("bm" . bookmark-set))
+  ;;buffer
+  (meow-leader-define-key
+   '("b" . consult-buffer))
+
+  ;;bookmakr
+  (meow-leader-define-key
+   '("Bs" . bookmark-set)
+   '("Bj" . consult-bookmark))
+
   ;;dired
   (meow-leader-define-key
    '("dj" . dired-jump)

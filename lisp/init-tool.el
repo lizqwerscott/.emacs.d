@@ -157,9 +157,14 @@
 
 ;; eaf
 (require 'eaf)
+(require 'eaf-browser)
 (require 'eaf-pdf-viewer)
 (require 'eaf-git)
-(require 'eaf-browser)
+(require 'eaf-image-viewer)
+(require 'eaf-markdown-previewer)
+(require 'eaf-org-previewer)
+(require 'eaf-file-manager)
+
 
 (setq eaf-proxy-type "http")
 ;; (setq eaf-proxy-host "127.0.0.1")

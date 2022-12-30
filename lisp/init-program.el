@@ -252,6 +252,14 @@
   :quelpa (color-rg :fetcher git :url "https://github.com/manateelazycat/color-rg.git")
   :ensure t)
 (require 'blink-search)
+(add-hook 'blink-search-mode-hook
+          'meow-insert)
+(setq blink-search-search-backends
+      '("Buffer List" "Find File" "Common Directory" "Recent File" "EAF Browser History" "Google Suggest"))
+(setq blink-search-common-directory
+      '(("HOME" . "~/")
+        ("Project" . "~/MyProject/")
+        ("Config" . "~/.emacs.d/")))
 
 (use-package yaml-mode
   :ensure t)

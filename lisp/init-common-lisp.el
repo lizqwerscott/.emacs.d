@@ -39,6 +39,17 @@ which case that window is selected."
   :ensure t
   :after sly)
 
+(defun load-lisp-project ()
+  "Load now project."
+  (interactive)
+  (sly-quickload (project-name (project-current))))
+
+(eval-after-load 'sly
+  `(define-key sly-mode-map (kbd "C-c q r") #'sly-restart-inferior-lisp))
+
+(eval-after-load 'sly
+  `(define-key sly-mode-map (kbd "C-c q l") #'load-lisp-project))
+
 (use-package sly-asdf
   :ensure t
   :after sly)
