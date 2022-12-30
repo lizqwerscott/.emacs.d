@@ -11,7 +11,7 @@
 ;;; Code:
 
 ;; (add-hook 'prog-mode-hook 'electric-pair-local-mode)
-;; (electric-pair-mode 1)
+(electric-pair-mode 1)
 
 ;; (use-package lispy
 ;;   :ensure t

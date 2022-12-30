@@ -105,45 +105,8 @@
 (meow-setup)
 (meow-global-mode 1)
 
-(require 'rust-mode)
+(require 'websocket)
+(require 'deno-bridge)
 
-(add-to-list 'load-path "~/.emacs.d/site-lisp/awesome-pair")
-(require 'awesome-pair)
-(dolist (hook (list
-               ;; 'c-mode-common-hook
-               ;; 'c-mode-hook
-               ;; 'c++-mode-hook
-               'haskell-mode-hook
-               'emacs-lisp-mode-hook
-               'lisp-interaction-mode-hook
-               'lisp-mode-hook
-               'common-lisp-mode-hook
-               'maxima-mode-hook
-               'sh-mode-hook
-               'python-mode-hook
-               'js-mode-hook
-               'go-mode-hook
-               'css-mode-hook
-               'ruby-mode-hook
-               'rust-mode-hook
-               'lua-mode-hook
-               'swift-mode-hook
-               'minibuffer-inactive-mode-hook
-               ))
-  (add-hook hook
-            #'(lambda ()
-                (awesome-pair-mode 1))))
-
-(define-key awesome-pair-mode-map (kbd "(") 'awesome-pair-open-round)
-(define-key awesome-pair-mode-map (kbd "[") 'awesome-pair-open-bracket)
-(define-key awesome-pair-mode-map (kbd "{") 'awesome-pair-open-curly)
-(define-key awesome-pair-mode-map (kbd ")") 'awesome-pair-close-round)
-(define-key awesome-pair-mode-map (kbd "]") 'awesome-pair-close-bracket)
-(define-key awesome-pair-mode-map (kbd "}") 'awesome-pair-close-curly)
-(define-key awesome-pair-mode-map (kbd "=") 'awesome-pair-equal)
-
-(define-key awesome-pair-mode-map (kbd "%") 'awesome-pair-match-paren)
-(define-key awesome-pair-mode-map (kbd "\"") 'awesome-pair-double-quote)
-
-(define-key awesome-pair-mode-map (kbd "SPC") 'awesome-pair-space)
-(define-key awesome-pair-mode-map (kbd "RET") 'awesome-pair-newline)
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/insert-translated-name/"))
+(require 'insert-translated-name)

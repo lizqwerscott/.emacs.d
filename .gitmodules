@@ -19,5 +19,6 @@ path = site-lisp/popweb
 url = https://github.com/manateelazycat/popweb.git
 
 [submodule "site-lisp/insert-translated-name"]
-	path = site-lisp/insert-translated-name
-	url = https://github.com/manateelazycat/insert-translated-name.git
+path = site-lisp/insert-translated-name
+url = https://github.com/manateelazycat/insert-translated-name.git
+

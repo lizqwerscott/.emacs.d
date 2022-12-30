@@ -165,7 +165,6 @@
 (require 'eaf-org-previewer)
 (require 'eaf-file-manager)
 
-
 (setq eaf-proxy-type "http")
 ;; (setq eaf-proxy-host "127.0.0.1")
 (setq eaf-proxy-host "192.168.3.3")
