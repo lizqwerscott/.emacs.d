@@ -69,7 +69,7 @@
 
 (use-package pretty-mode
   :ensure t
-  :hook (prog-mode . pretty-mode))
+  :hook ((emacs-lisp-mode lisp-mode) . pretty-mode))
 
 (use-package ligature
   :quelpa (ligature :fetcher git :url "https://github.com/mickeynp/ligature.el.git")
