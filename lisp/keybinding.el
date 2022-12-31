@@ -1,11 +1,13 @@
-;;project key
-(define-key project-prefix-map
-  "t"
-  #'find-temp-project)
-(define-key project-prefix-map
-  "f"
-  #'consult-project-extra-find)
-(fset 'project-command-map project-prefix-map)
+;;; keybinding.el --- project                        -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2022  lizqwer scott
+
+;; Author: lizqwer scott <lizqwerscott@gmail.com>
+;; Keywords: keybinding.
+
+;;; Commentary:
+
+;;; Code:
 
 (defun run-or-compile ()
   (interactive)
@@ -58,8 +60,6 @@
    ;; '("0" . meow-digit-argument)
    ;; '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet))
-  (meow-leader-define-key
-   '("p" . project-command-map))
 
   ;;Another command
   (meow-leader-define-key

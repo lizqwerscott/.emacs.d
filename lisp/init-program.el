@@ -3,7 +3,7 @@
 ;; Copyright (C) 2022
 
 ;; Author:  <lizqwerscott@gmail.com>
-;; Keywords: processes.
+;; Keywords: program.
 
 ;;; Commentary:
 

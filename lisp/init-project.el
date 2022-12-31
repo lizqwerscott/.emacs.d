@@ -188,5 +188,27 @@ NAME is class name."
                              (concat " --path "
                                      dir-path))))))
 
+;;project key
+(defun project-eaf-open-dir ()
+  "Use eaf open project root dir."
+  (interactive)
+  (eaf-open (project-root (project-current))))
+
+(setq project-switch-commands
+      '((consult-project-extra-find "Find file")
+        (project-eaf-open-dir "Dir")
+        (eaf-open-git "Git")))
+
+(defalias 'project-prefix-map project-prefix-map)
+
+(define-key mode-specific-map "p" 'project-prefix-map)
+
+(with-eval-after-load "project"
+  (define-key project-prefix-map "s" #'shell)
+  (define-key project-prefix-map "d" #'project-eaf-open-dir)
+  (define-key project-prefix-map "v" #'eaf-open-git)
+  (define-key project-prefix-map "t" #'find-temp-project)
+  (define-key project-prefix-map "f" #'consult-project-extra-find))
+
 (provide 'init-project)
 ;;; init-project.el ends heres.
