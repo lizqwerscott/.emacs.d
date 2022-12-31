@@ -195,7 +195,7 @@ NAME is class name."
   (eaf-open (project-root (project-current))))
 
 (setq project-switch-commands
-      '((consult-project-extra-find "Find file")
+      '((project-find-fir "Find file")
         (project-eaf-open-dir "Dir")
         (eaf-open-git "Git")))
 
@@ -208,7 +208,7 @@ NAME is class name."
   (define-key project-prefix-map "d" #'project-eaf-open-dir)
   (define-key project-prefix-map "v" #'eaf-open-git)
   (define-key project-prefix-map "t" #'find-temp-project)
-  (define-key project-prefix-map "f" #'consult-project-extra-find))
+  (define-key project-prefix-map "f" #'project-find-file))
 
 (provide 'init-project)
 ;;; init-project.el ends heres.

@@ -138,7 +138,7 @@
   (setq calendar-latitude 37)
   (setq calendar-longitude 112)
   (setq circadian-themes '((:sunrise . ef-summer)
-                           (:sunset  . ef-night)))
+                           (:sunset  . solarized-dark)))
   (circadian-setup))
 
 ;;; Background
@@ -302,7 +302,6 @@
   (shackle-default-size 0.5)
   (shackle-default-alignment 'below)
   (shackle-rules '((help-mode :select t :align t :size 0.4)
-                   ("*quickrun*" :select t :align t :size 0.4)
                    ("*Process List*" :select t :align t))))
 
 ;;; Another
