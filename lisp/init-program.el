@@ -44,9 +44,6 @@
 
 ;; Ctags
 
-(use-package citre
-  :ensure t)
-
 ;;; Lsp Server
 
 ;; Eglot
@@ -87,7 +84,6 @@
   :hook (after-init . global-lsp-bridge-mode)
   :custom
   (lsp-bridge-c-lsp-server "ccls")
-  (acm-enable-citre t)
   (acm-enable-tabnine t)
   (acm-enable-yas nil)
   (acm-enable-tempel nil)
