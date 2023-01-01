@@ -66,6 +66,7 @@
    '("tt" . gts-do-translate)
    '("th" . helpful-at-point)
    '("tg" . google-this)
+   '("tp" . popweb-dict-bing-pointer)
    ;;'("m" . vc-msg-show)
    )
 
