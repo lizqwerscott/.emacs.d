@@ -24,9 +24,9 @@
 
 (require 'grammatical-edit)
 (dolist (hook (list
-               'c-mode-common-hook
-               'c-mode-hook
-               'c++-mode-hook
+               ;; 'c-mode-common-hook
+               ;; 'c-mode-hook
+               ;; 'c++-mode-hook
                'haskell-mode-hook
                'emacs-lisp-mode-hook
                'lisp-interaction-mode-hook
@@ -64,7 +64,8 @@
 (define-key grammatical-edit-mode-map (kbd "SPC") 'grammatical-edit-space)
 (define-key grammatical-edit-mode-map (kbd "RET") 'grammatical-edit-newline)
 
-(define-key grammatical-edit-mode-map (kbd "M-o") 'grammatical-edit-backward-delete)
+(define-key grammatical-edit-mode-map (kbd "C-s-<backspace>") 'grammatical-edit-kill-current-line)
+(define-key grammatical-edit-mode-map (kbd "M-d") 'grammatical-edit-backward-delete)
 (define-key grammatical-edit-mode-map (kbd "C-d") 'grammatical-edit-forward-delete)
 (define-key grammatical-edit-mode-map (kbd "C-k") 'grammatical-edit-kill)
 
