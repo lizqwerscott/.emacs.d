@@ -21,7 +21,7 @@
   :diminish t)
 
 (use-package benchmark-init
-  :ensure t :init (benchmark-init/activate)
+  :ensure t
   :hook (after-init . benchmark-init/activate))
 
 (use-package gcmh
