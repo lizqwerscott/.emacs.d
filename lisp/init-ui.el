@@ -206,14 +206,9 @@
   (all-the-icons-completion-mode))
 
 ;;; Git message
-(use-package git-gutter
+(use-package diff-hl
   :ensure t
-  :config
-  (global-git-gutter-mode +1)
-  (setq git-gutter:modified-sign " ")
-  (setq git-gutter:added-sign "+")
-  (setq git-gutter:deleted-sign "-")
-  (setq git-gutter:hide-gutter t))
+  :hook (after-init . global-diff-hl-mode))
 
 ;; (use-package vc-msg
 ;;   :ensure t)

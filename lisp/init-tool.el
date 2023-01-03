@@ -31,6 +31,10 @@
   (gcmh-idle-delay 10)
   (gcmh-high-cons-threshold #x6400000))
 
+(use-package posframe
+  :ensure t
+  :diminish t)
+
 (use-package separedit
   :ensure t
   :bind
@@ -139,7 +143,7 @@
   :hook (after-init . xclip-mode))
 
 (use-package auto-save
-  :quelpa (auto-save :fetcher github :url "manateelazycat/auto-save")
+  :quelpa (auto-save :fetcher github :repo "manateelazycat/auto-save")
   :ensure t
   :hook
   (after-init . auto-save-enable)
@@ -148,10 +152,6 @@
   (setq auto-save-delete-trailing-whitespace t))
 
 (use-package markdown-mode
-  :ensure t
-  :diminish t)
-
-(use-package posframe
   :ensure t
   :diminish t)
 
@@ -220,6 +220,18 @@
 (use-package google-this
   :ensure t
   :hook (after-init . google-this-mode))
+
+;;; tree sitter
+(when sys/linuxp
+  (use-package tree-sitter
+    :ensure t
+    :config
+    (global-tree-sitter-mode)
+    (add-hook 'tree-sitter-after-on-hook
+              #'tree-sitter-hl-mode))
+  (use-package tree-sitter-langs
+    :ensure t)
+  )
 
 (provide 'init-tool)
 ;;; init-tool.el ends here.
