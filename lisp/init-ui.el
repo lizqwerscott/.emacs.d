@@ -210,8 +210,39 @@
 ;;; Git message
 (use-package diff-hl
   :ensure t
-  :hook (after-init . global-diff-hl-mode))
+  :custom-face
+  (diff-hl-change ((t (:inherit custom-changed :foreground unspecified :background unspecified))))
+  (diff-hl-insert ((t (:inherit diff-added :background unspecified))))
+  (diff-hl-delete ((t (:inherit diff-removed :background unspecified))))
+  ;; :bind (:map diff-hl-command-map
+  ;;        ("SPC" . diff-hl-mark-hunk))
+  :hook ((after-init . global-diff-hl-mode)
+         (after-init . global-diff-hl-show-hunk-mouse-mode)
+         (dired-mode . diff-hl-dired-mode))
+  :init (setq diff-hl-draw-borders nil)
+  :config
+  ;; Highlight on-the-fly
+  (diff-hl-flydiff-mode 1)
 
+  ;; Set fringe style
+  (setq-default fringes-outside-margins t)
+
+  (with-no-warnings
+    (defun my-diff-hl-fringe-bmp-function (_type _pos)
+      "Fringe bitmap function for use as `diff-hl-fringe-bmp-function'."
+      (define-fringe-bitmap 'my-diff-hl-bmp
+        (vector (if sys/linuxp #b11111100 #b11100000))
+        1 8
+        '(center t)))
+    (setq diff-hl-fringe-bmp-function #'my-diff-hl-fringe-bmp-function)
+
+    (unless (display-graphic-p)
+      ;; Fall back to the display margin since the fringe is unavailable in tty
+      (diff-hl-margin-mode 1)
+      ;; Avoid restoring `diff-hl-margin-mode'
+      (with-eval-after-load 'desktop
+        (add-to-list 'desktop-minor-mode-table
+                     '(diff-hl-margin-mode nil))))))
 ;; (use-package vc-msg
 ;;   :ensure t)
 
@@ -292,14 +323,34 @@
   :ensure t
   :diminish t)
 
-(use-package shackle
+;; (use-package shackle
+;;   :ensure t
+;;   :hook (after-init . shackle-mode)
+;;   :custom
+;;   (shackle-default-size 0.5)
+;;   (shackle-default-alignment 'below)
+;;   (shackle-rules '((help-mode :select t :align t :size 0.4)
+;;                    ("*Process List*" :select t :align t))))
+
+(use-package popper
   :ensure t
-  :hook (after-init . shackle-mode)
-  :custom
-  (shackle-default-size 0.5)
-  (shackle-default-alignment 'below)
-  (shackle-rules '((help-mode :select t :align t :size 0.4)
-                   ("*Process List*" :select t :align t))))
+  :init
+  (setq popper-reference-buffers
+        '("\\*Messages\\*"
+          "Output\\*$"
+          "\\*Async Shell Command\\*"
+          help-mode
+          compilation-mode))
+  (setq popper-reference-buffers
+      (append popper-reference-buffers
+              '("^\\*eshell.*\\*$" eshell-mode ;eshell as a popup
+                "^\\*shell.*\\*$"  shell-mode  ;shell as a popup
+                "^\\*term.*\\*$"   term-mode   ;term as a popup
+                ;; "^\\*vterm.*\\*$"  vterm-mode  ;vterm as a popup // vterm use vterm-toggle
+                )))
+  (setq popper-group-function #'popper-group-by-project)
+  (popper-mode +1)
+  (popper-echo-mode +1))
 
 ;;; Another
 (use-package text-mode
