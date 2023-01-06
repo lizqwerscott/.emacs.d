@@ -11,22 +11,23 @@
 ;;; Code:
 
 ;; (add-hook 'prog-mode-hook 'electric-pair-local-mode)
-(add-hook 'prog-mode-hook 'electric-pair-local-mode)
-(add-hook 'conf-mode-hook 'electric-pair-local-mode)
+;; (add-hook 'conf-mode-hook 'electric-pair-local-mode)
+(electric-pair-mode)
 
 ;; (use-package lispy
 ;;   :ensure t
 ;;   :hook (lisp-mode . lispy-mode))
 
-(use-package grammatical-edit
-  :quelpa (grammatical-edit :fetcher github :repo "manateelazycat/grammatical-edit")
+(use-package awesome-pair
+  :quelpa (awesome-pair :fetcher github :repo "manateelazycat/awesome-pair")
   :ensure t)
 
-(require 'grammatical-edit)
+(require 'awesome-pair)
 (dolist (hook (list
                ;; 'c-mode-common-hook
                ;; 'c-mode-hook
                ;; 'c++-mode-hook
+               'java-mode-hook
                'haskell-mode-hook
                'emacs-lisp-mode-hook
                'lisp-interaction-mode-hook
@@ -35,6 +36,7 @@
                'ielm-mode-hook
                'sh-mode-hook
                'makefile-gmake-mode-hook
+               'php-mode-hook
                'python-mode-hook
                'js-mode-hook
                'go-mode-hook
@@ -44,40 +46,41 @@
                'ruby-mode-hook
                'coffee-mode-hook
                'rust-mode-hook
+               'qmake-mode-hook
                'lua-mode-hook
+               'swift-mode-hook
                'minibuffer-inactive-mode-hook
-               'typescript-mode-hook))
-  (add-hook hook '(lambda () (grammatical-edit-mode 1))))
+               'sly-mrepl-hook
+               ))
+  (add-hook hook '(lambda () (awesome-pair-mode 1))))
 
-(define-key grammatical-edit-mode-map (kbd "(") 'grammatical-edit-open-round)
-(define-key grammatical-edit-mode-map (kbd "[") 'grammatical-edit-open-bracket)
-(define-key grammatical-edit-mode-map (kbd "{") 'grammatical-edit-open-curly)
-(define-key grammatical-edit-mode-map (kbd ")") 'grammatical-edit-close-round)
-(define-key grammatical-edit-mode-map (kbd "]") 'grammatical-edit-close-bracket)
-(define-key grammatical-edit-mode-map (kbd "}") 'grammatical-edit-close-curly)
-(define-key grammatical-edit-mode-map (kbd "=") 'grammatical-edit-equal)
+(define-key awesome-pair-mode-map (kbd "(") 'awesome-pair-open-round)
+(define-key awesome-pair-mode-map (kbd "[") 'awesome-pair-open-bracket)
+(define-key awesome-pair-mode-map (kbd "{") 'awesome-pair-open-curly)
+(define-key awesome-pair-mode-map (kbd ")") 'awesome-pair-close-round)
+(define-key awesome-pair-mode-map (kbd "]") 'awesome-pair-close-bracket)
+(define-key awesome-pair-mode-map (kbd "}") 'awesome-pair-close-curly)
+(define-key awesome-pair-mode-map (kbd "=") 'awesome-pair-equal)
 
-(define-key grammatical-edit-mode-map (kbd "%") 'grammatical-edit-match-paren)
-(define-key grammatical-edit-mode-map (kbd "\"") 'grammatical-edit-double-quote)
-(define-key grammatical-edit-mode-map (kbd "'") 'grammatical-edit-single-quote)
+(define-key awesome-pair-mode-map (kbd "%") 'awesome-pair-match-paren)
+(define-key awesome-pair-mode-map (kbd "\"") 'awesome-pair-double-quote)
 
-(define-key grammatical-edit-mode-map (kbd "SPC") 'grammatical-edit-space)
-(define-key grammatical-edit-mode-map (kbd "RET") 'grammatical-edit-newline)
+(define-key awesome-pair-mode-map (kbd "SPC") 'awesome-pair-space)
+(define-key awesome-pair-mode-map (kbd "RET") 'awesome-pair-newline)
 
-(define-key grammatical-edit-mode-map (kbd "C-s-<backspace>") 'grammatical-edit-kill-current-line)
-(define-key grammatical-edit-mode-map (kbd "M-d") 'grammatical-edit-backward-delete)
-(define-key grammatical-edit-mode-map (kbd "C-d") 'grammatical-edit-forward-delete)
-(define-key grammatical-edit-mode-map (kbd "C-k") 'grammatical-edit-kill)
+(define-key awesome-pair-mode-map (kbd "M-d") 'awesome-pair-backward-delete)
+(define-key awesome-pair-mode-map (kbd "C-d") 'awesome-pair-forward-delete)
+(define-key awesome-pair-mode-map (kbd "C-k") 'awesome-pair-kill)
 
-(define-key grammatical-edit-mode-map (kbd "C-c (") 'grammatical-edit-wrap-round)
-(define-key grammatical-edit-mode-map (kbd "C-c )") 'grammatical-edit-unwrap)
+(define-key awesome-pair-mode-map (kbd "M-\"") 'awesome-pair-wrap-double-quote)
+(define-key awesome-pair-mode-map (kbd "M-[") 'awesome-pair-wrap-bracket)
+(define-key awesome-pair-mode-map (kbd "M-{") 'awesome-pair-wrap-curly)
+(define-key awesome-pair-mode-map (kbd "C-c (") 'awesome-pair-wrap-round)
+(define-key awesome-pair-mode-map (kbd "C-c )") 'awesome-pair-unwrap)
 
-(define-key grammatical-edit-mode-map (kbd "M-p") 'grammatical-edit-jump-right)
-(define-key grammatical-edit-mode-map (kbd "M-n") 'grammatical-edit-jump-left)
-;; (define-key grammatical-edit-mode-map (kbd "M-:") 'grammatical-edit-jump-out-pair-and-newline)
-
-
-(define-key grammatical-edit-mode-map (kbd "C-j") 'grammatical-edit-jump-up)
+(define-key awesome-pair-mode-map (kbd "M-p") 'awesome-pair-jump-right)
+(define-key awesome-pair-mode-map (kbd "M-n") 'awesome-pair-jump-left)
+(define-key awesome-pair-mode-map (kbd "M-:") 'awesome-pair-jump-out-pair-and-newline)
 
 (provide 'init-edit)
 ;;; init-edit.el ends here.
