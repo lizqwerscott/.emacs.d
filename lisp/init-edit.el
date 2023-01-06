@@ -50,7 +50,6 @@
                'lua-mode-hook
                'swift-mode-hook
                'minibuffer-inactive-mode-hook
-               'sly-mrepl-hook
                ))
   (add-hook hook '(lambda () (awesome-pair-mode 1))))
 
