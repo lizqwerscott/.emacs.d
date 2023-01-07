@@ -55,7 +55,6 @@
 ;;; performance
 ;; Disable garbage collection when entering commands.
 
-;; (electric-pair-mode nil)
 (add-hook 'minibuffer-setup-hook
           #'(lambda ()
               (setq gc-cons-threshold most-positive-fixnum)))
