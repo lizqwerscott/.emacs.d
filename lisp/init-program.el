@@ -128,7 +128,7 @@
 
 (unless (display-graphic-p)
   (with-eval-after-load 'acm
-    (use-package emacs-popon
+    (use-package popon
       :quelpa (popon :fetcher git :url "https://codeberg.org/akib/emacs-popon.git")
       :ensure t)
     (use-package acm-termial
