@@ -93,7 +93,6 @@
   (acm-enable-tempel nil)
   (lsp-bridge-use-wenls-in-org-mode nil)
   (lsp-bridge-enable-diagnostics nil)
-  (acm-enable-doc nil)
   ;; (lsp-bridge-diagnostic-fetch-idle 0.1)
   ;; (lsp-bridge-enable-debug t)
   ;; (lsp-bridge-python-lsp-server "jedi")
