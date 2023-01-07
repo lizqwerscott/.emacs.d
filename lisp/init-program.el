@@ -99,8 +99,6 @@
   ;; (lsp-bridge-python-lsp-server "pyright-background-analysis")
   (acm-candidate-match-function 'orderless-regexp)
   :config
-  (setq acm-enable-doc t)
-
   (require 'xref)
   (defun find-definition-with-lsp-bridge ()
     (interactive)

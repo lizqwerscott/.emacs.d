@@ -105,8 +105,8 @@
 (meow-setup)
 (meow-global-mode 1)
 
-(require 'websocket)
-(require 'deno-bridge)
+;; (require 'websocket)
+;; (require 'deno-bridge)
 
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/insert-translated-name/"))
-(require 'insert-translated-name)
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/insert-translated-name/"))
+;; (require 'insert-translated-name)
