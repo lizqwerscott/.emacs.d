@@ -3,7 +3,6 @@
 ;; Copyright (C) 2022  lizqwer scott
 
 ;; Author: lizqwer scott(require 'cl-lib) <lizqwerscott@gmail.com>
-;; Keywords: input
 
 ;;; Commentary:
 

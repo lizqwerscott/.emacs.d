@@ -3,7 +3,6 @@
 ;; Copyright (C) 2022
 
 ;; Author:  <lizqwerscott@gmail.com>
-;; Keywords: processes
 
 ;;; Commentary:
 
