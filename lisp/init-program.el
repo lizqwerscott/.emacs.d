@@ -43,8 +43,8 @@
 
 ;; Ctags
 
-(use-package citre
-  :ensure t)
+;; (use-package citre
+;;   :ensure t)
 
 ;;; Lsp Server
 
@@ -86,7 +86,7 @@
   :hook (after-init . global-lsp-bridge-mode)
   :custom
   (lsp-bridge-c-lsp-server "ccls")
-  (acm-enable-citre t)
+  (acm-enable-citre nil)
   (acm-enable-tabnine t)
   (acm-enable-yas nil)
   (acm-enable-tempel nil)
