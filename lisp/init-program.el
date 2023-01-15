@@ -160,9 +160,6 @@
 (use-package consult-flycheck
   :ensure t)
 
-(when (version<= emacs-version "29")
-  (setq acm-string-width-function 'string-width))
-
 ;; (use-package flymake
 ;;   :ensure t
 ;;   :hook (after-init . flymake-mode)
