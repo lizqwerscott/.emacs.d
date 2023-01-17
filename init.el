@@ -67,6 +67,7 @@
 (require 'init-web)
 (require 'init-common-lisp)
 (require 'init-rust)
+(require 'init-sql)
 
 (require 'init-reader)
 ;; (require 'init-paper)

@@ -24,7 +24,7 @@
         ("S-TAB" . corfu-previous)
         ([backtab] . corfu-previous))
   :hook
-  ((sly-mode eshell-mode inferior-python-mode) . corfu-mode))
+  ((sly-mode sql-mode eshell-mode inferior-python-mode) . corfu-mode))
 
 (use-package emacs
   :init
