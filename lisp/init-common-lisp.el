@@ -38,6 +38,11 @@ which case that window is selected."
   :ensure t
   :after sly)
 
+(defun project-name (project)
+  "A human-readable name for the project.
+Nominally unique, but not enforced."
+  (file-name-nondirectory (directory-file-name (project-root project))))
+
 (defun load-lisp-project ()
   "Load now project."
   (interactive)
