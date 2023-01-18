@@ -90,6 +90,19 @@ python-mode
 (wiof "with open(" p ")" " as " (p "f") ":" n r>)
 (ifm "if __name__ == \"__main__\":" n r>)
 
+lisp-mode
+
+(let "(let (" p ")" n> r> ")")
+(lambda "#'(lambda (" p ")" n> r> ")")
+(defpackage
+  "(defpackage " (project-name (project-current)) "." (s env) n>
+  "(:use " p ")" n>
+  "(:export " n> p "))" n
+  "(in-package :" (project-name (project-current)) "." (s env) ")"
+  n> r>
+  "(in-package :cl-user)")
+
+
 ;; Local Variables:
 ;; mode: lisp-data
 ;; outline-regexp: "[a-z]"

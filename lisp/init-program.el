@@ -32,7 +32,7 @@
 (use-package tempel
   :ensure t
   :bind
- (:map tempel-map
+  (:map tempel-map
         ("TAB" . tempel-next))
   :config
   (setq tempel-path
@@ -78,11 +78,19 @@
 ;;                                 :initializationOptions (:cargo (:features "all")))))
 ;;     ))
 
+(defun +lsp-complete ()
+  (interactive)
+  (or (tempel-complete t)
+      (acm-select-next)))
+
 ;; Lsp bridge
 (use-package lsp-bridge
   :bind
-  (:map acm-mode-map ("C-n" . #'acm-select-next))
-  (:map acm-mode-map ("C-p" . #'acm-select-prev))
+  (:map acm-mode-map
+        (("C-n" . #'acm-select-next)
+         ("C-p" . #'acm-select-prev)
+         ("TAB" . #'+lsp-complete)
+         ([tab] . #'+lsp-complete)))
   :hook (after-init . global-lsp-bridge-mode)
   :custom
   (lsp-bridge-c-lsp-server "ccls")
