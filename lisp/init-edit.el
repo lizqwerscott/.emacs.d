@@ -11,7 +11,7 @@
 
 ;; (add-hook 'prog-mode-hook 'electric-pair-local-mode)
 ;; (add-hook 'conf-mode-hook 'electric-pair-local-mode)
-(electric-pair-mode)
+;; (electric-pair-mode)
 
 ;; (use-package lispy
 ;;   :ensure t
@@ -48,8 +48,8 @@
                'qmake-mode-hook
                'lua-mode-hook
                'swift-mode-hook
-               'minibuffer-inactive-mode-hook
-               ))
+               'minibuffer-inactive-mode-hook))
+
   (add-hook hook '(lambda () (awesome-pair-mode 1))))
 
 (define-key awesome-pair-mode-map (kbd "(") 'awesome-pair-open-round)

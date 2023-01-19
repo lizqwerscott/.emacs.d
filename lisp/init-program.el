@@ -67,12 +67,12 @@
 ;;           eldoc-echo-area-display-truncation-message nil)
 ;;     (set-face-attribute 'eglot-highlight-symbol-face nil
 ;;                         :background "#b3d7ff")
-;;     (add-to-list 'eglot-server-programs
-;;                  '((c-mode c++-mode) . ("ccls")))
-;;     (add-to-list 'eglot-server-programs
-;;                  '(python-mode . ("jedi-language-server")))
-;;     (add-to-list 'eglot-server-programs
-;;                  '(vue-mode . "vls"))
+;;     ;; (add-to-list 'eglot-server-programs
+;;     ;;              '((c-mode c++-mode) . ("ccls")))
+;;     ;; (add-to-list 'eglot-server-programs
+;;     ;;              '(python-mode . ("jedi-language-server")))
+;;     ;; (add-to-list 'eglot-server-programs
+;;     ;;              '(vue-mode . "vls"))
 ;;     (add-to-list 'eglot-server-programs
 ;;                  `(rust-mode . ("rust-analyzer"
 ;;                                 :initializationOptions (:cargo (:features "all")))))
@@ -104,7 +104,7 @@
   ;; (lsp-bridge-enable-debug t)
   ;; (lsp-bridge-python-lsp-server "jedi")
   ;; (lsp-bridge-python-lsp-server "pyright-background-analysis")
-  (acm-candidate-match-function 'orderless-regexp)
+  ;; (acm-candidate-match-function 'orderless-regexp)
   :config
   (require 'xref)
   (defun find-definition-with-lsp-bridge ()
@@ -263,6 +263,12 @@
 
 ;; ros
 (add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
+
+(use-package parinfer-rust-mode
+  :ensure t
+  :hook emacs-lisp-mode
+  :config
+  (add-hook 'lisp-mode-hook 'parinfer-rust-mode))
 
 (provide 'init-program)
 ;;; init-program.el ends heres.
