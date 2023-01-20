@@ -27,6 +27,7 @@
                ;; 'c-mode-hook
                ;; 'c++-mode-hook
                'java-mode-hook
+               'go-mode-hook
                'haskell-mode-hook
                'emacs-lisp-mode-hook
                'lisp-interaction-mode-hook

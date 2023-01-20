@@ -61,7 +61,8 @@
           #'(lambda ()
              (setq gc-cons-threshold 800000)))
 
-(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4
+              indent-tabs-mode nil)
 
 (global-auto-revert-mode 1)
 (setq use-file-dialog nil
