@@ -30,19 +30,10 @@
 (use-package pyim-basedict
   :ensure t
   :config
-  ;; (pyim-basedict-enable)
-  )
+  (pyim-basedict-enable))
 
-(use-package pyim-tsinghua-dict
-  :quelpa (pyim-tsinghua-dict :fetcher git :url "https://github.com/redguardtoo/pyim-tsinghua-dict.git")
-  :ensure t
-  :config
-  (pyim-tsinghua-dict-enable))
-
-(require 'insert-translated-name)
-
-(meow-define-keys
-    'insert
-  '("C-c i" . insert-translated-name-insert))
+;; (meow-define-keys
+;;     'insert
+;;   '("C-c i" . insert-translated-name-insert))
 
 (provide 'init-input)
