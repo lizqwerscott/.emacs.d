@@ -24,28 +24,23 @@
         ("S-TAB" . corfu-previous)
         ([backtab] . corfu-previous))
   :hook
-  ((sly-mode sql-mode eshell-mode inferior-python-mode) . corfu-mode))
+  ((rust-mode sly-mode sql-mode eshell-mode inferior-python-mode) . corfu-mode))
 
 (use-package emacs
   :init
-  (setq completion-cycle-threshold 3)
+  (setq completion-cycle-threshold 3))
   ;; (setq tab-always-indent 'complete)
-  )
+
 
 (use-package cape
   :ensure t
   :init
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-file))
   ;; (add-to-list 'completion-at-point-functions #'cape-symbol)
   ;; (add-to-list 'completion-at-point-functions #'cape-keyword)
   ;(add-to-list 'completion-at-point-functions #'cape-abbrev)
   ;(add-to-list 'completion-at-point-functions #'cape-ispell)
-  )
-
-;; (use-package corfu-doc
-;;   :ensure t
-;;   :hook (corfu-mode . corfu-doc-mode))
 
 (use-package kind-icon
   :ensure t

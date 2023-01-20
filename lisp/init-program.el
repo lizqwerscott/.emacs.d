@@ -49,34 +49,24 @@
 ;;; Lsp Server
 
 ;; Eglot
-;; (use-package eglot
-;;   :ensure t
-;;   :hook
-;;   (rust-mode 'eglot-ensure)
-;;   ;; (cmake-mode-hook 'eglot-ensure)
-;;   :init
-;;   ;; (add-hook 'python-mode-hook 'eglot-ensure)
-;;   ;; (add-hook 'cmake-mode-hook 'eglot-ensure)
-;;   ;; (add-hook 'web-mode-hook 'eglot-ensure)
-;;   ;; (add-hook 'vue-mode-hook 'eglot-ensure)
-;;   ;; (add-hook 'c-mode-hook 'eglot-ensure)
-;;   ;; (add-hook 'c++-mode-hook 'eglot-ensure)
-;;   :config
-;;   (progn
-;;     (setq eldoc-echo-area-use-multiline-p 3
-;;           eldoc-echo-area-display-truncation-message nil)
-;;     (set-face-attribute 'eglot-highlight-symbol-face nil
-;;                         :background "#b3d7ff")
-;;     ;; (add-to-list 'eglot-server-programs
-;;     ;;              '((c-mode c++-mode) . ("ccls")))
-;;     ;; (add-to-list 'eglot-server-programs
-;;     ;;              '(python-mode . ("jedi-language-server")))
-;;     ;; (add-to-list 'eglot-server-programs
-;;     ;;              '(vue-mode . "vls"))
-;;     (add-to-list 'eglot-server-programs
-;;                  `(rust-mode . ("rust-analyzer"
-;;                                 :initializationOptions (:cargo (:features "all")))))
-;;     ))
+(use-package eglot
+  :ensure t
+  :config
+  (add-hook 'rust-mode-hook 'eglot-ensure)
+  (progn
+    (setq eldoc-echo-area-use-multiline-p 3
+          eldoc-echo-area-display-truncation-message nil)
+    (set-face-attribute 'eglot-highlight-symbol-face nil
+                        :background "#b3d7ff")
+    ;; (add-to-list 'eglot-server-programs
+    ;;              '((c-mode c++-mode) . ("ccls")))
+    ;; (add-to-list 'eglot-server-programs
+    ;;              '(python-mode . ("jedi-language-server")))
+    ;; (add-to-list 'eglot-server-programs
+    ;;              '(vue-mode . "vls"))
+    (add-to-list 'eglot-server-programs
+                 `(rust-mode . ("rust-analyzer"
+                                :initializationOptions (:cargo (:features "all")))))))
 
 (defun +lsp-complete ()
   (interactive)
@@ -106,6 +96,8 @@
   ;; (lsp-bridge-python-lsp-server "pyright-background-analysis")
   ;; (acm-candidate-match-function 'orderless-regexp)
   :config
+  (setq lsp-bridge-default-mode-hooks
+        (remove 'rust-mode-hook lsp-bridge-default-mode-hooks))
   (require 'xref)
   (defun find-definition-with-lsp-bridge ()
     (interactive)
