@@ -221,7 +221,7 @@
   :init (setq diff-hl-draw-borders nil)
   :config
   ;; Highlight on-the-fly
-  (diff-hl-flydiff-mode 1)
+  (diff-hl-flydiff-mode 1))
 
   ;; Set fringe style
   ;; (setq-default fringes-outside-margins t)
@@ -242,7 +242,7 @@
   ;;     (with-eval-after-load 'desktop
   ;;       (add-to-list 'desktop-minor-mode-table
   ;;                    '(diff-hl-margin-mode nil)))))
-  )
+
 ;; (use-package vc-msg
 ;;   :ensure t)
 
@@ -323,34 +323,14 @@
   :ensure t
   :diminish t)
 
-;; (use-package shackle
-;;   :ensure t
-;;   :hook (after-init . shackle-mode)
-;;   :custom
-;;   (shackle-default-size 0.5)
-;;   (shackle-default-alignment 'below)
-;;   (shackle-rules '((help-mode :select t :align t :size 0.4)
-;;                    ("*Process List*" :select t :align t))))
-
-(use-package popper
+(use-package shackle
   :ensure t
-  :init
-  (setq popper-reference-buffers
-        '("\\*Messages\\*"
-          "Output\\*$"
-          "\\*Async Shell Command\\*"
-          help-mode
-          compilation-mode))
-  (setq popper-reference-buffers
-      (append popper-reference-buffers
-              '("^\\*eshell.*\\*$" eshell-mode ;eshell as a popup
-                "^\\*shell.*\\*$"  shell-mode  ;shell as a popup
-                "^\\*term.*\\*$"   term-mode   ;term as a popup
-                ;; "^\\*vterm.*\\*$"  vterm-mode  ;vterm as a popup // vterm use vterm-toggle
-                )))
-  (setq popper-group-function #'popper-group-by-project)
-  (popper-mode +1)
-  (popper-echo-mode +1))
+  :hook (after-init . shackle-mode)
+  :custom
+  (shackle-default-size 0.5)
+  (shackle-default-alignment 'below)
+  (shackle-rules '((help-mode :select t :align t :size 0.4)
+                   ("*Process List*" :select t :align t))))
 
 ;;; Another
 (use-package text-mode
