@@ -89,7 +89,7 @@
   (acm-enable-yas nil)
   (acm-enable-tempel nil)
   (lsp-bridge-use-wenls-in-org-mode nil)
-  (lsp-bridge-enable-diagnostics nil)
+  (lsp-bridge-enable-diagnostics t)
   ;; (lsp-bridge-diagnostic-fetch-idle 0.1)
   ;; (lsp-bridge-enable-debug t)
   ;; (lsp-bridge-python-lsp-server "jedi")
@@ -145,9 +145,9 @@
   :custom
   (flycheck-disable-checker '(c/c++-clang))
   :config
-  ;; (setq flycheck-global-modes '(not rust-mode python-mode c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
+  (setq flycheck-global-modes '(not python-mode c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
   ;;       flycheck-emacs-lisp-load-path 'inherit)
-  (setq flycheck-global-modes '(not c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
+  ;; (setq flycheck-global-modes '(not c++-mode c-mode text-mode outline-mode fundamental-mode org-mode diff-mode shell-mode eshell-mode)
         flycheck-emacs-lisp-load-path 'inherit)
   (setq flycheck-clang-language-standard "c++17"))
 
