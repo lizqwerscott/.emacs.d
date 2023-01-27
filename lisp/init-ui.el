@@ -346,6 +346,10 @@
 ;;   ;; :hook (elisp-lisp-mode . highlight-defined-mode)
 ;;   )
 
+(use-package hl-todo
+  :ensure t
+  :hook (after-init . global-hl-todo-mode))
+
 (use-package so-long
   :ensure nil
   :hook (after-init . global-so-long-mode)
