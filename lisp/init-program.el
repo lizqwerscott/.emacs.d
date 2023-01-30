@@ -76,7 +76,7 @@
 ;; Lsp bridge
 (defun enable-lsp-bridge()
   (when-let* ((project (project-current))
-              (project-root (if (listp project)
+              (project-root (if (listp (cdr project))
                                 (nth 2 project)
                               (cdr project))))
     (setq-local lsp-bridge-user-langserver-dir (file-truename project-root)
