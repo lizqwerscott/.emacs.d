@@ -79,8 +79,8 @@
               (project-root (if (listp (cdr project))
                                 (nth 2 project)
                               (cdr project))))
-    (setq-local lsp-bridge-user-langserver-dir (file-truename project-root)
-                lsp-bridge-user-multiserver-dir (file-truename project-root)))
+    (setq-local lsp-bridge-user-langserver-dir project-root
+                lsp-bridge-user-multiserver-dir project-root))
   (lsp-bridge-mode))
 
 (use-package lsp-bridge
