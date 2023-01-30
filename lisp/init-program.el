@@ -74,6 +74,13 @@
       (acm-select-next)))
 
 ;; Lsp bridge
+(defun enable-lsp-bridge()
+  (when-let* ((project (project-current))
+              (project-root (nth 2 project)))
+    (setq-local lsp-bridge-user-langserver-dir (file-truename project-root)
+                lsp-bridge-user-multiserver-dir (file-truename project-root)))
+  (lsp-bridge-mode))
+
 (use-package lsp-bridge
   :bind
   (:map acm-mode-map
@@ -81,9 +88,10 @@
          ("C-p" . #'acm-select-prev)
          ("TAB" . #'+lsp-complete)
          ([tab] . #'+lsp-complete)))
-  :hook (after-init . global-lsp-bridge-mode)
+  ;; :hook (after-init . global-lsp-bridge-mode)
   :custom
   (lsp-bridge-c-lsp-server "ccls")
+  (acm-backend-lsp-candidates-max-number 4000)
   (acm-enable-citre nil)
   (acm-enable-tabnine t)
   (acm-enable-yas nil)
@@ -96,6 +104,12 @@
   ;; (lsp-bridge-python-lsp-server "pyright-background-analysis")
   ;; (acm-candidate-match-function 'orderless-regexp)
   :config
+  (defun global-enable-lsp-bridge ()
+   (interactive)
+   (dolist (hook lsp-bridge-default-mode-hooks)
+     (add-hook hook (lambda ()
+                      (enable-lsp-bridge)))))
+
   (setq lsp-bridge-default-mode-hooks
         (remove 'rust-mode-hook lsp-bridge-default-mode-hooks))
   (require 'xref)
@@ -123,7 +137,9 @@
       (lsp-bridge-find-def-return))
      (t
       (require 'dumb-jump)
-      (dumb-jump-back)))))
+      (dumb-jump-back))))
+
+  (global-enable-lsp-bridge))
 
 (unless (display-graphic-p)
   (with-eval-after-load 'acm
