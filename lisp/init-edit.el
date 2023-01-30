@@ -11,6 +11,15 @@
 
 ;; (add-hook 'prog-mode-hook 'electric-pair-local-mode)
 ;; (add-hook 'conf-mode-hook 'electric-pair-local-mode)
+(dolist (hook (list
+               'sly-mrepl-hook
+               'python-mode-hook
+               'rust-mode-hook
+               'go-mode-hook
+               'inferior-python-mode-hook
+               'js-mode-hook
+               'js2-mode-hook))
+  (add-hook hook 'electric-pair-local-mode))
 ;; (electric-pair-mode)
 
 ;; (use-package lispy
