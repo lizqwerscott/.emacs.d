@@ -274,11 +274,5 @@
 ;; ros
 (add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
 
-(use-package parinfer-rust-mode
-  :ensure t
-  :hook emacs-lisp-mode
-  :config
-  (add-hook 'lisp-mode-hook 'parinfer-rust-mode))
-
 (provide 'init-program)
 ;;; init-program.el ends heres.
