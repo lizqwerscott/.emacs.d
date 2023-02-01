@@ -25,6 +25,7 @@
                                              'sly-mrepl-mode))
                                 (electric-pair-local-mode))))
 (add-hook 'conf-mode-hook 'electric-pair-local-mode)
+(add-hook 'sly-mrepl-hook 'electric-pair-local-mode)
 
 ;; (use-package lispy
 ;;   :ensure t
