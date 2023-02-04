@@ -148,10 +148,6 @@
 (require 'init-minibuffer)
 
 ;;; compleations
-(use-package affe
-  :ensure t
-  :diminish t)
-
 (require 'init-corfu)
 
 ;;; Dired

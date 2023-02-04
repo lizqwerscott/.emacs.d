@@ -65,9 +65,9 @@
    '("tt" . gts-do-translate)
    '("th" . helpful-at-point)
    '("tg" . google-this)
-   '("tp" . popweb-dict-bing-pointer)
+   '("tp" . popweb-dict-bing-pointer))
    ;;'("m" . vc-msg-show)
-   )
+
 
   ;;lsp bridge
   (meow-leader-define-key
@@ -76,10 +76,10 @@
    '("aa" . consult-flycheck)
    '("ah" . lsp-bridge-popup-documentation)
    '("an" . flycheck-next-error)
-   '("ap" . flycheck-previous-error)
+   '("ap" . flycheck-previous-error))
    ;; '("an" . lsp-bridge-diagnostic-jump-next)
    ;; '("ap" . lsp-bridge-diagnostic-jump-prev)
-)
+
 
   ;;window key
   (meow-leader-define-key
@@ -111,9 +111,8 @@
   (meow-leader-define-key
    '("f" . find-file)
    ;; '("fr" . consult-find)
-   ;; '("F" . affe-find)
-   '("sf" . ff-find-other-file)
-   )
+   '("sf" . ff-find-other-file))
+
 
   ;;buffer
   (meow-leader-define-key
@@ -226,8 +225,8 @@
     '("gd" . find-definition-with-lsp-bridge)
     '("C-o" . return-find-def)
     '("/" . consult-ripgrep)
-    '("?" . help-helfup-lsp-bridge-sly))
-  )
+    '("?" . help-helfup-lsp-bridge-sly)))
+
 
 (use-package meow
   :ensure t
