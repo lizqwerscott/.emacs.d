@@ -174,7 +174,7 @@
 
 (setq eaf-proxy-type "http")
 ;; (setq eaf-proxy-host "127.0.0.1")
-(setq eaf-proxy-host "192.168.3.3")
+(setq eaf-proxy-host "10.0.96.67")
 (setq eaf-proxy-port "20172")
 (setq eaf-webengine-default-zoom 1.25)
 
@@ -229,8 +229,8 @@
     (add-hook 'tree-sitter-after-on-hook
               #'tree-sitter-hl-mode))
   (use-package tree-sitter-langs
-    :ensure t)
-  )
+    :ensure t))
+
 
 (provide 'init-tool)
 ;;; init-tool.el ends here.

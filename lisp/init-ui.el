@@ -330,7 +330,8 @@
   (shackle-default-size 0.5)
   (shackle-default-alignment 'below)
   (shackle-rules '((help-mode :select t :align t :size 0.4)
-                   ("*Process List*" :select t :align t))))
+                   ("*Process List*" :select t :align t)
+                   ("*One-Key*" :select t :align 'below))))
 
 ;;; Another
 (use-package text-mode
