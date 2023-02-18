@@ -9,23 +9,11 @@
 
 ;;; Code:
 
+;; (add-hook 'prog-mode-hook 'electric-pair-local-mode)
+;; (add-hook 'conf-mode-hook 'electric-pair-local-mode)
+;; (add-hook 'sly-mrepl-hook 'electric-pair-local-mode)
 
-(use-package parinfer-rust-mode
-  :ensure t
-  :hook emacs-lisp-mode
-  :config
-  (add-hook 'lisp-mode-hook 'parinfer-rust-mode))
-
-(add-hook 'prog-mode-hook #'(lambda ()
-                              (unless (cl-find major-mode
-                                            (list
-                                             'lisp-mode
-                                             'emacs-lisp-mode
-                                             'lisp-interaction-mode
-                                             'sly-mrepl-mode))
-                                (electric-pair-local-mode))))
-(add-hook 'conf-mode-hook 'electric-pair-local-mode)
-(add-hook 'sly-mrepl-hook 'electric-pair-local-mode)
+(electric-pair-mode)
 
 ;; (use-package lispy
 ;;   :ensure t
