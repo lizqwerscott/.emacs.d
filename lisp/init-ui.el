@@ -362,15 +362,13 @@
 ;;; Side line
 (use-package sideline-blame
   :ensure t)
-(use-package sideline-flycheck
-  :ensure t)
+
 (use-package sideline
   :ensure t
   :hook (prog-mode . sideline-mode)
   :init
   (setq sideline-backends-right
-        '((sideline-blame . up)
-          (sideline-flycheck . down))))
+        '(sideline-blame)))
 
 ;;; imenu list
 (use-package imenu-list
