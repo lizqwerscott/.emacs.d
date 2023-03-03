@@ -48,6 +48,10 @@
   (setq org-hugo-default-section-directory "zh-CN/post")
   :after ox)
 
+;;; npm
+(use-package npm
+  :ensure t)
+
 (provide 'init-web)
 ;; (require-package 'cmake-mode)
 ;;; init-web.el ends here.

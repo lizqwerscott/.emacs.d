@@ -94,8 +94,8 @@
 ;; (use-package gruvbox-theme
 ;;   :ensure t)
 
-;; (use-package doom-themes
-;;   :ensure t)
+(use-package doom-themes
+  :ensure t)
 
 ;; (use-package monokai-theme
 ;;   :ensure t)
@@ -116,7 +116,7 @@
   :defer)
 
 ;; (load-theme 'gruvbox-dark-soft t)
-;; (load-theme 'doom-one t)
+(load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
 ;; (load-theme 'monokai t)
 ;; (load-theme 'solarized-dark t)
@@ -131,16 +131,16 @@
 ;; (load-theme 'ef-summer t)
 ;; (flucui-themes-load-style 'dark)
 
-(use-package circadian
-  :ensure t
-  :config
-  ;; (setq calendar-latitude 37)
-  ;; (setq calendar-longitude 112)
-  ;; (setq circadian-themes '((:sunrise . ef-summer)
-  ;;                          (:sunset  . solarized-dark)))
-  (setq circadian-themes '(("8:00" . ef-day)
-                           ("16:00" . solarized-dark)))
-  (circadian-setup))
+;; (use-package circadian
+;;   :ensure t
+;;   :config
+;;   ;; (setq calendar-latitude 37)
+;;   ;; (setq calendar-longitude 112)
+;;   ;; (setq circadian-themes '((:sunrise . ef-summer)
+;;   ;;                          (:sunset  . solarized-dark)))
+;;   (setq circadian-themes '(("8:00" . ef-day)
+;;                            ("16:00" . solarized-dark)))
+;;   (circadian-setup))
 
 ;;; Background
 (setq default-frame-alist
@@ -253,7 +253,7 @@
 ;;; Line number
 (use-package emacs
   :unless sys/win32p
-  :hook (((prog-mode text-mode) . display-line-numbers-mode))
+  :hook (((prog-mode text-mode conf-mode) . display-line-numbers-mode))
   :config
   (setq display-line-numbers-type 'relative))
 
@@ -297,9 +297,12 @@
 ;;   )
 
 ;;; hl indetn
-(use-package indent-guide
+;; (use-package indent-guide
+;;   :ensure t
+;;   :hook ((prog-mode . indent-guide-mode)))
+(use-package highlight-indent-guides
   :ensure t
-  :hook ((prog-mode . indent-guide-mode)))
+  :hook (prog-mode . highlight-indent-guides-mode))
 
 ;;; Paren
 (use-package paren
@@ -355,6 +358,23 @@
   :ensure nil
   :hook (after-init . global-so-long-mode)
   :config (setq so-long-threshold 400))
+
+;;; Side line
+(use-package sideline-blame
+  :ensure t)
+(use-package sideline-flycheck
+  :ensure t)
+(use-package sideline
+  :ensure t
+  :hook (prog-mode . sideline-mode)
+  :init
+  (setq sideline-backends-right
+        '((sideline-blame . up)
+          (sideline-flycheck . down))))
+
+;;; imenu list
+(use-package imenu-list
+  :ensure t)
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.

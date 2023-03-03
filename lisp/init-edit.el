@@ -83,5 +83,14 @@
 (define-key awesome-pair-mode-map (kbd "M-n") 'awesome-pair-jump-left)
 (define-key awesome-pair-mode-map (kbd "M-:") 'awesome-pair-jump-out-pair-and-newline)
 
+(use-package aggressive-indent
+  :ensure t
+  :init
+  (global-aggressive-indent-mode 1)
+  (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
+
+(require 'indent-yank)
+(add-hook 'python-mode-hook 'indent-yank-mode)
+
 (provide 'init-edit)
 ;;; init-edit.el ends here.

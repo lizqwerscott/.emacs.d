@@ -19,9 +19,9 @@
   :ensure t
   :diminish t)
 
-(use-package benchmark-init
-  :ensure t
-  :hook (after-init . benchmark-init/activate))
+;; (use-package benchmark-init
+;;   :ensure t
+;;   :hook (after-init . benchmark-init/activate))
 
 (use-package gcmh
   :ensure t
