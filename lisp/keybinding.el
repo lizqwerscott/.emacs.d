@@ -36,6 +36,16 @@
           (lsp-bridge-lookup-documentation)
         (message "dont't know how to help")))))
 
+(defun open-main-directory ()
+  "Open main directory use eaf file mamanger."
+  (interactive)
+  (eaf-open "~/"))
+
+(defun open-big-screen-mode ()
+  "Start big screen mode."
+  (interactive)
+  (imenu-list-smart-toggle))
+
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
@@ -66,8 +76,11 @@
    '("th" . helpful-at-point)
    '("tg" . google-this)
    '("tp" . popweb-dict-bing-pointer))
-   ;;'("m" . vc-msg-show)
+  ;;'("m" . vc-msg-show)
 
+  ;;Big Screen
+  (meow-leader-define-key
+   '("l" . open-big-screen-mode))
 
   ;;lsp bridge
   (meow-leader-define-key
@@ -77,8 +90,8 @@
    '("ah" . lsp-bridge-popup-documentation)
    '("an" . flycheck-next-error)
    '("ap" . flycheck-previous-error))
-   ;; '("an" . lsp-bridge-diagnostic-jump-next)
-   ;; '("ap" . lsp-bridge-diagnostic-jump-prev)
+  ;; '("an" . lsp-bridge-diagnostic-jump-next)
+  ;; '("ap" . lsp-bridge-diagnostic-jump-prev)
 
 
   ;;window key
@@ -116,7 +129,7 @@
 
   ;;buffer
   (meow-leader-define-key
-   '("b" . consult-buffer))
+   '("b" . switch-to-buffer))
 
   ;;bookmakr
   (meow-leader-define-key
@@ -125,9 +138,9 @@
 
   ;;dired
   (meow-leader-define-key
-   '("dj" . dired-jump)
-   '("dJ" . dired-jump-other-window)
-   '("dd" . dirvish))
+   ;; '("dj" . dired-jump)
+   ;; '("dJ" . dired-jump-other-window)
+   '("d" . open-main-directory))
 
   ;;org
   (meow-leader-define-key
@@ -218,14 +231,14 @@
    '("<escape>" . ignore))
 
   (meow-normal-define-key
-    '("C-s" . save-buffer)
-    '("C-y" . meow-clipboard-yank)
-    '("Q" . kill-this-buffer)
-    '("gr" . lsp-bridge-find-references)
-    '("gd" . find-definition-with-lsp-bridge)
-    '("C-o" . return-find-def)
-    '("/" . consult-ripgrep)
-    '("?" . help-helfup-lsp-bridge-sly)))
+   '("C-s" . save-buffer)
+   '("C-y" . meow-clipboard-yank)
+   '("Q" . kill-this-buffer)
+   '("gr" . lsp-bridge-find-references)
+   '("gd" . find-definition-with-lsp-bridge)
+   '("C-o" . return-find-def)
+   '("/" . consult-ripgrep)
+   '("?" . help-helfup-lsp-bridge-sly)))
 
 
 (use-package meow
