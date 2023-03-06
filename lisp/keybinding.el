@@ -85,13 +85,14 @@
   ;;lsp bridge
   (meow-leader-define-key
    '("rn" . lsp-bridge-rename)
-   ;; '("aa" . lsp-bridge-diagnostic-list)
-   '("aa" . consult-flycheck)
+   '("aa" . lsp-bridge-diagnostic-list)
+   ;; '("aa" . consult-flycheck)
    '("ah" . lsp-bridge-popup-documentation)
-   '("an" . flycheck-next-error)
-   '("ap" . flycheck-previous-error))
-  ;; '("an" . lsp-bridge-diagnostic-jump-next)
-  ;; '("ap" . lsp-bridge-diagnostic-jump-prev)
+   '("an" . lsp-bridge-diagnostic-jump-next)
+   '("ap" . lsp-bridge-diagnostic-jump-prev)
+   ;; '("an" . flycheck-next-error)
+   ;; '("ap" . flycheck-previous-error)
+   )
 
 
   ;;window key
