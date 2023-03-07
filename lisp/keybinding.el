@@ -44,6 +44,7 @@
 (defun open-big-screen-mode ()
   "Start big screen mode."
   (interactive)
+  (sideline-mode)
   (imenu-list-smart-toggle))
 
 (defun meow-setup ()

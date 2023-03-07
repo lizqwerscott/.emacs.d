@@ -231,6 +231,18 @@
   (use-package tree-sitter-langs
     :ensure t))
 
+;;; telega
+(when (cl-search "arch" operating-system-release)
+  (use-package telega
+    :quelpa (telega :fetcher github
+                    :repo "zevlg/telega.el"
+                    :branch "master"
+                    :files (:defaults "contrib" "etc" "server" "Makefile"))
+    :config
+    (setq telega-proxies
+          (list '(:server "10.0.96.67" :port 20170 :enable t
+                          :type (:@type "proxyTypeSocks5"))))
+    (setf (alist-get 2 telega-avatar-factors-alist ) '(0.5 . 0.1))) )
 
 (provide 'init-tool)
 ;;; init-tool.el ends here.
