@@ -238,6 +238,7 @@
    '("Q" . kill-this-buffer)
    '("gr" . lsp-bridge-find-references)
    '("gd" . find-definition-with-lsp-bridge)
+   '("gf" . find-file-at-point)
    '("C-o" . return-find-def)
    '("/" . consult-ripgrep)
    '("?" . help-helfup-lsp-bridge-sly)))

@@ -173,9 +173,8 @@
 (eaf-bind-key meow-keypad "SPC" eaf-pdf-viewer-keybinding)
 
 (setq eaf-proxy-type "http")
-;; (setq eaf-proxy-host "127.0.0.1")
-(setq eaf-proxy-host "10.0.96.67")
-(setq eaf-proxy-port "20172")
+(setq eaf-proxy-host user/proxy-host)
+(setq eaf-proxy-port user/proxy-rule-port)
 (setq eaf-webengine-default-zoom 1.25)
 
 (use-package request
@@ -241,8 +240,8 @@
     :hook (telega-load . telega-notifications-mode)
     :config
     (setq telega-proxies
-          (list '(:server "10.0.96.67" :port 20170 :enable t
-                          :type (:@type "proxyTypeSocks5"))))
+          `((:server ,user/proxy-host :port ,user/proxy-all-port :enable t
+                     :type (:@type "proxyTypeSocks5"))))
     (setf (alist-get 2 telega-avatar-factors-alist ) '(0.5 . 0.1))))
 
 ;;; use crow translation

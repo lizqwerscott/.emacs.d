@@ -56,6 +56,10 @@
 (setq custom-file "~/.config/emacs-custom.el")
 
 (require 'init-const)
+
+(when (file-exists-p custom-file)
+  (load-file custom-file))
+
 (require 'init-package)
 (require 'init-startup)
 (require 'init-tool)
@@ -81,8 +85,5 @@
 (require 'init-ui)
 (require 'init-input)
 ;;(require 'crefactor)
-
-(when (file-exists-p custom-file)
-  (load-file custom-file))
 
 ;;; init.el ends here.
