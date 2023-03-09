@@ -32,8 +32,8 @@
   :config
   (pyim-basedict-enable))
 
-;; (meow-define-keys
-;;     'insert
-;;   '("C-c i" . insert-translated-name-insert))
+(meow-define-keys
+    'insert
+  '("C-c i" . insert-translated-name-insert))
 
 (provide 'init-input)

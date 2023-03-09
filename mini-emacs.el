@@ -109,5 +109,5 @@
 
 (require 'rust-mode)
 
-;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/insert-translated-name/"))
-;; (require 'insert-translated-name)
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/insert-translated-name/"))
+(require 'insert-translated-name)

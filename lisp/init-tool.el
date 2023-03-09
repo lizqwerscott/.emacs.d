@@ -243,7 +243,11 @@
     (setq telega-proxies
           (list '(:server "10.0.96.67" :port 20170 :enable t
                           :type (:@type "proxyTypeSocks5"))))
-    (setf (alist-get 2 telega-avatar-factors-alist ) '(0.5 . 0.1))) )
+    (setf (alist-get 2 telega-avatar-factors-alist ) '(0.5 . 0.1))))
+
+;;; use crow translation
+(require 'insert-translated-name)
+(setq insert-translated-name-crow-engine "lingva")
 
 (provide 'init-tool)
 ;;; init-tool.el ends here.

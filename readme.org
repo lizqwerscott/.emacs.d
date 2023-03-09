@@ -32,6 +32,9 @@ Use http:
 Download from [[https://github.com/eraserhd/parinfer-rust
 ][parinfer-rust]].
 ******* Mv dll into parinfer rust directory.
+***** Need install some package
+1. xclip
+2. crow
 *** Update extensions:
 #+begin_src shell
   git submodule foreach git pull --rebase
