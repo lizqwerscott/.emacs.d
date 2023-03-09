@@ -238,6 +238,7 @@
                     :repo "zevlg/telega.el"
                     :branch "master"
                     :files (:defaults "contrib" "etc" "server" "Makefile"))
+    :hook (telega-load . telega-notifications-mode)
     :config
     (setq telega-proxies
           (list '(:server "10.0.96.67" :port 20170 :enable t
