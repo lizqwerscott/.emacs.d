@@ -230,6 +230,9 @@
   (use-package tree-sitter-langs
     :ensure t))
 
+(use-package visual-fill-column
+             :ensure t)
+
 ;;; telega
 (when (cl-search "arch" operating-system-release)
   (use-package telega

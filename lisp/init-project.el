@@ -204,6 +204,7 @@ NAME is class name."
 (define-key mode-specific-map "p" 'project-prefix-map)
 
 (with-eval-after-load "project"
+  (define-key project-prefix-map "b" #'consult-project-buffer)
   (define-key project-prefix-map "s" #'shell)
   (define-key project-prefix-map "d" #'project-eaf-open-dir)
   (define-key project-prefix-map "v" #'eaf-open-git)

@@ -131,7 +131,7 @@
 
   ;;buffer
   (meow-leader-define-key
-   '("b" . switch-to-buffer))
+   '("b" . consult-buffer))
 
   ;;bookmakr
   (meow-leader-define-key

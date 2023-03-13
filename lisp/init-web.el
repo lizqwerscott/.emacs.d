@@ -48,9 +48,10 @@
   (setq org-hugo-default-section-directory "zh-CN/post")
   :after ox)
 
-;;; npm
-(use-package npm
-  :ensure t)
+(use-package web-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
 
 (provide 'init-web)
 ;; (require-package 'cmake-mode)
