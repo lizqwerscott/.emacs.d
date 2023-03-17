@@ -12,9 +12,7 @@
 (defun open-my-org-file ()
   "打开我的org文件."
   (interactive)
-  (affe-find "~/Documents/Sync/org/")
-  ;; (find-file "~/Documents/Sync/org/index.org")
-  )
+  (eaf-open "~/Documents/Sync/org/"))
 
 (defun org-export-docx ()
   (interactive)

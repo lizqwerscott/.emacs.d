@@ -23,6 +23,10 @@
 ;;   :ensure t
 ;;   :hook (after-init . benchmark-init/activate))
 
+;;; expend macro
+(use-package macrostep
+  :ensure t)
+
 (use-package gcmh
   :ensure t
   :hook (after-init . gcmh-mode)
