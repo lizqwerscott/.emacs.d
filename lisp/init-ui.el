@@ -119,13 +119,13 @@
 ;; (load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
 ;; (load-theme 'monokai t)
-(load-theme 'solarized-dark t)
+;; (load-theme 'solarized-dark t)
 ;; (load-theme 'vscode-dark-plus t)
 ;; (load-theme 'modus-vivendi t)
 ;; (load-theme 'ef-summer t)
 ;; (load-theme 'modus-operandi t)
-;; (require 'lazycat-theme)
-;; (lazycat-theme-load-dark)
+(require 'lazycat-theme)
+(lazycat-theme-load-dark)
 ;; (load-theme 'ef-night t)
 ;; (load-theme 'ef-day t)
 ;; (load-theme 'ef-summer t)
@@ -182,13 +182,17 @@
 ;;               (if (get-buffer "*Netease-Cloud-Music*")
 ;;                   (netease-cloud-music-add-header-lyrics))))
 
+
+
 (use-package awesome-tray
   :quelpa (awesome-tray :fetcher git :url "https://github.com/manateelazycat/awesome-tray.git")
   :ensure t
   :hook (after-init . awesome-tray-mode)
   :custom
   (awesome-tray-active-modules
-   '("location" "belong" "file-path" "mode-name" "date")
+   (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
+       '("location" "belong" "file-path" "mode-name" "battery" "date")
+     '("location" "belong" "file-path" "mode-name" "date"))
    "Lazycat config"))
 
 (use-package sort-tab
