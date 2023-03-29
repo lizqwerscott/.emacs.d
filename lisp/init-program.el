@@ -274,94 +274,20 @@
 ;; ros
 (add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
 
-(require 'codeium)
-(add-to-list 'completion-at-point-functions #'codeium-completion-at-point)
-
-(defun assoc-value (plist keys)
-  (if (listp keys)
-      (if keys
-          (assoc-value (cdr
-                        (assoc (car keys) plist))
-                       (cdr keys))
-        plist)
-    (cdr (assoc keys plist))))
-
-(defun last-vector (vector)
-  (aref vector
-        (- (length vector)
-           1)))
-
-(defun get-previous-line-pos ()
-  (let ((pos 0))
-    (save-excursion
-      (previous-line)
-      (setf pos
-            (line-beginning-position)))
-    pos))
-
-(defvar *codeium-completion-overlay* nil)
-(defvar *codeium-completion-text* nil)
-
-(defun test ()
-  (interactive)
-  (cl-letf*
-      (
-       ;; making a new codeium-state (thus a new local language server process)
-       ;; takes ~0.2 seconds; avoid when possible
-
-       (state (codeium-state-make :name "example"))
-       ((codeium-config 'codeium/document/text state) (string-trim (buffer-substring (get-previous-line-pos) (point))))
-       ((codeium-config 'codeium/document/cursor_offset state) (- (point)
-                                                                  (line-beginning-position)))
-       ((codeium-config 'codeium-api-enabled state) (lambda (api) (eq api 'GetCompletions)))
-       )
-    (unwind-protect
-        (progn
-          (message "start")
-          (codeium-init state)
-          ;; make async requests using codeium-request
-          (let ((res (cdr (codeium-request-synchronously 'GetCompletions state nil))))
-            (message "state: %s" (assoc-value res 'state))
-            (let ((item (aref (assoc-value res 'completionItems)
-                              0)))
-              (let ((text (assoc-value item '(completion text)))
-                    (range (assoc-value item 'range)))
-                (message "text: %s" (substring text
-                                               (string-to-number (assoc-value range 'endOffset))))
-                (message "range: %s" range)
-                (when text
-                  (setf *codeium-completion-text*
-                        (substring text
-                                   (string-to-number
-                                    (assoc-value range 'endOffset))))
-                  (overlay-put *codeium-completion-overlay*
-                               'after-string
-                               (propertize
-                                *codeium-completion-text*
-                                'face "dim gray")))))))
-      ;; cleans up temp files, kill process. Scheduled async requests on this state will be dropped.
-      (codeium-reset state))))
-
-(defun codeium-completion ()
-  (interactive)
-  (setf *codeium-completion-overlay*
-        (make-overlay (point) (+ (point) 10)))
-  (test)
-  ;; (overlay-put overlay-test 'face 'font-lock-function-name-face)
-
-  ;; (move-overlay overlay-var start end)
-  )
-
-(defun codeium-accept ()
-  (interactive)
-  (insert *codeium-completion-text*)
-  (setf *codeium-completion-text* nil)
-  (delete-overlay *codeium-completion-overlay*)
-  (setf *codeium-completion-overlay* nil))
-
-(defun test-1 ()
-  (interactive)
-  (message "line: %s" (buffer-substring (get-previous-line-pos) (point))))
+;; AI
+(use-package copilot
+  :quelpa (copilot :fetcher github
+                   :repo "zerolfx/copilot.el"
+                   :branch "main"
+                   :files ("dist" "*.el"))
+  :hook (prog-mode . copilot-mode)
+  :bind
+  (:map copilot-completion-map
+        ("<tab>" . copilot-accept-completion)
+        ("TAB" . copilot-accept-completion))
+  :config
+  (setq copilot-network-proxy
+        '(:host "10.0.96.67" :port 20171)))
 
 (provide 'init-program)
 ;;; init-program.el ends heres.
