@@ -23,15 +23,6 @@ Use http:
 
   git submodule foreach git checkout master
 #+end_src
-***** Need Compile Parinfer rust
-******* Create parinfer-rust directory in .emacs.d
-#+begin_src bash
-  mkdir ~/.emacs.d/parinfer-rust
-#+end_src
-******* Download dll
-Download from [[https://github.com/eraserhd/parinfer-rust
-][parinfer-rust]].
-******* Mv dll into parinfer rust directory.
 ***** Need install some package
 1. xclip
 2. crow
