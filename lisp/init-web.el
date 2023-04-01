@@ -53,6 +53,9 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
 
+(use-package restclient
+  :ensure t)
+
 (provide 'init-web)
 ;; (require-package 'cmake-mode)
 ;;; init-web.el ends here.
