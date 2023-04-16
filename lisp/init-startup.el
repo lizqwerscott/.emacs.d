@@ -22,6 +22,13 @@
 (customize-set-variable 'kill-do-not-save-duplicates t)
 (customize-set-variable 'auto-revert-interval 1)
 
+(setq ad-redefinition-action 'accept)
+
+;; 平滑地进行半屏滚动，避免滚动后recenter操作
+(pixel-scroll-mode t)
+(pixel-scroll-precision-mode t)
+(setq scroll-step 1)
+
 ;; Encoding
 ;; UTF-8 as the default coding system
 (when (fboundp 'set-charset-priority)
@@ -46,6 +53,9 @@
 (setq create-lockfiles nil)
 
 (setq-default bidi-display-reordering nil)
+;; 增加长行处理性能
+(setq bidi-inhibit-bpa t)
+(setq bidi-paragraph-direction 'left-to-right)
 
 (setq confirm-kill-processes nil)
 
@@ -53,6 +63,8 @@
 
 ;;; performance
 ;; Disable garbage collection when entering commands.
+(setq garbage-collection-messages t)	;gc时显示消息
+(setq byte-compile-warnings nil)	;关闭字节编译警告
 
 (add-hook 'minibuffer-setup-hook
           #'(lambda ()
@@ -67,7 +79,7 @@
 (global-auto-revert-mode 1)
 (setq use-file-dialog nil
       use-dialog-box nil
-      inhibit-startup-screen t
+      inhibit-startup-screen nil
       inhibit-startup-message t)
 
 (use-package no-littering
@@ -92,7 +104,7 @@
 
 (setq load-prefer-newer t)
 
-(setq inhibit-compacting-font-caches nil)
+(setq inhibit-compacting-font-caches t)
 
 (setq scroll-step 2
       scroll-margin 6
@@ -106,7 +118,7 @@
 (setq auto-window-vscroll nil)
 (setq truncate-partial-width-windows nil)
 
-(setq mouse-yank-at-point nil)
+(setq mouse-yank-at-point t)
 
 (setq-default fill-column 80)
 
@@ -217,6 +229,31 @@
       backup-directory-alist (list (cons tramp-file-name-regexp nil)))
 
 (setq tramp-default-method "ssh")
+
+;; 自定义 *scratch* 内容
+;;;###autoload
+(defun +evan/scratch-setup()
+  (interactive)
+  (save-excursion
+    (with-current-buffer (get-buffer "*scratch*")
+      (erase-buffer)
+      (insert (format "启动时长: %s" (emacs-init-time)))
+      (insert "\n")
+      (insert-button "Quit Emacs"
+		             'action (lambda (_button)
+			                   (save-buffers-kill-emacs)))
+      (insert "\n")
+      (insert "Recent Files\n")
+      (dolist (f recentf-list)
+	    (insert-button f
+		               'action (lambda (region)
+				                 (require 'f)
+				                 (let* ((f (buffer-substring-no-properties (overlay-start region) (overlay-end region)))
+					                    (fname (f-filename f)))
+				                   (find-file-noselect f)
+				                   (switch-to-buffer fname))))
+	    (insert "\n"))
+      )))
 
 (provide 'init-startup)
 ;;; init-startup.el ends here.

@@ -78,6 +78,8 @@
 ;; (require 'init-paper)
 
 (require 'init-project)
+
+(require 'init-key)
 (require 'keybinding)
 
 (require 'init-org)

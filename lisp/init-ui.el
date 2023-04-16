@@ -17,7 +17,7 @@
   "Setup fonts."
   (when (display-graphic-p)
     ;; Set default font
-    (cl-loop for font in '("Cascadia Code" "Jetbrains Mono" "Fira Code" "Source Code Pro"
+    (cl-loop for font in '("Source Code Pro" "Cascadia Code" "Jetbrains Mono" "Fira Code"
                            "SF Mono" "Hack" "Menlo"
                            "Monaco" "DejaVu Sans Mono" "Consolas")
              when (font-installed-p font)
@@ -70,25 +70,25 @@
   :ensure t
   :hook ((emacs-lisp-mode lisp-mode) . pretty-mode))
 
-(use-package ligature
-  :quelpa (ligature :fetcher git :url "https://github.com/mickeynp/ligature.el.git")
-  :hook
-  (after-init . global-ligature-mode)
-  :config
-  ;; Enable the www ligature in every possible major mode
-  (ligature-set-ligatures 't '("www"))
-  ;; Enable ligatures in programming modes
-  (ligature-set-ligatures 'prog-mode
-                          '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
-                            ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
-                            "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
-                            "#_(" ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*" "/**"
-                            "/=" "/==" "/>" "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>"
-                            "++" "+++" "+>" "=:=" "==" "===" "==>" "=>" "=>>" "<="
-                            "=<<" "=/=" ">-" ">=" ">=>" ">>" ">>-" ">>=" ">>>" "<*"
-                            "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
-                            "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
-                            "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%")))
+;; (use-package ligature
+;;   :quelpa (ligature :fetcher git :url "https://github.com/mickeynp/ligature.el.git")
+;;   :hook
+;;   (after-init . global-ligature-mode)
+;;   :config
+;;   ;; Enable the www ligature in every possible major mode
+;;   (ligature-set-ligatures 't '("www"))
+;;   ;; Enable ligatures in programming modes
+;;   (ligature-set-ligatures 'prog-mode
+;;                           '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
+;;                             ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
+;;                             "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
+;;                             "#_(" ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*" "/**"
+;;                             "/=" "/==" "/>" "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>"
+;;                             "++" "+++" "+>" "=:=" "==" "===" "==>" "=>" "=>>" "<="
+;;                             "=<<" "=/=" ">-" ">=" ">=>" ">>" ">>-" ">>=" ">>>" "<*"
+;;                             "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
+;;                             "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
+;;                             "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%")))
 
 ;;; Theme
 ;; (use-package gruvbox-theme

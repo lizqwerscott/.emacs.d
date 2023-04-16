@@ -15,10 +15,6 @@
   (require 'loadhist)
   (file-dependents (feature-file 'cl)))
 
-(use-package restart-emacs
-  :ensure t
-  :diminish t)
-
 ;; (use-package benchmark-init
 ;;   :ensure t
 ;;   :hook (after-init . benchmark-init/activate))
@@ -175,6 +171,8 @@
 (require 'eaf-file-manager)
 
 (eaf-bind-key meow-keypad "SPC" eaf-pdf-viewer-keybinding)
+(eaf-bind-key meow-keypad "SPC" eaf-browser-keybinding)
+(eaf-bind-key eaf-py-proxy-insert_or_scroll_up_page "M-SPC" eaf-browser-keybinding)
 
 (setq eaf-proxy-type "http")
 (setq eaf-proxy-host user/proxy-host)
@@ -219,6 +217,13 @@
   (interactive)
   (eww "zh-cn.wttr.in/"))
 
+(defun add-list-to-list (list-var elements)
+  (if (listp elements)
+      (mapcar #'(lambda (element)
+                  (add-to-list list-var element))
+              (reverse elements))
+    (add-to-list list-var elements)))
+
 (use-package google-this
   :ensure t
   :hook (after-init . google-this-mode))
@@ -249,7 +254,13 @@
     (setq telega-proxies
           `((:server ,user/proxy-host :port ,user/proxy-all-port :enable t
                      :type (:@type "proxyTypeSocks5"))))
-    (setf (alist-get 2 telega-avatar-factors-alist ) '(0.5 . 0.1))))
+    ;; (setf (alist-get 2 telega-avatar-factors-alist ) '(0.5 . 0.1))
+    (setq  telega-chat-show-avatars nil
+           telega-chat-fill-column 65
+           telega-emoji-use-images nil
+           telega-auto-translate-probe-language-codes nil
+           telega-translate-to-language-by-default "zh-CN"
+           telega-chat-input-markups (list "org"))))
 
 ;;; use crow translation
 (require 'insert-translated-name)

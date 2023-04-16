@@ -140,7 +140,7 @@ Support Lisp, python, c++."
                                       `(("Lisp" . 1)
                                         ("Python" . 2)
                                         ("C++" . 3))
-                                      nil t "Lisp")))
+                                      nil t "")))
   (let ((project-name (read-directory-name "make project directory name:"
                                            temp-file-dir)))
     (make-directory project-name)
