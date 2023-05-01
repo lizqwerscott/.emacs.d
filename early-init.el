@@ -1,24 +1,30 @@
-;;;; early-init.el --- Early initialization. -*- lexical-binding:  -*-
+;; 增加IO性能
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
 
-;; This file is not part of GNU Emacs.
-;;
 
-;;; Code:
+;; ;;;; early-init.el --- Early initialization. -*- lexical-binding:  -*-
 
-;; Defer garbage collection further back in the startup proces
-(setq gc-cons-threshold most-positive-fixnum)
+;; ;; This file is not part of GNU Emacs.
+;; ;;
 
-(setq package-enable-at-startup nil)
+;; ;;; Code:
 
-(push '(menu-bar-lines . 0) default-frame-alist)
-(push '(tool-bar-lines . 0) default-frame-alist)
-(push '(vertical-scroll-bars) default-frame-alist)
+;; ;; Defer garbage collection further back in the startup proces
+;; (setq gc-cons-threshold most-positive-fixnum)
 
-;; (setq load-prefer-newer noninteractive)
+;; (setq package-enable-at-startup nil)
 
-(setq frame-inhibit-implied-resize t)
+;; (push '(menu-bar-lines . 0) default-frame-alist)
+;; (push '(tool-bar-lines . 0) default-frame-alist)
+;; (push '(vertical-scroll-bars) default-frame-alist)
 
-(advice-add #'x-apply-session-resources :override #'ignore)
+;; ;; (setq load-prefer-newer noninteractive)
 
-(provide 'early-init)
-;;; early-init.el ends here
+;; (setq frame-inhibit-implied-resize t)
+
+;; (advice-add #'x-apply-session-resources :override #'ignore)
+
+;; (provide 'early-init)
+;; ;;; early-init.el ends here

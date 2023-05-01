@@ -57,5 +57,87 @@
     (package-update-all))
   (quelpa-upgrade-all))
 
+(defun package-check-install (packages)
+  (dolist (package packages)
+    (unless (package-installed-p package)
+      (package-refresh-contents)
+      (package-install package))))
+
+;; install all package
+
+(package-check-install
+ '(vertico
+   marginalia
+   consult
+   consult-project-extra
+   posframe
+   focus
+   request
+   websocket
+   interaction-log
+   visual-fill-column
+   helpful
+   dumb-jump
+   yasnippet
+   common-lisp-snippets
+   yaml-mode
+   markdown-mode
+   cmake-mode
+   macrostep
+   go-translate
+   google-this
+   sly
+   sly-quicklisp
+   sly-asdf
+   aggressive-indent
+   which-key
+   vterm
+   vterm-toggle
+   apheleia
+   eacl
+   eglot
+   xclip
+   pyim
+   pyim-basedict
+   olivetti
+   ag
+   pretty-mode
+   doom-themes
+   all-the-icons
+   all-the-icons-completion
+   sideline
+   sideline-blame
+   imenu-list))
+
+(when sys/linuxp
+  (package-check-install
+   '(tree-sitter
+     tree-sitter-langs)))
+
+(quelpa '(lazy-load :fetcher github
+                    :repo "manateelazycat/lazy-load"))
+
+(quelpa '(telega :fetcher github
+                 :repo "zevlg/telega.el"
+                 :branch "master"
+                 :files (:defaults "contrib" "etc" "server" "Makefile")))
+
+(quelpa '(copilot :fetcher github
+                  :repo "zerolfx/copilot.el"
+                  :branch "main"
+                  :files ("dist" "*.el")))
+
+(quelpa '(color-rg :fetcher github
+                   :repo "manateelazycat/color-rg"))
+
+(quelpa '(deno-bridge :fetcher github
+                      :repo "manateelazycat/deno-bridge"))
+
+(quelpa '(sort-tab :fetcher github
+                   :repo "manateelazycat/sort-tab"))
+
+(quelpa '(awesome-tray :fetcher github
+                       :repo "manateelazycat/awesome-tray"))
+
 (provide 'init-package)
 ;;; init-package.el ends here

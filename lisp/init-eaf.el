@@ -1,0 +1,18 @@
+(require 'eaf)
+(require 'eaf-browser)
+(require 'eaf-pdf-viewer)
+(require 'eaf-git)
+(require 'eaf-image-viewer)
+(require 'eaf-markdown-previewer)
+(require 'eaf-org-previewer)
+(require 'eaf-file-manager)
+
+(eaf-bind-key meow-keypad "SPC" eaf-pdf-viewer-keybinding)
+(eaf-bind-key meow-keypad "SPC" eaf-browser-keybinding)
+(eaf-bind-key eaf-py-proxy-insert_or_scroll_up_page "M-SPC" eaf-browser-keybinding)
+
+(setq eaf-proxy-type "http")
+(setq eaf-proxy-host user/proxy-host)
+(setq eaf-proxy-port user/proxy-rule-port)
+(setq eaf-webengine-default-zoom 1.25)
+(provide 'init-eaf)

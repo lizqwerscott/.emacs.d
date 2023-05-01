@@ -28,6 +28,14 @@
 (pixel-scroll-mode t)
 (pixel-scroll-precision-mode t)
 (setq scroll-step 1)
+(setq scroll-step 2
+      scroll-margin 6
+      hscroll-step 2
+      hscroll-margin 2
+      scroll-conservatively 101
+      scroll-up-aggressively 0.01
+      scroll-down-aggressively 0.01
+      scroll-preserve-screen-position 'always)
 
 ;; Encoding
 ;; UTF-8 as the default coding system
@@ -91,29 +99,26 @@
 
 (require 'no-littering)
 
-
 ;;; History
 (require 'recentf)
 (add-to-list 'recentf-exclude no-littering-var-directory)
 (add-to-list 'recentf-exclude no-littering-etc-directory)
 
-(add-hook 'after-init-hook 'save-place-mode)
-;; (use-package saveplace
-;;   :ensure nil
-;;   :hook (after-init . save-place-mode))
+(save-place-mode 1)
+;; (add-hook 'after-init-hook 'save-place-mode)
+(setq enable-recursive-minibuffers t  ; Allow commands in minibuffers
+      history-length 1000
+      savehist-additional-variables '(mark-ring
+                                      global-mark-ring
+                                      search-ring
+                                      regexp-search-ring
+                                      extended-command-history)
+      savehist-autosave-interval 300)
+(savehist-mode 1)
 
 (setq load-prefer-newer t)
 
 (setq inhibit-compacting-font-caches t)
-
-(setq scroll-step 2
-      scroll-margin 6
-      hscroll-step 2
-      hscroll-margin 2
-      scroll-conservatively 101
-      scroll-up-aggressively 0.01
-      scroll-down-aggressively 0.01
-      scroll-preserve-screen-position 'always)
 
 (setq auto-window-vscroll nil)
 (setq truncate-partial-width-windows nil)
@@ -130,105 +135,53 @@
           #'(lambda ()
               (modify-syntax-entry ?- "w")))
 
-;; (use-package emacs
-;;   :init
-;;   ;; Add prompt indicator to `completing-read-multiple'.
-;;   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
-;;   (defun crm-indicator (args)
-;;     (cons (format "[CRM%s] %s"
-;;                   (replace-regexp-in-string
-;;                    "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-;;                    crm-separator)
-;;                   (car args))
-;;           (cdr args)))
-;;   (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
-
-;;   ;; Do not allow the cursor in the minibuffer prompt
-;;   (setq minibuffer-prompt-properties
-;;         '(read-only t cursor-intangible t face minibuffer-prompt))
-;;   (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-
-;;   ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
-;;   ;; Vertico commands are hidden in normal buffers.
-;;   ;; (setq read-extended-command-predicate
-;;   ;;       #'command-completion-default-include-p)
-
-;;   ;; Enable recursive minibuffers
-;;   ;; (setq enable-recursive-minibuffers t)
-;;   )
-
-(require 'init-minibuffer)
-
-;;; compleations
-(require 'init-corfu)
-
 ;;; Dired
-(use-package dired
-  :config
-  (setq dired-recursive-deletes 'always)
-  (setq delete-by-moving-to-trash t)
-  (setq dired-dwin-target t)
-  (setq dired-listing-switches
-        "-l --almost-all --human-readable --time-style=long-iso --group-directories-first --no-group"))
+;; (use-package dired
+;;   :config
+;;   (setq dired-recursive-deletes 'always)
+;;   (setq delete-by-moving-to-trash t)
+;;   (setq dired-dwin-target t)
+;;   (setq dired-listing-switches
+;;         "-l --almost-all --human-readable --time-style=long-iso --group-directories-first --no-group"))
 
-(use-package dired-x
-  :config
-  (setq dired-omit-files
-        (concat dired-omit-files "\\|^\\..*$")))
+;; (use-package dired-x
+;;   :config
+;;   (setq dired-omit-files
+;;         (concat dired-omit-files "\\|^\\..*$")))
 
-(use-package dirvish
-  :ensure t
-  :init
-  (dirvish-override-dired-mode)
-  :custom
-  (dirvish-mode-line-format
-   '(:left (sort file-time " " file-size symlink) :right (omit yank index)))
-  ;; (dirvish-attributes '(subtree-state all-the-icons vc-state git-msg))
-  (dirvish-attributes '(all-the-icons vc-state file-size))
-  (dirvish-preview-dispatchers '(vc-diff))
-  (dirvish-mode-line-height 0)
-  (dirvish-header-line-height 0)
-  :bind
-  (:map dirvish-mode-map
-        ("/" . dirvish-fd)
-        ("a"   . dirvish-quick-access)
-        ("f"   . dirvish-file-info-menu)
-        ("y"   . dirvish-yank-menu)
-        ("N"   . dirvish-narrow)
-        ("^"   . dirvish-history-last)
-        ("h"   . dirvish-history-jump) ; remapped `describe-mode'
-        ("s"   . dirvish-quicksort)    ; remapped `dired-sort-toggle-or-edit'
-        ("v"   . dirvish-vc-menu)      ; remapped `dired-view-file'
-        ("TAB" . dirvish-subtree-toggle)
-        ("h" . dired-up-directory)
-        ("q" . my/meow-quit))
-  :config
-  (dirvish-peek-mode))
+;; (use-package dirvish
+;;   :ensure t
+;;   :init
+;;   (dirvish-override-dired-mode)
+;;   :custom
+;;   (dirvish-mode-line-format
+;;    '(:left (sort file-time " " file-size symlink) :right (omit yank index)))
+;;   ;; (dirvish-attributes '(subtree-state all-the-icons vc-state git-msg))
+;;   (dirvish-attributes '(all-the-icons vc-state file-size))
+;;   (dirvish-preview-dispatchers '(vc-diff))
+;;   (dirvish-mode-line-height 0)
+;;   (dirvish-header-line-height 0)
+;;   :bind
+;;   (:map dirvish-mode-map
+;;         ("/" . dirvish-fd)
+;;         ("a"   . dirvish-quick-access)
+;;         ("f"   . dirvish-file-info-menu)
+;;         ("y"   . dirvish-yank-menu)
+;;         ("N"   . dirvish-narrow)
+;;         ("^"   . dirvish-history-last)
+;;         ("h"   . dirvish-history-jump) ; remapped `describe-mode'
+;;         ("s"   . dirvish-quicksort)    ; remapped `dired-sort-toggle-or-edit'
+;;         ("v"   . dirvish-vc-menu)      ; remapped `dired-view-file'
+;;         ("TAB" . dirvish-subtree-toggle)
+;;         ("h" . dired-up-directory)
+;;         ("q" . my/meow-quit))
+;;   :config
+;;   (dirvish-peek-mode))
 
 (let ((path "~/.emacs.d/tmp/"))
   (when (not (file-directory-p path))
     (setq temporary-file-directory
           path)))
-
-;;; Tramp
-(use-package tramp
-  :config
-  ;; Enable full-featured Dirvish over TRAMP on certain connections
-  ;; https://www.gnu.org/software/tramp/#Improving-performance-of-asynchronous-remote-processes-1.
-  (add-to-list 'tramp-connection-properties
-               (list (regexp-quote "/ssh:racecar:")
-                     "direct-async-process" t))
-  ;; Tips to speed up connections
-  (setq tramp-verbose 0)
-  (setq tramp-chunksize 2000)
-  (setq tramp-use-ssh-controlmaster-options nil))
-
-(setq recentf-exclude `(,tramp-file-name-regexp
-                        "COMMIT_EDITMSG")
-      tramp-auto-save-directory temporary-file-directory
-      backup-directory-alist (list (cons tramp-file-name-regexp nil)))
-
-(setq tramp-default-method "ssh")
 
 ;; 自定义 *scratch* 内容
 ;;;###autoload

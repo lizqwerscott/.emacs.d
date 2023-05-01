@@ -194,21 +194,38 @@ NAME is class name."
   (interactive)
   (eaf-open (project-root (project-current))))
 
-(setq project-switch-commands
-      '((project-find-file "Find file")
-        (project-eaf-open-dir "Dir")
-        (eaf-open-git "Git")))
+;; (defalias 'project-prefix-map project-prefix-map)
 
-(defalias 'project-prefix-map project-prefix-map)
+;; (define-key mode-specific-map "p" 'project-prefix-map)
 
-(define-key mode-specific-map "p" 'project-prefix-map)
+;; (with-eval-after-load "project"
+;;   (define-key project-prefix-map "b" #'consult-project-buffer)
+;;   (define-key project-prefix-map "s" #'shell)
+;;   (define-key project-prefix-map "d" #'project-eaf-open-dir)
+;;   (define-key project-prefix-map "v" #'eaf-open-git)
+;;   (define-key project-prefix-map "t" #'find-temp-project))
 
-(with-eval-after-load "project"
-  (define-key project-prefix-map "b" #'consult-project-buffer)
-  (define-key project-prefix-map "s" #'shell)
-  (define-key project-prefix-map "d" #'project-eaf-open-dir)
-  (define-key project-prefix-map "v" #'eaf-open-git)
-  (define-key project-prefix-map "t" #'find-temp-project))
+(lazy-one-key-create-menu
+ "Project"
+ (:key "f" :description "Find file in project" :command project-find-file)
+ (:key "d" :description "Project Dir" :command project-eaf-open-dir :filename "init-eaf")
+ (:key "t" :description "Open temp project" :command find-temp-project)
+ (:key "a" :designation "Remmeber a project" :command project-remember-projects-under)
+ (:key "p" :description "Switch project" :command project-switch-project)
+ (:key "v" :description "Project Git" :command eaf-open-git :filename "init-eaf")
+ (:key "r" :description "Remove known project" :command project-forget-project)
+ (:key "b" :description "Project buffer" :command consult-project-buffer)
+ (:key "e" :description "Project eshell" :command project-eshell))
+
+;; (define-key project-prefix-map (kbd "b") #'consult-project-buffer)
+;; (define-key project-prefix-map (kbd "s") #'shell)
+;; (define-key project-prefix-map (kbd "d") #'project-eaf-open-dir)
+;; (define-key project-prefix-map (kbd "v") #'eaf-open-git)
+;; (define-key project-prefix-map (kbd "t") #'find-temp-project)
+
+(setq project-switch-commands nil)
+(add-to-list 'project-switch-commands '(project-find-file "Find file") t)
+(add-to-list 'project-switch-commands '(project-eaf-open-dir "Find dir") t)
 
 (provide 'init-project)
 ;;; init-project.el ends heres.

@@ -94,26 +94,26 @@
 ;; (use-package gruvbox-theme
 ;;   :ensure t)
 
-(use-package doom-themes
-  :ensure t)
+;; (use-package doom-themes
+;;   :ensure t)
 
 ;; (use-package monokai-theme
 ;;   :ensure t)
 
-(use-package solarized-theme
-  :ensure t
-  :defer)
+;; (use-package solarized-theme
+;;   :ensure t
+;;   :defer)
 
 ;; (use-package modus-themes
 ;;   :ensure t)
 
-(use-package ef-themes
-  :ensure t
-  :defer)
+;; (use-package ef-themes
+;;   :ensure t
+;;   :defer)
 
-(use-package flucui-themes
-  :ensure t
-  :defer)
+;; (use-package flucui-themes
+;;   :ensure t
+;;   :defer)
 
 ;; (load-theme 'gruvbox-dark-soft t)
 (load-theme 'doom-one t)
@@ -183,32 +183,38 @@
 ;;                   (netease-cloud-music-add-header-lyrics))))
 
 
+(require 'awesome-tray)
+(defun meow-module-info()
+  (meow-indicator))
 
-(use-package awesome-tray
-  :quelpa (awesome-tray :fetcher git :url "https://github.com/manateelazycat/awesome-tray.git")
-  :ensure t
-  :hook (after-init . awesome-tray-mode)
-  :custom
-  (awesome-tray-active-modules
-   (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
-       '("location" "belong" "file-path" "mode-name" "battery" "date")
-     '("location" "belong" "file-path" "mode-name" "date"))
-   "Lazycat config"))
+(defface meow-module-face ()
+  ""
+  :group 'awesome-tray)
 
-(use-package sort-tab
-  :quelpa (sort-tab :fetcher git :url "https://github.com/manateelazycat/sort-tab.git")
-  :hook (after-init . sort-tab-mode))
+(add-to-list 'awesome-tray-module-alist
+	         '("meow" . (meow-module-info meow-module-face)))
+
+(setq awesome-tray-active-modules
+      (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
+          '("meow" "location" "belong" "file-path" "buffer-name" "mode-name" "battery" "date")
+        '("meow" "location" "belong" "file-path" "buffer-name" "mode-name" "date")))
+(awesome-tray-mode)
+
+;; (use-package sort-tab
+;;   :quelpa
+;;   :hook (after-init . sort-tab-mode))
+(require 'sort-tab)
+(sort-tab-mode 1)
 
 ;;; Icons
-(use-package all-the-icons
-  :ensure t
-  :diminish t)
+;; (use-package all-the-icons
+;;   :ensure t
+;;   :diminish t)
 
-(use-package all-the-icons-completion
-  :ensure t
-  :hook (marginalia-mode . #'all-the-icons-completion-marginalia-setup)
-  :init
-  (all-the-icons-completion-mode))
+(require 'all-the-icons-completion)
+(add-hook 'marginalia-mode-hook
+          #'all-the-icons-completion-marginalia-setup)
+(all-the-icons-completion-mode)
 
 ;;; Git message
 (use-package diff-hl
@@ -362,20 +368,6 @@
   :ensure nil
   :hook (after-init . global-so-long-mode)
   :config (setq so-long-threshold 400))
-
-;;; Side line
-(use-package sideline-blame
-  :ensure t)
-
-(use-package sideline
-  :ensure t
-  :init
-  (setq sideline-backends-right
-        '(sideline-blame)))
-
-;;; imenu list
-(use-package imenu-list
-  :ensure t)
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.

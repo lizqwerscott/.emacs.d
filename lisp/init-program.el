@@ -19,24 +19,14 @@
 ;;         '("~/.emacs.d/config/yasnippet/snippets/"))
 ;;   )
 
-;; (use-package common-lisp-snippets
+;; (use-package tempel
 ;;   :ensure t
-;;   :hook (common-lisp-mode . common-lisp-snippets-initialize)
-;;   :hook (after-init . common-lisp-snippets-initialize)
-  ;; )
-
-(use-package yasnippet
-  :ensure t
-  :diminish t)
-
-(use-package tempel
-  :ensure t
-  :bind
-  (:map tempel-map
-        ("TAB" . tempel-next))
-  :config
-  (setq tempel-path
-        "~/.emacs.d/config/tempel/templates"))
+;;   :bind
+;;   (:map tempel-map
+;;         ("TAB" . tempel-next))
+;;   :config
+;;   (setq tempel-path
+;;         "~/.emacs.d/config/tempel/templates"))
 
 
 ;;(require 'init-company)
@@ -47,113 +37,6 @@
 ;;   :ensure t)
 
 ;;; Lsp Server
-
-;; Eglot
-(use-package eglot
-  :ensure t
-  :config
-  (add-hook 'rust-mode-hook 'eglot-ensure)
-  (progn
-    (setq eldoc-echo-area-use-multiline-p 3
-          eldoc-echo-area-display-truncation-message nil)
-    (set-face-attribute 'eglot-highlight-symbol-face nil
-                        :background "#b3d7ff")
-    ;; (add-to-list 'eglot-server-programs
-    ;;              '((c-mode c++-mode) . ("ccls")))
-    ;; (add-to-list 'eglot-server-programs
-    ;;              '(python-mode . ("jedi-language-server")))
-    ;; (add-to-list 'eglot-server-programs
-    ;;              '(vue-mode . "vls"))
-    (add-to-list 'eglot-server-programs
-                 `(rust-mode . ("rust-analyzer"
-                                :initializationOptions (:cargo (:features "all")))))))
-
-(defun +lsp-complete ()
-  (interactive)
-  (or (tempel-complete t)
-      (acm-select-next)))
-
-;; Lsp bridge
-(defun enable-lsp-bridge()
-  (when-let* ((project (project-current))
-              (project-root (if (listp (cdr project))
-                                (nth 2 project)
-                              (cdr project))))
-    (setq-local lsp-bridge-user-langserver-dir project-root
-                lsp-bridge-user-multiserver-dir project-root))
-  (lsp-bridge-mode))
-
-(use-package lsp-bridge
-  :bind
-  (:map acm-mode-map
-        (("C-n" . #'acm-select-next)
-         ("C-p" . #'acm-select-prev)
-         ("TAB" . #'+lsp-complete)
-         ([tab] . #'+lsp-complete)))
-  ;; :hook (after-init . global-lsp-bridge-mode)
-  :custom
-  (lsp-bridge-c-lsp-server "ccls")
-  (acm-backend-lsp-candidates-max-number 4000)
-  (acm-enable-citre nil)
-  (acm-enable-tabnine t)
-  (acm-enable-yas nil)
-  (acm-enable-tempel nil)
-  (lsp-bridge-use-wenls-in-org-mode nil)
-  (lsp-bridge-enable-diagnostics t)
-  ;; (lsp-bridge-diagnostic-fetch-idle 0.1)
-  ;; (lsp-bridge-enable-debug t)
-  ;; (lsp-bridge-python-lsp-server "jedi")
-  ;; (lsp-bridge-python-lsp-server "pyright-background-analysis")
-  ;; (acm-candidate-match-function 'orderless-regexp)
-  :config
-  (defun global-enable-lsp-bridge ()
-    (interactive)
-    (dolist (hook lsp-bridge-default-mode-hooks)
-      (add-hook hook (lambda ()
-                       (enable-lsp-bridge)))))
-
-  (setq lsp-bridge-default-mode-hooks
-        (remove 'rust-mode-hook lsp-bridge-default-mode-hooks))
-  (require 'xref)
-  (defun find-definition-with-lsp-bridge ()
-    (interactive)
-    (cond
-     ((bound-and-true-p sly-mode)
-      (call-interactively #'sly-edit-definition))
-     ((eq major-mode 'emacs-lisp-mode)
-      (let ((symb (current-word)))
-        (funcall #'xref-find-definitions symb)))
-     (lsp-bridge-mode
-      (lsp-bridge-find-def))
-     (t
-      (require 'dumb-jump)
-      (dumb-jump-go))))
-
-  (defun return-find-def ()
-    (interactive)
-    (cond
-     ((eq major-mode 'emacs-lisp-mode)
-      (require 'dumb-jump)
-      (dumb-jump-back))
-     (lsp-bridge-mode
-      (lsp-bridge-find-def-return))
-     (t
-      (require 'dumb-jump)
-      (dumb-jump-back))))
-
-  (global-enable-lsp-bridge))
-
-(unless (display-graphic-p)
-  (with-eval-after-load 'acm
-    (use-package popon
-      :quelpa (popon :fetcher git :url "https://codeberg.org/akib/emacs-popon.git")
-      :ensure t)
-    (use-package acm-termial
-      :quelpa (acm-termial :fetcher git :url "https://github.com/twlz0ne/acm-terminal.git")
-      :ensure t)))
-
-(use-package dumb-jump
-  :ensure t)
 
 ;;; check error
 
@@ -205,23 +88,28 @@
 ;;   ((prog-mode . wucuo-start)
 ;;    (text-mode . wucuo-start)))
 
+(use-package jinx
+  :ensure t
+  :hook ((org-mode . jinx-mode))
+  :bind ([remap ispell-word] . jinx-correct)
+  :config
+  (add-to-list 'jinx-exclude-regexps '(t "\\cc"))
+  (vertico-multiform-mode 1)
+  (add-to-list 'vertico-multiform-categories
+               '(jinx grid (vertico-grid-annotate . 25))))
+
 ;;; format code
 
 ;; (use-package format-all
 ;;   :ensure t
 ;;   :diminish t)
 
-(use-package apheleia
-  :ensure t
-  :hook ((typescript-tsx-mode . apheleia-mode)
-         (json-mode . apheleia-mode)))
-
 ;; format c++ or c
 (defun format-this-buffer ()
   "Format this all buffer."
   (interactive "")
   (if (or (equal major-mode 'c-mode)
-          (equal major-mode 'c++-mode))
+         (equal major-mode 'c++-mode))
       (shell-command (concat "astyle "
                              (buffer-file-name)))))
 
@@ -241,53 +129,10 @@
 ;;           'hs-minor-mode)
 
 ;;; Doc
-(use-package helpful
-  :ensure t
-  :diminish t)
 
 (use-package docstr
   :ensure t
   :hook (prog-mode . docstr-mode))
-
-;; write code
-(use-package eacl
-  :ensure t
-  :diminish t)
-
-;; search
-(use-package color-rg
-  :quelpa (color-rg :fetcher git :url "https://github.com/manateelazycat/color-rg.git")
-  :ensure t)
-(require 'blink-search)
-(add-hook 'blink-search-mode-hook
-          'meow-insert)
-;; (setq blink-search-search-backends
-;;       '("Buffer List" "Find File" "Common Directory" "Recent File" "EAF Browser History" "Google Suggest"))
-(setq blink-search-common-directory
-      '(("HOME" . "~/")
-        ("Project" . "~/MyProject/")
-        ("Config" . "~/.emacs.d/")))
-
-(use-package yaml-mode
-  :ensure t)
-
-;; ros
-(add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
-
-;; AI
-(use-package copilot
-  :quelpa (copilot :fetcher github
-                   :repo "zerolfx/copilot.el"
-                   :branch "main"
-                   :files ("dist" "*.el"))
-  :hook (prog-mode . copilot-mode)
-  :bind
-  (:map copilot-completion-map
-        ("<tab>" . copilot-accept-completion)
-        ("TAB" . copilot-accept-completion))
-  :config
-  (setq copilot-network-proxy
-        '(:host "10.0.96.67" :port 20171)))
 
 (provide 'init-program)
 ;;; init-program.el ends heres.

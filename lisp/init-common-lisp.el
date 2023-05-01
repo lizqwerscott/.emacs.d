@@ -1,24 +1,16 @@
-;;; init-common-lisp.el --- init common-lisp package  -*- lexical-binding: t; -*-
+(require 'sly)
+(require 'sly-quicklisp)
+(require 'sly-asdf)
 
-;; Copyright (C) 2022
+(add-hook 'sly-mode
+          #'(lambda ()
+              (unless (sly-connected-p)
+                (save-excursion (sly)))))
 
-;; Author:  <lizqwerscott@gmail.com>
+(setq sly-complete-symbol-function 'sly-flex-completions)
+(setq inferior-lisp-program "sbcl")
 
-;;; Commentary:
-
-
-;;; Code:
-
-(use-package sly
-  :ensure t
-  :hook (sly-mode . (lambda ()
-                      (unless (sly-connected-p)
-                        (save-excursion (sly)))))
-  :config
-  ;; (setq sly-complete-symbol-function 'sly-simple-completions)
-  (setq sly-complete-symbol-function 'sly-flex-completions)
-  (setq inferior-lisp-program "sbcl"))
-
+;;;###autoload
 (defun sly-switch-mrepl (&optional display-action)
   "Find or create the first useful REPL for the default connection.
 If supplied, DISPLAY-ACTION is called on the buffer.
@@ -34,29 +26,19 @@ which case that window is selected."
       (funcall display-action buffer))
     buffer))
 
-(use-package sly-quicklisp
-  :ensure t
-  :after sly)
-
+;;;###autoload
 (defun project-name (project)
   "A human-readable name for the project.
 Nominally unique, but not enforced."
   (file-name-nondirectory (directory-file-name (project-root project))))
 
+;;;###autoload
 (defun load-lisp-project ()
   "Load now project."
   (interactive)
   (sly-quickload (project-name (project-current))))
 
-(eval-after-load 'sly
-  `(define-key sly-mode-map (kbd "C-c q r") #'sly-restart-inferior-lisp))
-
-(eval-after-load 'sly
-  `(define-key sly-mode-map (kbd "C-c q l") #'load-lisp-project))
-
-(use-package sly-asdf
-  :ensure t
-  :after sly)
+(define-key sly-mode-map (kbd "C-c q r") #'sly-restart-inferior-lisp)
+(define-key sly-mode-map (kbd "C-c q l") #'load-lisp-project)
 
 (provide 'init-common-lisp)
-;;; init-common-lisp.el ends here.
