@@ -60,32 +60,41 @@
 (when (file-exists-p custom-file)
   (load-file custom-file))
 
+;; 启动必须加载
+;; (toggle-debug-on-error)
 (require 'init-package)
+(require 'lazy-load)
+
 (require 'init-startup)
+(require 'init-minibuffer)
+(require 'init-mode)
+(require 'init-hook)
+(require 'init-tramp)
+(require 'init-key)
+(require 'keybinding)
+(require 'init-ui)
+(require 'init-corfu)
+(require 'init-helpful)
+(require 'init-auto-save)
+(require 'init-input)
+
 (require 'init-tool)
 (require 'init-edit)
 
 (require 'init-program)
-(require 'init-python)
-(require 'init-c++)
-(require 'init-web)
+;; (require 'init-eglot)
+(require 'init-lsp-bridge)
+;; (require 'init-python)
+;; (require 'init-c++)
+;; (require 'init-web)
 (require 'init-common-lisp)
-(require 'init-rust)
-(require 'init-sql)
-(require 'init-go)
+;; (require 'init-rust)
+;; (require 'init-sql)
+;; (require 'init-go)
 
-(require 'init-reader)
+;; (require 'init-reader)
 ;; (require 'init-paper)
 
-(require 'init-project)
-
-(require 'init-key)
-(require 'keybinding)
-
-(require 'init-org)
-
-(require 'init-ui)
-(require 'init-input)
 ;;(require 'crefactor)
 
 ;;; init.el ends here.

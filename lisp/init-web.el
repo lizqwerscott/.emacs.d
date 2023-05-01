@@ -12,7 +12,7 @@
 (setq browse-url-browser-function 'browse-url-chrome)
 
 ;;; Json
-(use-package json-mode
+(use-package jsonian
   :ensure t
   :diminish t
   :defer 2)
@@ -57,5 +57,4 @@
   :ensure t)
 
 (provide 'init-web)
-;; (require-package 'cmake-mode)
 ;;; init-web.el ends here.

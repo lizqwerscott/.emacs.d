@@ -1,13 +1,3 @@
-;;; init-python.el --- init python package           -*- lexical-binding: t; -*-
-
-;; Copyright (C) 2022
-
-;; Author:  <lizqwerscott@gmail.com>
-
-;;; Commentary:
-
-
-;;; Code:
 (use-package conda
   :ensure t
   :init
@@ -21,4 +11,3 @@
   :ensure t)
 
 (provide 'init-python)
-;;; init-python.el ends here.

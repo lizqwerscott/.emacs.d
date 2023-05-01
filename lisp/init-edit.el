@@ -18,10 +18,7 @@
 ;; (use-package lispy
 ;;   :ensure t
 ;;   :hook (lisp-mode . lispy-mode))
-
-(use-package awesome-pair
-  :quelpa (awesome-pair :fetcher github :repo "manateelazycat/awesome-pair")
-  :ensure t)
+(quelpa '(awesome-pair :fetcher github :repo "manateelazycat/awesome-pair"))
 
 (require 'awesome-pair)
 (dolist (hook (list
@@ -83,11 +80,12 @@
 (define-key awesome-pair-mode-map (kbd "M-n") 'awesome-pair-jump-left)
 (define-key awesome-pair-mode-map (kbd "M-:") 'awesome-pair-jump-out-pair-and-newline)
 
-(use-package aggressive-indent
-  :ensure t
-  :init
-  (global-aggressive-indent-mode 1)
-  (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
+(require 'aggressive-indent)
+(add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+(add-to-list 'aggressive-indent-excluded-modes 'c++-mode)
+(add-to-list 'aggressive-indent-excluded-modes 'c-mode)
+
+(global-aggressive-indent-mode 1)
 
 (require 'indent-yank)
 (add-hook 'python-mode-hook 'indent-yank-mode)

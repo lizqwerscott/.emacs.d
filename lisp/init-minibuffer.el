@@ -1,69 +1,30 @@
-;;; init-minibuffer.el --- About minibuffer config   -*- lexical-binding: t; -*-
+(require 'vertico)
+(require 'marginalia)
+(require 'consult)
 
-;; Copyright (C) 2023  lizqwer scott
+(vertico-mode 1)
 
-;; Author: lizqwer scott <lizqwerscott@gmail.com>
-;;; Commentary:
+(setq vertico-count 20
+      read-file-name-completion-ignore-case t
+      read-buffer-completion-ignore-case t
+      completion-ignore-case t)
 
-;;; Code:
+(keymap-set vertico-map "?" #'minibuffer-completion-help)
+(keymap-set vertico-map "M-RET" #'minibuffer-force-complete-and-exit)
+(keymap-set vertico-map "M-TAB" #'minibuffer-complete)
+(add-hook 'rfn-eshadow-update-overlay #'vertico-directory-tidy)
+(keymap-set minibuffer-local-map "M-s" #'consullt-history)
+(keymap-set minibuffer-local-map "M-r" #'consult-history)
 
-;;; Minibuffer
-(use-package vertico
-  :ensure t
-  :init (vertico-mode)
-  :bind
-  (:map vertico-map ("M-TAB" . #'minibuffer-complete)))
+(marginalia-mode)
 
-(use-package savehist
-  :ensure nil
-  :hook (after-init . savehist-mode)
-  :init (setq enable-recursive-minibuffers t  ; Allow commands in minibuffers
-              history-length 1000
-              savehist-additional-variables '(mark-ring
-                                              global-mark-ring
-                                              search-ring
-                                              regexp-search-ring
-                                              extended-command-history)
-              savehist-autosave-interval 300))
+(require 'orderless)
+(setq completion-styles '(orderless basic)
+      completion-category-defaults nil
+      completion-category-overrides '((file (styles basic partial-completion))))
 
-(use-package orderless
-  :ensure t
-  :init
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles basic partial-completion)))))
+(add-hook 'completion-list-mode-hook 'consult-preview-at-point-mode)
 
-(use-package consult
-  :ensure t
-                                        ;:hook (completion-list-mode . consult-preview-at-point-mode)
-  :init
-  ;; (setq register-preview-delay 0.5
-  ;;       register-preview-function #'consult-register-format)
-  ;; (advice-add #'register-preview :override #'consult-register-window)
-
-  (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
-  :config
-  ;; (consult-customize
-  ;;  consult-theme
-  ;;  :preview-key '(:debounce 0.2 any)
-  ;;  consult-ripgrep consult-git-grep consult-grep
-  ;;  consult-bookmark consult-recent-file consult-xref
-  ;;  consult--source-bookmark consult--source-recent-file
-  ;;  consult--source-project-recent-file
-  ;;  :preview-key (kbd "M-."))
-  ;; (setq consult-narrow-key "<")
-  (consult-preview-at-point-mode)
-  )
-
-(use-package consult-project-extra
-  :ensure t
-  :diminish t)
-
-(use-package marginalia
-  :ensure t
-  :init
-  (marginalia-mode))
+(require 'consult-project-extra)
 
 (provide 'init-minibuffer)
-;;; init-minibuffer.el ends here.
