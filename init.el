@@ -85,7 +85,7 @@
 ;; (require 'init-eglot)
 (require 'init-lsp-bridge)
 ;; (require 'init-python)
-;; (require 'init-c++)
+(require 'init-c++)
 ;; (require 'init-web)
 (require 'init-common-lisp)
 ;; (require 'init-rust)

@@ -107,7 +107,10 @@
    all-the-icons-completion
    sideline
    sideline-blame
-   imenu-list))
+   imenu-list
+   hl-todo
+   avy
+   sudo-edit))
 
 (when sys/linuxp
   (package-check-install

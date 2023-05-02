@@ -17,16 +17,27 @@
 	    (autoload func filename nil t)
 	    (meow-define-keys 'leader (cons key func))))))
 
+(defun lazy-meow-insert-define-key (&rest keybinds)
+  (let* ((meow-insert-keybinds))
+    (dolist (ele  keybinds)
+      (let ((func (cdar ele))
+	        (key (caar ele))
+	        (filename (cadr ele)))
+	    (autoload func filename nil t)
+	    (meow-define-keys 'insert (cons key func))))))
+
 (defun run-or-compile ()
   (interactive)
   (if (bound-and-true-p sly-mode)
       (call-interactively #'sly-switch-mrepl)
-    (if (equal major-mode 'python-mode)
-        (let ((command (concat "python "
-                               (file-truename (buffer-name)))))
-          (setq command (compilation-read-command command))
-          (vterm-run command))
-      (vterm-compile))))
+    (progn
+      (require 'init-vterm)
+      (if (equal major-mode 'python-mode)
+          (let ((command (concat "python "
+                                 (file-truename (buffer-name)))))
+            (setq command (compilation-read-command command))
+            (vterm-run command))
+        (vterm-compile)))))
 
 (defun my/meow-quit ()
   (interactive)
@@ -56,6 +67,8 @@
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
    '("k" . meow-prev)
+   '("h" . meow-left)
+   '("l" . meow-right)
    '("<escape>" . ignore))
 
   (lazy-meow-leader-define-key
@@ -80,34 +93,16 @@
    ;; '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet))
 
-  ;;Another command
-  ;; (meow-leader-define-key
-  ;;  '("tt" . gts-do-translate)
-  ;;  '("th" . helpful-at-point)
-  ;;  '("tg" . google-this)
-  ;;  '("tp" . popweb-dict-bing-pointer))
-  ;;'("m" . vc-msg-show)
   (meow-leader-define-key
    '("t" . one-key-menu-toggle)
-   '("u" . one-key-menu-useful))
-
-  ;;Big Screen
-  (meow-leader-define-key
-   '("l" . open-big-screen-mode))
-
-  ;;lsp bridge
-  ;; (meow-leader-define-key
-  ;;  '("rn" . lsp-bridge-rename)
-  ;;  '("aa" . lsp-bridge-diagnostic-list)
-  ;;  ;; '("aa" . consult-flycheck)
-  ;;  '("ah" . lsp-bridge-popup-documentation)
-  ;;  '("an" . lsp-bridge-diagnostic-jump-next)
-  ;;  '("ap" . lsp-bridge-diagnostic-jump-prev)
-  ;;  ;; '("an" . flycheck-next-error)
-  ;;  ;; '("ap" . flycheck-previous-error)
-  ;;  )
-  (meow-leader-define-key
-   '("j" . one-key-menu-code))
+   '("u" . one-key-menu-useful)
+   '("j" . one-key-menu-code)
+   '("s" . one-key-menu-search)
+   '("f" . one-key-menu-file)
+   '("b" . one-key-menu-buffer)
+   '("w" . one-key-menu-org)
+   '("v" . one-key-menu-sort-tab)
+   )
 
   ;;window key
   (meow-leader-define-key
@@ -117,44 +112,15 @@
    '("-" . split-window-horizontally)
    '("/" . split-window-vertically)
    '("3" . split-window-horizontally)
-   '("0" . ace-delete-window))
-
-  ;; TODO 无法使用
-  ;;run file
-  (lazy-meow-leader-define-key
-   '(("r" . run-or-compile) "init-vterm"))
-
-  (lazy-meow-leader-define-key
-   '(("i" . insert-translated-name-insert) "init-translated-name"))
-
-  ;; (meow-leader-define-key
-  ;;  '("j" . blink-search))
-
-  ;;consult and file
-  ;; (meow-leader-define-key
-  ;;  '("sl" . consult-line)
-  ;;  '("si" . consult-imenu)
-  ;;  '("sm" . consult-imenu-multi)
-  ;;  '("sg" . consult-goto-line)
-  ;;  '("so" . consult-outline))
-  (meow-leader-define-key
-   '("s" . one-key-menu-search))
-
-  ;;file
-  ;; (meow-leader-define-key
-  ;;  '("f" . find-file)
-  ;;  ;; '("fr" . consult-find)
-  ;;  '("sf" . ff-find-other-file)
-  ;;  '("o" . other-window))
-  (meow-leader-define-key
-   '("f" . one-key-menu-file)
+   '("0" . ace-delete-window)
    '("o" . other-window))
 
-  ;;buffer
+  ;;run file
   (meow-leader-define-key
-   ;; '("b" . consult-buffer)
-   '("b" . one-key-menu-buffer)
-   )
+   '("r" . run-or-compile))
+
+  (lazy-meow-insert-define-key
+   '(("C-c i" . insert-translated-name-insert) "init-translated-name"))
 
   ;;bookmakr
   ;; (meow-leader-define-key
@@ -162,29 +128,11 @@
   ;;  '("Bj" . consult-bookmark))
 
   ;;dired
-                                        ;1(meow-leader-define-key
+  ;;(meow-leader-define-key
   ;; '("dj" . dired-jump)
   ;; '("dJ" . dired-jump-other-window)
   ;; '("d" . open-main-directory)
-                                        ; )
-
-  ;;org
-  ;; (meow-leader-define-key
-  ;;  '("ww" . open-my-org-file)
-  ;;  '("wa" . org-agenda)
-  ;;  '("wl" . org-store-link)
-  ;;  '("wc" . org-capture))
-  (meow-leader-define-key
-   '("w" . one-key-menu-org))
-
-  ;;tab
-  ;; (meow-leader-define-key
-  ;;  '("vn" . sort-tab-select-next-tab)
-  ;;  '("vp" . sort-tab-select-prev-tab)
-  ;;  '("vc" . sort-tab-close-current-tab)
-  ;;  '("vm" . sort-tab-close-mode-tabs))
-  (meow-leader-define-key
-   '("v" . one-key-menu-sort-tab))
+  ;;)
 
   ;;hide
   (meow-leader-define-key
@@ -205,8 +153,8 @@
    '("1" . meow-expand-1)
    '("-" . negative-argument)
    '(";" . meow-reverse)
-   '("," . meow-inner-of-thing)
-   '("." . meow-bounds-of-thing)
+   '("." . meow-inner-of-thing)
+   '("," . meow-bounds-of-thing)
    '("[" . meow-beginning-of-thing)
    '("]" . meow-end-of-thing)
    '("a" . meow-append)

@@ -200,17 +200,10 @@
         '("meow" "location" "belong" "file-path" "buffer-name" "mode-name" "date")))
 (awesome-tray-mode)
 
-;; (use-package sort-tab
-;;   :quelpa
-;;   :hook (after-init . sort-tab-mode))
 (require 'sort-tab)
 (sort-tab-mode 1)
 
 ;;; Icons
-;; (use-package all-the-icons
-;;   :ensure t
-;;   :diminish t)
-
 (require 'all-the-icons-completion)
 (add-hook 'marginalia-mode-hook
           #'all-the-icons-completion-marginalia-setup)
@@ -233,25 +226,25 @@
   ;; Highlight on-the-fly
   (diff-hl-flydiff-mode 1))
 
-  ;; Set fringe style
-  ;; (setq-default fringes-outside-margins t)
+;; Set fringe style
+;; (setq-default fringes-outside-margins t)
 
-  ;; (with-no-warnings
-  ;;   (defun my-diff-hl-fringe-bmp-function (_type _pos)
-  ;;     "Fringe bitmap function for use as `diff-hl-fringe-bmp-function'."
-  ;;     (define-fringe-bitmap 'my-diff-hl-bmp
-  ;;       (vector (if sys/linuxp #b11111100 #b11100000))
-  ;;       1 8
-  ;;       '(center t)))
-  ;;   (setq diff-hl-fringe-bmp-function #'my-diff-hl-fringe-bmp-function)
+;; (with-no-warnings
+;;   (defun my-diff-hl-fringe-bmp-function (_type _pos)
+;;     "Fringe bitmap function for use as `diff-hl-fringe-bmp-function'."
+;;     (define-fringe-bitmap 'my-diff-hl-bmp
+;;       (vector (if sys/linuxp #b11111100 #b11100000))
+;;       1 8
+;;       '(center t)))
+;;   (setq diff-hl-fringe-bmp-function #'my-diff-hl-fringe-bmp-function)
 
-  ;;   (unless (display-graphic-p)
-  ;;     ;; Fall back to the display margin since the fringe is unavailable in tty
-  ;;     (diff-hl-margin-mode 1)
-  ;;     ;; Avoid restoring `diff-hl-margin-mode'
-  ;;     (with-eval-after-load 'desktop
-  ;;       (add-to-list 'desktop-minor-mode-table
-  ;;                    '(diff-hl-margin-mode nil)))))
+;;   (unless (display-graphic-p)
+;;     ;; Fall back to the display margin since the fringe is unavailable in tty
+;;     (diff-hl-margin-mode 1)
+;;     ;; Avoid restoring `diff-hl-margin-mode'
+;;     (with-eval-after-load 'desktop
+;;       (add-to-list 'desktop-minor-mode-table
+;;                    '(diff-hl-margin-mode nil)))))
 
 ;; (use-package vc-msg
 ;;   :ensure t)
@@ -315,26 +308,21 @@
   :hook (prog-mode . highlight-indent-guides-mode))
 
 ;;; Paren
-(use-package paren
-  :ensure nil
-  :hook (afte-init . show-paren-mode)
-  :custom
-  (show-paren-when-point-inside-paren t)
-  (show-paren-when-point-in-periphery t)
-  :config
-  (setq show-paren-style 'parenthesis
-        show-paren-context-when-offscreen 'overlay))
+;; (use-package paren
+;;   :ensure nil
+;;   :hook (afte-init . show-paren-mode)
+;;   :custom
+;;   (show-paren-when-point-inside-paren t)
+;;   (show-paren-when-point-in-periphery t)
+;;   :config
+;;   (setq show-paren-style 'parenthesis
+;;         show-paren-context-when-offscreen 'overlay))
 
 (use-package rainbow-delimiters
   :ensure t
   :hook
   (emacs-lisp-mode . rainbow-delimiters-mode)
   (lisp-mode . rainbow-delimiters-mode))
-
-;;; Window
-(use-package avy
-  :ensure t
-  :diminish t)
 
 (use-package shackle
   :ensure t
@@ -347,10 +335,7 @@
                    ("*One-Key*" :select t :align 'below))))
 
 ;;; Another
-(use-package text-mode
-  :ensure nil
-  :custom
-  (word-wrap-by-category t))
+(setq word-wrap-by-category t)
 
 ;; (require 'zone)
 ;; (zone-when-idle 600)
@@ -360,14 +345,14 @@
 ;;   ;; :hook (elisp-lisp-mode . highlight-defined-mode)
 ;;   )
 
-(use-package hl-todo
-  :ensure t
-  :hook (after-init . global-hl-todo-mode))
+(global-hl-todo-mode)
 
-(use-package so-long
-  :ensure nil
-  :hook (after-init . global-so-long-mode)
-  :config (setq so-long-threshold 400))
+(which-key-mode)
+
+;; (use-package so-long
+;;   :ensure nil
+;;   :hook (after-init . global-so-long-mode)
+;;   :config (setq so-long-threshold 400))
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.

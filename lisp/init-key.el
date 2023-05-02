@@ -39,7 +39,7 @@
 (lazy-one-key-create-menu
  "Buffer"
  (:key "b" :description "Switch buffer" :command consult-buffer)
- (:key "k" :designation "Kill buffer" :commit kill-buffer-and-window)
+ (:key "k" :description "Kill buffer" :commit kill-buffer-and-window)
  (:key "T" :description "Switch telega buffers" :command telega-switch-buffer :filename "init-telega")
  (:key "t" :description "Switch telega chat" :command telega-chat-with :filename "init-telega")
  (:key "r" :description "Revert buffer" :command revert-buffer))
@@ -48,7 +48,10 @@
  "File"
  '((("f" . "Find file") . find-file)
    (("r" . "Recent file") . consult-recent-file)
-   (("d" . "Find main directory") . open-main-directory)))
+   (("d" . "Find main directory") . open-main-directory)
+   (("j" . "Find in main dir") . (lambda ()
+                                   (interactive)
+                                   (ido-find-file-in-dir "~/")))))
 
 (lazy-one-key-create-menu
  "EAF"
@@ -69,7 +72,8 @@
  "Useful"
  (:key "t" :description "Go translate" :command gts-do-translate :filename "init-go-translate")
  (:key "g" :description "Google this" :command google-this :filename "init-google-this")
- (:key "p" :description "Popweb dict bing" :command popweb-dict-bing-pointer :filename "init-popweb"))
+ (:key "p" :description "Popweb dict bing" :command popweb-dict-bing-pointer :filename "init-popweb")
+ (:key "S" :description "Sudo edit" :command sudo-edit :filename "init-sudo-edit"))
 
 (lazy-one-key-create-menu
  "Org"
