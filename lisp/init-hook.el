@@ -1,5 +1,12 @@
 (add-hook 'typescript-tsx-mode-hook
           #'apheleia-mode)
-(add-hook 'json-mode
+
+(add-hook 'json-mode-hook
           #'apheleia-mode)
+
+(add-hook 'sly-mode-hook
+          #'(lambda ()
+              (unless (sly-connected-p)
+                (save-excursion (sly)))))
+
 (provide 'init-hook)

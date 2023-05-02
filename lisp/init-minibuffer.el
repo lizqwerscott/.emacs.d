@@ -25,6 +25,6 @@
 
 (add-hook 'completion-list-mode-hook 'consult-preview-at-point-mode)
 
-(require 'consult-project-extra)
+;; (require 'consult-project-extra)
 
 (provide 'init-minibuffer)
