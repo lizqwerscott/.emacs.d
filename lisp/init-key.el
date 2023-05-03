@@ -24,7 +24,8 @@
  (:key "t" :description "Toggle telega" :command +lizqwer/toggle-telega :filename "init-telega")
  (:key "c" :description "Toggle copilot" :command +lizqwer/toggle-copilot :filename "init-copilot")
  (:key "v" :description "Toggle vterm" :command vterm-toggle :filename "init-vterm")
- (:key "b" :description "Toggle big screen mode" :command open-big-screen-mode :filename "init-big-screen"))
+ (:key "b" :description "Toggle big screen mode" :command open-big-screen-mode :filename "init-big-screen")
+ (:key "T" :description "Toggle transparent" :command +lizqwer/toggle-transparent :filename "init-func"))
 
 (lazy-one-key-create-menu
  "Search"
