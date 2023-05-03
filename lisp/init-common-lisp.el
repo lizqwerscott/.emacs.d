@@ -1,5 +1,5 @@
 ;; (require 'sly)
-;; (require 'sly-quicklisp)
+(require 'sly-quicklisp)
 ;; (require 'sly-asdf)
 
 (setq sly-complete-symbol-function 'sly-flex-completions)
@@ -31,10 +31,11 @@ Nominally unique, but not enforced."
 (defun load-lisp-project ()
   "Load now project."
   (interactive)
-  (require 'sly-quicklisp)
+  ;; (require 'sly)
+  ;; (require 'sly-quicklisp)
   (sly-quickload (project-name (project-current))))
 
-(keymap-set lisp-mode-map "C-c q r" #'sly-restart-inferior-lisp)
-(keymap-set lisp-mode-map "C-c q l" #'load-lisp-project)
+(keymap-set sly-mode-map "C-c q r" #'sly-restart-inferior-lisp)
+(keymap-set sly-mode-map "C-c q l" #'load-lisp-project)
 
 (provide 'init-common-lisp)
