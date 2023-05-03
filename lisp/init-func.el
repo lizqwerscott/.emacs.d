@@ -1,9 +1,17 @@
 ;;; Look require cl package
+;;;###autoload
 (defun +lizqwer/check-package-use-cl ()
   "Check package is use cl."
   (interactive)
   (require 'loadhist)
   (file-dependents (feature-file 'cl)))
+
+;;;###autoload
+(defun +lizqwer/toggle-transparent ()
+  (interactive)
+  (if (eq (frame-parameter (selected-frame) 'alpha-background) 100)
+      (set-frame-parameter (selected-frame) 'alpha-background 90)
+    (set-frame-parameter (selected-frame) 'alpha-background 100)))
 
 ;;some tool function
 
