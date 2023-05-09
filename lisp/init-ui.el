@@ -308,6 +308,10 @@
   :hook (prog-mode . highlight-indent-guides-mode))
 
 ;;; Paren
+(require 'paren)
+(show-paren-mode 1)
+(setq show-paren-when-point-inside-paren t
+      show-paren-when-point-in-periphery t)
 ;; (use-package paren
 ;;   :ensure nil
 ;;   :hook (afte-init . show-paren-mode)
@@ -353,6 +357,8 @@
 ;;   :ensure nil
 ;;   :hook (after-init . global-so-long-mode)
 ;;   :config (setq so-long-threshold 400))
+
+(global-so-long-mode 1)
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.

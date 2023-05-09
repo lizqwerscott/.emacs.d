@@ -110,7 +110,8 @@
    imenu-list
    hl-todo
    avy
-   sudo-edit))
+   sudo-edit
+   devdocs))
 
 (when sys/linuxp
   (package-check-install
