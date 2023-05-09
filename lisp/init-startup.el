@@ -135,6 +135,11 @@
           #'(lambda ()
               (modify-syntax-entry ?- "w")))
 
+(repeat-mode)
+
+(with-eval-after-load 'dired
+  (setq dired-kill-when-opening-new-dired-buffer t))
+
 ;;; Dired
 ;; (use-package dired
 ;;   :config
