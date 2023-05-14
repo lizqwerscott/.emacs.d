@@ -130,9 +130,9 @@
 
 ;;; Doc
 
-(use-package docstr
-  :ensure t
-  :hook (prog-mode . docstr-mode))
+;; (use-package docstr
+;;   :ensure t
+;;   :hook (prog-mode . docstr-mode))
 
 (provide 'init-program)
 ;;; init-program.el ends heres.
