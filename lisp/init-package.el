@@ -111,7 +111,12 @@
    hl-todo
    avy
    sudo-edit
-   devdocs))
+   devdocs
+   cider
+   go-mode
+   web-mode
+   restclient
+   docstr))
 
 (when sys/linuxp
   (package-check-install
@@ -142,6 +147,9 @@
 
 (quelpa '(awesome-tray :fetcher github
                        :repo "manateelazycat/awesome-tray"))
+
+(quelpa '(breadcrumb :fetcher github
+                     :repo "joaotavora/breadcrumb"))
 
 (provide 'init-package)
 ;;; init-package.el ends here

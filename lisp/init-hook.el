@@ -9,4 +9,7 @@
               (unless (sly-connected-p)
                 (save-excursion (sly)))))
 
+(add-hook 'prog-mode-hook
+          #'docstr-mode)
+
 (provide 'init-hook)

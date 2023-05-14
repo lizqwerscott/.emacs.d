@@ -194,10 +194,30 @@
 (add-to-list 'awesome-tray-module-alist
 	         '("meow" . (meow-module-info meow-module-face)))
 
+(breadcrumb-mode)
+(setq header-line-format nil)
+
+(defun breadcrumb-info ()
+  (breadcrumb--header-line))
+
+(defface breadcrumb-face ()
+  ""
+  :group 'awesome-tray)
+
+(add-to-list 'awesome-tray-module-alist
+	         '("breadcrumb" . (breadcrumb-info breadcrumb-face)))
+
+;; (setq awesome-tray-active-modules
+;;       (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
+;;           '("meow" "location" "belong" "file-path" "buffer-name" "mode-name" "battery" "date")
+;;         '("meow" "location" "belong" "file-path" "buffer-name" "mode-name" "date")))
+
 (setq awesome-tray-active-modules
       (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
-          '("meow" "location" "belong" "file-path" "buffer-name" "mode-name" "battery" "date")
-        '("meow" "location" "belong" "file-path" "buffer-name" "mode-name" "date")))
+          '("meow" "location" "breadcrumb" "mode-name" "battery" "date")
+        '("meow" "location" "breadcrumb" "mode-name" "date")))
+
+
 (awesome-tray-mode)
 
 (require 'sort-tab)
