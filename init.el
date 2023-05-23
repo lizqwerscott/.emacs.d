@@ -90,7 +90,7 @@
 (require 'init-common-lisp)
 ;; (require 'init-rust)
 ;; (require 'init-sql)
-;; (require 'init-go)
+(require 'init-go)
 
 ;; (require 'init-reader)
 ;; (require 'init-paper)

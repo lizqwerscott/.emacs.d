@@ -43,7 +43,7 @@
   (interactive)
   (if (derived-mode-p 'dired-mode)
       (kill-this-buffer)
-    (if (meow-quit)
+    (if (delete-window)
         (message "finish"))))
 
 (defun help-helfup-lsp-bridge-sly ()
