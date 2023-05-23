@@ -84,6 +84,9 @@
 (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 (add-to-list 'aggressive-indent-excluded-modes 'c++-mode)
 (add-to-list 'aggressive-indent-excluded-modes 'c-mode)
+(add-to-list 'aggressive-indent-excluded-modes 'go-mode)
+(add-to-list 'aggressive-indent-excluded-modes 'python-ts-mode)
+(add-to-list 'aggressive-indent-excluded-modes 'rust-mode)
 
 (global-aggressive-indent-mode 1)
 

@@ -116,7 +116,7 @@
 ;;   :defer)
 
 ;; (load-theme 'gruvbox-dark-soft t)
-(load-theme 'doom-one t)
+;; (load-theme 'doom-one t)
 ;;(load-theme 'tango-dark t)
 ;; (load-theme 'monokai t)
 ;; (load-theme 'solarized-dark t)
@@ -124,8 +124,8 @@
 ;; (load-theme 'modus-vivendi t)
 ;; (load-theme 'ef-summer t)
 ;; (load-theme 'modus-operandi t)
-;; (require 'lazycat-theme)
-;; (lazycat-theme-load-dark)
+(require 'lazycat-theme)
+(lazycat-theme-load-dark)
 ;; (load-theme 'ef-night t)
 ;; (load-theme 'ef-day t)
 ;; (load-theme 'ef-summer t)
@@ -197,25 +197,25 @@
 (breadcrumb-mode)
 (setq header-line-format nil)
 
-(defun breadcrumb-info ()
-  (breadcrumb--header-line))
+;; (defun breadcrumb-info ()
+;;   (breadcrumb--header-line))
 
-(defface breadcrumb-face ()
-  ""
-  :group 'awesome-tray)
+;; (defface breadcrumb-face ()
+;;   ""
+;;   :group 'awesome-tray)
 
-(add-to-list 'awesome-tray-module-alist
-	         '("breadcrumb" . (breadcrumb-info breadcrumb-face)))
-
-;; (setq awesome-tray-active-modules
-;;       (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
-;;           '("meow" "location" "belong" "file-path" "buffer-name" "mode-name" "battery" "date")
-;;         '("meow" "location" "belong" "file-path" "buffer-name" "mode-name" "date")))
+;; (add-to-list 'awesome-tray-module-alist
+;; 	         '("breadcrumb" . (breadcrumb-info breadcrumb-face)))
 
 (setq awesome-tray-active-modules
       (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
-          '("meow" "location" "breadcrumb" "mode-name" "battery" "date")
-        '("meow" "location" "breadcrumb" "mode-name" "date")))
+          '("meow" "location" "belong" "file-path" "buffer-name" "mode-name" "battery" "date")
+        '("meow" "location" "belong" "file-path" "buffer-name" "mode-name" "date")))
+
+;; (setq awesome-tray-active-modules
+;;       (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
+;;           '("meow" "location" "breadcrumb" "mode-name" "battery" "date")
+;;         '("meow" "location" "breadcrumb" "mode-name" "date")))
 
 
 (awesome-tray-mode)

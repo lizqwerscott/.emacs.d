@@ -54,7 +54,7 @@
   (interactive)
   (site-lisp-update)
   (when (version<= "29" emacs-version)
-    (package-update-all))
+    (package-upgrade-all))
   (quelpa-upgrade-all))
 
 (defun package-check-install (packages)
@@ -70,6 +70,7 @@
    marginalia
    consult
    consult-project-extra
+   orderless
    posframe
    focus
    request
@@ -83,6 +84,7 @@
    yaml-mode
    markdown-mode
    cmake-mode
+   rust-mode
    macrostep
    go-translate
    google-this
@@ -103,6 +105,7 @@
    ag
    pretty-mode
    doom-themes
+   solarized-theme
    all-the-icons
    all-the-icons-completion
    sideline
@@ -114,14 +117,16 @@
    devdocs
    cider
    go-mode
+   jsonian
    web-mode
    restclient
-   docstr))
+   docstr
+   treesit-auto))
 
-(when sys/linuxp
-  (package-check-install
-   '(tree-sitter
-     tree-sitter-langs)))
+;; (when sys/linuxp
+;;   (package-check-install
+;;    '(tree-sitter
+;;      tree-sitter-langs)))
 
 (quelpa '(lazy-load :fetcher github
                     :repo "manateelazycat/lazy-load"))

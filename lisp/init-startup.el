@@ -213,5 +213,18 @@
 	    (insert "\n"))
       )))
 
+
+;; Tree-sitter
+(setq treesit-extra-load-path
+      (list
+       (file-truename "~/.tree-sitter/bin")))
+
+(require 'treesit-auto)
+(global-treesit-auto-mode)
+(setq treesit-font-lock-level 4)
+
+(treesit-font-lock-recompute-features
+ '(command string variable function operator bracket keyword))
+
 (provide 'init-startup)
 ;;; init-startup.el ends here.
