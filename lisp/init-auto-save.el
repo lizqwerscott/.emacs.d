@@ -1,5 +1,3 @@
-(quelpa '(auto-save :fetcher github :repo "manateelazycat/auto-save"))
-
 (add-hook 'prog-mode-hook (lambda ()
 			                (require 'auto-save)
 			                (auto-save-enable)

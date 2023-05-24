@@ -7,7 +7,7 @@
 (keymap-set copilot-completion-map "TAB" #'copilot-accept-completion)
 
 (setq copilot-network-proxy
-      '(:host "10.0.96.67" :port 20171))
+      `(:host ,user/proxy-host :port 20171))
 
 ;;;###autoload
 (defun +lizqwer/toggle-copilot ()

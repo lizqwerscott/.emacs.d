@@ -1,14 +1,3 @@
-;;; init-startup.el --- init startup need packages   -*- lexical-binding: t; -*-
-
-;; Copyright (C) 2022
-
-;; Author:  <lizqwerscott@gmail.com>
-;;; Commentary:
-
-;;; Code:
-
-;;; User config
-
 (setq user-full-name "lizqwer scott")
 (setq user-mail-address "lizqwerscott@gmail.com")
 
@@ -27,9 +16,8 @@
 ;; 平滑地进行半屏滚动，避免滚动后recenter操作
 (pixel-scroll-mode t)
 (pixel-scroll-precision-mode t)
-(setq scroll-step 1)
-(setq scroll-step 2
-      scroll-margin 6
+(setq scroll-step 1
+      scroll-margin 0
       hscroll-step 2
       hscroll-margin 2
       scroll-conservatively 101
