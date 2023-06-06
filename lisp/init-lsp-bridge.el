@@ -16,6 +16,7 @@
 
 (setq lsp-bridge-c-lsp-server "ccls")
 (setq acm-backend-lsp-candidates-max-number 4000)
+(setq acm-enable-doc nil)
 (setq acm-enable-citre nil)
 (setq acm-enable-tabnine nil)
 (setq acm-enable-codeium t)

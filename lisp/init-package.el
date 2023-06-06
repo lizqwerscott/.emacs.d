@@ -73,6 +73,7 @@
    orderless
    posframe
    focus
+   separedit
    request
    websocket
    interaction-log
@@ -85,6 +86,7 @@
    markdown-mode
    cmake-mode
    rust-mode
+   cargo
    macrostep
    go-translate
    google-this
@@ -157,6 +159,8 @@
                      :repo "joaotavora/breadcrumb"))
 
 (quelpa '(auto-save :fetcher github :repo "manateelazycat/auto-save"))
+
+(quelpa '(fingertip :fetcher github :repo "manateelazycat/fingertip"))
 
 (provide 'init-package)
 ;;; init-package.el ends here
