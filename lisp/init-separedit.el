@@ -1,5 +1,5 @@
 (require 'separedit)
-(keymap-set 'prog-mode-map "C-c '" #'separedit)
+(keymap-set prog-mode-map "C-c '" #'separedit)
 
 (setq separedit-default-mode 'org-mode)
 (setq separedit-remove-trailing-spaces-in-comment t)

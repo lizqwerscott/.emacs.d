@@ -10,6 +10,13 @@
 ;;; Code:
 
 (setq browse-url-browser-function 'browse-url-chrome)
+(add-hook 'web-mode-hook
+          #'(lambda ()
+              (setq web-mode-imenu-regexp-list
+                    (append web-mode-imenu-regexp-list
+                            '(("\\(function\\) \\(.*\)\\)" 1 2 " > ")
+                              ("\\(const\\) \\(.*\\)" 1 2 " ")
+                              ("<\\(.*\\) ?\\(.*\\)>" 1 2 " "))))))
 
 ;;; Json
 ;; (use-package jsonian

@@ -84,4 +84,6 @@
  (:key "a" :description "Open org agenda" :command org-agenda :filename "init-org")
  (:key "l" :description "Org store link" :command org-store-link :filename "init-org"))
 
+()
+
 (provide 'init-key)
