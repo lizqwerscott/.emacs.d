@@ -160,7 +160,7 @@
 
 (quelpa '(auto-save :fetcher github :repo "manateelazycat/auto-save"))
 
-(quelpa '(fingertip :fetcher github :repo "manateelazycat/fingertip"))
+(quelpa '(lazy-revert :fetcher github :repo "yilin-zhang/lazy-revert"))
 
 (provide 'init-package)
 ;;; init-package.el ends here
