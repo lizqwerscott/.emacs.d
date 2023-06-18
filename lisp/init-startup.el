@@ -72,7 +72,7 @@
 (setq-default tab-width 4
               indent-tabs-mode nil)
 
-(global-auto-revert-mode 1)
+;; (global-auto-revert-mode 1)
 (setq use-file-dialog nil
       use-dialog-box nil
       inhibit-startup-screen nil

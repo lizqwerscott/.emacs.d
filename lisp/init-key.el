@@ -36,7 +36,8 @@
  (:key "g" :description "Goto line" :command consult-goto-line)
  (:key "o" :description "Search outline" :command consult-outline)
  (:key "B" :description "Bookmark" :command consult-bookmark)
- (:key "s" :description "Blink Search" :command blink-search :filename "init-blink-search"))
+ (:key "s" :description "Blink Search" :command blink-search :filename "init-blink-search")
+ (:key "j" :description "color rg search symbol in project" :command color-rg-search-input-in-project :filename "color-rg"))
 
 (lazy-one-key-create-menu
  "Buffer"
@@ -75,7 +76,7 @@
  (:key "t" :description "Go translate" :command gts-do-translate :filename "init-go-translate")
  (:key "g" :description "Google this" :command google-this :filename "init-google-this")
  (:key "p" :description "Popweb dict bing" :command popweb-dict-bing-pointer :filename "init-popweb")
- (:key "S" :description "Sudo edit" :command sudo-edit :filename "init-sudo-edit"))
+ (:key "S" :description "Sudo edit" :command sudo-edit :filename "sudo-edit"))
 
 (lazy-one-key-create-menu
  "Org"
@@ -83,7 +84,5 @@
  (:key "c" :description "Open org capture" :command org-capture :filename "init-org")
  (:key "a" :description "Open org agenda" :command org-agenda :filename "init-org")
  (:key "l" :description "Org store link" :command org-store-link :filename "init-org"))
-
-()
 
 (provide 'init-key)

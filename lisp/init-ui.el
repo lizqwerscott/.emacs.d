@@ -107,9 +107,9 @@
 ;; (use-package modus-themes
 ;;   :ensure t)
 
-;; (use-package ef-themes
-;;   :ensure t
-;;   :defer)
+(use-package ef-themes
+  :ensure t
+  :defer)
 
 ;; (use-package flucui-themes
 ;;   :ensure t
@@ -183,17 +183,6 @@
 ;;                   (netease-cloud-music-add-header-lyrics))))
 
 
-(require 'awesome-tray)
-(defun meow-module-info()
-  (meow-indicator))
-
-(defface meow-module-face ()
-  ""
-  :group 'awesome-tray)
-
-(add-to-list 'awesome-tray-module-alist
-	         '("meow" . (meow-module-info meow-module-face)))
-
 (breadcrumb-mode)
 (setq header-line-format nil)
 
@@ -209,8 +198,8 @@
 
 (setq awesome-tray-active-modules
       (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
-          '("meow" "location" "belong" "file-path" "buffer-name" "mode-name" "battery" "date")
-        '("meow" "location" "belong" "file-path" "buffer-name" "mode-name" "date")))
+          '("meow" "file-path" "buffer-name" "mode-name" "battery" "date")
+        '("meow" "file-path" "buffer-name" "mode-name" "date")))
 
 ;; (setq awesome-tray-active-modules
 ;;       (if (string-match-p "Discharging" (shell-command-to-string "acpi"))

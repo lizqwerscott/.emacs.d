@@ -182,6 +182,7 @@
    '("L" . meow-right-expand)
    '("m" . meow-join)
    '("n" . meow-search)
+   '("N" . er/mark-comment)
    '("o" . meow-block)
    '("O" . meow-to-block)
    '("p" . meow-yank)

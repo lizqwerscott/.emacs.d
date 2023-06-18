@@ -73,6 +73,9 @@
 (require 'init-key)
 (require 'keybinding)
 (require 'init-ui)
+
+(require 'init-auto-revert)
+
 (require 'init-corfu)
 (require 'init-helpful)
 (require 'init-auto-save)
