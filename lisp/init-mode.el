@@ -8,6 +8,7 @@
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.log\\'" . log4j-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.rust\\" . rust-ts-mode))
 
