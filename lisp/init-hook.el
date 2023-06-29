@@ -10,6 +10,13 @@
                 (save-excursion (sly)))))
 
 (add-hook 'prog-mode-hook
-          #'docstr-mode)
+          (lambda ()
+            (docstr-mode t)
+            (goggles-mode t)))
+
+(add-hook 'after-init-hook
+          (lambda ()
+            (save-place-mode t)
+            (recentf-mode t)))
 
 (provide 'init-hook)
