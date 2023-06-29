@@ -89,12 +89,9 @@
 
 ;;; History
 (require 'recentf)
-(recentf-mode 1)
 (add-to-list 'recentf-exclude no-littering-var-directory)
 (add-to-list 'recentf-exclude no-littering-etc-directory)
 
-(save-place-mode 1)
-;; (add-hook 'after-init-hook 'save-place-mode)
 (setq enable-recursive-minibuffers t  ; Allow commands in minibuffers
       history-length 1000
       savehist-additional-variables '(mark-ring

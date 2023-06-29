@@ -73,6 +73,7 @@
    orderless
    posframe
    focus
+   goggles
    separedit
    request
    websocket
