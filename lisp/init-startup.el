@@ -89,6 +89,7 @@
 
 ;;; History
 (require 'recentf)
+(recentf-mode 1)
 (add-to-list 'recentf-exclude no-littering-var-directory)
 (add-to-list 'recentf-exclude no-littering-etc-directory)
 
@@ -176,6 +177,26 @@
     (setq temporary-file-directory
           path)))
 
+(defvar *start-banner* ";;     *
+;;      May the Code be with You!
+;;     .                                 .
+;;                               *
+;;          /\\/|_      __/\\\\
+;;         /    -\\    /-   ~\\  .              \\='
+;;         \\    = Y =T_ =   /
+;;          )==*(\\=`     \\=`) ~ \\
+;;         /     \\     /     \\
+;;         |     |     ) ~   (
+;;        /       \\   /     ~ \\
+;;        \\       /   \\~     ~/
+;; _/\\_/\\_/\\__  _/_/\\_/\\__~__/_/\\_/\\_/\\_/\\_/\\_
+;; |  |  |  | ) ) |  |  | ((  |  |  |  |  |  |
+;; |  |  |  |( (  |  |  |  \\\\ |  |  |  |  |  |
+;; |  |  |  | )_) |  |  |  |))|  |  |  |  |  |
+;; |  |  |  |  |  |  |  |  (/ |  |  |  |  |  |
+;; |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+\n")
+
 ;; 自定义 *scratch* 内容
 ;;;###autoload
 (defun +evan/scratch-setup()
@@ -183,6 +204,7 @@
   (save-excursion
     (with-current-buffer (get-buffer "*scratch*")
       (erase-buffer)
+      (insert *start-banner*)
       (insert (format "启动时长: %s" (emacs-init-time)))
       (insert "\n")
       (insert-button "Quit Emacs"
@@ -201,6 +223,7 @@
 	    (insert "\n"))
       )))
 
+(+evan/scratch-setup)
 
 (setq imenu-max-item-length 100)
 (setq breadcrumb-imenu-max-length 100)
