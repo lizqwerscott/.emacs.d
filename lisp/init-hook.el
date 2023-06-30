@@ -12,11 +12,14 @@
 (add-hook 'prog-mode-hook
           (lambda ()
             (docstr-mode t)
-            (goggles-mode t)))
+            (goggles-mode t)
+            (copilot-mode t)))
 
 (add-hook 'after-init-hook
           (lambda ()
             (save-place-mode t)
-            (recentf-mode t)))
+            (recentf-mode t)
+            (global-color-identifiers-mode)
+            (+evan/scratch-setup)))
 
 (provide 'init-hook)

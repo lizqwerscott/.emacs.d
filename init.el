@@ -75,6 +75,7 @@
 (require 'init-ui)
 
 (require 'init-auto-revert)
+(require 'init-copilot)
 
 (require 'init-corfu)
 (require 'init-helpful)

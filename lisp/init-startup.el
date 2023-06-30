@@ -220,8 +220,6 @@
 	    (insert "\n"))
       )))
 
-(+evan/scratch-setup)
-
 (setq imenu-max-item-length 100)
 (setq breadcrumb-imenu-max-length 100)
 

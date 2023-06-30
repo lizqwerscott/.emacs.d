@@ -369,5 +369,7 @@
 
 (global-so-long-mode 1)
 
+(setq color-identifiers:recoloring-delay 1)
+
 (provide 'init-ui)
 ;;; init-ui.el ends here.
