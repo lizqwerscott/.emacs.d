@@ -14,5 +14,9 @@
    (concat dir
            name)))
 
+(add-hook 'rust-ts-mode-hook
+          #'(lambda ()
+              (setq-local compile-command "cargo build")))
+
 (provide 'init-rust)
 ;;; init-rust.el ends here.

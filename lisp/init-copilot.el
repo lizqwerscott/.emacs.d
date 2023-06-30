@@ -1,8 +1,5 @@
 (require 'copilot)
 
-;; (add-hook 'prog-mode-hook
-;;           'copilot-mode)
-
 (keymap-set copilot-completion-map "<tab>" #'copilot-accept-completion)
 (keymap-set copilot-completion-map "TAB" #'copilot-accept-completion)
 

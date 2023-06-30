@@ -72,6 +72,8 @@
    consult-project-extra
    orderless
    posframe
+   try
+   color-identifiers-mode
    focus
    goggles
    separedit
