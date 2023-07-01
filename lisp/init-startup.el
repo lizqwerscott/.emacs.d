@@ -174,7 +174,7 @@
     (setq temporary-file-directory
           path)))
 
-(defvar *start-banner* ";;     *
+(defvar *start-banner* (propertize ";;     *
 ;;      May the Code be with You!
 ;;     .                                 .
 ;;                               *
@@ -192,7 +192,7 @@
 ;; |  |  |  | )_) |  |  |  |))|  |  |  |  |  |
 ;; |  |  |  |  |  |  |  |  (/ |  |  |  |  |  |
 ;; |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-\n")
+\n" 'face '(:foreground "green")))
 
 ;; 自定义 *scratch* 内容
 ;;;###autoload
@@ -201,7 +201,7 @@
   (save-excursion
     (with-current-buffer (get-buffer "*scratch*")
       (erase-buffer)
-      (insert *start-banner*)
+      ;; (insert *start-banner*)
       (insert (format "启动时长: %s" (emacs-init-time)))
       (insert "\n")
       (insert-button "Quit Emacs"
@@ -218,7 +218,7 @@
 				                   (find-file-noselect f)
 				                   (switch-to-buffer fname))))
 	    (insert "\n"))
-      )))
+      (insert *start-banner*))))
 
 (setq imenu-max-item-length 100)
 (setq breadcrumb-imenu-max-length 100)
