@@ -42,7 +42,8 @@
   (interactive)
   (let* ((command (eval compile-command))
          (w (vterm-toggle--get-window)))
-    (setq compile-command (compilation-read-command command))
+    (setq-local compile-command (compilation-read-command command))
+    (setf command compile-command)
     (let ((vterm-toggle-use-dedicated-buffer t)
           (vterm-toggle--vterm-dedicated-buffer (if w (vterm-toggle-hide)
                                                   vterm-compile-buffer)))
@@ -57,7 +58,7 @@
                                        root)
                                t)
             (vterm-send-return))
-          (vterm-send-string compile-command t)
+          (vterm-send-string command t)
           (vterm-send-return))))))
 
 (provide 'init-vterm)

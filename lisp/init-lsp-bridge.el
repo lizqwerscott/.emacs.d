@@ -93,26 +93,6 @@
    (("p" . "Previous diagnostic") . lsp-bridge-diagnostic-jump-prev)
    (("l" . "Show all diagnostic") . lsp-bridge-diagnostic-list)))
 
-(lazy-one-key-create-menu
- "Code"
- (:key "h" :description "Show document" :command lsp-bridge-popup-documentation :filename "init-lsp-bridge")
- (:key "j" :description "Scroll doc up" :command lsp-bridge-popup-documentation-scroll-up :filename "init-lsp-bridge")
- (:key "k" :description "Scroll doc down" :command lsp-bridge-popup-documentation-scroll-down :filename "init-lsp-bridge")
- (:key "e" :description "Toggle sdcv" :command lsp-bridge-toggle-sdcv-helper :filename "init-lsp-bridge")
- ;; (:key "f" :description "Format code" :command apheleia-format-buffer :filename "init-format")
- (:key "d" :description "Lsp Bridge jump to def" :command lsp-bridge-find-def :filename "init-lsp-bridge")
- (:key "D" :description "Lsp Bridge jump to def other window" :command lsp-bridge-find-def-other-window :filename "init-lsp-bridge")
- (:key "b" :description "Lsp Bridge jump back" :command lsp-bridge-find-def-return :filename "init-lsp-bridge")
- (:key "f" :description "Lsp Bridge find reference" :command lsp-bridge-find-references :filename "init-lsp-bridge")
- (:key "r" :description "Lsp Bridge rename" :command lsp-bridge-rename :filename "init-lsp-bridge")
- (:key "i" :description "Lsp Bridge find impl" :command lsp-bridge-find-impl :filename "init-lsp-bridge")
- (:key "I" :description "Lsp Bridge find impl other window" :command lsp-bridge-find-impl-other-window :filename "init-lsp-bridge")
- (:key "a" :description "Lsp Bridge code action" :command lsp-bridge-code-action :filename "init-lsp-bridge")
- (:key "d" :description "Lsp Bridge toggle diagnostics" :command lsp-bridge-toggle-diagnostics :filename "init-lsp-bridge")
- ;; (:key "`" :description "Add Fold code" :command vimish-fold :filename "init-vimish-fold")
- ;; (:key "~" :description "Delete Fold code" :command vimish-fold-delete :filename "init-vimish-fold")
- )
-
 (global-enable-lsp-bridge)
 
 (provide 'init-lsp-bridge)
