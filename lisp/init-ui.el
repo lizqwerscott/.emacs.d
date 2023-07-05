@@ -314,7 +314,10 @@
 ;;   :hook ((prog-mode . indent-guide-mode)))
 (use-package highlight-indent-guides
   :ensure t
-  :hook (prog-mode . highlight-indent-guides-mode))
+  :hook (prog-mode . highlight-indent-guides-mode)
+  :config
+  (setq highlight-indent-guides-auto-odd-face-perc 50)
+  (setq highlight-indent-guides-auto-even-face-perc 50))
 
 ;;; Paren
 (require 'paren)
