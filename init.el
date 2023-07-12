@@ -72,7 +72,11 @@
 (require 'init-tramp)
 (require 'init-key)
 (require 'keybinding)
+
 (require 'init-ui)
+(require 'init-peek)
+
+(require 'init-code-stats)
 
 (require 'init-auto-revert)
 (require 'init-copilot)

@@ -126,7 +126,8 @@
    web-mode
    restclient
    docstr
-   treesit-auto))
+   treesit-auto
+   code-stats))
 
 ;; (when sys/linuxp
 ;;   (package-check-install
@@ -164,6 +165,8 @@
 (quelpa '(auto-save :fetcher github :repo "manateelazycat/auto-save"))
 
 (quelpa '(lazy-revert :fetcher github :repo "yilin-zhang/lazy-revert"))
+
+(quelpa '(peek :fetcher sourcehut :repo "meow_king/peek"))
 
 (provide 'init-package)
 ;;; init-package.el ends here
