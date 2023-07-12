@@ -6,6 +6,7 @@
 (require 'eaf-markdown-previewer)
 (require 'eaf-org-previewer)
 (require 'eaf-file-manager)
+(require 'eaf-music-player)
 
 (eaf-bind-key meow-keypad "SPC" eaf-pdf-viewer-keybinding)
 (eaf-bind-key meow-keypad "SPC" eaf-browser-keybinding)
