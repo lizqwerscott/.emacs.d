@@ -99,6 +99,10 @@
  (:key "a" :description "Lsp Bridge code action" :command lsp-bridge-code-action :filename "init-lsp-bridge")
 
  (:key "s" :description "Lsp Bridge all symbols" :command lsp-bridge-workspace-list-symbols :filename "init-lsp-bridge")
+
+ (:key "p" :description "Lsp Bridge peek" :command lsp-bridge-peek :filename "init-lsp-bridge")
+ (:key "t" :description "Lsp Bridge peek through" :command lsp-bridge-peek-through :filename "init-lsp-bridge")
+
  ;; (:key "`" :description "Add Fold code" :command vimish-fold :filename "init-vimish-fold")
  ;; (:key "~" :description "Delete Fold code" :command vimish-fold-delete :filename "init-vimish-fold")
  )

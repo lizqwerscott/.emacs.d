@@ -67,8 +67,8 @@
 (defun line-comment-p ()
   (save-excursion
     (back-to-indentation)
-    (memq (get-text-property (point) 'face)
-          '(font-lock-comment-face font-lock-comment-delimiter-face))))
+    (or (memq (get-text-property (point) 'face)
+             '(font-lock-comment-face font-lock-comment-delimiter-face web-mode-comment-face)))))
 
 (defun line-empty-p ()
   (string= (s-trim
