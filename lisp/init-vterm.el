@@ -61,18 +61,14 @@
           (vterm-send-string command t)
           (vterm-send-return))))))
 
-(add-hook 'vterm-mode-hook
-          #'(lambda ()
-              (meow-insert-mode)))
+;; (add-hook 'meow-normal-mode-hook
+;;           #'(lambda ()
+;;               (if (equal major-mode #'vterm-mode)
+;;                   (vterm-copy-mode))))
 
-(add-hook 'meow-normal-mode-hook
-          #'(lambda ()
-              (if (equal major-mode #'vterm-mode)
-                  (vterm-copy-mode))))
-
-(add-hook 'meow-insert-mode-hook
-          #'(lambda ()
-              (if (equal major-mode #'vterm-mode)
-                  (vterm-copy-mode -1))))
+;; (add-hook 'meow-insert-mode-hook
+;;           #'(lambda ()
+;;               (if (equal major-mode #'vterm-mode)
+;;                   (vterm-copy-mode -1))))
 
 (provide 'init-vterm)

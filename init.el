@@ -101,6 +101,8 @@
 ;; (require 'init-sql)
 (require 'init-go)
 
+(setf c-ts-mode-indent-offset 4)
+
 ;; (require 'init-reader)
 ;; (require 'init-paper)
 
