@@ -107,13 +107,12 @@
   ;;window key
   (meow-leader-define-key
    '("ag" . avy-goto-line)
-   '("1" . ace-delete-other-windows)
+   '("1" . delete-other-windows)
    '("2" . split-window-below)
    '("-" . split-window-horizontally)
    '("/" . split-window-vertically)
    '("3" . split-window-horizontally)
-   '("0" . ace-delete-window)
-   '("o" . other-window))
+   '("0" . delete-window))
 
   ;;run file
   (meow-leader-define-key
