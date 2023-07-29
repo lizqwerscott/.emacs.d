@@ -138,6 +138,8 @@
 (setq org-format-latex-options
       (plist-put org-format-latex-options :scale 2.0))
 
+(require 'org-capture)
+
 (setq org-capture-templates nil)
 
 (add-to-list 'org-capture-templates '("t" "Tasks"))
