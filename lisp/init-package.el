@@ -113,8 +113,6 @@
    solarized-theme
    all-the-icons
    all-the-icons-completion
-   sideline
-   sideline-blame
    imenu-list
    hl-todo
    avy

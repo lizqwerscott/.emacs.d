@@ -23,7 +23,13 @@
 (setq acm-enable-yas nil)
 (setq acm-enable-tempel nil)
 (setq lsp-bridge-use-wenls-in-org-mode nil)
+
 (setq lsp-bridge-enable-diagnostics t)
+(setq lsp-bridge-enable-hover-diagnostic t)
+
+(setq lsp-bridge-find-def-fallback-function #'dumb-jump)
+
+(setq lsp-bridge-enable-completion-in-string t)
 
 ;; (setq lsp-bridge-diagnostic-fetch-idle 0.1)
 ;; (setq lsp-bridge-enable-debug t)
