@@ -19,6 +19,8 @@
             (goggles-mode t)
             (copilot-mode t)))
 
+(add-hook 'emacs-lisp-mode-hook 'outshine-mode)
+
 (add-hook 'after-init-hook
           (lambda ()
             (save-place-mode t)

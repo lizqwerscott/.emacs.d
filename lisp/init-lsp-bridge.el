@@ -27,6 +27,9 @@
 (setq lsp-bridge-enable-diagnostics t)
 (setq lsp-bridge-enable-hover-diagnostic t)
 
+(setq lsp-bridge-completion-hide-characters
+      '(":" ";" "[" "]" "{" "}" ", " "\""))
+
 (setq lsp-bridge-find-def-fallback-function #'dumb-jump)
 
 (setq lsp-bridge-enable-completion-in-string t)

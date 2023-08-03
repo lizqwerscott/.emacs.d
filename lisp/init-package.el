@@ -125,7 +125,8 @@
    restclient
    docstr
    treesit-auto
-   code-stats))
+   code-stats
+   outshine))
 
 ;; (when sys/linuxp
 ;;   (package-check-install
