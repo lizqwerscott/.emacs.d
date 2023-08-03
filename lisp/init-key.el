@@ -77,7 +77,9 @@
  (:key "t" :description "Go translate" :command gts-do-translate :filename "init-go-translate")
  (:key "g" :description "Google this" :command google-this :filename "init-google-this")
  (:key "p" :description "Popweb dict bing" :command popweb-dict-bing-pointer :filename "init-popweb")
- (:key "S" :description "Sudo edit" :command sudo-edit :filename "sudo-edit"))
+ (:key "S" :description "Sudo edit" :command sudo-edit :filename "sudo-edit")
+ (:key "c" :description "Copy File name" :command +lizqwer/copy-file-name-to-clipboard :filename "init-func")
+ (:key "C" :description "Copy File Path" :command +lizqwer/copy-file-path-to-clipboard :filename "init-func"))
 
 (lazy-one-key-create-menu
  "Code"

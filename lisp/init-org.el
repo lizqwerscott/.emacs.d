@@ -52,7 +52,7 @@
 
 (setq org-fontify-done-headline t
       org-hide-leading-stars t
-      org-pretty-entities t
+      org-pretty-entities nil
       org-odd-levels-only t)
 
 (setq org-list-demote-modify-bullet
