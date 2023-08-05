@@ -167,5 +167,9 @@
 
 (quelpa '(peek :fetcher sourcehut :repo "meow_king/peek"))
 
+(quelpa '(watch-other-window :fetcher github :repo "manateelazycat/watch-other-window"))
+
+(quelpa '(highlight-matching-tag :fetcher github :repo "manateelazycat/highlight-matching-tag"))
+
 (provide 'init-package)
 ;;; init-package.el ends here

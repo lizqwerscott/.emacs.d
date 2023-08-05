@@ -218,7 +218,9 @@
    '("gi" . lsp-bridge-find-implementation)
    '("C-o" . return-find-def)
    '("/" . consult-ripgrep)
-   '("?" . help-helfup-lsp-bridge-sly)))
+   '("?" . help-helfup-lsp-bridge-sly)
+   '("M-j" . scroll-up)
+   '("M-k" . scroll-down)))
 
 
 (use-package meow
