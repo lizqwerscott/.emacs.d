@@ -17,9 +17,9 @@
   "Setup fonts."
   (when (display-graphic-p)
     ;; Set default font
-    (cl-loop for font in '("Source Code Pro" "Cascadia Code" "Jetbrains Mono" "Fira Code"
-                           "SF Mono" "Hack" "Menlo"
-                           "Monaco" "DejaVu Sans Mono" "Consolas")
+    (cl-loop for font in '("Cascadia Code" "Jetbrains Mono" "Source Code Pro" "Fira Code"
+                            "SF Mono" "Hack" "Menlo"
+                            "Monaco" "DejaVu Sans Mono" "Consolas")
              when (font-installed-p font)
              return (set-face-attribute 'default nil
                                         :family font
@@ -326,6 +326,8 @@
 (show-paren-mode 1)
 (setq show-paren-when-point-inside-paren t
       show-paren-when-point-in-periphery t)
+(setq show-paren-style 'parenthesis
+      show-paren-context-when-offscreen 'overlay)
 ;; (use-package paren
 ;;   :ensure nil
 ;;   :hook (afte-init . show-paren-mode)
@@ -375,6 +377,10 @@
 (global-so-long-mode 1)
 
 (setq color-identifiers:recoloring-delay 1)
+
+;;; Web mode highlight matching tag
+(require 'highlight-matching-tag)
+(highlight-matching-tag 1)
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.

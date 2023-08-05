@@ -181,5 +181,6 @@
           (goto-char p)
           (message "pos: %s" pre-comment-pos))))))
 
+
 (provide 'init-edit)
 ;;; init-edit.el ends here.
