@@ -216,6 +216,7 @@
    '("gd" . find-definition-with-lsp-bridge)
    '("gf" . find-file-at-point)
    '("gi" . lsp-bridge-find-implementation)
+   '("gp" . goto-percent)
    '("C-o" . return-find-def)
    '("/" . consult-ripgrep)
    '("?" . help-helfup-lsp-bridge-sly)

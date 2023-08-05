@@ -181,6 +181,11 @@
           (goto-char p)
           (message "pos: %s" pre-comment-pos))))))
 
+;;;###autoload
+(defun goto-percent (percent)
+  "Goto PERCENT of buffer."
+  (interactive "nGoto percent: ")
+  (goto-char (/ (* percent (point-max)) 100)))
 
 (provide 'init-edit)
 ;;; init-edit.el ends here.
