@@ -15,7 +15,9 @@
       (when (plist-get ele :filename)
         (autoload (plist-get ele :command) (plist-get ele :filename) nil t))
       (push
-       (cons (cons (plist-get ele :key) (plist-get ele :description)) (plist-get ele :command))
+       (if (plist-get ele :run)
+           (cons (cons (plist-get ele :key) (plist-get ele :description)) (plist-get ele :run))
+         (cons (cons (plist-get ele :key) (plist-get ele :description)) (plist-get ele :command)))
        one-key-key-alist))
     `(one-key-create-menu ,title (quote ,one-key-key-alist))))
 
@@ -55,6 +57,13 @@
    (("j" . "Find in main dir") . (lambda ()
                                    (interactive)
                                    (ido-find-file-in-dir "~/")))))
+
+(lazy-one-key-create-menu
+ "Directory"
+ (:key "h" :description "Home Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/")) :command eaf-open-in-file-manager :filename "init-eaf")
+ (:key "c" :description "Config Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/.emacs.d/")) :command eaf-open-in-file-manager :filename "init-eaf")
+ (:key "g" :description "My Project Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/github/")) :command eaf-open-in-file-manager :filename "init-eaf")
+ (:key "p" :description "My Project Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/MyProject/")) :command eaf-open-in-file-manager :filename "init-eaf"))
 
 (lazy-one-key-create-menu
  "EAF"

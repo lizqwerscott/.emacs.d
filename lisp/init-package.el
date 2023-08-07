@@ -126,7 +126,8 @@
    docstr
    treesit-auto
    code-stats
-   outshine))
+   outshine
+   grugru))
 
 ;; (when sys/linuxp
 ;;   (package-check-install

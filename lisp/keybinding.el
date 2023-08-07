@@ -102,6 +102,7 @@
    '("b" . one-key-menu-buffer)
    '("w" . one-key-menu-org)
    '("v" . one-key-menu-sort-tab)
+   '("d" . one-key-menu-directory)
    )
 
   ;;window key
