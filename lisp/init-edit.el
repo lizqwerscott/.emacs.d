@@ -187,5 +187,7 @@
   (interactive "nGoto percent: ")
   (goto-char (/ (* percent (point-max)) 100)))
 
+(grugru-default-setup)
+
 (provide 'init-edit)
 ;;; init-edit.el ends here.
