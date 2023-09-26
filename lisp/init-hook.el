@@ -17,7 +17,8 @@
           (lambda ()
             (docstr-mode t)
             (goggles-mode t)
-            (copilot-mode t)))
+            (copilot-mode t)
+            ))
 
 (add-hook 'emacs-lisp-mode-hook 'outshine-mode)
 

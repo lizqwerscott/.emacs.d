@@ -188,6 +188,10 @@
 (breadcrumb-mode)
 (setq header-line-format nil)
 
+;; (require 'sort-tab)
+;; (sort-tab-mode 1)
+(require 'init-tab-bar)
+
 ;; (defun breadcrumb-info ()
 ;;   (breadcrumb--header-line))
 
@@ -209,10 +213,8 @@
 ;;         '("meow" "location" "breadcrumb" "mode-name" "date")))
 
 
-(awesome-tray-mode)
-
-(require 'sort-tab)
-(sort-tab-mode 1)
+(when (display-graphic-p)
+  (awesome-tray-mode))
 
 ;;; Icons
 (require 'all-the-icons-completion)
@@ -366,6 +368,28 @@
 ;;   )
 
 (global-hl-todo-mode)
+(defun hl-todo-rg (regexp &optional files dir)
+  "Use `rg' to find all TODO or similar keywords."
+  (interactive
+   (progn
+     (unless (require 'rg nil t)
+       (error "`rg' is not installed"))
+     (let ((regexp (replace-regexp-in-string "\\\\[<>]*" "" (hl-todo--regexp))))
+       (list regexp
+             (rg-read-files)
+             (read-directory-name "Base directory: " nil default-directory t)))))
+  (rg regexp files dir))
+
+(defun hl-todo-rg-project (regexp &optional files dir)
+  (interactive
+   (progn
+     (unless (require 'rg nil t)
+       (error "`rg' is not installed"))
+     (let ((regexp (replace-regexp-in-string "\\\\[<>]*" "" (hl-todo--regexp))))
+       (list regexp
+             (rg-read-files)
+             (project-root (project-current))))))
+  (rg regexp files dir))
 
 (which-key-mode)
 
@@ -381,6 +405,13 @@
 ;;; Web mode highlight matching tag
 (require 'highlight-matching-tag)
 (highlight-matching-tag 1)
+
+;;; Holo layer
+;; (setq holo-layer-show-place-info-p t)
+;; (require 'holo-layer)
+;; (setq holo-layer-enable-cursor-animation t)
+;; (setq holo-layer-hide-mode-line t)
+;; (holo-layer-enable)
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.

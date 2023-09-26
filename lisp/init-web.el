@@ -18,6 +18,8 @@
                               ("\\(const\\) \\(.*\\)" 1 2 " ")
                               ("<\\(.*\\) ?\\(.*\\)>" 1 2 " "))))))
 
+(pnpm-global-mode)
+
 ;;; Json
 ;; (use-package jsonian
 ;;   :ensure t

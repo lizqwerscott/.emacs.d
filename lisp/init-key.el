@@ -63,7 +63,8 @@
  (:key "h" :description "Home Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/")) :command eaf-open-in-file-manager :filename "init-eaf")
  (:key "c" :description "Config Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/.emacs.d/")) :command eaf-open-in-file-manager :filename "init-eaf")
  (:key "g" :description "My Project Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/github/")) :command eaf-open-in-file-manager :filename "init-eaf")
- (:key "p" :description "My Project Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/MyProject/")) :command eaf-open-in-file-manager :filename "init-eaf"))
+ (:key "p" :description "My Project Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/MyProject/")) :command eaf-open-in-file-manager :filename "init-eaf")
+ (:key "d" :description "My Document Dir" :run(lambda () (interactive (eaf-open-in-file-manager "~/Documents/")) :command eaf-open-in-file-manager :filename "init-eaf")))
 
 (lazy-one-key-create-menu
  "EAF"
@@ -74,12 +75,19 @@
  (:key "m" :description "EAF Music" :command eaf-open-cloud-music :filename "init-eaf")
  )
 
+;; (one-key-create-menu
+;;  "sort-tab"
+;;  '((("n" . "Sort tab select next tab") . sort-tab-select-next-tab)
+;;    (("p" . "Sort tab select prev tab") . sort-tab-select-prev-tab)
+;;    (("c" . "Sort tab close current tab") . sort-tab-close-current-tab)
+;;    (("m" . "Sort tab close all mode tabs") . sort-tab-close-mode-tabs)))
+
 (one-key-create-menu
- "sort-tab"
- '((("n" . "Sort tab select next tab") . sort-tab-select-next-tab)
-   (("p" . "Sort tab select prev tab") . sort-tab-select-prev-tab)
-   (("c" . "Sort tab close current tab") . sort-tab-close-current-tab)
-   (("m" . "Sort tab close all mode tabs") . sort-tab-close-mode-tabs)))
+ "Workspace"
+ '((("l" . "Workspace switch or create workspace") . tabspaces-switch-or-create-workspace)
+   (("p" . "Workspace project switch or create") . tabspaces-open-or-create-project-and-workspace)
+   (("f" . "Workspace projecr"))
+   (("k" . "Workspace kill workspace") . tabspaces-kill-buffers-close-workspace)))
 
 (lazy-one-key-create-menu
  "Useful"
@@ -88,7 +96,8 @@
  (:key "p" :description "Popweb dict bing" :command popweb-dict-bing-pointer :filename "init-popweb")
  (:key "S" :description "Sudo edit" :command sudo-edit :filename "sudo-edit")
  (:key "c" :description "Copy File name" :command +lizqwer/copy-file-name-to-clipboard :filename "init-func")
- (:key "C" :description "Copy File Path" :command +lizqwer/copy-file-path-to-clipboard :filename "init-func"))
+ (:key "C" :description "Copy File Path" :command +lizqwer/copy-file-path-to-clipboard :filename "init-func")
+ (:key "d" :description "Docker" :command docker))
 
 (lazy-one-key-create-menu
  "Code"
