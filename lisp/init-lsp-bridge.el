@@ -10,14 +10,15 @@
     (use-package popon
       :quelpa (popon :fetcher git :url "https://codeberg.org/akib/emacs-popon.git")
       :ensure t)
-    (use-package acm-termial
-      :quelpa (acm-termial :fetcher git :url "https://github.com/twlz0ne/acm-terminal.git")
+    (use-package acm-terminal
+      :quelpa (acm-terminal :fetcher git :url "https://github.com/twlz0ne/acm-terminal.git")
       :ensure t)))
 
 (setq lsp-bridge-c-lsp-server "ccls")
+(setq acm-backend-search-file-words-enable-fuzzy-match t)
 (setq acm-backend-lsp-candidates-max-number 4000)
 (setq acm-enable-doc t)
-(setq acm-enable-citre nil)
+(setq acm-enable-citre t)
 (setq acm-enable-tabnine nil)
 (setq acm-enable-codeium nil)
 (setq acm-enable-yas nil)

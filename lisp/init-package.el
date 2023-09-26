@@ -7,7 +7,6 @@
 
 ;;; Commentary:
 
-
 ;;; Code:
 
 (require 'package)
@@ -108,6 +107,7 @@
    pyim-basedict
    olivetti
    ag
+   rg
    pretty-mode
    doom-themes
    solarized-theme
@@ -127,7 +127,13 @@
    treesit-auto
    code-stats
    outshine
-   grugru))
+   grugru
+   citre
+   pnpm-mode
+   tabspaces
+   wucuo
+   docker
+   elvish-mode))
 
 ;; (when sys/linuxp
 ;;   (package-check-install
@@ -171,6 +177,8 @@
 (quelpa '(watch-other-window :fetcher github :repo "manateelazycat/watch-other-window"))
 
 (quelpa '(highlight-matching-tag :fetcher github :repo "manateelazycat/highlight-matching-tag"))
+
+;; (quelpa '(holo-layer :fetcher github :repo "manateelazycat/holo-layer" :files ("*.el" "*.py" "swaymsg-treefetch")))
 
 (provide 'init-package)
 ;;; init-package.el ends here

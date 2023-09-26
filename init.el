@@ -78,6 +78,7 @@
 
 (require 'init-code-stats)
 
+(require 'init-spell)
 (require 'init-auto-revert)
 (require 'init-copilot)
 

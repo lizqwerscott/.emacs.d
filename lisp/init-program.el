@@ -134,5 +134,10 @@
 ;;   :ensure t
 ;;   :hook (prog-mode . docstr-mode))
 
+
+;;; Citre(ctags)
+(require 'citre)
+(require 'citre-config)
+
 (provide 'init-program)
 ;;; init-program.el ends heres.
