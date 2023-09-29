@@ -11,6 +11,10 @@
              (expand-file-name
               (concat user-emacs-directory "lisp")))
 
+(add-to-list 'load-path
+             (expand-file-name
+              (concat user-emacs-directory "elpa/" "elisp-refs-20230920.201")))
+
 (defun add-subdirs-to-load-path (search-dir)
   (interactive)
   (let* ((dir (file-name-as-directory search-dir)))
@@ -30,8 +34,8 @@
         ;; 目录下有 .el .so .dll 文件的路径才添加到 `load-path' 中, 提升Emacs启动速度
         (when (cl-some #'(lambda (subdir-file)
                            (and (file-regular-p (concat subdir-path subdir-file))
-                                ;; .so .dll 文件指非Elisp语言编写的Emacs动态库
-                                (member (file-name-extension subdir-file) '("el" "so" "dll"))))
+                              ;; .so .dll 文件指非Elisp语言编写的Emacs动态库
+                              (member (file-name-extension subdir-file) '("el" "so" "dll"))))
                        (directory-files subdir-path))
 
           ;; 注意：`add-to-list' 函数的第三个参数必须为 t , 表示加到列表末尾
@@ -62,6 +66,7 @@
 
 ;; 启动必须加载
 ;; (toggle-debug-on-error)
+(require 'init-utils)
 (require 'init-package)
 (require 'lazy-load)
 

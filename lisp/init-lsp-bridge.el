@@ -39,23 +39,6 @@
 ;; (setq lsp-bridge-enable-debug t)
 ;; (setq lsp-bridge-python-lsp-server "jedi")
 ;; (setq lsp-bridge-python-lsp-server "pyright-background-analysis")
-(defun enable-lsp-bridge()
-  (when-let* ((project (project-current))
-              (project-root (if (listp (cdr project))
-                                (nth 2 project)
-                              (cdr project))))
-    (setq-local lsp-bridge-user-langserver-dir project-root
-                lsp-bridge-user-multiserver-dir project-root))
-  (lsp-bridge-mode))
-
-(defun global-enable-lsp-bridge ()
-  (interactive)
-  (dolist (hook lsp-bridge-default-mode-hooks)
-    (add-hook hook (lambda ()
-                     (enable-lsp-bridge)))))
-
-(setq lsp-bridge-default-mode-hooks
-      (remove 'rust-mode-hook lsp-bridge-default-mode-hooks))
 
 (require 'xref)
 (defun find-definition-with-lsp-bridge ()
@@ -103,6 +86,6 @@
    (("p" . "Previous diagnostic") . lsp-bridge-diagnostic-jump-prev)
    (("l" . "Show all diagnostic") . lsp-bridge-diagnostic-list)))
 
-(global-enable-lsp-bridge)
+(global-lsp-bridge-mode)
 
 (provide 'init-lsp-bridge)
