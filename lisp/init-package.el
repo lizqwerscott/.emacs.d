@@ -100,7 +100,6 @@
    vterm
    vterm-toggle
    apheleia
-   eacl
    eglot
    xclip
    pyim
@@ -124,7 +123,6 @@
    web-mode
    restclient
    docstr
-   treesit-auto
    code-stats
    outshine
    grugru
@@ -133,7 +131,8 @@
    tabspaces
    wucuo
    docker
-   elvish-mode))
+   elvish-mode
+   redacted))
 
 ;; (when sys/linuxp
 ;;   (package-check-install

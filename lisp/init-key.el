@@ -28,7 +28,8 @@
  (:key "v" :description "Toggle vterm" :command vterm-toggle :filename "init-vterm")
  (:key "b" :description "Toggle big screen mode" :command open-big-screen-mode :filename "init-big-screen")
  (:key "T" :description "Toggle transparent" :command +lizqwer/toggle-transparent :filename "init-func")
- (:key "p" :description "Toggle proxy" :command +lizqwer/toggle-proxy :filename "init-func"))
+ (:key "p" :description "Toggle proxy" :command +lizqwer/toggle-proxy :filename "init-func")
+ (:key "r" :description "Toggle redacted" :command redacted-mode))
 
 (lazy-one-key-create-menu
  "Search"

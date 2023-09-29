@@ -22,26 +22,12 @@
 (require 'init-awesome-pair)
 
 (require 'aggressive-indent)
-;; (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
-;; (add-to-list 'aggressive-indent-excluded-modes 'c++-mode)
-;; (add-to-list 'aggressive-indent-excluded-modes 'c-mode)
-;; (add-to-list 'aggressive-indent-excluded-modes 'go-ts-mode)
-;; (add-to-list 'aggressive-indent-excluded-modes 'python-ts-mode)
-;; (add-to-list 'aggressive-indent-excluded-modes 'rust-ts-mode)
-(add-hook 'emacs-lisp-mode-hook
-          'aggressive-indent-mode)
-
-(add-hook 'lisp-mode-hook
-          'aggressive-indent-mode)
-
-(add-hook 'python-mode-hook
-          'aggressive-indent-mode)
-
-;; (global-aggressive-indent-mode 1)
+(add-hooks '(emacs-lisp-mode lisp-mode python-mode)
+           'aggressive-indent-mode)
 
 (require 'indent-yank)
-(add-hook 'python-mode-hook 'indent-yank-mode)
-(add-hook 'python-ts-mode-hook 'indent-yank-mode)
+(add-hooks '(python-mode python-ts-mode)
+           'indent-yank-mode)
 
 ;; auto mark comment
 ;; from https://github.com/magnars/expand-region.el/blob/b70feaa644310dc2d599dc277cd20a1f2b6446ac/er-basic-expansions.el#L102
