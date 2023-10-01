@@ -132,7 +132,8 @@
    wucuo
    docker
    elvish-mode
-   redacted))
+   redacted
+   projection))
 
 ;; (when sys/linuxp
 ;;   (package-check-install

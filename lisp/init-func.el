@@ -50,13 +50,6 @@
   (interactive)
   (eww "zh-cn.wttr.in/"))
 
-(defun add-list-to-list (list-var elements)
-  (if (listp elements)
-      (mapcar #'(lambda (element)
-                  (add-to-list list-var element))
-              (reverse elements))
-    (add-to-list list-var elements)))
-
 (defun get-file-path ()
   (if (equal major-mode 'dired-mode)
       default-directory

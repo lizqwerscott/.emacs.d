@@ -28,8 +28,8 @@
 (setq lsp-bridge-enable-diagnostics t)
 (setq lsp-bridge-enable-hover-diagnostic t)
 
-(setq lsp-bridge-completion-hide-characters
-      '(":" ";" "[" "]" "{" "}" ", " "\""))
+;; (setq lsp-bridge-completion-hide-characters
+;;       '(":" ";" "[" "]" "{" "}" ", " "\""))
 
 (setq lsp-bridge-find-def-fallback-function #'dumb-jump)
 
@@ -72,7 +72,7 @@
   (or (tempel-complete t)
      (acm-select-next)))
 
-;; keymap
+;;; keymap
 
 (add-hook 'lsp-bridge-mode-hook
           '(lambda ()

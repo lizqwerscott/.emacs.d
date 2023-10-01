@@ -1,6 +1,10 @@
 (require 'project)
 
-;configure project.el
+(require 'projection)
+
+(global-projection-hook-mode)
+
+;;configure project.el
 
 (defun my/project-try-local (dir)
   "Determine if DIR is a non-Git project."
@@ -210,7 +214,7 @@ NAME is class name."
  (:key "f" :description "Find file in project" :command project-find-file)
  (:key "d" :description "Project Dir" :command project-eaf-open-dir :filename "init-eaf")
  (:key "t" :description "Open temp project" :command find-temp-project)
- (:key "a" :designation "Remmeber a project" :command project-remember-projects-under)
+ (:key "a" :description "Remember a project" :command project-remember-projects-under)
  (:key "p" :description "Switch project" :command project-switch-project)
  (:key "v" :description "Project Git" :command eaf-open-git :filename "init-eaf")
  (:key "r" :description "Remove known project" :command project-forget-project)
