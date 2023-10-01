@@ -8,11 +8,17 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
+;; (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
+;; (add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
+;; (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
+;; (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
 
+(add-list-to-list 'major-mode-remap-alist
+                  '((rust-mode . rust-ts-mode)
+                    (python-mode . python-ts-mode)
+                    (c++-mode . c++-ts-mode)
+                    (c-mode . c-ts-mode)
+                    (go-mode . go-ts-mode)))
 
 (autoload 'yaml-mode "yaml-mode")
 (autoload 'markdown-mode "markdown-mode")
