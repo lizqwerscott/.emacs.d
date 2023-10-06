@@ -73,4 +73,10 @@
       (kill-new filepath)
       (message "Copied buffer file path '%s' to the clipboard." filepath))))
 
+;;;##autoload
+(defun +lizqwer/toggle-lock ()
+  "Toggle computer lock."
+  (interactive)
+  (shell-command "screen-lock.sh"))
+
 (provide 'init-func)
