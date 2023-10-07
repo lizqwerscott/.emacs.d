@@ -92,7 +92,6 @@
 (require 'init-auto-save)
 (require 'init-input)
 
-(require 'init-tool)
 (require 'init-edit)
 
 (require 'init-program)

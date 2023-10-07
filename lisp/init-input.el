@@ -8,7 +8,6 @@
 (setq default-input-method "pyim")
 (setq pyim-cloudim 'baidu)
 (setq pyim-page-tooltip 'posframe)
-(global-set-key (kbd "C-\\") 'toggle-input-method)
 (setq-default pyim-english-input-switch-functions
               `(
                 ;; pyim-probe-program-mode
@@ -18,5 +17,7 @@
 
 (require 'pyim-basedict)
 (pyim-basedict-enable)
+
+(global-set-key (kbd "C-\\") 'toggle-input-method)
 
 (provide 'init-input)
