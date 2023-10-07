@@ -79,7 +79,6 @@
 (require 'init-hook)
 (require 'init-tramp)
 (require 'init-key)
-;; (require 'keybinding)
 
 (require 'init-ui)
 
