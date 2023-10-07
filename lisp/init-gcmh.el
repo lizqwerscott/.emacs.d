@@ -1,0 +1,5 @@
+(require 'gcmh)
+(setq gcmh-idle-delay 10)
+(setq gcmh-high-cons-threshold #x6400000)
+(gcmh-mode t)
+(provide 'init-gcmh)

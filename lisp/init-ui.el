@@ -9,140 +9,12 @@
 ;;; Code:
 
 ;;; Font
-(defun font-installed-p (font-name)
-  "Check if font with FONT-NAME is available."
-  (find-font (font-spec :name font-name)))
 
-(defun setup-fonts ()
-  "Setup fonts."
-  (when (display-graphic-p)
-    ;; Set default font
-    (cl-loop for font in '("Cascadia Code" "Jetbrains Mono" "Source Code Pro" "Fira Code"
-                            "SF Mono" "Hack" "Menlo"
-                            "Monaco" "DejaVu Sans Mono" "Consolas")
-             when (font-installed-p font)
-             return (set-face-attribute 'default nil
-                                        :family font
-                                        :height (cond (sys/macp 130)
-                                                      (sys/win32p 110)
-                                                      (t 180))))
-
-    ;; Set mode-line font
-    ;; (cl-loop for font in '("Menlo" "SF Pro Display" "Helvetica")
-    ;;          when (font-installed-p font)
-    ;;          return (progn
-    ;;                   (set-face-attribute 'mode-line nil :family font :height 120)
-    ;;                   (when (facep 'mode-line-active)
-    ;;                     (set-face-attribute 'mode-line-active nil :family font :height 120))
-    ;;                   (set-face-attribute 'mode-line-inactive nil :family font :height 120)))
-
-    ;; Specify font for all unicode characters
-    (cl-loop for font in '("Segoe UI Symbol" "Symbola" "Symbol")
-             when (font-installed-p font)
-             return (if (< emacs-major-version 27)
-                        (set-fontset-font "fontset-default" 'unicode font nil 'prepend)
-                      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend)))
-
-    ;; Emoji
-    (cl-loop for font in '("Noto Color Emoji" "Apple Color Emoji" "Segoe UI Emoji")
-             when (font-installed-p font)
-             return (cond
-                     ((< emacs-major-version 27)
-                      (set-fontset-font "fontset-default" 'unicode font nil 'prepend))
-                     ((< emacs-major-version 28)
-                      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
-                     (t
-                      (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
-
-    ;; Specify font for Chinese characters
-    (cl-loop for font in '("WenQuanYi Micro Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
-             when (font-installed-p font)
-             return (progn
-                      (setq face-font-rescale-alist `((,font . 1.3)))
-                      (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))))))
-
-
-(setup-fonts)
-(add-hook 'window-setup-hook #'setup-fonts)
-(add-hook 'server-after-make-frame-hook #'setup-fonts)
-
-(use-package pretty-mode
-  :ensure t
-  :hook ((emacs-lisp-mode lisp-mode) . pretty-mode))
-
-;; (use-package ligature
-;;   :quelpa (ligature :fetcher git :url "https://github.com/mickeynp/ligature.el.git")
-;;   :hook
-;;   (after-init . global-ligature-mode)
-;;   :config
-;;   ;; Enable the www ligature in every possible major mode
-;;   (ligature-set-ligatures 't '("www"))
-;;   ;; Enable ligatures in programming modes
-;;   (ligature-set-ligatures 'prog-mode
-;;                           '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
-;;                             ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
-;;                             "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
-;;                             "#_(" ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*" "/**"
-;;                             "/=" "/==" "/>" "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>"
-;;                             "++" "+++" "+>" "=:=" "==" "===" "==>" "=>" "=>>" "<="
-;;                             "=<<" "=/=" ">-" ">=" ">=>" ">>" ">>-" ">>=" ">>>" "<*"
-;;                             "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
-;;                             "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
-;;                             "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%")))
+(require 'init-font)
 
 ;;; Theme
-;; (use-package gruvbox-theme
-;;   :ensure t)
 
-;; (use-package doom-themes
-;;   :ensure t)
-
-;; (use-package monokai-theme
-;;   :ensure t)
-
-;; (use-package solarized-theme
-;;   :ensure t
-;;   :defer)
-
-;; (use-package modus-themes
-;;   :ensure t)
-
-(use-package ef-themes
-  :ensure t
-  :defer)
-
-;; (use-package flucui-themes
-;;   :ensure t
-;;   :defer)
-
-;; (load-theme 'doom-snazzy t)
-;; (load-theme 'doom-molokai t)
-;; (load-theme 'gruvbox-dark-soft t)
-;; (load-theme 'doom-one t)
-;;(load-theme 'tango-dark t)
-;; (load-theme 'monokai t)
-;; (load-theme 'solarized-dark t)
-;; (load-theme 'vscode-dark-plus t)
-;; (load-theme 'modus-vivendi t)
-;; (load-theme 'ef-summer t)
-;; (load-theme 'modus-operandi t)
-(require 'lazycat-theme)
-(lazycat-theme-load-dark)
-;; (load-theme 'ef-night t)
-;; (load-theme 'ef-day t)
-;; (load-theme 'ef-summer t)
-;; (flucui-themes-load-style 'dark)
-
-;; (use-package circadian
-;;   :ensure t
-;;   :config
-;;   ;; (setq calendar-latitude 37)
-;;   ;; (setq calendar-longitude 112)
-;;   ;; (setq circadian-themes '((:sunrise . ef-summer)
-;;   ;;                          (:sunset  . solarized-dark)))
-;;   (setq circadian-themes '(("8:00" . ef-day)
-;;                            ("16:00" . solarized-dark)))
-;;   (circadian-setup))
+(require 'init-theme)
 
 ;;; Background
 (setq default-frame-alist
@@ -154,9 +26,9 @@
 (dotimes (n 3)
   (toggle-frame-maximized))
 (global-hl-line-mode 1)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+;; (menu-bar-mode -1)
+;; (tool-bar-mode -1)
+;; (scroll-bar-mode -1)
 
 ;; (use-package doom-modeline
 ;;   :ensure t
@@ -223,55 +95,21 @@
 (all-the-icons-completion-mode)
 
 ;;; Git message
-(use-package diff-hl
-  :ensure t
-  ;; :custom-face
-  ;; (diff-hl-change ((t (:inherit custom-changed :foreground unspecified :background unspecified))))
-  ;; (diff-hl-insert ((t (:inherit diff-added :background unspecified))))
-  ;; (diff-hl-delete ((t (:inherit diff-removed :background unspecified))))
-  ;; :bind (:map diff-hl-command-map
-  ;;        ("SPC" . diff-hl-mark-hunk))
-  :hook ((after-init . global-diff-hl-mode)
-         (after-init . global-diff-hl-show-hunk-mouse-mode)
-         (dired-mode . diff-hl-dired-mode))
-  :init (setq diff-hl-draw-borders nil)
-  :config
-  ;; Highlight on-the-fly
-  (diff-hl-flydiff-mode 1))
+(require 'diff-hl)
+(global-diff-hl-mode)
+(global-diff-hl-show-hunk-mouse-mode)
+(add-hook 'dired-mode
+          'diff-hl-dired-mode)
 
-;; Set fringe style
-;; (setq-default fringes-outside-margins t)
-
-;; (with-no-warnings
-;;   (defun my-diff-hl-fringe-bmp-function (_type _pos)
-;;     "Fringe bitmap function for use as `diff-hl-fringe-bmp-function'."
-;;     (define-fringe-bitmap 'my-diff-hl-bmp
-;;       (vector (if sys/linuxp #b11111100 #b11100000))
-;;       1 8
-;;       '(center t)))
-;;   (setq diff-hl-fringe-bmp-function #'my-diff-hl-fringe-bmp-function)
-
-;;   (unless (display-graphic-p)
-;;     ;; Fall back to the display margin since the fringe is unavailable in tty
-;;     (diff-hl-margin-mode 1)
-;;     ;; Avoid restoring `diff-hl-margin-mode'
-;;     (with-eval-after-load 'desktop
-;;       (add-to-list 'desktop-minor-mode-table
-;;                    '(diff-hl-margin-mode nil)))))
-
-;; (use-package vc-msg
-;;   :ensure t)
-
-;; (use-package symbol-overlay
-;;   :ensure t
-;;   :hook (prog-mode . symbol-overlay-mode))
+(setq diff-hl-draw-borders nil)
+(diff-hl-flydiff-mode)
 
 ;;; Line number
-(use-package emacs
-  :unless sys/win32p
-  :hook (((prog-mode text-mode conf-mode) . display-line-numbers-mode))
-  :config
-  (setq display-line-numbers-type 'relative))
+(unless sys/win32p
+  (add-hooks '(prog-mode text-mode conf-mode)
+             #'(lambda ()
+                 (setq display-line-numbers-type 'relative)
+                 (display-line-numbers-mode 1))))
 
 ;;; Dashboard
 ;; (use-package page-break-lines
@@ -316,12 +154,12 @@
 ;; (use-package indent-guide
 ;;   :ensure t
 ;;   :hook ((prog-mode . indent-guide-mode)))
-(use-package highlight-indent-guides
-  :ensure t
-  :hook (prog-mode . highlight-indent-guides-mode)
-  :config
-  (setq highlight-indent-guides-auto-odd-face-perc 50)
-  (setq highlight-indent-guides-auto-even-face-perc 50))
+(add-hook 'prog-mode-hook
+          #'(lambda ()
+              (require 'highlight-indent-guides)
+              (setq highlight-indent-guides-auto-odd-face-perc 50)
+              (setq highlight-indent-guides-auto-even-face-perc 50)
+              (highlight-indent-guides-mode 1)))
 
 ;;; Paren
 (require 'paren)
@@ -330,81 +168,47 @@
       show-paren-when-point-in-periphery t)
 (setq show-paren-style 'parenthesis
       show-paren-context-when-offscreen 'overlay)
-;; (use-package paren
-;;   :ensure nil
-;;   :hook (afte-init . show-paren-mode)
-;;   :custom
-;;   (show-paren-when-point-inside-paren t)
-;;   (show-paren-when-point-in-periphery t)
-;;   :config
-;;   (setq show-paren-style 'parenthesis
-;;         show-paren-context-when-offscreen 'overlay))
 
-(use-package rainbow-delimiters
-  :ensure t
-  :hook
-  (emacs-lisp-mode . rainbow-delimiters-mode)
-  (lisp-mode . rainbow-delimiters-mode))
 
-(use-package shackle
-  :ensure t
-  :hook (after-init . shackle-mode)
-  :custom
-  (shackle-default-size 0.5)
-  (shackle-default-alignment 'below)
-  (shackle-rules '((help-mode :select t :align t :size 0.4)
-                   ("*Process List*" :select t :align t)
-                   ("*One-Key*" :select t :align 'below))))
+;;; Highlight
+(add-hooks '(emacs-lisp-mode lisp-mode)
+           #'(lambda ()
+               (require 'rainbow-delimiters)
+               (rainbow-delimiters-mode 1)))
 
-;;; Another
-(setq word-wrap-by-category t)
+(setq color-identifiers:recoloring-delay 1)
+(add-hook 'prog-mode-hook
+          'color-identifiers-mode)
 
-;; (require 'zone)
-;; (zone-when-idle 600)
+(add-hook 'web-mode-hook
+          #'(lambda ()
+              (require 'highlight-matching-tag)
+              (highlight-matching-tag 1)))
+
+(require 'init-hl-todo)
 
 ;; (use-package highlight-defined
 ;;   :ensure t
 ;;   ;; :hook (elisp-lisp-mode . highlight-defined-mode)
 ;;   )
 
-(global-hl-todo-mode)
-(defun hl-todo-rg (regexp &optional files dir)
-  "Use `rg' to find all TODO or similar keywords."
-  (interactive
-   (progn
-     (unless (require 'rg nil t)
-       (error "`rg' is not installed"))
-     (let ((regexp (replace-regexp-in-string "\\\\[<>]*" "" (hl-todo--regexp))))
-       (list regexp
-             (rg-read-files)
-             (read-directory-name "Base directory: " nil default-directory t)))))
-  (rg regexp files dir))
+;;; Window
+(require 'shackle)
+(shackle-mode)
 
-(defun hl-todo-rg-project (regexp &optional files dir)
-  (interactive
-   (progn
-     (unless (require 'rg nil t)
-       (error "`rg' is not installed"))
-     (let ((regexp (replace-regexp-in-string "\\\\[<>]*" "" (hl-todo--regexp))))
-       (list regexp
-             (rg-read-files)
-             (project-root (project-current))))))
-  (rg regexp files dir))
+(setq shackle-default-size 0.5)
+(setq shackle-default-alignment 'below)
+(setq shackle-rules '((help-mode :select t :align t :size 0.4)
+                      ("*Process List*" :select t :align t)
+                      ("*One-Key*" :select t :align 'below)))
+
+;;; Another
+
+;; (require 'zone)
+;; (zone-when-idle 600)
 
 (which-key-mode)
-
-;; (use-package so-long
-;;   :ensure nil
-;;   :hook (after-init . global-so-long-mode)
-;;   :config (setq so-long-threshold 400))
-
 (global-so-long-mode 1)
-
-(setq color-identifiers:recoloring-delay 1)
-
-;;; Web mode highlight matching tag
-(require 'highlight-matching-tag)
-(highlight-matching-tag 1)
 
 ;;; Holo layer
 ;; (setq holo-layer-show-place-info-p t)

@@ -21,13 +21,16 @@
 
 (require 'init-awesome-pair)
 
-(require 'aggressive-indent)
-(add-hooks '(emacs-lisp-mode lisp-mode python-mode)
-           'aggressive-indent-mode)
 
-(require 'indent-yank)
+(add-hooks '(emacs-lisp-mode lisp-mode python-mode)
+           #'(lambda ()
+               (require 'aggressive-indent)
+               (aggressive-indent-mode 1)))
+
 (add-hooks '(python-mode python-ts-mode)
-           'indent-yank-mode)
+           #'(lambda ()
+               (require 'indent-yank)
+               (indent-yank-mode 1)))
 
 ;; auto mark comment
 ;; from https://github.com/magnars/expand-region.el/blob/b70feaa644310dc2d599dc277cd20a1f2b6446ac/er-basic-expansions.el#L102

@@ -70,16 +70,18 @@
 (require 'init-package)
 (require 'lazy-load)
 
+;;测试
+(require 'benchmark-init)
+(benchmark-init/activate)
+
 (require 'init-startup)
-(require 'init-minibuffer)
 (require 'init-mode)
 (require 'init-hook)
 (require 'init-tramp)
 (require 'init-key)
-(require 'keybinding)
+;; (require 'keybinding)
 
 (require 'init-ui)
-(require 'init-peek)
 
 (require 'init-code-stats)
 
@@ -87,7 +89,6 @@
 (require 'init-auto-revert)
 (require 'init-copilot)
 
-(require 'init-corfu)
 (require 'init-helpful)
 (require 'init-auto-save)
 (require 'init-input)
@@ -111,5 +112,12 @@
 ;; (require 'init-paper)
 
 ;;(require 'crefactor)
+
+;; 启动1s后再开启gc管理
+(run-with-idle-timer 0.2 0 (lambda ()
+			                 (require 'init-meow)
+			                 (require 'init-corfu)
+                             (require 'init-minibuffer)
+			                 (require 'init-gcmh)))
 
 ;;; init.el ends here.

@@ -65,7 +65,9 @@
 ;; install all package
 
 (package-check-install
- '(vertico
+ '(benchmark-init
+   gcmh
+   vertico
    marginalia
    consult
    consult-project-extra
@@ -75,6 +77,10 @@
    color-identifiers-mode
    focus
    goggles
+   diff-hl
+   rainbow-delimiters
+   highlight-indent-guides
+   shackle
    separedit
    request
    websocket
@@ -126,7 +132,6 @@
    code-stats
    outshine
    grugru
-   citre
    pnpm-mode
    tabspaces
    wucuo
