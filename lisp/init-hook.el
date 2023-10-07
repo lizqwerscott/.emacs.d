@@ -26,7 +26,6 @@
           (lambda ()
             (save-place-mode t)
             (recentf-mode t)
-            (global-color-identifiers-mode)
             (+evan/scratch-setup)))
 
 ;; Enable `read-only-mode' to ensure that we don't change what we can't read.

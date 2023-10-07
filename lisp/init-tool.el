@@ -8,17 +8,6 @@
 
 ;;; Code:
 
-(use-package benchmark-init
-  :ensure t
-  :hook (after-init . benchmark-init/activate))
-
-(use-package gcmh
-  :ensure t
-  :hook (after-init . gcmh-mode)
-  :custom
-  (gcmh-idle-delay 10)
-  (gcmh-high-cons-threshold #x6400000))
-
 ;; (use-package ag
 ;;   :ensure t
 ;;   :config

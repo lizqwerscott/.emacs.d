@@ -18,7 +18,6 @@
 (setq acm-backend-search-file-words-enable-fuzzy-match t)
 (setq acm-backend-lsp-candidates-max-number 4000)
 (setq acm-enable-doc t)
-(setq acm-enable-citre t)
 (setq acm-enable-tabnine nil)
 (setq acm-enable-codeium nil)
 (setq acm-enable-yas nil)

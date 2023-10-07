@@ -100,7 +100,8 @@
  (:key "c" :description "Copy File name" :command +lizqwer/copy-file-name-to-clipboard :filename "init-func")
  (:key "C" :description "Copy File Path" :command +lizqwer/copy-file-path-to-clipboard :filename "init-func")
  (:key "e" :description "Toggle sdcv" :command lsp-bridge-toggle-sdcv-helper :filename "init-lsp-bridge")
- (:key "d" :description "Docker" :command docker))
+ (:key "d" :description "Docker" :command docker)
+ (:key "p" :description "peek code" :command peek-overlay-dwim :filename "init-peek"))
 
 (lazy-one-key-create-menu
  "Code"
