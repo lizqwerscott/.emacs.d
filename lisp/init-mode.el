@@ -14,7 +14,8 @@
 ;; (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
 
 (add-list-to-list 'major-mode-remap-alist
-                  '((rust-mode . rust-ts-mode)
+                  '((sh-mode . bash-ts-mode)
+                    (rust-mode . rust-ts-mode)
                     (python-mode . python-ts-mode)
                     (c++-mode . c++-ts-mode)
                     (c-mode . c-ts-mode)

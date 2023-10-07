@@ -99,11 +99,11 @@
  (:key "S" :description "Sudo edit" :command sudo-edit :filename "sudo-edit")
  (:key "c" :description "Copy File name" :command +lizqwer/copy-file-name-to-clipboard :filename "init-func")
  (:key "C" :description "Copy File Path" :command +lizqwer/copy-file-path-to-clipboard :filename "init-func")
+ (:key "e" :description "Toggle sdcv" :command lsp-bridge-toggle-sdcv-helper :filename "init-lsp-bridge")
  (:key "d" :description "Docker" :command docker))
 
 (lazy-one-key-create-menu
  "Code"
- (:key "e" :description "Toggle sdcv" :command lsp-bridge-toggle-sdcv-helper :filename "init-lsp-bridge")
  (:key "h" :description "Show document" :command lsp-bridge-popup-documentation :filename "init-lsp-bridge")
  (:key "j" :description "Scroll doc up" :command lsp-bridge-popup-documentation-scroll-up :filename "init-lsp-bridge")
  (:key "k" :description "Scroll doc down" :command lsp-bridge-popup-documentation-scroll-down :filename "init-lsp-bridge")
