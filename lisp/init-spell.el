@@ -1,8 +1,5 @@
 (require 'wucuo)
 
-(add-hook 'prog-mode-hook #'wucuo-start)
-(add-hook 'text-mode-hook #'wucuo-start)
-
 ;; (setq wucuo-flyspell-start-mode "normal")
 (setq ispell-program-name "aspell")
 ;; You could add extra option "--camel-case" for camel case code spell checking if Aspell 0.60.8+ is installed
@@ -21,6 +18,10 @@
                    gud-mode
                    calc-mode
                    Info-mode)))))
+
+(add-hooks '(prog-mode text-mode)
+           #'(lambda ()
+               (wucuo-start)))
 
 (provide 'init-spell)
 ;;; init-spell.el ends here.

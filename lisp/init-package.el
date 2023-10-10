@@ -148,6 +148,8 @@
 (quelpa '(lazy-load :fetcher github
                     :repo "manateelazycat/lazy-load"))
 
+(quelpa '(one-key :fetcher github :repo "manateelazycat/one-key"))
+
 (quelpa '(telega :fetcher github
                  :repo "zevlg/telega.el"
                  :branch "master"
