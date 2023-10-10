@@ -212,10 +212,12 @@
 
 ;;; Holo layer
 ;; (setq holo-layer-show-place-info-p t)
-;; (require 'holo-layer)
-;; (setq holo-layer-enable-cursor-animation t)
-;; (setq holo-layer-hide-mode-line t)
-;; (holo-layer-enable)
+(require 'holo-layer)
+(setq holo-layer-enable-cursor-animation t)
+(setq holo-layer-hide-mode-line t)
+(setq holo-layer-enable-window-border t)
+(setq holo-layer-sort-tab-ui t)
+(holo-layer-enable)
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.

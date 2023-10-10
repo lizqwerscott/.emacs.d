@@ -94,6 +94,7 @@
 
 (require 'init-edit)
 
+(require 'init-format)
 (require 'init-program)
 (require 'init-separedit)
 ;; (require 'init-eglot)

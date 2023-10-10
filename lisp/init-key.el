@@ -5,8 +5,7 @@
 
 (global-set-key (kbd "s-o") #'other-window)
 
-(use-package one-key
-  :quelpa (one-key :fetcher github :repo "manateelazycat/one-key"))
+(require 'one-key)
 
 ;;;###autoload
 (defmacro lazy-one-key-create-menu (title &rest keybinds)
@@ -109,7 +108,7 @@
  (:key "j" :description "Scroll doc up" :command lsp-bridge-popup-documentation-scroll-up :filename "init-lsp-bridge")
  (:key "k" :description "Scroll doc down" :command lsp-bridge-popup-documentation-scroll-down :filename "init-lsp-bridge")
 
- (:key "f" :description "Format code" :command apheleia-format-buffer :filename "init-format")
+ (:key "f" :description "Format code" :command apheleia-format-buffer)
 
  (:key "d" :description "Diagnostic" :command one-key-menu-diagnostic :filename "init-lsp-bridge")
 
