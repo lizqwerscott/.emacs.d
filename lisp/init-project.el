@@ -1,7 +1,5 @@
 (require 'project)
 
-(require 'projection)
-
 (global-projection-hook-mode)
 
 ;;configure project.el
@@ -180,6 +178,7 @@ NAME is class name."
   (interactive "sClass name:")
   (let ((generate-path (read-directory-name "make class directory:"
                                             (project-root (project-current))))
+
         (auto-generate-command "python ~/MyProject/AutoGenerate/main.py"))
     (let ((dir-path (concat generate-path
                             name
@@ -197,6 +196,12 @@ NAME is class name."
   "Use eaf open project root dir."
   (interactive)
   (eaf-open (project-root (project-current))))
+
+;;;###autoload
+(defun project-blink-search ()
+  (interactive)
+  (let ((default-directory (project-root (project-current nil))))
+    (blink-search)))
 
 ;; (defalias 'project-prefix-map project-prefix-map)
 
@@ -219,6 +224,7 @@ NAME is class name."
  (:key "v" :description "Project Git" :command eaf-open-git :filename "init-eaf")
  (:key "r" :description "Remove known project" :command project-forget-project)
  (:key "b" :description "Project buffer" :command consult-project-buffer)
+ (:key "s" :description "Project Blink search" :command project-blink-search :filename "init-project")
  (:key "e" :description "Project eshell" :command project-eshell))
 
 ;; (define-key project-prefix-map (kbd "b") #'consult-project-buffer)

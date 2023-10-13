@@ -15,7 +15,6 @@
 
 (add-hook 'prog-mode-hook
           (lambda ()
-            (docstr-mode t)
             (goggles-mode t)
             (copilot-mode t)
             ))

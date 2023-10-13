@@ -128,7 +128,6 @@
    jsonian
    web-mode
    restclient
-   docstr
    code-stats
    outshine
    grugru
@@ -186,6 +185,14 @@
 (quelpa '(highlight-matching-tag :fetcher github :repo "manateelazycat/highlight-matching-tag"))
 
 ;; (quelpa '(holo-layer :fetcher github :repo "manateelazycat/holo-layer" :files ("*.el" "*.py" "swaymsg-treefetch")))
+
+(quelpa '(eat :fetcher git
+              :url "https://codeberg.org/akib/emacs-eat"
+              :files ("*.el" ("term" "term/*.el") "*.texi"
+                      "*.ti" ("terminfo/e" "terminfo/e/*")
+                      ("terminfo/65" "terminfo/65/*")
+                      ("integration" "integration/*")
+                      (:exclude ".dir-locals.el" "*-tests.el"))))
 
 (provide 'init-package)
 ;;; init-package.el ends here

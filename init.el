@@ -82,6 +82,7 @@
 
 (require 'init-ui)
 
+(require 'init-blink-search)
 (require 'init-code-stats)
 
 (require 'init-spell)
