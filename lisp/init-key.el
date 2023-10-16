@@ -54,18 +54,21 @@
  "File"
  '((("f" . "Find file") . find-file)
    (("r" . "Recent file") . consult-recent-file)
-   (("d" . "Find main directory") . open-main-directory)
    (("j" . "Find in main dir") . (lambda ()
                                    (interactive)
-                                   (ido-find-file-in-dir "~/")))))
+                                   (ido-find-file-in-dir "~/")))
+   (("p" . "Find in project") . (lambda ()
+                                  (interactive)
+                                  (require 'project)
+                                  (ido-find-file-in-dir (project-root (project-current)))))))
 
 (lazy-one-key-create-menu
  "Directory"
  (:key "h" :description "Home Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/")) :command eaf-open-in-file-manager :filename "init-eaf")
  (:key "c" :description "Config Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/.emacs.d/")) :command eaf-open-in-file-manager :filename "init-eaf")
- (:key "g" :description "My Project Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/github/")) :command eaf-open-in-file-manager :filename "init-eaf")
+ (:key "g" :description "My Github Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/github/")) :command eaf-open-in-file-manager :filename "init-eaf")
  (:key "p" :description "My Project Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/MyProject/")) :command eaf-open-in-file-manager :filename "init-eaf")
- (:key "d" :description "My Document Dir" :run(lambda () (interactive (eaf-open-in-file-manager "~/Documents/")) :command eaf-open-in-file-manager :filename "init-eaf")))
+ (:key "d" :description "My Document Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/Documents/")) :command eaf-open-in-file-manager :filename "init-eaf"))
 
 (lazy-one-key-create-menu
  "EAF"
@@ -76,12 +79,12 @@
  (:key "m" :description "EAF Music" :command eaf-open-cloud-music :filename "init-eaf")
  )
 
-;; (one-key-create-menu
-;;  "sort-tab"
-;;  '((("n" . "Sort tab select next tab") . sort-tab-select-next-tab)
-;;    (("p" . "Sort tab select prev tab") . sort-tab-select-prev-tab)
-;;    (("c" . "Sort tab close current tab") . sort-tab-close-current-tab)
-;;    (("m" . "Sort tab close all mode tabs") . sort-tab-close-mode-tabs)))
+(one-key-create-menu
+ "sort-tab"
+ '((("n" . "Sort tab select next tab") . sort-tab-select-next-tab)
+   (("p" . "Sort tab select prev tab") . sort-tab-select-prev-tab)
+   (("c" . "Sort tab close current tab") . sort-tab-close-current-tab)
+   (("m" . "Sort tab close all mode tabs") . sort-tab-close-mode-tabs)))
 
 (one-key-create-menu
  "Workspace"

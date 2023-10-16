@@ -97,7 +97,7 @@
    '("f" . one-key-menu-file)
    '("b" . one-key-menu-buffer)
    '("w" . one-key-menu-org)
-   ;; '("v" . one-key-menu-sort-tab)
+   '("v" . one-key-menu-sort-tab)
    '("l" . one-key-menu-workspace)
    '("d" . one-key-menu-directory)
    )

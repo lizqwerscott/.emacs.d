@@ -45,13 +45,13 @@
 (setq tabspaces-use-filtered-buffers-as-default t)
 (setq tabspaces-default-tab "Default")
 (setq tabspaces-remove-to-default t)
+(setq tabspaces-initialize-project-with-todo nil)
 (setq tabspaces-include-buffers '("*scratch*"))
 ;; maybe slow
 (setq tabspaces-session t)
 (setq tabspaces-session-auto-restore t)
-:config
-;; Filter Buffers for Consult-Buffer
 
+;; Filter Buffers for Consult-Buffer
 (with-eval-after-load 'consult
   ;; hide full buffer list (still available with "b" prefix)
   (consult-customize consult--source-buffer :hidden nil :default nil)

@@ -215,6 +215,11 @@ NAME is class name."
 ;;   (define-key project-prefix-map "t" #'find-temp-project))
 
 (lazy-one-key-create-menu
+ "Rsync"
+ (:key "c" :description "Create project rsync" :command rsync-project :filename "init-rsync")
+ (:key "r" :description "Rsync all" :command rsync-all :filename "init-rsync"))
+
+(lazy-one-key-create-menu
  "Project"
  (:key "f" :description "Find file in project" :command project-find-file)
  (:key "d" :description "Project Dir" :command project-eaf-open-dir :filename "init-eaf")
@@ -225,7 +230,8 @@ NAME is class name."
  (:key "r" :description "Remove known project" :command project-forget-project)
  (:key "b" :description "Project buffer" :command consult-project-buffer)
  (:key "s" :description "Project Blink search" :command project-blink-search :filename "init-project")
- (:key "e" :description "Project eshell" :command project-eshell))
+ (:key "e" :description "Project eshell" :command project-eshell)
+ (:key "c" :description "Project rsync all" :command one-key-menu-rsync))
 
 ;; (define-key project-prefix-map (kbd "b") #'consult-project-buffer)
 ;; (define-key project-prefix-map (kbd "s") #'shell)

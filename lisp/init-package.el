@@ -126,7 +126,7 @@
    cider
    go-mode
    jsonian
-   web-mode
+ web-mode
    restclient
    code-stats
    outshine
@@ -137,7 +137,10 @@
    docker
    elvish-mode
    redacted
-   projection))
+   projection
+   valign
+   org-bullets
+   org-fancy-priorities))
 
 ;; (when sys/linuxp
 ;;   (package-check-install
