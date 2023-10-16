@@ -108,6 +108,8 @@
 ;; (require 'init-sql)
 (require 'init-go)
 
+(require 'init-rsync)
+
 ;; (require 'init-reader)
 ;; (require 'init-paper)
 

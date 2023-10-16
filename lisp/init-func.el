@@ -73,7 +73,7 @@
       (kill-new filepath)
       (message "Copied buffer file path '%s' to the clipboard." filepath))))
 
-;;;##autoload
+;;;###autoload
 (defun +lizqwer/toggle-lock ()
   "Toggle computer lock."
   (interactive)

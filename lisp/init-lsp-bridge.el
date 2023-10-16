@@ -26,7 +26,7 @@
 
 (setq lsp-bridge-enable-diagnostics t)
 (setq lsp-bridge-enable-hover-diagnostic t)
-(setq lsp-bridge-enable-with-tramp t)
+;; (setq lsp-bridge-enable-with-tramp t)
 
 ;; (setq lsp-bridge-completion-hide-characters
 ;;       '(":" ";" "[" "]" "{" "}" ", " "\""))

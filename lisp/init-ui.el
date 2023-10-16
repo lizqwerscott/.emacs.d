@@ -60,9 +60,9 @@
 (breadcrumb-mode)
 (setq header-line-format nil)
 
-;; (require 'sort-tab)
-;; (sort-tab-mode 1)
-(require 'init-tab-bar)
+(require 'sort-tab)
+(sort-tab-mode 1)
+;;(require 'init-tab-bar)
 
 ;; (defun breadcrumb-info ()
 ;;   (breadcrumb--header-line))
@@ -216,7 +216,7 @@
 (setq holo-layer-enable-cursor-animation t)
 (setq holo-layer-hide-mode-line t)
 (setq holo-layer-enable-window-border t)
-(setq holo-layer-sort-tab-ui t)
+(setq holo-layer-sort-tab-ui nil)
 (holo-layer-enable)
 
 (provide 'init-ui)
