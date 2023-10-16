@@ -216,8 +216,9 @@ NAME is class name."
 
 (lazy-one-key-create-menu
  "Rsync"
- (:key "c" :description "Create project rsync" :command rsync-project :filename "init-rsync")
- (:key "r" :description "Rsync all" :command rsync-all :filename "init-rsync"))
+ (:key "c" :description "Create project rsync" :command rsync-add-project :filename "init-rsync")
+ (:key "r" :description "Rsync all" :command rsync-all :filename "init-rsync")
+ (:key "s" :description "Show remote config" :command rsync-project-show-ssh-config :filename "init-rsync"))
 
 (lazy-one-key-create-menu
  "Project"
