@@ -87,7 +87,7 @@
             (add-to-list 'ignore-file-list
                          (f-filename (read-file-name "Ignore path:" project-root-dir)))
             (setf add-ignore-filep
-                  (yes-or-no-p "Add ignore files:")))
+                  (yes-or-no-p (format "(%s)Add ignore files:" ignore-file-list))))
           (add-to-list 'rsync-project-remote-list
                        (list project-root-dir
                              (list (tramp-file-name-user remote-dir)
@@ -112,6 +112,7 @@
 ;;;###autoload
 (defun rsync-project-show-ssh-config ()
   (interactive)
+  (rsync-project-read-list)
   (message "%s" (rsync-get-project-ssh-config (project-root (project-current)))))
 
 (rsync-project-read-list)
