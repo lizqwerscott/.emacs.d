@@ -78,25 +78,47 @@
 (defun rsync-add-project ()
   "Add now project to rsync list"
   (interactive)
-  (let ((project-root-dir (file-truename (project-root (project-current)))))
+  (let ((project-root-dir (file-truename (project-root (project-current))))
+        (name (project-name (project-current))))
     (if (not (rsync-get-project-ssh-config project-root-dir))
         (let ((ignore-file-list (list ".git"))
               (remote-dir (tramp-dissect-file-name (read-file-name "Remote dir:" "/ssh:")))
               (add-ignore-filep (yes-or-no-p "Add ignore files:")))
-          (while add-ignore-filep
-            (add-to-list 'ignore-file-list
-                         (f-filename (read-file-name "Ignore path:" project-root-dir)))
-            (setf add-ignore-filep
-                  (yes-or-no-p (format "(%s)Add ignore files:" ignore-file-list))))
-          (add-to-list 'rsync-project-remote-list
-                       (list project-root-dir
-                             (list (tramp-file-name-user remote-dir)
-                                   (tramp-file-name-host remote-dir)
-                                   (tramp-file-name-port remote-dir)
-                                   (f-join "~/" (tramp-file-name-localname remote-dir)))
-                             ignore-file-list))
-          (rsync-project-write-list))
+          (let ((remote-dir-path (f-join "~/" (tramp-file-name-localname remote-dir))))
+            (when (not (string= (file-name-base remote-dir-path)
+                              name))
+              (setf remote-dir-path
+                    (f-join remote-dir-path name)))
+            (while add-ignore-filep
+              (add-to-list 'ignore-file-list
+                           (f-filename (read-file-name "Ignore path:" project-root-dir)))
+              (setf add-ignore-filep
+                    (yes-or-no-p (format "(%s)Add ignore files:" ignore-file-list))))
+            (add-to-list 'rsync-project-remote-list
+                         (list project-root-dir
+                               (list (tramp-file-name-user remote-dir)
+                                     (tramp-file-name-host remote-dir)
+                                     (tramp-file-name-port remote-dir)
+                                     remote-dir-path)
+                               ignore-file-list))
+            (rsync-project-write-list)))
       (message "Already add now project."))))
+
+;;;###autoload
+(defun rsync-remove-project ()
+  "Remove now project in rsync list"
+  (interactive)
+  (rsync-project-read-list)
+  (let ((ssh-config (rsync-get-project-ssh-config (project-root (project-current)))))
+    (if ssh-config
+        (progn
+          (setf rsync-project-remote-list
+                (cl-remove-if #'(lambda (item)
+                                  (string= (first item)
+                                           (first ssh-config)))
+                              rsync-project-remote-list))
+          (rsync-project-write-list))
+      (message "Now project not add rsync"))))
 
 ;;;###autoload
 (defun rsync-all ()
