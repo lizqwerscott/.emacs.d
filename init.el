@@ -120,6 +120,7 @@
 			                 (require 'init-meow)
 			                 (require 'init-corfu)
                              (require 'init-minibuffer)
-			                 (require 'init-gcmh)))
+			                 (require 'init-gcmh)
+                             (require 'init-org)))
 
 ;;; init.el ends here.

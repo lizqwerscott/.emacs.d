@@ -21,11 +21,10 @@
                     (c-mode . c-ts-mode)
                     (go-mode . go-ts-mode)))
 
-(autoload 'yaml-mode "yaml-mode")
-(autoload 'markdown-mode "markdown-mode")
-(autoload 'org-mode "init-org")
-(autoload 'python-mode "init-python")
-(autoload 'cmake-mode "cmake-mode")
+;; (autoload 'yaml-mode "yaml-mode")
+;; (autoload 'markdown-mode "markdown-mode")
+;; (autoload 'python-mode "init-python")
+;; (autoload 'cmake-mode "cmake-mode")
 ;; (autoload 'c++-mode "init-c++")
 ;; (autoload 'prog-mode "init-separedit")
 
