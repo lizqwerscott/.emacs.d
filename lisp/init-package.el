@@ -70,7 +70,6 @@
    vertico
    marginalia
    consult
-   consult-project-extra
    orderless
    posframe
    try
@@ -95,51 +94,51 @@
    cmake-mode
    rust-mode
    cargo
-   macrostep
+ macrostep
    go-translate
-   google-this
-   sly
-   sly-quicklisp
-   sly-asdf
-   aggressive-indent
-   which-key
-   vterm
-   vterm-toggle
-   apheleia
-   eglot
-   xclip
-   pyim
-   pyim-basedict
-   olivetti
-   ag
-   rg
-   pretty-mode
-   doom-themes
-   solarized-theme
-   all-the-icons
-   all-the-icons-completion
-   imenu-list
-   hl-todo
-   avy
-   sudo-edit
-   devdocs
-   cider
-   go-mode
-   jsonian
- web-mode
-   restclient
-   code-stats
-   outshine
-   grugru
-   pnpm-mode
-   tabspaces
-   wucuo
-   docker
-   elvish-mode
-   redacted
-   projection
-   valign
-   org-bullets
+  google-this
+  sly
+  sly-quicklisp
+  sly-asdf
+  aggressive-indent
+  which-key
+  vterm
+  vterm-toggle
+  apheleia
+  eglot
+  xclip
+  pyim
+  pyim-basedict
+  olivetti
+  ag
+  rg
+  pretty-mode
+  doom-themes
+  solarized-theme
+  nerd-icons
+  nerd-icons-completion
+  imenu-list
+  hl-todo
+  avy
+  sudo-edit
+  devdocs
+  cider
+  go-mode
+  jsonian
+  web-mode
+  restclient
+  code-stats
+  outshine
+  grugru
+  pnpm-mode
+  tabspaces
+  wucuo
+  docker
+  elvish-mode
+  redacted
+  projection
+  valign
+  org-bullets
    org-fancy-priorities))
 
 ;; (when sys/linuxp

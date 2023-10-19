@@ -102,35 +102,25 @@
  (:key "c" :description "Copy File name" :command +lizqwer/copy-file-name-to-clipboard :filename "init-func")
  (:key "C" :description "Copy File Path" :command +lizqwer/copy-file-path-to-clipboard :filename "init-func")
  (:key "e" :description "Toggle sdcv" :command lsp-bridge-toggle-sdcv-helper :filename "init-lsp-bridge")
- (:key "d" :description "Docker" :command docker)
- (:key "p" :description "peek code" :command peek-overlay-dwim :filename "init-peek"))
+ (:key "D" :description "Docker" :command docker)
+ (:key "p" :description "peek code" :command peek-overlay-dwim :filename "init-peek")
+ (:key "d" :description "Devdocs" :command devdocs-lookup))
 
 (lazy-one-key-create-menu
  "Code"
  (:key "h" :description "Show document" :command lsp-bridge-popup-documentation :filename "init-lsp-bridge")
  (:key "j" :description "Scroll doc up" :command lsp-bridge-popup-documentation-scroll-up :filename "init-lsp-bridge")
  (:key "k" :description "Scroll doc down" :command lsp-bridge-popup-documentation-scroll-down :filename "init-lsp-bridge")
-
  (:key "f" :description "Format code" :command apheleia-format-buffer)
-
  (:key "d" :description "Diagnostic" :command one-key-menu-diagnostic :filename "init-lsp-bridge")
-
  (:key "D" :description "Lsp Bridge jump to def other window" :command lsp-bridge-find-def-other-window :filename "init-lsp-bridge")
  (:key "r" :description "Lsp Bridge rename" :command lsp-bridge-rename :filename "init-lsp-bridge")
-
  (:key "i" :description "Lsp Bridge find impl" :command lsp-bridge-find-impl :filename "init-lsp-bridge")
  (:key "I" :description "Lsp Bridge find impl other window" :command lsp-bridge-find-impl-other-window :filename "init-lsp-bridge")
-
  (:key "a" :description "Lsp Bridge code action" :command lsp-bridge-code-action :filename "init-lsp-bridge")
-
  (:key "s" :description "Lsp Bridge all symbols" :command lsp-bridge-workspace-list-symbols :filename "init-lsp-bridge")
-
  (:key "p" :description "Lsp Bridge peek" :command lsp-bridge-peek :filename "init-lsp-bridge")
- (:key "t" :description "Lsp Bridge peek through" :command lsp-bridge-peek-through :filename "init-lsp-bridge")
-
- ;; (:key "`" :description "Add Fold code" :command vimish-fold :filename "init-vimish-fold")
- ;; (:key "~" :description "Delete Fold code" :command vimish-fold-delete :filename "init-vimish-fold")
- )
+ (:key "t" :description "Lsp Bridge peek through" :command lsp-bridge-peek-through :filename "init-lsp-bridge"))
 
 (lazy-one-key-create-menu
  "Org"
