@@ -60,9 +60,9 @@
 (breadcrumb-mode)
 (setq header-line-format nil)
 
-(require 'sort-tab)
-(sort-tab-mode 1)
-;;(require 'init-tab-bar)
+;; (require 'sort-tab)
+;; (sort-tab-mode 1)
+(require 'init-tab-bar)
 
 ;; (defun breadcrumb-info ()
 ;;   (breadcrumb--header-line))
@@ -198,9 +198,10 @@
 
 (setq shackle-default-size 0.5)
 (setq shackle-default-alignment 'below)
-(setq shackle-rules '((help-mode :select t :align t :size 0.4)
-                      ("*Process List*" :select t :align t)
-                      ("*One-Key*" :select t :align 'below)))
+(setq shackle-rules
+      '((help-mode :select t :align t :size 0.4)
+        ("*Process List*" :select t :align t)
+        ("*One-Key*" :select t :align 'below)))
 
 ;;; Another
 
@@ -212,12 +213,12 @@
 
 ;;; Holo layer
 ;; (setq holo-layer-show-place-info-p t)
-(require 'holo-layer)
-(setq holo-layer-enable-cursor-animation nil)
-(setq holo-layer-hide-mode-line t)
-(setq holo-layer-enable-window-border t)
-(setq holo-layer-sort-tab-ui t)
-(holo-layer-enable)
+;; (require 'holo-layer)
+;; (setq holo-layer-enable-cursor-animation nil)
+;; (setq holo-layer-hide-mode-line t)
+;; (setq holo-layer-enable-window-border t)
+;; (setq holo-layer-sort-tab-ui nil)
+;; (holo-layer-enable)
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.

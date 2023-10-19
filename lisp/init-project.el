@@ -224,7 +224,7 @@ NAME is class name."
  "Project"
  (:key "f" :description "Find file in project" :command project-find-file)
  (:key "d" :description "Project Dir" :command project-eaf-open-dir :filename "init-eaf")
- (:key "t" :description "Open temp project" :command find-temp-project)
+ ;; (:key "t" :description "Open temp project" :command find-temp-project)
  (:key "a" :description "Remember a project" :command project-remember-projects-under)
  (:key "p" :description "Switch project" :command project-switch-project)
  (:key "v" :description "Project Git" :command eaf-open-git :filename "init-eaf")
@@ -232,6 +232,7 @@ NAME is class name."
  (:key "b" :description "Project buffer" :command consult-project-buffer)
  (:key "s" :description "Project Blink search" :command project-blink-search :filename "init-project")
  (:key "e" :description "Project eshell" :command project-eshell)
+ (:key "t" :description "Toggle vterm" :command vterm-project :filename "init-vterm")
  (:key "c" :description "Project rsync all" :command one-key-menu-rsync))
 
 ;; (define-key project-prefix-map (kbd "b") #'consult-project-buffer)
