@@ -61,6 +61,27 @@
           (vterm-send-string command t)
           (vterm-send-return))))))
 
+;;;###autoload
+(defun vterm-project ()
+  "Open vterm in project root dir."
+  (interactive)
+  (let* ((w (vterm-toggle--get-window)))
+    (let ((vterm-toggle-use-dedicated-buffer t)
+          (vterm-toggle--vterm-dedicated-buffer (if w (vterm-toggle-hide)
+                                                  vterm-compile-buffer)))
+      (let ((root (project-root (project-current))))
+        (with-current-buffer (vterm-toggle-cd)
+          (compilation-shell-minor-mode 1)
+          (vterm-send-M-w)
+          (when root
+            (vterm-send-string (concat "cd "
+                                       root)
+                               t)
+            (vterm-send-return))
+          (vterm-send-return)
+          (vterm-send-string "clear")
+          (vterm-send-return))))))
+
 ;; (add-hook 'meow-normal-mode-hook
 ;;           #'(lambda ()
 ;;               (if (equal major-mode #'vterm-mode)
