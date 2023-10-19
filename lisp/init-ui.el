@@ -89,10 +89,9 @@
   (awesome-tray-mode))
 
 ;;; Icons
-(require 'all-the-icons-completion)
 (add-hook 'marginalia-mode-hook
-          #'all-the-icons-completion-marginalia-setup)
-(all-the-icons-completion-mode)
+          #'nerd-icons-completion-marginalia-setup)
+(nerd-icons-completion-mode)
 
 ;;; Git message
 (require 'diff-hl)
@@ -201,7 +200,8 @@
 (setq shackle-rules
       '((help-mode :select t :align t :size 0.4)
         ("*Process List*" :select t :align t)
-        ("*One-Key*" :select t :align 'below)))
+        ("*One-Key*" :select t :align 'below)
+        ("*eshell*" :regexp t :select t :align 'below)))
 
 ;;; Another
 
