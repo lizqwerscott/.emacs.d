@@ -113,33 +113,25 @@
 
 (setq-default fill-column 80)
 
-(add-hook 'after-change-major-mode-hook
-          #'(lambda ()
-              (modify-syntax-entry ?_ "w")))
-
-(add-hook 'after-change-major-mode-hook
-          #'(lambda ()
-              (modify-syntax-entry ?- "w")))
-
 (repeat-mode)
+
+;;; Dired
+(setq dired-recursive-deletes 'always)
+(setq delete-by-moving-to-trash t)
+(setq dired-dwim-target t)
+(setq ls-lisp-dirs-first t)
+(setq dired-listing-switches
+      "-l --almost-all --human-readable --time-style=long-iso --group-directories-first --no-group")
 
 (with-eval-after-load 'dired
   (setq dired-kill-when-opening-new-dired-buffer t))
 
-;;; Dired
-(use-package dired
-  :config
-  (setq dired-recursive-deletes 'always)
-  (setq delete-by-moving-to-trash t)
-  (setq dired-dwin-target t)
-  (setq ls-lisp-dirs-first t)
-  (setq dired-listing-switches
-        "-l --almost-all --human-readable --time-style=long-iso --group-directories-first --no-group"))
+;;(setq dired-omit-files
+;;    (concat dired-omit-files "\\|^\\..*$"))
 
-(use-package dired-x
-  :config
-  (setq dired-omit-files
-        (concat dired-omit-files "\\|^\\..*$")))
+;;; Imenu
+(setq imenu-max-item-length 100)
+(setq breadcrumb-imenu-max-length 100)
 
 ;; (use-package dirvish
 ;;   :ensure t
@@ -220,9 +212,6 @@
 				                   (switch-to-buffer fname))))
 	    (insert "\n"))
       (insert *start-banner*))))
-
-(setq imenu-max-item-length 100)
-(setq breadcrumb-imenu-max-length 100)
 
 (provide 'init-startup)
 ;;; init-startup.el ends here.

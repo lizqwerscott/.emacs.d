@@ -1,9 +1,9 @@
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "S-<return>") 'comment-indent-new-line)
 
-(global-set-key (kbd "s-x") #'execute-extended-command)
+;; (global-set-key (kbd "s-x") #'execute-extended-command)
 
-(global-set-key (kbd "s-o") #'other-window)
+(global-set-key (kbd "M-o") #'other-window)
 
 (require 'one-key)
 

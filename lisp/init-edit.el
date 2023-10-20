@@ -13,6 +13,7 @@
 ;; (add-hook 'conf-mode-hook 'electric-pair-local-mode)
 ;; (add-hook 'sly-mrepl-hook 'electric-pair-local-mode)
 
+;;; can use superword-mode
 (electric-pair-mode)
 
 ;; (use-package lispy
