@@ -1,4 +1,6 @@
 (require 'insert-translated-name)
-;; (setq insert-translated-name-crow-engine "lingva")
-;; (setq insert-translated-name-program "ollama")
+
+(setq insert-translated-name-program "google")
+(setq insert-translated-name-google-engine-url "http://10.0.96.241:7777")
+
 (provide 'init-translated-name)

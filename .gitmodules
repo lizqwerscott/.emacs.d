@@ -22,3 +22,6 @@ url = https://github.com/manateelazycat/popweb.git
 path = site-lisp/holo-layer
 url = https://github.com/manateelazycat/holo-layer.git
 
+[submodule "site-lisp/insert-translated-name"]
+	path = site-lisp/insert-translated-name
+	url = git@github.com:lizqwerscott/insert-translated-name.git
