@@ -59,6 +59,14 @@
           (lsp-bridge-popup-documentation)
         (message "dont't know how to help")))))
 
+(defun scroll-up-1/3 ()
+  (interactive)
+  (scroll-up (/ (window-body-height) 3)))
+
+(defun scroll-down-1/3 ()
+  (interactive)
+  (scroll-down (/ (window-body-height) 3)))
+
 (defun meow-setup ()
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
@@ -217,8 +225,8 @@
    '("C-o" . return-find-def)
    '("/" . consult-ripgrep)
    '("?" . help-helpful-lsp-bridge-sly)
-   '("M-j" . scroll-up)
-   '("M-k" . scroll-down)))
+   '("M-j" . scroll-up-1/3)
+   '("M-k" . scroll-down-1/3)))
 
 (meow-setup)
 (provide 'init-meow)

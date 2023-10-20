@@ -164,9 +164,6 @@
 (quelpa '(color-rg :fetcher github
                    :repo "manateelazycat/color-rg"))
 
-(quelpa '(deno-bridge :fetcher github
-                      :repo "manateelazycat/deno-bridge"))
-
 (quelpa '(sort-tab :fetcher github
                    :repo "manateelazycat/sort-tab"))
 
