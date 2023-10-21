@@ -87,7 +87,7 @@
 
 (require 'init-spell)
 (require 'init-auto-revert)
-(require 'init-copilot)
+;; (require 'init-copilot)
 
 (require 'init-helpful)
 (require 'init-auto-save)

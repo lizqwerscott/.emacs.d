@@ -4,10 +4,6 @@
 (add-hook 'json-mode-hook
           #'apheleia-mode)
 
-(add-hook 'python-ts-mode-hook
-          #'(lambda ()
-              (setq-local compile-command "pdm run start")))
-
 (add-hook 'sly-mode-hook
           #'(lambda ()
               (unless (sly-connected-p)

@@ -9,12 +9,16 @@
 
 ;;; Code:
 
+;;; can use superword-mode
+(add-hook 'prog-mode-hook
+          'superword-mode)
+
+;;; electric pair
 ;; (add-hook 'prog-mode-hook 'electric-pair-local-mode)
 ;; (add-hook 'conf-mode-hook 'electric-pair-local-mode)
 ;; (add-hook 'sly-mrepl-hook 'electric-pair-local-mode)
 
-;;; can use superword-mode
-(electric-pair-mode)
+(electric-pair-mode t)
 
 ;; (use-package lispy
 ;;   :ensure t

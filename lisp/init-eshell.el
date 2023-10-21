@@ -1,6 +1,7 @@
 (require 'eshell)
 (require 'project)
 
+;;; eshell toggle
 (defvar eshell-toggle--toggle-buffer-p nil)
 
 (defun eshell-toggle--window-size ()
@@ -39,14 +40,24 @@ visible and will not be hidden."
         (setq eshell-toggle--toggle-buffer-p nil))
     (let ((buf-name (project-prefixed-buffer-name "eshell")))
       (if (get-buffer buf-name)
-	     ;; buffer is already created
+	      ;; buffer is already created
           (or (-some-> buf-name get-buffer-window delete-window)
-	        (eshell-toggle--split-window)
+	         (eshell-toggle--split-window)
              (switch-to-buffer buf-name))
         ;; buffer is not created, create it
         (eshell-toggle--split-window)
         (eshell-toggle--new-buffer buf-name)
         (switch-to-buffer buf-name)))))
 
+;;; eshell prompt
+(with-eval-after-load "esh-opt"
+  (autoload 'epe-theme-lambda "eshell-prompt-extras")
+  (setq eshell-highlight-prompt nil
+        eshell-prompt-function 'epe-theme-lambda))
+
+;;; eshell completion
+(when (and (executable-find "fish")
+         (require 'fish-completion nil t))
+  (global-fish-completion-mode))
 
 (provide 'init-eshell)

@@ -24,7 +24,7 @@
  "Toggle"
  (:key "t" :description "Toggle telega" :command +lizqwer/toggle-telega :filename "init-telega")
  (:key "c" :description "Toggle copilot" :command +lizqwer/toggle-copilot :filename "init-copilot")
- (:key "v" :description "Toggle vterm" :command vterm-toggle :filename "init-vterm")
+ (:key "v" :description "Toggle vterm" :command multi-vterm-dedicated-toggle :filename "init-vterm")
  (:key "b" :description "Toggle big screen mode" :command open-big-screen-mode :filename "init-big-screen")
  (:key "T" :description "Toggle transparent" :command +lizqwer/toggle-transparent :filename "init-func")
  (:key "p" :description "Toggle proxy" :command +lizqwer/toggle-proxy :filename "init-func")
@@ -106,12 +106,19 @@
  (:key "p" :description "peek code" :command peek-overlay-dwim :filename "init-peek")
  (:key "d" :description "Devdocs" :command devdocs-lookup))
 
+(defun format-code ()
+  "Format code."
+  (interactive)
+  (if (equal major-mode 'rust-ts-mode)
+      (cargo-process-fmt)
+    (apheleia-format-buffer)))
+
 (lazy-one-key-create-menu
  "Code"
  (:key "h" :description "Show document" :command lsp-bridge-popup-documentation :filename "init-lsp-bridge")
  (:key "j" :description "Scroll doc up" :command lsp-bridge-popup-documentation-scroll-up :filename "init-lsp-bridge")
  (:key "k" :description "Scroll doc down" :command lsp-bridge-popup-documentation-scroll-down :filename "init-lsp-bridge")
- (:key "f" :description "Format code" :command apheleia-format-buffer)
+ (:key "f" :description "Format code" :command format-code)
  (:key "d" :description "Diagnostic" :command one-key-menu-diagnostic :filename "init-lsp-bridge")
  (:key "D" :description "Lsp Bridge jump to def other window" :command lsp-bridge-find-def-other-window :filename "init-lsp-bridge")
  (:key "r" :description "Lsp Bridge rename" :command lsp-bridge-rename :filename "init-lsp-bridge")
