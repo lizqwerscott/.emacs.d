@@ -1,4 +1,11 @@
 
+(add-hook #'rust-ts-mode-hook
+          #'(lambda ()
+              (require 'rust-cargo)
+              (require 'rust-compile)
+              (require 'rust-playpen)
+              (require 'rust-rustfmt)))
+
 ;;;###autoload
 (defun rust-new-project (dir name)
   "Create a rust project."

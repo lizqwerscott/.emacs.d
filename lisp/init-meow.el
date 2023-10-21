@@ -28,18 +28,36 @@
 	    (autoload func filename nil t)
 	    (meow-define-keys 'insert (cons key func))))))
 
+(one-key-create-menu
+ "Rust"
+ '((("r" . "Rust Run") . cargo-process-run)
+   (("c" . "Rust check") . cargo-process-check)
+   (("b" . "Rust Compile") . cargo-process-build)))
+
+(defun project-root-path ()
+  (let ((project (project-current)))
+    (when project
+      (project-root project))))
+
 (defun run-or-compile ()
+  "Run or compile this project or file."
   (interactive)
   (if (bound-and-true-p sly-mode)
       (call-interactively #'sly-switch-mrepl)
-    (progn
-      (require 'init-vterm)
-      (if (equal major-mode 'python-mode)
-          (let ((command (concat "python "
-                                 (file-truename (buffer-name)))))
+    (let ((project-path (project-root-path)))
+      (if (equal major-mode 'python-ts-mode)
+          (let ((command (if project-path
+                             "pdm run start"
+                           (concat "python "
+                                   (file-truename (buffer-file-name))))))
+            (require 'init-vterm)
             (setq command (compilation-read-command command))
-            (vterm-run command))
-        (vterm-compile)))))
+            (multi-vterm-run command))
+        (if (equal major-mode 'rust-ts-mode)
+            (one-key-menu-rust)
+          (if (equal major-mode 'emacs-lisp-mode)
+              (message "Not support")
+            (call-interactively #'compile)))))))
 
 (defun my/meow-quit ()
   (interactive)
