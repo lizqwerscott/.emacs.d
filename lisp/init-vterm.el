@@ -8,7 +8,6 @@
   "Open dedicated `multi-vterm' window."
   (interactive)
   (call-interactively #'multi-vterm-dedicated-toggle)
-  (compilation-shell-minor-mode 1)
   (vterm-send-M-w)
   (vterm-send-string run-command t)
   (vterm-send-return))

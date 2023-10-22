@@ -7,12 +7,13 @@
 
 (unless (display-graphic-p)
   (with-eval-after-load 'acm
-    (use-package popon
-      :quelpa (popon :fetcher git :url "https://codeberg.org/akib/emacs-popon.git")
-      :ensure t)
-    (use-package acm-terminal
-      :quelpa (acm-terminal :fetcher git :url "https://github.com/twlz0ne/acm-terminal.git")
-      :ensure t)))
+    ;; (use-package popon
+    ;;   :quelpa (popon :fetcher git :url "https://codeberg.org/akib/emacs-popon.git")
+    ;;   :ensure t)
+    ;; (use-package acm-terminal
+    ;;   :quelpa (acm-terminal :fetcher git :url "https://github.com/twlz0ne/acm-terminal.git")
+    ;;   :ensure t)
+    ))
 
 (setq lsp-bridge-c-lsp-server "ccls")
 (setq acm-backend-search-file-words-enable-fuzzy-match t)

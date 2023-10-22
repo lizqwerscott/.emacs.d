@@ -1,8 +1,8 @@
 ;; (use-package gruvbox-theme
 ;;   :ensure t)
 
-(use-package doom-themes
-  :ensure t)
+;; (use-package doom-themes
+;;   :ensure t)
 
 ;; (use-package monokai-theme
 ;;   :ensure t)
@@ -22,11 +22,12 @@
 ;;   :ensure t
 ;;   :defer)
 
+(load-theme 'doom-dracula t)
 ;; (load-theme 'doom-snazzy t)
 ;; (load-theme 'doom-molokai t)
 ;; (load-theme 'gruvbox-dark-soft t)
-(load-theme 'doom-one t)
-;;(load-theme 'tango-dark t)
+;; (load-theme 'doom-one t)
+;; (load-theme 'tango-dark t)
 ;; (load-theme 'monokai t)
 ;; (load-theme 'solarized-dark t)
 ;; (load-theme 'vscode-dark-plus t)
