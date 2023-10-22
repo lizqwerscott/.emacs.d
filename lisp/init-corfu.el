@@ -2,7 +2,7 @@
 (defun +complete ()
   (interactive)
   (or (tempel-complete t)
-      (corfu-next)))
+     (corfu-next)))
 
 (use-package corfu
   :ensure t
@@ -26,10 +26,8 @@
   :hook
   ((rust-mode sly-mode sql-mode eshell-mode inferior-python-mode elvish-mode) . corfu-mode))
 
-(use-package emacs
-  :init
-  (setq completion-cycle-threshold 3))
-  ;; (setq tab-always-indent 'complete)
+(setq completion-cycle-threshold 3)
+;; (setq tab-always-indent 'complete)
 
 
 (use-package cape

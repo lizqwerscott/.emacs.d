@@ -4,6 +4,13 @@
 
 ;;configure project.el
 
+;;;###autoload
+(defun project-root-path ()
+  "Get current project path"
+  (let ((project (project-current nil)))
+    (when project
+      (project-root project))))
+
 (defun my/project-try-local (dir)
   "Determine if DIR is a non-Git project."
   (catch 'ret
@@ -195,12 +202,12 @@ NAME is class name."
 (defun project-eaf-open-dir ()
   "Use eaf open project root dir."
   (interactive)
-  (eaf-open (project-root (project-current))))
+  (eaf-open (project-root-path)))
 
 ;;;###autoload
 (defun project-blink-search ()
   (interactive)
-  (let ((default-directory (project-root (project-current nil))))
+  (let ((default-directory (project-root-path)))
     (blink-search)))
 
 ;; (defalias 'project-prefix-map project-prefix-map)
