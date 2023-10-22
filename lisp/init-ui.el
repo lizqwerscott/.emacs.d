@@ -8,27 +8,10 @@
 
 ;;; Code:
 
-;;; Font
-
-(require 'init-font)
-
-;;; Theme
-
-(require 'init-theme)
-
-;;; Background
-(setq default-frame-alist
-      '((fullscreen . fullboth)
-        (alpha-background . 100)))
-
 ;;; UI
-(setq frame-resize-pixelwise t)
-(dotimes (n 3)
-  (toggle-frame-maximized))
-(global-hl-line-mode 1)
-;; (menu-bar-mode -1)
-;; (tool-bar-mode -1)
-;; (scroll-bar-mode -1)
+;; (setq frame-resize-pixelwise t)
+;; (dotimes (n 3)
+;;   (toggle-frame-maximized))
 
 ;; (use-package doom-modeline
 ;;   :ensure t

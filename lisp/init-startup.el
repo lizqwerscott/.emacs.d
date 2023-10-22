@@ -13,6 +13,8 @@
 
 (setq ad-redefinition-action 'accept)
 
+(global-hl-line-mode 1)
+
 ;; 平滑地进行半屏滚动，避免滚动后recenter操作
 (pixel-scroll-mode t)
 (pixel-scroll-precision-mode t)
@@ -78,14 +80,10 @@
       inhibit-startup-screen nil
       inhibit-startup-message t)
 
-(use-package no-littering
-  :ensure t
-  :diminish t)
+(require 'no-littering)
 
 (setq no-littering-etc-directory
       (expand-file-name "config/" user-emacs-directory))
-
-(require 'no-littering)
 
 ;;; History
 (require 'recentf)
@@ -193,25 +191,26 @@
   (interactive)
   (save-excursion
     (with-current-buffer (get-buffer "*scratch*")
-      (erase-buffer)
-      ;; (insert *start-banner*)
+      ;; (erase-buffer)
+      (insert *start-banner*)
       (insert (format "启动时长: %s" (emacs-init-time)))
       (insert "\n")
       (insert-button "Quit Emacs"
 		             'action (lambda (_button)
 			                   (save-buffers-kill-emacs)))
       (insert "\n")
-      (insert "Recent Files\n")
-      (dolist (f recentf-list)
-	    (insert-button f
-		               'action (lambda (region)
-				                 (require 'f)
-				                 (let* ((f (buffer-substring-no-properties (overlay-start region) (overlay-end region)))
-					                    (fname (f-filename f)))
-				                   (find-file-noselect f)
-				                   (switch-to-buffer fname))))
-	    (insert "\n"))
-      (insert *start-banner*))))
+      ;; (insert "Recent Files\n")
+      ;; (dolist (f recentf-list)
+	  ;;   (insert-button f
+	  ;;                  'action (lambda (region)
+	  ;;   		                 (require 'f)
+	  ;;   		                 (let* ((f (buffer-substring-no-properties (overlay-start region) (overlay-end region)))
+	  ;;   			                    (fname (f-filename f)))
+	  ;;   		                   (find-file-noselect f)
+	  ;;   		                   (switch-to-buffer fname))))
+	  ;;   (insert "\n"))
+      ))
+  (goto-char (point-max)))
 
 (provide 'init-startup)
 ;;; init-startup.el ends here.

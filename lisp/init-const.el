@@ -34,5 +34,9 @@
   :group 'user
   :type 'number)
 
+(setq custom-file "~/.config/emacs-custom.el")
+(when (file-exists-p custom-file)
+  (load-file custom-file))
+
 (provide 'init-const)
 ;;; init-const.el ends here.

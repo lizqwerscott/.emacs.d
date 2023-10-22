@@ -1,30 +1,38 @@
-;; 增加IO性能
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+(setq frame-inhibit-implied-resize t)
+;; 增加IO性能
+(setq read-process-output-max (* 1024 1024 10))
+(setq gc-cons-threshold most-positive-fixnum)
+(find-function-setup-keys)
+
+(let ((file-name-handler-alist nil))
+  (add-to-list 'load-path
+               (expand-file-name
+                (concat user-emacs-directory "lisp")))
+  (add-to-list 'load-path
+               (expand-file-name
+                (concat user-emacs-directory "elpa/" "elisp-refs-20230920.201")))
+  (require 'init-utils)
+  (add-subdirs-to-load-path
+   (concat user-emacs-directory
+           "site-lisp/"))
+  (require 'init-package)
+  (require 'benchmark-init)
+  (benchmark-init/activate)
+  (require 'init-startup)
+  (require 'lazy-load)
+  (require 'one-key)
+  
+  (require 'init-font)
+  (require 'init-theme)
 
 
-;; ;;;; early-init.el --- Early initialization. -*- lexical-binding:  -*-
+  ;; (require 'init-themes)
+  ;; (require 'init-font)
+  ;; (require 'init-face)
 
-;; ;; This file is not part of GNU Emacs.
-;; ;;
 
-;; ;;; Code:
-
-;; ;; Defer garbage collection further back in the startup proces
-;; (setq gc-cons-threshold most-positive-fixnum)
-
-;; (setq package-enable-at-startup nil)
-
-;; (push '(menu-bar-lines . 0) default-frame-alist)
-;; (push '(tool-bar-lines . 0) default-frame-alist)
-;; (push '(vertical-scroll-bars) default-frame-alist)
-
-;; ;; (setq load-prefer-newer noninteractive)
-
-;; (setq frame-inhibit-implied-resize t)
-
-;; (advice-add #'x-apply-session-resources :override #'ignore)
-
-;; (provide 'early-init)
-;; ;;; early-init.el ends here
+  ;; (load-theme +evan-theme t nil)
+  )

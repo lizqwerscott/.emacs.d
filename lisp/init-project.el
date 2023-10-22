@@ -231,7 +231,6 @@ NAME is class name."
  (:key "r" :description "Remove known project" :command project-forget-project)
  (:key "b" :description "Project buffer" :command consult-project-buffer)
  (:key "s" :description "Project Blink search" :command project-blink-search :filename "init-project")
- ;; (:key "e" :description "Project eshell" :command project-eshell)
  (:key "e" :description "Project eshell" :command eshell-project-toggle :filename "init-eshell")
  (:key "t" :description "Project vterm" :command multi-vterm-project :filename "init-vterm")
  (:key "c" :description "Project rsync all" :command one-key-menu-rsync))

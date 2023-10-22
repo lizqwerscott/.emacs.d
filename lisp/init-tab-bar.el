@@ -7,8 +7,6 @@
 (setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
 ;; (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
 
-
-
 (custom-set-faces
  `(tab-bar                        ((t (:inherit hl-line))))
  `(tab-bar-tab                    ((t (:inverse-video t :bold t))))

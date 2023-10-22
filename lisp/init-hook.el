@@ -4,6 +4,9 @@
 (add-hook 'json-mode-hook
           #'apheleia-mode)
 
+(add-hook 'jsonian-mode-hook
+          #'apheleia-mode)
+
 (add-hook 'sly-mode-hook
           #'(lambda ()
               (unless (sly-connected-p)

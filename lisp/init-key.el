@@ -5,7 +5,7 @@
 
 (global-set-key (kbd "M-o") #'other-window)
 
-(require 'one-key)
+;; (require 'one-key)
 
 ;;;###autoload
 (defmacro lazy-one-key-create-menu (title &rest keybinds)
