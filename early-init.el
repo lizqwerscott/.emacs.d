@@ -19,20 +19,10 @@
    (concat user-emacs-directory
            "site-lisp/"))
   (require 'init-package)
-  (require 'benchmark-init)
-  (benchmark-init/activate)
+  ;; (require 'benchmark-init)
+  ;; (benchmark-init/activate)
   (require 'init-startup)
   (require 'lazy-load)
   (require 'one-key)
-  
   (require 'init-font)
-  (require 'init-theme)
-
-
-  ;; (require 'init-themes)
-  ;; (require 'init-font)
-  ;; (require 'init-face)
-
-
-  ;; (load-theme +evan-theme t nil)
-  )
+  (require 'init-theme))
