@@ -68,7 +68,9 @@
  (:key "c" :description "Config Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/.emacs.d/")) :command eaf-open-in-file-manager :filename "init-eaf")
  (:key "g" :description "My Github Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/github/")) :command eaf-open-in-file-manager :filename "init-eaf")
  (:key "p" :description "My Project Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/MyProject/")) :command eaf-open-in-file-manager :filename "init-eaf")
- (:key "d" :description "My Document Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/Documents/")) :command eaf-open-in-file-manager :filename "init-eaf"))
+ (:key "d" :description "My Document Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/Documents/")) :command eaf-open-in-file-manager :filename "init-eaf")
+ (:key "j" :description "Dired jump" :command dired-jump)
+ (:key "J" :description "Dired jump other window" :command dired-jump-other-window))
 
 (lazy-one-key-create-menu
  "EAF"

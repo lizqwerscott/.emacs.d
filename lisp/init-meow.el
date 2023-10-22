@@ -34,16 +34,12 @@
    (("c" . "Rust check") . cargo-process-check)
    (("b" . "Rust Compile") . cargo-process-build)))
 
-(defun project-root-path ()
-  (let ((project (project-current)))
-    (when project
-      (project-root project))))
-
 (defun run-or-compile ()
   "Run or compile this project or file."
   (interactive)
   (if (bound-and-true-p sly-mode)
       (call-interactively #'sly-switch-mrepl)
+    (autoload 'project-root-path 'init-project nil t)
     (let ((project-path (project-root-path)))
       (if (equal major-mode 'python-ts-mode)
           (let ((command (if project-path
@@ -91,16 +87,21 @@
    '("k" . meow-prev)
    '("h" . meow-left)
    '("l" . meow-right)
+   '("o" . meow-block)
+   '("x" . meow-line)
+   '("W" . meow-mark-symbol)
+   '("W" . meow-mark-word)
+   '("C-j" . (lambda ()
+	           (interactive)
+	           (dotimes (i 2)
+		         (call-interactively 'meow-next))))
+   '("C-k" . (lambda ()
+	           (interactive)
+	           (dotimes (i 2)
+		         (call-interactively 'meow-prev))))
    '("<escape>" . ignore))
 
-  (lazy-meow-leader-define-key
-   '(("p" . one-key-menu-project) "init-project")
-   '(("e" . one-key-menu-eaf) "init-eaf")
-   )
   (meow-leader-define-key
-   ;; SPC j/k will run the original command in MOTION state.
-   '("j" . "H-j")
-   '("k" . "H-k")
    ;; Use SPC (0-9) for digit arguments.
    ;; '("1" . meow-digit-argument)
    ;; '("2" . meow-digit-argument)
@@ -128,7 +129,11 @@
    '("d" . one-key-menu-directory)
    )
 
-  ;;window key
+  (lazy-meow-leader-define-key
+   '(("p" . one-key-menu-project) "init-project")
+   '(("e" . one-key-menu-eaf) "init-eaf")
+   )
+
   (meow-leader-define-key
    '("ag" . avy-goto-line)
    '("1" . delete-other-windows)
@@ -136,31 +141,11 @@
    '("-" . split-window-horizontally)
    '("/" . split-window-vertically)
    '("3" . split-window-horizontally)
-   '("0" . delete-window))
-
-  ;;run file
-  (meow-leader-define-key
+   '("0" . delete-window)
    '("r" . run-or-compile))
 
   (lazy-meow-insert-define-key
    '(("C-c i" . insert-translated-name-insert) "init-translated-name"))
-
-  ;;bookmakr
-  ;; (meow-leader-define-key
-  ;;  '("Bs" . bookmark-set)
-  ;;  '("Bj" . consult-bookmark))
-
-  ;;dired
-  ;;(meow-leader-define-key
-  ;; '("dj" . dired-jump)
-  ;; '("dJ" . dired-jump-other-window)
-  ;;)
-
-  ;;hide
-  (meow-leader-define-key
-   '("na" . hs-hide-all)
-   '("ns" . hs-show-all)
-   '("nt" . hs-toggle-hiding))
 
   (meow-normal-define-key
    '("0" . meow-expand-0)
