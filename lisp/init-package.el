@@ -78,6 +78,7 @@
     try
     color-identifiers-mode
     focus
+    centered-cursor-mode
     goggles
     diff-hl
     rainbow-delimiters
@@ -125,6 +126,7 @@
     avy
     sudo-edit
     devdocs
+    elisp-demos
     cider
     go-mode
     jsonian

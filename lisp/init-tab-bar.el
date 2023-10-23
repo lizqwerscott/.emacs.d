@@ -4,7 +4,8 @@
 (tab-bar-mode t)
 (setq tab-bar-new-tab-choice "*scratch*") ;; buffer to show in new tabs
 (setq tab-bar-close-button-show nil)      ;; hide tab close / X button
-(setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
+(setq tab-bar-auto-width-max '(340 30))
+;; (setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
 ;; (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
 
 (custom-set-faces
