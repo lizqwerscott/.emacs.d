@@ -39,7 +39,7 @@
   (interactive)
   (if (bound-and-true-p sly-mode)
       (call-interactively #'sly-switch-mrepl)
-    (autoload 'project-root-path 'init-project nil t)
+    (autoload 'project-root-path "init-project" nil t)
     (let ((project-path (project-root-path)))
       (if (equal major-mode 'python-ts-mode)
           (let ((command (if project-path
@@ -146,6 +146,9 @@
 
   (lazy-meow-insert-define-key
    '(("C-c i" . insert-translated-name-insert) "init-translated-name"))
+
+  (meow-define-keys 'insert
+    '("<C-return>" . insert-trailing-semi-and-indent))
 
   (meow-normal-define-key
    '("0" . meow-expand-0)

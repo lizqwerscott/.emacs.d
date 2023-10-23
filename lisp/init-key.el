@@ -23,13 +23,14 @@
 (lazy-one-key-create-menu
  "Toggle"
  (:key "t" :description "Toggle telega" :command +lizqwer/toggle-telega :filename "init-telega")
- (:key "c" :description "Toggle copilot" :command +lizqwer/toggle-copilot :filename "init-copilot")
+ ;; (:key "c" :description "Toggle copilot" :command +lizqwer/toggle-copilot :filename "init-copilot")
  (:key "v" :description "Toggle vterm" :command multi-vterm-dedicated-toggle :filename "init-vterm")
  (:key "b" :description "Toggle big screen mode" :command open-big-screen-mode :filename "init-big-screen")
  (:key "T" :description "Toggle transparent" :command +lizqwer/toggle-transparent :filename "init-func")
  (:key "p" :description "Toggle proxy" :command +lizqwer/toggle-proxy :filename "init-func")
  (:key "r" :description "Toggle redacted" :command redacted-mode)
- (:key "l" :description "Lock screen" :command +lizqwer/toggle-lock :filename "init-func"))
+ (:key "l" :description "Lock screen" :command +lizqwer/toggle-lock :filename "init-func")
+ (:key "c" :description "Toggle center cursor" :command global-centered-cursor-mode))
 
 (lazy-one-key-create-menu
  "Search"

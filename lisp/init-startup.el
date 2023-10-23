@@ -19,7 +19,7 @@
 (pixel-scroll-mode t)
 (pixel-scroll-precision-mode t)
 (setq scroll-step 1
-      scroll-margin 0
+      scroll-margin 2
       hscroll-step 2
       hscroll-margin 2
       scroll-conservatively 101
