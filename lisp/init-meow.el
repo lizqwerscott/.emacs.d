@@ -147,9 +147,6 @@
   (lazy-meow-insert-define-key
    '(("C-c i" . insert-translated-name-insert) "init-translated-name"))
 
-  (meow-define-keys 'insert
-    '("<C-return>" . insert-trailing-semi-and-indent))
-
   (meow-normal-define-key
    '("0" . meow-expand-0)
    '("9" . meow-expand-9)
@@ -235,4 +232,9 @@
    '("M-k" . scroll-down-1/3)))
 
 (meow-setup)
+
+(add-hook 'rust-mode-hook
+          #'(lambda ()
+              (meow-define-keys 'insert
+                '("<C-return>" . insert-trailing-semi-and-indent))))
 (provide 'init-meow)

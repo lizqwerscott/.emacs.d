@@ -45,14 +45,15 @@
   (require 'init-go)
 
   (require 'init-rsync)
-
+  (require 'init-hugo)
   ;; (require 'init-reader)
   ;; (require 'init-paper)
 
   ;;(require 'crefactor)
+  (message "load finish")
   )
 
 ;; 启动1s后再开启gc管理
-(run-with-idle-timer 0.2 0 #'last-start)
+(run-with-idle-timer 0.2 nil #'last-start)
 
 ;;; init.el ends here.
