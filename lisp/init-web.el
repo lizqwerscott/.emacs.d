@@ -49,13 +49,5 @@
 ;;   (add-hook 'css-mode-hook (lambda () (tsi-css-mode 1)))
 ;;   (add-hook 'scss-mode-hook (lambda () (tsi-scss-mode 1))))
 
-;;; Web Hugo
-;; (use-package ox-hugo
-;;   :ensure t
-;;   :init
-;;   (setq org-hugo-base-dir "~/MyProject/website/saveLife")
-;;   (setq org-hugo-default-section-directory "zh-CN/post")
-;;   :after ox)
-
 (provide 'init-web)
 ;;; init-web.el ends here.

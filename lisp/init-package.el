@@ -146,7 +146,8 @@
     org-bullets
     org-fancy-priorities
     eshell-prompt-extras
-    fish-completion))
+    fish-completion
+    ox-hugo))
 
 (package-check-install *package-need-install-list*)
 
@@ -201,6 +202,11 @@
                       ("terminfo/65" "terminfo/65/*")
                       ("integration" "integration/*")
                       (:exclude ".dir-locals.el" "*-tests.el"))))
+
+(quelpa '(psearch
+          :fetcher github
+          :repo "twlz0ne/psearch.el"
+          :files ("psearch.el")))
 
 (provide 'init-package)
 ;;; init-package.el ends here

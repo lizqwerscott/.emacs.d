@@ -74,7 +74,7 @@
               ("b." . "-"))))
 
 (require 'org-fancy-priorities)
-(add-hook 'org-mode-hook org-fancy-priorities-mode)
+(add-hook 'org-mode-hook #'org-fancy-priorities-mode)
 ;; (use-package org-fancy-priorities
 ;;   :ensure t
 ;;   :hook
@@ -151,6 +151,8 @@
         (sequence "REPORT(r!)" "BUG(b@/!)" "|" "FIXED(f@/!)")))
 
 (setq org-log-done 'note)
+
+(require 'org-download)
 
 ;; (use-package org-download
 ;;   :ensure t

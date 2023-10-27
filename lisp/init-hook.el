@@ -15,6 +15,7 @@
 (add-hook 'prog-mode-hook
           (lambda ()
             (goggles-mode t)
+            (rainbow-mode)
             ;; (copilot-mode t)
             ))
 
