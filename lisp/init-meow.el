@@ -228,8 +228,8 @@
    '("C-o" . return-find-def)
    '("/" . consult-ripgrep)
    '("?" . help-helpful-lsp-bridge-sly)
-   '("M-j" . scroll-up-1/3)
-   '("M-k" . scroll-down-1/3)))
+   '("M-n" . scroll-up-1/3)
+   '("M-p" . scroll-down-1/3)))
 
 (meow-setup)
 

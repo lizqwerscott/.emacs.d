@@ -175,6 +175,7 @@
 ;;   )
 
 ;;; Window
+(winner-mode 1)
 (require 'shackle)
 (shackle-mode)
 
