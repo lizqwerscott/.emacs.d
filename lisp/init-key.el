@@ -139,15 +139,19 @@
  (:key "a" :description "Open org agenda" :command org-agenda :filename "init-org")
  (:key "l" :description "Org store link" :command org-store-link :filename "init-org"))
 
-;;; ### Watch other window ###
-;;; --- 滚动其他窗口
-(lazy-load-global-keys
- '(
-   ("M-J" . watch-other-window-up)        ;向下滚动其他窗口
-   ("M-K" . watch-other-window-down)      ;向上滚动其他窗口
-   ("M-<" . watch-other-window-up-line)   ;向下滚动其他窗口一行
-   ("M->" . watch-other-window-down-line) ;向上滚动其他窗口一行
-   )
- "watch-other-window")
+;; ;;; ### Watch other window ###
+;; ;;; --- 滚动其他窗口
+(require 'watch-other-window)
+(global-set-key (kbd "M-N")
+                #'(lambda ()
+                    (interactive)
+                    (watch-other-window-internal "up"
+                                                 (/ (window-body-height) 3))))
+
+(global-set-key (kbd "M-P")
+                #'(lambda ()
+                    (interactive)
+                    (watch-other-window-internal "down"
+                                                 (/ (window-body-height) 3))))
 
 (provide 'init-key)
