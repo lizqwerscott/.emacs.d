@@ -74,7 +74,7 @@
 
 (defun +lsp-complete ()
   (interactive)
-  (or (tempel-complete t)
+  (or ;; (tempel-complete t)
      (yas-expand)
      (acm-select-next)))
 

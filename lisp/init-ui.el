@@ -76,16 +76,6 @@
           #'nerd-icons-completion-marginalia-setup)
 (nerd-icons-completion-mode)
 
-;;; Git message
-(require 'diff-hl)
-(global-diff-hl-mode)
-(global-diff-hl-show-hunk-mouse-mode)
-(add-hook 'dired-mode
-          'diff-hl-dired-mode)
-
-(setq diff-hl-draw-borders nil)
-(diff-hl-flydiff-mode)
-
 ;;; Line number
 (unless sys/win32p
   (add-hooks '(prog-mode text-mode conf-mode)
@@ -132,47 +122,11 @@
 ;;   ;:hook ((after-init . dashboard-refresh-buffer))
 ;;   )
 
-;;; hl indetn
-;; (use-package indent-guide
-;;   :ensure t
-;;   :hook ((prog-mode . indent-guide-mode)))
-(add-hook 'prog-mode-hook
-          #'(lambda ()
-              (require 'highlight-indent-guides)
-              (setq highlight-indent-guides-auto-odd-face-perc 50)
-              (setq highlight-indent-guides-auto-even-face-perc 50)
-              (highlight-indent-guides-mode 1)))
-
-;;; Paren
-(require 'paren)
-(show-paren-mode 1)
-(setq show-paren-when-point-inside-paren t
-      show-paren-when-point-in-periphery t)
-(setq show-paren-style 'parenthesis
-      show-paren-context-when-offscreen 'overlay)
-
-
 ;;; Highlight
-(add-hooks '(emacs-lisp-mode lisp-mode)
-           #'(lambda ()
-               (require 'rainbow-delimiters)
-               (rainbow-delimiters-mode 1)))
+(require 'init-highlight)
 
-(setq color-identifiers:recoloring-delay 1)
 (add-hook 'prog-mode-hook
-          'color-identifiers-mode)
-
-(add-hook 'web-mode-hook
-          #'(lambda ()
-              (require 'highlight-matching-tag)
-              (highlight-matching-tag 1)))
-
-(require 'init-hl-todo)
-
-;; (use-package highlight-defined
-;;   :ensure t
-;;   ;; :hook (elisp-lisp-mode . highlight-defined-mode)
-;;   )
+          'rainbow-mode)
 
 ;;; Window
 (winner-mode 1)
@@ -203,6 +157,13 @@
 ;; (setq holo-layer-enable-window-border t)
 ;; (setq holo-layer-sort-tab-ui nil)
 ;; (holo-layer-enable)
+
+;;; Click to browse URL or to send to e-mail address
+(add-hook 'text-mode-hook
+          'goto-address-mode)
+
+(add-hook 'prog-mode
+          'goto-address-prog-mode)
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.

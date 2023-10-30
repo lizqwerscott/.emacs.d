@@ -45,11 +45,14 @@
   (require 'init-go)
 
   (require 'init-rsync)
+  (require 'init-codegeex)
   (require 'init-hugo)
   ;; (require 'init-reader)
   ;; (require 'init-paper)
 
   ;;(require 'crefactor)
+  (autoload '+lizqwer/toggle-telega "init-telega" nil t)
+  (+lizqwer/toggle-telega)
   (message "load finish")
   )
 

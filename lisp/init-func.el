@@ -74,6 +74,54 @@
       (message "Copied buffer file path '%s' to the clipboard." filepath))))
 
 ;;;###autoload
+(defun delete-this-file ()
+  "Delete the current file, and kill the buffer."
+  (interactive)
+  (unless (buffer-file-name)
+    (error "No file is currently being edited"))
+  (when (yes-or-no-p (format "Really delete '%s'?"
+                             (file-name-nondirectory buffer-file-name)))
+    (delete-file (buffer-file-name))
+    (kill-this-buffer)))
+
+;;;###autoload
+(defun rename-this-file (new-name)
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "sNew name: ")
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (unless filename
+      (error "Buffer '%s' is not visiting a file!" name))
+    (progn
+      (when (file-exists-p filename)
+        (rename-file filename new-name 1))
+      (set-visited-file-name new-name)
+      (rename-buffer new-name))))
+
+;;;###autoload
+(defun browse-this-file ()
+  "Open the current file as a URL using `browse-url'."
+  (interactive)
+  (let ((file-name (buffer-file-name)))
+    (if (and (fboundp 'tramp-tramp-file-p)
+           (tramp-tramp-file-p file-name))
+        (error "Cannot open tramp file")
+      (browse-url (concat "file://" file-name)))))
+
+;;;###autoload
+(defun find-custom-file()
+  "Open custom files."
+  (interactive)
+  (unless (file-exists-p custom-file)
+    (if (file-exists-p centaur-custom-example-file)
+        (copy-file centaur-custom-example-file custom-file)
+      (user-error "The file `%s' doesn't exist" centaur-custom-example-file)))
+  (when (file-exists-p custom-file)
+    (find-file custom-file))
+  (when (file-exists-p centaur-custom-post-file)
+    (find-file-other-window centaur-custom-post-file)))
+
+;;;###autoload
 (defun +lizqwer/toggle-lock ()
   "Toggle computer lock."
   (interactive)

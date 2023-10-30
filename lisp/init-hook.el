@@ -12,13 +12,6 @@
               (unless (sly-connected-p)
                 (save-excursion (sly)))))
 
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (goggles-mode t)
-            (rainbow-mode)
-            ;; (copilot-mode t)
-            ))
-
 (add-hook 'emacs-lisp-mode-hook 'outshine-mode)
 
 (add-hook 'after-init-hook
