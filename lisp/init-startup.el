@@ -212,5 +212,9 @@
       ))
   (goto-char (point-max)))
 
+;;; Sqlite
+(when (fboundp 'sqlite-open)
+  (require 'emacsql-sqlite-builtin))
+
 (provide 'init-startup)
 ;;; init-startup.el ends here.

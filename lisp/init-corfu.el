@@ -1,7 +1,7 @@
 
 (defun +complete ()
   (interactive)
-  (or (tempel-complete t)
+  (or ;; (tempel-complete t)
      (corfu-next)))
 
 (use-package corfu

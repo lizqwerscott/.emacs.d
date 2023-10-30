@@ -14,6 +14,7 @@
   (add-to-list 'load-path
                (expand-file-name
                 (concat user-emacs-directory "elpa/" "elisp-refs-20230920.201")))
+  ;; (setq toggle-debug-on-error t)
   (require 'init-utils)
   (add-subdirs-to-load-path
    (concat user-emacs-directory

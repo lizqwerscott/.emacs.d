@@ -67,7 +67,8 @@
 ;;; install all package
 
 (defvar *package-need-install-list*
-  '(no-littering
+  '(emacsql-sqlite-builtin
+    no-littering
     benchmark-init
     gcmh
     vertico
@@ -207,6 +208,10 @@
           :fetcher github
           :repo "twlz0ne/psearch.el"
           :files ("psearch.el")))
+
+(quelpa '(advance-words-count
+          :fetcher github
+          :repo "LdBeth/advance-words-count.el"))
 
 (provide 'init-package)
 ;;; init-package.el ends here
