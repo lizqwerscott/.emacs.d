@@ -9,7 +9,13 @@
 
 ;; (toggle-debug-on-error)
 ;; 启动必须加载
-(require 'init-const)
+(package-check-install '(vterm multi-vterm))
+
+(setq custom-file "~/.config/emacs-custom.el")
+(when (file-exists-p custom-file)
+  (load-file custom-file))
+
+;; (require 'init-const)
 (require 'init-mode)
 (require 'init-hook)
 (require 'init-key)

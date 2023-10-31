@@ -7,6 +7,9 @@
 (add-hook 'common-lisp-mode-hook
           #'common-lisp-snippets-initialize)
 
+(add-to-list 'lsp-bridge-default-mode-hooks
+             'vue-ts-mode-hook)
+
 (unless (display-graphic-p)
   (with-eval-after-load 'acm
     ;; (use-package popon
@@ -40,20 +43,13 @@
 
 (setq lsp-bridge-enable-completion-in-string t)
 
-;; (setq lsp-bridge-diagnostic-fetch-idle 0.1)
 ;; (setq lsp-bridge-enable-debug t)
-;; (setq lsp-bridge-python-lsp-server "jedi")
-;; (setq lsp-bridge-python-lsp-server "pyright-background-analysis")
 
-(require 'xref)
 (defun find-definition-with-lsp-bridge ()
   (interactive)
   (cond
    ((bound-and-true-p sly-mode)
     (call-interactively #'sly-edit-definition))
-   ((eq major-mode 'emacs-lisp-mode)
-    (let ((symb (current-word)))
-      (funcall #'xref-find-definitions symb)))
    (lsp-bridge-mode
     (lsp-bridge-find-def))
    (t
@@ -63,9 +59,6 @@
 (defun return-find-def ()
   (interactive)
   (cond
-   ((eq major-mode 'emacs-lisp-mode)
-    (require 'dumb-jump)
-    (dumb-jump-back))
    (lsp-bridge-mode
     (lsp-bridge-find-def-return))
    (t

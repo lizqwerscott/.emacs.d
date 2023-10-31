@@ -83,6 +83,7 @@
     goggles
     diff-hl
     rainbow-delimiters
+    rainbow-mode
     highlight-indent-guides
     shackle
     separedit
@@ -107,8 +108,6 @@
     sly-asdf
     aggressive-indent
     which-key
-    vterm
-    multi-vterm
     apheleia
     eglot
     xclip
@@ -125,10 +124,10 @@
     imenu-list
     hl-todo
     avy
+    ace-window
     sudo-edit
     devdocs
     elisp-demos
-    cider
     go-mode
     jsonian
     web-mode
@@ -148,7 +147,9 @@
     org-fancy-priorities
     eshell-prompt-extras
     fish-completion
-    ox-hugo))
+    ox-hugo
+    meow
+    org-download))
 
 (package-check-install *package-need-install-list*)
 
@@ -212,6 +213,10 @@
 (quelpa '(advance-words-count
           :fetcher github
           :repo "LdBeth/advance-words-count.el"))
+
+(quelpa '(vue-ts-mode
+          :fetcher github
+          :repo "8uff3r/vue-ts-mode"))
 
 (provide 'init-package)
 ;;; init-package.el ends here

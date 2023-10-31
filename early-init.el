@@ -11,19 +11,22 @@
   (add-to-list 'load-path
                (expand-file-name
                 (concat user-emacs-directory "lisp")))
-  (add-to-list 'load-path
-               (expand-file-name
-                (concat user-emacs-directory "elpa/" "elisp-refs-20230920.201")))
+  ;; (add-to-list 'load-path
+  ;;              (expand-file-name
+  ;;               (concat user-emacs-directory "elpa/" "elisp-refs-20230920.201")))
   ;; (setq toggle-debug-on-error t)
   (require 'init-utils)
   (add-subdirs-to-load-path
    (concat user-emacs-directory
            "site-lisp/"))
+
   (require 'init-package)
   ;; (require 'benchmark-init)
   ;; (benchmark-init/activate)
+  (require 'init-const)
   (require 'init-startup)
   (require 'lazy-load)
   (require 'one-key)
   (require 'init-font)
-  (require 'init-theme))
+  (require 'init-theme)
+  )

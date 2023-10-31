@@ -3,7 +3,7 @@
 
 ;; (global-set-key (kbd "s-x") #'execute-extended-command)
 
-(global-set-key (kbd "M-o") #'other-window)
+(global-set-key (kbd "M-o") #'ace-window)
 
 ;; (require 'one-key)
 
@@ -114,7 +114,7 @@
   (interactive)
   (if (equal major-mode 'rust-ts-mode)
       (cargo-process-fmt)
-    (apheleia-format-buffer)))
+    (call-interactively 'apheleia-format-buffer)))
 
 (lazy-one-key-create-menu
  "Code"

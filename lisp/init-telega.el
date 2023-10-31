@@ -6,7 +6,7 @@
       `((:server ,user/proxy-host :port ,user/proxy-all-port :enable t
                  :type (:@type "proxyTypeSocks5")))
       telega-chat-show-avatars t
-      telega-emoji-use-images t
+      telega-emoji-use-images nil
       telega-auto-translate-probe-language-codes nil
       telega-translate-to-language-by-default "zh-CN"
       telega-chat-input-markups (list "org"))
