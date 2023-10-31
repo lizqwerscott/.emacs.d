@@ -216,5 +216,8 @@
 (when (fboundp 'sqlite-open)
   (require 'emacsql-sqlite-builtin))
 
+;; vc
+(setq vc-handled-backends '(Git))
+
 (provide 'init-startup)
 ;;; init-startup.el ends here.

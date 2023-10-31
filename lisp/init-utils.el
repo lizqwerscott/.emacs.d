@@ -41,7 +41,7 @@
 
           ;; 注意：`add-to-list' 函数的第三个参数必须为 t , 表示加到列表末尾
           ;; 这样Emacs会从父目录到子目录的顺序搜索Elisp插件, 顺序反过来会导致Emacs无法正常启动
-          (add-to-list 'load-path subdir-path t))
+          (add-to-list 'load-path (file-truename subdir-path) t))
 
         ;; 继续递归搜索子目录
         (add-subdirs-to-load-path subdir-path)))))
