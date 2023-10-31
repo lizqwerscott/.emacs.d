@@ -51,6 +51,7 @@
   ;; (require 'init-paper)
 
   ;;(require 'crefactor)
+  (message "start telega")
   (autoload '+lizqwer/toggle-telega "init-telega" nil t)
   (+lizqwer/toggle-telega)
   (message "load finish")
