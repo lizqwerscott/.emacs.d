@@ -15,7 +15,6 @@
 (when (file-exists-p custom-file)
   (load-file custom-file))
 
-;; (require 'init-const)
 (require 'init-mode)
 (require 'init-hook)
 (require 'init-key)
