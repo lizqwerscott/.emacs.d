@@ -129,6 +129,7 @@
     devdocs
     elisp-demos
     go-mode
+    haskell-mode
     jsonian
     web-mode
     restclient
