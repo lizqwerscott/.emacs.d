@@ -51,9 +51,18 @@
  (:key "t" :description "Switch telega chat" :command telega-chat-with :filename "init-telega")
  (:key "r" :description "Revert buffer" :command revert-buffer))
 
+(lazy-one-key-create-menu
+ "FileAction"
+ (:key "c" :description "Copy File name" :command +lizqwer/copy-file-name-to-clipboard :filename "init-func")
+ (:key "C" :description "Copy File Path" :command +lizqwer/copy-file-path-to-clipboard :filename "init-func")
+ (:key "d" :description "Delete this file" :command delete-this-file :filename "init-func")
+ (:key "r" :description "Rename this file" :command rename-this-file :filename "init-func")
+ (:key "b" :description "Browse thsi file" :command browse-this-file :filename "init-func"))
+
 (one-key-create-menu
  "File"
  '((("f" . "Find file") . find-file)
+   (("a" . "Action file") . one-key-menu-fileaction)
    (("r" . "Recent file") . consult-recent-file)
    (("j" . "Find in main dir") . (lambda ()
                                    (interactive)
@@ -62,6 +71,7 @@
                                   (interactive)
                                   (require 'project)
                                   (ido-find-file-in-dir (project-root (project-current)))))))
+
 
 (lazy-one-key-create-menu
  "Directory"
@@ -102,8 +112,6 @@
  (:key "g" :description "Google this" :command google-this :filename "init-google-this")
  (:key "p" :description "Popweb dict bing" :command popweb-dict-bing-pointer :filename "init-popweb")
  (:key "S" :description "Sudo edit" :command sudo-edit :filename "sudo-edit")
- (:key "c" :description "Copy File name" :command +lizqwer/copy-file-name-to-clipboard :filename "init-func")
- (:key "C" :description "Copy File Path" :command +lizqwer/copy-file-path-to-clipboard :filename "init-func")
  (:key "e" :description "Toggle sdcv" :command lsp-bridge-toggle-sdcv-helper :filename "init-lsp-bridge")
  (:key "D" :description "Docker" :command docker)
  (:key "p" :description "peek code" :command peek-overlay-dwim :filename "init-peek")
