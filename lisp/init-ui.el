@@ -129,6 +129,9 @@
           'rainbow-mode)
 
 ;;; Window
+(require 'ace-window)
+(set-face-attribute 'aw-leading-char-face nil :height 400)
+
 (winner-mode 1)
 (require 'shackle)
 (shackle-mode)
