@@ -14,14 +14,11 @@ url = https://github.com/manateelazycat/lsp-bridge.git
 path = site-lisp/blink-search
 url = https://github.com/manateelazycat/blink-search.git
 
-[submodule "site-lisp/popweb"]
-path = site-lisp/popweb
-url = https://github.com/manateelazycat/popweb.git
-
 [submodule "site-lisp/holo-layer"]
 path = site-lisp/holo-layer
 url = https://github.com/manateelazycat/holo-layer.git
 
 [submodule "site-lisp/insert-translated-name"]
-	path = site-lisp/insert-translated-name
-	url = git@github.com:lizqwerscott/insert-translated-name.git
+path = site-lisp/insert-translated-name
+url = git@github.com:lizqwerscott/insert-translated-name.git
+

@@ -77,6 +77,7 @@
     orderless
     posframe
     try
+    symbol-overlay
     color-identifiers-mode
     focus
     centered-cursor-mode
@@ -101,7 +102,6 @@
     rust-mode
     cargo
     macrostep
-    go-translate
     google-this
     sly
     sly-quicklisp
@@ -218,6 +218,10 @@
 (quelpa '(vue-ts-mode
           :fetcher github
           :repo "8uff3r/vue-ts-mode"))
+
+(quelpa '(sdcv
+          :fetcher github
+          :repo "manateelazycat/sdcv"))
 
 (provide 'init-package)
 ;;; init-package.el ends here
