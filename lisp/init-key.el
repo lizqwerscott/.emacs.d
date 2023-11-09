@@ -48,6 +48,7 @@
  (:key "b" :description "Switch buffer" :command consult-buffer)
  (:key "k" :description "Kill buffer" :commit kill-buffer-and-window)
  (:key "T" :description "Switch telega buffers" :command telega-switch-buffer :filename "init-telega")
+ (:key "i" :description "Switch telega important chat" :command telega-switch-important-chat :filename "init-telega")
  (:key "t" :description "Switch telega chat" :command telega-chat-with :filename "init-telega")
  (:key "r" :description "Revert buffer" :command revert-buffer))
 
