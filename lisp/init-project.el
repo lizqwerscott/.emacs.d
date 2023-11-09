@@ -3,6 +3,7 @@
 (global-projection-hook-mode)
 
 ;;configure project.el
+(setq xref-search-program 'ripgrep)
 
 ;;;###autoload
 (defun project-root-path ()
@@ -58,6 +59,7 @@
 
 (cl-defmethod project-files ((project (head local)) &optional dirs)
   "Override `project-files' to use `fd' in local projects."
+  (message "hello")
   (mapcan #'my/project-files-in-directory
           (or dirs (list (project-root project)))))
 

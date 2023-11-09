@@ -108,9 +108,8 @@
 
 (lazy-one-key-create-menu
  "Useful"
- (:key "t" :description "Go translate" :command gts-do-translate :filename "init-go-translate")
+ (:key "t" :description "Sdcv translate" :command sdcv-search-pointer+ :filename "init-sdcv")
  (:key "g" :description "Google this" :command google-this :filename "init-google-this")
- (:key "p" :description "Popweb dict bing" :command popweb-dict-bing-pointer :filename "init-popweb")
  (:key "S" :description "Sudo edit" :command sudo-edit :filename "sudo-edit")
  (:key "e" :description "Toggle sdcv" :command lsp-bridge-toggle-sdcv-helper :filename "init-lsp-bridge")
  (:key "D" :description "Docker" :command docker)
@@ -161,5 +160,9 @@
                     (interactive)
                     (watch-other-window-internal "down"
                                                  (/ (window-body-height) 3))))
+;;; symbol overlay
+(lazy-load-global-keys
+ '(("M-i" . symbol-overlay-put))
+ "symbol-overlay")
 
 (provide 'init-key)
