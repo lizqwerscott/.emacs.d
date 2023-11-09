@@ -1,7 +1,7 @@
 (require 'sdcv)
 (setq sdcv-say-word-p nil)               ;say word after translation
 
-(setq sdcv-dictionary-data-dir (file-truename "~/.stardict/dic/")) ;setup directory of stardict dictionary
+(setq sdcv-dictionary-data-dir (file-truename "~/.emacs.d/config/dic/")) ;setup directory of stardict dictionary
 
 (setq sdcv-dictionary-simple-list    ;setup dictionary list for simple search
       '("懒虫简明英汉词典"
