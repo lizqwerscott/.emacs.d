@@ -150,7 +150,8 @@
     fish-completion
     ox-hugo
     meow
-    org-download))
+    org-download
+    immersive-translate))
 
 (package-check-install *package-need-install-list*)
 
