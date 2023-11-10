@@ -26,6 +26,7 @@ Use http:
 ***** Need install some package
 1. xclip
 2. sdcv
+3. [[https://github.com/soimort/translate-shell][translate-shell]]
 ***** Need build treesitter library
 ******* clone build scripts
 ********* http
