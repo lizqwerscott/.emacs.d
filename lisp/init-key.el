@@ -104,7 +104,7 @@
  "Workspace"
  '((("l" . "Workspace switch or create workspace") . tabspaces-switch-or-create-workspace)
    (("p" . "Workspace project switch or create") . tabspaces-open-or-create-project-and-workspace)
-   (("f" . "Workspace projecr"))
+   (("d" . "Workspace open or create workspace") . tabspaces-open-or-create-workspace)
    (("k" . "Workspace kill workspace") . tabspaces-kill-buffers-close-workspace)))
 
 (lazy-one-key-create-menu
