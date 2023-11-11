@@ -75,6 +75,7 @@
     marginalia
     consult
     orderless
+    pinyinlib
     posframe
     try
     symbol-overlay

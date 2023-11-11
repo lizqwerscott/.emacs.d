@@ -154,5 +154,22 @@
     "Set workspace buffer list for consult-buffer.")
   (add-to-list 'consult-buffer-sources 'consult--source-workspace))
 
+
+;;;###autoload
+(defun tabspaces-open-or-create-workspace (workspace-dir &optional workspace-name)
+  (interactive (list (file-truename (read-directory-name "workspace: " "~/"))))
+  (let ((existing-tab-names (tabspaces--list-tabspaces))
+        (tab-name (if workspace-name
+                      workspace-name
+                    (car (last (split-string (directory-file-name workspace-dir) "/"))))))
+    (message "dir: %s, name: %s" workspace-dir tab-name)
+    (cond
+     ((member tab-name existing-tab-names)
+      (tab-bar-switch-to-tab tab-name))
+     (t
+      (tab-new)
+      (tab-rename tab-name)
+      (setq default-directory workspace-dir)))))
+
 (provide 'init-tab-bar)
 ;;; init-tab-bar.el ends here
