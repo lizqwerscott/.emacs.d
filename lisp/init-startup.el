@@ -113,20 +113,6 @@
 
 (repeat-mode)
 
-;;; Dired
-(setq dired-recursive-deletes 'always)
-(setq delete-by-moving-to-trash t)
-(setq dired-dwim-target t)
-(setq ls-lisp-dirs-first t)
-(setq dired-listing-switches
-      "-l --almost-all --human-readable --time-style=long-iso --group-directories-first --no-group")
-
-(with-eval-after-load 'dired
-  (setq dired-kill-when-opening-new-dired-buffer t))
-
-;;(setq dired-omit-files
-;;    (concat dired-omit-files "\\|^\\..*$"))
-
 ;;; Imenu
 (setq imenu-max-item-length 100)
 (setq breadcrumb-imenu-max-length 100)

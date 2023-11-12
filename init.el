@@ -19,6 +19,7 @@
 (require 'init-hook)
 (require 'init-key)
 (require 'init-ui)
+(require 'init-dired)
 (require 'init-minibuffer)
 (require 'init-edit)
 (require 'init-lsp-bridge)
