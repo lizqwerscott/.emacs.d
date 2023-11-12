@@ -18,8 +18,8 @@
 
 ;; (require 'pyim-basedict)
 ;; (pyim-basedict-enable)
-;; (require 'pyim-tsinghua-dict)
-;; (pyim-tsinghua-dict-enable)
+(require 'pyim-tsinghua-dict)
+(pyim-tsinghua-dict-enable)
 
 (global-set-key (kbd "C-\\") 'toggle-input-method)
 

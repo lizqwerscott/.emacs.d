@@ -116,10 +116,13 @@
     ag
     rg
     pretty-mode
+    diredfl
+    dired-subtree
     doom-themes
     solarized-theme
     nerd-icons
     nerd-icons-completion
+    nerd-icons-dired
     imenu-list
     hl-todo
     avy
@@ -214,6 +217,11 @@
 (quelpa '(sdcv
           :fetcher github
           :repo "manateelazycat/sdcv"))
+
+(quelpa '(pyim-tsinghua-dict
+          :fetcher github
+          :repo "redguardtoo/pyim-tsinghua-dict"
+          :files ("pyim-tsinghua-dict.el" "pyim-tsinghua-dict.pyim")))
 
 (provide 'init-package)
 ;;; init-package.el ends here
