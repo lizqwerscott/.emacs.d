@@ -23,11 +23,6 @@
       completion-category-defaults nil
       completion-category-overrides '((file (styles basic partial-completion))))
 
-(require 'pinyinlib)
-(defun completion--regex-pinyin (str)
-  (orderless-regexp (pinyinlib-build-regexp-string str)))
-(add-to-list 'orderless-matching-styles 'completion--regex-pinyin)
-
 (add-hook 'completion-list-mode-hook 'consult-preview-at-point-mode)
 
 (provide 'init-minibuffer)

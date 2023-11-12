@@ -39,10 +39,6 @@
 ;;               (if (get-buffer "*Netease-Cloud-Music*")
 ;;                   (netease-cloud-music-add-header-lyrics))))
 
-
-(breadcrumb-mode)
-(setq header-line-format nil)
-
 ;; (require 'sort-tab)
 ;; (sort-tab-mode 1)
 (require 'init-tab-bar)
@@ -70,6 +66,12 @@
 
 (when (display-graphic-p)
   (awesome-tray-mode))
+
+(custom-set-faces
+ '(header-line ((t (:inherit t :foreground unspecified :background unspecified)))))
+
+(breadcrumb-mode)
+;; (setq header-line-format nil)
 
 ;;; Icons
 (add-hook 'marginalia-mode-hook

@@ -30,7 +30,8 @@
  (:key "p" :description "Toggle proxy" :command +lizqwer/toggle-proxy :filename "init-func")
  (:key "r" :description "Toggle redacted" :command redacted-mode)
  (:key "l" :description "Lock screen" :command +lizqwer/toggle-lock :filename "init-func")
- (:key "c" :description "Toggle center cursor" :command global-centered-cursor-mode))
+ (:key "c" :description "Toggle center cursor" :command global-centered-cursor-mode)
+ (:key "s" :description "Toggle interaction-log" :command interaction-log-mode :filename "interaction-log"))
 
 (lazy-one-key-create-menu
  "Search"
