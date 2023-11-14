@@ -27,7 +27,7 @@
 (require 'init-awesome-pair)
 
 
-(add-hooks '(emacs-lisp-mode lisp-mode python-mode)
+(add-hooks '(emacs-lisp-mode lisp-mode)
            #'(lambda ()
                (require 'aggressive-indent)
                (aggressive-indent-mode 1)))
@@ -37,7 +37,7 @@
                (require 'indent-yank)
                (indent-yank-mode 1)))
 
-;; auto mark comment
+;;; auto mark comment
 ;; from https://github.com/magnars/expand-region.el/blob/b70feaa644310dc2d599dc277cd20a1f2b6446ac/er-basic-expansions.el#L102
 (defun er--point-is-in-comment-p ()
   "t if point is in comment, otherwise nil"
@@ -175,12 +175,7 @@
           (goto-char p)
           (message "pos: %s" pre-comment-pos))))))
 
-;;;###autoload
-(defun goto-percent (percent)
-  "Goto PERCENT of buffer."
-  (interactive "nGoto percent: ")
-  (goto-char (/ (* percent (point-max)) 100)))
-
+;;; insert trailing semi
 (defun insert-or-remove-trailing-char (&optional ch)
   (interactive)
   (let ((ch (or ch (read-char "Input char: ")))
@@ -239,6 +234,35 @@
   (newline-and-indent))
 
 (grugru-default-setup)
+
+;;; add rectangle number lines
+;;;###autoload
+(defun my/insert-number-lines (start-at end-at step format)
+  (interactive
+   (list (read-number "Number to count from: " 1)
+         (read-number "Number to count end: " 5)
+         (read-number "step: " 1)
+         (read-string "Format string: "
+                      "%d ")))
+  (save-excursion
+    (dolist (i (number-sequence start-at end-at step))
+      (insert (format format i))
+      (newline-and-indent))))
+
+;;; goto precent
+;;;###autoload
+(defun goto-percent (percent)
+  "Goto PERCENT of buffer."
+  (interactive "nGoto percent: ")
+  (goto-char (/ (* percent (point-max)) 100)))
+
+(defun scroll-up-1/3 ()
+  (interactive)
+  (scroll-up (/ (window-body-height) 3)))
+
+(defun scroll-down-1/3 ()
+  (interactive)
+  (scroll-down (/ (window-body-height) 3)))
 
 (provide 'init-edit)
 ;;; init-edit.el ends here.

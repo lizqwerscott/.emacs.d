@@ -30,8 +30,9 @@
 (require 'init-auto-save)
 
 (defun last-start ()
-  (require 'init-immersive-translate)
   (require 'init-meow)
+  (require 'init-magit)
+  (require 'init-immersive-translate)
   (require 'init-corfu)
   (require 'init-org)
   (require 'init-tramp)

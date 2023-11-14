@@ -212,6 +212,11 @@ NAME is class name."
   (let ((default-directory (project-root-path)))
     (blink-search)))
 
+(defun project-dired-dir (dired-dir)
+  (interactive (list
+                (read-directory-name "Dired open: " (project-root (project-current)))))
+  (dired dired-dir))
+
 ;; (defalias 'project-prefix-map project-prefix-map)
 
 ;; (define-key mode-specific-map "p" 'project-prefix-map)
@@ -232,11 +237,13 @@ NAME is class name."
 (lazy-one-key-create-menu
  "Project"
  (:key "f" :description "Find file in project" :command project-find-file)
- (:key "d" :description "Project Dir" :command project-eaf-open-dir :filename "init-eaf")
+ ;; (:key "d" :description "Project Dir" :command project-eaf-open-dir :filename "init-eaf")
+ (:key "d" :description "Project Dir" :command project-dired-dir)
  ;; (:key "t" :description "Open temp project" :command find-temp-project)
  (:key "a" :description "Remember a project" :command project-remember-projects-under)
  (:key "p" :description "Switch project" :command project-switch-project)
- (:key "v" :description "Project Git" :command eaf-open-git :filename "init-eaf")
+ ;; (:key "v" :description "Project Git" :command eaf-open-git :filename "init-eaf")
+ (:key "v" :description "Project Git" :command magit-status)
  (:key "r" :description "Remove known project" :command project-forget-project)
  (:key "b" :description "Project buffer" :command consult-project-buffer)
  (:key "s" :description "Project Blink search" :command project-blink-search :filename "init-project")

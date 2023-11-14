@@ -53,10 +53,17 @@
 ;; (add-to-list 'awesome-tray-module-alist
 ;; 	         '("breadcrumb" . (breadcrumb-info breadcrumb-face)))
 
+(setq awesome-tray-date-format "%H:%M")
+;; (setq awesome-tray-active-modules
+;;       (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
+;;           '("meow" "location" "file-path" "buffer-name" "mode-name" "battery" "git" "date")
+;;         '("meow" "location" "file-path" "buffer-name" "mode-name" "git" "date")))
+
 (setq awesome-tray-active-modules
       (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
-          '("meow" "file-path" "buffer-name" "mode-name" "battery" "date")
-        '("meow" "file-path" "buffer-name" "mode-name" "date")))
+          '("meow" "location" "buffer-name" "mode-name" "battery" "git" "date")
+        '("meow" "location" "buffer-name" "mode-name" "git" "date")))
+
 
 ;; (setq awesome-tray-active-modules
 ;;       (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
