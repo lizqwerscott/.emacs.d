@@ -27,6 +27,7 @@ Use http:
 1. xclip
 2. sdcv
 3. [[https://github.com/soimort/translate-shell][translate-shell]]
+4. [[https://github.com/zevlg/tgs2png][tgs2png]]
 ***** Need build treesitter library
 ******* clone build scripts
 ********* http
@@ -43,6 +44,7 @@ Use http:
 #+end_src
 ******* copy library
 Copy generated library to "~/.tree-sitter/bin"
+***** Need build td library
 ***** Need download sdcv dict
 [[https://kdr2.com/resource/stardict.html][sdcv download url]]
 *** Update extensions:

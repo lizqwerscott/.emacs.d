@@ -115,6 +115,7 @@
     olivetti
     ag
     rg
+    magit
     pretty-mode
     diredfl
     dired-subtree

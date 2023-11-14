@@ -1,36 +1,30 @@
 (quelpa '(awesome-pair :fetcher github :repo "manateelazycat/awesome-pair"))
 
 (require 'awesome-pair)
-(dolist (hook (list
-               'web-mode-hook
-               'c-mode-common-hook
-               'c-mode-hook
-               'c++-mode-hook
-               'java-mode-hook
-               'haskell-mode-hook
-               'emacs-lisp-mode-hook
-               'lisp-interaction-mode-hook
-               'lisp-mode-hook
-               'maxima-mode-hook
-               'ielm-mode-hook
-               'sh-mode-hook
-               'makefile-gmake-mode-hook
-               'php-mode-hook
-               'python-mode-hook
-               'js-mode-hook
-               'go-mode-hook
-               'qml-mode-hook
-               'jade-mode-hook
-               'css-mode-hook
-               'ruby-mode-hook
-               'coffee-mode-hook
-               'rust-mode-hook
-               'qmake-mode-hook
-               'lua-mode-hook
-               'swift-mode-hook
-               'minibuffer-inactive-mode-hook))
 
-  (add-hook hook '(lambda () (awesome-pair-mode 1))))
+
+(add-hooks '(web-mode
+             c-mode
+             c++-mode
+             haskell-mode
+             emacs-lisp-mode
+             lisp-interaction-mode
+             lisp-mode
+             ielm-mode
+             python-mode
+             css-mode
+             rust-mode
+             minibuffer-inactive-mode
+             jsonian-mode)
+           #'awesome-pair-mode)
+
+(add-hooks '(vue-ts-mode
+             rust-ts-mode
+             c-ts-mode
+             c++-ts-mode
+             python-ts-mode
+             css-ts-mode)
+           #'awesome-pair-mode)
 
 (define-key awesome-pair-mode-map (kbd "(") 'awesome-pair-open-round)
 (define-key awesome-pair-mode-map (kbd "[") 'awesome-pair-open-bracket)
@@ -53,11 +47,9 @@
 (define-key awesome-pair-mode-map (kbd "M-\"") 'awesome-pair-wrap-double-quote)
 (define-key awesome-pair-mode-map (kbd "M-[") 'awesome-pair-wrap-bracket)
 (define-key awesome-pair-mode-map (kbd "M-{") 'awesome-pair-wrap-curly)
-(define-key awesome-pair-mode-map (kbd "C-c (") 'awesome-pair-wrap-round)
-(define-key awesome-pair-mode-map (kbd "C-c )") 'awesome-pair-unwrap)
+(define-key awesome-pair-mode-map (kbd "M-(") 'awesome-pair-wrap-round)
+(define-key awesome-pair-mode-map (kbd "M-)") 'awesome-pair-unwrap)
 
-(define-key awesome-pair-mode-map (kbd "M-p") 'awesome-pair-jump-right)
-(define-key awesome-pair-mode-map (kbd "M-n") 'awesome-pair-jump-left)
 (define-key awesome-pair-mode-map (kbd "M-:") 'awesome-pair-jump-out-pair-and-newline)
 
 (provide 'init-awesome-pair)

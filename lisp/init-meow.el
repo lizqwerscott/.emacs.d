@@ -73,14 +73,6 @@
           (lsp-bridge-popup-documentation)
         (message "dont't know how to help")))))
 
-(defun scroll-up-1/3 ()
-  (interactive)
-  (scroll-up (/ (window-body-height) 3)))
-
-(defun scroll-down-1/3 ()
-  (interactive)
-  (scroll-down (/ (window-body-height) 3)))
-
 (defun meow-setup ()
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
@@ -237,4 +229,13 @@
           #'(lambda ()
               (meow-define-keys 'insert
                 '("<C-return>" . insert-trailing-semi-and-indent))))
+
+(add-hook 'dired-mode-hook
+          #'(lambda ()
+              (meow-motion-overwrite-define-key
+               '("h" . dired-up-directory))))
+
+(keymap-set dired-mode-map "M-n" #'scroll-up-1/3)
+(keymap-set dired-mode-map "M-p" #'scroll-down-1/3)
+
 (provide 'init-meow)

@@ -7,6 +7,7 @@
                  :type (:@type "proxyTypeSocks5")))
       telega-chat-show-avatars t
       telega-emoji-use-images nil
+      telega-sticker-animated-play t
       telega-auto-translate-probe-language-codes nil
       telega-translate-to-language-by-default "zh-CN"
       telega-chat-input-markups (list "org"))
