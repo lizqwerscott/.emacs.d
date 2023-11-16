@@ -68,8 +68,8 @@
 (defun +lsp-complete ()
   (interactive)
   (or ;; (tempel-complete t)
-     (yas-expand)
-     (acm-select-next)))
+   (yas-expand)
+   (acm-select-next)))
 
 ;;; keymap
 

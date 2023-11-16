@@ -224,5 +224,9 @@
           :repo "redguardtoo/pyim-tsinghua-dict"
           :files ("pyim-tsinghua-dict.el" "pyim-tsinghua-dict.pyim")))
 
+(quelpa '(awesome-pair :fetcher github :repo "manateelazycat/awesome-pair"))
+
+(quelpa '(fingertip :fetcher github :repo "manateelazycat/fingertip"))
+
 (provide 'init-package)
 ;;; init-package.el ends here
