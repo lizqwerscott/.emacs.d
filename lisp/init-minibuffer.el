@@ -16,6 +16,29 @@
 (keymap-set minibuffer-local-map "M-s" #'consullt-history)
 (keymap-set minibuffer-local-map "M-r" #'consult-history)
 
+(defun crm-indicator (args)
+  (cons (format "[CRM%s] %s"
+                (replace-regexp-in-string
+                 "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                 crm-separator)
+                (car args))
+        (cdr args)))
+(advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+;; Do not allow the cursor in the minibuffer prompt
+(setq minibuffer-prompt-properties
+      '(read-only t cursor-intangible t face minibuffer-prompt))
+(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+(setq enable-recursive-minibuffers t)
+
+;; Configure directory extension.
+(require #'vertico-directory)
+(keymap-set vertico-map "RET" #'vertico-directory-enter)
+(keymap-set vertico-map "DEL" #'vertico-directory-delete-char)
+(keymap-set vertico-map "M-DEL" #'vertico-directory-delete-word)
+
+(add-hook #'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
+
 (marginalia-mode)
 
 (require 'orderless)

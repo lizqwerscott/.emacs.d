@@ -9,6 +9,8 @@
 ;;; Code:
 
 ;;; UI
+(setq default-frame-alist
+      '((alpha-background . 100)))
 ;; (setq frame-resize-pixelwise t)
 ;; (dotimes (n 3)
 ;;   (toggle-frame-maximized))

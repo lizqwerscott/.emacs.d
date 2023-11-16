@@ -169,7 +169,8 @@
      (t
       (tab-new)
       (tab-rename tab-name)
-      (setq default-directory workspace-dir)))))
+      (setq default-directory workspace-dir)))
+    (ido-find-file)))
 
 (provide 'init-tab-bar)
 ;;; init-tab-bar.el ends here

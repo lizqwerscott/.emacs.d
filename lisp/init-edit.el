@@ -26,7 +26,6 @@
 
 (require 'init-awesome-pair)
 
-
 (add-hooks '(emacs-lisp-mode lisp-mode)
            #'(lambda ()
                (require 'aggressive-indent)
@@ -263,6 +262,15 @@
 (defun scroll-down-1/3 ()
   (interactive)
   (scroll-down (/ (window-body-height) 3)))
+
+;;; insert something
+(defun +lizqwer/insert-file-path (filename)
+  (interactive "*fInsert file path: \n")
+  (insert (expand-file-name filename)))
+
+(defun +lizqwer/insert-file-name (filename)
+  (interactive "fInsert file name: \n")
+  (insert (file-relative-name filename)))
 
 (provide 'init-edit)
 ;;; init-edit.el ends here.
