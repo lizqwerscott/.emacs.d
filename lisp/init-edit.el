@@ -272,5 +272,12 @@
   (interactive "fInsert file name: \n")
   (insert (file-relative-name filename)))
 
+;;;###autoload
+(defun toggle-sub-word-or-super-word ()
+  (interactive)
+  (if subword-mode
+      (superword-mode)
+    (subword-mode)))
+
 (provide 'init-edit)
 ;;; init-edit.el ends here.
