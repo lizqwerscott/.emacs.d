@@ -4,6 +4,36 @@
   "probe meow normal mode"
   (symbol-value 'meow-normal-mode))
 
+;;; Copy from https://github.com/DogLooksGood/emacs-rime/blob/fd434071ce95c41e5d580e303ccf2a65f189e7ec/rime-predicates.el#LL14C1-L20C90
+(defun rime-predicate-after-alphabet-char-p ()
+  "If the cursor is after a alphabet character.
+
+Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
+  (and (> (point) (save-excursion (back-to-indentation) (point)))
+     (let ((string (buffer-substring (point) (max (line-beginning-position) (- (point) 80)))))
+       (string-match-p "[a-zA-Z][0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]*$" string))))
+
+(defun rime-predicate-after-ascii-char-p ()
+  "If the cursor is after a ascii character.
+
+Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
+  (and (> (point) (save-excursion (back-to-indentation) (point)))
+     (let ((string (buffer-substring (point) (max (line-beginning-position) (- (point) 80)))))
+       (string-match-p "[a-zA-Z0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]$" string))))
+
+(defun rime-predicate-space-after-ascii-p ()
+  "If cursor is after a whitespace which follow a ascii character."
+  (and (> (point) (save-excursion (back-to-indentation) (point)))
+     (let ((string (buffer-substring (point) (max (line-beginning-position) (- (point) 80)))))
+       (and (string-match-p " +$" string)
+          (not (string-match-p "\\cc +$" string))))))
+
+(defun rime-predicate-space-after-cc-p ()
+  "If cursor is after a whitespace which follow a non-ascii character."
+  (and (> (point) (save-excursion (back-to-indentation) (point)))
+     (let ((string (buffer-substring (point) (max (line-beginning-position) (- (point) 80)))))
+       (string-match-p "\\cc +$" string))))
+
 (require 'pyim)
 (setq default-input-method "pyim")
 (pyim-default-scheme 'quanpin)
@@ -11,11 +41,16 @@
 (setq pyim-page-tooltip 'posframe)
 (setq-default pyim-english-input-switch-functions
               `(
-                ;; pyim-probe-program-mode
+                ;; pyim-probe-dynamic-english
+                rime-predicate-after-alphabet-char-p
+                ;; rime-predicate-after-ascii-char-p
+                ;; rime-predicate-space-after-ascii-p
+                rime-predicate-space-after-cc-p
+
+                pyim-probe-program-mode
                 pyim-probe-meow-normal-mode
                 pyim-probe-org-structure-template))
 (setq-default pyim-punctuation-translate-p '(no))
-
 ;; (require 'pyim-basedict)
 ;; (pyim-basedict-enable)
 (require 'pyim-tsinghua-dict)
