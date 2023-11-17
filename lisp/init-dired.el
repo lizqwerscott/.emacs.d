@@ -7,6 +7,7 @@
       "-l --almost-all --human-readable --time-style=long-iso --group-directories-first --no-group")
 
 (require 'dired)
+(require 'dired-x)
 (setq dired-kill-when-opening-new-dired-buffer t)
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\..*$"))

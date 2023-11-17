@@ -4,7 +4,8 @@
 (tab-bar-mode t)
 (setq tab-bar-new-tab-choice "*scratch*") ;; buffer to show in new tabs
 (setq tab-bar-close-button-show nil)      ;; hide tab close / X button
-(setq tab-bar-auto-width-max '(340 30))
+;; (setq tab-bar-auto-width-max '(340 30))
+
 ;; (setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
 ;; (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
 
@@ -162,7 +163,6 @@
         (tab-name (if workspace-name
                       workspace-name
                     (car (last (split-string (directory-file-name workspace-dir) "/"))))))
-    (message "dir: %s, name: %s" workspace-dir tab-name)
     (cond
      ((member tab-name existing-tab-names)
       (tab-bar-switch-to-tab tab-name))
@@ -171,6 +171,21 @@
       (tab-rename tab-name)
       (setq default-directory workspace-dir)))
     (ido-find-file)))
+
+
+;;;###autoload
+(defun tabspaces-open-or-create-telega-workspace ()
+  (interactive)
+  (let ((existing-tab-names (tabspaces--list-tabspaces))
+        (tab-name "telega"))
+    (cond
+     ((member tab-name existing-tab-names)
+      (tab-bar-switch-to-tab tab-name))
+     (t
+      (tab-new)
+      (tab-rename tab-name)))
+    (autoload 'telega-chat-with "init-telega" nil t)
+    (call-interactively #'telega-chat-with)))
 
 (provide 'init-tab-bar)
 ;;; init-tab-bar.el ends here

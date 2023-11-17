@@ -31,7 +31,8 @@
  (:key "r" :description "Toggle redacted" :command redacted-mode)
  (:key "l" :description "Lock screen" :command +lizqwer/toggle-lock :filename "init-func")
  (:key "c" :description "Toggle center cursor" :command global-centered-cursor-mode)
- (:key "s" :description "Toggle interaction-log" :command interaction-log-mode :filename "interaction-log"))
+ (:key "s" :description "Toggle interaction-log" :command interaction-log-mode :filename "interaction-log")
+ (:key "w" :description "Toggle sub word or super word" :command toggle-sub-word-or-super-word :filename "init-edit"))
 
 (lazy-one-key-create-menu
  "Search"
@@ -102,11 +103,19 @@
    (("m" . "Sort tab close all mode tabs") . sort-tab-close-mode-tabs)))
 
 (one-key-create-menu
+ "Git"
+ '((("n" . "Next hunk") . diff-hl-next-hunk)
+   (("p" . "Previous hunk") . diff-hl-previous-hunk)
+   (("s" . "Show hunk") . diff-hl-show-hunk)
+   (("b" . "Blame") . magit-blame)))
+
+(one-key-create-menu
  "Workspace"
  '((("l" . "Workspace switch or create workspace") . tabspaces-switch-or-create-workspace)
    (("p" . "Workspace project switch or create") . tabspaces-open-or-create-project-and-workspace)
    (("d" . "Workspace open or create workspace") . tabspaces-open-or-create-workspace)
-   (("k" . "Workspace kill workspace") . tabspaces-kill-buffers-close-workspace)))
+   (("k" . "Workspace kill workspace") . tabspaces-kill-buffers-close-workspace)
+   (("t" . "Workspace telelga") . tabspaces-open-or-create-telega-workspace)))
 
 (lazy-one-key-create-menu
  "Useful"

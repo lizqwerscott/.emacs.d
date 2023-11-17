@@ -35,7 +35,7 @@
 
 (global-diff-hl-mode)
 (global-diff-hl-show-hunk-mouse-mode)
-(add-hook 'dired-mode
+(add-hook 'dired-mode-hook
           'diff-hl-dired-mode)
 
 (diff-hl-flydiff-mode)
@@ -86,6 +86,8 @@
 ;;       (advice-add cmd :after #'my-recenter-and-pulse))))
 
 ;;; Pulse modified region
+(setq pulse-delay 0.08
+      pulse-iterations 2)
 (add-hooks '(prog-mode text-mode)
            'goggles-mode)
 
