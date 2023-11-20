@@ -107,11 +107,11 @@
               (highlight-matching-tag 1)))
 
 (require 'paren)
-(show-paren-mode 1)
 (setq show-paren-when-point-inside-paren t
       show-paren-when-point-in-periphery t)
 (setq show-paren-style 'parenthesis
       show-paren-context-when-offscreen 'overlay)
+(show-paren-mode 1)
 
 ;; (use-package highlight-defined
 ;;   :ensure t
@@ -119,12 +119,30 @@
 ;;   )
 
 ;;; hl indetn
-(add-hook 'prog-mode-hook
-          #'(lambda ()
-              (require 'highlight-indent-guides)
-              (setq highlight-indent-guides-auto-odd-face-perc 50)
-              (setq highlight-indent-guides-auto-even-face-perc 50)
-              (highlight-indent-guides-mode 1)))
+
+(require 'indent-bars)
+(setq indent-bars-color '(highlight :face-bg t :blend 0.15)
+      indent-bars-pattern "."
+      indent-bars-width-frac 1
+      indent-bars-pad-frac 0.1
+      indent-bars-zigzag nil
+      indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
+      indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
+      indent-bars-display-on-blank-lines t)
+
+(setq indent-bars-treesit-support t
+      indent-bars-no-descend-string t
+      indent-bars-treesit-ignore-blank-lines-types '("module"))
+
+(add-hooks '(python-mode python-ts-mode rust-mode rust-ts-mode c++-mode c++-ts-mode)
+           #'indent-bars-mode)
+
+;; (add-hook 'prog-mode-hook
+;;           #'(lambda ()
+;;               (require 'highlight-indent-guides)
+;;               (setq highlight-indent-guides-auto-odd-face-perc 50)
+;;               (setq highlight-indent-guides-auto-even-face-perc 50)
+;;               (highlight-indent-guides-mode 1)))
 
 ;;; hl todo
 (require 'init-hl-todo)

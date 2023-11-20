@@ -13,6 +13,15 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
      (let ((string (buffer-substring (point) (max (line-beginning-position) (- (point) 80)))))
        (string-match-p "[a-zA-Z][0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]*$" string))))
 
+;; (defun rime-predicate-after-alphabet-char-p ()
+;;   "If the cursor is after a alphabet character.
+
+;; Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
+;;   (and (> (point) (save-excursion (back-to-indentation) (point)))
+;;      (let ((string (buffer-substring (point) (max (line-beginning-position) (- (point) 80)))))
+;;        (string-match-p "[A-Z]*$" string))))
+
+
 (defun rime-predicate-after-ascii-char-p ()
   "If the cursor is after a ascii character.
 

@@ -10,6 +10,10 @@
 (add-to-list 'lsp-bridge-default-mode-hooks
              'vue-ts-mode-hook)
 
+(setq lsp-bridge-default-mode-hooks
+      (remove 'telega-chat-mode-hook
+              lsp-bridge-default-mode-hooks))
+
 (unless (display-graphic-p)
   (with-eval-after-load 'acm
     ;; (use-package popon
