@@ -9,7 +9,8 @@
 
 ;; (toggle-debug-on-error)
 ;; 启动必须加载
-(package-check-install '(vterm multi-vterm))
+;; Need install packages
+(require 'init-packages)
 
 (setq custom-file "~/.config/emacs-custom.el")
 (when (file-exists-p custom-file)

@@ -10,15 +10,32 @@
 ;;; Code:
 
 (setq browse-url-browser-function 'browse-url-chrome)
-(add-hook 'web-mode-hook
-          #'(lambda ()
-              (setq web-mode-imenu-regexp-list
-                    (append web-mode-imenu-regexp-list
-                            '(("\\(function\\) \\(.*\)\\)" 1 2 " > ")
-                              ("\\(const\\) \\(.*\\)" 1 2 " ")
-                              ("<\\(.*\\) ?\\(.*\\)>" 1 2 " "))))))
+
+(require 'web-mode)
+(setq web-mode-indent-style 4)
+(setq web-mode-imenu-regexp-list
+      (append web-mode-imenu-regexp-list
+              '(("\\(function\\) \\(.*\)\\)" 1 2 " > ")
+                ("\\(const\\) \\(.*\\)" 1 2 " ")
+                ("<\\(.*\\) ?\\(.*\\)>" 1 2 " "))))
+;; (add-hook 'web-mode-hook
+;;           #'(lambda ()
+
+;;               ))
 
 (pnpm-global-mode)
+
+;; (require 'vue-ts-mode)
+;; (keymap-unset vue-ts-mode-map "C-c 1")
+;; (keymap-unset vue-ts-mode-map "C-c 2")
+;; (keymap-unset vue-ts-mode-map "C-c 3")
+;; (keymap-unset vue-ts-mode-map "C-c 4")
+;; (keymap-unset vue-ts-mode-map "C-c 5")
+;; (keymap-unset vue-ts-mode-map "C-c 6")
+;; (keymap-unset vue-ts-mode-map "C-c 8")
+;; (keymap-unset vue-ts-mode-map "M-o")
+;; (setq vue-ts-mode-indent-offset 4)
+
 
 ;;; Json
 ;; (use-package jsonian
