@@ -1,6 +1,5 @@
 (defvar *package-need-install-list*
-  '(emacsql-sqlite-builtin
-    gcmh
+  '(gcmh
     vertico
     marginalia
     consult

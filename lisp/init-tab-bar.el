@@ -187,5 +187,18 @@
     (autoload 'telega-chat-with "init-telega" nil t)
     (call-interactively #'telega-chat-with)))
 
+;;;###autoload
+(defun tabspaces-open-or-create-temp-workspace ()
+  (interactive)
+  (let ((existing-tab-names (tabspaces--list-tabspaces))
+        (tab-name "temp-code"))
+    (cond
+     ((member tab-name existing-tab-names)
+      (tab-bar-switch-to-tab tab-name))
+     (t
+      (tab-new)
+      (tab-rename tab-name)))
+    (ido-find-file-in-dir "~/temp/")))
+
 (provide 'init-tab-bar)
 ;;; init-tab-bar.el ends here
