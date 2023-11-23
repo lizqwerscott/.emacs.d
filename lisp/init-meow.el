@@ -83,7 +83,7 @@
    '("o" . meow-block)
    '("x" . meow-line)
    '("W" . meow-mark-symbol)
-   '("W" . meow-mark-word)
+   '("w" . meow-mark-word)
    '("C-j" . (lambda ()
 	           (interactive)
 	           (dotimes (i 2)

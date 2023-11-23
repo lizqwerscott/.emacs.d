@@ -68,7 +68,8 @@
 
 (defvar *package-early-install-list*
   '(no-littering
-    benchmark-init))
+    benchmark-init
+    emacsql-sqlite-builtin))
 
 (package-check-install *package-early-install-list*)
 
