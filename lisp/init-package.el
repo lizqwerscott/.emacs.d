@@ -69,9 +69,16 @@
 (defvar *package-early-install-list*
   '(no-littering
     benchmark-init
-    emacsql-sqlite-builtin))
+    emacsql-sqlite-builtin
+    pretty-mode
+    doom-themes))
 
 (package-check-install *package-early-install-list*)
+
+(quelpa '(lazy-load :fetcher github
+                    :repo "manateelazycat/lazy-load"))
+
+(quelpa '(one-key :fetcher github :repo "manateelazycat/one-key"))
 
 (provide 'init-package)
 ;;; init-package.el ends here

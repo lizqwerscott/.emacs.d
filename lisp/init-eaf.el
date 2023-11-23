@@ -2,11 +2,11 @@
 (require 'eaf-browser)
 (require 'eaf-pdf-viewer)
 (require 'eaf-git)
-(require 'eaf-image-viewer)
 (require 'eaf-markdown-previewer)
 (require 'eaf-org-previewer)
 ;; (require 'eaf-file-manager)
-(require 'eaf-music-player)
+;; (require 'eaf-music-player)
+(require 'eaf-netease-cloud-music)
 
 (eaf-bind-key meow-keypad "SPC" eaf-pdf-viewer-keybinding)
 (eaf-bind-key meow-keypad "SPC" eaf-browser-keybinding)

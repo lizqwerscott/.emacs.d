@@ -46,7 +46,6 @@
     pretty-mode
     diredfl
     dired-subtree
-    doom-themes
     solarized-theme
     nerd-icons
     nerd-icons-completion
@@ -87,10 +86,6 @@
 
 (package-check-install *package-need-install-list*)
 
-(quelpa '(lazy-load :fetcher github
-                    :repo "manateelazycat/lazy-load"))
-
-(quelpa '(one-key :fetcher github :repo "manateelazycat/one-key"))
 
 (quelpa '(telega :fetcher github
                  :repo "zevlg/telega.el"
