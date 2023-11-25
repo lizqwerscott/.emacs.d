@@ -142,6 +142,7 @@
 ;;; Window
 (require 'ace-window)
 (set-face-attribute 'aw-leading-char-face nil :height 400)
+(add-to-list 'aw-ignored-buffers "*Ilist*")
 
 (winner-mode 1)
 (require 'shackle)
