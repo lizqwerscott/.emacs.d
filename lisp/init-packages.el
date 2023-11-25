@@ -43,6 +43,7 @@
     ag
     rg
     magit
+    magit-todos
     pretty-mode
     diredfl
     dired-subtree

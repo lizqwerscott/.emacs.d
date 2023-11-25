@@ -51,12 +51,12 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 (setq-default pyim-english-input-switch-functions
               `(
                 ;; pyim-probe-dynamic-english
-                rime-predicate-after-alphabet-char-p
+                ;; rime-predicate-after-alphabet-char-p
                 ;; rime-predicate-after-ascii-char-p
                 ;; rime-predicate-space-after-ascii-p
-                rime-predicate-space-after-cc-p
+                ;; rime-predicate-space-after-cc-p
 
-                pyim-probe-program-mode
+                ;; pyim-probe-program-mode
                 pyim-probe-meow-normal-mode
                 pyim-probe-org-structure-template))
 (setq-default pyim-punctuation-translate-p '(no))
