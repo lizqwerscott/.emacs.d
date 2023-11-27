@@ -126,7 +126,8 @@
  (:key "e" :description "Toggle sdcv" :command lsp-bridge-toggle-sdcv-helper :filename "init-lsp-bridge")
  (:key "D" :description "Docker" :command docker)
  (:key "p" :description "peek code" :command peek-overlay-dwim :filename "init-peek")
- (:key "d" :description "Devdocs" :command devdocs-lookup))
+ (:key "d" :description "Devdocs" :command devdocs-lookup)
+ (:key "s" :description "screenshot" :command screenshot))
 
 (defun format-code ()
   "Format code."
