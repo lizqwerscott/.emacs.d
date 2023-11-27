@@ -32,7 +32,7 @@
 (one-key-create-menu
  "Rust"
  '((("r" . "Rust Run") . cargo-process-run)
-   (("c" . "Rust check") . cargo-process-check)
+   (("c" . "Rust check") . cargo-process-clippy)
    (("b" . "Rust Compile") . cargo-process-build)))
 
 (defun run-or-compile ()

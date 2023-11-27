@@ -150,4 +150,6 @@
 
 (quelpa '(indent-bars :fetcher github :repo "jdtsmith/indent-bars"))
 
+(quelpa '(screenshot :fetcher github :repo "tecosaur/screenshot"))
+
 (provide 'init-packages)
