@@ -117,6 +117,7 @@
    '("f" . one-key-menu-file)
    '("b" . one-key-menu-buffer)
    '("w" . one-key-menu-org)
+   '("o" . one-key-menu-roam)
    ;; '("v" . one-key-menu-sort-tab)
    '("v" . one-key-menu-git)
    '("l" . one-key-menu-workspace)
