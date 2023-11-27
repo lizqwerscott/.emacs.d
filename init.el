@@ -31,6 +31,7 @@
 (require 'init-auto-save)
 
 (defun last-start ()
+  (require 'init-org-roam)
   (require 'init-meow)
   (require 'init-magit)
   (require 'init-immersive-translate)
@@ -41,7 +42,7 @@
   (require 'init-spell)
   ;; (require 'init-copilot)
   (require 'init-input)
-  ;; (require 'init-format)
+  (require 'init-format)
   (require 'init-program)
   (require 'init-separedit)
   ;; (require 'init-eglot)
@@ -59,7 +60,6 @@
   (require 'init-hugo)
   ;; (require 'init-reader)
   ;; (require 'init-paper)
-
   ;;(require 'crefactor)
   (message "start telega")
   (autoload '+lizqwer/toggle-telega "init-telega" nil t)

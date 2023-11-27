@@ -76,6 +76,8 @@
     valign
     org-bullets
     org-fancy-priorities
+    org-roam
+    org-roam-ui
     eshell-prompt-extras
     fish-completion
     ox-hugo
