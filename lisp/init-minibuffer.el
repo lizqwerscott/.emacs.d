@@ -2,20 +2,10 @@
 (require 'marginalia)
 (require 'consult)
 
-(vertico-mode 1)
+;;; Emacs complection
 
-(setq vertico-count 20
-      read-file-name-completion-ignore-case t
-      read-buffer-completion-ignore-case t
-      completion-ignore-case t)
-
-(keymap-set vertico-map "?" #'minibuffer-completion-help)
-(keymap-set vertico-map "M-RET" #'minibuffer-force-complete-and-exit)
-(keymap-set vertico-map "M-TAB" #'minibuffer-complete)
-(add-hook 'rfn-eshadow-update-overlay #'vertico-directory-tidy)
-(keymap-set minibuffer-local-map "M-s" #'consullt-history)
-(keymap-set minibuffer-local-map "M-r" #'consult-history)
-
+;; Add prompt indicator to `completing-read-multiple'.
+;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
 (defun crm-indicator (args)
   (cons (format "[CRM%s] %s"
                 (replace-regexp-in-string
@@ -31,21 +21,42 @@
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 (setq enable-recursive-minibuffers t)
 
+;; Only list the commands of the current modes
+(when (boundp 'read-extended-command-predicate)
+  (setq read-extended-command-predicate
+        #'command-completion-default-include-p))
+
+;;; Vertico
+(setq vertico-count 20)
+(keymap-set minibuffer-local-map "M-s" #'consult-history)
+(keymap-set minibuffer-local-map "M-r" #'consult-history)
+(keymap-set minibuffer-local-map "C-i" #'(lambda ()
+                                           "Insert the currunt symbol."
+                                           (interactive)
+                                           (insert (save-excursion
+		                                             (set-buffer (window-buffer (minibuffer-selected-window)))
+		                                             (or (thing-at-point 'symbol t) "")))))
+
 ;; Configure directory extension.
-(require #'vertico-directory)
 (keymap-set vertico-map "RET" #'vertico-directory-enter)
 (keymap-set vertico-map "DEL" #'vertico-directory-delete-char)
-(keymap-set vertico-map "M-DEL" #'vertico-directory-delete-word)
+(keymap-set vertico-map "M-DEL" #'vertico-directory-up)
 
 (add-hook #'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
 
+(vertico-mode 1)
+
+;;; marginalia
 (marginalia-mode)
 
+;;; orderless
 (require 'orderless)
 (setq completion-styles '(orderless basic)
       completion-category-defaults nil
-      completion-category-overrides '((file (styles basic partial-completion))))
+      completion-category-overrides '((file (styles basic partial-completion)))
+      orderless-component-separator #'orderless-escapable-split-on-space)
 
+;;; consult
 (add-hook 'completion-list-mode-hook 'consult-preview-at-point-mode)
 
 (provide 'init-minibuffer)
