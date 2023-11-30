@@ -50,9 +50,10 @@
     diredfl
     dired-subtree
     solarized-theme
+    all-the-icons
+    all-the-icons-dired
+    all-the-icons-completion
     nerd-icons
-    nerd-icons-completion
-    nerd-icons-dired
     imenu-list
     hl-todo
     avy
@@ -80,6 +81,7 @@
     org-fancy-priorities
     org-roam
     org-roam-ui
+    pangu-spacing
     eshell-prompt-extras
     fish-completion
     ox-hugo

@@ -37,6 +37,11 @@
 		                                             (set-buffer (window-buffer (minibuffer-selected-window)))
 		                                             (or (thing-at-point 'symbol t) "")))))
 
+(add-hook 'vertico-mode
+          #'all-the-icons-completion-mode)
+;; (add-hook 'vertico-mode
+;;           #'nerd-icons-completion-mode)
+
 ;; Configure directory extension.
 (keymap-set vertico-map "RET" #'vertico-directory-enter)
 (keymap-set vertico-map "DEL" #'vertico-directory-delete-char)
@@ -45,9 +50,12 @@
 (add-hook #'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
 
 (vertico-mode 1)
-
 ;;; marginalia
 (marginalia-mode)
+(add-hook 'marginalia-mode-hook
+          #'all-the-icons-completion-marginalia-setup)
+;; (add-hook 'marginalia-mode-hook
+;;           #'nerd-icons-completion-marginalia-setup)
 
 ;;; orderless
 (require 'orderless)

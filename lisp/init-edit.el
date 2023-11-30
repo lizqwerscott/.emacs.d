@@ -276,8 +276,11 @@
 (defun toggle-sub-word-or-super-word ()
   (interactive)
   (if subword-mode
-      (superword-mode)
-    (subword-mode)))
+      (progn
+        (superword-mode)
+        (message "开启 super-word-mode"))
+    (subword-mode)
+    (message "开启 sub-word-mode")))
 
 (provide 'init-edit)
 ;;; init-edit.el ends here.

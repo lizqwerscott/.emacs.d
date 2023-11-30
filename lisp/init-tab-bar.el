@@ -184,8 +184,8 @@
      (t
       (tab-new)
       (tab-rename tab-name)))
-    (autoload 'telega-chat-with "init-telega" nil t)
-    (call-interactively #'telega-chat-with)))
+    (autoload 'telega-switch-important-chat "init-telega" nil t)
+    (call-interactively #'telega-switch-important-chat)))
 
 ;;;###autoload
 (defun tabspaces-open-or-create-temp-workspace ()
