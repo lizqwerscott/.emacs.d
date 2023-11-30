@@ -14,8 +14,7 @@
 
 (add-hook 'dired-mode-hook
           #'(lambda ()
-              (all-the-icons-dired-mode)
-              ;; (nerd-icons-dired-mode)
+              (nerd-icons-dired-mode)
               (diredfl-mode)
               (dired-omit-mode)))
 
