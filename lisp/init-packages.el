@@ -50,10 +50,9 @@
     diredfl
     dired-subtree
     solarized-theme
-    all-the-icons
-    all-the-icons-dired
-    all-the-icons-completion
     nerd-icons
+    nerd-icons-dired
+    nerd-icons-completion
     imenu-list
     hl-todo
     avy

@@ -48,12 +48,8 @@
 ;;; marginalia
 (marginalia-mode)
 (add-hook 'marginalia-mode-hook
-          #'all-the-icons-completion-marginalia-setup)
-(all-the-icons-completion-mode)
-
-;; (add-hook 'marginalia-mode-hook
-;;           #'nerd-icons-completion-marginalia-setup)
-;; (nerd-icons-completion-mode)
+          #'nerd-icons-completion-marginalia-setup)
+(nerd-icons-completion-mode)
 
 ;;; orderless
 (require 'orderless)
