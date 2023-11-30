@@ -14,12 +14,12 @@
 
 (add-to-list 'org-capture-templates
              '("w" "Web Collections" entry
-               (file+headline "~/Documents/Sync/org/index.org" "Web")
+               (file+headline "~/Documents/Org/index.org" "Web")
                "* %U %:annotation\n\n%:initial\n\n%?"))
 
 (add-to-list 'org-capture-templates
              '("i" "Inbox" entry
-               (file "~/Documents/Sync/org/index.org")
+               (file "~/Documents/Org/index.org")
                "* %U - %^{heading} %^g\n %?\n"))
 
 (provide 'init-org-capture)

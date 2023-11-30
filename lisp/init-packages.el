@@ -45,6 +45,8 @@
     magit
     magit-todos
     pretty-mode
+    dired-rsync
+    dired-toggle-sudo
     diredfl
     dired-subtree
     solarized-theme

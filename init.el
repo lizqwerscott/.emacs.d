@@ -31,7 +31,6 @@
 (require 'init-auto-save)
 
 (defun last-start ()
-  (require 'init-org-roam)
   (require 'init-meow)
   (require 'init-magit)
   (require 'init-immersive-translate)
