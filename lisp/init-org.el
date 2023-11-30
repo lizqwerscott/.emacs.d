@@ -8,12 +8,56 @@
 
 ;;; Code:
 
+;;; Base Org
+
+;;; Org base
+(require 'org)
+
+(setq org-default-notes-file "~/Documents/Org/index.org")
+
+(setq org-hide-emphasis-markers t)
+
+(setq org-startup-indented t
+      org-src-tab-acts-natively t
+      org-startup-folded t)
+(setq org-fontify-done-headline t
+      org-hide-leading-stars t
+      org-pretty-entities nil
+      org-odd-levels-only t)
+
+(setq org-format-latex-options
+      (plist-put org-format-latex-options :scale 2.0))
+
+(setq org-log-done 'note)
+
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "DOING(i)" "HANGUP(h)" "|" "DONE(d)" "CANCEL(c)")
+        (sequence "⚑(T)" "🏴(I)" "❓(H)" "|" "✔(D)" "✘(C)")))
+;; (setq org-todo-keywords
+;;       '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d@/!)" "CANCEL(c@/!)")
+;;         (sequence "REPORT(r!)" "BUG(b@/!)" "|" "FIXED(f@/!)")))
+
+;; (setq org-list-demote-modify-bullet
+;;       (quote (("+" . "-")
+;;               ("-" . "+")
+;;               ("*" . "-")
+;;               ("1." . "-")
+;;               ("1)" . "-")
+;;               ("A)" . "-")
+;;               ("B)" . "-")
+;;               ("a)" . "-")
+;;               ("b)" . "-")
+;;               ("A." . "-")
+;;               ("B." . "-")
+;;               ("a." . "-")
+;;               ("b." . "-"))))
+
 ;;; Org function
 ;; space ww
 (defun open-my-org-file ()
   "打开我的org文件."
   (interactive)
-  (eaf-open "~/Documents/Sync/org/"))
+  (dired "~/Documents/Org/"))
 
 (defun org-export-docx ()
   (interactive)
@@ -46,85 +90,48 @@
    (python . t)
    (latex . t)))
 
-(require 'org)
+;;; UI
 
-;;; Org base
-(setq org-startup-indented t
-      org-src-tab-acts-natively t
-      org-startup-folded t)
-
-(setq org-fontify-done-headline t
-      org-hide-leading-stars t
-      org-pretty-entities nil
-      org-odd-levels-only t)
-
-(setq org-list-demote-modify-bullet
-      (quote (("+" . "-")
-              ("-" . "+")
-              ("*" . "-")
-              ("1." . "-")
-              ("1)" . "-")
-              ("A)" . "-")
-              ("B)" . "-")
-              ("a)" . "-")
-              ("b)" . "-")
-              ("A." . "-")
-              ("B." . "-")
-              ("a." . "-")
-              ("b." . "-"))))
-
-(require 'org-fancy-priorities)
-(add-hook 'org-mode-hook #'org-fancy-priorities-mode)
-;; (use-package org-fancy-priorities
-;;   :ensure t
-;;   :hook
-;;   (org-mode . org-fancy-priorities-mode)
-;;   :config
-;;   (setq org-fancy-priorities-list
-;;         '((?A . "A")
-;;           (?B . "⬆")
-;;           (?C . "⬇")
-;;           (?D . "☕")
-;;           (?1 . "⚡")
-;;           (?2 . "2")
-;;           (?3 . "3")
-;;           (?4 . "☕")
-;;           (?I . "Important"))))
+;;; 中文标记隐藏空格
+(font-lock-add-keywords 'org-mode
+                        '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
+                           (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))
+                          ("\\cc?\\( \\)?[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)\\cc"
+                           (2 (prog1 () (compose-region (match-beginning 2) (match-end 2) "")))))
+                        'append)
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook 'org-bullets-mode)
 
-;; (use-package org-bullets
-;;   :ensure t
-;;   :custom
-;;   (org-bullets-bullet-list '("◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
-;;   (org-ellipsis "⤵")
-;;   :hook (org-mode . org-bullets-mode))
-
-;; (setq org-tag-alist
-;;       '(("@work" . ?w)
-;;         ("@home" . ?h)
-;;         ("@laptop" . ?l)))
-
 ;; Make verbatim with highlight text background.
-(add-to-list 'org-emphasis-alist
-             '("=" (:background "#fef7ca")))
+;; (add-to-list 'org-emphasis-alist
+;;              '("=" (:background "#fef7ca")))
 ;; Make deletion(obsolote) text foreground with dark gray.
-(add-to-list 'org-emphasis-alist
-           '("+" (:foreground "dark gray"
-                  :strike-through t)))
+;; (add-to-list 'org-emphasis-alist
+;;            '("+" (:foreground "dark gray"
+;;                   :strike-through t)))
 ;; Make code style around with box.
-(add-to-list 'org-emphasis-alist
-             '("~" (:box (:line-width 1
-                                      :color "grey75"
-                                      :style released-button))))
-
+;; (add-to-list 'org-emphasis-alist
+;;              '("~" (:box (:line-width 1
+;;                                       :color "grey75"
+;;                                       :style released-button))))
 
 (require 'valign)
 (setq valign-facy-bar t)
 (add-hook 'org-mode-hook #'valign-mode)
 
-(setq org-hide-emphasis-markers t)
+(require 'org-fancy-priorities)
+(setq org-fancy-priorities-list
+      '((?A . "A")
+        (?B . "⬆")
+        (?C . "⬇")
+        (?D . "☕")
+        (?1 . "⚡")
+        (?2 . "2")
+        (?3 . "3")
+        (?4 . "☕")
+        (?I . "Important")))
+(add-hook 'org-mode-hook #'org-fancy-priorities-mode)
 
 ;; (require 'org-bars)
 ;; (add-hook 'org-mode-hook
@@ -138,25 +145,12 @@
 
 ;;; Org key
 (define-key org-mode-map (kbd "C-c TAB") 'org-insert-item)
-(define-key org-mode-map (kbd "M-h") 'org-metaleft)
-(define-key org-mode-map (kbd "M-l") 'org-metaright)
-
-(setq org-default-notes-file "~/Documents/Sync/org/index.org")
-
-(setq org-format-latex-options
-      (plist-put org-format-latex-options :scale 2.0))
-
-(setq org-todo-keywords
-      '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d@/!)" "CANCEL(c@/!)")
-        (sequence "REPORT(r!)" "BUG(b@/!)" "|" "FIXED(f@/!)")))
-
-(setq org-log-done 'note)
+(define-key org-mode-map (kbd "M-P") 'org-metaup)
+(define-key org-mode-map (kbd "M-N") 'org-metadown)
 
 (require 'org-download)
 
-;; (use-package org-download
-;;   :ensure t
-;;   :hook (dired-mode . org-download-enable))
+(require 'init-org-roam)
 
 (require 'init-org-capture)
 

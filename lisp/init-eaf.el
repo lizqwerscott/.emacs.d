@@ -15,5 +15,5 @@
 (setq eaf-proxy-type "http")
 (setq eaf-proxy-host user/proxy-host)
 (setq eaf-proxy-port user/proxy-rule-port)
-(setq eaf-webengine-default-zoom 1.25)
+(setq eaf-webengine-default-zoom 1.5)
 (provide 'init-eaf)
