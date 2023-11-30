@@ -82,11 +82,6 @@
 (breadcrumb-mode)
 ;; (setq header-line-format nil)
 
-;;; Icons
-(add-hook 'marginalia-mode-hook
-          #'nerd-icons-completion-marginalia-setup)
-(nerd-icons-completion-mode)
-
 ;;; Line number
 (unless sys/win32p
   (add-hooks '(prog-mode text-mode conf-mode)
