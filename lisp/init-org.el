@@ -15,20 +15,15 @@
 
 (setq org-default-notes-file "~/Documents/Org/index.org")
 
-(setq org-hide-emphasis-markers t)
-
-(setq org-startup-indented t
-      org-src-tab-acts-natively t
-      org-startup-folded t)
-(setq org-fontify-done-headline t
-      org-hide-leading-stars t
+(setq org-tags-column -80
+      org-log-done 'time
+      org-catch-invisible-edits 'smart
+      org-startup-indented t
       org-pretty-entities nil
-      org-odd-levels-only t)
+      org-hide-emphasis-markers t)
 
 (setq org-format-latex-options
       (plist-put org-format-latex-options :scale 2.0))
-
-(setq org-log-done 'note)
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "DOING(i)" "HANGUP(h)" "|" "DONE(d)" "CANCEL(c)")
@@ -155,5 +150,7 @@
 (require 'init-org-roam)
 
 (require 'init-org-capture)
+
+(require 'org-agenda)
 
 (provide 'init-org)
