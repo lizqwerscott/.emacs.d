@@ -1,6 +1,10 @@
 (require 'org-capture)
 
-(setq org-capture-templates nil)
+(defun lizqwer/setup-org-capture ()
+  (setq org-capture-templates nil)
+  (push '("i" "我的闪念" entry (file+headline "~/Documents/Org/idea.org" "闪念") "* %U - %^{标题} %^g\n  %?\n")
+        org-capture-templates)
+  )
 
 (defun +evan/setup-org-capture ()
   (setq org-capture-templates nil)
@@ -12,14 +16,6 @@
   (push '("b" "笔记" entry (file+headline "~/Org/note.org" "笔记") "* %^{标题} %t\n  %?\n") org-capture-templates)
   )
 
-(add-to-list 'org-capture-templates
-             '("w" "Web Collections" entry
-               (file+headline "~/Documents/Org/index.org" "Web")
-               "* %U %:annotation\n\n%:initial\n\n%?"))
-
-(add-to-list 'org-capture-templates
-             '("i" "Inbox" entry
-               (file "~/Documents/Org/index.org")
-               "* %U - %^{heading} %^g\n %?\n"))
+(lizqwer/setup-org-capture)
 
 (provide 'init-org-capture)
