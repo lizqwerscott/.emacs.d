@@ -69,7 +69,7 @@
     outshine
     grugru
     pnpm-mode
-    tabspaces
+    ;; tabspaces
     wucuo
     docker
     elvish-mode
