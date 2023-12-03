@@ -77,12 +77,11 @@
 
 ;;; keymap
 
-(add-hook 'lsp-bridge-mode-hook
-          '(lambda ()
-             (keymap-set acm-mode-map "C-n" #'acm-select-next)
-             (keymap-set acm-mode-map "C-p" #'acm-select-prev)
-             (keymap-set acm-mode-map "TAB" #'+lsp-complete)
-             (keymap-set acm-mode-map "<tab>" #'+lsp-complete)))
+(keymap-sets acm-mode-map
+             '(("C-n" . acm-select-next)
+               ("C-p" . acm-select-prev)
+               ("TAB" . +lsp-complete)
+               ("<tab>" . +lsp-complete)))
 
 (one-key-create-menu
  "Diagnostic"

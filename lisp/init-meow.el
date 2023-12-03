@@ -238,10 +238,12 @@
               (meow-motion-overwrite-define-key
                '("h" . dired-up-directory))))
 
-(keymap-set dired-mode-map "M-n" #'scroll-up-1/3)
-(keymap-set dired-mode-map "M-p" #'scroll-down-1/3)
+(keymap-sets dired-mode-map
+             '(("M-n" . scroll-up-1/3)
+               ("M-p" . scroll-down-1/3)))
 (require 'eww)
-(keymap-set eww-mode-map "M-n" #'scroll-up-1/3)
-(keymap-set eww-mode-map "M-p" #'scroll-down-1/3)
+(keymap-sets eww-mode-map
+             '(("M-n" . scroll-up-1/3)
+               ("M-p" . scroll-down-1/3)))
 
 (provide 'init-meow)
