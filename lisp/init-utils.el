@@ -9,6 +9,13 @@
                ,fn)))
 
 ;;;###autoload
+(defmacro keymap-sets (key-map key-bindings)
+  `(dolist (key-b ,key-bindings)
+     (keymap-set ,key-map
+                 (car key-b)
+                 (cdr key-b))))
+
+;;;###autoload
 (defun add-list-to-list (list-var elements)
   (if (listp elements)
       (mapcar #'(lambda (element)

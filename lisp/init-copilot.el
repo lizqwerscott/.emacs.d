@@ -1,8 +1,9 @@
 (require 'copilot)
 
 (setq copilot-max-char 1000000)
-(keymap-set copilot-completion-map "<tab>" #'copilot-accept-completion)
-(keymap-set copilot-completion-map "TAB" #'copilot-accept-completion)
+(keymap-sets copilot-completion-map
+             '(("<tab>" . copilot-accept-completion)
+               ("TAB" . copilot-accept-completion)))
 
 (setq copilot-network-proxy
       `(:host ,user/proxy-host :port 20171))

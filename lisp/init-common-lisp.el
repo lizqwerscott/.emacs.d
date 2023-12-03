@@ -35,7 +35,8 @@ Nominally unique, but not enforced."
   ;; (require 'sly-quicklisp)
   (sly-quickload (project-name (project-current))))
 
-(keymap-set sly-mode-map "C-c q r" #'sly-restart-inferior-lisp)
-(keymap-set sly-mode-map "C-c q l" #'load-lisp-project)
+(keymap-sets sly-mode-map
+             '(("C-c q r" . sly-restart-inferior-lisp)
+               ("C-c q l" . load-lisp-project)))
 
 (provide 'init-common-lisp)
