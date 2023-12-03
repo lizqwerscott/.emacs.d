@@ -124,81 +124,116 @@
 (setq tab-bar-tab-hints t)
 
 ;;; tabspaces
-(tabspaces-mode t)
+;; (tabspaces-mode t)
 
-(setq tabspaces-use-filtered-buffers-as-default t)
-(setq tabspaces-default-tab "Default")
-(setq tabspaces-remove-to-default t)
-(setq tabspaces-initialize-project-with-todo nil)
-(setq tabspaces-include-buffers '("*scratch*"))
-;; maybe slow
-(setq tabspaces-session t)
-(setq tabspaces-session-auto-restore nil)
+;; (setq tabspaces-use-filtered-buffers-as-default t)
+;; (setq tabspaces-default-tab "Default")
+;; (setq tabspaces-remove-to-default t)
+;; (setq tabspaces-initialize-project-with-todo nil)
+;; (setq tabspaces-include-buffers '("*scratch*"))
+;; ;; maybe slow
+;; (setq tabspaces-session t)
+;; (setq tabspaces-session-auto-restore nil)
 
-;;; Filter Buffers for Consult-Buffer
-(with-eval-after-load 'consult
-  ;; hide full buffer list (still available with "b" prefix)
-  (consult-customize consult--source-buffer :hidden nil :default nil)
-  ;; set consult-workspace buffer list
-  (defvar consult--source-workspace
-    (list :name "Workspace Buffers"
-	      :narrow ?w
-	      :history 'buffer-name-history
-	      :category 'buffer
-	      :state #'consult--buffer-state
-	      :default t
-	      :items (lambda () (consult--buffer-query
-			            :predicate #'tabspaces--local-buffer-p
-			            :sort 'visibility
-			            :as #'buffer-name)))
+;; ;;; Filter Buffers for Consult-Buffer
+;; (with-eval-after-load 'consult
+;;   ;; hide full buffer list (still available with "b" prefix)
+;;   (consult-customize consult--source-buffer :hidden nil :default nil)
+;;   ;; set consult-workspace buffer list
+;;   (defvar consult--source-workspace
+;;     (list :name "Workspace Buffers"
+;; 	      :narrow ?w
+;; 	      :history 'buffer-name-history
+;; 	      :category 'buffer
+;; 	      :state #'consult--buffer-state
+;; 	      :default t
+;; 	      :items (lambda () (consult--buffer-query
+;; 			            :predicate #'tabspaces--local-buffer-p
+;; 			            :sort 'visibility
+;; 			            :as #'buffer-name)))
 
-    "Set workspace buffer list for consult-buffer.")
-  (add-to-list 'consult-buffer-sources 'consult--source-workspace))
+;;     "Set workspace buffer list for consult-buffer.")
+;;   (add-to-list 'consult-buffer-sources 'consult--source-workspace))
 
 
-;;;###autoload
-(defun tabspaces-open-or-create-workspace (workspace-dir &optional workspace-name)
-  (interactive (list (file-truename (read-directory-name "workspace: " "~/"))))
-  (let ((existing-tab-names (tabspaces--list-tabspaces))
-        (tab-name (if workspace-name
-                      workspace-name
-                    (car (last (split-string (directory-file-name workspace-dir) "/"))))))
-    (cond
-     ((member tab-name existing-tab-names)
-      (tab-bar-switch-to-tab tab-name))
-     (t
+;; ;;;###autoload
+;; (defun tabspaces-open-or-create-workspace (workspace-dir &optional workspace-name)
+;;   (interactive (list (file-truename (read-directory-name "workspace: " "~/"))))
+;;   (let ((existing-tab-names (tabspaces--list-tabspaces))
+;;         (tab-name (if workspace-name
+;;                       workspace-name
+;;                     (car (last (split-string (directory-file-name workspace-dir) "/"))))))
+;;     (cond
+;;      ((member tab-name existing-tab-names)
+;;       (tab-bar-switch-to-tab tab-name))
+;;      (t
+;;       (tab-new)
+;;       (tab-rename tab-name)
+;;       (setq default-directory workspace-dir)))
+;;     (ido-find-file)))
+
+
+;; ;;;###autoload
+;; (defun tabspaces-open-or-create-telega-workspace ()
+;;   (interactive)
+;;   (let ((existing-tab-names (tabspaces--list-tabspaces))
+;;         (tab-name "telega"))
+;;     (cond
+;;      ((member tab-name existing-tab-names)
+;;       (tab-bar-switch-to-tab tab-name))
+;;      (t
+;;       (tab-new)
+;;       (tab-rename tab-name)))
+;;     (autoload 'telega-switch-important-chat "init-telega" nil t)
+;;     (call-interactively #'telega-switch-important-chat)))
+
+;; ;;;###autoload
+;; (defun tabspaces-open-or-create-temp-workspace ()
+;;   (interactive)
+;;   (let ((existing-tab-names (tabspaces--list-tabspaces))
+;;         (tab-name "temp-code"))
+;;     (cond
+;;      ((member tab-name existing-tab-names)
+;;       (tab-bar-switch-to-tab tab-name))
+;;      (t
+;;       (tab-new)
+;;       (tab-rename tab-name)))
+;;     (ido-find-file-in-dir "~/temp/")))
+
+(defun tab-create (target-tab-name)
+  "Create the NAME tab if it doesn't exist already or switch to that tab."
+  (let ((current-tab-name (alist-get 'name (tab-bar--current-tab)))
+        (tablist (mapcar #'cdadr (tab-bar-tabs))))
+    (unless (member target-tab-name tablist)
       (tab-new)
-      (tab-rename tab-name)
-      (setq default-directory workspace-dir)))
-    (ido-find-file)))
+      (tab-bar-rename-tab target-tab-name))
+    (tab-bar-select-tab-by-name target-tab-name)))
 
 
-;;;###autoload
-(defun tabspaces-open-or-create-telega-workspace ()
-  (interactive)
-  (let ((existing-tab-names (tabspaces--list-tabspaces))
-        (tab-name "telega"))
-    (cond
-     ((member tab-name existing-tab-names)
-      (tab-bar-switch-to-tab tab-name))
-     (t
-      (tab-new)
-      (tab-rename tab-name)))
-    (autoload 'telega-switch-important-chat "init-telega" nil t)
-    (call-interactively #'telega-switch-important-chat)))
+(tab-rename "Main")
 
-;;;###autoload
-(defun tabspaces-open-or-create-temp-workspace ()
-  (interactive)
-  (let ((existing-tab-names (tabspaces--list-tabspaces))
-        (tab-name "temp-code"))
-    (cond
-     ((member tab-name existing-tab-names)
-      (tab-bar-switch-to-tab tab-name))
-     (t
-      (tab-new)
-      (tab-rename tab-name)))
-    (ido-find-file-in-dir "~/temp/")))
+(tab-create "Temp")
+
+(defun tab-bar-switch-or-create (tab-name)
+  (let ((tabbar-list (mapcar (lambda (tab)
+                               (alist-get 'name tab))
+                             (tab-bar--tabs-recent))))
+    (let ((tab-index (tab-bar--tab-index-by-name tab-name)))
+      (if tab-index
+          (message "haha")
+        )
+      )))
+
+;; (tab-bar-switch-to-tab "Temp")
+
+(one-key-create-menu
+ "Workspace"
+ '((("l" . "Workspace switch or create workspace") . tabspaces-switch-or-create-workspace)
+   (("p" . "Workspace project switch or create") . tabspaces-open-or-create-project-and-workspace)
+   (("d" . "Workspace open or create workspace") . tabspaces-open-or-create-workspace)
+   (("k" . "Workspace kill workspace") . tabspaces-kill-buffers-close-workspace)
+   (("t" . "Workspace telelga") . tabspaces-open-or-create-telega-workspace)
+   (("m" . "Temp code") . tabspaces-open-or-create-temp-workspace)))
 
 (provide 'init-tab-bar)
 ;;; init-tab-bar.el ends here
