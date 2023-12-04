@@ -138,6 +138,9 @@
 ;;                        :invisible "▶"
 ;;                        :visible "▼"))
 
+(add-hook 'org-mode-hook
+          #'visual-line-mode)
+
 ;;; Org key
 (define-key org-mode-map (kbd "C-c TAB") 'org-insert-item)
 (define-key org-mode-map (kbd "M-P") 'org-metaup)
