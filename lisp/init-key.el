@@ -118,7 +118,8 @@
  (:key "D" :description "Docker" :command docker)
  (:key "p" :description "peek code" :command peek-overlay-dwim :filename "init-peek")
  (:key "d" :description "Devdocs" :command devdocs-lookup)
- (:key "s" :description "screenshot" :command screenshot))
+ (:key "s" :description "screenshot" :command screenshot)
+ (:key "c" :description "Insert color" :command my-insert-color-hex :filename "init-func"))
 
 (defun format-code ()
   "Format code."
