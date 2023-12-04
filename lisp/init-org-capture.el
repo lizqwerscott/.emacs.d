@@ -4,6 +4,8 @@
   (setq org-capture-templates nil)
   (push '("i" "我的闪念" entry (file+headline "~/Documents/Org/idea.org" "闪念") "* %U - %^{标题} %^g\n  %?\n")
         org-capture-templates)
+  (push '("q" "收藏名言" entry (file+headline "~/Documents/Org/quote.org" "名言") "* %U - %^{标题} %^g\n  %?\n")
+        org-capture-templates)
   )
 
 (defun +evan/setup-org-capture ()
