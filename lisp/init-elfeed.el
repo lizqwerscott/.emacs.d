@@ -12,7 +12,8 @@
 (defun nerd-icon-for-tags (tags)
   "Generate Nerd Font icon based on tags.
   Returns default if no match."
-  (cond ((member "youtube" tags)  (nerd-icons-faicon "nf-fa-youtube_play" :face '(:foreground "#FF0200")))
+  (cond ((member "star" tags) (nerd-icons-faicon "nf-fa-star" :face '(:foreground "#FFD700")))
+        ((member "youtube" tags)  (nerd-icons-faicon "nf-fa-youtube_play" :face '(:foreground "#FF0200")))
         ((member "instagram" tags) (nerd-icons-faicon "nf-fa-instagram" :face '(:foreground "#FF00B9")))
         ((member "emacs" tags) (nerd-icons-sucicon "nf-custom-emacs" :face '(:foreground "#9A5BBE")))
         ((member "github" tags) (nerd-icons-faicon "nf-fa-github"))
