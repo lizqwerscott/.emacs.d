@@ -87,6 +87,7 @@
     meow
     org-download
     immersive-translate
+    elfeed
     vterm
     multi-vterm))
 

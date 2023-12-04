@@ -243,6 +243,11 @@
   (autoload 'telega-switch-important-chat "init-telega" nil t)
   (call-interactively #'telega-switch-important-chat))
 
+(defun tab-bar-switch-or-create-rss ()
+  (interactive)
+  (tab-bar-switch-or-create "Rss")
+  (call-interactively #'elfeed))
+
 (one-key-create-menu
  "Workspace"
  '(
@@ -254,7 +259,7 @@
    (("j" . "Workspace main temp") . tab-bar-switch-or-create-main-temp)
    (("t" . "Workspace chat") . tab-bar-switch-or-create-chat)
    (("m" . "Workspace temp") . tab-bar-switch-or-create-temp)
-   ))
+   (("r" . "Workspace rss") . tab-bar-switch-or-create-rss)))
 
 (provide 'init-tab-bar)
 ;;; init-tab-bar.el ends here
