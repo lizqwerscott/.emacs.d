@@ -127,4 +127,22 @@
   (interactive)
   (shell-command "screen-lock.sh"))
 
+;; From https://emacs.stackexchange.com/questions/5582/are-there-color-pickers-for-emacs
+;;;###autoload
+(defun my-insert-color-hex (&optional arg)
+  "Select a color and insert its 24-bit hexadecimal RGB format.
+
+With prefix argument \\[universal-argument] insert the 48-bit value."
+  (interactive "*P")
+  (let ((buf (current-buffer)))
+    (list-colors-display
+     nil nil `(lambda (name)
+            (interactive)
+            (quit-window)
+            (with-current-buffer ,buf
+              (insert (apply #'color-rgb-to-hex
+                             (nconc (color-name-to-rgb name)
+                                    (unless (consp ',arg)
+                                      (list (or ,arg 2)))))))))))
+
 (provide 'init-func)
