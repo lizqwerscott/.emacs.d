@@ -71,7 +71,8 @@
     benchmark-init
     emacsql-sqlite-builtin
     pretty-mode
-    doom-themes))
+    doom-themes
+    dracula-theme))
 
 (package-check-install *package-early-install-list*)
 

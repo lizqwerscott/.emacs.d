@@ -22,7 +22,8 @@
 ;;   :ensure t
 ;;   :defer)
 
-(load-theme 'doom-dracula t)
+(load-theme 'dracula t)
+;; (load-theme 'doom-dracula t)
 ;; (load-theme 'doom-snazzy t)
 ;; (load-theme 'doom-molokai t)
 ;; (load-theme 'gruvbox-dark-soft t)
