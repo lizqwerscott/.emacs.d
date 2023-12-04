@@ -4,7 +4,7 @@
 (tab-bar-mode t)
 (setq tab-bar-new-tab-choice "*scratch*") ;; buffer to show in new tabs
 (setq tab-bar-close-button-show nil)      ;; hide tab close / X button
-(setq tab-bar-auto-width-max '(300 30))
+;; (setq tab-bar-auto-width-max '(300 30))
 
 ;; (setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
 ;; (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
@@ -209,10 +209,7 @@
       (tab-bar-rename-tab target-tab-name))
     (tab-bar-select-tab-by-name target-tab-name)))
 
-
 (tab-rename "Main")
-
-(tab-create "Temp")
 
 (defun tab-bar-switch-or-create (tab-name)
   (let ((tabbar-list (mapcar (lambda (tab)
@@ -220,20 +217,44 @@
                              (tab-bar--tabs-recent))))
     (let ((tab-index (tab-bar--tab-index-by-name tab-name)))
       (if tab-index
-          (message "haha")
-        )
-      )))
+          (tab-bar-select-tab (1+ tab-index))
+        (tab-bar-new-tab)
+        (tab-bar-rename-tab tab-name))
+      tab-index)))
 
-;; (tab-bar-switch-to-tab "Temp")
+(defun tab-bar-switch-or-create-main ()
+  (interactive)
+  (tab-bar-switch-or-create "Main"))
+
+(defun tab-bar-switch-or-create-temp ()
+  (interactive)
+  (let ((tab-createp (tab-bar-switch-or-create "Temp")))
+    (when tab-createp
+      (let ((default-directory "~/temp/"))
+        ))))
+
+(defun tab-bar-switch-or-create-main-temp ()
+  (interactive)
+  (tab-bar-switch-or-create "main-temp"))
+
+(defun tab-bar-switch-or-create-chat ()
+  (interactive)
+  (tab-bar-switch-or-create "telega")
+  (autoload 'telega-switch-important-chat "init-telega" nil t)
+  (call-interactively #'telega-switch-important-chat))
 
 (one-key-create-menu
  "Workspace"
- '((("l" . "Workspace switch or create workspace") . tabspaces-switch-or-create-workspace)
-   (("p" . "Workspace project switch or create") . tabspaces-open-or-create-project-and-workspace)
-   (("d" . "Workspace open or create workspace") . tabspaces-open-or-create-workspace)
-   (("k" . "Workspace kill workspace") . tabspaces-kill-buffers-close-workspace)
-   (("t" . "Workspace telelga") . tabspaces-open-or-create-telega-workspace)
-   (("m" . "Temp code") . tabspaces-open-or-create-temp-workspace)))
+ '(
+   ;; (("l" . "Workspace switch or create workspace") . tabspaces-switch-or-create-workspace)
+   ;; (("p" . "Workspace project switch or create") . tabspaces-open-or-create-project-and-workspace)
+   ;; (("d" . "Workspace open or create workspace") . tabspaces-open-or-create-workspace)
+   (("k" . "Workspace kill workspace") . tab-bar-close-tab)
+   (("l" . "Workspace main") . tab-bar-switch-or-create-main)
+   (("j" . "Workspace main temp") . tab-bar-switch-or-create-main-temp)
+   (("t" . "Workspace chat") . tab-bar-switch-or-create-chat)
+   (("m" . "Workspace temp") . tab-bar-switch-or-create-temp)
+   ))
 
 (provide 'init-tab-bar)
 ;;; init-tab-bar.el ends here
