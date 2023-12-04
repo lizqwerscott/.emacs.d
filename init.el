@@ -58,6 +58,7 @@
   (require 'init-rsync)
   (require 'init-codegeex)
   (require 'init-hugo)
+  (require 'init-elfeed)
   ;; (require 'init-reader)
   ;; (require 'init-paper)
   ;;(require 'crefactor)
