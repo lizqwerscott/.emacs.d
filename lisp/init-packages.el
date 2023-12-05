@@ -3,6 +3,7 @@
     vertico
     marginalia
     consult
+    consult-notes
     orderless
     posframe
     try

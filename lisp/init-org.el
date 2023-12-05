@@ -148,6 +148,11 @@
 (define-key org-mode-map (kbd "M-H") 'org-metaleft)
 (define-key org-mode-map (kbd "M-L") 'org-metaright)
 
+;;; Org consult
+(setq consult-notes-file-dir-sources
+      '(("Org"             ?o "~/Documents/Org/")))
+(consult-notes-org-roam-mode)
+
 (require 'org-download)
 
 (require 'init-org-roam)
