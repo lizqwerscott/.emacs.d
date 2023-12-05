@@ -51,6 +51,7 @@
     diredfl
     dired-subtree
     solarized-theme
+    all-the-icons
     nerd-icons
     nerd-icons-dired
     nerd-icons-completion

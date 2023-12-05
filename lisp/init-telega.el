@@ -1,5 +1,5 @@
 (require 'telega)
-;; (require 'telega-url-shorten)
+(require 'telega-url-shorten)
 
 ;;; Config
 (setq telega-proxies
@@ -16,6 +16,7 @@
 
 (setq telega-mode-line-mode nil)
 (telega-notifications-mode t)
+(global-telega-url-shorten-mode)
 
 (defun +lizqwer/toggle-telega ()
   "切换telega"
