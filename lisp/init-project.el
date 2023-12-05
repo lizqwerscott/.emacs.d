@@ -249,7 +249,8 @@ NAME is class name."
  (:key "s" :description "Project Blink search" :command project-blink-search :filename "init-project")
  (:key "e" :description "Project eshell" :command eshell-project-toggle :filename "init-eshell")
  (:key "t" :description "Project vterm" :command multi-vterm-project :filename "init-vterm")
- (:key "c" :description "Project rsync all" :command one-key-menu-rsync))
+ (:key "c" :description "Project rsync all" :command one-key-menu-rsync)
+ (:key "k" :description "Project kill buffer" :command project-kill-buffers))
 
 ;; (define-key project-prefix-map (kbd "b") #'consult-project-buffer)
 ;; (define-key project-prefix-map (kbd "s") #'shell)
