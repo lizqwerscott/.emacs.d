@@ -151,6 +151,10 @@
 ;;; Org consult
 (setq consult-notes-file-dir-sources
       '(("Org"             ?o "~/Documents/Org/")))
+(setq consult-notes-org-headings-files
+      '("~/Documents/Org/idea.org"
+        "~/Documents/Org/quote.org"))
+(consult-notes-org-headings-mode)
 (consult-notes-org-roam-mode)
 
 (require 'org-download)
@@ -159,6 +163,6 @@
 
 (require 'init-org-capture)
 
-(require 'org-agenda)
+(require 'init-org-agenda)
 
 (provide 'init-org)
