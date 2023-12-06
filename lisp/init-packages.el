@@ -91,7 +91,8 @@
     immersive-translate
     elfeed
     vterm
-    multi-vterm))
+    multi-vterm
+    auto-rename-tag))
 
 (package-check-install *package-need-install-list*)
 
