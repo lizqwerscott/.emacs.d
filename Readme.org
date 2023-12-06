@@ -1,7 +1,7 @@
 * My Emacs Config
-This is my little emacs config.
+This is my little Emacs config.
 *** Install On Arch Linux
-***** Install emacs git version:
+***** Install Emacs git version:
 #+begin_src shell
   sudo pacman -S emacs-git
 #+end_src
@@ -44,9 +44,14 @@ Use http:
 #+end_src
 ******* copy library
 Copy generated library to "~/.tree-sitter/bin"
-***** Need build td library
+***** Need build TD library
 ***** Need download sdcv dict
 [[https://kdr2.com/resource/stardict.html][sdcv download url]]
+***** Need install banner generate
+[[https://github.com/folke/splashcii][splashcii]]
+#+begin_src bash
+  pnpm add -g splashcii
+#+end_src
 ***** Fonts
 ****** English
 Source Code Pro
