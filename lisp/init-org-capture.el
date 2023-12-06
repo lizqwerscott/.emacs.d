@@ -6,7 +6,8 @@
         org-capture-templates)
   (push '("q" "收藏名言" entry (file+headline "~/Documents/Org/quote.org" "名言") "* %U - %^{标题} %^g\n  %?\n")
         org-capture-templates)
-  )
+  (push '("n" "LNKS" entry (file+headline "~/Documents/Org/lnks.org" "链接") "* [[%^{link-url}][%^{link-description}]] %^g\n:PROPERTIES:\n:LINK-CREATE-TIME: %T\n:END:\n  %?\n")
+        org-capture-templates))
 
 (defun +evan/setup-org-capture ()
   (setq org-capture-templates nil)
