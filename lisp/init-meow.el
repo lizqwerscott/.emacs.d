@@ -228,10 +228,10 @@
 
 (meow-setup)
 
-(add-hook 'rust-mode-hook
-          #'(lambda ()
-              (meow-define-keys 'insert
-                '("<C-return>" . insert-trailing-semi-and-indent))))
+(add-hooks '(rust-mode rust-ts-mode)
+           #'(lambda ()
+               (meow-define-keys 'insert
+                 '("<C-return>" . insert-trailing-semi-and-indent))))
 
 (add-hook 'dired-mode-hook
           #'(lambda ()
