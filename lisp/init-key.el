@@ -65,6 +65,7 @@
 (one-key-create-menu
  "File"
  '((("f" . "Find file") . find-file)
+   (("s" . "Fuzzy search") . consult-fd)
    (("a" . "Action file") . one-key-menu-fileaction)
    (("r" . "Recent file") . consult-recent-file)
    (("j" . "Find in main dir") . (lambda ()
@@ -76,15 +77,28 @@
                                   (ido-find-file-in-dir (project-root (project-current)))))))
 
 
-(lazy-one-key-create-menu
+(defmacro open-dir (path)
+  `(lambda ()
+     (interactive)
+     (find-file ,path)))
+
+(defun consult-fd-dir ()
+  (interactive)
+  (let ((consult-fd-args (append consult-fd-args
+                                 (list
+                                  "--type directory"))))
+    (consult-fd)))
+
+(one-key-create-menu
  "Directory"
- (:key "h" :description "Home Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/")) :command eaf-open-in-file-manager :filename "init-eaf")
- (:key "c" :description "Config Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/.emacs.d/")) :command eaf-open-in-file-manager :filename "init-eaf")
- (:key "g" :description "My Github Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/github/")) :command eaf-open-in-file-manager :filename "init-eaf")
- (:key "p" :description "My Project Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/MyProject/")) :command eaf-open-in-file-manager :filename "init-eaf")
- (:key "d" :description "My Document Dir" :run (lambda () (interactive) (eaf-open-in-file-manager "~/Documents/")) :command eaf-open-in-file-manager :filename "init-eaf")
- (:key "j" :description "Dired jump" :command dired-jump)
- (:key "J" :description "Dired jump other window" :command dired-jump-other-window))
+ `((("h" . "Home Dir") . ,(open-dir "~/"))
+   (("c" . "Config Dir") . ,(open-dir "~/.emacs.d/"))
+   (("g" . "Github Dir") . ,(open-dir "~/github/"))
+   (("p" . "Project Dir") . ,(open-dir "~/MyProject/"))
+   (("d" . "Document Dir") . ,(open-dir "~/Documents/"))
+   (("s" . "Fuzzy search Dir") . consult-fd-dir)
+   (("j" . "Dired jump") . dired-jump)
+   (("J" . "Dired jump other window") . dired-jump-other-window)))
 
 (lazy-one-key-create-menu
  "EAF"
