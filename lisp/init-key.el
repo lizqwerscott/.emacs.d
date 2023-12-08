@@ -68,7 +68,7 @@
    (("s" . "Fuzzy search") . consult-fd)
    (("a" . "Action file") . one-key-menu-fileaction)
    (("r" . "Recent file") . consult-recent-file)
-   (("j" . "Find in main dir") . (lambda ()
+   (("h" . "Find in main dir") . (lambda ()
                                    (interactive)
                                    (ido-find-file-in-dir "~/")))
    (("p" . "Find in project") . (lambda ()
