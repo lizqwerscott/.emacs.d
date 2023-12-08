@@ -171,19 +171,6 @@
 ;; |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 \n" 'face '(:foreground "green")))
 
-(defun +fl/splashcii ()
-  (condition-case nil
-      (string-join
-       (mapcar #'(lambda (line)
-                   (concat ";; " line "\n"))
-               (split-string (with-output-to-string
-                               (call-process "splashcii" nil standard-output nil))
-                             "\n" t)))
-    (error
-     (progn
-       (message "banner 生成错误")
-       ""))))
-
 ;; 自定义 *scratch* 内容
 ;;;###autoload
 (defun +evan/scratch-setup()
@@ -191,10 +178,7 @@
   (save-excursion
     (with-current-buffer (get-buffer "*scratch*")
       ;; (erase-buffer)
-      (let ((splashcii-banner (+fl/splashcii)))
-        (insert (if (string= splashcii-banner "")
-                    *start-banner*
-                  splashcii-banner)))
+      (insert *start-banner*)
       (insert (format "启动时长: %s" (emacs-init-time)))
       (insert "\n")
       (insert-button "Quit Emacs"
