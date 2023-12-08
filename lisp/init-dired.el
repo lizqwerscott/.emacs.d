@@ -20,5 +20,6 @@
 
 (require 'dired-subtree)
 (keymap-set dired-mode-map "TAB" #'dired-subtree-cycle)
+(keymap-set dired-mode-map "f" #'consult-fd-dir)
 
 (provide 'init-dired)
