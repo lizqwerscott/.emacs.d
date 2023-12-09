@@ -47,6 +47,8 @@
 ;;               ("a." . "-")
 ;;               ("b." . "-"))))
 
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 4.0))
+
 ;;; Org function
 ;; space ww
 (defun open-my-org-file ()
