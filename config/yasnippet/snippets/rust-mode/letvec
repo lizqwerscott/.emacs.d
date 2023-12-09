@@ -2,4 +2,4 @@
 # name: let pattern: Vec<> = Vec::new();
 # key: letvec
 # --
-let ${1:name}: Vec<${2:type}> = Vec::new();
+let mut ${1:name}: Vec<${2:type}> = Vec::new();
