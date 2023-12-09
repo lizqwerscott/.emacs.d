@@ -43,7 +43,8 @@
  (:key "o" :description "Search outline" :command consult-outline)
  (:key "B" :description "Bookmark" :command consult-bookmark)
  (:key "s" :description "Blink Search" :command blink-search :filename "init-blink-search")
- (:key "j" :description "color rg search symbol in project" :command color-rg-search-input-in-project :filename "color-rg"))
+ (:key "j" :description "color rg search symbol in project" :command color-rg-search-input-in-project :filename "color-rg")
+ (:key "b" :description "Google this" :command google-this :filename "init-google-this"))
 
 (lazy-one-key-create-menu
  "Buffer"
@@ -126,7 +127,6 @@
 (lazy-one-key-create-menu
  "Useful"
  (:key "t" :description "Sdcv translate" :command sdcv-search-pointer+ :filename "init-sdcv")
- (:key "g" :description "Google this" :command google-this :filename "init-google-this")
  (:key "S" :description "Sudo edit" :command sudo-edit :filename "sudo-edit")
  (:key "e" :description "Toggle sdcv" :command lsp-bridge-toggle-sdcv-helper :filename "init-lsp-bridge")
  (:key "D" :description "Docker" :command docker)
