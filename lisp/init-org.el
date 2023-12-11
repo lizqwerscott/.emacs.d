@@ -48,6 +48,7 @@
 ;;               ("b." . "-"))))
 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 4.0))
+(setq org-enforce-todo-dependencies t)
 
 ;;; Org function
 ;; space ww
