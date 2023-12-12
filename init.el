@@ -12,9 +12,9 @@
 ;; Need install packages
 (require 'init-packages)
 
-(setq custom-file "~/.config/emacs-custom.el")
+(setq custom-file (locate-user-emacs-file "custom.el"))
 (when (file-exists-p custom-file)
-  (load-file custom-file))
+  (load custom-file))
 
 (require 'init-mode)
 (require 'init-hook)
