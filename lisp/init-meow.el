@@ -133,8 +133,6 @@
    '("ag" . avy-goto-line)
    '("1" . delete-other-windows)
    '("2" . split-window-below)
-   '("-" . split-window-horizontally)
-   '("/" . split-window-vertically)
    '("3" . split-window-horizontally)
    '("0" . delete-window)
    '("r" . run-or-compile))
