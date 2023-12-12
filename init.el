@@ -44,6 +44,7 @@
   (require 'init-input)
   (require 'init-format)
   (require 'init-program)
+  (require 'init-elisp)
   (require 'init-separedit)
   ;; (require 'init-eglot)
   ;; (require 'init-python)

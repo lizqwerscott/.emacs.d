@@ -17,7 +17,8 @@
     diff-hl
     rainbow-delimiters
     rainbow-mode
-    shackle
+    ;; shackle
+    popper
     separedit
     request
     websocket

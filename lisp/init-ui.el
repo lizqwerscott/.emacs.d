@@ -214,21 +214,8 @@
 (require 'init-highlight)
 
 ;;; Window
-(require 'ace-window)
-(set-face-attribute 'aw-leading-char-face nil :height 400)
-(add-to-list 'aw-ignored-buffers "*Ilist*")
 
-(winner-mode 1)
-(require 'shackle)
-(shackle-mode)
-
-(setq shackle-default-size 0.5)
-(setq shackle-default-alignment 'below)
-(setq shackle-rules
-      '((help-mode :select t :align t :size 0.4)
-        ("*Process List*" :select t :align t)
-        ("*One-Key*" :select t :align 'below)
-        ("*eshell*" :regexp t :select t :align 'below)))
+(require 'init-window)
 
 ;;; Another
 
