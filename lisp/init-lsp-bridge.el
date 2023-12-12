@@ -61,6 +61,20 @@
     (require 'dumb-jump)
     (dumb-jump-go))))
 
+(defun find-definition-with-lsp-bridge-other-window ()
+  (interactive)
+  (cond
+   ((bound-and-true-p sly-mode)
+    (call-interactively #'sly-edit-definition-other-window))
+   ((acm-is-elisp-mode-p)
+    (require 'dumb-jump)
+    (call-interactively #'dumb-jump-go-other-window))
+   (lsp-bridge-mode
+    (lsp-bridge-find-def-other-window))
+   (t
+    (require 'dumb-jump)
+    (call-interactively #'dumb-jump-go-other-window))))
+
 (defun return-find-def ()
   (interactive)
   (cond
