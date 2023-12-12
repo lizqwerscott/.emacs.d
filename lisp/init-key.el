@@ -44,7 +44,7 @@
  (:key "B" :description "Bookmark" :command consult-bookmark)
  (:key "s" :description "Blink Search" :command blink-search :filename "init-blink-search")
  (:key "j" :description "color rg search symbol in project" :command color-rg-search-input-in-project :filename "color-rg")
- (:key "b" :description "Google this" :command google-this :filename "init-google-this"))
+ (:key "b" :description "Google this" :command one-key-menu-google :filename "init-google-this"))
 
 (lazy-one-key-create-menu
  "Buffer"
