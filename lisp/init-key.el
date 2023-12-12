@@ -32,7 +32,8 @@
  (:key "l" :description "Lock screen" :command +lizqwer/toggle-lock :filename "init-func")
  (:key "c" :description "Toggle center cursor" :command global-centered-cursor-mode)
  (:key "s" :description "Toggle interaction-log" :command interaction-log-mode :filename "interaction-log")
- (:key "w" :description "Toggle sub word or super word" :command toggle-sub-word-or-super-word :filename "init-edit"))
+ (:key "w" :description "Toggle sub word or super word" :command toggle-sub-word-or-super-word :filename "init-edit")
+ (:key "i" :description "Toggle immersive-translate" :command immersive-translate-auto-mode :filename "init-immersive-translate"))
 
 (lazy-one-key-create-menu
  "Search"
@@ -135,19 +136,12 @@
  (:key "s" :description "screenshot" :command screenshot)
  (:key "c" :description "Insert color" :command my-insert-color-hex :filename "init-func"))
 
-(defun format-code ()
-  "Format code."
-  (interactive)
-  (if (equal major-mode 'rust-ts-mode)
-      (cargo-process-fmt)
-    (call-interactively 'apheleia-format-buffer)))
-
 (lazy-one-key-create-menu
  "Code"
  (:key "h" :description "Show document" :command lsp-bridge-popup-documentation :filename "init-lsp-bridge")
  (:key "j" :description "Scroll doc up" :command lsp-bridge-popup-documentation-scroll-up :filename "init-lsp-bridge")
  (:key "k" :description "Scroll doc down" :command lsp-bridge-popup-documentation-scroll-down :filename "init-lsp-bridge")
- (:key "f" :description "Format code" :command format-code)
+ (:key "f" :description "Format code" :command format-code :filename "init-format")
  (:key "d" :description "Diagnostic" :command one-key-menu-diagnostic :filename "init-lsp-bridge")
  (:key "D" :description "Lsp Bridge jump to def other window" :command lsp-bridge-find-def-other-window :filename "init-lsp-bridge")
  (:key "r" :description "Lsp Bridge rename" :command lsp-bridge-rename :filename "init-lsp-bridge")

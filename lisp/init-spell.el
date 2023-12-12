@@ -23,5 +23,16 @@
            #'(lambda ()
                (wucuo-start)))
 
+;; (use-package jinx
+;;   :ensure t
+;;   :hook ((org-mode . jinx-mode))
+;;   :bind ([remap ispell-word] . jinx-correct)
+;;   :config
+;;   (add-to-list 'jinx-exclude-regexps '(t "\\cc"))
+;;   (vertico-multiform-mode 1)
+;;   (add-to-list 'vertico-multiform-categories
+;;                '(jinx grid (vertico-grid-annotate . 25))))
+
+
 (provide 'init-spell)
 ;;; init-spell.el ends here.
