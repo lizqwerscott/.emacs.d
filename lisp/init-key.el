@@ -185,4 +185,9 @@
  '(("M-i" . symbol-overlay-put))
  "symbol-overlay")
 
+;;; webjump
+(lazy-load-global-keys
+ '(("C-c /" . webjump))
+ "init-webjump")
+
 (provide 'init-key)
