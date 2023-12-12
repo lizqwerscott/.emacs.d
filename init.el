@@ -40,7 +40,7 @@
   (require 'init-tramp)
   (require 'init-blink-search)
   (require 'init-spell)
-  (require 'init-webjump)
+  ;; (require 'init-webjump)
   ;; (require 'init-copilot)
   (require 'init-input)
   (require 'init-format)
