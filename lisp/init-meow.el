@@ -228,11 +228,6 @@
 
 (meow-setup)
 
-(add-hooks '(rust-mode rust-ts-mode)
-           #'(lambda ()
-               (meow-define-keys 'insert
-                 '("<C-return>" . insert-trailing-semi-and-indent))))
-
 (add-hook 'dired-mode-hook
           #'(lambda ()
               (meow-motion-overwrite-define-key
@@ -241,6 +236,7 @@
 (keymap-sets dired-mode-map
              '(("M-n" . scroll-up-1/3)
                ("M-p" . scroll-down-1/3)))
+
 (require 'eww)
 (keymap-sets eww-mode-map
              '(("M-n" . scroll-up-1/3)
