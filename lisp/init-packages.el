@@ -47,6 +47,7 @@
     rg
     magit
     magit-todos
+    git-modes
     pretty-mode
     dired-rsync
     dired-toggle-sudo
