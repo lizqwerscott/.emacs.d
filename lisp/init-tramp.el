@@ -5,9 +5,9 @@
 (setq tramp-chunksize 2000)
 (setq tramp-use-ssh-controlmaster-options nil)
 
-(setq recentf-exclude `(,tramp-file-name-regexp
-                        "COMMIT_EDITMSG")
-      tramp-auto-save-directory temporary-file-directory
+(add-list-to-list 'recentf-exclude
+                  tramp-file-name-regexp)
+(setq tramp-auto-save-directory temporary-file-directory
       backup-directory-alist (list (cons tramp-file-name-regexp nil)))
 
 (defun my/project-remember-advice (fn pr &optional no-write)

@@ -8,13 +8,23 @@
 
 ;;; Code:
 
-;;; UI
+;;; Optimization
+(setq idle-update-delay 1.0)
+
+(setq-default cursor-in-non-selected-windows nil)
+(setq highlight-nonselected-windows nil)
+
+(setq fast-but-imprecise-scrolling t)
+(setq redisplay-skip-fontification-on-input t)
+
+;;; Title
+(setq frame-title-format '("Emacs - %b")
+      icon-title-format frame-title-format)
+
 (setq default-frame-alist
       '((alpha-background . 100)))
-;; (setq frame-resize-pixelwise t)
-;; (dotimes (n 3)
-;;   (toggle-frame-maximized))
 
+;;; Head line && Mode line && tab bar
 ;; (use-package doom-modeline
 ;;   :ensure t
 ;;   :hook (after-init . doom-modeline-mode)
@@ -89,7 +99,79 @@
                  (setq display-line-numbers-type 'relative)
                  (display-line-numbers-mode 1))))
 
+;;; Suppress GUI features
+(setq use-file-dialog nil
+      use-dialog-box nil
+      inhibit-startup-screen nil
+      inhibit-startup-message t)
+
+;;; Mouse & Smooth Scroll
+(when (display-graphic-p)
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . hscroll))
+        mouse-wheel-scroll-amount-horizontal 1
+        mouse-wheel-progressive-speed nil))
+(setq scroll-step 1
+      scroll-margin 0
+      hscroll-step 2
+      hscroll-margin 2
+      scroll-conservatively 101
+      auto-window-vscroll nil
+      scroll-up-aggressively 0.01
+      scroll-down-aggressively 0.01
+      scroll-preserve-screen-position 'always)
+
+;; 平滑地进行半屏滚动，避免滚动后recenter操作
+(if (fboundp 'pixel-scroll-precision-mode)
+    (pixel-scroll-precision-mode t)
+  (pixel-scroll-mode t))
+
 ;;; Dashboard
+(defvar *start-banner* (propertize ";;     *
+;;      May the Code be with You!
+;;     .                                 .
+;;                               *
+;;          /\\/|_      __/\\\\
+;;         /    -\\    /-   ~\\  .              \\='
+;;         \\    = Y =T_ =   /
+;;          )==*(\\=`     \\=`) ~ \\
+;;         /     \\     /     \\
+;;         |     |     ) ~   (
+;;        /       \\   /     ~ \\
+;;        \\       /   \\~     ~/
+;; _/\\_/\\_/\\__  _/_/\\_/\\__~__/_/\\_/\\_/\\_/\\_/\\_
+;; |  |  |  | ) ) |  |  | ((  |  |  |  |  |  |
+;; |  |  |  |( (  |  |  |  \\\\ |  |  |  |  |  |
+;; |  |  |  | )_) |  |  |  |))|  |  |  |  |  |
+;; |  |  |  |  |  |  |  |  (/ |  |  |  |  |  |
+;; |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+\n" 'face '(:foreground "green")))
+
+;; 自定义 *scratch* 内容
+;;;###autoload
+(defun +evan/scratch-setup()
+  (interactive)
+  (save-excursion
+    (with-current-buffer (get-buffer "*scratch*")
+      ;; (erase-buffer)
+      (insert *start-banner*)
+      (insert (format "启动时长: %s" (emacs-init-time)))
+      (insert "\n")
+      (insert-button "Quit Emacs"
+		             'action (lambda (_button)
+			                   (save-buffers-kill-emacs)))
+      (insert "\n")
+      ;; (insert "Recent Files\n")
+      ;; (dolist (f recentf-list)
+	  ;;   (insert-button f
+	  ;;                  'action (lambda (region)
+	  ;;   		                 (require 'f)
+	  ;;   		                 (let* ((f (buffer-substring-no-properties (overlay-start region) (overlay-end region)))
+	  ;;   			                    (fname (f-filename f)))
+	  ;;   		                   (find-file-noselect f)
+	  ;;   		                   (switch-to-buffer fname))))
+	  ;;   (insert "\n"))
+      ))
+  (goto-char (point-max)))
 ;; (use-package page-break-lines
 ;;   :ensure t
 ;;   :hook (dashboard-mode . page-break-lines-mode)
@@ -130,9 +212,6 @@
 
 ;;; Highlight
 (require 'init-highlight)
-
-(add-hook 'prog-mode-hook
-          'rainbow-mode)
 
 ;;; Window
 (require 'ace-window)

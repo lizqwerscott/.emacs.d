@@ -1,3 +1,72 @@
+;;; Highlight the current line
+(global-hl-line-mode 1)
+(add-hooks '(dashboard-mode eshell-mode shell-mode term-mode vterm-mode)
+           #'(lambda () (setq-local global-hl-line-mode nil)))
+
+;;; Highlight matching parens
+(require 'paren)
+(setq show-paren-when-point-inside-paren t
+      show-paren-when-point-in-periphery t)
+(setq show-paren-style 'parenthesis
+      show-paren-context-when-offscreen 'overlay)
+(show-paren-mode 1)
+
+;;; Highlight indentions
+(require 'indent-bars)
+(setq indent-bars-color '(highlight :face-bg t :blend 0.15)
+      indent-bars-pattern "."
+      indent-bars-width-frac 1
+      indent-bars-pad-frac 0.1
+      indent-bars-zigzag nil
+      indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
+      indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
+      indent-bars-display-on-blank-lines t)
+
+(setq indent-bars-treesit-support t
+      indent-bars-no-descend-string t
+      indent-bars-treesit-ignore-blank-lines-types '("module"))
+
+(add-hooks '(python-mode python-ts-mode rust-mode rust-ts-mode c++-mode c++-ts-mode)
+           #'indent-bars-mode)
+
+;; (add-hook 'prog-mode-hook
+;;           #'(lambda ()
+;;               (require 'highlight-indent-guides)
+;;               (setq highlight-indent-guides-auto-odd-face-perc 50)
+;;               (setq highlight-indent-guides-auto-even-face-perc 50)
+;;               (highlight-indent-guides-mode 1)))
+
+;;; Colorize color names in buffers
+(require 'rainbow-mode)
+(with-no-warnings
+  ;; HACK: Use overlay instead of text properties to override `hl-line' faces.
+  ;; @see https://emacs.stackexchange.com/questions/36420
+  (defun my-rainbow-colorize-match (color &optional match)
+    (let* ((match (or match 0))
+           (ov (make-overlay (match-beginning match) (match-end match))))
+      (overlay-put ov 'ovrainbow t)
+      (overlay-put ov 'face `((:foreground ,(if (> 0.5 (rainbow-x-color-luminance color))
+                                                "white" "black"))
+                              (:background ,color)))))
+  (advice-add #'rainbow-colorize-match :override #'my-rainbow-colorize-match)
+
+  (defun my-rainbow-clear-overlays ()
+    "Clear all rainbow overlays."
+    (remove-overlays (point-min) (point-max) 'ovrainbow t))
+  (advice-add #'rainbow-turn-off :after #'my-rainbow-clear-overlays))
+
+(add-hook 'prog-mode-hook
+          'rainbow-mode)
+
+;;; Highlight brackets according to their depth
+(add-hooks '(emacs-lisp-mode lisp-mode)
+           #'(lambda ()
+               (require 'rainbow-delimiters)
+               (rainbow-delimiters-mode 1)))
+
+;;; Highlight todo
+(require 'init-hl-todo)
+
 ;;; Highlight uncommitted changes using VC
 (require 'diff-hl)
 (setq diff-hl-draw-borders nil)
@@ -91,60 +160,21 @@
 (add-hooks '(prog-mode text-mode)
            'goggles-mode)
 
-;;; Rainbow
-(add-hooks '(emacs-lisp-mode lisp-mode)
-           #'(lambda ()
-               (require 'rainbow-delimiters)
-               (rainbow-delimiters-mode 1)))
-
+;;; Color identifiers
 (setq color-identifiers:recoloring-delay 1)
 (add-hook 'prog-mode-hook
           'color-identifiers-mode)
 
+;;; Highlight web mode matching tag
 (add-hook 'web-mode-hook
           #'(lambda ()
               (require 'highlight-matching-tag)
               (highlight-matching-tag 1)))
-
-(require 'paren)
-(setq show-paren-when-point-inside-paren t
-      show-paren-when-point-in-periphery t)
-(setq show-paren-style 'parenthesis
-      show-paren-context-when-offscreen 'overlay)
-(show-paren-mode 1)
 
 ;; (use-package highlight-defined
 ;;   :ensure t
 ;;   ;; :hook (elisp-lisp-mode . highlight-defined-mode)
 ;;   )
 
-;;; hl indetn
-
-(require 'indent-bars)
-(setq indent-bars-color '(highlight :face-bg t :blend 0.15)
-      indent-bars-pattern "."
-      indent-bars-width-frac 1
-      indent-bars-pad-frac 0.1
-      indent-bars-zigzag nil
-      indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
-      indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
-      indent-bars-display-on-blank-lines t)
-
-(setq indent-bars-treesit-support t
-      indent-bars-no-descend-string t
-      indent-bars-treesit-ignore-blank-lines-types '("module"))
-
-(add-hooks '(python-mode python-ts-mode rust-mode rust-ts-mode c++-mode c++-ts-mode)
-           #'indent-bars-mode)
-
-;; (add-hook 'prog-mode-hook
-;;           #'(lambda ()
-;;               (require 'highlight-indent-guides)
-;;               (setq highlight-indent-guides-auto-odd-face-perc 50)
-;;               (setq highlight-indent-guides-auto-even-face-perc 50)
-;;               (highlight-indent-guides-mode 1)))
-
-;;; hl todo
-(require 'init-hl-todo)
 
 (provide 'init-highlight)

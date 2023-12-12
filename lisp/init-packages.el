@@ -7,6 +7,8 @@
     orderless
     posframe
     try
+    vundo
+    hungry-delete
     symbol-overlay
     color-identifiers-mode
     focus

@@ -17,8 +17,18 @@
 ;; (add-hook 'prog-mode-hook 'electric-pair-local-mode)
 ;; (add-hook 'conf-mode-hook 'electric-pair-local-mode)
 ;; (add-hook 'sly-mrepl-hook 'electric-pair-local-mode)
-
+(setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
 (electric-pair-mode t)
+
+(require 'hungry-delete)
+(setq hungry-delete-chars-to-skip " \t\f\v"
+      hungry-delete-except-modes
+      '(help-mode minibuffer-mode minibuffer-inactive-mode calc-mode))
+(global-hungry-delete-mode t)
+
+(require 'vundo)
+(setq vundo-glyph-alist vundo-unicode-symbols)
+(global-set-key (kbd "C-/") #'vundo)
 
 ;; (use-package lispy
 ;;   :ensure t
