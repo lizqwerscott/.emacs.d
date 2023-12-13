@@ -22,7 +22,7 @@
       icon-title-format frame-title-format)
 
 (setq default-frame-alist
-      '((alpha-background . 100)))
+      '((alpha-background . 80)))
 
 ;;; Head line && Mode line && tab bar
 ;; (use-package doom-modeline
