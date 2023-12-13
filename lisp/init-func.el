@@ -10,7 +10,7 @@
 (defun +lizqwer/toggle-transparent ()
   (interactive)
   (if (eq (frame-parameter (selected-frame) 'alpha-background) 100)
-      (set-frame-parameter (selected-frame) 'alpha-background 90)
+      (set-frame-parameter (selected-frame) 'alpha-background 80)
     (set-frame-parameter (selected-frame) 'alpha-background 100)))
 
 ;;;###autoload
