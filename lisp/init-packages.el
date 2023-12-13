@@ -47,6 +47,7 @@
     ag
     rg
     magit
+    magit-delta
     magit-todos
     git-modes
     pretty-mode
