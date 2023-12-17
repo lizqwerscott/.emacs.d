@@ -27,8 +27,8 @@
                               ".vscode"
                               ".ccls-cache" ".clangd")
                            string-end))
-;; (setq dired-omit-files
-;;       (concat dired-omit-files "\\|^\\..*$"))
+(setq dired-omit-files
+      (concat dired-omit-files "\\|^\\..*$"))
 ;; Dont prompt about killing buffer visiting delete file
 (setq dired-clean-confirm-killing-deleted-buffers nil)
 (setq dired-guess-shell-alist-user
