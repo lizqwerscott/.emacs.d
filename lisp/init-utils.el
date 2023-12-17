@@ -53,4 +53,9 @@
         ;; 继续递归搜索子目录
         (add-subdirs-to-load-path subdir-path)))))
 
+;;;###autoload
+(defmacro with-proxy (&rest body)
+  `(let ((url-proxy-services user/url-proxy))
+     ,@body))
+
 (provide 'init-utils)

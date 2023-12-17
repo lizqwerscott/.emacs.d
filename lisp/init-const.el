@@ -34,5 +34,13 @@
   :group 'user
   :type 'number)
 
+(defvar user/url-proxy
+  `(("http" . ,(concat
+                user/proxy-host
+                ":20171"))
+    ("https" . ,(concat
+                 user/proxy-host
+                 ":20171"))))
+
 (provide 'init-const)
 ;;; init-const.el ends here.
