@@ -62,6 +62,9 @@
       savehist-autosave-interval 300)
 (savehist-mode 1)
 
+;;; saveplace
+(setq save-place-forget-unreadable-files nil)
+
 ;;; Simple
 ;; Prettify the process list
 (with-no-warnings
