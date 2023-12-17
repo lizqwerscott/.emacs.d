@@ -19,12 +19,7 @@
   (if (null url-proxy-services)
       (progn
         (setq url-proxy-services
-              `(("http" . ,(concat
-                            user/proxy-host
-                            ":20171"))
-                ("https" . ,(concat
-                             user/proxy-host
-                             ":20171"))))
+              user/url-proxy)
         (message "代理已开启."))
     (setq url-proxy-services nil)
     (message "代理已关闭.")))
