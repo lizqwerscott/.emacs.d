@@ -22,7 +22,7 @@
       icon-title-format frame-title-format)
 
 (setq default-frame-alist
-      '((alpha-background . 80)))
+      '((alpha-background . 100)))
 
 ;;; modeline
 (require 'init-modeline)
