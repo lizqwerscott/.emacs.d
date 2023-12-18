@@ -97,7 +97,9 @@
     elfeed
     vterm
     multi-vterm
-    auto-rename-tag))
+    auto-rename-tag
+    doom-modeline
+    nyan-mode))
 
 (package-check-install *package-need-install-list*)
 

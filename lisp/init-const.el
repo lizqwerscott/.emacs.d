@@ -34,6 +34,11 @@
   :group 'user
   :type 'number)
 
+(defcustom user/show-modeline t
+  "Show modeline"
+  :group 'user
+  :type 'boolean)
+
 (defvar user/url-proxy
   `(("http" . ,(concat
                 user/proxy-host
