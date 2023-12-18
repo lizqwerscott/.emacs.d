@@ -24,19 +24,14 @@
 (setq default-frame-alist
       '((alpha-background . 80)))
 
-;;; Head line && Mode line && tab bar
-;; (use-package doom-modeline
-;;   :ensure t
-;;   :hook (after-init . doom-modeline-mode)
-;;   :config
-;;   (setq doom-modeline-buffer-file-name-style
-;;         'file-name)
-;;   (setq doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode)))
+;;; modeline
+(require 'init-modeline)
+;;; tab bar
+;; (require 'sort-tab)
+;; (sort-tab-mode 1)
+(require 'init-tab-bar)
 
-;; (use-package nyan-mode
-;;   :ensure t
-;;   :hook (doom-modeline-mode . nyan-mode))
-
+;;; Head line
 ;; Show the current function name in the header line
 ;; (which-function-mode)
 ;; (setq-default header-line-format
@@ -50,41 +45,6 @@
 ;;           #'(lambda ()
 ;;               (if (get-buffer "*Netease-Cloud-Music*")
 ;;                   (netease-cloud-music-add-header-lyrics))))
-
-;; (require 'sort-tab)
-;; (sort-tab-mode 1)
-(require 'init-tab-bar)
-
-;; (defun breadcrumb-info ()
-;;   (breadcrumb--header-line))
-
-;; (defface breadcrumb-face ()
-;;   ""
-;;   :group 'awesome-tray)
-
-;; (add-to-list 'awesome-tray-module-alist
-;; 	         '("breadcrumb" . (breadcrumb-info breadcrumb-face)))
-
-(setq awesome-tray-date-format "%H:%M")
-;; (setq awesome-tray-active-modules
-;;       (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
-;;           '("meow" "location" "file-path" "buffer-name" "mode-name" "battery" "git" "date")
-;;         '("meow" "location" "file-path" "buffer-name" "mode-name" "git" "date")))
-
-(setq awesome-tray-active-modules
-      (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
-          '("meow" "location" "buffer-name" "mode-name" "battery" "git" "date")
-        '("meow" "location" "buffer-name" "mode-name" "git" "date")))
-
-
-;; (setq awesome-tray-active-modules
-;;       (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
-;;           '("meow" "location" "breadcrumb" "mode-name" "battery" "date")
-;;         '("meow" "location" "breadcrumb" "mode-name" "date")))
-
-
-(when (display-graphic-p)
-  (awesome-tray-mode))
 
 (custom-set-faces
  '(header-line ((t (:inherit t :foreground unspecified :background unspecified)))))
