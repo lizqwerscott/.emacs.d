@@ -162,6 +162,10 @@
  (:key "s" :description "Org search" :command consult-notes)
  (:key "r" :description "Org roam" :command one-key-menu-roam))
 
+(lazy-one-key-create-menu
+ "Insert"
+ (:key "t" :description "Insert translated name" :command insert-translated-name-insert :filename "init-translated-name")
+ (:key "i" :description "Insert import" :command insert-import :filename "init-func"))
 ;; ;;; ### Watch other window ###
 ;; ;;; --- 滚动其他窗口
 (require 'watch-other-window)

@@ -140,4 +140,11 @@ With prefix argument \\[universal-argument] insert the 48-bit value."
                                     (unless (consp ',arg)
                                       (list (or ,arg 2)))))))))))
 
+;;;###autoload
+(defun insert-import ()
+  (interactive)
+  (split-window-below)
+  (other-window -1)
+  (goto-char (point-min)))
+
 (provide 'init-func)
