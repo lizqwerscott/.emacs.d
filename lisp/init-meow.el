@@ -121,6 +121,7 @@
    '("v" . one-key-menu-git)
    '("l" . one-key-menu-workspace)
    '("d" . one-key-menu-directory)
+   '("i" . one-key-menu-insert)
    )
 
   (lazy-meow-leader-define-key
@@ -136,8 +137,10 @@
    '("0" . delete-window)
    '("r" . run-or-compile))
 
-  (lazy-meow-insert-define-key
-   '(("C-c i" . insert-translated-name-insert) "init-translated-name"))
+  ;; (lazy-meow-insert-define-key
+  ;;  '(("C-c i" . insert-translated-name-insert) "init-translated-name"))
+  (meow-define-keys 'insert
+    '("C-c i" . one-key-menu-insert))
 
   (meow-normal-define-key
    '("0" . meow-expand-0)
