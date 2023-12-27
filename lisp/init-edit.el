@@ -286,6 +286,11 @@
   (interactive "fInsert file name: \n")
   (insert (file-relative-name filename)))
 
+(one-key-create-menu
+ "Insert-file"
+ '((("p" . "insert file path") . +lizqwer/insert-file-path)
+   (("n" . "insert file name") . +lizqwer/insert-file-name)))
+
 ;;;###autoload
 (defun toggle-sub-word-or-super-word ()
   (interactive)
