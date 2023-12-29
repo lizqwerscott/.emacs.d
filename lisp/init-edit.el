@@ -282,13 +282,27 @@
   (interactive "*fInsert file path: \n")
   (insert (expand-file-name filename)))
 
+(defun +lizqwer/insert-file-path-abbrev (filename)
+  (interactive "*fInsert file path: \n")
+  (insert (abbreviate-file-name (expand-file-name filename))))
+
+(defun +lizqwer/insert-file-path-relative (filename)
+  (interactive "*fInsert file path: \n")
+  (insert (file-relative-name filename)))
+
 (defun +lizqwer/insert-file-name (filename)
   (interactive "fInsert file name: \n")
-  (insert (file-relative-name filename)))
+  (insert (file-name-nondirectory filename)))
+
+(one-key-create-menu
+ "Insert-file-path"
+ '((("f" . "insert full path") . +lizqwer/insert-file-path)
+   (("r" . "insert relative path") . +lizqwer/insert-file-path-relative)
+   (("a" . "insert abbrev path") . +lizqwer/insert-file-path-abbrev)))
 
 (one-key-create-menu
  "Insert-file"
- '((("p" . "insert file path") . +lizqwer/insert-file-path)
+ '((("p" . "insert file path") . one-key-menu-insert-file-path)
    (("n" . "insert file name") . +lizqwer/insert-file-name)))
 
 ;;;###autoload
