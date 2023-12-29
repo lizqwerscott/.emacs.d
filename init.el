@@ -42,6 +42,7 @@
   ;; (require 'init-copilot)
   (require 'init-input)
 
+  (require 'init-auto-insert)
   (require 'init-program)
   (require 'init-elisp)
   (require 'init-separedit)
