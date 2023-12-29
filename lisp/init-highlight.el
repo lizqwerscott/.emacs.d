@@ -11,6 +11,12 @@
       show-paren-context-when-offscreen 'overlay)
 (show-paren-mode 1)
 
+;;; Highlight symbol
+(setq symbol-overlay-idle-time 0.1)
+
+(add-hooks '(prog-mode yaml-ts-mode)
+           #'symbol-overlay-mode)
+
 ;;; Highlight indentions
 (require 'indent-bars)
 (setq indent-bars-color '(highlight :face-bg t :blend 0.15)
