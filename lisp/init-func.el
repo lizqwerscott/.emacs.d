@@ -144,7 +144,7 @@ With prefix argument \\[universal-argument] insert the 48-bit value."
 (defun insert-import ()
   (interactive)
   (split-window-below)
-  (other-window -1)
+  (other-window 1)
   (goto-char (point-min)))
 
 (provide 'init-func)
