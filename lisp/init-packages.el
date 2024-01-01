@@ -99,7 +99,8 @@
     multi-vterm
     auto-rename-tag
     doom-modeline
-    nyan-mode))
+    log4j-mode
+    just-mode))
 
 (package-check-install *package-need-install-list*)
 
