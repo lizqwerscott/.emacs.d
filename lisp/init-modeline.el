@@ -19,10 +19,7 @@
             'file-name)
       (setq doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode))
       (add-hook 'after-init-hook
-                #'doom-modeline-mode)
-      (require 'nyan-mode)
-      (add-hook #'doom-modeline-mode-hook
-                #'nyan-mode))
+                #'doom-modeline-mode))
   (when (display-graphic-p)
     (awesome-tray-mode)))
 

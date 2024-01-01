@@ -45,7 +45,8 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 
 (require 'pyim)
 (setq default-input-method "pyim")
-(pyim-default-scheme 'quanpin)
+;; (pyim-default-scheme 'quanpin)
+(pyim-default-scheme 'xiaohe-shuangpin)
 ;; (setq pyim-cloudim 'baidu)
 (setq pyim-page-tooltip 'posframe)
 (setq-default pyim-english-input-switch-functions
