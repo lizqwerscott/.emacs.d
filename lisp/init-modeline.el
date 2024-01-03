@@ -18,8 +18,12 @@
       (setq doom-modeline-buffer-file-name-style
             'file-name)
       (setq doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode))
+      (setq display-time-string-forms
+            '(" " 24-hours ":" minutes " "))
       (add-hook 'after-init-hook
-                #'doom-modeline-mode))
+                #'doom-modeline-mode)
+      (add-hook 'doom-modeline-mode-hook
+                #'display-time-mode))
   (when (display-graphic-p)
     (awesome-tray-mode)))
 
