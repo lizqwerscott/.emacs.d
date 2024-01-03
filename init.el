@@ -39,7 +39,7 @@
   (require 'init-tramp)
   (require 'init-blink-search)
   (require 'init-spell)
-  ;; (require 'init-copilot)
+  (require 'init-copilot)
   (require 'init-input)
 
   (require 'init-auto-insert)

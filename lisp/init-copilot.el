@@ -14,4 +14,6 @@
   (interactive)
   (call-interactively 'copilot-mode))
 
+;;(global-copilot-mode t)
+
 (provide 'init-copilot)
