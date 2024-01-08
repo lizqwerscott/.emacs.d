@@ -14,6 +14,17 @@
   (interactive)
   (call-interactively 'copilot-mode))
 
-;;(global-copilot-mode t)
+;; (global-copilot-mode t)
+
+(add-hooks '(python-ts-mode rust-ts-mode c++-ts-mode web-mode bash-ts-mode)
+           #'copilot-mode)
+
+;; (add-hook 'prog-mode-hook
+;;           #'(lambda ()
+;;               (when (not (or (equal major-mode 'emacs-lisp-mode)
+;;                           (equal major-mode 'lisp-mode)
+;;                           (equal major-mode 'lisp-interaction-mode)
+;;                           (equal major-mode 'sql-mode)))
+;;                 (copilot-mode))))
 
 (provide 'init-copilot)

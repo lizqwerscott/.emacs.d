@@ -168,4 +168,6 @@
 
 (require 'init-org-agenda)
 
+(require 'init-org-reveal)
+
 (provide 'init-org)

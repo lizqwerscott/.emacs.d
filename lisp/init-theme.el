@@ -23,8 +23,8 @@
 ;;   :defer)
 
 ;; (load-theme 'dracula t)
-;; (load-theme 'doom-dracula t)
-(load-theme 'modus-vivendi t)
+(load-theme 'doom-dracula t)
+;; (load-theme 'modus-vivendi t)
 ;; (load-theme 'modus-operandi t)
 ;; (load-theme 'doom-snazzy t)
 ;; (load-theme 'doom-molokai t)
