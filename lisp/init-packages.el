@@ -87,6 +87,7 @@
     org-fancy-priorities
     org-roam
     org-roam-ui
+    ox-reveal
     pangu-spacing
     eshell-prompt-extras
     fish-completion
