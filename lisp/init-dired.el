@@ -11,7 +11,7 @@
 (setq dired-kill-when-opening-new-dired-buffer t)
 (setq dired-dwim-target t)
 (setq ls-lisp-dirs-first t)
-(setq dired-listing-switches "-AFhlv")
+(setq dired-listing-switches "-AFhlv --group-directories-first")
 
 (require 'dired-aux)
 (setq dired-isearch-filenames 'dwim)

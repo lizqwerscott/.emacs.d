@@ -77,7 +77,7 @@
     grugru
     pnpm-mode
     ;; tabspaces
-    jinx
+    wucuo
     docker
     elvish-mode
     redacted
