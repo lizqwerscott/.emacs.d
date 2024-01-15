@@ -6,6 +6,8 @@
 (setq magit-delta-hide-plus-minus-markers nil)
 
 (add-hook 'magit-mode-hook
-          #'magit-delta-mode)
+          #'(lambda ()
+              (magit-wip-mode t)
+              (magit-delta-mode t)))
 
 (provide 'init-magit)
