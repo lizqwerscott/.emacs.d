@@ -16,7 +16,7 @@
 
 ;; (global-copilot-mode t)
 
-(add-hooks '(python-ts-mode rust-ts-mode c++-ts-mode web-mode bash-ts-mode)
+(add-hooks '(python-ts-mode rust-ts-mode c++-ts-mode web-mode bash-ts-mode go-ts-mode)
            #'copilot-mode)
 
 ;; (add-hook 'prog-mode-hook

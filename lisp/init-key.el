@@ -77,7 +77,7 @@
    (("p" . "Find in project") . (lambda ()
                                   (interactive)
                                   (require 'project)
-                                  (ido-find-file-in-dir (project-root (project-current)))))))
+                                  (ido-find-file-in-dir "~/MyProject")))))
 
 
 (defmacro open-dir (path)

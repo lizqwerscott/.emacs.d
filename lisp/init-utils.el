@@ -55,7 +55,12 @@
 
 ;;;###autoload
 (defmacro with-proxy (&rest body)
-  `(let ((url-proxy-services user/url-proxy))
+  `(let ((url-proxy-services (get-url-proxy)))
+     ,@body))
+
+;;;###autoload
+(defmacro with-request-proxy (&rest body)
+  `(let ((request-curl-options (nconc `("--proxy" ,(get-socks-proxy))) ))
      ,@body))
 
 (provide 'init-utils)

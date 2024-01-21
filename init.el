@@ -35,7 +35,7 @@
   (require 'init-magit)
   (require 'init-corfu)
   (require 'init-org)
-  (require 'init-pangu)
+  ;; (require 'init-pangu)
   (require 'init-tramp)
   (require 'init-blink-search)
   (require 'init-spell)

@@ -19,7 +19,7 @@
   (if (null url-proxy-services)
       (progn
         (setq url-proxy-services
-              user/url-proxy)
+              (get-url-proxy))
         (message "代理已开启."))
     (setq url-proxy-services nil)
     (message "代理已关闭.")))

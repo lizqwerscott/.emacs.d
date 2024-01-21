@@ -20,7 +20,8 @@
              c-ts-mode
              c++-ts-mode
              python-ts-mode
-             css-ts-mode)
+             css-ts-mode
+             go-ts-mode)
            #'awesome-pair-mode)
 
 (define-key awesome-pair-mode-map (kbd "(") 'awesome-pair-open-round)
