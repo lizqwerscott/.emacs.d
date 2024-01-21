@@ -29,6 +29,11 @@
   :group 'user
   :type 'number)
 
+(defcustom user/proxy-http-port 20171
+  "The http proxy port of all"
+  :group 'user
+  :type 'number)
+
 (defcustom user/proxy-rule-port 20172
   "The rule proxy  port of all"
   :group 'user
@@ -39,13 +44,23 @@
   :group 'user
   :type 'boolean)
 
-(defvar user/url-proxy
+;;;###autoload
+(defun get-socks-proxy ()
+  (concat "socks5://"
+          user/proxy-host
+          ":"
+          (format "%d" user/proxy-all-port)))
+
+;;;###autoload
+(defun get-url-proxy ()
   `(("http" . ,(concat
                 user/proxy-host
-                ":20171"))
+                ":"
+                (format "%d" user/proxy-http-port)))
     ("https" . ,(concat
                  user/proxy-host
-                 ":20171"))))
+                 ":"
+                 (format "%d" user/proxy-http-port)))))
 
 (provide 'init-const)
 ;;; init-const.el ends here.
