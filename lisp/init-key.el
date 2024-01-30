@@ -27,6 +27,7 @@
  (:key "v" :description "Toggle vterm" :command multi-vterm-dedicated-toggle :filename "init-vterm")
  (:key "b" :description "Toggle big screen mode" :command open-big-screen-mode :filename "init-big-screen")
  (:key "T" :description "Toggle transparent" :command +lizqwer/toggle-transparent :filename "init-func")
+ (:key "e" :description "Toggle dark theme" :command +lizqwer/toggle-dark-theme :filename "init-func")
  (:key "p" :description "Toggle proxy" :command +lizqwer/toggle-proxy :filename "init-func")
  (:key "r" :description "Toggle redacted" :command redacted-mode)
  (:key "l" :description "Lock screen" :command +lizqwer/toggle-lock :filename "init-func")

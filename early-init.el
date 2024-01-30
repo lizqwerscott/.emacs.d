@@ -27,6 +27,4 @@
   (require 'init-startup)
   (require 'lazy-load)
   (require 'one-key)
-  (require 'init-font)
-  (require 'init-theme)
-  )
+  (require 'init-font))

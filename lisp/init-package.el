@@ -72,7 +72,8 @@
     emacsql-sqlite-builtin
     pretty-mode
     doom-themes
-    dracula-theme))
+    dracula-theme
+    ef-themes))
 
 (package-check-install *package-early-install-list*)
 
