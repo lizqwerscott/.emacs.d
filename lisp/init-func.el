@@ -122,6 +122,14 @@
   (interactive)
   (shell-command "screen-lock.sh"))
 
+;;;###autoload
+(defun +lizqwer/toggle-dark-theme ()
+  "Toggle theme."
+  (interactive)
+  (if (eq user/day-theme user/now-theme)
+      (+lizqwer/load-theme user/night-theme)
+    (+lizqwer/load-theme user/day-theme)))
+
 ;; From https://emacs.stackexchange.com/questions/5582/are-there-color-pickers-for-emacs
 ;;;###autoload
 (defun my-insert-color-hex (&optional arg)

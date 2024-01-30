@@ -63,4 +63,13 @@
   `(let ((request-curl-options (nconc `("--proxy" ,(get-socks-proxy))) ))
      ,@body))
 
+;;;###autoload
+(defun +lizqwer/load-theme (new-theme)
+  "Load theme."
+  (unless (eq new-theme user/now-theme)
+    (disable-theme user/now-theme)
+    (load-theme new-theme)
+    (setq user/now-theme
+          new-theme)))
+
 (provide 'init-utils)

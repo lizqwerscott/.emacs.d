@@ -19,6 +19,7 @@
       org-log-done 'time
       org-catch-invisible-edits 'smart
       org-startup-indented t
+      org-startup-folded 'show2levels
       org-pretty-entities nil
       org-hide-emphasis-markers t)
 

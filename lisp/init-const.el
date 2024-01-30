@@ -44,6 +44,18 @@
   :group 'user
   :type 'boolean)
 
+(defcustom user/day-theme 'ef-spring
+  "User day theme"
+  :group 'user
+  :type 'symbol)
+
+(defcustom user/night-theme 'doom-dracula
+  "User night theme"
+  :group 'user
+  :type 'symbol)
+
+(defvar user/now-theme nil)
+
 ;;;###autoload
 (defun get-socks-proxy ()
   (concat "socks5://"

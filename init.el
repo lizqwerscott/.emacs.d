@@ -16,6 +16,7 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+(require 'init-theme)
 (require 'init-mode)
 (require 'init-hook)
 (require 'init-key)
