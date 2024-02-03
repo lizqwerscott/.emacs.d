@@ -24,7 +24,6 @@
     ;;   :ensure t)
     ))
 
-(setq lsp-bridge-c-lsp-server "ccls")
 (setq acm-backend-search-file-words-enable-fuzzy-match t)
 (setq acm-backend-lsp-candidates-max-number 4000)
 (setq acm-enable-doc t)

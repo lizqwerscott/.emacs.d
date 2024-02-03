@@ -1,4 +1,4 @@
-(setq org-roam-directory "~/Documents/Org/roam/")
+(setq org-roam-directory (file-truename "~/Documents/Org/roam/"))
 (org-roam-db-autosync-mode)
 
 (require 'find-lisp)

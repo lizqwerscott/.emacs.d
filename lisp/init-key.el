@@ -68,6 +68,7 @@
 (one-key-create-menu
  "File"
  '((("f" . "Find file") . find-file)
+   (("o" . "Find other file") . ff-find-other-file)
    (("F" . "Find file other window") . find-file-other-window)
    (("s" . "Fuzzy search") . consult-fd)
    (("a" . "Action file") . one-key-menu-fileaction)
