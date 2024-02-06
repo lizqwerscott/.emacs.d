@@ -10,6 +10,12 @@
 (add-to-list 'lsp-bridge-default-mode-hooks
              'vue-ts-mode-hook)
 
+(add-to-list 'lsp-bridge-single-lang-server-mode-list
+             '(csharp-ts-mode . lsp-bridge-csharp-lsp-server))
+
+(add-to-list 'lsp-bridge-default-mode-hooks
+             'csharp-ts-mode)
+
 (setq lsp-bridge-default-mode-hooks
       (remove 'telega-chat-mode-hook
               lsp-bridge-default-mode-hooks))

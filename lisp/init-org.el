@@ -91,6 +91,9 @@
 
 ;;; UI
 
+;;; Make invisible parts of Org elements appear visible
+(add-hook 'org-mode-hook 'org-appear-mode)
+
 ;;; 中文标记隐藏空格
 (font-lock-add-keywords 'org-mode
                         '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"

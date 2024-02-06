@@ -22,7 +22,19 @@
       icon-title-format frame-title-format)
 
 (setq default-frame-alist
-      '((alpha-background . 100)))
+      '((alpha-background . 100)
+        ;; (fullscreen . maximized)
+        ))
+
+(setq initial-frame-alist
+      '((top . 0.5)
+        (left . 0.5)
+        (width . 0.628)
+        (height . 0.8)
+        ;; (fullscreen . maximized)
+        ))
+
+(toggle-frame-fullscreen)
 
 ;;; modeline
 (require 'init-modeline)
