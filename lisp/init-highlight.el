@@ -32,8 +32,8 @@
       indent-bars-no-descend-string t
       indent-bars-treesit-ignore-blank-lines-types '("module"))
 
-(add-hooks '(python-mode python-ts-mode rust-mode rust-ts-mode c++-mode c++-ts-mode)
-           #'indent-bars-mode)
+;; (add-hooks '(python-mode python-ts-mode rust-mode rust-ts-mode c++-mode c++-ts-mode)
+;;            #'indent-bars-mode)
 
 ;; (add-hook 'prog-mode-hook
 ;;           #'(lambda ()

@@ -18,7 +18,8 @@
           (lambda ()
             (save-place-mode t)
             (recentf-mode t)
-            (+evan/scratch-setup)))
+            (+evan/scratch-setup)
+            (unity-mode)))
 
 ;; Enable `read-only-mode' to ensure that we don't change what we can't read.
 (add-hook 'redacted-mode-hook

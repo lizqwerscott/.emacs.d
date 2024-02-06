@@ -94,6 +94,7 @@
     ox-hugo
     meow
     org-download
+    org-appear
     immersive-translate
     elfeed
     vterm
@@ -169,5 +170,7 @@
 (quelpa '(indent-bars :fetcher github :repo "jdtsmith/indent-bars"))
 
 (quelpa '(screenshot :fetcher github :repo "tecosaur/screenshot"))
+
+(quelpa '(unity :fetcher github :repo "elizagamedev/unity.el"))
 
 (provide 'init-packages)

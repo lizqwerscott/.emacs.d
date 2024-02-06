@@ -23,7 +23,8 @@
                     (python-mode . python-ts-mode)
                     (c++-mode . c++-ts-mode)
                     (c-mode . c-ts-mode)
-                    (go-mode . go-ts-mode)))
+                    (go-mode . go-ts-mode)
+                    (csharp-mode . csharp-ts-mode)))
 
 ;; (autoload 'yaml-mode "yaml-mode")
 ;; (autoload 'markdown-mode "markdown-mode")

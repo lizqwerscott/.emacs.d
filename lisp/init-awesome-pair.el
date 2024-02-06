@@ -12,7 +12,8 @@
              css-mode
              rust-mode
              minibuffer-inactive-mode
-             jsonian-mode)
+             jsonian-mode
+             csharp-mode)
            #'awesome-pair-mode)
 
 (add-hooks '(vue-ts-mode
@@ -21,7 +22,8 @@
              c++-ts-mode
              python-ts-mode
              css-ts-mode
-             go-ts-mode)
+             go-ts-mode
+             csharp-ts-mode)
            #'awesome-pair-mode)
 
 (define-key awesome-pair-mode-map (kbd "(") 'awesome-pair-open-round)
