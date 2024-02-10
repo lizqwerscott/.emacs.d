@@ -14,7 +14,7 @@
              '(csharp-ts-mode . lsp-bridge-csharp-lsp-server))
 
 (add-to-list 'lsp-bridge-default-mode-hooks
-             'csharp-ts-mode)
+             'csharp-ts-mode-hook)
 
 (setq lsp-bridge-default-mode-hooks
       (remove 'telega-chat-mode-hook

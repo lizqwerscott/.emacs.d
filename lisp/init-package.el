@@ -73,7 +73,8 @@
     pretty-mode
     doom-themes
     dracula-theme
-    ef-themes))
+    ef-themes
+    exec-path-from-shell))
 
 (package-check-install *package-early-install-list*)
 
