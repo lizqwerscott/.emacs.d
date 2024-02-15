@@ -44,7 +44,7 @@
                       (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
 
     ;; Specify font for Chinese characters
-    (cl-loop for font in '("LXGW WenKai Screen" "LXGW Neo Xihei" "WenQuanYi Zen Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
+    (cl-loop for font in '("LXGW WenKai" "LXGW Neo Xihei" "WenQuanYi Zen Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
              when (font-installed-p font)
              return (progn
                       (setq face-font-rescale-alist `((,font . 1.2)))
