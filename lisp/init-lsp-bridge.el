@@ -30,21 +30,20 @@
     ;;   :ensure t)
     ))
 
+;; (setq lsp-bridge-enable-debug t)
+
 (setq acm-backend-search-file-words-enable-fuzzy-match t)
 (setq acm-backend-lsp-candidates-max-number 4000)
 (setq acm-enable-doc t)
-(setq acm-enable-tabnine nil)
-(setq acm-enable-codeium t)
-(setq acm-enable-yas nil)
-(setq acm-enable-tempel nil)
-(setq acm-candidate-match-function #'orderless-flex)
-(setq lsp-bridge-use-wenls-in-org-mode nil)
-(setq lsp-bridge-enable-mode-line nil)
-
-(setq lsp-bridge-enable-diagnostics t)
 (setq lsp-bridge-enable-hover-diagnostic t)
-
-(setq lsp-bridge-enable-with-tramp nil)
+;; (setq acm-enable-tabnine nil)
+;; (setq acm-enable-codeium nil)
+;; (setq acm-enable-yas nil)
+;; (setq acm-enable-tempel nil)
+;; (setq lsp-bridge-use-wenls-in-org-mode nil)
+;; (setq lsp-bridge-enable-mode-line nil)
+;; (setq lsp-bridge-enable-diagnostics t)
+;; (setq lsp-bridge-enable-with-tramp nil)
 
 ;; (setq lsp-bridge-completion-hide-characters
 ;;       '(":" ";" "[" "]" "{" "}" ", " "\""))
@@ -52,8 +51,6 @@
 (setq lsp-bridge-find-def-fallback-function #'dumb-jump)
 
 (setq lsp-bridge-enable-completion-in-string t)
-
-;; (setq lsp-bridge-enable-debug t)
 
 (defun find-definition-with-lsp-bridge ()
   (interactive)
