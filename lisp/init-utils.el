@@ -69,6 +69,19 @@
   (unless (eq new-theme user/now-theme)
     (disable-theme user/now-theme)
     (load-theme new-theme)
+    (unless user/show-modeline
+      ;; Disable mode line.
+      (set-face-attribute 'mode-line nil
+                          :foreground "DarkRed"
+                          :background "DarkRed"
+                          :height 0.1
+                          :box nil)
+      (set-face-attribute 'mode-line-inactive nil
+                          :foreground "Gay10"
+                          :background "Gay10"
+                          :height 0.1
+                          :box nil
+                          :inherit 'unspecified))
     (setq user/now-theme
           new-theme)))
 
