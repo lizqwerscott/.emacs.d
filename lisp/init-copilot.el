@@ -17,7 +17,9 @@
 ;; (global-copilot-mode t)
 
 (add-hooks '(python-ts-mode rust-ts-mode c++-ts-mode web-mode bash-ts-mode go-ts-mode)
-           #'copilot-mode)
+           #'(lambda ()
+               (copilot-mode)
+               (copilot-diagnose)))
 
 ;; (add-hook 'prog-mode-hook
 ;;           #'(lambda ()
