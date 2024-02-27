@@ -10,16 +10,17 @@
 (winner-mode 1)
 
 ;;; shackle
-;; (require 'shackle)
-;; (setq shackle-default-size 0.5)
-;; (setq shackle-default-alignment 'below)
-;; (setq shackle-rules
-;;       '((help-mode :select t :align t :size 0.4)
-;;         ("*Process List*" :select t :align t)
-;;         ("*One-Key*" :select t :align 'below)
-;;         ("*eshell*" :regexp t :select t :align 'below)
-;;         (inferior-emacs-lisp-mode :select t :align 'below)))
-;; (shackle-mode 1)
+(require 'shackle)
+(setq shackle-default-size 0.5)
+(setq shackle-default-alignment 'below)
+(setq shackle-rules
+      '(;; (help-mode :select t :align t :size 0.4)
+        ;; ("*Process List*" :select t :align t)
+        ("*One-Key*" :select t :align 'below)
+        ;; ("*eshell*" :regexp t :select t :align 'below)
+        ;; (inferior-emacs-lisp-mode :select t :align 'below)
+        ))
+(shackle-mode 1)
 
 ;;; popper
 (require 'popper)
