@@ -17,6 +17,7 @@
       '(;; (help-mode :select t :align t :size 0.4)
         ;; ("*Process List*" :select t :align t)
         ("*One-Key*" :select t :align 'below)
+        ("*Org Agenda*" :select t :align 'below)
         ;; ("*eshell*" :regexp t :select t :align 'below)
         ;; (inferior-emacs-lisp-mode :select t :align 'below)
         ))
