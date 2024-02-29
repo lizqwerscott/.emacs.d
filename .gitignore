@@ -18,3 +18,4 @@ ip.txt
 blink-search
 lsp-bridge
 popweb
+tree-sitter/*

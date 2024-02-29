@@ -35,9 +35,9 @@
 
 
 ;; Tree-sitter
-(setq treesit-extra-load-path
-      (list
-       (file-truename "~/.tree-sitter/bin")))
+;; (setq treesit-extra-load-path
+;;       (list
+;;        (file-truename "~/.tree-sitter/bin")))
 
 (require 'treesit)
 (setq treesit-font-lock-level 4)
