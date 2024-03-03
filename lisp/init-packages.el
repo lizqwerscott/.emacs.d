@@ -4,6 +4,8 @@
     marginalia
     consult
     consult-notes
+    embark
+    embark-consult
     orderless
     posframe
     try

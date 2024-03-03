@@ -23,6 +23,7 @@
 (require 'init-ui)
 (require 'init-dired)
 (require 'init-minibuffer)
+(require 'init-embark)
 (require 'init-edit)
 (require 'init-lsp-bridge)
 (require 'init-gcmh)
