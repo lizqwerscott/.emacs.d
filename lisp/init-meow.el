@@ -8,7 +8,7 @@
         (prog-mode . normal)
         (conf-mode . normal)
         (eaf-mode . insert)))
-(setq meow-use-clipboard t)
+(setq meow-use-clipboard nil)
 (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
 
 (defun lazy-meow-leader-define-key (&rest keybinds)
