@@ -68,7 +68,8 @@
   "Load theme."
   (unless (eq new-theme user/now-theme)
     (disable-theme user/now-theme)
-    (load-theme new-theme)
+    (ignore-errors
+      (load-theme new-theme))
     (unless user/show-modeline
       ;; Disable mode line.
       (set-face-attribute 'mode-line nil

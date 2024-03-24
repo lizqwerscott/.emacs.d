@@ -104,7 +104,8 @@
     auto-rename-tag
     doom-modeline
     log4j-mode
-    just-mode))
+    just-mode
+    yaml-mode))
 
 (package-check-install *package-need-install-list*)
 
