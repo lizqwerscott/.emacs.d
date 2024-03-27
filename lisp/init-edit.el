@@ -126,26 +126,26 @@
       (setq pre-comment-pos (find-comment-area t))
       (goto-char p)
       (setq next-comment-pos (find-comment-area nil))
-      (if (and (third pre-comment-pos)
-             (third next-comment-pos))
+      (if (and (cl-third pre-comment-pos)
+             (cl-third next-comment-pos))
           (progn
             (setq start-comment-pos
-                  (second pre-comment-pos))
+                  (cl-second pre-comment-pos))
             (setq end-comment-pos
-                  (second next-comment-pos)))
+                  (cl-second next-comment-pos)))
         (progn
-          (if (third pre-comment-pos)
+          (if (cl-third pre-comment-pos)
               (progn
                 (setq start-comment-pos
-                      (second pre-comment-pos))
+                      (cl-second pre-comment-pos))
                 (setq end-comment-pos
-                      (first pre-comment-pos)))
-            (if (third next-comment-pos)
+                      (cl-first pre-comment-pos)))
+            (if (cl-third next-comment-pos)
                 (progn
                   (setq start-comment-pos
-                        (first next-comment-pos))
+                        (cl-first next-comment-pos))
                   (setq end-comment-pos
-                        (second next-comment-pos)))))))
+                        (cl-second next-comment-pos)))))))
       (if (and start-comment-pos
              end-comment-pos)
           (progn
@@ -162,11 +162,11 @@
     (let ((p (point)))
       (setq pre-comment-pos (find-comment-area t))
 
-      (if (and (second pre-comment-pos)
-             (first pre-comment-pos))
+      (if (and (cl-second pre-comment-pos)
+             (cl-first pre-comment-pos))
           (progn
-            (set-mark (first pre-comment-pos))
-            (goto-char (second pre-comment-pos)))
+            (set-mark (cl-first pre-comment-pos))
+            (goto-char (cl-second pre-comment-pos)))
         (progn
           (goto-char p)
           (message "pos: %s" pre-comment-pos))))))
@@ -179,11 +179,11 @@
     (let ((p (point)))
       (setq pre-comment-pos (find-comment-area nil))
 
-      (if (and (second pre-comment-pos)
-             (first pre-comment-pos))
+      (if (and (cl-second pre-comment-pos)
+             (cl-first pre-comment-pos))
           (progn
-            (set-mark (second pre-comment-pos))
-            (goto-char (first pre-comment-pos)))
+            (set-mark (cl-second pre-comment-pos))
+            (goto-char (cl-first pre-comment-pos)))
         (progn
           (goto-char p)
           (message "pos: %s" pre-comment-pos))))))
