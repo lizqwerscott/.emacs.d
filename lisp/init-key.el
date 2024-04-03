@@ -190,8 +190,10 @@
  "symbol-overlay")
 
 ;;; webjump
-(lazy-load-global-keys
- '(("C-c /" . webjump))
- "init-webjump")
+;; (lazy-load-global-keys
+;;  '(("C-c /" . webjump))
+;;  "init-webjump")
+
+(global-set-key (kbd "C-c /") #'google-this-lucky-search)
 
 (provide 'init-key)

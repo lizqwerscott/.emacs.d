@@ -1,7 +1,5 @@
 (require 'webjump)
 
-(global-set-key (kbd "C-c /") #'webjump)
-
 (setq webjump-sites
       '(;; Emacs
         ("Emacs Home Page" .
