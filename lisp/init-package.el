@@ -71,10 +71,10 @@
     benchmark-init
     emacsql-sqlite-builtin
     pretty-mode
+    exec-path-from-shell
     doom-themes
     dracula-theme
-    ef-themes
-    exec-path-from-shell))
+    ef-themes))
 
 (package-check-install *package-early-install-list*)
 

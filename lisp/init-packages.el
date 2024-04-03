@@ -1,4 +1,4 @@
-(defvar *package-need-install-list*
+(defvar *package-base-install-list*
   '(gcmh
     vertico
     marginalia
@@ -8,107 +8,145 @@
     embark-consult
     orderless
     posframe
-    try
     vundo
-    hungry-delete
-    symbol-overlay
-    color-identifiers-mode
-    focus
-    centered-cursor-mode
-    goggles
-    diff-hl
-    rainbow-delimiters
-    rainbow-mode
-    shackle
-    popper
-    separedit
     request
     websocket
-    interaction-log
-    visual-fill-column
-    helpful
-    dumb-jump
-    yasnippet
-    common-lisp-snippets
-    markdown-mode
-    rust-mode
-    cargo
-    macrostep
-    google-this
-    sly
-    sly-quicklisp
-    sly-asdf
-    aggressive-indent
-    which-key
-    apheleia
-    eglot
-    xclip
-    pyim
-    pyim-basedict
-    olivetti
     ag
     rg
+    xclip
+    helpful
+    which-key))
+
+(defvar *package-need-install-list*
+  '(try
+    symbol-overlay
+    centered-cursor-mode
+    separedit
+    interaction-log
+    google-this
+    aggressive-indent
+    apheleia
+    pyim
+    pyim-basedict
     magit
     magit-delta
     magit-todos
-    git-modes
-    pretty-mode
     dired-rsync
     dired-toggle-sudo
     diredfl
     dired-subtree
-    solarized-theme
-    all-the-icons
-    nerd-icons
-    nerd-icons-dired
-    nerd-icons-completion
     imenu-list
-    hl-todo
     avy
-    ace-window
     sudo-edit
     devdocs
     elisp-demos
-    go-mode
-    haskell-mode
-    jsonian
-    web-mode
     restclient
     code-stats
     outshine
-    grugru
-    pnpm-mode
     ;; tabspaces
     wucuo
     docker
-    elvish-mode
-    redacted
     projection
-    valign
-    org-bullets
-    org-fancy-priorities
-    org-roam
-    org-roam-ui
-    ox-reveal
     pangu-spacing
     eshell-prompt-extras
     fish-completion
-    ox-hugo
-    meow
-    org-download
-    org-appear
     immersive-translate
     elfeed
     vterm
     multi-vterm
-    auto-rename-tag
-    doom-modeline
+    ))
+
+(defvar *package-language-mode-install-list*
+  '(markdown-mode
     log4j-mode
     just-mode
-    yaml-mode))
+    yaml-mode
+    go-mode
+    haskell-mode
+    jsonian
+    elvish-mode
+    git-modes
+    ))
 
+(defvar *package-edit-install-list*
+  '(meow
+    grugru
+    auto-rename-tag
+    hungry-delete
+    ))
+
+(defvar *package-program-install-list*
+  '(dumb-jump
+    yasnippet
+    macrostep
+    eglot
+    ))
+
+(defvar *package-ui-install-list*
+  '(solarized-theme
+    all-the-icons
+    nerd-icons
+    nerd-icons-dired
+    nerd-icons-completion
+    doom-modeline
+    pretty-mode
+    color-identifiers-mode
+    focus
+    goggles
+    diff-hl
+    rainbow-delimiters
+    rainbow-mode
+    visual-fill-column
+    olivetti
+    redacted
+    hl-todo
+    ))
+
+(defvar *package-window-install-list*
+  '(shackle
+    popper
+    ace-window
+    ))
+
+(defvar *package-org-install-list*
+  '(org-bullets
+    org-fancy-priorities
+    org-roam
+    org-roam-ui
+    ox-reveal
+    ox-hugo
+    org-download
+    org-appear
+    valign
+    ))
+
+(defvar *package-rust-install-list*
+  '(rust-mode
+    cargo))
+
+(defvar *package-common-lisp-install-list*
+  '(common-lisp-snippets
+    sly
+    sly-quicklisp
+    sly-asdf
+    ))
+
+(defvar *package-web-install-list*
+  '(web-mode
+    pnpm-mode
+    ))
+
+(package-check-install *package-base-install-list*)
 (package-check-install *package-need-install-list*)
-
+(package-check-install *package-language-mode-install-list*)
+(package-check-install *package-edit-install-list*)
+(package-check-install *package-program-install-list*)
+(package-check-install *package-ui-install-list*)
+(package-check-install *package-window-install-list*)
+(package-check-install *package-org-install-list*)
+(package-check-install *package-rust-install-list*)
+(package-check-install *package-common-lisp-install-list*)
+(package-check-install *package-web-install-list*)
 
 (quelpa '(telega :fetcher github
                  :repo "zevlg/telega.el"
@@ -175,5 +213,8 @@
 (quelpa '(screenshot :fetcher github :repo "tecosaur/screenshot"))
 
 (quelpa '(unity :fetcher github :repo "elizagamedev/unity.el"))
+
+
+(quelpa '(org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent"))
 
 (provide 'init-packages)

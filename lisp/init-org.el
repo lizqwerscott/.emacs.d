@@ -148,6 +148,9 @@
 (add-hook 'org-mode-hook
           #'visual-line-mode)
 
+(add-hook 'org-mode-hook
+          #'org-modern-indent-mode 90)
+
 ;;; Org key
 (define-key org-mode-map (kbd "C-c TAB") 'org-insert-item)
 (define-key org-mode-map (kbd "M-P") 'org-metaup)

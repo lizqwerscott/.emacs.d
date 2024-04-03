@@ -22,6 +22,10 @@
 
 (unless (display-graphic-p)
   (with-eval-after-load 'acm
+    (quelpa '(popon :fetcher git :url "https://codeberg.org/akib/emacs-popon.git"))
+    (quelpa '(acm-terminal :fetcher git :url "https://github.com/twlz0ne/acm-terminal.git"))
+    (require 'popon)
+    (require 'acm-terminal)
     ;; (use-package popon
     ;;   :quelpa (popon :fetcher git :url "https://codeberg.org/akib/emacs-popon.git")
     ;;   :ensure t)
@@ -31,6 +35,10 @@
     ))
 
 ;; (setq lsp-bridge-enable-debug t)
+
+(setq acm-backend-lsp-candidate-min-length 3)
+(setq acm-backend-elisp-candidate-min-length 3)
+(setq acm-backend-search-file-words-candidate-min-length 3)
 
 (setq acm-backend-search-file-words-enable-fuzzy-match t)
 (setq acm-backend-lsp-candidates-max-number 4000)
