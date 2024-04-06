@@ -215,7 +215,8 @@
 
 (quelpa '(unity :fetcher github :repo "elizagamedev/unity.el"))
 
-
 (quelpa '(org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent"))
+
+(quelpa '(quicktype :fetcher github :repo "artawower/quicktype.el"))
 
 (provide 'init-packages)

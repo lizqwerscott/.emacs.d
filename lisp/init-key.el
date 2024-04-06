@@ -168,7 +168,8 @@
  "Insert"
  (:key "t" :description "Insert translated name" :command insert-translated-name-insert :filename "init-translated-name")
  (:key "i" :description "Insert import" :command insert-import :filename "init-func")
- (:key "f" :description "Insert file" :command one-key-menu-insert-file))
+ (:key "f" :description "Insert file" :command one-key-menu-insert-file)
+ (:key "j" :description "Insert json to type" :command quicktype))
 
 ;; ;;; ### Watch other window ###
 ;; ;;; --- 滚动其他窗口
