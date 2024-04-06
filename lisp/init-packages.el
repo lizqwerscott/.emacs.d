@@ -66,6 +66,7 @@
     jsonian
     elvish-mode
     git-modes
+    csv-mode
     ))
 
 (defvar *package-edit-install-list*
