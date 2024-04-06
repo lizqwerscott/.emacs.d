@@ -8,7 +8,6 @@
     embark-consult
     orderless
     posframe
-    vundo
     request
     websocket
     ag
@@ -17,44 +16,28 @@
     helpful
     which-key))
 
-(defvar *package-need-install-list*
+(defvar *package-tool-install-list*
   '(try
-    symbol-overlay
     centered-cursor-mode
-    separedit
-    interaction-log
+    sudo-edit
     google-this
-    aggressive-indent
-    apheleia
-    pyim
-    pyim-basedict
-    magit
-    magit-delta
-    magit-todos
+    interaction-log
+    restclient
     dired-rsync
     dired-toggle-sudo
     diredfl
     dired-subtree
-    imenu-list
-    avy
-    sudo-edit
-    devdocs
     elisp-demos
-    restclient
-    code-stats
-    outshine
-    ;; tabspaces
-    wucuo
-    docker
-    projection
-    pangu-spacing
-    eshell-prompt-extras
-    fish-completion
     immersive-translate
-    elfeed
     vterm
     multi-vterm
-    ))
+    (lazy-revert :fetcher github :repo "yilin-zhang/lazy-revert")
+    (psearch
+     :fetcher github
+     :repo "twlz0ne/psearch.el"
+     :files ("psearch.el"))
+    )
+  )
 
 (defvar *package-language-mode-install-list*
   '(markdown-mode
@@ -67,6 +50,10 @@
     elvish-mode
     git-modes
     csv-mode
+    ;; 有 bug
+    ;; (quelpa '(vue-ts-mode
+    ;;           :fetcher github
+    ;;           :repo "8uff3r/vue-ts-mode"))
     ))
 
 (defvar *package-edit-install-list*
@@ -74,13 +61,38 @@
     grugru
     auto-rename-tag
     hungry-delete
-    ))
+    separedit
+    symbol-overlay
+    aggressive-indent
+    apheleia
+    avy
+    vundo
+    (fingertip :fetcher github :repo "manateelazycat/fingertip")
+    (awesome-pair :fetcher github :repo "manateelazycat/awesome-pair")    ))
 
 (defvar *package-program-install-list*
   '(dumb-jump
     yasnippet
     macrostep
     eglot
+    magit
+    magit-delta
+    magit-todos
+    devdocs
+    wucuo
+    projection
+    eshell-prompt-extras
+    fish-completion
+    (unity :fetcher github :repo "elizagamedev/unity.el")
+    (quicktype :fetcher github :repo "artawower/quicktype.el")
+    (color-rg :fetcher github
+              :repo "manateelazycat/color-rg")
+    (peek :fetcher sourcehut :repo "meow_king/peek")
+    (copilot :fetcher github
+             :repo "zerolfx/copilot.el"
+             :branch "main"
+             :files ("dist" "*.el"))
+    (auto-save :fetcher github :repo "manateelazycat/auto-save")
     ))
 
 (defvar *package-ui-install-list*
@@ -101,12 +113,23 @@
     olivetti
     redacted
     hl-todo
+    imenu-list
+    outshine
+    (indent-bars :fetcher github :repo "jdtsmith/indent-bars")
+    (sort-tab :fetcher github
+              :repo "manateelazycat/sort-tab")
+    (awesome-tray :fetcher github
+                  :repo "manateelazycat/awesome-tray")
+    (breadcrumb :fetcher github
+                :repo "joaotavora/breadcrumb")
+    (highlight-matching-tag :fetcher github :repo "manateelazycat/highlight-matching-tag")
     ))
 
 (defvar *package-window-install-list*
   '(shackle
     popper
     ace-window
+    (watch-other-window :fetcher github :repo "manateelazycat/watch-other-window")
     ))
 
 (defvar *package-org-install-list*
@@ -119,6 +142,8 @@
     org-download
     org-appear
     valign
+    pangu-spacing
+    (org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent")
     ))
 
 (defvar *package-rust-install-list*
@@ -137,86 +162,41 @@
     pnpm-mode
     ))
 
-(package-check-install *package-base-install-list*)
-(package-check-install *package-need-install-list*)
-(package-check-install *package-language-mode-install-list*)
-(package-check-install *package-edit-install-list*)
-(package-check-install *package-program-install-list*)
-(package-check-install *package-ui-install-list*)
-(package-check-install *package-window-install-list*)
-(package-check-install *package-org-install-list*)
-(package-check-install *package-rust-install-list*)
-(package-check-install *package-common-lisp-install-list*)
-(package-check-install *package-web-install-list*)
+(defvar *package-another-install-list*
+  '(elfeed
+    code-stats
+    ;; tabspaces
+    docker
+    (sdcv
+     :fetcher github
+     :repo "manateelazycat/sdcv")
+    pyim
+    pyim-basedict
+    (pyim-tsinghua-dict
+     :fetcher github
+     :repo "redguardtoo/pyim-tsinghua-dict"
+     :files ("pyim-tsinghua-dict.el" "pyim-tsinghua-dict.pyim"))
+    (screenshot :fetcher github :repo "tecosaur/screenshot")
+    (advance-words-count
+     :fetcher github
+     :repo "LdBeth/advance-words-count.el")
+    (telega :fetcher github
+            :repo "zevlg/telega.el"
+            :branch "master"
+            :files (:defaults "contrib" "etc" "server" "Makefile"))
+    ))
 
-(quelpa '(telega :fetcher github
-                 :repo "zevlg/telega.el"
-                 :branch "master"
-                 :files (:defaults "contrib" "etc" "server" "Makefile")))
-
-(quelpa '(copilot :fetcher github
-                  :repo "zerolfx/copilot.el"
-                  :branch "main"
-                  :files ("dist" "*.el")))
-
-(quelpa '(color-rg :fetcher github
-                   :repo "manateelazycat/color-rg"))
-
-(quelpa '(sort-tab :fetcher github
-                   :repo "manateelazycat/sort-tab"))
-
-(quelpa '(awesome-tray :fetcher github
-                       :repo "manateelazycat/awesome-tray"))
-
-(quelpa '(breadcrumb :fetcher github
-                     :repo "joaotavora/breadcrumb"))
-
-(quelpa '(auto-save :fetcher github :repo "manateelazycat/auto-save"))
-
-(quelpa '(lazy-revert :fetcher github :repo "yilin-zhang/lazy-revert"))
-
-(quelpa '(peek :fetcher sourcehut :repo "meow_king/peek"))
-
-(quelpa '(watch-other-window :fetcher github :repo "manateelazycat/watch-other-window"))
-
-(quelpa '(highlight-matching-tag :fetcher github :repo "manateelazycat/highlight-matching-tag"))
-
-;; (quelpa '(holo-layer :fetcher github :repo "manateelazycat/holo-layer" :files ("*.el" "*.py" "swaymsg-treefetch")))
-
-(quelpa '(psearch
-          :fetcher github
-          :repo "twlz0ne/psearch.el"
-          :files ("psearch.el")))
-
-(quelpa '(advance-words-count
-          :fetcher github
-          :repo "LdBeth/advance-words-count.el"))
-;; 有 bug
-;; (quelpa '(vue-ts-mode
-;;           :fetcher github
-;;           :repo "8uff3r/vue-ts-mode"))
-
-(quelpa '(sdcv
-          :fetcher github
-          :repo "manateelazycat/sdcv"))
-
-(quelpa '(pyim-tsinghua-dict
-          :fetcher github
-          :repo "redguardtoo/pyim-tsinghua-dict"
-          :files ("pyim-tsinghua-dict.el" "pyim-tsinghua-dict.pyim")))
-
-(quelpa '(awesome-pair :fetcher github :repo "manateelazycat/awesome-pair"))
-
-(quelpa '(fingertip :fetcher github :repo "manateelazycat/fingertip"))
-
-(quelpa '(indent-bars :fetcher github :repo "jdtsmith/indent-bars"))
-
-(quelpa '(screenshot :fetcher github :repo "tecosaur/screenshot"))
-
-(quelpa '(unity :fetcher github :repo "elizagamedev/unity.el"))
-
-(quelpa '(org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent"))
-
-(quelpa '(quicktype :fetcher github :repo "artawower/quicktype.el"))
+(packages! *package-base-install-list*)
+(packages! *package-tool-install-list*)
+(packages! *package-language-mode-install-list*)
+(packages! *package-edit-install-list*)
+(packages! *package-program-install-list*)
+(packages! *package-ui-install-list*)
+(packages! *package-window-install-list*)
+(packages! *package-org-install-list*)
+(packages! *package-rust-install-list*)
+(packages! *package-common-lisp-install-list*)
+(packages! *package-web-install-list*)
+(packages! *package-another-install-list*)
 
 (provide 'init-packages)

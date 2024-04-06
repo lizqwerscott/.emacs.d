@@ -22,15 +22,17 @@
 
 (require 'use-package)
 
-(defun package-check-install (packages)
+(defun packages! (packages)
   (dolist (package packages)
-    (unless (package-installed-p package)
-      (package-refresh-contents)
-      (package-install package))))
+    (if (listp package)
+        (quelpa package)
+      (unless (package-installed-p package)
+        (package-refresh-contents)
+        (package-install package)))))
 
-(package-check-install '(quelpa
-                         ;; quelpa-use-package
-                         ))
+(packages! '(quelpa
+             ;; quelpa-use-package
+             ))
 
 (setq quelpa-update-melpa-p nil)
 ;; (quelpa-use-package-activate-advice)
@@ -70,18 +72,17 @@
   '(no-littering
     benchmark-init
     emacsql-sqlite-builtin
-    pretty-mode
     exec-path-from-shell
+
+    pretty-mode
     doom-themes
     dracula-theme
-    ef-themes))
+    ef-themes
+    
+    (lazy-load :fetcher github :repo "manateelazycat/lazy-load")
+    (one-key :fetcher github :repo "manateelazycat/one-key")))
 
-(package-check-install *package-early-install-list*)
-
-(quelpa '(lazy-load :fetcher github
-                    :repo "manateelazycat/lazy-load"))
-
-(quelpa '(one-key :fetcher github :repo "manateelazycat/one-key"))
+(packages! *package-early-install-list*)
 
 (provide 'init-package)
 ;;; init-package.el ends here
