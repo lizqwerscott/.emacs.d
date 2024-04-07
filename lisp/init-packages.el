@@ -77,7 +77,6 @@
     eglot
     magit
     magit-delta
-    magit-todos
     devdocs
     wucuo
     projection
