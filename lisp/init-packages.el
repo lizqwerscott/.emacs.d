@@ -161,6 +161,10 @@
     pnpm-mode
     ))
 
+(defvar *package-python-install-list*
+  '(conda
+    pyvenv))
+
 (defvar *package-another-install-list*
   '(elfeed
     code-stats
@@ -197,5 +201,6 @@
 (packages! *package-common-lisp-install-list*)
 (packages! *package-web-install-list*)
 (packages! *package-another-install-list*)
+(packages! *package-python-install-list*)
 
 (provide 'init-packages)

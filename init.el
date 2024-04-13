@@ -49,7 +49,7 @@
   (require 'init-elisp)
   (require 'init-separedit)
   ;; (require 'init-eglot)
-  ;; (require 'init-python)
+  (require 'init-python)
   (require 'init-haskell)
   (require 'init-c++)
   (require 'init-web)
