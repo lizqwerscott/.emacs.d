@@ -186,8 +186,7 @@
     (telega :fetcher github
             :repo "zevlg/telega.el"
             :branch "master"
-            :files (:defaults "contrib" "etc" "server" "Makefile"))
-    ))
+            :files (:defaults "contrib" "etc" "server" "Makefile"))))
 
 (packages! *package-base-install-list*)
 (packages! *package-tool-install-list*)
