@@ -103,6 +103,8 @@
     doom-modeline
     pretty-mode
     color-identifiers-mode
+    lisp-extra-font-lock
+    highlight-function-calls
     focus
     goggles
     diff-hl

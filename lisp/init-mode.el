@@ -39,7 +39,7 @@
 ;;        (file-truename "~/.tree-sitter/bin")))
 
 (require 'treesit)
-(setq treesit-font-lock-level 4)
+(customize-set-variable 'treesit-font-lock-level 4)
 
 (treesit-font-lock-recompute-features
  '(command string variable function operator bracket keyword))
