@@ -54,6 +54,11 @@
   :group 'user
   :type 'symbol)
 
+(defcustom user/vivaldi-use nil
+  "Is use vivaldi"
+  :group 'user
+  :type 'boolean)
+
 (defvar user/now-theme nil)
 
 ;;;###autoload

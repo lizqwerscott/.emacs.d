@@ -195,6 +195,6 @@
 ;;  '(("C-c /" . webjump))
 ;;  "init-webjump")
 
-(global-set-key (kbd "C-c /") #'google-this-lucky-search)
+(global-set-key (kbd "C-c /") #'google-this)
 
 (provide 'init-key)

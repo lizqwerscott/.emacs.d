@@ -65,6 +65,10 @@
   ;; (require 'init-reader)
   ;; (require 'init-paper)
   ;;(require 'crefactor)
+  ;; vivaldi support
+  (when user/vivaldi-use
+    (setq browse-url-browser-function
+          #'browse-url-vivaldi))
   (message "start telega")
   (autoload '+lizqwer/toggle-telega "init-telega" nil t)
   (+lizqwer/toggle-telega)
