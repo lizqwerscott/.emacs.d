@@ -110,7 +110,7 @@
    '("?" . meow-cheatsheet))
 
   (meow-leader-define-key
-   '("t" . one-key-menu-toggle)
+   '("t" . hydra-toggles/body)
    '("u" . one-key-menu-useful)
    '("j" . one-key-menu-code)
    '("s" . one-key-menu-search)

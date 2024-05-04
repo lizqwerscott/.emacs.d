@@ -14,7 +14,9 @@
     rg
     xclip
     helpful
-    which-key))
+    which-key
+    hydra
+    pretty-hydra))
 
 (defvar *package-tool-install-list*
   '(try

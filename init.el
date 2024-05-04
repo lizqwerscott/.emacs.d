@@ -20,6 +20,7 @@
 (require 'init-mode)
 (require 'init-hook)
 (require 'init-key)
+(require 'init-hydra)
 (require 'init-ui)
 (require 'init-dired)
 (require 'init-minibuffer)
