@@ -155,4 +155,12 @@ With prefix argument \\[universal-argument] insert the 48-bit value."
   (other-window 1)
   (goto-char (point-min)))
 
+;;;###autoload
+(defun consult-fd-dir ()
+  (interactive)
+  (let ((consult-fd-args (append consult-fd-args
+                                 (list
+                                  "--type directory"))))
+    (consult-fd "~/")))
+
 (provide 'init-func)

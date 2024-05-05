@@ -88,5 +88,18 @@
    "Edit"
    (("w" toggle-sub-word-or-super-word "sub or super word" :toggle t))))
 
+(pretty-hydra-define hydra-jump-dir (:title (pretty-hydra-title "Jump to directory" 'octicon "nf-oct-file_directory_open_fill") :color amaranth :quit-key ("C-g" "q"))
+  ("Base"
+   (("h" (find-file "~/") "Home")
+    ("d" (find-file "~/Documents") "Document"))
+   "Program"
+   (("c" (find-file "~/.emacs.d") "Emacs Config")
+    ("g" (find-file "~/github") "Github")
+    ("p" (find-file "~/MyProject") "Project"))
+   "Search"
+   (("s" consult-fd-dir "Fuzzy search Dir" :exit t)
+    ("j" dired-jump "Dired jump" :exit t)
+    ("J" dired-jump-other-window "Dired jump other" :exit t))))
+
 (provide 'init-hydra)
 ;;; init-hydra.el ends here

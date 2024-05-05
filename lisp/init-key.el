@@ -87,13 +87,6 @@
      (interactive)
      (find-file ,path)))
 
-(defun consult-fd-dir ()
-  (interactive)
-  (let ((consult-fd-args (append consult-fd-args
-                                 (list
-                                  "--type directory"))))
-    (consult-fd)))
-
 (one-key-create-menu
  "Directory"
  `((("h" . "Home Dir") . ,(open-dir "~/"))

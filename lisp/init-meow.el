@@ -120,7 +120,7 @@
    ;; '("v" . one-key-menu-sort-tab)
    '("v" . one-key-menu-git)
    '("l" . one-key-menu-workspace)
-   '("d" . one-key-menu-directory)
+   '("d" . hydra-jump-dir/body)
    '("i" . one-key-menu-insert)
    )
 
