@@ -48,6 +48,23 @@
             " "))))
      (propertize title 'face face))))
 
+(defun pretty-hydra-define-add-exit (head-plist)
+  (mapcar-if #'(lambda (head)
+                 (mapcar-if-not #'(lambda (key)
+                                    (append key
+                                            (list :exit t)))
+                                head
+                                #'(lambda (v)
+                                    (cl-find :exit v :test #'eq))))
+             head-plist
+             #'listp))
+
+(defmacro pretty-hydra-define-e (name body head-plist)
+  `(pretty-hydra-define ,name ,body
+     ,(if (cl-getf body :all-exit)
+          (pretty-hydra-define-add-exit head-plist)
+        head-plist)))
+
 (pretty-hydra-define hydra-toggles (:title (pretty-hydra-title "Toggles" 'faicon "nf-fa-toggle_on") :color amaranth :quit-key ("C-g" "q"))
   ("Basic"
    (("p" +lizqwer/toggle-proxy "proxy" :toggle t)

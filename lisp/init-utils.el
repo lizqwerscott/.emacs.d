@@ -1,6 +1,22 @@
 (require 'cl-lib)
 
 ;;;###autoload
+(defun mapcar-if (fn seq handle)
+  (mapcar #'(lambda (v)
+              (if (funcall handle v)
+                  (funcall fn v)
+                v))
+          seq))
+
+;;;###autoload
+(defun mapcar-if-not (fn seq handle)
+  (mapcar #'(lambda (v)
+              (if (funcall handle v)
+                  v
+                (funcall fn v)))
+          seq))
+
+;;;###autoload
 (defmacro add-hooks (modes fn)
   `(dolist (mode ,modes)
      (add-hook (intern
