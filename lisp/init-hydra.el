@@ -59,6 +59,7 @@
              head-plist
              #'listp))
 
+;;;###autoload
 (defmacro pretty-hydra-define-e (name body head-plist)
   `(pretty-hydra-define ,name ,body
      ,(if (cl-getf body :all-exit)

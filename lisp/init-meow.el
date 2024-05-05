@@ -121,7 +121,7 @@
    '("v" . one-key-menu-git)
    '("l" . one-key-menu-workspace)
    '("d" . one-key-menu-directory)
-   '("i" . hydra-insert-file/body)
+   '("i" . one-key-menu-insert)
    )
 
   (lazy-meow-leader-define-key

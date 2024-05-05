@@ -294,15 +294,14 @@
   (interactive "fInsert file name: \n")
   (insert (file-name-nondirectory filename)))
 
-
-
-(pretty-hydra-define-e hydra-insert-file (:title "Insert file or path" :color amaranth :quit-key ("C-g" "q") :all-exit t)
-                       ("path"
-                        (("f" +lizqwer/insert-file-path "full")
-                         ("r" +lizqwer/insert-file-path-relative "relative")
-                         ("a" +lizqwer/insert-file-path-abbrev "abbrev"))
-                        "name"
-                        (("n" +lizqwer/insert-file-name "name"))))
+(pretty-hydra-define-e
+ hydra-insert-file (:title "Insert file or path" :color amaranth :quit-key ("C-g" "q") :all-exit t)
+ ("path"
+  (("f" +lizqwer/insert-file-path "full")
+   ("r" +lizqwer/insert-file-path-relative "relative")
+   ("a" +lizqwer/insert-file-path-abbrev "abbrev"))
+  "name"
+  (("n" +lizqwer/insert-file-name "name"))))
 
 (one-key-create-menu
  "Insert-file-path"
