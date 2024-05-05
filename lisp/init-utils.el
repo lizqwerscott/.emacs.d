@@ -60,7 +60,7 @@
 
 ;;;###autoload
 (defmacro with-request-proxy (&rest body)
-  `(let ((request-curl-options (nconc `("--proxy" ,(get-socks-proxy))) ))
+  `(let ((request-curl-options (nconc `("--proxy" ,(get-http-proxy)))))
      ,@body))
 
 ;;;###autoload

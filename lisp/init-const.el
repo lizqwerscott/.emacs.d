@@ -69,6 +69,13 @@
           (format "%d" user/proxy-all-port)))
 
 ;;;###autoload
+(defun get-http-proxy ()
+  (concat "http://"
+          user/proxy-host
+          ":"
+          (format "%d" user/proxy-http-port)))
+
+;;;###autoload
 (defun get-url-proxy ()
   `(("http" . ,(concat
                 user/proxy-host

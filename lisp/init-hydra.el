@@ -53,7 +53,6 @@
    (("p" +lizqwer/toggle-proxy "proxy" :toggle t)
     ("c" global-centered-cursor-mode "centered cursor" :toggle t)
     ("l" interaction-log-mode "interactive log" :toggle t)
-    ("w" toggle-sub-word-or-super-word "sub or super word" :toggle t)
     ("i" immersive-translate-auto-mode "immersive translate" :toggle t)
     ("t" +lizqwer/toggle-telega "telega" :toggle t)
     ("c" +lizqwer/toggle-copilot "copilot" :toggle t))
@@ -67,7 +66,9 @@
     ("r" redacted-mode "redacted" :toggle t)
     ("b" open-big-screen-mode "big screen" :toggle t)
     ("l" +lizqwer/toggle-lock "lock screen" :exit t)
-    )))
+    )
+   "Edit"
+   (("w" toggle-sub-word-or-super-word "sub or super word" :toggle t))))
 
 (provide 'init-hydra)
 ;;; init-hydra.el ends here
