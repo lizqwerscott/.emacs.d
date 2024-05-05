@@ -41,7 +41,6 @@
  (:key "l" :description "Search in buffer" :command consult-line)
  (:key "i" :description "Search imenu" :command consult-imenu)
  (:key "m" :description "Search imenu int multi buffer" :command consult-imenu-multi)
- (:key "g" :description "Goto line" :command consult-goto-line)
  (:key "o" :description "Search outline" :command consult-outline)
  (:key "B" :description "Bookmark" :command consult-bookmark)
  (:key "s" :description "Blink Search" :command blink-search :filename "init-blink-search")

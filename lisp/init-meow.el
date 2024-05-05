@@ -223,6 +223,7 @@
    '("gi" . lsp-bridge-find-impl)
    '("gI" . lsp-bridge-find-impl-other-window)
    '("gp" . goto-percent)
+   '("gl" . consult-goto-line)
    '("C-o" . return-find-def)
    '("/" . consult-ripgrep)
    '("?" . help-helpful-lsp-bridge-sly)
