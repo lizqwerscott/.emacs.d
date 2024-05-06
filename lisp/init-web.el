@@ -23,7 +23,7 @@
 
 ;;               ))
 
-(pnpm-global-mode)
+;; (pnpm-global-mode)
 
 ;; (require 'vue-ts-mode)
 ;; (keymap-unset vue-ts-mode-map "C-c 1")

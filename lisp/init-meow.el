@@ -118,10 +118,12 @@
    '("b" . one-key-menu-buffer)
    '("o" . one-key-menu-org)
    ;; '("v" . one-key-menu-sort-tab)
-   '("v" . one-key-menu-git)
+   '("v" . hydra-git/body)
    '("l" . one-key-menu-workspace)
    '("d" . hydra-jump-dir/body)
    '("i" . one-key-menu-insert)
+   '("a" . one-key-menu-agenda)
+   '("n" . one-key-menu-roam)
    )
 
   (lazy-meow-leader-define-key
@@ -130,7 +132,6 @@
    )
 
   (meow-leader-define-key
-   '("ag" . avy-goto-line)
    '("1" . delete-other-windows)
    '("2" . split-window-below)
    '("3" . split-window-horizontally)
@@ -224,6 +225,7 @@
    '("gI" . lsp-bridge-find-impl-other-window)
    '("gp" . goto-percent)
    '("gl" . consult-goto-line)
+   '("gL" . avy-goto-line)
    '("C-o" . return-find-def)
    '("/" . consult-ripgrep)
    '("?" . help-helpful-lsp-bridge-sly)

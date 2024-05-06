@@ -79,14 +79,16 @@
    (("n" (display-line-numbers-mode (if display-line-numbers-mode -1 1))
      "line number"
      :toggle (bound-and-true-p display-line-numbers-mode))
-    ("d" +lizqwer/toggle-dark-theme "dark theme" :toggle t)
+    ("d" +lizqwer/toggle-dark-theme "dark theme" :toggle (eq user/now-theme user/night-theme))
     ("T" +lizqwer/toggle-transparent "transparent" :toggle t)
     ("r" redacted-mode "redacted" :toggle t)
     ("b" open-big-screen-mode "big screen" :toggle t)
-    ("l" +lizqwer/toggle-lock "lock screen" :exit t)
+    ;; ("l" +lizqwer/toggle-lock "lock screen" :exit t)
     )
    "Edit"
-   (("w" toggle-sub-word-or-super-word "sub or super word" :toggle t))))
+   (("w" toggle-sub-word-or-super-word "sub or super word" :toggle t))
+   "Debug"
+   (("e" toggle-debug-on-error "debug on error" :toggle (bound-and-true-p debug-on-error)))))
 
 (pretty-hydra-define hydra-jump-dir (:title (pretty-hydra-title "Jump to directory" 'octicon "nf-oct-file_directory_open_fill") :color amaranth :quit-key ("C-g" "q"))
   ("Base"
@@ -100,6 +102,15 @@
    (("s" consult-fd-dir "Fuzzy search Dir" :exit t)
     ("j" dired-jump "Dired jump" :exit t)
     ("J" dired-jump-other-window "Dired jump other" :exit t))))
+
+(pretty-hydra-define-e
+ hydra-git (:title "Git" :color amaranth :quit-key ("C-g" "q") :all-exit t)
+ ("hunk"
+  (("n" diff-hl-next-hunk "Next hunk")
+   ("p" diff-hl-previous-hunk "Previous hunk")
+   ("s" diff-hl-show-hunk "Show hunk"))
+  "git"
+  (("b" magit-blame "Blame"))))
 
 (provide 'init-hydra)
 ;;; init-hydra.el ends here
