@@ -25,6 +25,7 @@
     google-this
     interaction-log
     restclient
+    dired-git-info
     dired-rsync
     dired-toggle-sudo
     diredfl
