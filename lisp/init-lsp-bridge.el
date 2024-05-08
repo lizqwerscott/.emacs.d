@@ -50,6 +50,7 @@
 (setq acm-backend-lsp-show-progress t)
 (setq lsp-bridge-enable-hover-diagnostic t)
 (setq lsp-bridge-enable-inlay-hint t)
+(setq lsp-bridge-python-command user/run-python-command)
 ;; (setq acm-candidate-match-function 'orderless-flex)
 ;; (setq lsp-bridge-use-wenls-in-org-mode nil)
 ;; (setq lsp-bridge-enable-mode-line nil)

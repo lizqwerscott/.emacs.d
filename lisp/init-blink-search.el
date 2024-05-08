@@ -8,4 +8,6 @@
         ("Project" . "~/MyProject/")
         ("Config" . "~/.emacs.d/")))
 
+(setq blink-search-python-command user/run-python-command)
+
 (provide 'init-blink-search)
