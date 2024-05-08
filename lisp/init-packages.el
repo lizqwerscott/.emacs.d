@@ -79,6 +79,7 @@
     eglot
     magit
     magit-delta
+    git-cliff
     devdocs
     wucuo
     projection
