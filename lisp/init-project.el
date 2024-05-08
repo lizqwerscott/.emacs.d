@@ -237,6 +237,7 @@ NAME is class name."
 (lazy-one-key-create-menu
  "Project"
  (:key "f" :description "Find file in project" :command project-find-file)
+ (:key "o" :description "Find other file in project" :command projection-find-other-file)
  ;; (:key "d" :description "Project Dir" :command project-eaf-open-dir :filename "init-eaf")
  (:key "d" :description "Project Dir" :command project-dired-dir)
  ;; (:key "t" :description "Open temp project" :command find-temp-project)
