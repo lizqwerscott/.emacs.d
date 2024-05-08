@@ -240,18 +240,40 @@ NAME is class name."
  (:key "o" :description "Find other file in project" :command projection-find-other-file)
  ;; (:key "d" :description "Project Dir" :command project-eaf-open-dir :filename "init-eaf")
  (:key "d" :description "Project Dir" :command project-dired-dir)
- ;; (:key "t" :description "Open temp project" :command find-temp-project)
- (:key "a" :description "Remember a project" :command project-remember-projects-under)
- (:key "p" :description "Switch project" :command project-switch-project)
- ;; (:key "v" :description "Project Git" :command eaf-open-git :filename "init-eaf")
- (:key "v" :description "Project Git" :command magit-status)
- (:key "r" :description "Remove known project" :command project-forget-project)
  (:key "b" :description "Project buffer" :command consult-project-buffer)
+ (:key "k" :description "Project kill buffer" :command project-kill-buffers)
+
+ ;; (:key "t" :description "Open temp project" :command find-temp-project)
+ (:key "p" :description "Switch project" :command project-switch-project)
+ (:key "a" :description "Remember a project" :command project-remember-projects-under)
+ (:key "r" :description "Remove known project" :command project-forget-project)
+
+ (:key "v" :description "Project Git" :command magit-status)
+ ;; (:key "v" :description "Project Git" :command eaf-open-git :filename "init-eaf")
  (:key "s" :description "Project Blink search" :command project-blink-search :filename "init-project")
+ (:key "c" :description "Project rsync all" :command one-key-menu-rsync)
+
  (:key "e" :description "Project eshell" :command eshell-project-toggle :filename "init-eshell")
  (:key "t" :description "Project vterm" :command multi-vterm-project :filename "init-vterm")
- (:key "c" :description "Project rsync all" :command one-key-menu-rsync)
- (:key "k" :description "Project kill buffer" :command project-kill-buffers))
+ )
+
+(pretty-hydra-define-e
+ hydra-project (:title "Project" :color amaranth :quit-key ("C-g" "q") :all-exit t)
+ ("Basic"
+  (("f" project-find-file "find file")
+   ("o" projection-find-other-file "find other file")
+   ("d" project-dired-dir "dired")
+   ("b" consult-project-buffer "buffer")
+   ("k" project-kill-buffers "kill buffers"))
+  "project"
+  (("p" project-switch-project "switch other")
+   ("r" project-forget-project "forget")
+   ("a" project-remember-project "remember"))
+  "Other"
+  (("v" magit-status "git")
+   ("t" multi-vterm-project "vterm")
+   ("e" eshell-project-toggle "eshell")
+   ("s" project-blink-search "blink search"))))
 
 ;; (define-key project-prefix-map (kbd "b") #'consult-project-buffer)
 ;; (define-key project-prefix-map (kbd "s") #'shell)
