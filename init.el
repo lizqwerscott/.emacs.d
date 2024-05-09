@@ -44,6 +44,7 @@
   (require 'init-spell)
   (require 'init-copilot)
   (require 'init-input)
+  (require 'init-go-translate)
 
   (require 'init-auto-insert)
   (require 'init-program)

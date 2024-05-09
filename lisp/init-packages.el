@@ -31,7 +31,6 @@
     diredfl
     dired-subtree
     elisp-demos
-    immersive-translate
     vterm
     multi-vterm
     (lazy-revert :fetcher github :repo "yilin-zhang/lazy-revert")
@@ -39,8 +38,10 @@
      :fetcher github
      :repo "twlz0ne/psearch.el"
      :files ("psearch.el"))
-    )
-  )
+    (advance-words-count
+     :fetcher github
+     :repo "LdBeth/advance-words-count.el")
+    ))
 
 (defvar *package-language-mode-install-list*
   '(markdown-mode
@@ -86,15 +87,11 @@
     projection
     eshell-prompt-extras
     fish-completion
-    (unity :fetcher github :repo "elizagamedev/unity.el")
     (quicktype :fetcher github :repo "artawower/quicktype.el")
     (color-rg :fetcher github
               :repo "manateelazycat/color-rg")
     (peek :fetcher sourcehut :repo "meow_king/peek")
-    (copilot :fetcher github
-             :repo "zerolfx/copilot.el"
-             :branch "main"
-             :files ("dist" "*.el"))
+
     (auto-save :fetcher github :repo "manateelazycat/auto-save")
     ))
 
@@ -137,6 +134,21 @@
     (watch-other-window :fetcher github :repo "manateelazycat/watch-other-window")
     ))
 
+(defvar *package-language-install-list*
+  '(immersive-translate
+     (sdcv
+      :fetcher github
+      :repo "manateelazycat/sdcv")
+     fanyi
+     go-translate
+     pyim
+     pyim-basedict
+     (pyim-tsinghua-dict
+      :fetcher github
+      :repo "redguardtoo/pyim-tsinghua-dict"
+      :files ("pyim-tsinghua-dict.el" "pyim-tsinghua-dict.pyim"))
+     ))
+
 (defvar *package-org-install-list*
   '(org-bullets
     org-fancy-priorities
@@ -150,6 +162,12 @@
     pangu-spacing
     (org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent")
     ))
+
+(defvar *package-ai-install-list*
+  '((copilot :fetcher github
+             :repo "zerolfx/copilot.el"
+             :branch "main"
+             :files ("dist" "*.el"))))
 
 (defvar *package-rust-install-list*
   '(rust-mode
@@ -171,24 +189,15 @@
   '(conda
     pyvenv))
 
+(defvar *package-unity-install-list*
+  '((unity :fetcher github :repo "elizagamedev/unity.el")))
+
 (defvar *package-another-install-list*
   '(elfeed
     code-stats
     ;; tabspaces
     docker
-    (sdcv
-     :fetcher github
-     :repo "manateelazycat/sdcv")
-    pyim
-    pyim-basedict
-    (pyim-tsinghua-dict
-     :fetcher github
-     :repo "redguardtoo/pyim-tsinghua-dict"
-     :files ("pyim-tsinghua-dict.el" "pyim-tsinghua-dict.pyim"))
     (screenshot :fetcher github :repo "tecosaur/screenshot")
-    (advance-words-count
-     :fetcher github
-     :repo "LdBeth/advance-words-count.el")
     (telega :fetcher github
             :repo "zevlg/telega.el"
             :branch "master"
@@ -201,11 +210,14 @@
 (packages! *package-program-install-list*)
 (packages! *package-ui-install-list*)
 (packages! *package-window-install-list*)
+(packages! *package-language-install-list*)
 (packages! *package-org-install-list*)
+(packages! *package-ai-install-list*)
 (packages! *package-rust-install-list*)
 (packages! *package-common-lisp-install-list*)
 (packages! *package-web-install-list*)
-(packages! *package-another-install-list*)
 (packages! *package-python-install-list*)
+(packages! *package-unity-install-list*)
+(packages! *package-another-install-list*)
 
 (provide 'init-packages)
