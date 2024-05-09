@@ -73,7 +73,8 @@
   (message "start telega")
   (autoload '+lizqwer/toggle-telega "init-telega" nil t)
   (+lizqwer/toggle-telega)
-  (message "load finish"))
+  (message "load finish")
+  )
 
 ;; 启动1s后再开启gc管理
 (run-with-idle-timer 0.2 nil #'last-start)
