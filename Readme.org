@@ -43,15 +43,10 @@ Use http:
   JOBS=16 ./batch.sh
 #+end_src
 ******* copy library
-Copy generated library to "~/.tree-sitter/bin"
+Copy generated library to "~/.emacs.d/tree-sitter"
 ***** Need build TD library
 ***** Need download sdcv dict
 [[https://kdr2.com/resource/stardict.html][sdcv download url]]
-***** Need install banner generate
-[[https://github.com/folke/splashcii][splashcii]]
-#+begin_src bash
-  pnpm add -g splashcii
-#+end_src
 ***** Fonts
 ****** English
 Source Code Pro
@@ -65,7 +60,7 @@ LXGW WenKai Screen (霞鹜文楷的屏幕舒适阅读版本)
 #+end_src
 LXGW Neo Xihei (霞鹜新晰黑)
 #+begin_src bash
-  yay -S ttf-lxgw-neo-xihei
+  yay -S ttf-lxgw-neo-xihei-screen-full
 #+end_src
 *** Update extensions:
 #+begin_src shell
