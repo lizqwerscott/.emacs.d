@@ -127,7 +127,7 @@
    )
 
   (lazy-meow-leader-define-key
-   '(("p" . one-key-menu-project) "init-project")
+   '(("p" . hydra-project/body) "init-project")
    '(("e" . one-key-menu-eaf) "init-eaf")
    )
 
