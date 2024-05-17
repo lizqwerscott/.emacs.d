@@ -70,7 +70,6 @@
     aggressive-indent
     apheleia
     avy
-    vundo
     (fingertip :fetcher github :repo "manateelazycat/fingertip")
     (awesome-pair :fetcher github :repo "manateelazycat/awesome-pair")    ))
 

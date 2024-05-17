@@ -20,6 +20,11 @@
 (add-to-list 'package-archives '("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") t)
 (package-initialize)
 
+;; load custom
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 ;; ==== put your code below this line!
 ;;
 
@@ -30,6 +35,8 @@
 (require 'no-littering)
 ;; (require 'consult)
 (require 'lsp-bridge)
+(setq lsp-bridge-python-command user/run-python-command)
+(setq lsp-bridge-enable-inlay-hint t)
 (global-lsp-bridge-mode)
 
 (defun meow-setup ()
@@ -100,14 +107,14 @@
    '("'" . repeat)
    '("<escape>" . ignore)))
 
-(require 'meow)
-(meow-setup)
-(meow-global-mode 1)
+;; (require 'meow)
+;; (meow-setup)
+;; (meow-global-mode 1)
 
 ;; (require 'websocket)
 ;; (require 'deno-bridge)
 
 (require 'rust-mode)
 
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/insert-translated-name/"))
-(require 'insert-translated-name)
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/insert-translated-name/"))
+;; (require 'insert-translated-name)

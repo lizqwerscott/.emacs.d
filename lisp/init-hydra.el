@@ -88,7 +88,9 @@
    "Edit"
    (("w" toggle-sub-word-or-super-word "sub or super word" :toggle t))
    "Debug"
-   (("e" toggle-debug-on-error "debug on error" :toggle (bound-and-true-p debug-on-error)))))
+   (("e" toggle-debug-on-error "debug on error" :toggle (bound-and-true-p debug-on-error)))
+   "Program"
+   (("u" unity-mode "unity develop" :toggle t))))
 
 (pretty-hydra-define hydra-jump-dir (:title (pretty-hydra-title "Jump to directory" 'octicon "nf-oct-file_directory_open_fill") :color amaranth :quit-key ("C-g" "q"))
   ("Base"
