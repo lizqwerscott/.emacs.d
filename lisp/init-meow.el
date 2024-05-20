@@ -237,6 +237,7 @@
    '("M-n" . scroll-up-1/3)
    '("M-p" . scroll-down-1/3)))
 
+(meow-vterm-enable)
 (meow-setup)
 
 (add-hook 'dired-mode-hook
