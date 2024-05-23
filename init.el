@@ -43,6 +43,7 @@
   (require 'init-blink-search)
   (require 'init-spell)
   (require 'init-copilot)
+  (require 'init-gptel)
   (require 'init-input)
   (require 'init-go-translate)
 

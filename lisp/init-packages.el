@@ -167,7 +167,8 @@
   '((copilot :fetcher github
              :repo "zerolfx/copilot.el"
              :branch "main"
-             :files ("dist" "*.el"))))
+             :files ("dist" "*.el"))
+    gptel))
 
 (defvar *package-rust-install-list*
   '(rust-mode
