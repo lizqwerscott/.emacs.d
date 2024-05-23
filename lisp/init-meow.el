@@ -60,10 +60,16 @@
               (message "Not support")
             (call-interactively #'compile)))))))
 
+(defun kill-now-buffer ()
+  "Close the current buffer."
+  (interactive)
+  (kill-buffer (current-buffer))
+  (delete-window))
+
 (defun my/meow-quit ()
   (interactive)
   (if (derived-mode-p 'dired-mode)
-      (kill-this-buffer)
+      (kill-now-buffer)
     (if (delete-window)
         (message "finish"))))
 
@@ -123,8 +129,8 @@
    '("o" . one-key-menu-org)
    ;; '("v" . one-key-menu-sort-tab)
    '("v" . hydra-git/body)
-   '("TAB" . one-key-menu-workspace)
-   '("l" . hydra-language/body)
+   '("l" . one-key-menu-workspace)
+   '("z" . hydra-language/body)
    '("d" . hydra-jump-dir/body)
    '("i" . one-key-menu-insert)
    '("a" . one-key-menu-agenda)
@@ -221,7 +227,7 @@
   (meow-normal-define-key
    '("C-s" . save-buffer)
    '("C-y" . meow-clipboard-yank)
-   '("Q" . kill-this-buffer)
+   '("Q" . kill-now-buffer)
    '("gr" . lsp-bridge-find-references)
    '("gd" . find-definition-with-lsp-bridge)
    '("gD" . find-definition-with-lsp-bridge-other-window)
