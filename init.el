@@ -48,7 +48,9 @@
   (require 'init-go-translate)
 
   (require 'init-auto-insert)
+
   (require 'init-program)
+  (require 'init-dap)
   (require 'init-elisp)
   (require 'init-separedit)
   ;; (require 'init-eglot)

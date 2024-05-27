@@ -182,6 +182,9 @@
 ;;   ;:hook ((after-init . dashboard-refresh-buffer))
 ;;   )
 
+;;; Child frame
+(require 'init-posframe)
+
 ;;; Highlight
 (require 'init-highlight)
 

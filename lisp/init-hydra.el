@@ -24,6 +24,31 @@
 
 ;;; Code:
 
+(with-eval-after-load 'posframe
+  (defun hydra-set-posframe-show-params ()
+    "Set hydra-posframe style."
+    (setq hydra-posframe-show-params
+          `( :left-fringe 8
+             :right-fringe 8
+             :internal-border-width 2
+             :internal-border-color ,(face-background 'posframe-border nil t)
+             :background-color ,(face-background 'tooltip nil t)
+             :foreground-color ,(face-foreground 'tooltip nil t)
+             :lines-truncate t
+             :poshandler posframe-poshandler-frame-center-near-bottom)))
+  (hydra-set-posframe-show-params)
+
+  (defun start-posframe ()
+    (require 'hydra)
+    (setq hydra-hint-display-type
+          'posframe))
+
+  (defun stop-posframe ()
+    (require 'hydra)
+    (setq hydra-hint-display-type
+          'lv)
+    (posframe-delete-all)))
+
 (require 'pretty-hydra)
 
 (custom-set-variables '(pretty-hydra-default-title-body-format-spec " %s%s"))
