@@ -30,7 +30,7 @@
 (setq gt-default-translator
       (gt-translator
        ;; :taker   (gt-taker :text 'buffer :pick 'paragraph)       ; 配置拾取器
-       :engines (list (gt-bing-engine) (gt-youdao-dict-engine)) ; 指定多引擎
+       :engines (list (gt-bing-engine)) ; 指定多引擎
        :render  (gt-posframe-pop-render)))                            ; 配置渲染器
 
 
