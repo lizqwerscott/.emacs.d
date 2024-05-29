@@ -25,6 +25,8 @@
                     (go-mode . go-ts-mode)
                     (csharp-mode . csharp-ts-mode)))
 
+(add-to-list 'auto-mode-alist '("\\.\\'" . fundamental-mode))
+
 ;; (autoload 'yaml-mode "yaml-mode")
 ;; (autoload 'markdown-mode "markdown-mode")
 ;; (autoload 'python-mode "init-python")

@@ -141,7 +141,9 @@ Version 2019-11-04"
              '(("TAB" . dired-subtree-cycle)
                ("f" . consult-fd-dir)
                ("C-<return>" . xah-open-in-external-app)
-               ("C-c +" . dired-create-empty-file)))
+               ("C-c +" . dired-create-empty-file)
+               ("M-n" . scroll-up-1/3)
+               ("M-p" . scroll-down-1/3)))
 
 ;; (use-package dirvish
 ;;   :ensure t

@@ -16,70 +16,61 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
-(require 'init-theme)
 (require 'init-mode)
 (require 'init-hook)
+(require 'init-gcmh)
+(require 'init-auto-save)
 (require 'init-key)
 (require 'init-hydra)
+(require 'init-meow)
+
 (require 'init-ui)
-(require 'init-dired)
-(require 'init-minibuffer)
-(require 'init-embark)
+
 (require 'init-edit)
-(require 'init-lsp-bridge)
-(require 'init-gcmh)
-(require 'init-code-stats)
+(require 'init-spell)
+(require 'init-input)
+(require 'init-auto-insert)
+(require 'init-separedit)
 (require 'init-auto-revert)
+
+(require 'init-minibuffer)
+(require 'init-corfu)
+(require 'init-snippet)
+(require 'init-blink-search)
+(require 'init-tramp)
+
+(require 'init-dired)
+(require 'init-code-stats)
 (require 'init-helpful)
-(require 'init-auto-save)
+(require 'init-rsync)
 
-(defun last-start ()
-  (require 'init-meow)
-  (require 'init-magit)
-  (require 'init-corfu)
-  (require 'init-org)
-  ;; (require 'init-pangu)
-  (require 'init-tramp)
-  (require 'init-blink-search)
-  (require 'init-spell)
-  (require 'init-copilot)
-  (require 'init-gptel)
-  (require 'init-input)
-  (require 'init-go-translate)
+(require 'init-org)
+;; (require 'init-pangu)
+(require 'init-hugo)
+(require 'init-elfeed)
+;; (require 'init-reader)
+;; (require 'init-paper)
+;;(require 'crefactor)
 
-  (require 'init-auto-insert)
+(require 'init-go-translate)
 
-  (require 'init-program)
-  (require 'init-dap)
-  (require 'init-elisp)
-  (require 'init-separedit)
-  ;; (require 'init-eglot)
-  (require 'init-python)
-  (require 'init-haskell)
-  (require 'init-c++)
-  (require 'init-web)
-  (require 'init-common-lisp)
-  (require 'init-rust)
-  ;; (require 'init-sql)
-  (require 'init-go)
+(require 'init-copilot)
+(require 'init-gptel)
+(require 'init-codegeex)
 
-  (require 'init-rsync)
-  (require 'init-codegeex)
-  (require 'init-hugo)
-  (require 'init-elfeed)
-  ;; (require 'init-reader)
-  ;; (require 'init-paper)
-  ;;(require 'crefactor)
-  ;; vivaldi support
-  (when user/vivaldi-use
-    (setq browse-url-browser-function
-          #'browse-url-vivaldi))
+;;; Programming
+(require 'init-magit)
+(require 'init-lsp-bridge)
+(require 'init-program)
+
+;; vivaldi support
+(when user/vivaldi-use
+  (setq browse-url-browser-function
+        #'browse-url-vivaldi))
+
+(when user/telega-start
   (message "start telega")
   (autoload '+lizqwer/toggle-telega "init-telega" nil t)
-  (+lizqwer/toggle-telega)
-  (message "load finish"))
-
-;; 启动1s后再开启gc管理
-(run-with-idle-timer 0.2 nil #'last-start)
+  (+lizqwer/toggle-telega))
 
 ;;; init.el ends here.

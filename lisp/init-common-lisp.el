@@ -5,6 +5,10 @@
 (setq sly-complete-symbol-function 'sly-flex-completions)
 (setq inferior-lisp-program "sbcl")
 
+(require 'common-lisp-snippets)
+(add-hook 'common-lisp-mode-hook
+          #'common-lisp-snippets-initialize)
+
 ;;;###autoload
 (defun sly-switch-mrepl (&optional display-action)
   "Find or create the first useful REPL for the default connection.

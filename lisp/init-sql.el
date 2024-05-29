@@ -7,9 +7,8 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package sql-indent
-  :ensure t
-  :hook (sql-mode . sqlind-minor-mode))
+(add-hook 'sql-mode-hook
+          #'sqlind-minor-mode)
 
 (provide 'init-sql)
 ;;; init-sql.el ends here.

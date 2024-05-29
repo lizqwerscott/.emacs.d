@@ -1,12 +1,4 @@
 (require 'lsp-bridge)
-(require 'yasnippet)
-(require 'common-lisp-snippets)
-(setq yas-snippet-dirs
-      '("~/.emacs.d/config/yasnippet/snippets/"))
-(yas-global-mode 1)
-(add-hook 'common-lisp-mode-hook
-          #'common-lisp-snippets-initialize)
-
 (add-to-list 'lsp-bridge-default-mode-hooks
              'vue-ts-mode-hook)
 

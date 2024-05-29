@@ -4,8 +4,6 @@
     marginalia
     consult
     consult-notes
-    embark
-    embark-consult
     orderless
     posframe
     request
@@ -194,6 +192,9 @@
 (defvar *package-unity-install-list*
   '((unity :fetcher github :repo "elizagamedev/unity.el")))
 
+(defvar *package-sql-install-list*
+  '(sql-indent))
+
 (defvar *package-another-install-list*
   '(elfeed
     code-stats
@@ -220,6 +221,7 @@
 (packages! *package-web-install-list*)
 (packages! *package-python-install-list*)
 (packages! *package-unity-install-list*)
+(packages! *package-sql-install-list*)
 (packages! *package-another-install-list*)
 
 (provide 'init-packages)

@@ -1,4 +1,4 @@
-;;; init-embark.el --- init embark                   -*- lexical-binding: t; -*-
+;;; init-snippet.el --- init snippet package         -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024  lizqwer scott
 
@@ -24,11 +24,10 @@
 
 ;;; Code:
 
-(require 'embark)
-(global-set-key (kbd "C-c .") #'embark-act)
+(require 'yasnippet)
+(setq yas-snippet-dirs
+      '("~/.emacs.d/config/yasnippet/snippets/"))
+(yas-global-mode 1)
 
-(add-hook 'embark-collect-mode-hook
-          #'consult-preview-at-point-mode)
-
-(provide 'init-embark)
-;;; init-embark.el ends here
+(provide 'init-snippet)
+;;; init-snippet.el ends here

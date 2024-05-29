@@ -64,6 +64,11 @@
   :group 'user
   :type 'boolean)
 
+(defcustom user/telega-start nil
+  "Is start telega"
+  :group 'user
+  :type 'boolean)
+
 (defvar user/now-theme nil)
 
 ;;;###autoload

@@ -8,6 +8,9 @@
 
 ;;; Code:
 
+;;; theme
+(require 'init-theme)
+
 ;;; Optimization
 (setq idle-update-delay 1.0)
 
