@@ -25,7 +25,7 @@
         ("S-TAB" . corfu-previous)
         ([backtab] . corfu-previous))
   :hook
-  ((rust-mode sly-mode sql-mode eshell-mode inferior-python-mode elvish-mode haskell-interactive-mode) . corfu-mode))
+  ((rust-mode sly-mode scheme-mode sql-mode eshell-mode inferior-python-mode elvish-mode haskell-interactive-mode) . corfu-mode))
 
 (setq completion-cycle-threshold 3)
 ;; (setq tab-always-indent 'complete)

@@ -20,4 +20,7 @@
 
 (setq tramp-default-method "ssh")
 
+(add-list-to-list 'tramp-remote-path
+                  '("~/.guix-profile/bin" "~/.guix-profile/sbin" "/run/current-system/profile/bin" "/run/current-system/profile/sbin"))
+
 (provide 'init-tramp)

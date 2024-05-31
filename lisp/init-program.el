@@ -34,6 +34,7 @@
 (require 'init-c++)
 (require 'init-web)
 (require 'init-common-lisp)
+(require 'init-scheme)
 (require 'init-rust)
 (require 'init-sql)
 (require 'init-go)

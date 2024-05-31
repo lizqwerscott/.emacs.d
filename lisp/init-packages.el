@@ -180,6 +180,10 @@
     sly-asdf
     ))
 
+(defvar *package-scheme-install-list*
+  '(geiser
+    geiser-guile))
+
 (defvar *package-web-install-list*
   '(web-mode
     pnpm-mode
