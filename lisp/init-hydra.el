@@ -105,7 +105,7 @@
      "line number"
      :toggle (bound-and-true-p display-line-numbers-mode))
     ("d" +lizqwer/toggle-dark-theme "dark theme" :toggle (eq user/now-theme user/night-theme))
-    ("T" +lizqwer/toggle-transparent "transparent" :toggle t)
+    ("T" +lizqwer/toggle-transparent "transparent" :toggle (eq (frame-parameter (selected-frame) 'alpha-background) 100))
     ("r" redacted-mode "redacted" :toggle t)
     ("b" open-big-screen-mode "big screen" :toggle t)
     ;; ("l" +lizqwer/toggle-lock "lock screen" :exit t)

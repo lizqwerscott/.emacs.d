@@ -25,7 +25,7 @@
       icon-title-format frame-title-format)
 
 (setq default-frame-alist
-      '((alpha-background . 90)
+      '((alpha-background . 100)
         ;; (fullscreen . maximized)
         ))
 
@@ -121,6 +121,11 @@
 ;; |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 \n" 'face '(:foreground "green")))
 
+(defvar *start-image-banner*
+  (find-image
+   `(( :type png
+       :file ,(expand-file-name "logo_black_medium.png" user-emacs-directory)))))
+
 ;; 自定义 *scratch* 内容
 ;;;###autoload
 (defun +evan/scratch-setup()
@@ -128,7 +133,9 @@
   (save-excursion
     (with-current-buffer (get-buffer "*scratch*")
       ;; (erase-buffer)
-      (insert *start-banner*)
+      ;; (insert *start-banner*)
+      (insert-image *start-image-banner*)
+      (insert "\n")
       (insert (format "启动时长: %s" (emacs-init-time)))
       (insert "\n")
       (insert-button "Quit Emacs"
