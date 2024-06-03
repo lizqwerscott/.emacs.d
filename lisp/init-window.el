@@ -1,9 +1,6 @@
 
 ;;; ace window
 (require 'ace-window)
-(custom-set-faces
- '(aw-leading-char-face
-   ((t (:inherit font-lock-keyword-face :foreground unspecified :bold t :height 3.0)))))
 (add-to-list 'aw-ignored-buffers "*Ilist*")
 
 ;;; winner mode

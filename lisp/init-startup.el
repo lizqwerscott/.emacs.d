@@ -111,6 +111,7 @@
       sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
       sentence-end-double-space nil
       word-wrap-by-category t ;按照中文折行
+      ring-bell-function 'ignore ; 禁止响铃
       )
 
 (customize-set-variable 'kill-do-not-save-duplicates t)
