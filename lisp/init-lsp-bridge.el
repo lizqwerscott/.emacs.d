@@ -40,6 +40,7 @@
 (setq acm-enable-codeium t)
 (setq acm-enable-yas nil)
 (setq acm-enable-tempel nil)
+(setq acm-enable-citre t)
 
 (setq acm-backend-lsp-show-progress t)
 (setq lsp-bridge-enable-hover-diagnostic t)

@@ -86,6 +86,7 @@
     eshell-prompt-extras
     fish-completion
     dape
+    citre
     (quicktype :fetcher github :repo "artawower/quicktype.el")
     (color-rg :fetcher github
               :repo "manateelazycat/color-rg")

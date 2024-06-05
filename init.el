@@ -61,6 +61,7 @@
 ;;; Programming
 (require 'init-magit)
 (require 'init-lsp-bridge)
+(require 'init-citre)
 (require 'init-program)
 
 ;; vivaldi support
