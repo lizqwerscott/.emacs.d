@@ -42,9 +42,6 @@
 (require 'init-dired)
 (require 'init-helpful)
 
-(require 'init-rsync)
-(require 'init-code-stats)
-
 (require 'init-org)
 ;; (require 'init-pangu)
 (require 'init-hugo)
@@ -54,6 +51,9 @@
 ;;(require 'crefactor)
 
 (require 'init-go-translate)
+
+(require 'init-rsync)
+(require 'init-code-stats)
 
 (require 'init-copilot)
 (require 'init-gptel)

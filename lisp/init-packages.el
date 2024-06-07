@@ -131,18 +131,18 @@
 
 (defvar *package-language-install-list*
   '(immersive-translate
-     (sdcv
-      :fetcher github
-      :repo "manateelazycat/sdcv")
-     fanyi
-     go-translate
-     pyim
-     pyim-basedict
-     (pyim-tsinghua-dict
-      :fetcher github
-      :repo "redguardtoo/pyim-tsinghua-dict"
-      :files ("pyim-tsinghua-dict.el" "pyim-tsinghua-dict.pyim"))
-     ))
+    (sdcv
+     :fetcher github
+     :repo "manateelazycat/sdcv")
+    fanyi
+    go-translate
+    pyim
+    pyim-basedict
+    (pyim-tsinghua-dict
+     :fetcher github
+     :repo "redguardtoo/pyim-tsinghua-dict"
+     :files ("pyim-tsinghua-dict.el" "pyim-tsinghua-dict.pyim"))
+    ))
 
 (defvar *package-org-install-list*
   '(org-bullets
