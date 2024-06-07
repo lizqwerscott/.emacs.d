@@ -200,12 +200,6 @@ NAME is class name."
                              (concat " --path "
                                      dir-path))))))
 
-;;project key
-(defun project-eaf-open-dir ()
-  "Use eaf open project root dir."
-  (interactive)
-  (eaf-open (project-root-path)))
-
 ;;;###autoload
 (defun project-blink-search ()
   (interactive)
@@ -224,8 +218,6 @@ NAME is class name."
 ;; (with-eval-after-load "project"
 ;;   (define-key project-prefix-map "b" #'consult-project-buffer)
 ;;   (define-key project-prefix-map "s" #'shell)
-;;   (define-key project-prefix-map "d" #'project-eaf-open-dir)
-;;   (define-key project-prefix-map "v" #'eaf-open-git)
 ;;   (define-key project-prefix-map "t" #'find-temp-project))
 
 (lazy-one-key-create-menu
@@ -238,7 +230,6 @@ NAME is class name."
  "Project"
  (:key "f" :description "Find file in project" :command project-find-file)
  (:key "o" :description "Find other file in project" :command projection-find-other-file)
- ;; (:key "d" :description "Project Dir" :command project-eaf-open-dir :filename "init-eaf")
  (:key "d" :description "Project Dir" :command project-dired-dir)
  (:key "b" :description "Project buffer" :command consult-project-buffer)
  (:key "k" :description "Project kill buffer" :command project-kill-buffers)
@@ -249,7 +240,6 @@ NAME is class name."
  (:key "r" :description "Remove known project" :command project-forget-project)
 
  (:key "v" :description "Project Git" :command magit-status)
- ;; (:key "v" :description "Project Git" :command eaf-open-git :filename "init-eaf")
  (:key "s" :description "Project Blink search" :command project-blink-search :filename "init-project")
  (:key "c" :description "Project rsync all" :command one-key-menu-rsync)
 
@@ -277,13 +267,10 @@ NAME is class name."
 
 ;; (define-key project-prefix-map (kbd "b") #'consult-project-buffer)
 ;; (define-key project-prefix-map (kbd "s") #'shell)
-;; (define-key project-prefix-map (kbd "d") #'project-eaf-open-dir)
-;; (define-key project-prefix-map (kbd "v") #'eaf-open-git)
 ;; (define-key project-prefix-map (kbd "t") #'find-temp-project)
 
 (setq project-switch-commands nil)
 (add-to-list 'project-switch-commands '(project-find-file "Find file") t)
-(add-to-list 'project-switch-commands '(project-eaf-open-dir "Find dir") t)
 
 (provide 'init-project)
 ;;; init-project.el ends heres.

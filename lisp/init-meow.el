@@ -7,7 +7,6 @@
         (text-mode . normal)
         (prog-mode . normal)
         (conf-mode . normal)
-        (eaf-mode . insert)
         (blink-search-mode . insert)
         (elfeed-show-mode . normal)
         (helpful-mode . normal)
@@ -138,9 +137,7 @@
    )
 
   (lazy-meow-leader-define-key
-   '(("p" . hydra-project/body) "init-project")
-   '(("e" . one-key-menu-eaf) "init-eaf")
-   )
+   '(("p" . hydra-project/body) "init-project"))
 
   (meow-leader-define-key
    '("1" . delete-other-windows)

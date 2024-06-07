@@ -97,15 +97,6 @@
    (("j" . "Dired jump") . dired-jump)
    (("J" . "Dired jump other window") . dired-jump-other-window)))
 
-(lazy-one-key-create-menu
- "EAF"
- (:key "o" :description "EAF Open anything" :command eaf-open  :filename "init-eaf")
- (:key "b" :description "EAF Open browser" :command eaf-open-browser  :filename "init-eaf")
- (:key "h" :description "EAF Open browser with history" :command eaf-open-browser-with-history  :filename "init-eaf")
- (:key "s" :description "EAF Search" :command eaf-search-it  :filename "init-eaf")
- (:key "m" :description "EAF Music" :command eaf-open-cloud-music :filename "init-eaf")
- )
-
 (one-key-create-menu
  "sort-tab"
  '((("n" . "Sort tab select next tab") . sort-tab-select-next-tab)

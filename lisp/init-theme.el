@@ -37,8 +37,6 @@
 ;; (load-theme 'modus-vivendi t)
 ;; (load-theme 'ef-summer t)
 ;; (load-theme 'modus-operandi t)
-;; (require 'lazycat-theme)
-;; (lazycat-theme-load-dark)
 ;; (load-theme 'ef-night t)
 ;; (load-theme 'ef-day t)
 ;; (load-theme 'ef-summer t)

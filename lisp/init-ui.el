@@ -210,16 +210,6 @@
 (which-key-mode)
 (global-so-long-mode 1)
 
-;;; Holo layer
-;; (setq holo-layer-show-place-info-p t)
-;; (require 'holo-layer)
-;; (setq holo-layer-enable-cursor-animation t)
-;; (setq holo-layer-hide-mode-line nil)
-;; (setq holo-layer-enable-window-border t)
-;; (setq holo-layer-sort-tab-ui nil)
-;; (setq holo-layer-enable-indent-rainbow t)
-;; (holo-layer-enable)
-
 ;;; Click to browse URL or to send to e-mail address
 (add-hook 'text-mode-hook
           'goto-address-mode)
