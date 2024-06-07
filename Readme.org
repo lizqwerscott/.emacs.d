@@ -1,11 +1,11 @@
 * My Emacs Config
 This is my little Emacs config.
-*** Install On Arch Linux
-***** Install Emacs git version:
+* Install On Arch Linux
+** Install Emacs git version:
 #+begin_src shell
   sudo pacman -S emacs-git
 #+end_src
-***** Download source code:
+** Download source code:
 Use ssh:
 #+begin_src shell
   git clone git@github.com:lizqwerscott/.emacs.d.git ~/.emacs.d/
@@ -14,7 +14,7 @@ Use http:
 #+begin_src shell
   git clone https://github.com/lizqwerscott/.emacs.d.git  ~/.emacs.d/
 #+end_src
-***** Fetch all submodules:
+** Fetch all submodules:
 #+begin_src shell
 
   git submodule update --init --recursive
@@ -23,37 +23,37 @@ Use http:
 
   git submodule foreach git checkout master
 #+end_src
-***** Need install some package
+** Need install some package
 1. xclip
 2. sdcv
 3. [[https://github.com/soimort/translate-shell][translate-shell]]
 4. [[https://github.com/zevlg/tgs2png][tgs2png]]
-***** Need build treesitter library
-******* clone build scripts
-********* http
+** Need build treesitter library
+*** clone build scripts
+**** http
 #+begin_src bash
   git clone https://github.com/lizqwerscott/tree-sitter-module.git
 #+end_src
-********* ssh
+**** ssh
 #+begin_src bash
   git clone git@github.com:lizqwerscott/tree-sitter-module.git
 #+end_src
-******* build
+*** build
 #+begin_src bash
   JOBS=16 ./batch.sh
 #+end_src
-******* copy library
+*** copy library
 Copy generated library to "~/.emacs.d/tree-sitter"
-***** Need build TD library
-***** Need download sdcv dict
+** Need build TD library
+** Need download sdcv dict
 [[https://kdr2.com/resource/stardict.html][sdcv download url]]
-***** Fonts
-****** English
+** Fonts
+*** English
 Source Code Pro
 #+begin_src bash
   yay -S ttf-adobe-source-code-pro-fonts
 #+end_src
-****** Chinese
+*** Chinese
 LXGW WenKai Screen (霞鹜文楷的屏幕舒适阅读版本)
 #+begin_src bash
   yay -S ttf-lxgw-wenkai-screen
@@ -62,7 +62,9 @@ LXGW Neo Xihei (霞鹜新晰黑)
 #+begin_src bash
   yay -S ttf-lxgw-neo-xihei-screen-full
 #+end_src
-*** Update extensions:
+** Install language server
+Get list form [[https://github.com/manateelazycat/lsp-bridge][lsp bridge]]
+* Update extensions:
 #+begin_src shell
   git submodule foreach git pull --rebase
 #+end_src
