@@ -10,6 +10,7 @@
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
 (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-ts-mode))
 
 ;; (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))

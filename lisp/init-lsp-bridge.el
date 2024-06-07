@@ -1,12 +1,13 @@
 (require 'lsp-bridge)
-(add-to-list 'lsp-bridge-default-mode-hooks
-             'vue-ts-mode-hook)
-
 (add-to-list 'lsp-bridge-single-lang-server-mode-list
              '(csharp-ts-mode . lsp-bridge-csharp-lsp-server))
-
 (add-to-list 'lsp-bridge-default-mode-hooks
              'csharp-ts-mode-hook)
+
+(add-to-list 'lsp-bridge-single-lang-server-mode-list
+             '(lua-ts-mode . "sumneko"))
+(add-to-list 'lsp-bridge-default-mode-hooks
+             'lua-ts-mode-hook)
 
 (setq lsp-bridge-default-mode-hooks
       (remove 'telega-chat-mode-hook
@@ -17,14 +18,7 @@
     (quelpa '(popon :fetcher git :url "https://codeberg.org/akib/emacs-popon.git"))
     (quelpa '(acm-terminal :fetcher git :url "https://github.com/twlz0ne/acm-terminal.git"))
     (require 'popon)
-    (require 'acm-terminal)
-    ;; (use-package popon
-    ;;   :quelpa (popon :fetcher git :url "https://codeberg.org/akib/emacs-popon.git")
-    ;;   :ensure t)
-    ;; (use-package acm-terminal
-    ;;   :quelpa (acm-terminal :fetcher git :url "https://github.com/twlz0ne/acm-terminal.git")
-    ;;   :ensure t)
-    ))
+    (require 'acm-terminal)))
 
 ;; (setq lsp-bridge-enable-debug t)
 

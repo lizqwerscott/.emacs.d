@@ -51,12 +51,7 @@
     jsonian
     elvish-mode
     git-modes
-    csv-mode
-    ;; 有 bug
-    ;; (quelpa '(vue-ts-mode
-    ;;           :fetcher github
-    ;;           :repo "8uff3r/vue-ts-mode"))
-    ))
+    csv-mode))
 
 (defvar *package-edit-install-list*
   '(meow

@@ -40,9 +40,10 @@
 (require 'init-tramp)
 
 (require 'init-dired)
-(require 'init-code-stats)
 (require 'init-helpful)
+
 (require 'init-rsync)
+(require 'init-code-stats)
 
 (require 'init-org)
 ;; (require 'init-pangu)
@@ -63,11 +64,6 @@
 (require 'init-lsp-bridge)
 (require 'init-citre)
 (require 'init-program)
-
-;; vivaldi support
-(when user/vivaldi-use
-  (setq browse-url-browser-function
-        #'browse-url-vivaldi))
 
 (when user/telega-start
   (message "start telega")
