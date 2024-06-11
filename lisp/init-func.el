@@ -17,12 +17,9 @@
 (defun +lizqwer/toggle-proxy ()
   (interactive)
   (if (null url-proxy-services)
-      (progn
-        (setq url-proxy-services
-              (get-url-proxy))
-        (message "代理已开启."))
-    (setq url-proxy-services nil)
-    (message "代理已关闭.")))
+      (setq url-proxy-services
+            (get-url-proxy))
+    (setq url-proxy-services nil)))
 
 ;;some tool function
 

@@ -93,7 +93,7 @@
 
 (pretty-hydra-define hydra-toggles (:title (pretty-hydra-title "Toggles" 'faicon "nf-fa-toggle_on") :color amaranth :quit-key ("C-g" "q"))
   ("Basic"
-   (("p" +lizqwer/toggle-proxy "proxy" :toggle t)
+   (("p" +lizqwer/toggle-proxy "proxy" :toggle url-proxy-services)
     ("c" global-centered-cursor-mode "centered cursor" :toggle t)
     ("l" interaction-log-mode "interactive log" :toggle t)
     ("i" immersive-translate-auto-mode "immersive translate" :toggle t)
