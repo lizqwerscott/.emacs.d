@@ -242,8 +242,11 @@
 (defun tab-bar-switch-or-create-chat ()
   (interactive)
   (tab-bar-switch-or-create "telega")
-  (autoload 'telega-switch-important-chat "init-telega" nil t)
-  (call-interactively #'telega-switch-important-chat))
+  (unless (equal major-mode 'telega-chat-mode)
+    ;; create new chat
+    (autoload 'telega-chat-with "init-telega" nil t)
+    (call-interactively #'telega-chat-with)
+    ))
 
 (defun tab-bar-switch-or-create-rss ()
   (interactive)
