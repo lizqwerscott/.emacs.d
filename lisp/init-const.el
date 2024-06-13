@@ -69,6 +69,11 @@
   :group 'user
   :type 'boolean)
 
+(defcustom user/java-lsp nil
+  "Is start java lsp"
+  :group 'user
+  :type 'boolean)
+
 (defvar user/now-theme nil)
 
 ;;;###autoload

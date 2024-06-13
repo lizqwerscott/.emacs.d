@@ -1,3 +1,6 @@
+(when user/java-lsp
+  (require 'lsp-bridge-jdtls)
+  (setq lsp-bridge-enable-auto-import t))
 (require 'lsp-bridge)
 (add-to-list 'lsp-bridge-single-lang-server-mode-list
              '(csharp-ts-mode . lsp-bridge-csharp-lsp-server))
