@@ -134,7 +134,7 @@
     (with-current-buffer (get-buffer "*scratch*")
       ;; (erase-buffer)
       ;; (insert *start-banner*)
-      (insert-image *start-image-banner*)
+      (insert-image *start-image-banner* "Emacs")
       (insert "\n")
       (insert (format "启动时长: %s" (emacs-init-time)))
       (insert "\n")

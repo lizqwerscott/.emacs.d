@@ -3,7 +3,7 @@
 ;; (require 'sly-asdf)
 
 (setq sly-complete-symbol-function 'sly-flex-completions)
-(setq inferior-lisp-program "sbcl")
+(setq inferior-lisp-program "sbcl --dynamic-space-size 4096")
 
 (require 'common-lisp-snippets)
 (add-hook 'common-lisp-mode-hook

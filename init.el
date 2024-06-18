@@ -65,7 +65,7 @@
 (require 'init-citre)
 (require 'init-program)
 
-(when user/telega-start
+(when (and user/telega-start (display-graphic-p))
   (message "start telega")
   (autoload '+lizqwer/toggle-telega "init-telega" nil t)
   (+lizqwer/toggle-telega))

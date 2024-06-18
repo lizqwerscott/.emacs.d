@@ -26,19 +26,19 @@
 ;;           '("meow" "location" "breadcrumb" "mode-name" "battery" "date")
 ;;         '("meow" "location" "breadcrumb" "mode-name" "date")))
 
-(if user/show-modeline
+(if (and (display-graphic-p) (not user/show-modeline))
     (progn
-      (require 'doom-modeline)
-      (setq doom-modeline-buffer-file-name-style
-            'file-name)
-      (setq doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode))
-      (setq display-time-string-forms
-            '(" " 24-hours ":" minutes " "))
-      (add-hook 'after-init-hook
-                #'doom-modeline-mode)
-      (add-hook 'doom-modeline-mode-hook
-                #'display-time-mode))
-  (when (display-graphic-p)
-    (awesome-tray-mode)))
+      (awesome-tray-mode))
+  (progn
+    (require 'doom-modeline)
+    (setq doom-modeline-buffer-file-name-style
+          'file-name)
+    (setq doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode))
+    (setq display-time-string-forms
+          '(" " 24-hours ":" minutes " "))
+    (add-hook 'after-init-hook
+              #'doom-modeline-mode)
+    (add-hook 'doom-modeline-mode-hook
+              #'display-time-mode)))
 
 (provide 'init-modeline)
