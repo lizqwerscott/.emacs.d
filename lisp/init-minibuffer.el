@@ -61,6 +61,19 @@
       completion-category-overrides '((file (styles basic partial-completion)))
       orderless-component-separator #'orderless-escapable-split-on-space)
 
+;;; fussy
+(push 'fussy completion-styles)
+(setq
+ ;; For example, project-find-file uses 'project-files which uses
+ ;; substring completion by default. Set to nil to make sure it's using
+ ;; flx.
+ completion-category-defaults nil
+ completion-category-overrides nil)
+;; flx-rs
+(require 'flx-rs)
+(setq fussy-score-fn 'fussy-flx-rs-score)
+(flx-rs-load-dyn)
+
 ;;; consult
 (add-hook 'completion-list-mode-hook 'consult-preview-at-point-mode)
 

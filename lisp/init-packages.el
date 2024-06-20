@@ -5,6 +5,11 @@
     consult
     consult-notes
     orderless
+    fussy
+    (flx-rs
+     :repo "jcs-elpa/flx-rs"
+     :fetcher github
+     :files (:defaults "bin"))
     posframe
     request
     websocket
