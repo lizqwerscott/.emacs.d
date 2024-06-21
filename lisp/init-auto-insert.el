@@ -28,6 +28,7 @@
   "Replace text in yasnippet template."
   (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 
+(setf auto-insert-directory (locate-user-emacs-file "config/auto-insert/"))
 
 (add-hook 'find-file-hook 'auto-insert)
 

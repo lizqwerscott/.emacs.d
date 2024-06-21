@@ -14,7 +14,6 @@ recentf
 *.db
 parinfer-rust
 codeium
-ip.txt
 blink-search
 lsp-bridge
 popweb
