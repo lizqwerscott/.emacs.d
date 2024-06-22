@@ -33,6 +33,7 @@
     dired-toggle-sudo
     diredfl
     dired-subtree
+    dired-quick-sort
     elisp-demos
     vterm
     multi-vterm

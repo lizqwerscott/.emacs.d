@@ -129,6 +129,10 @@ Version 2019-11-04"
          (lambda ($fpath) (let ((process-connection-type nil))
                        (start-process "" nil "xdg-open" $fpath))) $file-list))))))
 
+;; dired sort
+(require 'dired-quick-sort)
+(dired-quick-sort-setup)
+
 ;;; Hook
 (add-hook 'dired-mode-hook
           #'(lambda ()
@@ -139,7 +143,11 @@ Version 2019-11-04"
 ;;; Keymap
 (keymap-sets dired-mode-map
              '(("TAB" . dired-subtree-cycle)
-               ("f" . consult-fd-dir)
+               ("e" . dired-toggle-read-only)
+               ("f" . (lambda ()
+                        (interactive)
+                        (autoload 'consult-fd-dir "init-func" nil t)
+                        (consult-fd-dir)))
                ("C-<return>" . xah-open-in-external-app)
                ("C-c +" . dired-create-empty-file)
                ("M-n" . scroll-up-1/3)
