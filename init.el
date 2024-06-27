@@ -20,11 +20,12 @@
 (require 'init-hook)
 (require 'init-gcmh)
 (require 'init-auto-save)
+
+(require 'init-ui)
+
 (require 'init-key)
 (require 'init-hydra)
 (require 'init-meow)
-
-(require 'init-ui)
 
 (require 'init-edit)
 (require 'init-spell)

@@ -41,11 +41,7 @@
     (psearch
      :fetcher github
      :repo "twlz0ne/psearch.el"
-     :files ("psearch.el"))
-    (advance-words-count
-     :fetcher github
-     :repo "LdBeth/advance-words-count.el")
-    ))
+     :files ("psearch.el"))))
 
 (defvar *package-language-mode-install-list*
   '(markdown-mode
@@ -88,6 +84,7 @@
     fish-completion
     dape
     citre
+    (xmake :fetcher github :repo "lizqwerscott/xmake-emacs")
     (quicktype :fetcher github :repo "artawower/quicktype.el")
     (color-rg :fetcher github
               :repo "manateelazycat/color-rg")
