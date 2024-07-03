@@ -5,8 +5,9 @@
              '(("<tab>" . copilot-accept-completion)
                ("TAB" . copilot-accept-completion)))
 
-(setq copilot-network-proxy
-      `(:host ,user/proxy-host :port 20171))
+(when user/use-proxy
+  (setq copilot-network-proxy
+        `(:host ,user/proxy-host :port 20171)))
 
 ;;;###autoload
 (defun +lizqwer/toggle-copilot ()

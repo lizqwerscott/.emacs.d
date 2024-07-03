@@ -19,6 +19,11 @@
   (eq system-type 'darwin)
   "Are we running on a Mac system?")
 
+(defcustom user/use-proxy nil
+  "The proxy host of all."
+  :group 'user
+  :type 'boolean)
+
 (defcustom user/proxy-host "127.0.0.1"
   "The proxy host of all."
   :group 'user

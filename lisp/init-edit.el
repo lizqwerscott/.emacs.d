@@ -26,9 +26,9 @@
       '(help-mode minibuffer-mode minibuffer-inactive-mode calc-mode))
 (global-hungry-delete-mode t)
 
-;;(require 'vundo)
-;;(setq vundo-glyph-alist vundo-unicode-symbols)
-;;(global-set-key (kbd "C-/") #'vundo)
+(require 'vundo)
+(setq vundo-glyph-alist vundo-unicode-symbols)
+(global-set-key (kbd "C-/") #'vundo)
 
 ;; (use-package lispy
 ;;   :ensure t

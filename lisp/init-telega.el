@@ -51,10 +51,12 @@
         (zig . zig-mode)))
 
 ;;; Config
-(setq telega-proxies
-      `((:server ,user/proxy-host :port ,user/proxy-all-port :enable t
-                 :type (:@type "proxyTypeSocks5")))
-      telega-chat-show-avatars t
+(when user/use-proxy
+  (setq telega-proxies
+        `((:server ,user/proxy-host :port ,user/proxy-all-port :enable t
+                   :type (:@type "proxyTypeSocks5")))))
+
+(setq telega-chat-show-avatars t
       telega-emoji-use-images nil
       telega-sticker-animated-play t
       telega-auto-translate-probe-language-codes nil
