@@ -167,8 +167,6 @@
 (consult-notes-org-headings-mode)
 (consult-notes-org-roam-mode)
 
-(require 'org-download)
-
 (require 'init-org-roam)
 
 (require 'init-org-capture)

@@ -155,7 +155,6 @@
     org-roam-ui
     ox-reveal
     ox-hugo
-    org-download
     org-appear
     valign
     pangu-spacing

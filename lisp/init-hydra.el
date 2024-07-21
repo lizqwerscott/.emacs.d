@@ -120,7 +120,7 @@
 (pretty-hydra-define hydra-jump-dir (:title (pretty-hydra-title "Jump to directory" 'octicon "nf-oct-file_directory_open_fill") :color amaranth :quit-key ("C-g" "q"))
   ("Base"
    (("h" (find-file "~/") "Home")
-    ("d" (find-file "~/Documents") "Document"))
+    ("d" (find-file "~/Downloads") "Downloads"))
    "Program"
    (("c" (find-file "~/.emacs.d") "Emacs Config")
     ("g" (find-file "~/github") "Github")
