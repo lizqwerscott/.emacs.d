@@ -14,6 +14,11 @@
 (setq meow-use-clipboard t)
 (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
 
+(meow-thing-register 'url 'url 'url)
+
+(add-to-list 'meow-char-thing-table
+             '(?u . url))
+
 (defun lazy-meow-leader-define-key (&rest keybinds)
   (let* ((meow-leader-keybinds))
     (dolist (ele  keybinds)
