@@ -58,7 +58,7 @@
 
 (require 'init-copilot)
 (require 'init-gptel)
-(require 'init-codegeex)
+;; (require 'init-codegeex)
 
 ;;; Programming
 (require 'init-magit)

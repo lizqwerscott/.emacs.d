@@ -17,8 +17,6 @@
                     (go-mode . go-ts-mode)
                     (csharp-mode . csharp-ts-mode)))
 
-(add-to-list 'auto-mode-alist '("\\.\\'" . fundamental-mode))
-
 ;; Tree-sitter
 (require 'treesit)
 (customize-set-variable 'treesit-font-lock-level 4)

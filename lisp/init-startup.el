@@ -95,10 +95,9 @@
     (setq use-short-answers t)
   (fset 'yes-or-no-p 'y-or-n-p))
 
-(setq-default major-mode 'tex-mode
-              fill-column 80
-              tab-width 4
-              indent-tabs-mode nil)
+(setq-default fill-column 80
+			  tab-width 4
+			  indent-tabs-mode nil)
 
 (setq visible-bell nil
       inhibit-compacting-font-caches t  ; Don’t compact font caches during GC
