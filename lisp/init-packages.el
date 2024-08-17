@@ -140,6 +140,7 @@
      :repo "manateelazycat/sdcv")
     fanyi
     go-translate
+    rime
     pyim
     pyim-basedict
     (pyim-tsinghua-dict
