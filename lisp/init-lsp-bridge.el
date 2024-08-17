@@ -52,6 +52,9 @@
 ;; (setq lsp-bridge-completion-hide-characters
 ;;       '(":" ";" "[" "]" "{" "}" ", " "\""))
 
+(setq acm-enable-capf t)
+(add-to-list 'acm-backend-capf-mode-list 'lisp-mode)
+
 (setq lsp-bridge-find-def-fallback-function #'dumb-jump)
 
 (setq lsp-bridge-enable-completion-in-string t)
