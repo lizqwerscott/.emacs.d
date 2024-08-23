@@ -71,14 +71,13 @@
 (defvar *package-early-install-list*
   '(no-littering
     benchmark-init
-    emacsql-sqlite-builtin
     exec-path-from-shell
 
     pretty-mode
     doom-themes
     dracula-theme
     ef-themes
-    
+
     (lazy-load :fetcher github :repo "manateelazycat/lazy-load")
     (one-key :fetcher github :repo "manateelazycat/one-key")))
 

@@ -149,10 +149,6 @@
 (setq imenu-max-item-length 100)
 (setq breadcrumb-imenu-max-length 100)
 
-;;; Sqlite
-(when (fboundp 'sqlite-open)
-  (require 'emacsql-sqlite-builtin))
-
 ;;; vc
 (setq vc-handled-backends '(Git))
 
