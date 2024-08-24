@@ -153,33 +153,4 @@ Version 2019-11-04"
                ("M-n" . scroll-up-1/3)
                ("M-p" . scroll-down-1/3)))
 
-;; (use-package dirvish
-;;   :ensure t
-;;   :init
-;;   (dirvish-override-dired-mode)
-;;   :custom
-;;   (dirvish-mode-line-format
-;;    '(:left (sort file-time " " file-size symlink) :right (omit yank index)))
-;;   ;; (dirvish-attributes '(subtree-state all-the-icons vc-state git-msg))
-;;   (dirvish-attributes '(all-the-icons vc-state file-size))
-;;   (dirvish-preview-dispatchers '(vc-diff))
-;;   (dirvish-mode-line-height 0)
-;;   (dirvish-header-line-height 0)
-;;   :bind
-;;   (:map dirvish-mode-map
-;;         ("/" . dirvish-fd)
-;;         ("a"   . dirvish-quick-access)
-;;         ("f"   . dirvish-file-info-menu)
-;;         ("y"   . dirvish-yank-menu)
-;;         ("N"   . dirvish-narrow)
-;;         ("^"   . dirvish-history-last)
-;;         ("h"   . dirvish-history-jump) ; remapped `describe-mode'
-;;         ("s"   . dirvish-quicksort)    ; remapped `dired-sort-toggle-or-edit'
-;;         ("v"   . dirvish-vc-menu)      ; remapped `dired-view-file'
-;;         ("TAB" . dirvish-subtree-toggle)
-;;         ("h" . dired-up-directory)
-;;         ("q" . my/meow-quit))
-;;   :config
-;;   (dirvish-peek-mode))
-
 (provide 'init-dired)

@@ -253,8 +253,6 @@
               (meow-motion-overwrite-define-key
                '("h" . dired-up-directory))))
 
-
-
 (require 'eww)
 (keymap-sets eww-mode-map
              '(("M-n" . scroll-up-1/3)

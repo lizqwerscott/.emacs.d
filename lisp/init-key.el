@@ -1,11 +1,6 @@
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "S-<return>") 'comment-indent-new-line)
-
-;; (global-set-key (kbd "s-x") #'execute-extended-command)
-
 (global-set-key (kbd "M-o") #'ace-window)
-
-;; (require 'one-key)
 
 ;;;###autoload
 (defmacro lazy-one-key-create-menu (title &rest keybinds)
