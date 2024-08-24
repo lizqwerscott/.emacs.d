@@ -27,19 +27,23 @@
 
 (setq gptel-default-mode 'org-mode)
 
-(setq gptel-model "gpt-3.5-turbo")
+;; (setq gptel-model "gpt-3.5-turbo")
+(setq gptel-model "accounts/fireworks/models/llama-v3p1-405b-instruct")
 
 (setq gptel-backend
       (gptel-make-openai "chinese"
         :stream t
         :protocol "https"
-        :host "api.chatanywhere.tech"
+        :host "api.fireworks.ai"
+        :endpoint "/inference/v1/chat/completions"
         :key #'gptel-api-key
-        :models '("gpt-3.5-turbo")))
+        :models '("accounts/fireworks/models/llama-v3p1-405b-instruct")))
 
 (require 'gptel)
 (add-list-to-list 'gptel-directives
                   '((translate . "你是一个生活在 Emacs 里面的大语言模型, 一可以翻译英语到中文, 也能将中文翻译到英文.")))
+
+(global-set-key (kbd "C-c RET") #'gptel-send)
 
 (provide 'init-gptel)
 ;;; init-gptel.el ends here
