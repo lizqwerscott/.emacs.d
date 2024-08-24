@@ -50,19 +50,25 @@
       (call-interactively #'sly-switch-mrepl)
     (autoload 'project-root-path "init-project" nil t)
     (let ((project-path (project-root-path)))
-      (if (equal major-mode 'python-ts-mode)
-          (let ((command (if project-path
-                             "pdm run start"
-                           (concat "python "
-                                   (file-truename (buffer-file-name))))))
-            (require 'init-vterm)
-            (setq command (compilation-read-command command))
-            (multi-vterm-run command))
-        (if (equal major-mode 'rust-ts-mode)
-            (one-key-menu-rust)
-          (if (equal major-mode 'emacs-lisp-mode)
-              (message "Not support")
-            (call-interactively #'compile)))))))
+      (pcase major-mode
+        ('python-ts-mode
+         (let ((command (if project-path
+                            "pdm run start"
+                          (concat "python "
+                                  (file-truename (buffer-file-name))))))
+           (require 'init-vterm)
+           (setq command (compilation-read-command command))
+           (multi-vterm-run command)))
+        ('rust-ts-mode (one-key-menu-rust))
+        ('haskell-mode
+         (progn
+           (require 'init-vterm)
+           (setq command
+                 (compilation-read-command
+                  (concat "cabal run")))
+           (multi-vterm-run command)))
+        ('emacs-lisp-mode (message "Not support"))
+        (t (call-interactively #'compile))))))
 
 (defun kill-now-buffer ()
   "Close the current buffer."
