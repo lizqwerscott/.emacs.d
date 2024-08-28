@@ -2,7 +2,7 @@
 (require 'vterm)
 
 (add-to-list 'load-path
-             "/home/lizqwer/MyProject/emacs-plugin/rsync-project-mode/")
+             "~/MyProject/emacs-plugin/rsync-project-mode/")
 
 (require 'rsync-project-mode)
 
