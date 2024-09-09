@@ -34,7 +34,6 @@
         pyim-probe-meow-normal-mode
         rime-predicate-hydra-p
         rime-predicate-ace-window-p
-        rime-predicate-in-code-string-p
         rime-predicate-punctuation-after-space-cc-p
         rime-predicate-space-after-cc-p))
 
