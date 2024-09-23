@@ -10,6 +10,7 @@
         (blink-search-mode . insert)
         (elfeed-show-mode . normal)
         (helpful-mode . normal)
+        (color-rg-mode . insert)
         (Info-mode-hook . motion)))
 (setq meow-use-clipboard t)
 (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)

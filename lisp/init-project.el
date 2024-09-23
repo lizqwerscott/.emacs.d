@@ -1,4 +1,5 @@
 (require 'project)
+(require 'projection)
 
 (global-projection-hook-mode)
 

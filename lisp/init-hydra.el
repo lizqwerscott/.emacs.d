@@ -91,31 +91,32 @@
           (pretty-hydra-define-add-exit head-plist)
         head-plist)))
 
-(pretty-hydra-define hydra-toggles (:title (pretty-hydra-title "Toggles" 'faicon "nf-fa-toggle_on") :color amaranth :quit-key ("C-g" "q"))
-  ("Basic"
-   (("p" +lizqwer/toggle-proxy "proxy" :toggle url-proxy-services)
-    ("c" global-centered-cursor-mode "centered cursor" :toggle t)
-    ("l" interaction-log-mode "interactive log" :toggle t)
-    ("i" immersive-translate-auto-mode "immersive translate" :toggle t)
-    ("t" +lizqwer/toggle-telega "telega" :toggle t)
-    ("c" +lizqwer/toggle-copilot "copilot" :toggle t))
-   ;; (:key "v" :description "Toggle vterm" :command multi-vterm-dedicated-toggle :filename "init-vterm")
-   "Ui"
-   (("n" (display-line-numbers-mode (if display-line-numbers-mode -1 1))
-     "line number"
-     :toggle (bound-and-true-p display-line-numbers-mode))
-    ("d" +lizqwer/toggle-dark-theme "dark theme" :toggle (eq user/now-theme user/night-theme))
-    ("T" +lizqwer/toggle-transparent "transparent" :toggle (eq (frame-parameter (selected-frame) 'alpha-background) 100))
-    ("r" redacted-mode "redacted" :toggle t)
-    ("b" open-big-screen-mode "big screen" :toggle t)
-    ;; ("l" +lizqwer/toggle-lock "lock screen" :exit t)
-    )
-   "Edit"
-   (("w" toggle-sub-word-or-super-word "sub or super word" :toggle t))
-   "Debug"
-   (("e" toggle-debug-on-error "debug on error" :toggle (bound-and-true-p debug-on-error)))
-   "Program"
-   (("u" unity-mode "unity develop" :toggle t))))
+(pretty-hydra-define-e
+ hydra-toggles (:title (pretty-hydra-title "Toggles" 'faicon "nf-fa-toggle_on") :color amaranth :quit-key ("C-g" "q") :all-exit t)
+ ("Basic"
+  (("p" +lizqwer/toggle-proxy "proxy" :toggle url-proxy-services)
+   ("c" global-centered-cursor-mode "centered cursor" :toggle t)
+   ("l" interaction-log-mode "interactive log" :toggle t)
+   ("i" immersive-translate-auto-mode "immersive translate" :toggle t)
+   ("t" +lizqwer/toggle-telega "telega" :toggle t)
+   ("c" +lizqwer/toggle-copilot "copilot" :toggle t))
+  ;; (:key "v" :description "Toggle vterm" :command multi-vterm-dedicated-toggle :filename "init-vterm")
+  "Ui"
+  (("n" (display-line-numbers-mode (if display-line-numbers-mode -1 1))
+    "line number"
+    :toggle (bound-and-true-p display-line-numbers-mode))
+   ("d" +lizqwer/toggle-dark-theme "dark theme" :toggle (eq user/now-theme user/night-theme))
+   ("T" +lizqwer/toggle-transparent "transparent" :toggle (eq (frame-parameter (selected-frame) 'alpha-background) 100))
+   ("r" redacted-mode "redacted" :toggle t)
+   ("b" open-big-screen-mode "big screen" :toggle t)
+   ;; ("l" +lizqwer/toggle-lock "lock screen" :exit t)
+   )
+  "Edit"
+  (("w" toggle-sub-word-or-super-word "sub or super word" :toggle t))
+  "Debug"
+  (("e" toggle-debug-on-error "debug on error" :toggle (bound-and-true-p debug-on-error)))
+  "Program"
+  (("u" unity-mode "unity develop" :toggle t))))
 
 (pretty-hydra-define hydra-jump-dir (:title (pretty-hydra-title "Jump to directory" 'octicon "nf-oct-file_directory_open_fill") :color amaranth :quit-key ("C-g" "q"))
   ("Base"

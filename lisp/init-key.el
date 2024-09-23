@@ -39,7 +39,7 @@
  (:key "o" :description "Search outline" :command consult-outline)
  (:key "B" :description "Bookmark" :command consult-bookmark)
  (:key "s" :description "Blink Search" :command blink-search :filename "init-blink-search")
- (:key "j" :description "color rg search symbol in project" :command color-rg-search-input-in-project :filename "color-rg")
+ (:key "j" :description "color rg search symbol in project" :command color-rg-search-input-in-project :filename "init-color-rg")
  (:key "b" :description "Google this" :command one-key-menu-google :filename "init-google-this"))
 
 (lazy-one-key-create-menu
@@ -140,7 +140,8 @@
  (:key "a" :description "Open org agenda" :command one-key-menu-agenda :filename "init-org")
  (:key "l" :description "Org store link" :command org-store-link :filename "init-org")
  (:key "s" :description "Org search" :command consult-notes)
- (:key "r" :description "Org roam" :command one-key-menu-roam))
+ (:key "r" :description "Org roam" :command one-key-menu-roam)
+ (:key "v" :description "Vterm" :command vterm))
 
 (lazy-one-key-create-menu
  "Insert"
