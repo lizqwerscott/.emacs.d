@@ -138,7 +138,9 @@
    ("p" diff-hl-previous-hunk "Previous hunk")
    ("s" diff-hl-show-hunk "Show hunk"))
   "git"
-  (("b" magit-blame "Blame"))))
+  (("b" magit-blame "Blame")
+   ("l" magit-log-buffer-file "File log")
+   ("h" vc-region-history "History"))))
 
 (pretty-hydra-define-e
  hydra-language (:title "Language" :color amaranth :quit-key ("C-g" "q") :all-exit t)
