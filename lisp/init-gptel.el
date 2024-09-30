@@ -27,10 +27,16 @@
 
 (setq gptel-default-mode 'org-mode)
 
-;; (setq gptel-model "gpt-3.5-turbo")
-(setq gptel-model "accounts/fireworks/models/llama-v3p1-405b-instruct")
+(setq gptel-backend-kimi
+      (gptel-make-openai "kimi"
+        :stream t
+        :protocol "https"
+        :host "api.moonshot.cn"
+        :temperature 0.3
+        :key #'gptel-api-key
+        :models '("moonshot-v1-8k")))
 
-(setq gptel-backend
+(setq gptel-backend-fireworks
       (gptel-make-openai "chinese"
         :stream t
         :protocol "https"
@@ -38,6 +44,9 @@
         :endpoint "/inference/v1/chat/completions"
         :key #'gptel-api-key
         :models '("accounts/fireworks/models/llama-v3p1-405b-instruct")))
+
+(setq gptel-model "moonshot-v1-8k")
+(setq gptel-backend gptel-backend-kimi)
 
 (require 'gptel)
 (add-list-to-list 'gptel-directives
