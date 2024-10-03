@@ -1,6 +1,8 @@
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "S-<return>") 'comment-indent-new-line)
 (global-set-key (kbd "M-o") #'ace-window)
+(global-set-key (kbd "M-n") #'scroll-up-1/3)
+(global-set-key (kbd "M-p") #'scroll-down-1/3)
 
 ;;;###autoload
 (defmacro lazy-one-key-create-menu (title &rest keybinds)
@@ -44,7 +46,7 @@
 
 (lazy-one-key-create-menu
  "Buffer"
- (:key "b" :description "Switch buffer" :command consult-buffer)
+ (:key "b" :description "Switch buffer" :command switch-to-buffer)
  (:key "k" :description "Kill buffer" :commit kill-buffer-and-window)
  (:key "T" :description "Switch telega buffers" :command telega-switch-buffer :filename "init-telega")
  (:key "i" :description "Switch telega important chat" :command telega-switch-important-chat :filename "init-telega")
@@ -126,6 +128,7 @@
  (:key "d" :description "Diagnostic" :command one-key-menu-diagnostic :filename "init-lsp-bridge")
  (:key "D" :description "Lsp Bridge jump to def other window" :command lsp-bridge-find-def-other-window :filename "init-lsp-bridge")
  (:key "r" :description "Lsp Bridge rename" :command lsp-bridge-rename :filename "init-lsp-bridge")
+ (:key "R" :description "Lsp Bridge restart" :command lsp-bridge-restart-process :filename "init-lsp-bridge")
  (:key "i" :description "Lsp Bridge find impl" :command lsp-bridge-find-impl :filename "init-lsp-bridge")
  (:key "I" :description "Lsp Bridge find impl other window" :command lsp-bridge-find-impl-other-window :filename "init-lsp-bridge")
  (:key "a" :description "Lsp Bridge code action" :command lsp-bridge-code-action :filename "init-lsp-bridge")
