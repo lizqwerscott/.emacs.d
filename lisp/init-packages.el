@@ -160,6 +160,9 @@
     valign
     pangu-spacing
     (org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent")
+    pdf-tools
+    org-ref
+    (org-media-note :fetcher github :repo "yuchen-lea/org-media-note")
     ))
 
 (defvar *package-ai-install-list*
