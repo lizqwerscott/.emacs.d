@@ -117,7 +117,10 @@
  (:key "p" :description "peek code" :command peek-overlay-dwim :filename "init-peek")
  (:key "d" :description "Devdocs" :command devdocs-lookup)
  (:key "s" :description "screenshot" :command screenshot)
- (:key "c" :description "Insert color" :command my-insert-color-hex :filename "init-func"))
+ (:key "c" :description "Insert color" :command my-insert-color-hex :filename "init-func")
+ (:key "g" :description "gptel" :command gptel)
+ (:key "G" :description "gptel menu" :command gptel-menu)
+ (:key "a" :description "Aider" :command aider-transient-menu))
 
 (lazy-one-key-create-menu
  "Code"

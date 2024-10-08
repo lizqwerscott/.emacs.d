@@ -170,7 +170,10 @@
              :repo "zerolfx/copilot.el"
              :branch "main"
              :files ("dist" "*.el"))
-    gptel))
+    gptel
+    (aider :fetcher github
+           :repo "tninja/aider.el"
+           :files ("aider.el"))))
 
 (defvar *package-rust-install-list*
   '(rust-mode

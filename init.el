@@ -58,6 +58,7 @@
 
 (require 'init-copilot)
 (require 'init-gptel)
+(require 'init-aider)
 ;; (require 'init-codegeex)
 
 ;;; Programming
