@@ -139,6 +139,7 @@
    ("s" diff-hl-show-hunk "Show hunk"))
   "git"
   (("b" magit-blame "Blame")
+   ("f" magit-find-file "Find git file")
    ("l" magit-log-buffer-file "File log")
    ("h" vc-region-history "History"))))
 
