@@ -12,6 +12,9 @@
 (setq dired-dwim-target t)
 (setq ls-lisp-dirs-first t)
 (setq dired-listing-switches "-AFhlv --group-directories-first")
+(when sys/macp
+  (setq insert-directory-program "/opt/homebrew/bin/gls"))
+
 
 (require 'dired-aux)
 (setq dired-isearch-filenames 'dwim)

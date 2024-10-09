@@ -37,7 +37,8 @@
         ;; (fullscreen . maximized)
         ))
 
-(toggle-frame-fullscreen)
+(unless sys/macp
+  (toggle-frame-fullscreen))
 
 ;;; modeline
 (require 'init-modeline)
