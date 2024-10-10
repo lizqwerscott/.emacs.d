@@ -177,6 +177,18 @@
                     (interactive)
                     (watch-other-window-internal "down"
                                                  (/ (window-body-height) 3))))
+
+(global-set-key (kbd "s-N")
+                #'(lambda ()
+                    (interactive)
+                    (watch-other-window-internal "up"
+                                                 (/ (window-body-height) 3))))
+
+(global-set-key (kbd "s-P")
+                #'(lambda ()
+                    (interactive)
+                    (watch-other-window-internal "down"
+                                                 (/ (window-body-height) 3))))
 ;;; symbol overlay
 (lazy-load-global-keys
  '(("M-i" . symbol-overlay-put))

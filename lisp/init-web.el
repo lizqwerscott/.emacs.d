@@ -10,10 +10,13 @@
 ;;; Code:
 
 ;; vivaldi support
-(if user/vivaldi-use
-    (setq browse-url-browser-function
-          #'browse-url-vivaldi)
-  (setq browse-url-browser-function #'browse-url-chrome))
+(setq browse-url-browser-function
+      (if user/vivaldi-use
+          #'browse-url-vivaldi
+        (if sys/macp
+            #'browse-url-default-macosx-browser
+          #'browse-url-chrome)))
+
 
 (require 'web-mode)
 (setq web-mode-indent-style 4)

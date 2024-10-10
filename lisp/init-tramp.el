@@ -18,7 +18,9 @@
 (advice-add 'project-remember-project :around
             'my/project-remember-advice)
 
-(setq tramp-default-method "ssh")
+(if sys/macp
+    (setq tramp-default-method "sshx")
+  (setq tramp-default-method "ssh"))
 
 (add-list-to-list 'tramp-remote-path
                   '("~/.guix-profile/bin" "~/.guix-profile/sbin" "/run/current-system/profile/bin" "/run/current-system/profile/sbin"))

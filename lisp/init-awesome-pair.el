@@ -45,10 +45,16 @@
 (define-key awesome-pair-mode-map (kbd "C-k") 'awesome-pair-kill)
 
 (define-key awesome-pair-mode-map (kbd "M-\"") 'awesome-pair-wrap-double-quote)
-;; (define-key awesome-pair-mode-map (kbd "M-[") 'awesome-pair-wrap-bracket)
+(define-key awesome-pair-mode-map (kbd "M-[") 'awesome-pair-wrap-bracket)
 (define-key awesome-pair-mode-map (kbd "M-{") 'awesome-pair-wrap-curly)
 (define-key awesome-pair-mode-map (kbd "M-(") 'awesome-pair-wrap-round)
 (define-key awesome-pair-mode-map (kbd "M-)") 'awesome-pair-unwrap)
+
+(define-key awesome-pair-mode-map (kbd "s-\"") 'awesome-pair-wrap-double-quote)
+(define-key awesome-pair-mode-map (kbd "s-[") 'awesome-pair-wrap-bracket)
+(define-key awesome-pair-mode-map (kbd "s-{") 'awesome-pair-wrap-curly)
+(define-key awesome-pair-mode-map (kbd "s-(") 'awesome-pair-wrap-round)
+(define-key awesome-pair-mode-map (kbd "s-)") 'awesome-pair-unwrap)
 
 (define-key awesome-pair-mode-map (kbd "M-C-p") 'awesome-pair-jump-right)
 (define-key awesome-pair-mode-map (kbd "M-C-n") 'awesome-pair-jump-left)
