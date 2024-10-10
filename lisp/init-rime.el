@@ -25,7 +25,16 @@
 ;;; Code:
 
 (require 'rime)
-(setq rime-user-data-dir "~/.local/share/fcitx5/rime/")
+
+(when sys/macp
+  (custom-set-variables
+   '(rime-librime-root "~/.emacs.d/librime/dist"))
+  (custom-set-variables
+   '(rime-emacs-module-header-root "/opt/homebrew/include")))
+
+(if sys/macp
+    (setq rime-user-data-dir "~/Library/Rime")
+  (setq rime-user-data-dir "~/.local/share/fcitx5/rime/"))
 
 (setq rime-show-candidate 'posframe)
 (setq rime-disable-predicates
