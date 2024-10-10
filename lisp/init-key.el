@@ -1,8 +1,14 @@
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "S-<return>") 'comment-indent-new-line)
+(global-set-key (kbd "s-o") #'ace-window)
+(global-set-key (kbd "s-n") #'scroll-up-1/3)
+(global-set-key (kbd "s-p") #'scroll-down-1/3)
+(global-set-key (kbd "s-x") #'execute-extended-command)
+
 (global-set-key (kbd "M-o") #'ace-window)
 (global-set-key (kbd "M-n") #'scroll-up-1/3)
 (global-set-key (kbd "M-p") #'scroll-down-1/3)
+(global-set-key (kbd "M-x") #'execute-extended-command)
 
 ;;;###autoload
 (defmacro lazy-one-key-create-menu (title &rest keybinds)

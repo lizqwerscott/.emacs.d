@@ -2,6 +2,9 @@
 (require 'telega-url-shorten)
 (require 'telega-mnz)
 
+(when sys/macp
+  (setq telega-server-libs-prefix "/opt/homebrew/"))
+
 (setq telega-mnz-languages
       '((ada . ada-mode)
         (awk . awk-mode)
