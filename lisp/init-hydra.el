@@ -127,7 +127,10 @@
     ("g" (find-file "~/github") "Github")
     ("p" (find-file "~/MyProject") "Project"))
    "Search"
-   (("s" consult-fd-dir "Fuzzy search Dir" :exit t)
+   (("s" (lambda ()
+           (interactive)
+           (autoload 'consult-fd-dir "init-func" nil t)
+           (consult-fd-dir)) "Fuzzy search Dir" :exit t)
     ("j" dired-jump "Dired jump" :exit t)
     ("J" dired-jump-other-window "Dired jump other" :exit t))))
 
