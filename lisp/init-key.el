@@ -53,6 +53,7 @@
 (lazy-one-key-create-menu
  "Buffer"
  (:key "b" :description "Switch buffer" :command switch-to-buffer)
+ (:key "B" :description "Switch buffer other window" :command switch-to-buffer-other-window)
  (:key "k" :description "Kill buffer" :command kill-buffer-and-window)
  (:key "T" :description "Switch telega buffers" :command telega-switch-buffer :filename "init-telega")
  (:key "i" :description "Switch telega important chat" :command telega-switch-important-chat :filename "init-telega")

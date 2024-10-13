@@ -72,7 +72,9 @@
                   (concat "cabal run")))
            (multi-vterm-run command)))
         ('emacs-lisp-mode (message "Not support"))
-        (t (call-interactively #'compile))))))
+        (t (if project-path
+               (call-interactively #'projection-commands-build-project)
+             (call-interactively #'compile)))))))
 
 (defun kill-now-buffer ()
   "Close the current buffer."
