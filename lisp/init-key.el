@@ -10,7 +10,17 @@
 (global-set-key (kbd "M-p") #'scroll-down-1/3)
 (global-set-key (kbd "M-x") #'execute-extended-command)
 
-;;;###autoload
+(with-eval-after-load 'eww
+  (keymap-sets eww-mode-map
+               '(("M-n" . scroll-up-1/3)
+                 ("M-p" . scroll-down-1/3))))
+
+(with-eval-after-load 'compile
+  (keymap-sets compilation-mode-map
+               '(("s-n" . compilation-next-error)
+                 ("s-p" . compilation-previous-error))))
+
+;; ###autoload
 (defmacro lazy-one-key-create-menu (title &rest keybinds)
   (let (one-key-key-alist)
     (dolist (ele keybinds)

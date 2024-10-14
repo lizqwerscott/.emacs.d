@@ -14,6 +14,7 @@
         (message-mode . normal)
         (blink-search-mode . insert)
         (color-rg-mode . insert)
+        (lsp-bridge-ref-mode . insert)
         (Info-mode-hook . motion)))
 (setq meow-use-clipboard t)
 (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
@@ -257,15 +258,5 @@
 
 (meow-vterm-enable)
 (meow-setup)
-
-(add-hook 'dired-mode-hook
-          #'(lambda ()
-              (meow-motion-overwrite-define-key
-               '("h" . dired-up-directory))))
-
-(require 'eww)
-(keymap-sets eww-mode-map
-             '(("M-n" . scroll-up-1/3)
-               ("M-p" . scroll-down-1/3)))
 
 (provide 'init-meow)
