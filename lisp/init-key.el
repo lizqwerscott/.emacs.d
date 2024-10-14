@@ -202,7 +202,8 @@
                                                  (/ (window-body-height) 3))))
 ;;; symbol overlay
 (lazy-load-global-keys
- '(("M-i" . symbol-overlay-put))
+ '(("M-i" . symbol-overlay-put)
+   ("s-i" . symbol-overlay-put))
  "symbol-overlay")
 
 ;;; webjump
