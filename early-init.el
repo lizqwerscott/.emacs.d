@@ -24,6 +24,8 @@
   ;; (require 'benchmark-init)
   ;; (benchmark-init/activate)
   (require 'init-const)
+  (when sys/macp
+    (add-to-list 'default-frame-alist '(undecorated-round . t)))
   (require 'init-startup)
   (require 'lazy-load)
   (require 'one-key)
