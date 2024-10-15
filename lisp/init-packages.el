@@ -124,7 +124,7 @@
     (breadcrumb :fetcher github
                 :repo "joaotavora/breadcrumb")
     (highlight-matching-tag :fetcher github :repo "manateelazycat/highlight-matching-tag")
-    ))
+    buffer-name-relative))
 
 (defvar *package-window-install-list*
   '(shackle

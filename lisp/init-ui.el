@@ -203,6 +203,12 @@
 
 (require 'init-window)
 
+;;; Buffer Name
+(require 'buffer-name-relative)
+(setq buffer-name-relative-prefix '("" . "/"))
+(add-hook 'after-init-hook
+          #'buffer-name-relative-mode)
+
 ;;; Another
 
 ;; (require 'zone)
