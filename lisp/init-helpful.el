@@ -7,9 +7,4 @@
 
 (advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update)
 
-(require 'helpful)
-(keymap-sets helpful-mode-map
-             '(("M-n" . scroll-up-1/3)
-               ("M-p" . scroll-down-1/3)))
-
 (provide 'init-helpful)
