@@ -205,7 +205,23 @@
 
 ;;; Buffer Name
 (require 'buffer-name-relative)
-(setq buffer-name-relative-prefix '("" . "/"))
+(setq buffer-name-relative-prefix '("<" . "> ")
+      buffer-name-relative-fallback 'default)
+
+(defun buffer-name-relative-root-path-from-project (filepath)
+  "Return the PROJECT directory from FILEPATH or nil."
+  (let ((result nil))
+    (when (fboundp 'project-root)
+      (let ((dir (if (file-directory-p filepath)
+                     (directory-file-name filepath)
+                   (file-name-directory filepath))))
+        (when dir
+          (condition-case-unless-debug err
+              (setq result (project-root (project-current nil dir)))
+            (error (message "Error finding PROJECT root name: %s" err))))))
+    result))
+(setq buffer-name-relative-root-functions '(buffer-name-relative-root-path-from-project))
+
 (add-hook 'after-init-hook
           #'buffer-name-relative-mode)
 
