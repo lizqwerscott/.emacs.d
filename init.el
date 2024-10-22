@@ -36,6 +36,7 @@
 
 (require 'init-minibuffer)
 (require 'init-corfu)
+(require 'init-completion-preview)
 (require 'init-snippet)
 (require 'init-blink-search)
 (require 'init-tramp)
@@ -60,6 +61,7 @@
 (require 'init-gptel)
 (require 'init-aider)
 ;; (require 'init-codegeex)
+(require 'init-codeium)
 
 ;;; Programming
 (require 'init-magit)

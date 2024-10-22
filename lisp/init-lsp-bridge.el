@@ -97,6 +97,7 @@
   (interactive)
   (or ;; (tempel-complete t)
    (yas-expand)
+   (completion-preview-insert)
    (acm-select-next)))
 
 ;;; keymap

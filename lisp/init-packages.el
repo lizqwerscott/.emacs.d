@@ -173,7 +173,9 @@
     gptel
     (aider :fetcher github
            :repo "tninja/aider.el"
-           :files ("aider.el"))))
+           :files ("aider.el"))
+    (codeium :fetcher github
+             :repo "Exafunction/codeium.el")))
 
 (defvar *package-rust-install-list*
   '(rust-mode
