@@ -28,6 +28,8 @@
 (add-hook 'prog-mode-hook #'completion-preview-mode)
 (add-hook 'text-mode-hook #'completion-preview-mode)
 (setq completion-preview-minimum-symbol-length 1)
+(add-list-to-list 'completion-preview-commands
+                  '(hungry-delete-backward))
 
 (provide 'init-completion-preview)
 ;;; init-completion-preview.el ends here
