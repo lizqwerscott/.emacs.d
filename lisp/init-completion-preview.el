@@ -23,7 +23,7 @@
 ;;
 
 ;;; Code:
-
+(require 'completion-preview)
 ;; Enable Completion Preview mode in code buffers
 (add-hook 'prog-mode-hook #'completion-preview-mode)
 (add-hook 'text-mode-hook #'completion-preview-mode)
