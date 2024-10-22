@@ -106,5 +106,20 @@
                  ":"
                  (format "%d" user/proxy-http-port)))))
 
+(defcustom user/font-mac-size 230
+  "The font size in mac"
+  :group 'user
+  :type 'number)
+
+(defcustom user/font-win-size 110
+  "The font size in window"
+  :group 'user
+  :type 'number)
+
+(defcustom user/font-linux-size 190
+  "The font size in linux"
+  :group 'user
+  :type 'number)
+
 (provide 'init-const)
 ;;; init-const.el ends here.

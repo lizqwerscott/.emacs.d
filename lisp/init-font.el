@@ -12,9 +12,9 @@
              when (font-installed-p font)
              return (set-face-attribute 'default nil
                                         :family font
-                                        :height (cond (sys/macp 220)
-                                                      (sys/win32p 110)
-                                                      (t 190))))
+                                        :height (cond (sys/macp user/font-mac-size)
+                                                      (sys/win32p user/font-win-size)
+                                                      (t user/font-linux-size))))
 
     ;; Set mode-line font
     ;; (cl-loop for font in '("Menlo" "SF Pro Display" "Helvetica")
