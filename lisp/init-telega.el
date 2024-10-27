@@ -1,6 +1,7 @@
 (require 'telega)
 (require 'telega-url-shorten)
 (require 'telega-mnz)
+(require 'telega-chat)
 
 (when sys/macp
   (setq telega-server-libs-prefix "/opt/homebrew/"))
@@ -84,6 +85,8 @@
 (define-key telega-msg-button-map "k" nil)
 (define-key telega-msg-button-map "l" nil)
 (define-key telega-msg-button-map (kbd "SPC") 'meow-keypad)
+(keymap-sets telega-chat-mode-map
+             '(("s-g r" . telega-chatbuf-read-all)))
 
 (setq telega-avatar-workaround-gaps-for '(return t))
 
