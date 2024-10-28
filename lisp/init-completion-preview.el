@@ -24,9 +24,11 @@
 
 ;;; Code:
 (require 'completion-preview)
-;; Enable Completion Preview mode in code buffers
-(add-hook 'prog-mode-hook #'completion-preview-mode)
-(add-hook 'text-mode-hook #'completion-preview-mode)
+;; Enable Completion Preview mode when insert mode enable
+(add-hook 'meow-insert-mode-hook
+          #'(lambda ()
+              (interactive)
+              (call-interactively #'completion-preview-mode)))
 (setq completion-preview-minimum-symbol-length 1)
 (add-list-to-list 'completion-preview-commands
                   '(hungry-delete-backward))
