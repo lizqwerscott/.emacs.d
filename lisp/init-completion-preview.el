@@ -24,11 +24,25 @@
 
 ;;; Code:
 (require 'completion-preview)
-;; Enable Completion Preview mode when insert mode enable
-(add-hook 'meow-insert-mode-hook
+;; Enable Completion Preview mode in code buffers
+(add-hook 'prog-mode-hook #'completion-preview-mode)
+(add-hook 'text-mode-hook #'completion-preview-mode)
+;; Disable when meow normal mode
+(add-hook 'meow-normal-mode-hook
           #'(lambda ()
               (interactive)
-              (call-interactively #'completion-preview-mode)))
+              (if meow-normal-mode
+                  (completion-preview-mode -1)
+                (completion-preview-mode 1))))
+
+;; Disable when meow beacon mode
+(add-hook 'meow-beacon-mode-hook
+          #'(lambda ()
+              (interactive)
+              (if meow-beacon-mode
+                  (completion-preview-mode -1)
+                (completion-preview-mode 1))))
+
 (setq completion-preview-minimum-symbol-length 1)
 (add-list-to-list 'completion-preview-commands
                   '(hungry-delete-backward))
