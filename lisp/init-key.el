@@ -164,7 +164,7 @@
  (:key "l" :description "Org store link" :command org-store-link :filename "init-org")
  (:key "s" :description "Org search" :command consult-notes)
  (:key "r" :description "Org roam" :command one-key-menu-roam)
- (:key "t" :description "Vterm" :command vterm)
+ (:key "t" :description "Vterm" :command multi-vterm-open :filename "init-vterm")
  (:key "m" :description "Media note" :command org-media-note-show-interface))
 
 (lazy-one-key-create-menu
