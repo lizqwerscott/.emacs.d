@@ -5,6 +5,8 @@
     consult
     consult-notes
     orderless
+    embark
+    embark-consult
     fussy
     (flx-rs
      :repo "jcs-elpa/flx-rs"

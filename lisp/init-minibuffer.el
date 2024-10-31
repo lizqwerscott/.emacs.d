@@ -89,4 +89,8 @@
         consult--source-project-buffer-hidden
         ;; consult--source-project-recent-file-hidden
         ))
+
+;;; embark
+(require 'init-embark)
+
 (provide 'init-minibuffer)
