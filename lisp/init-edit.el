@@ -46,6 +46,9 @@
                (require 'indent-yank)
                (indent-yank-mode 1)))
 
+;;; Outline indent
+(require 'init-outline-indent)
+
 ;;; Auto rename tag
 (add-hooks '(html-mode web-mode)
            #'auto-rename-tag-mode)

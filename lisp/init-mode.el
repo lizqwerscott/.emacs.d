@@ -1,4 +1,5 @@
 (add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
+(add-to-list 'auto-mode-alist '("\\.urdf\\'" . nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\CMakeLists.txt\\'" . cmake-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
