@@ -89,12 +89,12 @@
   :group 'user
   :type 'boolean)
 
-(defcustom user/aider nil
-  "Is start aider ai"
+(defcustom user/copilot nil
+  "Is start copilot ai completion"
   :group 'user
   :type 'boolean)
 
-(defcustom user/copilot nil
+(defcustom user/aider nil
   "Is start aider ai"
   :group 'user
   :type 'boolean)
