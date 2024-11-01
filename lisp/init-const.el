@@ -79,6 +79,26 @@
   :group 'user
   :type 'boolean)
 
+(defcustom user/tabby nil
+  "Is start tabby ai completion"
+  :group 'user
+  :type 'boolean)
+
+(defcustom user/codeium nil
+  "Is start codeium ai completion"
+  :group 'user
+  :type 'boolean)
+
+(defcustom user/aider nil
+  "Is start aider ai"
+  :group 'user
+  :type 'boolean)
+
+(defcustom user/copilot nil
+  "Is start aider ai"
+  :group 'user
+  :type 'boolean)
+
 (defvar user/now-theme nil)
 
 ;;;###autoload

@@ -34,7 +34,7 @@
 
 (setq acm-enable-doc t)
 (setq acm-enable-tabnine nil)
-(setq acm-enable-codeium t)
+(setq acm-enable-codeium nil)
 (setq acm-enable-yas nil)
 (setq acm-enable-tempel nil)
 (setq acm-enable-citre t)
@@ -47,7 +47,7 @@
 ;; (setq lsp-bridge-use-wenls-in-org-mode nil)
 ;; (setq lsp-bridge-enable-mode-line nil)
 ;; (setq lsp-bridge-enable-diagnostics t)
-;; (setq lsp-bridge-enable-with-tramp nil)
+(setq lsp-bridge-enable-with-tramp nil)
 
 ;; (setq lsp-bridge-completion-hide-characters
 ;;       '(":" ";" "[" "]" "{" "}" ", " "\""))

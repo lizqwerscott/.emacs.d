@@ -25,7 +25,7 @@
 ;;; Code:
 
 (require 'aider)
-(setq aider-args '("--deepseek"))
+(setq aider-args '("--no-auto-commits" "--model" "openrouter/deepseek/deepseek-coder"))
 
 ;; from gptel
 (defun lizqwer/api-key-from-auth-source (&optional host user)

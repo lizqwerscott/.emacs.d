@@ -57,11 +57,19 @@
 (require 'init-rsync)
 (require 'init-code-stats)
 
-(require 'init-copilot)
-(require 'init-gptel)
-(require 'init-aider)
+(when user/copilot
+  (require 'init-copilot))
+(when user/aider
+  (require 'init-aider))
+(when user/tabby
+  (require 'init-tabby))
+(when user/codeium
+  (require 'init-codeium))
+
 ;; (require 'init-codegeex)
-(require 'init-codeium)
+
+(require 'init-gptel)
+
 
 ;;; Programming
 (require 'init-magit)
