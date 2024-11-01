@@ -261,7 +261,7 @@ NAME is class name."
    ("r" project-forget-project "forget")
    ("a" project-remember-project "remember"))
   "Other"
-  (("v" magit-status "git")
+  (("v" magit-project-status "git")
    ("t" multi-vterm-project "vterm")
    ("e" eshell-project-toggle "eshell")
    ("s" project-blink-search "blink search"))))
@@ -269,9 +269,13 @@ NAME is class name."
 ;; (define-key project-prefix-map (kbd "b") #'consult-project-buffer)
 ;; (define-key project-prefix-map (kbd "s") #'shell)
 ;; (define-key project-prefix-map (kbd "t") #'find-temp-project)
+(define-key project-prefix-map (kbd "v") #'magit-project-status)
 
 (setq project-switch-commands nil)
 (add-to-list 'project-switch-commands '(project-find-file "Find file") t)
+(add-to-list 'project-switch-commands '(magit-project-status "Git Status") t)
+(add-to-list 'project-switch-commands '(project-find-dir "Find Dir") t)
+(add-to-list 'project-switch-commands '(project-dired "Dired") t)
 
 (provide 'init-project)
 ;;; init-project.el ends heres.
