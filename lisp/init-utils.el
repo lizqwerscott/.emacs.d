@@ -114,4 +114,25 @@ The optional argument NEW-WINDOW is not used."
 	       "vivaldi"
 	       (list url))))
 
+;;; cons to list
+(defun single-cons-p (c)
+  "判断 C 是否为单个 cons 对象（cdr 不是 cons 且不为 nil）。"
+  (and (consp c)
+     (not (consp (cdr c)))
+     (not (null (cdr c)))))
+
+(defun cons-to-list-s (s)
+  (if (single-cons-p s)
+      (list (car s) (cdr s))
+    (cons-to-list s)))
+
+;;;###autoload
+(defun cons-to-list (c)
+  "将 cons 对象递归地转换为列表。"
+  (when c
+    (if (listp c)
+        (cons (cons-to-list-s (car c))
+              (cons-to-list-s (cdr c)))
+      c)))
+
 (provide 'init-utils)
