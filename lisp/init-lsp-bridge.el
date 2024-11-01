@@ -97,7 +97,9 @@
   (interactive)
   (or ;; (tempel-complete t)
    (yas-expand)
-   (completion-preview-insert)
+   (if user/tabby
+       (tabby-accept-completion)
+     (completion-preview-insert))
    (acm-select-next)))
 
 ;;; keymap
