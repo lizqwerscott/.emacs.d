@@ -27,7 +27,7 @@
 (require 'tabby)
 (setq tabby-enable-predicates '(meow-insert-mode-p))
 
-(keymap-set tabby-mode-map "TAB" #'tabby-accept-completion)
+(keymap-set tabby-completion-map "TAB" #'tabby-accept-completion)
 
 (add-hook 'prog-mode-hook 'tabby-mode)
 
