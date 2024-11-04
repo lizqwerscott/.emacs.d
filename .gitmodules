@@ -12,3 +12,6 @@ url = git@github.com:lizqwerscott/insert-translated-name.git
 [submodule "site-lisp/tabby.el"]
 	path = site-lisp/tabby.el
 	url = https://github.com/alan-w-255/tabby.el.git
+[submodule "site-lisp/multi-vterm"]
+	path = site-lisp/multi-vterm
+	url = git@github.com:lizqwerscott/multi-vterm.git

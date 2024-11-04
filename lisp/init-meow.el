@@ -61,16 +61,16 @@
                             "pdm run start"
                           (concat "python "
                                   (file-truename (buffer-file-name))))))
-           (require 'init-vterm)
            (setq command (compilation-read-command command))
+           (require 'multi-vterm)
            (multi-vterm-run command)))
         ('rust-ts-mode (one-key-menu-rust))
         ('haskell-mode
          (progn
-           (require 'init-vterm)
            (setq command
                  (compilation-read-command
                   (concat "cabal run")))
+           (require 'multi-vterm)
            (multi-vterm-run command)))
         ('emacs-lisp-mode (message "Not support"))
         (t (if project-path

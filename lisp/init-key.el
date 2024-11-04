@@ -36,8 +36,6 @@
 (lazy-one-key-create-menu
  "Toggle"
  (:key "t" :description "Toggle telega" :command +lizqwer/toggle-telega :filename "init-telega")
- ;; (:key "c" :description "Toggle copilot" :command +lizqwer/toggle-copilot :filename "init-copilot")
- (:key "v" :description "Toggle vterm" :command multi-vterm-dedicated-toggle :filename "init-vterm")
  (:key "l" :description "Lock screen" :command +lizqwer/toggle-lock :filename "init-func")
  (:key "b" :description "Toggle big screen mode" :command open-big-screen-mode :filename "init-big-screen")
  (:key "T" :description "Toggle transparent" :command +lizqwer/toggle-transparent :filename "init-func")
@@ -164,7 +162,7 @@
  (:key "l" :description "Org store link" :command org-store-link :filename "init-org")
  (:key "s" :description "Org search" :command consult-notes)
  (:key "r" :description "Org roam" :command one-key-menu-roam)
- (:key "t" :description "Vterm" :command multi-vterm-open :filename "init-vterm")
+ (:key "t" :description "Vterm" :command multi-vterm-open :filename "multi-vterm")
  (:key "m" :description "Media note" :command org-media-note-show-interface))
 
 (lazy-one-key-create-menu

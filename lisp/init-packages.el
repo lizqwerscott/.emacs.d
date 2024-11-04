@@ -38,7 +38,6 @@
     dired-quick-sort
     elisp-demos
     vterm
-    multi-vterm
     (lazy-revert :fetcher github :repo "yilin-zhang/lazy-revert")
     (psearch
      :fetcher github

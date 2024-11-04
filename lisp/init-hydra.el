@@ -100,7 +100,6 @@
    ("i" immersive-translate-auto-mode "immersive translate" :toggle t)
    ("t" +lizqwer/toggle-telega "telega" :toggle t)
    ("c" +lizqwer/toggle-copilot "copilot" :toggle t))
-  ;; (:key "v" :description "Toggle vterm" :command multi-vterm-dedicated-toggle :filename "init-vterm")
   "Ui"
   (("n" (display-line-numbers-mode (if display-line-numbers-mode -1 1))
     "line number"

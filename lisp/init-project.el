@@ -245,8 +245,7 @@ NAME is class name."
  (:key "c" :description "Project rsync all" :command one-key-menu-rsync)
 
  (:key "e" :description "Project eshell" :command eshell-project-toggle :filename "init-eshell")
- (:key "t" :description "Project vterm" :command multi-vterm-project :filename "init-vterm")
- )
+ (:key "t" :description "Project vterm" :command multi-vterm-project :filename "multi-vterm"))
 
 (pretty-hydra-define-e
  hydra-project (:title "Project" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
