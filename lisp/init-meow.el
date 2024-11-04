@@ -14,6 +14,7 @@
         (blink-search-mode . insert)
         (color-rg-mode . insert)
         (lsp-bridge-ref-mode . insert)
+        (vterm-mode . insert)
         (Info-mode-hook . motion)))
 (setq meow-use-clipboard t)
 (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
