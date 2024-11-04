@@ -298,7 +298,7 @@
   (insert (file-name-nondirectory filename)))
 
 (pretty-hydra-define-e
- hydra-insert-file (:title "Insert file or path" :color amaranth :quit-key ("C-g" "q") :all-exit t)
+ hydra-insert-file (:title "Insert file or path" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
  ("path"
   (("f" +lizqwer/insert-file-path "full")
    ("r" +lizqwer/insert-file-path-relative "relative")

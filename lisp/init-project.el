@@ -249,7 +249,7 @@ NAME is class name."
  )
 
 (pretty-hydra-define-e
- hydra-project (:title "Project" :color amaranth :quit-key ("C-g" "q") :all-exit t)
+ hydra-project (:title "Project" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
  ("Basic"
   (("f" project-find-file "find file")
    ("o" projection-find-other-file "find other file")
