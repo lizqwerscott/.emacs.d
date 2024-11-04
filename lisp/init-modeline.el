@@ -31,14 +31,18 @@
       (awesome-tray-mode))
   (progn
     (require 'doom-modeline)
+    (setq doom-modeline-battery t)
+    (setq doom-modeline-time-icon nil)
     (setq doom-modeline-buffer-file-name-style
-          'file-name)
+          'auto)
     (setq doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode))
     (setq display-time-string-forms
-          '(" " 24-hours ":" minutes " "))
+          '(24-hours ":" minutes " "))
     (add-hook 'after-init-hook
               #'doom-modeline-mode)
     (add-hook 'doom-modeline-mode-hook
-              #'display-time-mode)))
+              #'(lambda ()
+                  (display-time-mode)
+                  (display-battery-mode)))))
 
 (provide 'init-modeline)
