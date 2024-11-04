@@ -213,4 +213,10 @@
 
 (global-set-key (kbd "C-c /") #'google-this)
 
+;;; transient
+(require 'transient)
+(keymap-set transient-map
+            "<escape>"
+            #'transient-quit-one)
+
 (provide 'init-key)
