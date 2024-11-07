@@ -32,9 +32,8 @@
         :stream t
         :protocol "https"
         :host "api.moonshot.cn"
-        :temperature 0.3
         :key #'gptel-api-key
-        :models '("moonshot-v1-8k")))
+        :models '(moonshot-v1-8k)))
 
 (setq gptel-backend-fireworks
       (gptel-make-openai "chinese"
@@ -43,9 +42,9 @@
         :host "api.fireworks.ai"
         :endpoint "/inference/v1/chat/completions"
         :key #'gptel-api-key
-        :models '("accounts/fireworks/models/llama-v3p1-405b-instruct")))
+        :models '(accounts/fireworks/models/llama-v3p1-405b-instruct)))
 
-(setq gptel-model "moonshot-v1-8k")
+(setq gptel-model 'moonshot-v1-8k)
 (setq gptel-backend gptel-backend-kimi)
 
 (require 'gptel)
