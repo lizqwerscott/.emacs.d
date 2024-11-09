@@ -54,7 +54,8 @@
     jsonian
     elvish-mode
     git-modes
-    csv-mode))
+    csv-mode
+    qml-mode))
 
 (defvar *package-edit-install-list*
   '(meow
