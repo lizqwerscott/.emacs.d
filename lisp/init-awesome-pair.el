@@ -27,17 +27,17 @@
            #'awesome-pair-mode)
 
 (define-key awesome-pair-mode-map (kbd "(") 'awesome-pair-open-round)
-(define-key awesome-pair-mode-map (kbd "[") 'awesome-pair-open-bracket)
+;; (define-key awesome-pair-mode-map (kbd "[") 'awesome-pair-open-bracket)
 (define-key awesome-pair-mode-map (kbd "{") 'awesome-pair-open-curly)
 (define-key awesome-pair-mode-map (kbd ")") 'awesome-pair-close-round)
-(define-key awesome-pair-mode-map (kbd "]") 'awesome-pair-close-bracket)
+;; (define-key awesome-pair-mode-map (kbd "]") 'awesome-pair-close-bracket)
 (define-key awesome-pair-mode-map (kbd "}") 'awesome-pair-close-curly)
 (define-key awesome-pair-mode-map (kbd "=") 'awesome-pair-equal)
 
 (define-key awesome-pair-mode-map (kbd "%") 'awesome-pair-match-paren)
 (define-key awesome-pair-mode-map (kbd "\"") 'awesome-pair-double-quote)
 
-(define-key awesome-pair-mode-map (kbd "SPC") 'awesome-pair-space)
+;; (define-key awesome-pair-mode-map (kbd "SPC") 'awesome-pair-space)
 (define-key awesome-pair-mode-map (kbd "RET") 'awesome-pair-newline)
 
 (define-key awesome-pair-mode-map (kbd "M-d") 'awesome-pair-backward-delete)
