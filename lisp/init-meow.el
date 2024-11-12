@@ -1,5 +1,4 @@
 (require 'meow)
-(meow-global-mode 1)
 (setq meow-esc-delay 0.001)
 (setq meow-keypad-leader-dispatch "C-c")
 (setq meow-mode-state-list
@@ -182,8 +181,8 @@
    '("1" . meow-expand-1)
    '("-" . negative-argument)
    '(";" . meow-reverse)
-   '("." . meow-inner-of-thing)
-   '("," . meow-bounds-of-thing)
+   '("," . meow-inner-of-thing)
+   '("." . meow-bounds-of-thing)
    '("[" . meow-beginning-of-thing)
    '("]" . meow-end-of-thing)
    '("a" . meow-append)
@@ -258,5 +257,9 @@
 
 (meow-vterm-enable)
 (meow-setup)
+(meow-global-mode 1)
+
+(require 'meow-tree-sitter)
+(meow-tree-sitter-register-defaults)
 
 (provide 'init-meow)

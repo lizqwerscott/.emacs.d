@@ -58,7 +58,8 @@
     qml-mode))
 
 (defvar *package-edit-install-list*
-  '(meow
+  '((meow :fetcher github :repo "meow-edit/meow")
+    meow-tree-sitter
     grugru
     auto-rename-tag
     hungry-delete
