@@ -36,11 +36,7 @@
   :init
   (add-list-to-list 'completion-at-point-functions
                     '(cape-dabbrev
-                      cape-file
-                      cape-line))
-  (add-hook 'telega-chat-mode-hook
-            #'(lambda ()
-                (add-to-list 'completion-at-point-functions 'cape-emoji))))
+                      cape-file)))
 
 (use-package kind-icon
   :ensure t

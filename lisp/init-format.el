@@ -9,12 +9,4 @@
 (setf (alist-get 'c++-ts-mode apheleia-mode-alist)
       'astyle)
 
-;;;###autoload
-(defun format-code ()
-  "Format code."
-  (interactive)
-  (if (equal major-mode 'rust-ts-mode)
-      (cargo-process-fmt)
-    (call-interactively 'apheleia-format-buffer)))
-
 (provide 'init-format)
