@@ -74,6 +74,7 @@
 
 ;;; Programming
 (require 'init-magit)
+(require 'init-difftastic)
 (require 'init-lsp-bridge)
 (require 'init-citre)
 (require 'init-program)

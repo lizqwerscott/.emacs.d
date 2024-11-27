@@ -81,6 +81,7 @@
     eglot
     magit
     magit-delta
+    difftastic
     git-cliff
     devdocs
     wucuo
