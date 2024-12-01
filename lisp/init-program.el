@@ -27,6 +27,27 @@
 ;;; debug
 (require 'init-dap)
 
+;;; complile
+(setq compilation-scroll-output t)
+(setq compilation-auto-jump-to-first-error t)
+(setq compilation-max-output-line-length nil)
+
+(defun ar/compile-autoclose (buffer string)
+  "Hide successful builds window with BUFFER and STRING."
+  (if (and (string-match "finished" string)
+         (not (string-match "^warning.*" string)))
+      (progn
+        (message "Build finished :)")
+        (run-with-timer 3 nil
+                        (lambda ()
+                          (when-let* ((multi-window (> (count-windows) 1))
+                                      (live (buffer-live-p buffer))
+                                      (window (get-buffer-window buffer t)))
+                            (delete-window window)))))
+    (message "Compilation %s" string)))
+
+(setq compilation-finish-functions (list #'ar/compile-autoclose))
+
 ;;; language
 (require 'init-elisp)
 (require 'init-python)
