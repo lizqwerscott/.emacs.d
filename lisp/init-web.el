@@ -15,7 +15,7 @@
           #'browse-url-vivaldi
         (if sys/macp
             #'browse-url-default-macosx-browser
-          #'browse-url-chrome)))
+          #'browse-url-firefox)))
 
 
 (require 'web-mode)
