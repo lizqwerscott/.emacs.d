@@ -26,10 +26,6 @@
 
 (require 'nxml-mode)
 
-(keymap-set nxml-mode-map
-            "TAB"
-            #'outline-cycle)
-
 (add-hooks '(python-mode python-ts-mode yaml-mode yaml-ts-mode nxml-mode)
            #'outline-indent-minor-mode)
 
