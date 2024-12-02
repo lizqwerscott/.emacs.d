@@ -46,6 +46,11 @@
                (require 'indent-yank)
                (indent-yank-mode 1)))
 
+;;; Visual Replace
+(require 'visual-replace)
+(global-set-key (kbd "s-r") #'visual-replace)
+(visual-replace-global-mode 1)
+
 ;;; Outline indent
 (require 'init-outline-indent)
 
