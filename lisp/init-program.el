@@ -40,7 +40,7 @@
            (not (string-match "^.*warning.*" string)))
         (progn
           (message "Build finished :)")
-          (run-with-timer 3 nil
+          (run-with-timer 1 nil
                           (lambda ()
                             (when-let* ((multi-window (> (count-windows) 1))
                                         (live (buffer-live-p buffer))
