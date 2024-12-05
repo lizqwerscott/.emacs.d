@@ -60,8 +60,8 @@
 (define-key awesome-pair-mode-map (kbd "M-C-n") 'awesome-pair-jump-left)
 (define-key awesome-pair-mode-map (kbd "M-:") 'awesome-pair-jump-out-pair-and-newline)
 
-(define-key awesome-pair-mode-map (kbd "s-C-p") 'awesome-pair-jump-right)
-(define-key awesome-pair-mode-map (kbd "s-C-n") 'awesome-pair-jump-left)
+(define-key awesome-pair-mode-map (kbd "C-s-p") 'awesome-pair-jump-right)
+(define-key awesome-pair-mode-map (kbd "C-s-n") 'awesome-pair-jump-left)
 (define-key awesome-pair-mode-map (kbd "s-:") 'awesome-pair-jump-out-pair-and-newline)
 
 (provide 'init-awesome-pair)

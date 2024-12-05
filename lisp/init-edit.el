@@ -36,6 +36,13 @@
 
 (require 'init-awesome-pair)
 
+(with-eval-after-load 'nxm-mode
+  (keymap-sets nxml-mode-map
+               '(("C-s-f" . nxml-down-element)
+                 ("C-s-n" . nxml-forward-element)
+                 ("C-s-p" . nxml-backward-element)
+                 ("C-s-b" . nxml-backward-up-element))))
+
 (add-hooks '(emacs-lisp-mode lisp-mode)
            #'(lambda ()
                (require 'aggressive-indent)
