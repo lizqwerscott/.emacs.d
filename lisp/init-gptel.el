@@ -44,8 +44,18 @@
         :key #'gptel-api-key
         :models '(accounts/fireworks/models/llama-v3p1-405b-instruct)))
 
-(setq gptel-model 'moonshot-v1-8k)
-(setq gptel-backend gptel-backend-kimi)
+(setq gptel-backend-deepseek
+      (gptel-make-openai "deepseek"
+        :stream t
+        :protocol "https"
+        :host "api.deepseek.com"
+        :key #'gptel-api-key
+        :models '(deepseek-chat)))
+
+;; (setq gptel-model 'moonshot-v1-8k)
+;; (setq gptel-backend gptel-backend-kimi)
+(setq gptel-model 'deepseek-chat)
+(setq gptel-backend gptel-backend-deepseek)
 
 (require 'gptel)
 (add-list-to-list 'gptel-directives
