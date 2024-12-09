@@ -2,6 +2,7 @@
 ;;; ace window
 (require 'ace-window)
 (add-to-list 'aw-ignored-buffers "*Ilist*")
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
 ;;; winner mode
 (winner-mode 1)
