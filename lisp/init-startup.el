@@ -135,7 +135,7 @@
 
 ;;; performance
 ;; Disable garbage collection when entering commands.
-(setq garbage-collection-messages t)	;gc时显示消息
+(setq garbage-collection-messages nil)	;gc时显示消息
 (setq byte-compile-warnings nil)	;关闭字节编译警告
 
 (add-hook 'minibuffer-setup-hook
