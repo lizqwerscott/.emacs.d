@@ -217,4 +217,7 @@
             "<escape>"
             #'transient-quit-one)
 
+;;; yank
+(global-set-key (kbd "M-y") #'consult-yank-pop)
+
 (provide 'init-key)
