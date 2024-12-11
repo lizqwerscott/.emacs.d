@@ -135,4 +135,11 @@ The optional argument NEW-WINDOW is not used."
               (cons-to-list-s (cdr c)))
       c)))
 
+;;;###autoload
+(defun childframe-workable-p ()
+  "Whether childframe is workable."
+  (not (or noninteractive
+        emacs-basic-display
+        (not (display-graphic-p)))))
+
 (provide 'init-utils)

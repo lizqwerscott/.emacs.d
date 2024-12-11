@@ -5,50 +5,50 @@
    (yas-expand)
    (corfu-next)))
 
-(use-package corfu
-  :ensure t
-  :init
-  ;; (global-corfu-mode)
-  (setq corfu-auto t
-        ;; corfu-quit-no-match 'separator
-        corfu-quit-no-match t
-        corfu-preview-current t
-        corfu-preselect-first t
-        ;; corfu-cycle t
-        corfu-auto-prefix 2
-        corfu-quit-at-boundary t
-        corfu-auto-delay 0.0)
-  :bind
-  (:map corfu-map
-        ("TAB" . +complete)
-        ([tab] . +complete)
-        ("S-TAB" . corfu-previous)
-        ([backtab] . corfu-previous))
-  :hook
-  ((rust-mode sly-mrepl-mode scheme-mode sql-mode eshell-mode inferior-python-mode elvish-mode telega-chat-mode) . corfu-mode))
+(require 'corfu)
+(setq corfu-auto t
+      corfu-quit-no-match t
+      corfu-auto-prefix 2
+      corfu-preview-current nil
+      corfu-auto-delay 0.2
+      corfu-popupinfo-delay '(0.4 . 0.2))
 
-(setq completion-cycle-threshold 3)
-;; (setq tab-always-indent 'complete)
+(custom-set-faces
+ '(corfu-border ((t (:inherit region :background unspecified)))))
 
+(keymap-sets corfu-map
+             '(("TAB" . +complete)
+               ;; ("[tab]" . +complete)
+               ("S-TAB" . corfu-previous)
+               ;; ("[backtab]" . corfu-previous)
+               ))
 
-(use-package cape
-  :ensure t
-  :init
-  (add-list-to-list 'completion-at-point-functions
-                    '(cape-dabbrev
-                      cape-file)))
+(pcase user/lsp-client
+  ('eglot
+   (add-hook 'after-init-hook #'global-corfu-mode))
+  ('lsp-bridge
+   (add-hooks '(rust-mode sly-mrepl-mode scheme-mode sql-mode eshell-mode inferior-python-mode elvish-mode telega-chat-mode)
+              #'corfu-mode)))
 
-(use-package kind-icon
-  :ensure t
-  :after corfu
-  :custom
-  (kind-icon-default-face 'corfu-default)
-  (kind-icon-use-icons nil)
-  :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+(add-hook 'global-corfu-mode-hook #'corfu-popupinfo-mode)
 
 (corfu-history-mode 1)
-(savehist-mode 1)
 (add-to-list 'savehist-additional-variables 'corfu-history)
+
+
+;;; cpae
+(add-list-to-list 'completion-at-point-functions
+                  '(cape-dabbrev
+                    cape-file))
+(require 'cape)
+
+;;; kind icon
+(require 'kind-icon)
+(setq kind-icon-default-face 'corfu-default
+      kind-icon-use-icons nil)
+(add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
+
+;; (setq completion-cycle-threshold 3)
+;; (setq tab-always-indent 'complete)
 
 (provide 'init-corfu)

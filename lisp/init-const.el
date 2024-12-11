@@ -141,5 +141,10 @@
   :group 'user
   :type 'number)
 
+(defcustom user/lsp-client 'lsp-bridge
+  "The lsp client"
+  :group 'user
+  :type 'symbol)
+
 (provide 'init-const)
 ;;; init-const.el ends here.

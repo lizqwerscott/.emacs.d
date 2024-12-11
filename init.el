@@ -36,7 +36,7 @@
 
 (require 'init-minibuffer)
 (require 'init-corfu)
-(unless (or user/tabby user/copilot)
+(unless (or user/tabby user/copilot (equal user/lsp-client 'eglot))
   (require 'init-completion-preview))
 (require 'init-snippet)
 (require 'init-blink-search)
@@ -75,7 +75,7 @@
 ;;; Programming
 (require 'init-magit)
 (require 'init-difftastic)
-(require 'init-lsp-bridge)
+(require 'init-lsp)
 (require 'init-citre)
 (require 'init-program)
 

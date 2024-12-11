@@ -82,6 +82,10 @@
     yasnippet
     macrostep
     eglot
+    consult-eglot
+    cape
+    kind-icon
+    eldoc-box
     magit
     magit-delta
     difftastic

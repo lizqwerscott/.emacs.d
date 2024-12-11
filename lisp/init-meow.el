@@ -238,22 +238,34 @@
    '("'" . repeat)
    '("<escape>" . ignore))
 
+  (pcase user/lsp-client
+    ('eglot
+     (meow-normal-define-key
+      '("gr" . xref-find-references)
+      '("gd" . xref-find-definitions)
+      '("gD" . xref-find-definitions-other-window)
+      '("gi" . eglot-find-implementation)
+      '("gI" . eglot-find-implementation)
+      '("C-o" . xref-go-back)))
+    ('lsp-bridge
+     (meow-normal-define-key
+      '("gr" . lsp-bridge-find-references)
+      '("gd" . find-definition-with-lsp-bridge)
+      '("gD" . find-definition-with-lsp-bridge-other-window)
+      '("gi" . lsp-bridge-find-impl)
+      '("gI" . lsp-bridge-find-impl-other-window)
+      '("C-o" . return-find-def))))
+
   (meow-normal-define-key
    '("C-s" . save-buffer)
    '("C-y" . meow-clipboard-yank)
    '("Q" . kill-now-buffer)
-   '("gr" . lsp-bridge-find-references)
-   '("gd" . find-definition-with-lsp-bridge)
-   '("gD" . find-definition-with-lsp-bridge-other-window)
+   '("?" . help-helpful-lsp-bridge-sly)
    '("gf" . find-file-at-point)
-   '("gi" . lsp-bridge-find-impl)
-   '("gI" . lsp-bridge-find-impl-other-window)
    '("gp" . goto-percent)
    '("gl" . consult-goto-line)
    '("gL" . avy-goto-line)
-   '("C-o" . return-find-def)
-   '("/" . consult-ripgrep)
-   '("?" . help-helpful-lsp-bridge-sly)))
+   '("/" . consult-ripgrep)))
 
 (meow-vterm-enable)
 (meow-setup)
