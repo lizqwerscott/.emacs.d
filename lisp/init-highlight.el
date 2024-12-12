@@ -6,10 +6,24 @@
 ;;; Highlight matching parens
 (require 'paren)
 (setq show-paren-when-point-inside-paren t
-      show-paren-when-point-in-periphery t)
+      show-paren-when-point-in-periphery t
+      show-paren-delay 0.2)
 (setq show-paren-style 'parenthesis
       show-paren-context-when-offscreen 'overlay)
+(custom-set-faces
+ '(show-paren-match ((t (:foreground "SpringGreen3" :underline t :weight bold)))))
 (show-paren-mode 1)
+
+;;; highlight parentheses
+(require 'highlight-parentheses)
+(setq highlight-parentheses-colors '("firebrick1" "firebrick3" "orange1" "orange3")
+      highlight-parentheses-attributes '((:underline t) (:underline t) (:underline t))
+      highlight-parentheses-delay 0.2)
+
+(add-hook 'minibuffer-setup-hook
+          #'highlight-parentheses-minibuffer-setup)
+(add-hook 'prog-mode-hook
+          #'highlight-parentheses-mode)
 
 ;;; Highlight symbol
 (setq symbol-overlay-idle-time 0.1)

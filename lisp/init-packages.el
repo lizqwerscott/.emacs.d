@@ -123,6 +123,7 @@
     goggles
     diff-hl
     rainbow-delimiters
+    highlight-parentheses
     rainbow-mode
     visual-fill-column
     olivetti
