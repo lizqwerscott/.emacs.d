@@ -20,7 +20,7 @@
 
 ;;; check
 ;; flymake
-(add-hook 'prog-mode-hook
+(add-hook 'after-init-hook
           #'flymake-mode)
 
 (setq flymake-no-changes-timeout nil
