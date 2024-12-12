@@ -18,8 +18,8 @@
 ;;; Lsp Server
 ;; (require 'init-eglot)
 
-;;; check error
-                                        ; flymake
+;;; check
+;; flymake
 (add-hook 'prog-mode-hook
           #'flymake-mode)
 
