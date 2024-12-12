@@ -89,16 +89,21 @@
     (if (delete-window)
         (message "finish"))))
 
-(defun help-helpful-lsp-bridge-sly ()
+(defun help-helpful-lsp-sly ()
+  "Help function with lsp and sly info"
   (interactive)
   (if (bound-and-true-p sly-mode)
       (call-interactively #'sly-documentation)
     (if (or (equal major-mode 'emacs-lisp-mode)
            (equal major-mode 'lisp-interaction-mode))
         (helpful-at-point)
-      (if (bound-and-true-p lsp-bridge-mode)
-          (lsp-bridge-popup-documentation)
-        (message "dont't know how to help")))))
+      (pcase user/lsp-client
+        ('eglot
+         (eldoc-box-help-at-point))
+        ('lsp-bridge
+         (if (bound-and-true-p lsp-bridge-mode)
+             (lsp-bridge-popup-documentation)
+           (message "dont't know how to help")))))))
 
 (defun meow-setup ()
   ;; (meow-motion-overwrite-define-key
@@ -260,7 +265,7 @@
    '("C-s" . save-buffer)
    '("C-y" . meow-clipboard-yank)
    '("Q" . kill-now-buffer)
-   '("?" . help-helpful-lsp-bridge-sly)
+   '("?" . help-helpful-lsp-sly)
    '("gf" . find-file-at-point)
    '("gp" . goto-percent)
    '("gl" . consult-goto-line)

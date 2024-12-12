@@ -1,9 +1,49 @@
+;;; init-eglot.el --- init eglot package             -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024  lizqwer scott
+
+;; Author: lizqwer scott <lizqwerscott@gmail.com>
+;; Keywords: lisp
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;;
+
+;;; Code:
+
 (setq read-process-output-max (* 1024 1024)) ; 1MB
 (setq eglot-autoshutdown t
       eglot-events-buffer-size 0
       eglot-send-changes-idle-time 0.5)
 
 (require 'eglot)
+
+(setq eglot-ignored-server-capabilities
+      '(:inlayHintProvider
+        :documentHighlightProvider
+        :documentFormattingProvider
+        :documentRangeFormattingProvider
+        :documentOnTypeFormattingProvider
+        :colorProvider
+        :foldingRangeProvider
+        ;; :hoverProvider
+        ))
+
+(setq eglot-stay-out-of
+      '(imenu))
 
 (add-hook 'prog-mode-hook
           #'(lambda ()
@@ -27,3 +67,4 @@
   (eglot-booster-mode 1))
 
 (provide 'init-eglot)
+;;; init-eglot.el ends here
