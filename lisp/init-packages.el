@@ -83,6 +83,7 @@
     macrostep
     eglot
     consult-eglot
+    corfu
     cape
     kind-icon
     nerd-icons-corfu
