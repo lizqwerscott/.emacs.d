@@ -57,26 +57,9 @@
 ;;               (highlight-indent-guides-mode 1)))
 
 ;;; Colorize color names in buffers
-(require 'rainbow-mode)
-(with-no-warnings
-  ;; HACK: Use overlay instead of text properties to override `hl-line' faces.
-  ;; @see https://emacs.stackexchange.com/questions/36420
-  (defun my-rainbow-colorize-match (color &optional match)
-    (let* ((match (or match 0))
-           (ov (make-overlay (match-beginning match) (match-end match))))
-      (overlay-put ov 'ovrainbow t)
-      (overlay-put ov 'face `((:foreground ,(if (> 0.5 (rainbow-x-color-luminance color))
-                                                "white" "black"))
-                              (:background ,color)))))
-  (advice-add #'rainbow-colorize-match :override #'my-rainbow-colorize-match)
-
-  (defun my-rainbow-clear-overlays ()
-    "Clear all rainbow overlays."
-    (remove-overlays (point-min) (point-max) 'ovrainbow t))
-  (advice-add #'rainbow-turn-off :after #'my-rainbow-clear-overlays))
-
+(setq colorful-use-prefix t)
 (add-hook 'prog-mode-hook
-          'rainbow-mode)
+          #'colorful-mode)
 
 ;;; Highlight brackets according to their depth
 (add-hooks '(emacs-lisp-mode lisp-mode)

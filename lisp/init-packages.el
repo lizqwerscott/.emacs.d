@@ -125,7 +125,7 @@
     diff-hl
     rainbow-delimiters
     highlight-parentheses
-    rainbow-mode
+    colorful-mode
     visual-fill-column
     olivetti
     redacted
