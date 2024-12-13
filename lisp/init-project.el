@@ -265,6 +265,9 @@ NAME is class name."
    ("e" eshell-project-toggle "eshell")
    ("s" project-blink-search "blink search"))))
 
+(disproject-with-environment
+  (setq disproject-shell-command #'multi-vterm-project))
+
 ;; (define-key project-prefix-map (kbd "b") #'consult-project-buffer)
 ;; (define-key project-prefix-map (kbd "s") #'shell)
 ;; (define-key project-prefix-map (kbd "t") #'find-temp-project)
