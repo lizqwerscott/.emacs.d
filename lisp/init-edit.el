@@ -20,6 +20,12 @@
 (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
 (electric-pair-mode t)
 
+(advice-add #'meow-grab
+            :before
+            #'(lambda ()
+                (call-interactively #'electric-pair-mode)
+                (call-interactively #'awesome-pair-mode)))
+
 (require 'hungry-delete)
 (setq hungry-delete-chars-to-skip " \t\f\v"
       hungry-delete-except-modes
@@ -30,23 +36,18 @@
 (setq vundo-glyph-alist vundo-unicode-symbols)
 (global-set-key (kbd "C-/") #'vundo)
 
-;; (use-package lispy
-;;   :ensure t
-;;   :hook (lisp-mode . lispy-mode))
-
 (require 'init-awesome-pair)
 
-(with-eval-after-load 'nxm-mode
+(with-eval-after-load 'nxml-mode
   (keymap-sets nxml-mode-map
                '(("C-s-f" . nxml-down-element)
                  ("C-s-n" . nxml-forward-element)
                  ("C-s-p" . nxml-backward-element)
                  ("C-s-b" . nxml-backward-up-element))))
 
+;;; aggressive-indent
 (add-hooks '(emacs-lisp-mode lisp-mode)
-           #'(lambda ()
-               (require 'aggressive-indent)
-               (aggressive-indent-mode 1)))
+           #'aggressive-indent-mode)
 
 (add-hooks '(python-mode python-ts-mode)
            #'(lambda ()

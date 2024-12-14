@@ -62,7 +62,7 @@
 (add-to-list 'savehist-additional-variables 'corfu-history)
 
 
-;;; cpae
+;;; cape
 (add-list-to-list 'completion-at-point-functions
                   '(cape-dabbrev
                     cape-file
