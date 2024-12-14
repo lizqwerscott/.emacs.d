@@ -114,12 +114,6 @@
     (find-file-other-window centaur-custom-post-file)))
 
 ;;;###autoload
-(defun +lizqwer/toggle-lock ()
-  "Toggle computer lock."
-  (interactive)
-  (shell-command "screen-lock.sh"))
-
-;;;###autoload
 (defun +lizqwer/toggle-dark-theme ()
   "Toggle theme."
   (interactive)

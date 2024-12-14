@@ -36,8 +36,7 @@
 (lazy-one-key-create-menu
  "Toggle"
  (:key "t" :description "Toggle telega" :command +lizqwer/toggle-telega :filename "init-telega")
- (:key "l" :description "Lock screen" :command +lizqwer/toggle-lock :filename "init-func")
- (:key "b" :description "Toggle big screen mode" :command open-big-screen-mode :filename "init-big-screen")
+ (:key "b" :description "Toggle imenu list mode" :command imenu-list-smart-toggle)
  (:key "T" :description "Toggle transparent" :command +lizqwer/toggle-transparent :filename "init-func")
  (:key "e" :description "Toggle dark theme" :command +lizqwer/toggle-dark-theme :filename "init-func")
  (:key "p" :description "Toggle proxy" :command +lizqwer/toggle-proxy :filename "init-func")

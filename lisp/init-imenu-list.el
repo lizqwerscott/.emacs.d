@@ -11,10 +11,4 @@
                (window-parameters . ((no-delete-other-windows . t)
                                      (no-other-window . t)))))
 
-;;;###autoload
-(defun open-big-screen-mode ()
-  "Start big screen mode."
-  (interactive)
-  (imenu-list-smart-toggle))
-
-(provide 'init-big-screen)
+(provide 'init-imenu-list)

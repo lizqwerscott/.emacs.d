@@ -98,24 +98,23 @@
    ("c" global-centered-cursor-mode "centered cursor" :toggle t)
    ("l" interaction-log-mode "interactive log" :toggle t)
    ("i" immersive-translate-auto-mode "immersive translate" :toggle t)
-   ("t" +lizqwer/toggle-telega "telega" :toggle t)
-   ("c" +lizqwer/toggle-copilot "copilot" :toggle t))
+   ("t" +lizqwer/toggle-telega "telega" :toggle (get-buffer "*Telega Root*")))
   "Ui"
   (("n" (display-line-numbers-mode (if display-line-numbers-mode -1 1))
     "line number"
     :toggle (bound-and-true-p display-line-numbers-mode))
    ("d" +lizqwer/toggle-dark-theme "dark theme" :toggle (eq user/now-theme user/night-theme))
-   ("T" +lizqwer/toggle-transparent "transparent" :toggle (eq (frame-parameter (selected-frame) 'alpha-background) 100))
+   ("T" +lizqwer/toggle-transparent "transparent" :toggle (not (eq (frame-parameter (selected-frame) 'alpha-background) 100)))
    ("r" redacted-mode "redacted" :toggle t)
-   ("b" open-big-screen-mode "big screen" :toggle t)
-   ;; ("l" +lizqwer/toggle-lock "lock screen" :exit t)
-   )
+   ("b" imenu-list-smart-toggle "imenu list" :toggle imenu-list-minor-mode))
   "Edit"
-  (("w" toggle-sub-word-or-super-word "sub or super word" :toggle t))
+  (("w" toggle-sub-word-or-super-word "sub or super word" :toggle (bound-and-true-p subword-mode))
+   ("e" electric-pair-mode "electric pair" :toggle t))
   "Debug"
-  (("e" toggle-debug-on-error "debug on error" :toggle (bound-and-true-p debug-on-error)))
+  (("E" toggle-debug-on-error "debug on error" :toggle (bound-and-true-p debug-on-error)))
   "Program"
-  (("u" unity-mode "unity develop" :toggle t))))
+  (("f" flymake-mode "flymake" :toggle t)
+   ("u" unity-mode "unity develop" :toggle t))))
 
 (pretty-hydra-define hydra-jump-dir (:title (pretty-hydra-title "Jump to directory" 'octicon "nf-oct-file_directory_open_fill") :color amaranth :quit-key ("C-g" "q" "<escape>"))
   ("Base"
