@@ -44,7 +44,9 @@
      :repo "twlz0ne/psearch.el"
      :files ("psearch.el"))
     heap
-    (p-search :repo "zkry/p-search" :fetcher github)))
+    (p-search :repo "zkry/p-search" :fetcher github)
+    gif-screencast
+    keycast))
 
 (defvar *package-language-mode-install-list*
   '(markdown-mode

@@ -106,7 +106,8 @@
    ("d" +lizqwer/toggle-dark-theme "dark theme" :toggle (eq user/now-theme user/night-theme))
    ("T" +lizqwer/toggle-transparent "transparent" :toggle (not (eq (frame-parameter (selected-frame) 'alpha-background) 100)))
    ("r" redacted-mode "redacted" :toggle t)
-   ("b" imenu-list-smart-toggle "imenu list" :toggle imenu-list-minor-mode))
+   ("b" imenu-list-smart-toggle "imenu list" :toggle imenu-list-minor-mode)
+   ("k" keycast-log-mode "keycast" :toggle t))
   "Edit"
   (("w" toggle-sub-word-or-super-word "sub or super word" :toggle (bound-and-true-p subword-mode))
    ("e" electric-pair-mode "electric pair" :toggle t))
