@@ -265,8 +265,20 @@ NAME is class name."
    ("e" eshell-project-toggle "eshell")
    ("s" project-blink-search "blink search"))))
 
-(disproject-with-environment
-  (setq disproject-shell-command #'multi-vterm-project))
+;;; disproject
+(require 'disproject)
+
+(transient-define-suffix disproject-term ()
+  (interactive)
+  (call-interactively #'multi-vterm-project))
+
+(transient-append-suffix 'disproject-dispatch "s"
+  '("t" "Term" disproject-term))
+
+;;;autoload
+(defun project-menu ()
+  (interactive)
+  (call-interactively #'disproject-dispatch))
 
 ;; (define-key project-prefix-map (kbd "b") #'consult-project-buffer)
 ;; (define-key project-prefix-map (kbd "s") #'shell)

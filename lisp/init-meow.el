@@ -158,10 +158,8 @@
    '("n" . one-key-menu-roam)
    )
 
-  ;; (lazy-meow-leader-define-key
-  ;;  '(("p" . hydra-project/body) "init-project"))
-  (meow-leader-define-key
-   '("p" . disproject-dispatch))
+  (lazy-meow-leader-define-key
+   '(("p" . project-menu) "init-project"))
 
   (meow-leader-define-key
    '("1" . delete-other-windows)
