@@ -26,12 +26,32 @@
 
 (require 'puni)
 
-(defun puni-wrap-round-r ()
+(defun puni-wrap-double-quote (&optional n)
+  "Wrap the following S-expression with double quote brackets.
+If a ‘C-u’ prefix argument is given, wrap all S-expressions
+following the point until the end of the buffer or of the
+enclosing list.  If a numeric prefix argument N is given, wrap N
+S-expressions.  Automatically indent the newly wrapped
+S-expression."
+  (interactive "P")
+  (puni-wrap-next-sexps
+   (puni--parse-interactive-argument-for-wrap n)
+   "\"" "\""))
+
+(defun puni-wrap-round-b ()
   (interactive)
   (if (use-region-p)
       (puni-wrap-round)
     (save-excursion
       (call-interactively #'meow-block)
+      (puni-wrap-round))))
+
+(defun puni-wrap-round-r ()
+  (interactive)
+  (if (use-region-p)
+      (puni-wrap-round)
+    (save-excursion
+      (call-interactively #'meow-mark-word)
       (puni-wrap-round))))
 
 (defun puni-wrap-square-r ()
@@ -57,6 +77,14 @@
     (save-excursion
       (call-interactively #'meow-mark-word)
       (puni-wrap-angle))))
+
+(defun puni-wrap-double-quote-r ()
+  (interactive)
+  (if (use-region-p)
+      (puni-wrap-double-quote)
+    (save-excursion
+      (call-interactively #'meow-mark-word)
+      (puni-wrap-double-quote))))
 
 (defun puni-unwrap ()
   (interactive)
@@ -84,15 +112,22 @@
     (message "No active region")))
 
 (keymap-sets puni-mode-map
-             '(("M-(" . puni-wrap-round-r)
+             '(("(" . puni-wrap-round-r)
+               ;; ("[" . puni-wrap-square-r)
+               ("{" . puni-wrap-curly-r)
+               ("<" . puni-wrap-angle-r)
+               ("\"" . puni-wrap-double-quote-r)
+               ("M-(" . puni-wrap-round-b)
                ("M-[" . puni-wrap-square-r)
                ("M-{" . puni-wrap-curly-r)
                ("M-<" . puni-wrap-angle-r)
+               ("M-\"" . puni-wrap-double-quote-r)
                ("M-)" . puni-unwrap)
-               ("s-(" . puni-wrap-round-r)
+               ("s-(" . puni-wrap-round-b)
                ("s-[" . puni-wrap-square-r)
                ("s-{" . puni-wrap-curly-r)
                ("s-<" . puni-wrap-angle-r)
+               ("s-\"" . puni-wrap-double-quote-r)
                ("s-)" . puni-unwrap)))
 
 (puni-global-mode)
