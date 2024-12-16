@@ -276,11 +276,18 @@ NAME is class name."
   (interactive)
   (project-find-file t))
 
+(transient-define-suffix disproject-find-other-file ()
+  (interactive)
+  (call-interactively #'projection-find-other-file))
+
 (transient-append-suffix 'disproject-dispatch "s"
   '("t" "Term" disproject-term))
 
 (transient-replace-suffix 'disproject-dispatch "F"
   '("F" "File file with git ignore" disproject-find-file-include))
+
+(transient-replace-suffix 'disproject-dispatch "D"
+  '("o" "File other file" disproject-find-other-file))
 
 ;;;autoload
 (defun project-menu ()
