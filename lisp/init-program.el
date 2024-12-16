@@ -58,14 +58,13 @@
           (alist-get 'right-fringe eldoc-box-frame-parameters) 8)))
 
 ;;; complile
-(setq compilation-scroll-output t)
-(setq compilation-auto-jump-to-first-error t)
+(setq compilation-scroll-output nil)
+(setq compilation-auto-jump-to-first-error nil)
 (setq compilation-max-output-line-length nil)
 
-(defun ar/compile-autoclose (buffer string)
+(defun ar/compile-autoclose-or-jump-first-error (buffer string)
   "Hide successful builds window with BUFFER and STRING."
-  (when (with-current-buffer buffer
-          (equal major-mode 'compilation-mode))
+  (when (compilation-buffer-p (current-buffer))
     (if (and (string-match "finished" string)
            (not (string-match "^.*warning.*" string)))
         (progn
@@ -76,9 +75,11 @@
                                         (live (buffer-live-p buffer))
                                         (window (get-buffer-window buffer t)))
                               (delete-window window)))))
-      (message "Compilation %s" string))))
+      (progn
+        (message "Compilation %s" string)
+        (call-interactively #'compilation-next-error)))))
 
-(setq compilation-finish-functions (list #'ar/compile-autoclose))
+(setq compilation-finish-functions (list #'ar/compile-autoclose-or-jump-first-error))
 
 ;;; language
 (require 'init-elisp)
