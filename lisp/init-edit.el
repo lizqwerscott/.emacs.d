@@ -36,7 +36,8 @@
 (setq vundo-glyph-alist vundo-unicode-symbols)
 (global-set-key (kbd "C-/") #'vundo)
 
-(require 'init-awesome-pair)
+;;; puni
+(require 'init-puni)
 
 (with-eval-after-load 'nxml-mode
   (keymap-sets nxml-mode-map
