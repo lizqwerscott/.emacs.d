@@ -174,6 +174,13 @@
     '("C-c i" . one-key-menu-insert))
 
   (meow-normal-define-key
+   '("(" . puni-wrap-round-r)
+   ;; '("[" . puni-wrap-square-r)
+   '("{" . puni-wrap-curly-r)
+   '("<" . puni-wrap-angle-r)
+   '("\"" . puni-wrap-double-quote-r))
+
+  (meow-normal-define-key
    '("0" . meow-expand-0)
    '("9" . meow-expand-9)
    '("8" . meow-expand-8)

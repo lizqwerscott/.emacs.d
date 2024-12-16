@@ -112,12 +112,7 @@ S-expression."
     (message "No active region")))
 
 (keymap-sets puni-mode-map
-             '(("(" . puni-wrap-round-r)
-               ;; ("[" . puni-wrap-square-r)
-               ("{" . puni-wrap-curly-r)
-               ("<" . puni-wrap-angle-r)
-               ("\"" . puni-wrap-double-quote-r)
-               ("M-(" . puni-wrap-round-b)
+             '(("M-(" . puni-wrap-round-b)
                ("M-[" . puni-wrap-square-r)
                ("M-{" . puni-wrap-curly-r)
                ("M-<" . puni-wrap-angle-r)
