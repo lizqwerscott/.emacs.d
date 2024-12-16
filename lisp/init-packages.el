@@ -76,7 +76,7 @@
     outline-indent
     visual-replace
     (fingertip :fetcher github :repo "manateelazycat/fingertip")
-    (awesome-pair :fetcher github :repo "manateelazycat/awesome-pair")
+    puni
     (meow-vterm :fetcher github :repo "accelbread/meow-vterm")))
 
 (defvar *package-program-install-list*
