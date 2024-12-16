@@ -64,7 +64,8 @@
 
 (defun ar/compile-autoclose-or-jump-first-error (buffer string)
   "Hide successful builds window with BUFFER and STRING."
-  (when (compilation-buffer-p (current-buffer))
+  (when (with-current-buffer buffer
+          (eq major-mode 'compilation-mode))
     (if (and (string-match "finished" string)
            (not (string-match "^.*warning.*" string)))
         (progn
