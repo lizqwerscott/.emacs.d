@@ -32,13 +32,15 @@
       '(help-mode minibuffer-mode minibuffer-inactive-mode calc-mode))
 (global-hungry-delete-mode t)
 
+;;; puni
+(require 'init-puni)
+
+;;; vundo
 (require 'vundo)
 (setq vundo-glyph-alist vundo-unicode-symbols)
 (global-set-key (kbd "C-/") #'vundo)
 
-;;; puni
-(require 'init-puni)
-
+;;; nxml
 (with-eval-after-load 'nxml-mode
   (keymap-sets nxml-mode-map
                '(("C-s-f" . nxml-down-element)
@@ -50,10 +52,11 @@
 (add-hooks '(emacs-lisp-mode lisp-mode)
            #'aggressive-indent-mode)
 
-(add-hooks '(python-mode python-ts-mode)
-           #'(lambda ()
-               (require 'indent-yank)
-               (indent-yank-mode 1)))
+;;; indent yank
+(require 'indent-yank)
+(add-hook 'prog-mode-hook
+          #'indent-yank-mode)
+(indent-yank-mode 1)
 
 ;;; Visual Replace
 (require 'visual-replace)
