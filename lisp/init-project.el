@@ -272,8 +272,15 @@ NAME is class name."
   (interactive)
   (call-interactively #'multi-vterm-project))
 
+(transient-define-suffix disproject-find-file-include ()
+  (interactive)
+  (project-find-file t))
+
 (transient-append-suffix 'disproject-dispatch "s"
   '("t" "Term" disproject-term))
+
+(transient-replace-suffix 'disproject-dispatch "F"
+  '("F" "File file with git ignore" disproject-find-file-include))
 
 ;;;autoload
 (defun project-menu ()
