@@ -240,5 +240,8 @@
 (add-hook 'prog-mode-hook
           'goto-address-prog-mode)
 
+;;; Imenu list
+(require 'init-imenu-list)
+
 (provide 'init-ui)
 ;;; init-ui.el ends here.
