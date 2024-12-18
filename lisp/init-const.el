@@ -99,8 +99,6 @@
   :group 'user
   :type 'boolean)
 
-(defvar user/now-theme nil)
-
 ;;;###autoload
 (defun get-socks-proxy ()
   (concat "socks5://"

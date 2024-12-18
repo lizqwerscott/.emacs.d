@@ -82,10 +82,11 @@
 ;;;###autoload
 (defun +lizqwer/load-theme (new-theme)
   "Load theme."
-  (unless (eq new-theme user/now-theme)
-    (disable-theme user/now-theme)
+  (unless (cl-find new-theme custom-enabled-themes)
+    (dolist (theme custom-enabled-themes)
+      (disable-theme theme))
     (ignore-errors
-      (load-theme new-theme))
+      (load-theme new-theme t nil))
     (unless user/show-modeline
       ;; Disable mode line.
       (set-face-attribute 'mode-line nil
@@ -98,9 +99,7 @@
                           :background "Gay10"
                           :height 0.1
                           :box nil
-                          :inherit 'unspecified))
-    (setq user/now-theme
-          new-theme)))
+                          :inherit 'unspecified))))
 
 (defun browse-url-vivaldi (url &optional _new-window)
   "Ask the Vivaldi WWW browser to load URL.

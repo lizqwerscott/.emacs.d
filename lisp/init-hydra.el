@@ -103,7 +103,7 @@
   (("n" (display-line-numbers-mode (if display-line-numbers-mode -1 1))
     "line number"
     :toggle (bound-and-true-p display-line-numbers-mode))
-   ("d" +lizqwer/toggle-dark-theme "dark theme" :toggle (eq user/now-theme user/night-theme))
+   ("d" +lizqwer/toggle-dark-theme "dark theme" :toggle (cl-find user/night-theme custom-enabled-themes))
    ("T" +lizqwer/toggle-transparent "transparent" :toggle (not (eq (frame-parameter (selected-frame) 'alpha-background) 100)))
    ("r" redacted-mode "redacted" :toggle t)
    ("b" imenu-list-smart-toggle "imenu list" :toggle imenu-list-minor-mode)

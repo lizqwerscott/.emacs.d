@@ -117,7 +117,7 @@
 (defun +lizqwer/toggle-dark-theme ()
   "Toggle theme."
   (interactive)
-  (if (eq user/day-theme user/now-theme)
+  (if (cl-find user/day-theme custom-enabled-themes)
       (+lizqwer/load-theme user/night-theme)
     (+lizqwer/load-theme user/day-theme)))
 
