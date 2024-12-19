@@ -51,7 +51,12 @@
 
 (pcase user/lsp-client
   ('eglot
-   (add-hook 'after-init-hook #'global-corfu-mode))
+   (progn
+     (add-hook 'after-init-hook #'global-corfu-mode)
+     (advice-add #'meow-grab
+                 :before
+                 #'(lambda ()
+                     (call-interactively #'corfu-mode)))))
   ('lsp-bridge
    (add-hooks '(rust-mode sly-mrepl-mode scheme-mode sql-mode eshell-mode inferior-python-mode elvish-mode telega-chat-mode)
               #'corfu-mode)))
