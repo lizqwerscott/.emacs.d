@@ -1,8 +1,8 @@
 (require 'multi-vterm)
 (require 'vterm)
 
-(add-to-list 'load-path
-             "~/MyProject/emacs-plugin/rsync-project-mode/")
+;; (add-to-list 'load-path
+;;              "~/MyProject/emacs-plugin/rsync-project-mode/")
 
 (require 'rsync-project-mode)
 

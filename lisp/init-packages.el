@@ -110,7 +110,7 @@
     (peek :fetcher sourcehut :repo "meow_king/peek")
 
     (auto-save :fetcher github :repo "manateelazycat/auto-save")
-    ))
+    (rsync-project-mode :fetcher github :repo "lizqwerscott/rsync-project-mode")))
 
 (defvar *package-ui-install-list*
   '(solarized-theme
