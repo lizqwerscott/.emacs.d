@@ -46,7 +46,8 @@
     heap
     (p-search :repo "zkry/p-search" :fetcher github)
     gif-screencast
-    keycast))
+    keycast
+    gnuplot))
 
 (defvar *package-language-mode-install-list*
   '(markdown-mode

@@ -87,7 +87,8 @@
  '((emacs-lisp . t)
    (C . t)
    (python . t)
-   (latex . t)))
+   (latex . t)
+   (gnuplot . t)))
 
 ;;; UI
 
