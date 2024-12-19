@@ -6,9 +6,6 @@
 (setf (alist-get 'python-ts-mode apheleia-mode-alist)
       '(isort black))
 
-(setf (alist-get 'c++-ts-mode apheleia-mode-alist)
-      'astyle)
-
 (setf (alist-get 'rust-ts-mode apheleia-mode-alist)
       'cargo-fmt)
 
