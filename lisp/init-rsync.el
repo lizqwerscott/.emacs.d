@@ -6,7 +6,7 @@
 
 (require 'rsync-project-mode)
 
-(setq rsync-project-sync-on-save t)
+(setq rsync-project-auto-rsyncp t)
 
 (add-hook 'prog-mode-hook
           'rsync-project-mode)
