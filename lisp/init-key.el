@@ -46,6 +46,10 @@
  (:key "w" :description "Toggle sub word or super word" :command toggle-sub-word-or-super-word :filename "init-edit")
  (:key "i" :description "Toggle immersive-translate" :command immersive-translate-auto-mode :filename "init-immersive-translate"))
 
+(defun consult-fd-in-home ()
+  (interactive)
+  (consult-fd "~"))
+
 (lazy-one-key-create-menu
  "Search"
  (:key "l" :description "Search in buffer" :command consult-line)
@@ -55,7 +59,8 @@
  (:key "B" :description "Bookmark" :command consult-bookmark)
  (:key "s" :description "Blink Search" :command blink-search :filename "init-blink-search")
  (:key "j" :description "color rg search symbol in project" :command color-rg-search-input-in-project :filename "init-color-rg")
- (:key "b" :description "Google this" :command one-key-menu-google :filename "init-google-this"))
+ (:key "b" :description "Google this" :command one-key-menu-google :filename "init-google-this")
+ (:key "f" :description "Search file in home" :command consult-fd-in-home))
 
 (lazy-one-key-create-menu
  "Buffer"

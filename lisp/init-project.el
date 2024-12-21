@@ -241,24 +241,24 @@ NAME is class name."
  (:key "e" :description "Project eshell" :command eshell-project-toggle :filename "init-eshell")
  (:key "t" :description "Project vterm" :command multi-vterm-project :filename "multi-vterm"))
 
-(pretty-hydra-define-e
- hydra-project (:title "Project" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
- ("Basic"
-  (("f" project-find-file "find file")
-   ("o" projection-find-other-file "find other file")
-   ("d" project-dired-dir "dired")
-   ("b" consult-project-buffer "buffer")
-   ("k" project-kill-buffers "kill buffers"))
-  "project"
-  (("p" project-switch-project "switch other")
-   ("r" project-forget-project "forget")
-   ("a" project-remember-project "remember")
-   ("c" rsync-project-dispatch "rsync"))
-  "Other"
-  (("v" magit-project-status "git")
-   ("t" multi-vterm-project "vterm")
-   ("e" eshell-project-toggle "eshell")
-   ("s" project-blink-search "blink search"))))
+(pretty-hydra-define-e hydra-project
+  (:title "Project" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
+  ("Basic"
+   (("f" project-find-file "find file")
+    ("o" projection-find-other-file "find other file")
+    ("d" project-dired-dir "dired")
+    ("b" consult-project-buffer "buffer")
+    ("k" project-kill-buffers "kill buffers"))
+   "project"
+   (("p" project-switch-project "switch other")
+    ("r" project-forget-project "forget")
+    ("a" project-remember-project "remember")
+    ("c" rsync-project-dispatch "rsync"))
+   "Other"
+   (("v" magit-project-status "git")
+    ("t" multi-vterm-project "vterm")
+    ("e" eshell-project-toggle "eshell")
+    ("s" project-blink-search "blink search"))))
 
 ;;; disproject
 (require 'disproject)
