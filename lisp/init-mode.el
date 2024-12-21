@@ -13,10 +13,26 @@
                   '((sh-mode . bash-ts-mode)
                     (rust-mode . rust-ts-mode)
                     (python-mode . python-ts-mode)
+                    (cmake-mode . cmake-ts-mode)
                     (c++-mode . c++-ts-mode)
                     (c-mode . c-ts-mode)
                     (go-mode . go-ts-mode)
-                    (csharp-mode . csharp-ts-mode)))
+                    (csharp-mode . csharp-ts-mode)
+                    (conf-toml-mode . toml-ts-mode)))
+
+(add-hook 'web-mode-hook
+          #'(lambda ()
+              (let ((file-name (buffer-file-name)))
+                (when file-name
+                  (treesit-parser-create
+                   (pcase (file-name-extension file-name)
+                     ("vue" 'vue)
+                     ("html" 'html)
+                     ("php" 'php)))))))
+
+(add-hook 'ielm-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
+
+(add-hook 'emacs-lisp-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
 
 ;; Tree-sitter
 (require 'treesit)

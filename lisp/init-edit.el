@@ -24,7 +24,7 @@
             :before
             #'(lambda ()
                 (call-interactively #'electric-pair-mode)
-                (call-interactively #'awesome-pair-mode)))
+                (call-interactively #'fingertip-mode)))
 
 (require 'hungry-delete)
 (setq hungry-delete-chars-to-skip " \t\f\v"
@@ -32,8 +32,8 @@
       '(help-mode minibuffer-mode minibuffer-inactive-mode calc-mode))
 (global-hungry-delete-mode t)
 
-;;; puni
-(require 'init-puni)
+;;; fingertip
+(require 'init-fingertip)
 
 ;;; vundo
 (require 'vundo)
