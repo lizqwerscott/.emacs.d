@@ -64,6 +64,11 @@
   :group 'user
   :type 'string)
 
+(defcustom user/completion-preview-mode-use nil
+  "Is use `completion-preview-mode'"
+  :group 'user
+  :type 'boolean)
+
 (defcustom user/vivaldi-use nil
   "Is use vivaldi"
   :group 'user

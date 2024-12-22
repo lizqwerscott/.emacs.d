@@ -36,7 +36,7 @@
 
 (require 'init-minibuffer)
 (require 'init-corfu)
-(unless (or user/tabby user/copilot (equal user/lsp-client 'eglot))
+(unless (or user/tabby user/copilot user/completion-preview-mode-use)
   (require 'init-completion-preview))
 (require 'init-snippet)
 (require 'init-blink-search)

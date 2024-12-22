@@ -37,7 +37,8 @@
 
 (setq completion-preview-minimum-symbol-length 1)
 (add-list-to-list 'completion-preview-commands
-                  '(hungry-delete-backward))
+                  '(hungry-delete-backward
+                    outshine-self-insert-command))
 
 (provide 'init-completion-preview)
 ;;; init-completion-preview.el ends here
