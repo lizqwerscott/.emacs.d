@@ -6,7 +6,8 @@
 
 (require 'rsync-project-mode)
 
-(setq rsync-project-auto-rsyncp t)
+(setq rsync-project-default-auto-rsyncp t)
+(setq rsync-project-default-gitignorep t)
 
 (add-hook 'prog-mode-hook
           'rsync-project-mode)
