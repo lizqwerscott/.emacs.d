@@ -60,7 +60,8 @@
  (:key "s" :description "Blink Search" :command blink-search :filename "init-blink-search")
  (:key "j" :description "color rg search symbol in project" :command color-rg-search-input-in-project :filename "init-color-rg")
  (:key "b" :description "Google this" :command one-key-menu-google :filename "init-google-this")
- (:key "f" :description "Search file in home" :command consult-fd-in-home))
+ (:key "f" :description "Search file in home" :command consult-fd-in-home)
+ (:key "y" :description "Search YASsnippet" :command consult-yasnippet))
 
 (lazy-one-key-create-menu
  "Buffer"

@@ -4,6 +4,7 @@
     marginalia
     consult
     consult-notes
+    consult-yasnippet
     orderless
     embark
     embark-consult
