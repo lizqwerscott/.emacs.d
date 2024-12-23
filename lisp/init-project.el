@@ -287,6 +287,10 @@ NAME is class name."
 (transient-replace-suffix 'disproject-dispatch "c"
   '("c" "Rsync" rsync-project-dispatch))
 
+(transient-replace-suffix 'disproject-dispatch "SPC"
+  '(";" "Custom dispatch" disproject-custom-dispatch
+    :transient transient--do-replace))
+
 ;;;autoload
 (defun project-menu ()
   (interactive)
