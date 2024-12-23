@@ -36,7 +36,7 @@
 
 (require 'init-minibuffer)
 (require 'init-corfu)
-(unless (or user/tabby user/copilot user/completion-preview-mode-use)
+(unless (or (not user/completion-preview-mode-use) user/tabby user/copilot)
   (require 'init-completion-preview))
 (require 'init-snippet)
 (require 'init-blink-search)
