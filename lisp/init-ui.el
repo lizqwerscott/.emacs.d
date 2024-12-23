@@ -215,7 +215,7 @@
       (let ((dir (if (file-directory-p filepath)
                      (directory-file-name filepath)
                    (file-name-directory filepath))))
-        (when dir
+        (when (and dir (project-current nil dir))
           (condition-case-unless-debug err
               (setq result (project-root (project-current nil dir)))
             (error (message "Error finding PROJECT root name: %s" err))))))
