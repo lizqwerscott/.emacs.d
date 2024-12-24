@@ -60,9 +60,23 @@
 
 (cl-defmethod project-files ((project (head local)) &optional dirs)
   "Override `project-files' to use `fd' in local projects."
-  (message "hello")
   (mapcan #'my/project-files-in-directory
           (or dirs (list (project-root project)))))
+
+(cl-defmethod project-files (project &optional dirs)
+  "Override `project-files' to use `fd' and Check if the current project is a single file project in transient(eglot) projects."
+  (if (equal 'transient (car project))
+      (progn
+        (message "eglot transient single file")
+        (when-let* ((server (eglot-current-server))
+                    (buffers (eglot--managed-buffers server))
+                    (paths (project--remote-file-names
+                            (mapcar #'(lambda (buffer)
+                                        (file-truename (buffer-file-name buffer)))
+                                    buffers))))
+          paths))
+    (mapcan #'my/project-files-in-directory
+            (or dirs (list (project-root project))))))
 
 (defun ros-generate-command-json ()
   "Generated ros for lsp ."
