@@ -28,6 +28,9 @@
      (sort (split-string (shell-command-to-string command) "\0" t)
            #'string<))))
 
+(cl-defmethod project-root ((project (head local)))
+  (cdr project))
+
 (cl-defmethod project-files ((project (head local)) &optional dirs)
   "Override `project-files' to use `fd' in local projects."
   (mapcan #'my/project-files-in-directory
