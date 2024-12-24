@@ -78,69 +78,6 @@
     (mapcan #'my/project-files-in-directory
             (or dirs (list (project-root project))))))
 
-(defun ros-generate-command-json ()
-  "Generated ros for lsp ."
-  (interactive)
-  (let ((root-project (project-root (project-current))))
-    (shell-command
-     (concat (concat "cd " root-project)
-             "&& catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1"))
-    (when (not (file-exists-p
-                (concat root-project
-                        "compile_commands.json")))
-      (shell-command
-       (concat "ln -s ./Debug/compile_commands.json "
-               root-project))))
-  (message "ros ccls finish"))
-
-(defun ros-build ()
-  "Build ros code."
-  (interactive)
-  (let ((root-project (project-root (project-current))))
-    (shell-command
-     (concat (concat "cd " root-project)
-             "&& catkin_make"))))
-
-(defun cmake-generate-command-json ()
-  "Generated cmake for lsp (support cmake project)."
-  (interactive)
-  (let ((root-project (project-root (project-current))))
-    (shell-command
-     (concat (concat "cd " root-project)
-             "&& cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES"))
-    (when (not (file-exists-p
-                (concat root-project
-                        "compile_commands.json")))
-      (shell-command
-       (concat "ln -s ./Debug/compile_commands.json "
-               root-project))))
-  (message "cmake ccls finish"))
-
-(defun cmake-run-command-in-debug (command)
-  "Run command in project."
-  (let ((root-project (project-root (project-current)))
-        (compile-buffer (get-buffer-create "*Compile cmake*")))
-    (if (file-directory-p (concat root-project
-                                  "Debug"))
-        (progn
-          (async-shell-command (concat "cd "
-                                       root-project
-                                       "Debug && "
-                                       command)
-                               compile-buffer)
-          (switch-to-buffer-other-window compile-buffer))
-      (message "not generate cmake Debug dir"))))
-
-(defun cmake-compile ()
-  "Compile cmake project."
-  (interactive)
-  (cmake-run-command-in-debug "make -j16"))
-
-(defun cmake-compile-clean ()
-  "Clean make cmake project."
-  (interactive)
-  (cmake-run-command-in-debug "make clean"))
-
 (defvar temp-file-dir "~/temp/" "Set default temp file dir.")
 
 (defun make-lisp-temp (name)
