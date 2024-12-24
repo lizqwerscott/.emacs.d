@@ -242,7 +242,7 @@ NAME is class name."
   '(";" "Custom dispatch" disproject-custom-dispatch
     :transient transient--do-replace))
 
-;;;autoload
+;;;###autoload
 (defun project-menu ()
   (interactive)
   (call-interactively #'disproject-dispatch))
