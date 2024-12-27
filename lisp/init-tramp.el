@@ -3,7 +3,6 @@
 
 (setq tramp-verbose 0)
 (setq tramp-chunksize 2000)
-(setq tramp-use-ssh-controlmaster-options nil)
 
 (add-list-to-list 'recentf-exclude
                   tramp-file-name-regexp)
