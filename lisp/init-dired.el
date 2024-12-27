@@ -114,6 +114,8 @@ At 2nd time it copy current directory to kill-buffer."
                ("C-c +" . dired-create-empty-file)
                ("M-n" . scroll-up-1/3)
                ("M-p" . scroll-down-1/3)
-               ("h" . dired-up-directory)))
+               ("h" . dired-up-directory)
+               ("C-c C-r" . dired-rsync)
+               ("C-c C-x" . dired-rsync-transient)))
 
 (provide 'init-dired)

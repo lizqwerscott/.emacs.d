@@ -33,6 +33,7 @@
     restclient
     dired-git-info
     dired-rsync
+    dired-rsync-transient
     dired-toggle-sudo
     diredfl
     dired-subtree
