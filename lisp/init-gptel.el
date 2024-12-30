@@ -59,9 +59,35 @@
 
 (require 'gptel)
 (add-list-to-list 'gptel-directives
-                  '((translate . "你是一个生活在 Emacs 里面的大语言模型, 一可以翻译英语到中文, 也能将中文翻译到英文.")))
+                  `((translate . ,(concat "You are a large language model and a writing assistant. Respond concisely."
+                                          "  Follow my instructions and improve or rewrite the text I provide."
+                                          "  Generate ONLY the replacement text,"
+                                          " without any explanation or markdown code fences or org code fences."
+                                          " Rewrite: 将当前文本翻译到英语"))))
 
 (global-set-key (kbd "C-c RET") #'gptel-send)
+
+(require 'gptel-quick)
+(setq gptel-quick-system-message
+      #'(lambda (count)
+          (let* ((lang (downcase (gptel--strip-mode-suffix major-mode)))
+                 (article (if (and lang (not (string-empty-p lang))
+                                 (memq (aref lang 0) '(?a ?e ?i ?o ?u)))
+                              "an" "a")))
+            (if (derived-mode-p 'prog-mode)
+                (format (concat "You are %s %s programmer.  "
+                                "Explain in %d words or fewer."
+                                "It is best to use Chinese for the explanation.")
+                        article lang count)
+              (concat
+               (if (string-empty-p lang)
+                   "You are an editor."
+                 (format "You are %s %s editor." article lang))
+               (format "Explain in %d words or fewer." count)
+               "It is best to use Chinese for the explanation.")))))
+
+(global-set-key (kbd "M-?") #'gptel-quick)
+(global-set-key (kbd "s-?") #'gptel-quick)
 
 (provide 'init-gptel)
 ;;; init-gptel.el ends here

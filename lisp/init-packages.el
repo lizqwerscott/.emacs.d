@@ -193,6 +193,8 @@
              :branch "main"
              :files ("dist" "*.el"))
     gptel
+    (gptel-quick :fetcher github
+                 :repo "karthink/gptel-quick")
     (aider :fetcher github
            :repo "tninja/aider.el"
            :files ("aider.el"))
