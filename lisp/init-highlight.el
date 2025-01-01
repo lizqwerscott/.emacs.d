@@ -163,11 +163,6 @@
 (add-hooks '(prog-mode text-mode)
            'goggles-mode)
 
-;;; Color identifiers
-(setq color-identifiers:recoloring-delay 1)
-(add-hook 'prog-mode-hook
-          'color-identifiers-mode)
-
 ;;; Highlight web mode matching tag
 (add-hook 'web-mode-hook
           #'(lambda ()
