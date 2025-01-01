@@ -225,12 +225,6 @@
 
 (global-set-key (kbd "C-c /") #'google-this)
 
-;;; transient
-(require 'transient)
-(keymap-set transient-map
-            "<escape>"
-            #'transient-quit-one)
-
 ;;; yank
 (global-set-key (kbd "M-y") #'consult-yank-pop)
 
