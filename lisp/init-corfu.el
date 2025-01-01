@@ -36,7 +36,7 @@
       corfu-quit-no-match t
       corfu-auto-prefix 2
       corfu-preview-current nil
-      corfu-auto-delay 0.0
+      corfu-auto-delay 0.2
       corfu-popupinfo-delay '(0.4 . 0.2))
 
 (custom-set-faces
