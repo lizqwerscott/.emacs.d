@@ -100,8 +100,9 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 (advice-add 'orderless-regexp :around #'my-orderless-regexp)
 
 (require 'pyim-cstring-utils)
-(global-set-key (kbd "M-f") 'pyim-forward-word)
-(global-set-key (kbd "M-b") 'pyim-backward-word)
+(global-set-keys
+ '((("M-f" "s-f") . pyim-forward-word)
+   (("M-b" "s-b") . pyim-backward-word)))
 
 (provide 'init-pyim)
 ;;; init-pyim.el ends here

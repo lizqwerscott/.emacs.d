@@ -27,9 +27,21 @@
 ;;;###autoload
 (defmacro keymap-sets (key-map key-bindings)
   `(dolist (key-b ,key-bindings)
-     (keymap-set ,key-map
-                 (car key-b)
-                 (cdr key-b))))
+     (when-let* ((keys (car key-b))
+                 (command (cdr key-b)))
+       (if (listp keys)
+           (dolist (key keys)
+             (keymap-set ,key-map
+                         key
+                         command))
+         (keymap-set ,key-map
+                     keys
+                     command)))))
+
+;;;###autoload
+(defun global-set-keys (key-bindings)
+  (keymap-sets (current-global-map)
+               key-bindings))
 
 ;;;###autoload
 (defun add-list-to-list (list-var elements)

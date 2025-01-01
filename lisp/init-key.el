@@ -1,14 +1,10 @@
-(global-set-key (kbd "RET") 'newline-and-indent)
-(global-set-key (kbd "S-<return>") 'comment-indent-new-line)
-(global-set-key (kbd "s-o") #'ace-window)
-(global-set-key (kbd "s-n") #'scroll-up-1/3)
-(global-set-key (kbd "s-p") #'scroll-down-1/3)
-(global-set-key (kbd "s-x") #'execute-extended-command)
-
-(global-set-key (kbd "M-o") #'ace-window)
-(global-set-key (kbd "M-n") #'scroll-up-1/3)
-(global-set-key (kbd "M-p") #'scroll-down-1/3)
-(global-set-key (kbd "M-x") #'execute-extended-command)
+(global-set-keys
+ '(("RET" . newline-and-indent)
+   ("S-<return>" . comment-indent-new-line)
+   (("s-o" "M-o") . ace-window)
+   (("s-n" "M-n") . scroll-up-1/3)
+   (("s-p" "M-p") . scroll-down-1/3)
+   (("s-x" "M-x") . execute-extended-command)))
 
 (with-eval-after-load 'eww
   (keymap-sets eww-mode-map
@@ -189,29 +185,16 @@
 ;; ;;; ### Watch other window ###
 ;; ;;; --- 滚动其他窗口
 (require 'watch-other-window)
-(global-set-key (kbd "M-N")
-                #'(lambda ()
-                    (interactive)
-                    (watch-other-window-internal "up"
-                                                 (/ (window-body-height) 3))))
+(global-set-keys
+ '((("M-N" "s-N") . (lambda ()
+                      (interactive)
+                      (watch-other-window-internal "up"
+                                                   (/ (window-body-height) 3))))
+   (("M-P" "s-P") . (lambda ()
+                      (interactive)
+                      (watch-other-window-internal "down"
+                                                   (/ (window-body-height) 3))))))
 
-(global-set-key (kbd "M-P")
-                #'(lambda ()
-                    (interactive)
-                    (watch-other-window-internal "down"
-                                                 (/ (window-body-height) 3))))
-
-(global-set-key (kbd "s-N")
-                #'(lambda ()
-                    (interactive)
-                    (watch-other-window-internal "up"
-                                                 (/ (window-body-height) 3))))
-
-(global-set-key (kbd "s-P")
-                #'(lambda ()
-                    (interactive)
-                    (watch-other-window-internal "down"
-                                                 (/ (window-body-height) 3))))
 ;;; symbol overlay
 (lazy-load-global-keys
  '(("M-i" . symbol-overlay-put)
@@ -230,7 +213,8 @@
 
 ;;; gif screenshot
 (with-eval-after-load 'gif-screencast
-  (define-key gif-screencast-mode-map (kbd "<f8>") 'gif-screencast-toggle-pause)
-  (define-key gif-screencast-mode-map (kbd "<f9>") 'gif-screencast-stop))
+  (keymap-sets gif-screencast-mode-map
+               '(("<f8>" . gif-screencast-toggle-pause)
+                 ("<f9>" . gif-screencast-stop))))
 
 (provide 'init-key)
