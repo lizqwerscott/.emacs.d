@@ -31,7 +31,6 @@
       (awesome-tray-mode))
   (progn
     (require 'doom-modeline)
-    (setq doom-modeline-battery t)
     (setq doom-modeline-time-icon nil)
     (setq doom-modeline-buffer-file-name-style
           'auto)
@@ -43,6 +42,7 @@
     (add-hook 'doom-modeline-mode-hook
               #'(lambda ()
                   (display-time-mode)
-                  (display-battery-mode)))))
+                  (when doom-modeline-battery
+                    (display-battery-mode))))))
 
 (provide 'init-modeline)
