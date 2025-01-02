@@ -88,7 +88,8 @@
    (C . t)
    (python . t)
    (latex . t)
-   (gnuplot . t)))
+   (gnuplot . t)
+   (shell . t)))
 
 ;;; UI
 
