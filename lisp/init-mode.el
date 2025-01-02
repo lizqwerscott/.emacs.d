@@ -35,6 +35,8 @@
 (add-hook 'lisp-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
 (add-hook 'emacs-lisp-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
 
+(add-hook 'sh-mode-hook #'(lambda () (treesit-parser-create 'bash)))
+
 ;; Tree-sitter
 (require 'treesit)
 (customize-set-variable 'treesit-font-lock-level 4)
