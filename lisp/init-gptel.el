@@ -64,6 +64,8 @@
                                           "  Generate ONLY the replacement text,"
                                           " without any explanation or markdown code fences or org code fences."
                                           " Rewrite: 将当前文本翻译到英语"))))
+(setq gptel-use-tools t)
+(require 'init-gptel-tools)
 
 (global-set-key (kbd "C-c RET") #'gptel-send)
 
