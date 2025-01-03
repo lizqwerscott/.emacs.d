@@ -83,7 +83,8 @@
                 ,(cape-capf-super
                   #'eglot-completion-at-point
                   #'cape-dabbrev)
-                citre-completion-at-point)
+                ,(when citre-mode
+                   #'citre-completion-at-point))
               cape-dabbrev-min-length 7))
 
 (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
