@@ -79,11 +79,11 @@
 
 (defun my/eglot-capf ()
   (setq-local completion-at-point-functions
-              (list (cape-capf-super
-                     #'eglot-completion-at-point
-                     #'cape-dabbrev
-                     #'cape-abbrev
-                     #'cape-file))
+              `(cape-file
+                ,(cape-capf-super
+                  #'eglot-completion-at-point
+                  #'cape-dabbrev)
+                citre-completion-at-point)
               cape-dabbrev-min-length 7))
 
 (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
