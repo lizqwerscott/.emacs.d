@@ -52,10 +52,18 @@
         :key #'gptel-api-key
         :models '(deepseek-chat)))
 
+(setq gptel-backend-claude
+      (gptel-make-anthropic "Claude"
+        :stream t
+        :host "api.openai-proxy.org/anthropic"
+        :key #'gptel-api-key))
+
 ;; (setq gptel-model 'moonshot-v1-8k)
 ;; (setq gptel-backend gptel-backend-kimi)
 (setq gptel-model 'deepseek-chat)
 (setq gptel-backend gptel-backend-deepseek)
+;; (setq gptel-model 'claude-3-5-sonnet-20241022)
+;; (setq gptel-backend gptel-backend-claude)
 
 (require 'gptel)
 (add-list-to-list 'gptel-directives
