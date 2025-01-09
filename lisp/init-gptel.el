@@ -80,9 +80,10 @@
   (interactive "P")
   (gptel-request (list (or (get-char-property (point) 'gptel-rewrite)
                           (buffer-substring-no-properties (region-beginning) (region-end)))
-                       "What is the required change?")
+                       "What is the required change?"
+                       "Rewrite:")
     :dry-run dry-run
-    :system (assoc-value 'translate gptel-directives)
+    :system (alist-get 'translate gptel-directives)
     :stream t
     :context
     (let ((ov (or (cdr-safe (get-char-property-and-overlay (point) 'gptel-rewrite))
