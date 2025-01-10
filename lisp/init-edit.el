@@ -280,7 +280,37 @@
   (forward-char)
   (newline-and-indent))
 
+;;; grugru
 (grugru-default-setup)
+
+(grugru-define-multiple
+  ((c-ts-mode c++-ts-mode)
+   (non-alphabet "&&" "||")
+   (non-alphabet "&" "|")
+   (non-alphabet "+" "-")
+   (non-alphabet "*" "/" "%")
+   (non-alphabet ">>" "<<")
+   (non-alphabet "+=" "-=")
+   (non-alphabet "*=" "/=" "%=")
+   (non-alphabet "&=" "|=" "^=")
+   (non-alphabet ">>=" "<<=")
+   (non-alphabet "++" "--")
+   (non-alphabet "==" "!=")
+   (non-alphabet "<" "<=" ">" ">=")
+   (symbol "break" "continue")
+   (symbol "signed" "unsigned"))
+  (c++-ts-mode
+   (symbol "true" "false")
+   (symbol "vector" "array" "deque")
+   (symbol "class" "struct")
+   (symbol "float" "double")
+   (symbol "private" "public" "protected")
+   (symbol "pair" "tuple")
+   (symbol "static_cast" "dynamic_cast" "reinterpret_cast" "const_cast"))
+  ((python-mode python-ts-mode)
+   (symbol "True" "False"))
+  ((emacs-lisp-mode lisp-mode)
+   (symbol "when-let" "if-let")))
 
 ;;; add rectangle number lines
 ;;;###autoload

@@ -262,6 +262,7 @@
       '("C-o" . return-find-def))))
 
   (meow-normal-define-key
+   '("C-;" . grugru)
    '("C-s" . save-buffer)
    '("C-y" . meow-clipboard-yank)
    '("Q" . kill-now-buffer)
