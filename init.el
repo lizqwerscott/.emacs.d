@@ -9,13 +9,6 @@
 
 ;; (toggle-debug-on-error)
 ;; 启动必须加载
-;; Need install packages
-(require 'init-packages)
-
-(setq custom-file (locate-user-emacs-file "custom.el"))
-(when (file-exists-p custom-file)
-  (load custom-file))
-
 (require 'init-mode)
 (require 'init-hook)
 (require 'init-gcmh)

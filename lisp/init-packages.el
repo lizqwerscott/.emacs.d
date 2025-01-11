@@ -11,8 +11,7 @@
     fussy
     (flx-rs
      :repo "jcs-elpa/flx-rs"
-     :fetcher github
-     :files (:defaults "bin"))
+     :fetcher github)
     posframe
     request
     websocket
@@ -39,12 +38,10 @@
     dired-subtree
     dired-quick-sort
     elisp-demos
-    vterm
     (lazy-revert :fetcher github :repo "yilin-zhang/lazy-revert")
     (psearch
      :fetcher github
-     :repo "twlz0ne/psearch.el"
-     :files ("psearch.el"))
+     :repo "twlz0ne/psearch.el")
     heap
     (p-search :repo "zkry/p-search" :fetcher github)
     gif-screencast
@@ -77,14 +74,14 @@
     vundo
     outline-indent
     visual-replace
-    (fingertip :fetcher github :repo "manateelazycat/fingertip")
-    (meow-vterm :fetcher github :repo "accelbread/meow-vterm")))
+    (fingertip :fetcher github :repo "manateelazycat/fingertip")))
 
 (defvar *package-program-install-list*
   '(dumb-jump
     yasnippet
     macrostep
     eglot
+    (eglot-booster :fetcher github :repo "jdtsmith/eglot-booster")
     consult-eglot
     corfu
     cape
@@ -166,9 +163,7 @@
     pyim-basedict
     (pyim-tsinghua-dict
      :fetcher github
-     :repo "redguardtoo/pyim-tsinghua-dict"
-     :files ("pyim-tsinghua-dict.el" "pyim-tsinghua-dict.pyim"))
-    ))
+     :repo "redguardtoo/pyim-tsinghua-dict")))
 
 (defvar *package-org-install-list*
   '(org-bullets
@@ -189,16 +184,14 @@
 (defvar *package-ai-install-list*
   '((copilot :fetcher github
              :repo "zerolfx/copilot.el"
-             :branch "main"
-             :files ("dist" "*.el"))
+             :branch "main")
     (gptel :fetcher github
            :repo "karthink/gptel"
            :branch "feature-tool-use")
     (gptel-quick :fetcher github
                  :repo "karthink/gptel-quick")
     (aider :fetcher github
-           :repo "tninja/aider.el"
-           :files ("aider.el"))
+           :repo "tninja/aider.el")
     (codeium :fetcher github
              :repo "Exafunction/codeium.el")))
 
@@ -240,25 +233,6 @@
     (screenshot :fetcher github :repo "tecosaur/screenshot")
     (telega :fetcher github
             :repo "zevlg/telega.el"
-            :branch "master"
-            :files (:defaults "contrib" "etc" "server" "Makefile"))))
-
-(packages! *package-base-install-list*)
-(packages! *package-tool-install-list*)
-(packages! *package-language-mode-install-list*)
-(packages! *package-edit-install-list*)
-(packages! *package-program-install-list*)
-(packages! *package-ui-install-list*)
-(packages! *package-window-install-list*)
-(packages! *package-language-install-list*)
-(packages! *package-org-install-list*)
-(packages! *package-ai-install-list*)
-(packages! *package-rust-install-list*)
-(packages! *package-common-lisp-install-list*)
-(packages! *package-web-install-list*)
-(packages! *package-python-install-list*)
-(packages! *package-unity-install-list*)
-(packages! *package-sql-install-list*)
-(packages! *package-another-install-list*)
+            :branch "master")))
 
 (provide 'init-packages)

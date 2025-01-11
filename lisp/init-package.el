@@ -10,6 +10,7 @@
 ;;; Code:
 
 (require 'package)
+(require 'cl-lib)
 
 (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ("nongnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
@@ -23,22 +24,52 @@
 
 (require 'use-package)
 
+(custom-set-variables
+ '(package-vc-register-as-project nil))
+
+(defun my/vc-git-clone (fn remote directory rev)
+  (if (or (not (string-match-p "elpa" directory))
+         (null rev))
+      (funcall fn remote directory rev)
+    (cond
+     ((ignore-errors
+        ;; First try if rev is a branch/tag name
+        ;; https://stackoverflow.com/a/48748567/2163429
+        (vc-git--out-ok "clone" "--depth" "1" "--single-branch" "--branch" rev remote directory)))
+     ((vc-git--out-ok "clone" "--single-branch" remote directory)
+      (let ((default-directory directory))
+        (vc-git--out-ok "checkout" rev))))
+    directory))
+
+(advice-add 'vc-git-clone :around
+            'my/vc-git-clone)
+
+(cl-defun my/package-vc-install (&optional name &key (fetcher 'github) repo url branch backend local-path)
+  (let* ((url (if (equal 'git fetcher)
+                  url
+                (format "https://%s%s"
+                        (pcase fetcher
+                          ('github "github.com/")
+                          ('sourcehut "git.sr.ht/~")
+                          ('codeberg "codeberg.org/"))
+                        repo)))
+         (package-name (or name (intern (file-name-base repo)))))
+    (unless (package-installed-p package-name)
+      (if local-path
+          (package-vc-install-from-checkout local-path (symbol-name name))
+        (package-vc-install url branch backend name)))))
+
+(defun package! (package)
+  (if (listp package)
+      (apply #'my/package-vc-install
+	         package)
+    (unless (package-installed-p package)
+	  (package-install package))))
+
 (defun packages! (packages)
   (dolist (package packages)
-    (if (listp package)
-        (quelpa package)
-      (unless (package-installed-p package)
-        (package-refresh-contents)
-        (package-install package)))))
+    (package! package)))
 
-(packages! '(quelpa
-             ;; quelpa-use-package
-             ))
-
-(setq quelpa-update-melpa-p nil)
-;; (quelpa-use-package-activate-advice)
-
-;; (update-load-path)
 (defun site-lisp-update ()
   "Update site-lisp packages."
   (interactive)
@@ -50,22 +81,13 @@
      output-buffer)
     (switch-to-buffer-other-window output-buffer)))
 
-;; (use-package quelpa
-;;   :ensure t
-;;   :custom
-;;   (quelpa-update-melpa-p nil)
-;;   :config
-;;   (use-package quelpa-use-package
-;;     :ensure t)
-;;   (quelpa-use-package-activate-advice))
-
 (defun emacs-update ()
   "Update Emacs all packages."
   (interactive)
   (site-lisp-update)
   (when (version<= "29" emacs-version)
     (package-upgrade-all))
-  (quelpa-upgrade-all))
+  (package-vc-upgrade-all))
 
 ;;; install all package
 
@@ -81,8 +103,6 @@
 
     (lazy-load :fetcher github :repo "manateelazycat/lazy-load")
     (one-key :fetcher github :repo "manateelazycat/one-key")))
-
-(packages! *package-early-install-list*)
 
 (provide 'init-package)
 ;;; init-package.el ends here
