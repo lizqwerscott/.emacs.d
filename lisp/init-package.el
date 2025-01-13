@@ -44,20 +44,22 @@
 (advice-add 'vc-git-clone :around
             'my/vc-git-clone)
 
-(cl-defun my/package-vc-install (&optional name &key (fetcher 'github) repo url branch backend local-path)
-  (let* ((url (if (equal 'git fetcher)
-                  url
-                (format "https://%s%s"
-                        (pcase fetcher
-                          ('github "github.com/")
-                          ('sourcehut "git.sr.ht/~")
-                          ('codeberg "codeberg.org/"))
-                        repo)))
-         (package-name (or name (intern (file-name-base repo)))))
-    (unless (package-installed-p package-name)
-      (if local-path
-          (package-vc-install-from-checkout local-path (symbol-name name))
-        (package-vc-install url branch backend name)))))
+(cl-defun my/package-vc-install (name &key (fetcher 'github) repo url branch backend local-path)
+  (unless (package-installed-p name)
+    (if local-path
+        (package-vc-install-from-checkout local-path
+                                          (symbol-name name))
+      (package-vc-install (if (equal 'git fetcher)
+                              url
+                            (format "https://%s%s"
+                                    (pcase fetcher
+                                      ('github "github.com/")
+                                      ('sourcehut "git.sr.ht/~")
+                                      ('codeberg "codeberg.org/"))
+                                    repo))
+                          branch
+                          backend
+                          name))))
 
 (defun package! (package)
   (if (listp package)
