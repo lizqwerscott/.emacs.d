@@ -8,14 +8,15 @@
 ;;; Emacs Config
 (setq-default lexical-binding t)
 
-(require 'no-littering)
 (setq no-littering-etc-directory
       (expand-file-name "config/" user-emacs-directory))
+(require 'no-littering)
 
-(let ((path "~/.emacs.d/tmp/"))
-  (when (not (file-directory-p path))
-    (setq temporary-file-directory
-          path)))
+(let ((path (concat user-emacs-directory "tmp")))
+  (unless (file-directory-p path)
+    (make-directory path))
+  (setq temporary-file-directory
+        path))
 
 ;;; Encoding
 ;; UTF-8 as the default coding system

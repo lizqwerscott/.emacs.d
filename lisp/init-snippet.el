@@ -24,9 +24,11 @@
 
 ;;; Code:
 
-(require 'yasnippet)
 (setq yas-snippet-dirs
-      '("~/.emacs.d/config/yasnippet/snippets/"))
+      (list
+       (expand-file-name "config/yasnippet/snippets/"
+                         user-emacs-directory)))
+(require 'yasnippet)
 (yas-global-mode 1)
 
 (provide 'init-snippet)

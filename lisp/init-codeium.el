@@ -24,6 +24,12 @@
 
 ;;; Code:
 
+(setq codeium-command-executable
+      (expand-file-name
+       (pcase system-type
+         ('windows-nt "codeium_language_server.exe")
+         (_ "codeium_language_server"))
+       (expand-file-name "var/codeium" user-emacs-directory)))
 (require 'codeium)
 (add-hook 'prog-mode-hook
           #'(lambda ()
