@@ -31,9 +31,14 @@
          (_ "codeium_language_server"))
        (expand-file-name "var/codeium" user-emacs-directory)))
 (require 'codeium)
+;; (add-hook 'prog-mode-hook
+;;           #'(lambda ()
+;;               (add-to-list 'completion-at-point-functions #'codeium-completion-at-point)))
+
+(require 'codeium-overlay)
+
 (add-hook 'prog-mode-hook
-          #'(lambda ()
-              (add-to-list 'completion-at-point-functions #'codeium-completion-at-point)))
+          #'codeium-overlay-mode)
 
 (provide 'init-codeium)
 ;;; init-codeium.el ends here

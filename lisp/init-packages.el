@@ -193,7 +193,9 @@
     (aider :fetcher github
            :repo "tninja/aider.el")
     (codeium :fetcher github
-             :repo "Exafunction/codeium.el")))
+             :repo "Exafunction/codeium.el")
+    (codeium-overlay :fetcher github
+                     :repo "tjohnman/codeium-overlay.el")))
 
 (defvar *package-rust-install-list*
   '(rust-mode

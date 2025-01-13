@@ -28,7 +28,10 @@
   (interactive)
   (or ;; (tempel-complete t)
    (yas-expand)
-   (completion-preview-insert)
+   (if user/completion-preview-mode-use
+       (completion-preview-insert))
+   (if user/codeium
+       (codeium-overlay-tab-command))
    (corfu-next)))
 
 (require 'corfu)
