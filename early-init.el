@@ -11,15 +11,16 @@
   (add-to-list 'load-path
                (expand-file-name
                 (concat user-emacs-directory "lisp")))
-  ;; (add-to-list 'load-path
-  ;;              (expand-file-name
-  ;;               (concat user-emacs-directory "elpa/" "elisp-refs-20230920.201")))
   ;; (setq toggle-debug-on-error t)
   (require 'init-utils)
   (add-subdirs-to-load-path
    (concat user-emacs-directory
            "site-lisp/"))
 
+  (setq custom-file (locate-user-emacs-file "custom.el"))
+  (when (file-exists-p custom-file)
+    (load custom-file))
+  
   (require 'init-package)
   ;; (require 'benchmark-init)
   ;; (benchmark-init/activate)
