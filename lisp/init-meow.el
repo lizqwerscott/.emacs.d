@@ -11,7 +11,6 @@
         (cargo-process-mode . normal)
         (compilation-mode . normal)
         (messages-buffer-mode . normal)
-        (blink-search-mode . insert)
         (color-rg-mode . insert)
         (lsp-bridge-ref-mode . insert)
         (vterm-mode . insert)

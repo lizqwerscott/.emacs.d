@@ -115,12 +115,6 @@ NAME is class name."
                              (concat " --path "
                                      dir-path))))))
 
-;;;###autoload
-(defun project-blink-search ()
-  (interactive)
-  (let ((default-directory (project-root-path)))
-    (blink-search)))
-
 (defun project-dired-dir (dired-dir)
   (interactive (list
                 (read-directory-name "Dired open: " (project-root (project-current)))))
@@ -206,7 +200,6 @@ Support Lisp, python, c++."
  (:key "r" :description "Remove known project" :command project-forget-project)
 
  (:key "v" :description "Project Git" :command magit-status)
- (:key "s" :description "Project Blink search" :command project-blink-search :filename "init-project")
  (:key "c" :description "Project rsync all" :command rsync-project-dispatch :filename "init-rsync")
 
  (:key "e" :description "Project eshell" :command eshell-project-toggle :filename "init-eshell")
@@ -228,8 +221,7 @@ Support Lisp, python, c++."
    "Other"
    (("v" magit-project-status "git")
     ("t" multi-vterm-project "vterm")
-    ("e" eshell-project-toggle "eshell")
-    ("s" project-blink-search "blink search"))))
+    ("e" eshell-project-toggle "eshell"))))
 
 ;;; disproject
 (require 'disproject)

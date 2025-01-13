@@ -33,7 +33,6 @@
 (unless (or (not user/completion-preview-mode-use) user/tabby user/copilot)
   (require 'init-completion-preview))
 (require 'init-snippet)
-(require 'init-blink-search)
 (require 'init-tramp)
 
 (require 'init-dired)
