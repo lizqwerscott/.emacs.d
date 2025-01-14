@@ -21,7 +21,6 @@ case $1 in
     install)
         echo "Running install command..."
         emacs --batch -l base.el --eval "(install-all-packages)" &&
-        emacs --batch -l base.el --eval "(package-recompile-all)" &&
         echo "Emacs install finished."
         ;;
     recompile)
