@@ -91,6 +91,7 @@
     flymake-popon
     magit
     magit-delta
+    forge
     difftastic
     git-cliff
     devdocs

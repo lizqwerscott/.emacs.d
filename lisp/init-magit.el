@@ -44,4 +44,7 @@ It is assumed that the author has only one or two names."
               (magit-wip-mode t)
               (magit-delta-mode t)))
 
+(with-eval-after-load 'magit
+  (require 'forge))
+
 (provide 'init-magit)
