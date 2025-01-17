@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: let pattern: Vec<> = Vec::new();
-# key: letvec
-# --
-let mut ${1:name}: Vec<${2:type}> = Vec::new();
