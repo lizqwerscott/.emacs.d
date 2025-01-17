@@ -14,8 +14,6 @@
                  (symbol-value 'meow-normal-mode)))
 
 (add-hooks '(python-ts-mode rust-ts-mode c++-ts-mode web-mode bash-ts-mode go-ts-mode csharp-mode csharp-ts-mode)
-           #'(lambda ()
-               (copilot-mode)
-               (copilot-diagnose)))
+           #'copilot-mode)
 
 (provide 'init-copilot)
