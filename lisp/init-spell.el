@@ -23,6 +23,7 @@
                (wucuo-start)))
 
 (keymap-global-set "C-M-$" #'ispell-word)
+(keymap-global-set "s-$" #'ispell-word)
 
 (provide 'init-spell)
 ;;; init-spell.el ends here.
