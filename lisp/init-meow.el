@@ -73,7 +73,7 @@
            (require 'multi-vterm)
            (multi-vterm-run command)))
         ('emacs-lisp-mode (message "Not support"))
-        (t (if project-path
+        (_ (if project-path
                (call-interactively #'projection-commands-build-project)
              (call-interactively #'compile)))))))
 

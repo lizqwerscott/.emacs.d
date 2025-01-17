@@ -14,7 +14,7 @@
                       ("Makefile"))))
       (dolist (current-level pr-flags)
         (dolist (f current-level)
-          (when-let ((root (locate-dominating-file dir f)))
+          (when-let* ((root (locate-dominating-file dir f)))
             (throw 'ret (cons 'local root))))))))
 
 (setq project-find-functions '(project-try-vc my/project-try-local))
@@ -78,7 +78,7 @@
       (when (not (member file '("./" "../")))
         (let ((full-name (expand-file-name file search-path)))
           (when (file-directory-p full-name)
-            (when-let ((pr (project-current nil full-name)))
+            (when-let* ((pr (project-current nil full-name)))
               (project-remember-project pr)
               (message "add project %s..." pr))))))))
 
