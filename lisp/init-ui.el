@@ -251,5 +251,8 @@
               (require 'projection-ibuffer)
               (ibuffer-projection-set-filter-groups))))
 
+;;; Eww image slice
+(require 'init-image-slicing)
+
 (provide 'init-ui)
 ;;; init-ui.el ends here.
