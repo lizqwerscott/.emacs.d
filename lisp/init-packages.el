@@ -123,7 +123,7 @@
     lisp-extra-font-lock
     highlight-function-calls
     focus
-    goggles
+    pulsar
     diff-hl
     rainbow-delimiters
     highlight-parentheses

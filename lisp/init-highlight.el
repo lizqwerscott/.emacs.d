@@ -158,10 +158,7 @@
 ;;       (advice-add cmd :after #'my-recenter-and-pulse))))
 
 ;;; Pulse modified region
-(setq pulse-delay 0.08
-      pulse-iterations 2)
-(add-hooks '(prog-mode text-mode)
-           'goggles-mode)
+(require 'init-pulsar)
 
 ;;; Highlight web mode matching tag
 (add-hook 'web-mode-hook
