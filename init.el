@@ -10,7 +10,6 @@
 ;; (toggle-debug-on-error)
 ;; 启动必须加载
 (require 'init-mode)
-(require 'init-hook)
 (require 'init-gcmh)
 (require 'init-auto-save)
 

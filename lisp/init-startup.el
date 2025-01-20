@@ -161,5 +161,10 @@
 (setq exec-path-from-shell-arguments '("-l" )) ;remove -i read form .zshenv
 (exec-path-from-shell-initialize)
 
+(add-hook 'after-init-hook
+          (lambda ()
+            (save-place-mode t)
+            (recentf-mode t)
+            (+evan/scratch-setup)))
 (provide 'init-startup)
 ;;; init-startup.el ends here.

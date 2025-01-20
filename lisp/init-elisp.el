@@ -7,4 +7,6 @@
             "C-c C-p"
             #'ielm)
 
+(add-hook 'emacs-lisp-mode-hook 'outshine-mode)
+
 (provide 'init-elisp)
