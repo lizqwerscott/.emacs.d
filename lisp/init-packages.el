@@ -188,8 +188,7 @@
              :repo "zerolfx/copilot.el"
              :branch "main")
     (gptel :fetcher github
-           :repo "karthink/gptel"
-           :branch "feature-tool-use")
+           :repo "karthink/gptel")
     (gptel-quick :fetcher github
                  :repo "karthink/gptel-quick")
     (aider :fetcher github
