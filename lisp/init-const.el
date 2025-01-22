@@ -87,7 +87,9 @@
 (defcustom user/ai-completion nil
   "use what ai to completion: codeium, copilot, minuet"
   :group 'user
-  :type 'symbol)
+  :type '(choice (const :tag "codeium" codeium)
+                 (const :tag "copilot" copilot)
+                 (const :tag "minuet" minuet)))
 
 (defcustom user/aider nil
   "Is start aider ai"
@@ -137,7 +139,8 @@
 (defcustom user/lsp-client 'lsp-bridge
   "The lsp client"
   :group 'user
-  :type 'symbol)
+  :type '(choice (const :tag "eglot" eglot)
+                 (const :tag "lsp-bridge" lsp-bridge)))
 
 (provide 'init-const)
 ;;; init-const.el ends here.
