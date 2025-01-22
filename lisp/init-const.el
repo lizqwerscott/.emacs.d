@@ -84,20 +84,10 @@
   :group 'user
   :type 'boolean)
 
-(defcustom user/tabby nil
-  "Is start tabby ai completion"
+(defcustom user/ai-completion nil
+  "use what ai to completion: codeium, copilot, minuet"
   :group 'user
-  :type 'boolean)
-
-(defcustom user/codeium nil
-  "Is start codeium ai completion"
-  :group 'user
-  :type 'boolean)
-
-(defcustom user/copilot nil
-  "Is start copilot ai completion"
-  :group 'user
-  :type 'boolean)
+  :type 'symbol)
 
 (defcustom user/aider nil
   "Is start aider ai"

@@ -1,9 +1,9 @@
-;;; init-tabby.el --- init tabby package             -*- lexical-binding: t; -*-
+;;; init-ai.el --- init ai package                   -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2024  lizqwer scott
+;; Copyright (C) 2025  lizqwer scott
 
 ;; Author: lizqwer scott <lizqwerscott@gmail.com>
-;; Keywords: lisp
+;; Keywords: lisp, ai
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,12 +24,28 @@
 
 ;;; Code:
 
-(require 'tabby)
-(setq tabby-enable-predicates '(meow-insert-mode-p))
+(require 'init-gptel)
 
-(keymap-set tabby-completion-map "TAB" #'tabby-accept-completion)
+(when user/aider
+  (require 'init-aider))
 
-(add-hook 'prog-mode-hook 'tabby-mode)
+;; (require 'init-codegeex)
+(pcase user/ai-completion
+  ('copilot
+   (require 'init-copilot))
+  ('codeium
+   (require 'init-codeium))
+  ('minuet
+   (require 'init-minuet-ai)))
 
-(provide 'init-tabby)
-;;; init-tabby.el ends here
+(defun ai-complete ()
+  (pcase user/ai-completion
+    ('copilot
+     (copilot-accept-completion))
+    ('codeium
+     (codeium-overlay-tab-command))
+    ('minuet
+     (minuet-accept-suggestion))))
+
+(provide 'init-ai)
+;;; init-ai.el ends here

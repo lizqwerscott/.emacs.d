@@ -30,8 +30,7 @@
    (yas-expand)
    (if user/completion-preview-mode-use
        (completion-preview-insert))
-   (if user/codeium
-       (codeium-overlay-tab-command))
+   (ai-complete)
    (corfu-next)))
 
 (require 'corfu)

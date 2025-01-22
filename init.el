@@ -29,7 +29,7 @@
 
 (require 'init-minibuffer)
 (require 'init-corfu)
-(unless (or (not user/completion-preview-mode-use) user/tabby user/copilot)
+(unless (or (not user/completion-preview-mode-use) user/ai-completion)
   (require 'init-completion-preview))
 (require 'init-snippet)
 (require 'init-tramp)
@@ -50,19 +50,7 @@
 (require 'init-rsync)
 (require 'init-code-stats)
 
-(when user/copilot
-  (require 'init-copilot))
-(when user/aider
-  (require 'init-aider))
-(when user/tabby
-  (require 'init-tabby))
-(when user/codeium
-  (require 'init-codeium))
-
-;; (require 'init-codegeex)
-
-(require 'init-gptel)
-
+(require 'init-ai)
 
 ;;; Programming
 (require 'init-magit)
