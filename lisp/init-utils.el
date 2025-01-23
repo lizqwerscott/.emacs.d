@@ -153,4 +153,9 @@ The optional argument NEW-WINDOW is not used."
         emacs-basic-display
         (not (display-graphic-p)))))
 
+;; from https://www.youtube.com/watch?v=6hVFbBkO8JA&t=4s
+;;;###autoload
+(defun pmx-setup-check-parens ()
+  (add-hook 'before-save-hook #'check-parens))
+
 (provide 'init-utils)
