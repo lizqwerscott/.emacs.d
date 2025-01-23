@@ -4,7 +4,9 @@
    (("s-o" "M-o") . ace-window)
    (("s-n" "M-n") . scroll-up-1/3)
    (("s-p" "M-p") . scroll-down-1/3)
-   (("s-x" "M-x") . execute-extended-command)))
+   (("s-x" "M-x") . execute-extended-command)
+   ("C-s-f" . forward-sexp)
+   ("C-s-b" . backward-sexp)))
 
 (with-eval-after-load 'eww
   (keymap-sets eww-mode-map
