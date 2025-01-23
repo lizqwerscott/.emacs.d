@@ -30,5 +30,12 @@
 (setq citre-ctags-program "/usr/bin/ctags")
 (add-hook 'find-file-hook #'citre-auto-enable-citre-mode)
 
+(add-hook #'eglot-managed-mode-hook
+          #'(lambda ()
+              (when citre-mode
+                (setq-local xref-backend-functions
+                            '(citre-xref-backend
+                              t)))))
+
 (provide 'init-citre)
 ;;; init-citre.el ends here
