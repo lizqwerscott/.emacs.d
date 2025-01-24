@@ -169,8 +169,6 @@
    '("0" . delete-window)
    '("r" . run-or-compile))
 
-  ;; (lazy-meow-insert-define-key
-  ;;  '(("C-c i" . insert-translated-name-insert) "init-translated-name"))
   (meow-define-keys 'insert
     '("C-c i" . one-key-menu-insert))
 
