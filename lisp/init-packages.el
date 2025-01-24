@@ -197,8 +197,8 @@
              :repo "Exafunction/codeium.el")
     (codeium-overlay :fetcher github
                      :repo "tjohnman/codeium-overlay.el")
-    (minuet-ai :fetcher github
-               :repo "milanglacier/minuet-ai.el")))
+    (minuet :fetcher github
+            :repo "milanglacier/minuet-ai.el")))
 
 (defvar *package-rust-install-list*
   '(rust-mode
