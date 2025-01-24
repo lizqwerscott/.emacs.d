@@ -38,13 +38,31 @@
 
 (setq rime-show-candidate 'posframe)
 (setq rime-disable-predicates
-      '(rime-predicate-after-alphabet-char-p
-        rime-predicate-prog-in-code-p
-        pyim-probe-meow-normal-mode
+      '(meow-normal-mode-p
+        meow-motion-mode-p
+        meow-keypad-mode-p
+
         rime-predicate-hydra-p
         rime-predicate-ace-window-p
+
+        rime-predicate-prog-in-code-p
+
+        rime-predicate-after-alphabet-char-p
         rime-predicate-punctuation-after-space-cc-p
-        rime-predicate-space-after-cc-p))
+        rime-predicate-special-ascii-line-begin-p))
+
+(setq rime-inline-predicates
+      ;; If cursor is after a whitespace
+      ;; which follow a non-ascii character.
+      '(rime-predicate-space-after-cc-p
+        ;; If the current charactor entered is a uppercase letter.
+        rime-predicate-current-uppercase-letter-p))
+
+(defun rime-predicate-special-ascii-line-begin-p ()
+  "If '/' or '#' at the beginning of the line."
+  (and (> (point) (save-excursion (back-to-indentation) (point)))
+     (let ((string (buffer-substring (point) (max (line-beginning-position) (- (point) 80)))))
+       (string-match-p "^[\/#]" string))))
 
 (require 'im-cursor-chg)
 (cursor-chg-mode t)

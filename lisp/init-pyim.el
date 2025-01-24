@@ -26,10 +26,6 @@
 
 (require 'posframe)
 
-(defun pyim-probe-meow-normal-mode ()
-  "probe meow normal mode"
-  (symbol-value 'meow-normal-mode))
-
 ;;; Copy from https://github.com/DogLooksGood/emacs-rime/blob/fd434071ce95c41e5d580e303ccf2a65f189e7ec/rime-predicates.el#LL14C1-L20C90
 (defun rime-predicate-after-alphabet-char-p ()
   "If the cursor is after a alphabet character.
@@ -82,8 +78,11 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
                 ;; rime-predicate-space-after-ascii-p
                 rime-predicate-space-after-cc-p
 
+                meow-normal-mode-p
+                meow-motion-mode-p
+                meow-keypad-mode-p
+
                 pyim-probe-program-mode
-                pyim-probe-meow-normal-mode
                 pyim-probe-org-structure-template))
 (setq-default pyim-punctuation-translate-p '(no))
 ;; (require 'pyim-basedict)
