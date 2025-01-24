@@ -82,6 +82,13 @@
 
 (setq compilation-finish-functions (list #'ar/compile-autoclose-or-jump-first-error))
 
+;;; lisp
+(add-hook 'before-save-hook
+          #'(lambda ()
+              (when (and (equal major-mode 'elisp-mode)
+                       (equal major-mode 'lisp-mode))
+                (call-interactively #'check-parens))))
+
 ;;; language
 (require 'init-elisp)
 (require 'init-python)

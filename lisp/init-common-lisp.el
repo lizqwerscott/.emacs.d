@@ -49,7 +49,4 @@ Nominally unique, but not enforced."
               (unless (sly-connected-p)
                 (save-excursion (sly)))))
 
-(add-hook 'lisp-mode-hook
-          #'pmx-setup-check-parens)
-
 (provide 'init-common-lisp)
