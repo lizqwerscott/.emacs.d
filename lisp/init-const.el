@@ -49,6 +49,18 @@
   :group 'user
   :type 'boolean)
 
+(defcustom user/dashboard t
+  "Show dashboard"
+  :group 'user
+  :type 'boolean)
+
+(defcustom user/logo (file-truename
+                      (concat user-emacs-directory
+                              "logos/gnu_color.svg"))
+  "Show dashboard"
+  :group 'user
+  :type 'string)
+
 (defcustom user/day-theme 'ef-spring
   "User day theme"
   :group 'user

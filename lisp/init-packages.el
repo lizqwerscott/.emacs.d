@@ -118,6 +118,8 @@
     nerd-icons
     nerd-icons-dired
     nerd-icons-completion
+    page-break-lines
+    dashboard
     doom-modeline
     pretty-mode
     lisp-extra-font-lock

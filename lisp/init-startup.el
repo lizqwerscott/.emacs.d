@@ -164,7 +164,6 @@
 (add-hook 'after-init-hook
           (lambda ()
             (save-place-mode t)
-            (recentf-mode t)
-            (+evan/scratch-setup)))
+            (recentf-mode t)))
 (provide 'init-startup)
 ;;; init-startup.el ends here.
