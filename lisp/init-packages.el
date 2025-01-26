@@ -114,7 +114,6 @@
 
 (defvar *package-ui-install-list*
   '(solarized-theme
-    all-the-icons
     nerd-icons
     nerd-icons-dired
     nerd-icons-completion
@@ -238,6 +237,8 @@
     ;; tabspaces
     docker
     (screenshot :fetcher github :repo "tecosaur/screenshot")
+    (telega-url-shorten-nerd :fetcher github
+                             :repo "lizqwerscott/telega-url-shorten-nerd")
     (telega :fetcher github
             :repo "zevlg/telega.el"
             :branch "master")))
