@@ -43,8 +43,6 @@
 ;;; modeline
 (require 'init-modeline)
 ;;; tab bar
-;; (require 'sort-tab)
-;; (sort-tab-mode 1)
 (require 'init-tab-bar)
 
 ;;; Head line

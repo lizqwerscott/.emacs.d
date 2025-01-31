@@ -113,13 +113,6 @@
    (("J" . "Dired jump other window") . dired-jump-other-window)))
 
 (one-key-create-menu
- "sort-tab"
- '((("n" . "Sort tab select next tab") . sort-tab-select-next-tab)
-   (("p" . "Sort tab select prev tab") . sort-tab-select-prev-tab)
-   (("c" . "Sort tab close current tab") . sort-tab-close-current-tab)
-   (("m" . "Sort tab close all mode tabs") . sort-tab-close-mode-tabs)))
-
-(one-key-create-menu
  "Git"
  '((("n" . "Next hunk") . diff-hl-next-hunk)
    (("p" . "Previous hunk") . diff-hl-previous-hunk)

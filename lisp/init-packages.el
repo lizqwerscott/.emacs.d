@@ -136,8 +136,6 @@
     imenu-list
     outshine
     (indent-bars :fetcher github :repo "jdtsmith/indent-bars")
-    (sort-tab :fetcher github
-              :repo "manateelazycat/sort-tab")
     (awesome-tray :fetcher github
                   :repo "manateelazycat/awesome-tray")
     (breadcrumb :fetcher github

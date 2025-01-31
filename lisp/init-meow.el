@@ -149,7 +149,6 @@
    '("f" . one-key-menu-file)
    '("b" . one-key-menu-buffer)
    '("o" . one-key-menu-org)
-   ;; '("v" . one-key-menu-sort-tab)
    '("v" . hydra-git/body)
    '("l" . one-key-menu-workspace)
    '("z" . hydra-language/body)
