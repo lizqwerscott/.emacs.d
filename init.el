@@ -11,7 +11,8 @@
 ;; 启动必须加载
 (require 'init-mode)
 (require 'init-gcmh)
-(require 'init-auto-save)
+;; (require 'init-auto-save)
+(require 'init-super-save)
 
 (require 'init-ui)
 
