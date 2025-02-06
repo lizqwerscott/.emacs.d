@@ -95,6 +95,12 @@ At 2nd time it copy current directory to kill-buffer."
     (message path)
     (kill-new path)))
 
+(defun dired-do-open-default ()
+  "Open the current default directory using the external app."
+  (interactive)
+  (shell-command-do-open
+   (list (file-truename default-directory))))
+
 ;;; Hook
 (add-hook 'dired-mode-hook
           #'(lambda ()
@@ -116,6 +122,7 @@ At 2nd time it copy current directory to kill-buffer."
                ("M-p" . scroll-down-1/3)
                ("h" . dired-up-directory)
                ("C-c C-r" . dired-rsync)
-               ("C-c C-x" . dired-rsync-transient)))
+               ("C-c C-x" . dired-rsync-transient)
+               ("C-c e" . dired-do-open-default)))
 
 (provide 'init-dired)
