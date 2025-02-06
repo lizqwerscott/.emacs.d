@@ -64,12 +64,6 @@
 
 ;;; fussy
 (push 'fussy completion-styles)
-(setq
- ;; For example, project-find-file uses 'project-files which uses
- ;; substring completion by default. Set to nil to make sure it's using
- ;; flx.
- completion-category-defaults nil
- completion-category-overrides nil)
 ;; flx-rs
 (require 'flx-rs)
 (setq fussy-score-fn 'fussy-flx-rs-score)
