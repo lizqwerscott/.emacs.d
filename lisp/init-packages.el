@@ -114,8 +114,7 @@
     (image-slicing :fetcher github :repo "ginqi7/image-slicing")))
 
 (defvar *package-ui-install-list*
-  '(solarized-theme
-    nerd-icons
+  '(nerd-icons
     nerd-icons-dired
     nerd-icons-completion
     page-break-lines
