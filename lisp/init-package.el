@@ -69,6 +69,7 @@
 	  (package-install package))))
 
 (defun packages! (packages)
+  (package-refresh-contents)
   (dolist (package packages)
     (package! package)))
 
