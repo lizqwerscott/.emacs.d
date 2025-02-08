@@ -73,6 +73,7 @@
 ;;; Highlight uncommitted changes using VC
 (require 'diff-hl)
 (setq diff-hl-draw-borders nil)
+(setq diff-hl-disable-on-remote t)
 
 (custom-set-faces
  '(diff-hl-change ((t (:inherit custom-changed :foreground unspecified :background unspecified))))
