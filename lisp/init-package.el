@@ -87,9 +87,7 @@
   "Update Emacs all packages."
   (interactive)
   (site-lisp-update)
-  (when (version<= "29" emacs-version)
-    (package-upgrade-all))
-  (package-vc-upgrade-all))
+  (call-interactively #'package-upgrade-all))
 
 ;;; install all package
 
@@ -103,6 +101,8 @@
 
     (lazy-load :fetcher github :repo "manateelazycat/lazy-load")
     (one-key :fetcher github :repo "manateelazycat/one-key")))
+
+(packages! *package-early-install-list*)
 
 (provide 'init-package)
 ;;; init-package.el ends here

@@ -9,6 +9,8 @@
 
 ;; (toggle-debug-on-error)
 ;; 启动必须加载
+(require 'init-packages)
+
 (require 'init-mode)
 (require 'init-gcmh)
 ;; (require 'init-auto-save)

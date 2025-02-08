@@ -241,4 +241,27 @@
             :repo "zevlg/telega.el"
             :branch "master")))
 
+(packages!
+ '(vterm
+   (meow-vterm :fetcher github :repo "accelbread/meow-vterm")))
+
+(packages!
+ (append *package-base-install-list*
+         *package-tool-install-list*
+         *package-language-mode-install-list*
+         *package-edit-install-list*
+         *package-program-install-list*
+         *package-ui-install-list*
+         *package-window-install-list*
+         *package-language-install-list*
+         *package-org-install-list*
+         *package-ai-install-list*
+         *package-rust-install-list*
+         *package-common-lisp-install-list*
+         *package-web-install-list*
+         *package-python-install-list*
+         *package-unity-install-list*
+         *package-sql-install-list*
+         *package-another-install-list*))
+
 (provide 'init-packages)
