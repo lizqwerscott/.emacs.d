@@ -133,6 +133,15 @@
  (:key "G" :description "gptel menu" :command gptel-menu)
  (:key "a" :description "Aider" :command aider-transient-menu))
 
+(defun lsp-diagnostic ()
+  (interactive)
+  (pcase user/lsp-client
+    ('eglot
+     (call-interactively #'consult-flymake))
+    ('lsp-bridge
+     (autoload #'one-key-menu-diagnostic "init-lsp-bridge" nil t)
+     (call-interactively #'one-key-menu-diagnostic))))
+
 (defun lsp-rename ()
   (interactive)
   (pcase user/lsp-client
@@ -142,22 +151,54 @@
      (autoload #'lsp-bridge-rename "init-lsp-bridge" nil t)
      (call-interactively #'lsp-bridge-rename))))
 
+(defun lsp-restart ()
+  (interactive)
+  (pcase user/lsp-client
+    ('eglot
+     (call-interactively #'eglot-shutdown)
+     (call-interactively #'eglot))
+    ('lsp-bridge
+     (autoload #'lsp-bridge-restart-process "init-lsp-bridge" nil t)
+     (call-interactively #'lsp-bridge-restart-process))))
+
+(defun lsp-code-action ()
+  (interactive)
+  (pcase user/lsp-client
+    ('eglot
+     (call-interactively #'eglot-code-actions))
+    ('lsp-bridge
+     (autoload #'lsp-bridge-code-action "init-lsp-bridge" nil t)
+     (call-interactively #'lsp-bridge-code-action))))
+
+(defun lsp-search-symbol ()
+  (interactive)
+  (pcase user/lsp-client
+    ('eglot
+     (call-interactively #'consult-eglot-symbols))
+    ('lsp-bridge
+     (autoload #'lsp-bridge-workspace-list-symbols "init-lsp-bridge" nil t)
+     (call-interactively #'lsp-bridge-workspace-list-symbols))))
+
+(defun code-peek ()
+  (interactive)
+  (pcase user/lsp-client
+    ('eglot
+     (if (bound-and-true-p citre-mode)
+         (call-interactively #'citre-peek)
+       (message "Eglot not support peek")))
+    ('lsp-bridge
+     (autoload #'lsp-bridge-peek "init-lsp-bridge" nil t)
+     (call-interactively #'lsp-bridge-peek))))
+
 (lazy-one-key-create-menu
  "Code"
- (:key "h" :description "Show document" :command lsp-bridge-popup-documentation :filename "init-lsp-bridge")
- (:key "j" :description "Scroll doc up" :command lsp-bridge-popup-documentation-scroll-up :filename "init-lsp-bridge")
- (:key "k" :description "Scroll doc down" :command lsp-bridge-popup-documentation-scroll-down :filename "init-lsp-bridge")
  (:key "f" :description "Format code" :command apheleia-format-buffer :filename "init-format")
- (:key "d" :description "Diagnostic" :command one-key-menu-diagnostic :filename "init-lsp-bridge")
- (:key "D" :description "Lsp Bridge jump to def other window" :command lsp-bridge-find-def-other-window :filename "init-lsp-bridge")
- (:key "r" :description "Lsp Bridge rename" :command lsp-rename)
- (:key "R" :description "Lsp Bridge restart" :command lsp-bridge-restart-process :filename "init-lsp-bridge")
- (:key "i" :description "Lsp Bridge find impl" :command lsp-bridge-find-impl :filename "init-lsp-bridge")
- (:key "I" :description "Lsp Bridge find impl other window" :command lsp-bridge-find-impl-other-window :filename "init-lsp-bridge")
- (:key "a" :description "Lsp Bridge code action" :command lsp-bridge-code-action :filename "init-lsp-bridge")
- (:key "s" :description "Lsp Bridge all symbols" :command lsp-bridge-workspace-list-symbols :filename "init-lsp-bridge")
- (:key "p" :description "Lsp Bridge peek" :command lsp-bridge-peek :filename "init-lsp-bridge")
- (:key "t" :description "Lsp Bridge peek through" :command lsp-bridge-peek-through :filename "init-lsp-bridge"))
+ (:key "d" :description "Diagnostic" :command lsp-diagnostic)
+ (:key "r" :description "Lsp rename" :command lsp-rename)
+ (:key "R" :description "Lsp restart" :command lsp-restart)
+ (:key "a" :description "Lsp code action" :command lsp-code-action)
+ (:key "s" :description "Lsp search symbol" :command lsp-search-symbol)
+ (:key "p" :description "Code peek" :command code-peek))
 
 (lazy-one-key-create-menu
  "Org"
