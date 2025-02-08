@@ -5,7 +5,6 @@
 ;; (setq dired-recursive-deletes 'always)
 (setq dired-auto-revert-buffer t)
 (setq dired-hide-details-hide-symlink-targets nil)
-(setq dired-kill-when-opening-new-dired-buffer t)
 (setq dired-dwim-target t)
 (setq dired-listing-switches "-AFhlv --group-directories-first")
 (setq dired-kill-when-opening-new-dired-buffer t)
