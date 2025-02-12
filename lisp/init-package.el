@@ -66,10 +66,20 @@
       (apply #'my/package-vc-install
 	         package)
     (unless (package-installed-p package)
-	  (package-install package))))
+      ;; from use-package-ensure
+      (condition-case-unless-debug err
+          (if (assoc package package-archive-contents)
+              (package-install package)
+            (package-refresh-contents)
+            (package-install package))
+        (error
+         (display-warning 'package
+                          (format "Failed to install %s: %s"
+                                  package
+                                  (error-message-string err))
+                          :error))))))
 
 (defun packages! (packages)
-  (package-refresh-contents)
   (dolist (package packages)
     (package! package)))
 
