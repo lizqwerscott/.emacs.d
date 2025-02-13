@@ -1,9 +1,39 @@
 * My Emacs Config
 This is my little Emacs config.
-* Install On Arch Linux
-** Install Emacs git version:
-#+begin_src shell
+* Install
+** Install Emacs
+*** Arch linux
+**** package
+#+begin_src bash
   sudo pacman -S emacs-git
+#+end_src
+**** compile
+***** Install dependencies
+#+begin_src bash
+  yay -S tree-sitter sqlite3
+#+end_src
+***** Compile
+#+begin_src bash
+  git clone https://github.com/emacs-mirror/emacs.git --depth=1 &&
+  cd emacs && git pull && ./autogen.sh &&
+  ./configure --with-tree-sitter &&
+  sudo make install -j16
+#+end_src
+*** Ubuntu
+**** Install dependencies
+#+begin_src bash
+  sudo apt build-dep emacs
+  sudo apt install libgccjit0 libgccjit-10-dev libjansson4 libjansson-dev \
+      gnutls-bin libtree-sitter-dev gcc-10 imagemagick libmagick++-dev \
+      libwebp-dev webp libxft-dev libxft2 \
+      sqlite3
+#+end_src
+**** Compile
+#+begin_src bash
+  git clone https://github.com/emacs-mirror/emacs.git --depth=1 &&
+  cd emacs && git pull && ./autogen.sh &&
+  ./configure --with-tree-sitter &&
+  sudo make install -j16
 #+end_src
 ** Download source code:
 Use ssh:
@@ -23,47 +53,57 @@ Use http:
 
   git submodule foreach git checkout master
 #+end_src
-** Need install some package
+** Dependencies
+*** Need install some package
 1. xclip
 2. sdcv
-3. [[https://github.com/soimort/translate-shell][translate-shell]]
-4. [[https://github.com/zevlg/tgs2png][tgs2png]]
-** Need build [[https://github.com/lizqwerscott/tree-sitter-module][tree-sitter]] library
-*** clone build scripts
-**** http
+3. [[https://github.com/soimort/translate-shell][translate-shell]] for immersive translate
+4. [[https://github.com/zevlg/tgs2png][tgs2png]] for telega use
+*** Need build [[https://github.com/lizqwerscott/tree-sitter-module][tree-sitter]] library
+**** clone build scripts
+***** http
 #+begin_src bash
   git clone https://github.com/lizqwerscott/tree-sitter-module.git -b vue
 #+end_src
-**** ssh
+***** ssh
 #+begin_src bash
   git clone git@github.com:lizqwerscott/tree-sitter-module.git -b vue
 #+end_src
-*** build
+**** build
 #+begin_src bash
   JOBS=16 ./batch.sh
 #+end_src
-*** copy library
+**** copy library
 Copy generated library to "~/.emacs.d/tree-sitter"
 #+begin_src bash
   mkdir -p ~/.emacs.d/tree-sitter/
   cp -r ./dist/* ~/.emacs.d/tree-sitter/
 #+end_src
-*** rename gomod library
+**** rename gomod library
 The repository [[https://github.com/camdencheek/tree-sitter-go-mod][lib-tree-sitter-go-mod]] generates a library named `go-mod`, but internally it uses the name `gomod`. Since Emacs looks for `gomod`, we need to rename it accordingly.
 #+begin_src bash
   cd ~/.emacs.d/tree-sitter/
   mv libtree-sitter-go-mod.so libtree-sitter-gomod.so
 #+end_src
-** Need build TD library
-** Need download sdcv dict
+*** Install language server
+Get list form [[https://github.com/manateelazycat/lsp-bridge][lsp bridge]]
+*** Need download sdcv dict
 [[https://kdr2.com/resource/stardict.html][sdcv download url]]
+*** Need build [[https://github.com/tdlib/td.git][TD]] library
+#+begin_src bash
+  git clone https://github.com/tdlib/td.git
+  cd td && mkdir build && cd build
+  cmake -DCMAKE_BUILD_TYPE=Release ..
+  cmake --build .
+#+end_src
 ** Fonts
-*** English
+*** Arch Linux
+**** English
 Source Code Pro
 #+begin_src bash
   yay -S ttf-adobe-source-code-pro-fonts
 #+end_src
-*** Chinese
+**** Chinese
 LXGW WenKai Screen (霞鹜文楷的屏幕舒适阅读版本)
 #+begin_src bash
   yay -S ttf-lxgw-wenkai-screen
@@ -72,8 +112,6 @@ LXGW Neo Xihei (霞鹜新晰黑)
 #+begin_src bash
   yay -S ttf-lxgw-neo-xihei-screen-full
 #+end_src
-** Install language server
-Get list form [[https://github.com/manateelazycat/lsp-bridge][lsp bridge]]
 * Update extensions:
 #+begin_src shell
   git submodule foreach git pull --rebase
