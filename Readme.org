@@ -56,9 +56,11 @@ Use http:
 ** Dependencies
 *** Need install some package
 1. xclip
-2. sdcv
-3. [[https://github.com/soimort/translate-shell][translate-shell]] for immersive translate
-4. [[https://github.com/zevlg/tgs2png][tgs2png]] for telega use
+2. [[https://github.com/BurntSushi/ripgrep][ripgrep]]
+3. [[https://github.com/sharkdp/fd][fd]]
+4. sdcv
+5. [[https://github.com/soimort/translate-shell][translate-shell]] for immersive translate
+6. [[https://github.com/zevlg/tgs2png][tgs2png]] for telega use
 *** Need build [[https://github.com/lizqwerscott/tree-sitter-module][tree-sitter]] library
 **** clone build scripts
 ***** http
