@@ -77,6 +77,29 @@
 (global-set-key (kbd "s-r") #'visual-replace)
 (visual-replace-global-mode 1)
 
+;;; isearch
+(setq isearch-lazy-count t
+      lazy-count-prefix-format "%s/%s ")
+
+(defvar my/isearch--direction nil)
+
+(defun my/isearch-repeat (&optional arg)
+  (interactive "P")
+  (isearch-repeat my/isearch--direction arg))
+
+(with-eval-after-load 'isearch
+
+  (define-advice isearch-exit (:after nil)
+    (setq-local my/isearch--direction nil))
+  (define-advice isearch-repeat-forward (:after (_))
+    (setq-local my/isearch--direction 'forward))
+  (define-advice isearch-repeat-backward (:after (_))
+    (setq-local my/isearch--direction 'backward))
+
+  (keymap-sets isearch-mode-map
+               '(("<return>" . my/isearch-repeat)
+                 ("<escape>" . isearch-exit))))
+
 ;;; Outline indent
 (require 'init-outline-indent)
 
