@@ -58,6 +58,14 @@
         :host "api.openai-proxy.org/anthropic"
         :key #'gptel-api-key))
 
+(setq gptel-backend-openrouter
+      (gptel-make-openai "OpenRouter"
+        :stream t
+        :host "openrouter.ai"
+        :endpoint "/api/v1/chat/completions"
+        :key #'gptel-api-key
+        :models '(openrouter/auto google/gemini-2.0-flash-lite-preview-02-05:free deepseek/deepseek-r1:free deepseek/deepseek-chat:free)))
+
 ;; (setq gptel-model 'moonshot-v1-8k)
 ;; (setq gptel-backend gptel-backend-kimi)
 (setq gptel-model 'deepseek-chat)
