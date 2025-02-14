@@ -28,9 +28,9 @@
 
 (setq super-save-auto-save-when-idle t
       super-save-idle-duration 1
-      
+
       super-save-remote-files nil
-      
+
       super-save-exclude '(".gpg")
       super-save-silent t
 
@@ -39,7 +39,8 @@
 
       super-save-all-buffers t)
 
-(add-to-list 'super-save-triggers 'ace-window)
+(add-list-to-list 'super-save-triggers
+                  '(ace-window magit-status))
 (add-to-list 'super-save-hook-triggers 'find-file-hook)
 
 (super-save-mode +1)
