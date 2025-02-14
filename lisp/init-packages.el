@@ -197,7 +197,9 @@
     (codeium-overlay :fetcher github
                      :repo "tjohnman/codeium-overlay.el")
     (minuet :fetcher github
-            :repo "milanglacier/minuet-ai.el")))
+            :repo "milanglacier/minuet-ai.el")
+    (gptel-aibo :fetcher github
+                :repo "dolmens/gptel-aibo")))
 
 (defvar *package-rust-install-list*
   '(rust-mode

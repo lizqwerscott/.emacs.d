@@ -24,9 +24,6 @@
 
 ;;; Code:
 
-
-(setq gptel-default-mode 'org-mode)
-
 (setq gptel-backend-kimi
       (gptel-make-openai "kimi"
         :stream t
@@ -129,6 +126,8 @@
 
 (global-set-keys
  '((("M-?" "s-?") . gptel-quick)))
+
+(require 'init-gptel-aibo)
 
 (provide 'init-gptel)
 ;;; init-gptel.el ends here
