@@ -93,7 +93,6 @@
     magit-delta
     forge
     difftastic
-    git-cliff
     devdocs
     wucuo
     projection
