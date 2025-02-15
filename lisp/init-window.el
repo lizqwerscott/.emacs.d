@@ -6,6 +6,9 @@
 
 ;;; winner mode
 (winner-mode 1)
+(keymap-sets winner-mode-map
+             '(("C-c H" . winner-undo)
+               ("C-c L" . winner-redo)))
 
 ;;; shackle
 (require 'shackle)
