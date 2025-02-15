@@ -24,6 +24,8 @@
 
 ;;; Code:
 
+(setq gptel-default-mode 'org-mode)
+
 (setq gptel-backend-kimi
       (gptel-make-openai "kimi"
         :stream t
