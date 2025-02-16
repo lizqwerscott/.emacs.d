@@ -1,5 +1,7 @@
 * My Emacs Config
 This is my little Emacs config.
+[[file:images/EmacsMain.png]]
+[[file:images/EmacsFile.png]]
 * Install
 ** Install Emacs
 *** Arch linux
