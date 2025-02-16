@@ -109,6 +109,10 @@
    (("p" . "Project Dir") . ,(open-dir "~/MyProject/"))
    (("d" . "Document Dir") . ,(open-dir "~/Documents/"))
    (("s" . "Fuzzy search Dir") . consult-fd-dir)
+   (("v" . "Dirvish") . (lambda ()
+                          (interactive)
+                          (when user/dirvish
+                            (call-interactively #'dirvish))))
    (("j" . "Dired jump") . dired-jump)
    (("J" . "Dired jump other window") . dired-jump-other-window)))
 

@@ -37,6 +37,7 @@
     diredfl
     dired-subtree
     dired-quick-sort
+    dirvish
     elisp-demos
     (lazy-revert :fetcher github :repo "yilin-zhang/lazy-revert")
     (psearch

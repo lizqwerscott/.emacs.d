@@ -98,6 +98,15 @@ Get list form [[https://github.com/manateelazycat/lsp-bridge][lsp bridge]]
   cmake -DCMAKE_BUILD_TYPE=Release ..
   cmake --build .
 #+end_src
+*** [[https://github.com/alexluigit/dirvish?tab=readme-ov-file][Dirvish]] dependencies
+**** Arch
+#+begin_src bash
+  sudo pacman -S fd poppler ffmpegthumbnailer mediainfo imagemagick tar unzip
+#+end_src
+**** Debian
+#+begin_src bash
+  sudo apt install fd-find poppler-utils ffmpegthumbnailer mediainfo imagemagick tar unzip
+#+end_src
 ** Fonts
 *** Arch Linux
 **** English

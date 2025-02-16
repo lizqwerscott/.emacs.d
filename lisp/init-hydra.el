@@ -134,7 +134,12 @@
            (autoload 'consult-fd-dir "init-func" nil t)
            (consult-fd-dir)) "Fuzzy search Dir")
     ("j" dired-jump "Dired jump")
-    ("J" dired-jump-other-window "Dired jump other"))))
+    ("J" dired-jump-other-window "Dired jump other"))
+   "Dirvish"
+   (("v" (lambda ()
+           (interactive)
+           (when user/dirvish
+             (call-interactively #'dirvish))) "Dirvish"))))
 
 (pretty-hydra-define-e hydra-git
   (:title "Git" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)

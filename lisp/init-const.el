@@ -154,5 +154,10 @@
   :type '(choice (const :tag "eglot" eglot)
                  (const :tag "lsp-bridge" lsp-bridge)))
 
+(defcustom user/dirvish t
+  "Is Use dirvish"
+  :group 'user
+  :type 'boolean)
+
 (provide 'init-const)
 ;;; init-const.el ends here.

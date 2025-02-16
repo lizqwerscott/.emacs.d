@@ -103,7 +103,8 @@ At 2nd time it copy current directory to kill-buffer."
 ;;; Hook
 (add-hook 'dired-mode-hook
           #'(lambda ()
-              (nerd-icons-dired-mode)
+              (unless (bound-and-true-p dirvish-override-dired-mode)
+                (nerd-icons-dired-mode))
               (diredfl-mode)
               (dired-omit-mode)))
 
@@ -123,5 +124,39 @@ At 2nd time it copy current directory to kill-buffer."
                ("C-c C-r" . dired-rsync)
                ("C-c C-x" . dired-rsync-transient)
                ("C-c e" . dired-do-open-default)))
+
+;;; dirvish
+(when user/dirvish
+  (with-eval-after-load 'dirvish
+    (setq dirvish-attributes
+          '(nerd-icons file-time file-size collapse subtree-state vc-state))
+
+    (custom-set-variables
+     '(dirvish-quick-access-entries ; It's a custom option, `setq' won't work
+       (("h" "~/"                          "Home")
+        ("d" "~/Downloads/"                "Downloads")
+        ("D" "~/Documents/"                "Documents")
+        ("p" "~/MyProject/"                "MyProject")
+        ("g" "~/github/"                   "Github")
+        ("m" "/mnt/"                       "Drives")
+        ("t" "~/.local/share/Trash/files/" "TrashCan"))))
+
+    (when (executable-find "eza")
+      (dirvish-define-preview eza (file)
+        "Use `eza' to generate directory preview."
+        :require ("eza") ; tell Dirvish to check if we have the executable
+        (when (file-directory-p file) ; we only interest in directories here
+          `(shell . ("eza" "-al" "--color=always" "--icons=always"
+                     "--group-directories-first" ,file))))
+
+      (setq dirvish-preview-dispatchers
+            (cl-substitute 'eza 'dired dirvish-preview-dispatchers)))
+
+    (keymap-sets dirvish-mode-map
+                 '(("a" . dirvish-quick-access)
+                   ("C-i" . dirvish-layout-toggle)
+                   ("C-j" . dirvish-fd-jump))))
+
+  (dirvish-override-dired-mode))
 
 (provide 'init-dired)
