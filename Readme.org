@@ -1,6 +1,11 @@
 * My Emacs Config
 This is my little Emacs config.
+
+Main interface
 [[file:images/EmacsMain.png]]
+
+
+[[https://github.com/alexluigit/dirvish][Dirvish]] File Manager
 [[file:images/EmacsFile.png]]
 * Install
 ** Install Emacs
