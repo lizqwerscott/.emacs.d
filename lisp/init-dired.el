@@ -133,13 +133,13 @@ At 2nd time it copy current directory to kill-buffer."
 
     (custom-set-variables
      '(dirvish-quick-access-entries ; It's a custom option, `setq' won't work
-       (("h" "~/"                          "Home")
-        ("d" "~/Downloads/"                "Downloads")
-        ("D" "~/Documents/"                "Documents")
-        ("p" "~/MyProject/"                "MyProject")
-        ("g" "~/github/"                   "Github")
-        ("m" "/mnt/"                       "Drives")
-        ("t" "~/.local/share/Trash/files/" "TrashCan"))))
+       '(("h" "~/"                          "Home")
+         ("d" "~/Downloads/"                "Downloads")
+         ("D" "~/Documents/"                "Documents")
+         ("p" "~/MyProject/"                "MyProject")
+         ("g" "~/github/"                   "Github")
+         ("m" "/mnt/"                       "Drives")
+         ("t" "~/.local/share/Trash/files/" "TrashCan"))))
 
     (when (executable-find "eza")
       (dirvish-define-preview eza (file)
