@@ -123,7 +123,8 @@ At 2nd time it copy current directory to kill-buffer."
                ("h" . dired-up-directory)
                ("C-c C-r" . dired-rsync)
                ("C-c C-x" . dired-rsync-transient)
-               ("C-c e" . dired-do-open-default)))
+               ("C-c e" . dired-do-open-default)
+               (("M-j" "s-j") . dired-other-window)))
 
 ;;; dirvish
 (when user/dirvish
@@ -154,7 +155,8 @@ At 2nd time it copy current directory to kill-buffer."
 
     (keymap-sets dirvish-mode-map
                  '(("a" . dirvish-quick-access)
-                   ("C-i" . dirvish-layout-toggle)
+                   ("TAB" . dirvish-subtree-toggle)
+                   (("M-i" "s-i") . dirvish-layout-toggle)
                    ("C-j" . dirvish-fd-jump))))
 
   (dirvish-override-dired-mode))
