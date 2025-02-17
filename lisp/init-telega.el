@@ -70,7 +70,8 @@
 ;; (setf (alist-get 2 telega-avatar-factors-alist ) '(0.5 . 0.1))
 
 (setq telega-mode-line-mode nil)
-(telega-notifications-mode t)
+(unless sys/macp
+  (telega-notifications-mode t))
 (global-telega-url-shorten-nerd-mode)
 
 (defun +lizqwer/toggle-telega ()
