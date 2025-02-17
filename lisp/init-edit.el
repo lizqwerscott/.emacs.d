@@ -245,6 +245,14 @@
           (goto-char p)
           (message "pos: %s" pre-comment-pos))))))
 
+(defun my/copy-current-line ()
+  "Copy the current line."
+  (interactive)
+  (kill-new
+   (string-trim
+    (buffer-substring (line-beginning-position)
+                      (line-end-position)))))
+
 ;;; insert trailing semi
 (defun insert-or-remove-trailing-char (&optional ch)
   (interactive)
