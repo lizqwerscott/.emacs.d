@@ -101,7 +101,7 @@
     :callback #'gptel--rewrite-callback))
 
 (with-eval-after-load 'gptel-transient
-  (transient-append-suffix 'gptel-menu '(-1 -1)
+  (transient-append-suffix 'gptel-menu '(2 -1)
     ["Quick Tools"
      ("q t" "Translate select regions to english" gptel-translate-to-english)]))
 
