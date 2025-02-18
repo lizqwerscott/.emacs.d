@@ -40,7 +40,7 @@
       indent-bars-zigzag nil
       indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
       indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
-      indent-bars-display-on-blank-lines t)
+      indent-bars-display-on-blank-lines nil)
 
 (setq indent-bars-treesit-support t
       indent-bars-no-descend-string t
