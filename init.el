@@ -9,6 +9,10 @@
 
 ;; (toggle-debug-on-error)
 ;; 启动必须加载
+
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 (require 'init-packages)
 
 (require 'init-mode)
