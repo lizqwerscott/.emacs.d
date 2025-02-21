@@ -7,7 +7,8 @@
 (setq dired-hide-details-hide-symlink-targets nil)
 (setq dired-dwim-target t)
 (setq dired-listing-switches "-AFhlv --group-directories-first")
-(setq dired-kill-when-opening-new-dired-buffer t)
+(unless user/dirvish
+  (setq dired-kill-when-opening-new-dired-buffer t))
 
 ;; Dont prompt about killing buffer visiting delete file
 (setq dired-clean-confirm-killing-deleted-buffers nil)
