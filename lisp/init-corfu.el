@@ -104,15 +104,6 @@
               cape-dabbrev-min-length 5))
 (add-hook 'emacs-lisp-mode-hook #'my/setup-elisp)
 
-;;; kind icon
-;; (require 'kind-icon)
-;; (setq kind-icon-default-face 'corfu-default
-;;       kind-icon-use-icons nil)
-;; (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
-
-;; (setq completion-cycle-threshold 3)
-;; (setq tab-always-indent 'complete)
-
 ;;; nerd icons corfu
 (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
 (require 'nerd-icons-corfu)
