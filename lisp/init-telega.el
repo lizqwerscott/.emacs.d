@@ -91,4 +91,12 @@
 
 (setq telega-avatar-workaround-gaps-for '(return t))
 
+(defun my/telega-chat-capf ()
+  (setq-local completion-at-point-functions
+              `(cape-emoji
+                ,(cape-capf-super
+                  #'cape-dict
+                  #'cape-dabbrev))))
+(add-hook 'telega-chat-mode-hook #'my/telega-chat-capf)
+
 (provide 'init-telega)

@@ -166,6 +166,18 @@
 (define-key org-mode-map (kbd "s-H") 'org-metaleft)
 (define-key org-mode-map (kbd "s-L") 'org-metaright)
 
+;;; Org capf
+(defun my/org-capf ()
+  (setq-local completion-at-point-functions
+              `(cape-file
+                cape-emoji
+                ,(cape-capf-super
+                  #'cape-dict
+                  #'cape-dabbrev)
+                pcomplete-completions-at-point)))
+
+(add-hook 'org-mode-hook #'my/org-capf)
+
 ;;; Org consult
 (setq consult-notes-file-dir-sources
       '(("Org"             ?o "~/Documents/Org/")))

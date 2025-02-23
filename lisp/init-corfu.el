@@ -82,12 +82,9 @@
 (defun my/eglot-capf ()
   (setq-local completion-at-point-functions
               `(cape-file
-                ,(cape-capf-super
-                  #'eglot-completion-at-point
-                  #'cape-dabbrev)
-                ,(when citre-mode
-                   #'citre-completion-at-point))
-              cape-dabbrev-min-length 7))
+                ,@(when citre-mode
+                    '(citre-completion-at-point))
+                eglot-completion-at-point)))
 
 (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
 (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)
