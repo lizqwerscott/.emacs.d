@@ -267,7 +267,6 @@
    '("gf" . find-file-at-point)
    '("gp" . goto-percent)
    '("gl" . consult-goto-line)
-   '("gL" . avy-goto-line)
    '("/" . consult-ripgrep)))
 
 (meow-vterm-enable)

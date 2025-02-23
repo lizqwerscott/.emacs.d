@@ -71,7 +71,6 @@
     symbol-overlay
     aggressive-indent
     apheleia
-    avy
     vundo
     outline-indent
     visual-replace
