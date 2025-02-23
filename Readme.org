@@ -130,6 +130,12 @@ LXGW Neo Xihei (霞鹜新晰黑)
 #+begin_src bash
   yay -S ttf-lxgw-neo-xihei-screen-full
 #+end_src
+** Dict
+Install dict in =/usr/share/dict/= path.
+*** Arch
+#+begin_src bash
+  sudo pacman -S words
+#+end_src
 * Update extensions:
 #+begin_src shell
   git submodule foreach git pull --rebase
