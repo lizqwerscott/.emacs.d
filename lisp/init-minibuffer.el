@@ -26,6 +26,8 @@
   (setq read-extended-command-predicate
         #'command-completion-default-include-p))
 
+(setq completion-cycle-threshold 4)
+
 ;;; Vertico
 
 (setq vertico-count 20)
