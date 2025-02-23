@@ -91,6 +91,9 @@
 		        tabulated-list-entries)))))
   (advice-add #'list-processes--refresh :after #'my-list-processes--prettify))
 
+;;; Indent
+(setq tab-always-indent 'complete)
+
 ;;; Misc
 (if (boundp 'use-short-answers)
     (setq use-short-answers t)
