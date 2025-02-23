@@ -133,9 +133,9 @@
 (repeat-mode)
 
 ;; 增加长行处理性能
-(setq-default bidi-display-reordering nil)
-(setq bidi-inhibit-bpa t)
-(setq bidi-paragraph-direction 'left-to-right)
+;; (setq-default bidi-display-reordering nil)
+;; (setq bidi-inhibit-bpa t)
+;; (setq bidi-paragraph-direction 'left-to-right)
 
 ;;; performance
 ;; Disable garbage collection when entering commands.
