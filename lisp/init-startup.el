@@ -159,6 +159,12 @@
           #'(lambda ()
               (setq gc-cons-threshold 800000)))
 
+;;; native comp
+(when (boundp 'native-comp-eln-load-path)
+  (startup-redirect-eln-cache
+   (expand-file-name "var/eln-cache"
+                     user-emacs-directory)))
+
 ;;; Imenu
 (setq imenu-max-item-length 100)
 (setq breadcrumb-imenu-max-length 100)
