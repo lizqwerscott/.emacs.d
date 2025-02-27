@@ -195,6 +195,4 @@
 
 (require 'init-org-reveal)
 
-(require 'init-org-media-note)
-
 (provide 'init-org)
