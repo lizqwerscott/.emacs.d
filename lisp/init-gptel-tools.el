@@ -147,5 +147,18 @@
 	                 :description "Path to the file to read.  Supports relative paths and ~."))
  :category "filesystem")
 
+(gptel-make-tool
+ :function (lambda (name)
+             (if-let* ((sym (intern name))
+                       (docstr (documentation sym)))
+                 docstr
+               (format "Not find: %s documentation" name)))
+ :name "function_doc"
+ :description "Get elisp function documentation"
+ :args (list '(:name "name"
+                     :type "string"
+                     :description "Elisp function name"))
+ :category "elisp")
+
 (provide 'init-gptel-tools)
 ;;; init-gptel-tools.el ends here
