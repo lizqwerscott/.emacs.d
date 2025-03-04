@@ -8,6 +8,7 @@
 (setq dired-dwim-target t)
 (setq dired-listing-switches "-AFhlv --group-directories-first")
 (unless user/dirvish
+  (setq dired-movement-style 'bounded)
   (setq dired-kill-when-opening-new-dired-buffer t))
 
 ;; Dont prompt about killing buffer visiting delete file
