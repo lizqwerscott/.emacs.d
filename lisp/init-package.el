@@ -64,7 +64,7 @@
 (defun package! (package)
   (if (listp package)
       (apply #'my/package-vc-install
-	         package)
+             package)
     (unless (package-installed-p package)
       ;; from use-package-ensure
       (condition-case-unless-debug err

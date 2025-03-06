@@ -88,7 +88,7 @@
                     (thread (list (aref val 5) 'face 'font-lock-doc-face))
                     (cmd (list (aref val 6) 'face 'completions-annotations)))
           (push (list p (vector name pid status buf-label tty thread cmd))
-		        tabulated-list-entries)))))
+                tabulated-list-entries)))))
   (advice-add #'list-processes--refresh :after #'my-list-processes--prettify))
 
 ;;; Indent
@@ -100,8 +100,8 @@
   (fset 'yes-or-no-p 'y-or-n-p))
 
 (setq-default fill-column 80
-			  tab-width 4
-			  indent-tabs-mode nil)
+              tab-width 4
+              indent-tabs-mode nil)
 
 (setq visible-bell nil
       inhibit-compacting-font-caches t  ; Don’t compact font caches during GC
@@ -149,8 +149,8 @@
 
 ;;; performance
 ;; Disable garbage collection when entering commands.
-(setq garbage-collection-messages nil)	;gc时显示消息
-(setq byte-compile-warnings nil)	;关闭字节编译警告
+(setq garbage-collection-messages nil)  ;gc时显示消息
+(setq byte-compile-warnings nil)    ;关闭字节编译警告
 
 (add-hook 'minibuffer-setup-hook
           #'(lambda ()

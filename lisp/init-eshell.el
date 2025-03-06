@@ -16,7 +16,7 @@ Use popper manager eshell buffer."
   (interactive)
   (let ((buf-name (project-prefixed-buffer-name "eshell")))
     (if (get-buffer buf-name)
-  	    ;; buffer is already created
+        ;; buffer is already created
         (or (-some-> buf-name get-buffer-window delete-window)
            (switch-to-buffer-other-window buf-name))
       ;; buffer is not created, create it

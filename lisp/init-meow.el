@@ -28,19 +28,19 @@
   (let* ((meow-leader-keybinds))
     (dolist (ele  keybinds)
       (let ((func (cdar ele))
-	        (key (caar ele))
-	        (filename (cadr ele)))
-	    (autoload func filename nil t)
-	    (meow-define-keys 'leader (cons key func))))))
+            (key (caar ele))
+            (filename (cadr ele)))
+        (autoload func filename nil t)
+        (meow-define-keys 'leader (cons key func))))))
 
 (defun lazy-meow-insert-define-key (&rest keybinds)
   (let* ((meow-insert-keybinds))
     (dolist (ele  keybinds)
       (let ((func (cdar ele))
-	        (key (caar ele))
-	        (filename (cadr ele)))
-	    (autoload func filename nil t)
-	    (meow-define-keys 'insert (cons key func))))))
+            (key (caar ele))
+            (filename (cadr ele)))
+        (autoload func filename nil t)
+        (meow-define-keys 'insert (cons key func))))))
 
 (one-key-create-menu
  "Rust"
@@ -119,11 +119,11 @@
   ;;  '("C-j" . (lambda ()
   ;;              (interactive)
   ;;              (dotimes (i 2)
-  ;;   	         (call-interactively 'meow-next))))
+  ;;             (call-interactively 'meow-next))))
   ;;  '("C-k" . (lambda ()
   ;;              (interactive)
   ;;              (dotimes (i 2)
-  ;;   	         (call-interactively 'meow-prev))))
+  ;;             (call-interactively 'meow-prev))))
   ;;  '("<escape>" . ignore))
 
   (meow-leader-define-key

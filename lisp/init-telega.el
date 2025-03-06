@@ -79,9 +79,9 @@
   (interactive)
   (if (get-buffer "*Telega Root*")
       (progn (telega-kill t)
-	         (message "杀死Telega"))
+             (message "杀死Telega"))
     (progn (telega t)
-	       (message "启动Telega"))))
+           (message "启动Telega"))))
 
 (define-key telega-msg-button-map "k" nil)
 (define-key telega-msg-button-map "l" nil)

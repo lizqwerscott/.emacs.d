@@ -88,14 +88,14 @@
 
 (gptel-make-tool
  :function (lambda (directory)
-	         (mapconcat #'identity
+             (mapconcat #'identity
                         (directory-files directory)
                         "\n"))
  :name "list_directory"
  :description "List the contents of a given directory"
  :args (list '(:name "directory"
-	                 :type "string"
-	                 :description "The path to the directory to list"))
+                     :type "string"
+                     :description "The path to the directory to list"))
  :category "filesystem")
 
 (gptel-make-tool
@@ -108,11 +108,11 @@
  :name "make_directory"
  :description "Create a new directory with the given name in the specified parent directory"
  :args (list '(:name "parent"
-	                 :type "string"
-	                 :description "The parent directory where the new directory should be created, e.g. /tmp")
+                     :type "string"
+                     :description "The parent directory where the new directory should be created, e.g. /tmp")
              '(:name "name"
-	                 :type "string"
-	                 :description "The name of the new directory to create, e.g. testdir"))
+                     :type "string"
+                     :description "The name of the new directory to create, e.g. testdir"))
  :category "filesystem")
 
 (gptel-make-tool
@@ -125,26 +125,26 @@
  :name "create_file"
  :description "Create a new file with the specified content"
  :args (list '(:name "path"
-	                 :type "string"
-	                 :description "The directory where to create the file")
+                     :type "string"
+                     :description "The directory where to create the file")
              '(:name "filename"
-	                 :type "string"
-	                 :description "The name of the file to create")
+                     :type "string"
+                     :description "The name of the file to create")
              '(:name "content"
-	                 :type "string"
-	                 :description "The content to write to the file"))
+                     :type "string"
+                     :description "The content to write to the file"))
  :category "filesystem")
 
 (gptel-make-tool
  :function (lambda (filepath)
-	         (with-temp-buffer
-	           (insert-file-contents (expand-file-name filepath))
-	           (buffer-string)))
+             (with-temp-buffer
+               (insert-file-contents (expand-file-name filepath))
+               (buffer-string)))
  :name "read_file"
  :description "Read and display the contents of a file"
  :args (list '(:name "filepath"
-	                 :type "string"
-	                 :description "Path to the file to read.  Supports relative paths and ~."))
+                     :type "string"
+                     :description "Path to the file to read.  Supports relative paths and ~."))
  :category "filesystem")
 
 (gptel-make-tool

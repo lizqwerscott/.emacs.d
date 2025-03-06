@@ -32,18 +32,18 @@
 
 ;; (defun ct/tab-bar-tab-name-format-default (tab i)
 ;;   (let ((current-p (eq (car tab) 'current-tab))
-;; 	    (tab-num (if (and tab-bar-tab-hints (< i 10))
-;; 		             (alist-get i ct/circle-numbers-alist) "")))
+;;      (tab-num (if (and tab-bar-tab-hints (< i 10))
+;;                   (alist-get i ct/circle-numbers-alist) "")))
 ;;     (propertize
 ;;      (concat tab-num
-;; 	         " "
-;; 	         (alist-get 'name tab)
-;; 	         (or (and tab-bar-close-button-show
-;; 			       (not (eq tab-bar-close-button-show
-;; 				          (if current-p 'non-selected 'selected)))
-;; 			       tab-bar-close-button)
-;; 		        "")
-;; 	         " ")
+;;           " "
+;;           (alist-get 'name tab)
+;;           (or (and tab-bar-close-button-show
+;;                 (not (eq tab-bar-close-button-show
+;;                        (if current-p 'non-selected 'selected)))
+;;                 tab-bar-close-button)
+;;              "")
+;;           " ")
 ;;      'face (funcall tab-bar-tab-face-function tab))))
 ;; (setq tab-bar-tab-name-format-function #'ct/tab-bar-tab-name-format-default)
 
@@ -144,15 +144,15 @@
 ;;   ;; set consult-workspace buffer list
 ;;   (defvar consult--source-workspace
 ;;     (list :name "Workspace Buffers"
-;; 	      :narrow ?w
-;; 	      :history 'buffer-name-history
-;; 	      :category 'buffer
-;; 	      :state #'consult--buffer-state
-;; 	      :default t
-;; 	      :items (lambda () (consult--buffer-query
-;; 			            :predicate #'tabspaces--local-buffer-p
-;; 			            :sort 'visibility
-;; 			            :as #'buffer-name)))
+;;        :narrow ?w
+;;        :history 'buffer-name-history
+;;        :category 'buffer
+;;        :state #'consult--buffer-state
+;;        :default t
+;;        :items (lambda () (consult--buffer-query
+;;                      :predicate #'tabspaces--local-buffer-p
+;;                      :sort 'visibility
+;;                      :as #'buffer-name)))
 
 ;;     "Set workspace buffer list for consult-buffer.")
 ;;   (add-to-list 'consult-buffer-sources 'consult--source-workspace))

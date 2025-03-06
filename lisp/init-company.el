@@ -6,19 +6,19 @@
   :hook (after-init . global-company-mode)
   :config
   (setq company-dabbrev-code-everywhere t
-	company-dabbrev-code-modes t
-	company-dabbrev-code-other-buffers 'all
-	company-dabbrev-downcase nil
-	company-dabbrev-ignore-case t
-	company-dabbrev-other-buffers 'all
-	company-require-match nil
-	company-minimum-prefix-length 1
-	company-show-numbers t
-	company-tooltip-limit 20
-	company-idle-delay 0
-	company-echo-delay 0
-	company-tooltip-offset-display 'scrollbar
-	company-begin-commands '(self-insert-command)))
+    company-dabbrev-code-modes t
+    company-dabbrev-code-other-buffers 'all
+    company-dabbrev-downcase nil
+    company-dabbrev-ignore-case t
+    company-dabbrev-other-buffers 'all
+    company-require-match nil
+    company-minimum-prefix-length 1
+    company-show-numbers t
+    company-tooltip-limit 20
+    company-idle-delay 0
+    company-echo-delay 0
+    company-tooltip-offset-display 'scrollbar
+    company-begin-commands '(self-insert-command)))
 
 (defun set-company-tab ()
   (define-key company-active-map [tab] 'company-select-next-if-tooltip-visible-or-complete-selection)
@@ -80,7 +80,7 @@ ac-auto-show-menu 为 nil 的情形, 这种模式比较适合在 yasnippet 正�
 ;(setq company-auto-commit-chars '(41 46 44 59))
 
 (add-to-list 'company-backends
-	     '(company-abbrev company-yasnippet company-dabbrev company-files company-capf company-elisp company-keywords))
+         '(company-abbrev company-yasnippet company-dabbrev company-files company-capf company-elisp company-keywords))
 
 (defun text-mode-hook-setup ()
   (add-to-list 'company-backends 'company-ispell)

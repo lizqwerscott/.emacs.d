@@ -121,9 +121,9 @@ The optional argument NEW-WINDOW is not used."
   (setq url (browse-url-encode-url url))
   (let* ((process-environment (browse-url-process-environment)))
     (apply #'start-process
-	       (concat "vivaldi " url) nil
-	       "vivaldi"
-	       (list url))))
+           (concat "vivaldi " url) nil
+           "vivaldi"
+           (list url))))
 
 ;;; cons to list
 (defun single-cons-p (c)
