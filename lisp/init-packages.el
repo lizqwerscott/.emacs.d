@@ -226,6 +226,9 @@
 (defvar *package-sql-install-list*
   '(sql-indent))
 
+(defvar *package-godot-install-list*
+  '(gdscript-mode))
+
 (defvar *package-another-install-list*
   '(elfeed
     code-stats
@@ -257,8 +260,11 @@
          *package-common-lisp-install-list*
          *package-web-install-list*
          *package-python-install-list*
-         *package-unity-install-list*
+         (when user/unity
+           *package-unity-install-list*)
          *package-sql-install-list*
+         (when user/godot
+           *package-godot-install-list*)
          *package-another-install-list*))
 
 (provide 'init-packages)

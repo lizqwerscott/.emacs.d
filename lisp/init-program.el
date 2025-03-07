@@ -104,7 +104,8 @@
 (require 'init-rust)
 (require 'init-sql)
 (require 'init-go)
-
+(when user/godot
+  (require 'init-godot))
 
 (provide 'init-program)
 ;;; init-program.el ends heres.
