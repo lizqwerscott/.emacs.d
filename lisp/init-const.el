@@ -56,7 +56,7 @@
 
 (defcustom user/logo (file-truename
                       (concat user-emacs-directory
-                              "logos/gnu_color.svg"))
+                              "logos/gnu_color.xpm"))
   "Show dashboard"
   :group 'user
   :type 'string)
