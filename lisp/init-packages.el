@@ -178,23 +178,28 @@
     pdf-tools))
 
 (defvar *package-ai-install-list*
-  '((copilot :fetcher github
-             :repo "zerolfx/copilot.el"
-             :branch "main")
-    (gptel :fetcher github
-           :repo "karthink/gptel")
-    (gptel-quick :fetcher github
-                 :repo "karthink/gptel-quick")
-    (aider :fetcher github
-           :repo "tninja/aider.el")
-    (codeium :fetcher github
-             :repo "Exafunction/codeium.el")
-    (codeium-overlay :fetcher github
-                     :repo "tjohnman/codeium-overlay.el")
-    (minuet :fetcher github
-            :repo "milanglacier/minuet-ai.el")
-    (gptel-aibo :fetcher github
-                :repo "dolmens/gptel-aibo")))
+  (append '((gptel :fetcher github
+                   :repo "karthink/gptel")
+            (gptel-quick :fetcher github
+                         :repo "karthink/gptel-quick")
+            (gptel-aibo :fetcher github
+                        :repo "dolmens/gptel-aibo"))
+          (pcase user/ai-completion
+            ('codeium
+             '((codeium :fetcher github
+                        :repo "Exafunction/codeium.el")
+               (codeium-overlay :fetcher github
+                                :repo "tjohnman/codeium-overlay.el")))
+            ('copilot
+             '((copilot :fetcher github
+                        :repo "zerolfx/copilot.el"
+                        :branch "main")))
+            ('minuet
+             '((minuet :fetcher github
+                       :repo "milanglacier/minuet-ai.el"))))
+          (when user/aider
+            '((aider :fetcher github
+                     :repo "tninja/aider.el")))))
 
 (defvar *package-rust-install-list*
   '(rust-mode
