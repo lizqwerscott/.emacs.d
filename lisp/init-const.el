@@ -148,6 +148,11 @@
   :group 'user
   :type 'number)
 
+(defcustom user/ligature nil
+  "Is use ligature"
+  :group 'user
+  :type 'boolean)
+
 (defcustom user/lsp-client 'lsp-bridge
   "The lsp client"
   :group 'user

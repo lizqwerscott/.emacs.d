@@ -116,6 +116,7 @@
     nerd-icons-dired
     nerd-icons-completion
     page-break-lines
+    ligature
     dashboard
     doom-modeline
     pretty-mode
