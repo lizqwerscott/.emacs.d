@@ -55,10 +55,9 @@
 (add-hook 'server-after-make-frame-hook #'setup-fonts)
 
 ;;; 连体字体
-(when user/ligature
-  (global-ligature-mode)
-  ;; Enable the www ligature in every possible major mode
+(with-eval-after-load 'ligature
   (ligature-set-ligatures 't '("www"))
+  ;; Enable the www ligature in every possible major mode
   (ligature-set-ligatures 'prog-mode
                           '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
                             ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
@@ -70,6 +69,12 @@
                             "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
                             "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
                             "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%")))
+
+(add-hook 'after-init-hook
+          #'(lambda ()
+              (when user/ligature
+                (global-ligature-mode))))
+
 ;;; 替换符号
 (add-hooks '(emacs-lisp-mode lisp-mode)
            #'(lambda ()
