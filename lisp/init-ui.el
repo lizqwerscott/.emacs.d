@@ -25,7 +25,9 @@
       icon-title-format frame-title-format)
 
 (setq default-frame-alist
-      '((alpha-background . 100)
+      `((alpha-background . ,(if user/start-transparent
+                                 90
+                               100))
         ;; (fullscreen . maximized)
         ))
 
@@ -37,8 +39,9 @@
         ;; (fullscreen . maximized)
         ))
 
-(unless sys/macp
-  (toggle-frame-fullscreen))
+(when user/start-fullscreen
+  (unless sys/macp
+    (toggle-frame-fullscreen)))
 
 ;;; modeline
 (require 'init-modeline)

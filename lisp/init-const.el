@@ -71,6 +71,16 @@
   :group 'user
   :type 'symbol)
 
+(defcustom user/start-fullscreen t
+  "Is fullscreen in start"
+  :group 'user
+  :type 'boolean)
+
+(defcustom user/start-transparent nil
+  "Is transparent in start"
+  :group 'user
+  :type 'boolean)
+
 (defcustom user/run-python-command "python"
   "A python command for Some package use python package"
   :group 'user
