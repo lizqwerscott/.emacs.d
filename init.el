@@ -20,12 +20,12 @@
 ;; (require 'init-auto-save)
 (require 'init-super-save)
 
-(require 'init-ui)
-
 (require 'init-key)
 (require 'init-hydra)
 (require 'init-transient)
 (require 'init-meow)
+
+(require 'init-ui)
 
 (require 'init-edit)
 (require 'init-spell)

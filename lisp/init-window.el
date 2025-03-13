@@ -4,6 +4,47 @@
 (add-to-list 'aw-ignored-buffers "*Ilist*")
 (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
+(custom-set-faces
+ '(aw-leading-char-face ((t (:inherit font-lock-keyword-face :foreground unspecified :bold t :height 3.0))))
+ '(aw-minibuffer-leading-char-face ((t (:inherit font-lock-keyword-face :bold t :height 1.0))))
+ '(aw-mode-line-face ((t (:inherit mode-line-emphasis :bold t)))))
+
+(pretty-hydra-define-e hydra-window
+  (:title (pretty-hydra-title "Window Management" 'faicon "nf-fa-th")
+          :foreign-keys warn :quit-key ("q" "C-g") :posframe t)
+  ("Actions"
+   (("TAB" other-window "switch")
+    ("x" ace-delete-window "delete")
+    ("X" ace-delete-other-windows "delete other" :exit t)
+    ("s" ace-swap-window "swap")
+    ("a" ace-select-window "select" :exit t)
+    ("m" toggle-frame-maximized "maximize" :exit t)
+    ("u" toggle-frame-fullscreen "fullscreen" :exit t))
+   "Resize"
+   (("h" shrink-window-horizontally "←")
+    ("j" enlarge-window "↓")
+    ("k" shrink-window "↑")
+    ("l" enlarge-window-horizontally "→")
+    ("n" balance-windows "balance"))
+   "Split"
+   (("3" split-window-right "horizontally")
+    ("2" split-window-below "vertically")
+    ("t" rotate-window-layout-clockwise "Clockwise Rotate")
+    ("T" rotate-window-layout-counterclockwise "Counterclockwise Rotate"))
+   "Zoom"
+   (("+" text-scale-increase "in")
+    ("=" text-scale-increase "in")
+    ("-" text-scale-decrease "out")
+    ("0" (text-scale-increase 0) "reset"))
+   "Misc"
+   (("o" set-frame-font "frame font")
+    ("f" make-frame-command "new frame")
+    ("d" delete-frame "delete frame")
+    ("<left>" winner-undo "winner undo")
+    ("<right>" winner-redo "winner redo"))))
+
+(add-to-list 'aw-dispatch-alist '(?w hydra-window/body) t)
+
 ;;; winner mode
 (winner-mode 1)
 (keymap-sets winner-mode-map
