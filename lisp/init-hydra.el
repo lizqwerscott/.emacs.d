@@ -51,8 +51,6 @@
 
 (require 'pretty-hydra)
 
-(custom-set-variables '(pretty-hydra-default-title-body-format-spec " %s%s"))
-
 (defun icons-displayable-p ()
   "Return non-nil if icons are displayable."
   (or (featurep 'nerd-icons)
