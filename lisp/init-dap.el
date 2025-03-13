@@ -29,7 +29,8 @@
 (custom-set-variables
  '(dape-buffer-window-arrangment 'right))
 
-(pretty-hydra-define hydra-dape (:title (pretty-hydra-title "Debug" 'codicon "nf-cod-debug") :color pink :quit-key ("q" "C-g"))
+(pretty-hydra-define-e hydra-dape
+  (:title (pretty-hydra-title "Debug" 'codicon "nf-cod-debug") :color pink :quit-key ("q" "C-g") :posframe t)
   ("Stepping"
    (("n" dape-next "next")
     ("s" dape-step-in "step in")
@@ -54,25 +55,17 @@
     ("B" dape-breakpoint-remove-all "clear"))
    "Debug"
    (("d" dape "dape")
-    ("Q" #'(lambda ()
-             (interactive)
-             (dape-quit)
-             (stop-posframe)) "quit" :exit t))))
+    ("Q" dape-quit "quit" :exit t))))
 ;; Save buffers on startup, useful for interpreted languages
 (add-hook 'dape-on-start-hooks
           (defun dape--save-on-start ()
             (save-some-buffers t t)))
 
-(defun start-dape ()
-  (interactive)
-  (start-posframe)
-  (hydra-dape/body))
-
 ;; Display hydra on startup
 (add-hook 'dape-on-start-hooks
-          #'start-dape)
+          #'hydra-dape/body)
 
-(global-set-key (kbd "<f5>") #'start-dape)
+(global-set-key (kbd "<f5>") #'hydra-dape/body)
 
 (provide 'init-dap)
 ;;; init-dap.el ends here
