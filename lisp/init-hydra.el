@@ -85,10 +85,15 @@
 ;;;###autoload
 (defmacro pretty-hydra-define-e (name body head-plist)
   (declare (indent 1) (debug (form def-body)))
-  `(pretty-hydra-define ,name ,body
-     ,(if (cl-getf body :all-exit)
-          (pretty-hydra-define-add-exit head-plist)
-        head-plist)))
+  `(progn
+     (pretty-hydra-define ,name ,body
+       ,(if (cl-getf body :all-exit)
+            (pretty-hydra-define-add-exit head-plist)
+          head-plist))
+     ,@(when (cl-getf body :posframe)
+         (let ((name (symbol-name name)))
+           `((advice-add #',(intern (concat name "/body")) :before #'start-posframe)
+             (advice-add #',(intern (concat name "/nil")) :after #'stop-posframe)) ))))
 
 (pretty-hydra-define-e hydra-toggles
   (:title (pretty-hydra-title "Toggles" 'faicon "nf-fa-toggle_on") :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
