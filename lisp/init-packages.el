@@ -64,6 +64,7 @@
 (defvar *package-edit-install-list*
   '((meow :fetcher github :repo "meow-edit/meow")
     meow-tree-sitter
+    (repeat-fu :fetcher codeberg :repo "ideasman42/emacs-repeat-fu")
     grugru
     auto-rename-tag
     hungry-delete
