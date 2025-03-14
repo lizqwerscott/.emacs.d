@@ -26,6 +26,9 @@
     (add-hook 'after-init-hook #'my-package--save-selected-packages)))
 (advice-add 'package--save-selected-packages :override #'my-package--save-selected-packages)
 
+;; More options
+(setq package-install-upgrade-built-in t)
+
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
