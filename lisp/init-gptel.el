@@ -26,51 +26,52 @@
 
 (setq gptel-default-mode 'org-mode)
 
-(setq gptel-backend-kimi
-      (gptel-make-openai "kimi"
-        :stream t
-        :protocol "https"
-        :host "api.moonshot.cn"
-        :key #'gptel-api-key
-        :models '(moonshot-v1-8k)))
+(gptel-make-openai "kimi"
+  :stream t
+  :protocol "https"
+  :host "api.moonshot.cn"
+  :key #'gptel-api-key
+  :models '(moonshot-v1-8k))
 
-(setq gptel-backend-fireworks
-      (gptel-make-openai "chinese"
-        :stream t
-        :protocol "https"
-        :host "api.fireworks.ai"
-        :endpoint "/inference/v1/chat/completions"
-        :key #'gptel-api-key
-        :models '(accounts/fireworks/models/llama-v3p1-405b-instruct)))
+(gptel-make-openai "fireworks"
+  :stream t
+  :protocol "https"
+  :host "api.fireworks.ai"
+  :endpoint "/inference/v1/chat/completions"
+  :key #'gptel-api-key
+  :models '(accounts/fireworks/models/llama-v3p1-405b-instruct))
 
-(setq gptel-backend-deepseek
-      (gptel-make-openai "deepseek"
-        :stream t
-        :protocol "https"
-        :host "api.deepseek.com"
-        :key #'gptel-api-key
-        :models '(deepseek-chat)))
+(gptel-make-openai "deepseek"
+  :stream t
+  :protocol "https"
+  :host "api.deepseek.com"
+  :key #'gptel-api-key
+  :models '(deepseek-chat))
 
-(setq gptel-backend-claude
-      (gptel-make-anthropic "Claude"
-        :stream t
-        :host "api.openai-proxy.org/anthropic"
-        :key #'gptel-api-key))
+(gptel-make-anthropic "Claude"
+  :stream t
+  :host "api.openai-proxy.org/anthropic"
+  :key #'gptel-api-key)
 
-(setq gptel-backend-openrouter
-      (gptel-make-openai "OpenRouter"
-        :stream t
-        :host "openrouter.ai"
-        :endpoint "/api/v1/chat/completions"
-        :key #'gptel-api-key
-        :models '(openrouter/auto google/gemini-2.0-flash-lite-preview-02-05:free deepseek/deepseek-r1:free deepseek/deepseek-chat:free)))
+(gptel-make-openai "Closeai"
+  :stream t
+  :host "api.openai-proxy.org"
+  :key #'gptel-api-key
+  :models '(deepseek-chat deepseek-reasoner))
 
-;; (setq gptel-model 'moonshot-v1-8k)
-;; (setq gptel-backend gptel-backend-kimi)
+(gptel-make-openai "OpenRouter"
+  :stream t
+  :host "openrouter.ai"
+  :endpoint "/api/v1/chat/completions"
+  :key #'gptel-api-key
+  :models '(openrouter/auto google/gemini-2.0-flash-lite-preview-02-05:free deepseek/deepseek-r1:free deepseek/deepseek-chat:free))
+
 (setq gptel-model 'deepseek-chat)
-(setq gptel-backend gptel-backend-deepseek)
+(setq gptel-backend
+      (gptel-get-backend "deepseek"))
 ;; (setq gptel-model 'claude-3-5-sonnet-20241022)
-;; (setq gptel-backend gptel-backend-claude)
+;; (setq gptel-backend
+;;       (gptel-get-backend "Claude"))
 
 (require 'gptel)
 (add-list-to-list 'gptel-directives
