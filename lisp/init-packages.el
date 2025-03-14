@@ -47,7 +47,8 @@
     (p-search :repo "zkry/p-search" :fetcher github)
     gif-screencast
     keycast
-    gnuplot))
+    gnuplot
+    cal-china-x))
 
 (defvar *package-language-mode-install-list*
   '(markdown-mode

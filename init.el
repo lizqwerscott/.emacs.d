@@ -43,6 +43,7 @@
 
 (require 'init-dired)
 (require 'init-helpful)
+(require 'init-calender)
 
 (require 'init-org)
 ;; (require 'init-pangu)
