@@ -41,12 +41,9 @@
   :key #'gptel-api-key
   :models '(accounts/fireworks/models/llama-v3p1-405b-instruct))
 
-(gptel-make-openai "deepseek"
+(gptel-make-deepseek "deepseek"
   :stream t
-  :protocol "https"
-  :host "api.deepseek.com"
-  :key #'gptel-api-key
-  :models '(deepseek-chat))
+  :key #'gptel-api-key)
 
 (gptel-make-anthropic "Claude"
   :stream t
