@@ -54,7 +54,7 @@
   :stream t
   :host "api.openai-proxy.org"
   :key #'gptel-api-key
-  :models '(deepseek-chat deepseek-reasoner))
+  :models '(deepseek-chat deepseek-reasoner gpt-4o-mini))
 
 (gptel-make-openai "OpenRouter"
   :stream t
