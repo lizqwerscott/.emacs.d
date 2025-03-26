@@ -147,18 +147,25 @@
                      :description "Path to the file to read.  Supports relative paths and ~."))
  :category "filesystem")
 
+(defun gptel-read-documentation (symbol)
+  "Read the documentation for SYMBOL, which can be a function or variable."
+  (let ((sym (intern symbol)))
+    (cond
+     ((fboundp sym)
+      (documentation sym))
+     ((boundp sym)
+      (documentation-property sym 'variable-documentation))
+     (t
+      (format "No documentation found for %s" symbol)))))
+
 (gptel-make-tool
- :function (lambda (name)
-             (if-let* ((sym (intern name))
-                       (docstr (documentation sym)))
-                 docstr
-               (format "Not find: %s documentation" name)))
- :name "function_doc"
- :description "Get elisp function documentation"
+ :name "read_documentation"
+ :function #'gptel-read-documentation
+ :description "Read the documentation for a given function or variable"
  :args (list '(:name "name"
-                     :type "string"
-                     :description "Elisp function name"))
- :category "elisp")
+                     :type string
+                     :description "The name of the function or variable whose documentation is to be retrieved"))
+ :category "emacs")
 
 (provide 'init-gptel-tools)
 ;;; init-gptel-tools.el ends here
