@@ -47,5 +47,7 @@
     ('minuet
      (minuet-accept-suggestion))))
 
+(require 'init-mcp)
+
 (provide 'init-ai)
 ;;; init-ai.el ends here

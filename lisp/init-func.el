@@ -154,4 +154,21 @@ With prefix argument \\[universal-argument] insert the 48-bit value."
                                   "--type directory"))))
     (consult-fd "~/")))
 
+;;;###autoload
+(defun lizqwer/api-key-from-auth-source (&optional host user)
+  "Lookup api key in the auth source.
+By default, the LLM host for the active backend is used as HOST,
+and \"apikey\" as USER."
+  (if-let ((secret
+            (plist-get
+             (car (auth-source-search
+                   :host (or host)
+                   :user (or user "apikey")
+                   :require '(:secret)))
+             :secret)))
+      (if (functionp secret)
+          (encode-coding-string (funcall secret) 'utf-8)
+        secret)
+    (user-error "No `api-key' found in the auth source")))
+
 (provide 'init-func)

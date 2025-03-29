@@ -186,7 +186,9 @@
             (gptel-quick :fetcher github
                          :repo "karthink/gptel-quick")
             (gptel-aibo :fetcher github
-                        :repo "dolmens/gptel-aibo"))
+                        :repo "dolmens/gptel-aibo")
+            (mcp :fetcher github
+                 :repo "lizqwerscott/mcp.el"))
           (pcase user/ai-completion
             ('codeium
              '((codeium :fetcher github
