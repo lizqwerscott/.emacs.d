@@ -155,14 +155,14 @@
 
 ;;; Org key
 (define-key org-mode-map (kbd "C-c TAB") 'org-insert-item)
-(define-key org-mode-map (kbd "M-P") 'org-metaup)
-(define-key org-mode-map (kbd "M-N") 'org-metadown)
+(define-key org-mode-map (kbd "M-K") 'org-metaup)
+(define-key org-mode-map (kbd "M-J") 'org-metadown)
 (define-key org-mode-map (kbd "M-H") 'org-metaleft)
 (define-key org-mode-map (kbd "M-L") 'org-metaright)
 
 (define-key org-mode-map (kbd "s-<return>") 'org-meta-return)
-(define-key org-mode-map (kbd "s-P") 'org-metaup)
-(define-key org-mode-map (kbd "s-N") 'org-metadown)
+(define-key org-mode-map (kbd "s-K") 'org-metaup)
+(define-key org-mode-map (kbd "s-J") 'org-metadown)
 (define-key org-mode-map (kbd "s-H") 'org-metaleft)
 (define-key org-mode-map (kbd "s-L") 'org-metaright)
 
