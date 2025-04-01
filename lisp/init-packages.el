@@ -3,8 +3,6 @@
     vertico
     marginalia
     consult
-    consult-notes
-    consult-yasnippet
     orderless
     embark
     embark-consult
@@ -81,6 +79,7 @@
 (defvar *package-program-install-list*
   '(dumb-jump
     yasnippet
+    consult-yasnippet
     macrostep
     eglot
     (eglot-booster :fetcher github :repo "jdtsmith/eglot-booster")
@@ -168,7 +167,8 @@
      :repo "redguardtoo/pyim-tsinghua-dict")))
 
 (defvar *package-org-install-list*
-  '(org-bullets
+  '(consult-notes
+    org-bullets
     org-fancy-priorities
     org-roam
     org-roam-ui
