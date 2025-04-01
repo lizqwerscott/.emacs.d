@@ -25,7 +25,6 @@
   '(try
     centered-cursor-mode
     sudo-edit
-    google-this
     interaction-log
     restclient
     dired-git-info
