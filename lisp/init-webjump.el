@@ -35,9 +35,9 @@
             #'(lambda (fn prompt)
                 (let ((input (read-string
                               (concat prompt
-                                      ": "
-                                      (when (use-region-p)
-                                        (buffer-substring-no-properties (region-beginning) (region-end)))))))
+                                      ": ")
+                              (when (use-region-p)
+                                (buffer-substring-no-properties (region-beginning) (region-end))))))
                   (if (webjump-null-or-blank-string-p input) nil input))))
 
 (provide 'init-webjump)
