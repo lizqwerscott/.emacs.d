@@ -47,7 +47,7 @@
 
 (add-hook 'prog-mode-hook
           #'(lambda ()
-              (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode)
+              (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode 'json-ts-mode)
                 (eglot-ensure))))
 
 (add-hooks '(markdown-mode yaml-mode yaml-ts-mode)
