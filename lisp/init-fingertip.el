@@ -104,7 +104,7 @@
 (define-key fingertip-mode-map (kbd "'") 'fingertip-single-quote)
 
 (define-key fingertip-mode-map (kbd "SPC") 'fingertip-space)
-(define-key fingertip-mode-map (kbd "RET") 'fingertip-newline)
+;; (define-key fingertip-mode-map (kbd "RET") 'fingertip-newline)
 
 (define-key fingertip-mode-map (kbd "M-d") 'fingertip-backward-delete)
 (define-key fingertip-mode-map (kbd "C-d") 'fingertip-forward-delete)
