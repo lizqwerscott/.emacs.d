@@ -144,17 +144,6 @@ At 2nd time it copy current directory to kill-buffer."
          ("m" "/mnt/"                       "Drives")
          ("t" "~/.local/share/Trash/files/" "TrashCan"))))
 
-    (when (executable-find "eza")
-      (dirvish-define-preview eza (file)
-        "Use `eza' to generate directory preview."
-        :require ("eza") ; tell Dirvish to check if we have the executable
-        (when (file-directory-p file) ; we only interest in directories here
-          `(shell . ("eza" "-al" "--color=always" "--icons=always"
-                     "--group-directories-first" ,file))))
-
-      (setq dirvish-preview-dispatchers
-            (cl-substitute 'eza 'dired dirvish-preview-dispatchers)))
-
     (keymap-sets dirvish-mode-map
                  '(("a" . dirvish-quick-access)
                    ("TAB" . dirvish-subtree-toggle)
