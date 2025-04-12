@@ -76,15 +76,18 @@
     (autoload 'project-root-path "init-project" nil t)
     (let ((project-path (project-root-path)))
       (pcase major-mode
-        ('python-ts-mode
-         (let ((command (if project-path
-                            "pdm run start"
-                          (concat "python "
-                                  (file-truename (buffer-file-name))))))
+        ((or 'python-ts-mode 'python-mode)
+         (let ((command (concat (if project-path
+                                    (cond ((file-exists-p (file-name-concat project-path "uv.lock")) "uv run")
+                                          ((file-exists-p (file-name-concat project-path "pdm.lock")) "pdm run")
+                                          (t "python"))
+                                  "python")
+                                " "
+                                (file-truename (buffer-file-name)))))
            (setq command (compilation-read-command command))
            (require 'multi-vterm)
            (multi-vterm-run command)))
-        ('rust-ts-mode (one-key-menu-rust))
+        ((or 'rust-ts-mode 'rust-mode) (one-key-menu-rust))
         ('haskell-mode
          (progn
            (setq command
@@ -92,7 +95,7 @@
                   (concat "cabal run")))
            (require 'multi-vterm)
            (multi-vterm-run command)))
-        ('emacs-lisp-mode (message "Not support"))
+        ('emacs-lisp-mode (eval-buffer))
         (_ (if project-path
                (call-interactively #'projection-commands-build-project)
              (call-interactively #'compile)))))))
@@ -173,7 +176,7 @@
    )
 
   (lazy-meow-leader-define-key
-   '(("p" . project-menu) "init-project"))
+   '(("p" . hydra-project/body) "init-project"))
 
   (meow-leader-define-key
    '("1" . delete-other-windows)
@@ -287,8 +290,8 @@
 (meow-setup)
 (meow-global-mode 1)
 
-(require 'meow-tree-sitter)
-(meow-tree-sitter-register-defaults)
+;; (require 'meow-tree-sitter)
+;; (meow-tree-sitter-register-defaults)
 
 (setq repeat-fu-preset 'meow)
 (add-hook 'meow-mode-hook

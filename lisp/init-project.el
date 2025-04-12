@@ -184,33 +184,14 @@ Support Lisp, python, c++."
 (add-to-list 'project-switch-commands '(project-find-dir "Find Dir") t)
 (add-to-list 'project-switch-commands '(project-dired "Dired") t)
 
-
 ;;; Menu
-(lazy-one-key-create-menu
- "Project"
- (:key "f" :description "Find file in project" :command project-find-file)
- (:key "o" :description "Find other file in project" :command projection-find-other-file)
- (:key "d" :description "Project Dir" :command project-dired-dir)
- (:key "b" :description "Project buffer" :command consult-project-buffer)
- (:key "k" :description "Project kill buffer" :command project-kill-buffers)
-
- ;; (:key "t" :description "Open temp project" :command find-temp-project)
- (:key "p" :description "Switch project" :command project-switch-project)
- (:key "a" :description "Remember a project" :command project-remember-projects-under)
- (:key "r" :description "Remove known project" :command project-forget-project)
-
- (:key "v" :description "Project Git" :command magit-status)
- (:key "c" :description "Project rsync all" :command rsync-project-dispatch :filename "init-rsync")
-
- (:key "e" :description "Project eshell" :command eshell-project-toggle :filename "init-eshell")
- (:key "t" :description "Project vterm" :command multi-vterm-project :filename "multi-vterm"))
-
 (pretty-hydra-define-e hydra-project
   (:title "Project" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
   ("Basic"
    (("f" project-find-file "find file")
     ("o" projection-find-other-file "find other file")
-    ("d" project-dired-dir "dired")
+    ("d" project-dired "dired")
+    ("D" project-dired-dir "dired")
     ("b" consult-project-buffer "buffer")
     ("k" project-kill-buffers "kill buffers"))
    "project"
@@ -222,50 +203,6 @@ Support Lisp, python, c++."
    (("v" magit-project-status "git")
     ("t" multi-vterm-project "vterm")
     ("e" eshell-project-toggle "eshell"))))
-
-;;; disproject
-(require 'disproject)
-
-(transient-define-suffix disproject-term ()
-  (interactive)
-  (call-interactively #'multi-vterm-project))
-
-(transient-define-suffix disproject-eshell ()
-  (interactive)
-  (autoload 'eshell-project-toggle "init-eshell" nil t)
-  (eshell-project-toggle))
-
-(transient-define-suffix disproject-find-file-include ()
-  (interactive)
-  (project-find-file t))
-
-(transient-define-suffix disproject-find-other-file ()
-  (interactive)
-  (call-interactively #'projection-find-other-file))
-
-(transient-append-suffix 'disproject-dispatch "s"
-  '("t" "Term" disproject-term))
-
-(transient-replace-suffix 'disproject-dispatch "s"
-  '("s" "Eshell" disproject-eshell))
-
-(transient-replace-suffix 'disproject-dispatch "F"
-  '("F" "File file with git ignore" disproject-find-file-include))
-
-(transient-replace-suffix 'disproject-dispatch "D"
-  '("o" "File other file" disproject-find-other-file))
-
-(transient-replace-suffix 'disproject-dispatch "c"
-  '("c" "Rsync" rsync-project-dispatch))
-
-(transient-replace-suffix 'disproject-dispatch "SPC"
-  '(";" "Custom dispatch" disproject-custom-dispatch
-    :transient transient--do-replace))
-
-;;;###autoload
-(defun project-menu ()
-  (interactive)
-  (call-interactively #'disproject-dispatch))
 
 (provide 'init-project)
 ;;; init-project.el ends heres.

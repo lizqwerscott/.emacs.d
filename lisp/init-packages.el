@@ -95,7 +95,6 @@
     devdocs
     wucuo
     projection
-    disproject
     eshell-prompt-extras
     fish-completion
     dape
