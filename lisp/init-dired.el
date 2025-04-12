@@ -126,7 +126,46 @@ At 2nd time it copy current directory to kill-buffer."
                ("C-c C-r" . dired-rsync)
                ("C-c C-x" . dired-rsync-transient)
                ("C-c e" . dired-do-open-default)
-               (("M-j" "s-j") . dired-other-window)))
+               (("M-j" "s-j") . dired-other-window)
+               ("C-o" . dired-dispatch)))
+
+;;; Menu
+(defun transient-show--variable-to-checkbox (v)
+  "Checkbox string representation of variable V.
+V is either nil or non-nil."
+  (if v "[x]" "[ ]"))
+
+(defun transient-show--prefix-label (label prefix)
+  "Label constructed with PREFIX and LABEL separated by a space."
+  (format "%s %s" prefix label))
+
+(defun transient-show-checkbox-label (v label)
+  "Checkbox label using variable V and LABEL."
+  (transient-show--prefix-label label (transient-show--variable-to-checkbox v)))
+
+;;;###autoload
+(transient-define-prefix dired-dispatch ()
+  "Dired dispatch menu"
+  [["Directory"
+    ("h" "Hide Details" dired-hide-details-mode
+     :description
+     (lambda ()
+       (transient-show-checkbox-label dired-hide-details-mode "Hide Details"))
+     :transient t)
+    ("o" "Omit Mode" dired-omit-mode
+     :description
+     (lambda () (transient-show-checkbox-label dired-omit-mode "Omit Mode"))
+     :transient t)]
+   ["Sort By"
+    ("n" "Name" casual-dired--sort-by-name :transient t)
+    ("k" "Kind" casual-dired--sort-by-kind :transient t)
+    ("l" "Date Last Opened" casual-dired--sort-by-date-last-opened
+     :transient t)
+    ("a" "Date Added" casual-dired--sort-by-date-added :transient t)
+    ("m" "Date Modified" casual-dired--sort-by-date-modified :transient t)
+    ("M" "Date Metadata Changed" casual-dired--sort-by-date-metadata-changed
+     :transient t)
+    ("s" "Size" casual-dired--sort-by-size :transient t)]])
 
 ;;; dirvish
 (when user/dirvish
