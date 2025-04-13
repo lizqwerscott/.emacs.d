@@ -72,6 +72,7 @@
         ("\\*.*e?shell\\*" :regexp t :select t :align below :popup t)
         ("^\\*.*vterm[inal]*.*\\*.*$" :regexp t :select t :align below :popup t)
         ("*ielm*" :regexp t :select t :align below :popup t)
+        (sly-mrepl-mode :select t :align below :popup t)
 
         (cargo-process-mode :select t :align t :popup t)
         (compilation-mode :select t :align t :popup t)
