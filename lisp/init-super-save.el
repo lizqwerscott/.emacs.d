@@ -40,7 +40,7 @@
       super-save-all-buffers t)
 
 (add-list-to-list 'super-save-triggers
-                  '(ace-window magit-status))
+                  '(ace-window magit-status run-or-compile))
 (add-to-list 'super-save-hook-triggers 'find-file-hook)
 
 (super-save-mode +1)
