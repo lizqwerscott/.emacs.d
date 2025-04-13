@@ -243,13 +243,6 @@
    ("s-i" . symbol-overlay-put))
  "symbol-overlay")
 
-;;; webjump
-;; (lazy-load-global-keys
-;;  '(("C-c /" . webjump))
-;;  "init-webjump")
-
-(global-set-key (kbd "C-c /") #'google-this)
-
 ;;; yank
 (global-set-key (kbd "M-y") #'consult-yank-pop)
 
