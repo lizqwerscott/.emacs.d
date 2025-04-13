@@ -57,9 +57,9 @@
 (setq shackle-default-alignment 'below)
 (setq shackle-rules
       '(
-        (help-mode :select t :align right :size 75)
-        (helpful-mode :select t :align right :size 75)
-        (fanyi-mode  :select t :align right :size 75)
+        (help-mode :select t :align right :size 0.4)
+        (helpful-mode :select t :align right :size 0.4)
+        (fanyi-mode  :select t :align right :size 0.4)
 
         ("*One-Key*" :select t :align t :size 0.5)
         ("*Org Agenda*" :select t :align t :size 0.5)
