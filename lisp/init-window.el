@@ -53,22 +53,51 @@
 
 ;;; shackle
 (require 'shackle)
-(setq shackle-default-size 0.5)
+(setq shackle-default-size 0.25)
 (setq shackle-default-alignment 'below)
 (setq shackle-rules
-      '(;; (help-mode :select t :align t :size 0.4)
-        ;; ("*Process List*" :select t :align t)
-        ("*One-Key*" :select t :align 'below)
-        ("*Org Agenda*" :select t :align 'below)
-        ;; ("*eshell*" :regexp t :select t :align 'below)
-        ;; (inferior-emacs-lisp-mode :select t :align 'below)
-        ))
+      '(
+        (help-mode :select t :align right :size 75)
+        (helpful-mode :select t :align right :size 75)
+
+        ("*One-Key*" :select t :align t :size 0.5)
+        ("*Org Agenda*" :select t :align t :size 0.5)
+        ("\\*Agenda Commands\\*" :regexp t :select t :align below :popup t)
+        ("\\*Org Select\\*" :regexp t :select t :align below :popup t)
+        ("\\*Capture\\*" :regexp t :select t :align below :popup t)
+        ("^CAPTURE-.*\\.org*" :regexp t :select t :align below :popup t)
+
+        ("\\*.*e?shell\\*" :regexp t :select t :align below :popup t)
+        ("^\\*.*vterm[inal]*.*\\*.*$" :regexp t :select t :align below :popup t)
+        ("*ielm*" :regexp t :select t :align below :popup t)
+
+        ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|Messages\\|Bookmark List\\|Occur\\|eldoc\\)\\*" :regexp t :select t :align below :popup t)
+        (compilation-mode :select t :align t :popup t)
+        ("\\*\\(Flymake diagnostics\\|xref\\|Completions\\)" :regexp t :select t :align below :popup t)
+        ("Output\\*$" :regexp t :select t :align below :popup t)
+
+        ("\\*Async Shell Command\\*$" :regexp t :select t :align below :popup t)
+        ("\\*Apropos\\*$" :regexp t :select t :align below :popup t)
+        ("\\*Backtrace\\*$" :regexp t :select t :align below :popup t)
+        ("\\*Calendar\\*$" :regexp t :select t :align below :popup t)
+
+        ("\\*Find\\*$" :regexp t :select t :align below :popup t)
+        ("\\*Finder\\*$" :regexp t :select t :align below :popup t)
+        ("\\*Fd\\*$" :regexp t :select t :align below :popup t)
+
+        ("\\*Kill Ring\\*$" :regexp t :select t :align below :popup t)
+        ("\\*Embark \\(Collect\\|Live\\):.*\\*$" :regexp t :select t :align below :popup t)
+
+        ("\\*ert\\*$" :regexp t :select t :align below :popup t)
+        ("\\*diff-hl\\**" :regexp t :select t :align below :popup t)))
+
 (shackle-mode 1)
 
 ;;; popper
 (require 'popper)
 (setq popper-group-function #'popper-group-by-directory
-      popper-echo-dispatch-actions t)
+      popper-echo-dispatch-actions t
+      popper-display-control nil)
 
 (keymap-sets popper-mode-map
              '(("C-h z" . popper-toggle)
@@ -111,6 +140,7 @@
         "^\\*.*shell.*\\*.*$"
         "^\\*.*terminal.*\\*.*$"
         "^\\*.*vterm[inal]*.*\\*.*$"
+        "^\\*.*ielm.*\\*.*$" ielm-mode
 
         "\\*DAP Templates\\*$" dap-server-log-mode
         "\\*ELP Profiling Restuls\\*" profiler-report-mode
