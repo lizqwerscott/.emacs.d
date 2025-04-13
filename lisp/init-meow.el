@@ -122,6 +122,48 @@
              (lsp-bridge-popup-documentation)
            (message "dont't know how to help")))))))
 
+(defun find-references-with-sly ()
+  (interactive)
+  (cond
+   ((bound-and-true-p sly-mode)
+    (call-interactively #'sly-edit-uses))
+   (t
+    (xref-find-references (thing-at-point 'symbol)))))
+
+(defun find-definition-with-sly ()
+  (interactive)
+  (cond
+   ((bound-and-true-p sly-mode)
+    (call-interactively #'sly-edit-definition))
+   (t
+    (xref-find-definitions (thing-at-point 'symbol)))))
+
+(defun find-definition-with-sly-other-window ()
+  (interactive)
+  (cond
+   ((bound-and-true-p sly-mode)
+    (call-interactively #'sly-edit-definition-other-window))
+   (t
+    (xref-find-definitions-other-window (thing-at-point 'symbol)))))
+
+(defun return-find-def-with-sly ()
+  (interactive)
+  (cond
+   ((bound-and-true-p sly-mode)
+    (call-interactively #'sly-pop-find-definition-stack))
+   (t
+    (call-interactively #'xref-go-back))))
+
+(defun find-implementation-with-sly ()
+  (interactive)
+  (cond
+   ((bound-and-true-p sly-mode)
+    (sly-who-calls (thing-at-point 'symbol)))
+   ((bound-and-true-p eglot-mode)
+    (call-interactively #'eglot-find-implementation))
+   (t
+    (message "This mode not support implementation."))))
+
 (defun meow-setup ()
   ;; (meow-motion-overwrite-define-key
   ;;  '("j" . meow-next)
@@ -261,12 +303,11 @@
   (pcase user/lsp-client
     ('eglot
      (meow-normal-define-key
-      '("gr" . xref-find-references)
-      '("gd" . xref-find-definitions)
-      '("gD" . xref-find-definitions-other-window)
-      '("gi" . eglot-find-implementation)
-      '("gI" . eglot-find-implementation)
-      '("C-o" . xref-go-back)))
+      '("gr" . find-references-with-sly)
+      '("gd" . find-definition-with-sly)
+      '("gD" . find-definition-with-sly-other-window)
+      '("gi" . find-implementation-with-sly)
+      '("C-o" . return-find-def-with-sly)))
     ('lsp-bridge
      (meow-normal-define-key
       '("gr" . lsp-bridge-find-references)
