@@ -143,6 +143,8 @@ V is either nil or non-nil."
   "Checkbox label using variable V and LABEL."
   (transient-show--prefix-label label (transient-show--variable-to-checkbox v)))
 
+(require 'casual-dired)
+
 ;;;###autoload
 (transient-define-prefix dired-dispatch ()
   "Dired dispatch menu"
@@ -165,7 +167,8 @@ V is either nil or non-nil."
     ("m" "Date Modified" casual-dired--sort-by-date-modified :transient t)
     ("M" "Date Metadata Changed" casual-dired--sort-by-date-metadata-changed
      :transient t)
-    ("s" "Size" casual-dired--sort-by-size :transient t)]])
+    ("s" "Size" casual-dired--sort-by-size :transient t)]]
+  [("q" "Quit" transient-quit-all)])
 
 ;;; dirvish
 (when user/dirvish
