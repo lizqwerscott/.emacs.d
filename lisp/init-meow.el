@@ -164,6 +164,23 @@
    (t
     (message "This mode not support implementation."))))
 
+(defun match-in (pred lst)
+  (catch 'found
+    (dolist (x lst)
+      (when (funcall pred x)
+        (throw 'found t)))))
+
+(defun my/meow-quit ()
+  (interactive)
+  (if (match-in #'(lambda (regex)
+                    (buffer-match-p (if (symbolp regex)
+                                        (cons 'derived-mode regex)
+                                      regex)
+                                    (buffer-name)))
+                popper-reference-buffers)
+      (popper--delete-popup (selected-window))
+    (meow-quit)))
+
 (defun meow-setup ()
   ;; (meow-motion-overwrite-define-key
   ;;  '("j" . meow-next)
@@ -278,7 +295,7 @@
    '("O" . meow-to-block)
    '("p" . meow-yank)
    '("P" . meow-yank-pop)
-   '("q" . meow-quit)
+   '("q" . my/meow-quit)
    ;;   '("Q" . meow-goto-line)
    '("r" . meow-replace)
    '("R" . meow-swap-grab)
