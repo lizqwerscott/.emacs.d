@@ -51,52 +51,86 @@
              '(("C-c H" . winner-undo)
                ("C-c L" . winner-redo)))
 
-;;; shackle
-(require 'shackle)
-(setq shackle-default-size 0.25)
-(setq shackle-default-alignment 'below)
-(setq shackle-rules
-      '(
-        (help-mode :select t :align right :size 0.4)
-        (helpful-mode :select t :align right :size 0.4)
-        (fanyi-mode  :select t :align right :size 0.4)
+;;; window rule
+(cl-defun generate-display-buffer-alist (conditions &key (place 'bottom) (size 0.5) (slot 0))
+  (when-let* ((conditions (if (listp conditions)
+                              conditions
+                            (list conditions))))
+    (mapcar #'(lambda (condition)
+                `(,(cond ((stringp condition)
+                          condition)
+                         ((symbolp condition)
+                          (cons 'derived-mode condition))
+                         (t
+                          condition))
+                  (display-buffer-in-side-window)
+                  ,(pcase place
+                     ((or 'bottom 'top)
+                      (cons 'window-height size))
+                     ((or 'left 'right)
+                      (cons 'window-width size)))
+                  (side . ,place)
+                  (slot . ,slot)))
+            conditions)))
 
-        ("*One-Key*" :select t :align t :size 0.5)
-        ("*Org Agenda*" :select t :align t :size 0.5)
-        ("\\*Agenda Commands\\*" :regexp t :select t :align below :popup t)
-        ("\\*Org Select\\*" :regexp t :select t :align below :popup t)
-        ("\\*Capture\\*" :regexp t :select t :align below :popup t)
-        ("^CAPTURE-.*\\.org*" :regexp t :select t :align below :popup t)
-        ("\\*Calendar\\*$" :regexp t :select t :align below :popup t)
+(defun generate-popup-window (buffer-alists)
+  (apply #'append
+         (mapcar #'(lambda (buffer-alist)
+                     (apply #'generate-display-buffer-alist buffer-alist))
+                 buffer-alists)))
 
-        ("\\*.*e?shell\\*" :regexp t :select t :align below :popup t)
-        ("^\\*.*vterm[inal]*.*\\*.*$" :regexp t :select t :align below :popup t)
-        ("*ielm*" :regexp t :select t :align below :popup t)
-        (sly-mrepl-mode :select t :align below :popup t)
+(add-list-to-list
+ 'display-buffer-alist
+ (generate-popup-window
+  '(((help-mode helpful-mode fanyi-mode)
+     :place right
+     :size 0.4
+     :slot 0)
 
-        (cargo-process-mode :select t :align t :popup t)
-        (compilation-mode :select t :align t :popup t)
+    (("*One-Key*" "*Org Agenda*"))
+    (("\\*Agenda Commands\\*" "\\*Org Select\\*" "\\*Capture\\*" "^CAPTURE-.*\\.org*" "\\*Calendar\\*$")
+     :size 0.25)
 
-        ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|Messages\\|Bookmark List\\|Occur\\|eldoc\\)\\*" :regexp t :select t :align below :popup t)
-        ("\\*\\(Flymake diagnostics\\|xref\\|Completions\\)" :regexp t :select t :align below :popup t)
-        ("Output\\*$" :regexp t :select t :align below :popup t)
+    (("\\*.*e?shell\\*" "^\\*.*vterm[inal]*.*\\*.*$" "*ielm*" sly-mrepl-mode)
+     :place bottom
+     :size 0.25
+     :slot -1)
 
-        ("\\*ert\\*$" :regexp t :select t :align below :popup t)
+    ((compilation-mode cargo-process-mode compilation-mode)
+     :place bottom
+     :size 0.25
+     :slot 0)
 
-        ("\\*Async Shell Command\\*$" :regexp t :select t :align below :popup t)
-        ("\\*Apropos\\*$" :regexp t :select t :align below :popup t)
-        ("\\*Backtrace\\*$" :regexp t :select t :align below :popup t)
+    (("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|Messages\\|Bookmark List\\|Occur\\|eldoc\\)\\*"
+      "\\*\\(Flymake diagnostics\\|xref\\|Completions\\)"
+      "Output\\*$"
+      "\\*ert\\*$"
 
-        ("\\*Find\\*$" :regexp t :select t :align below :popup t)
-        ("\\*Finder\\*$" :regexp t :select t :align below :popup t)
-        ("\\*Fd\\*$" :regexp t :select t :align below :popup t)
+      "\\*Async Shell Command\\*$"
+      "\\*Apropos\\*$"
+      "\\*Backtrace\\*$"
 
-        ("\\*Kill Ring\\*$" :regexp t :select t :align below :popup t)
-        ("\\*Embark \\(Collect\\|Live\\):.*\\*$" :regexp t :select t :align below :popup t)
+      "\\*Find\\*$"
+      "\\*Finder\\*$"
+      "\\*Fd\\*$"
 
-        ("\\*diff-hl\\**" :regexp t :select t :align below :popup t)))
+      "\\*Kill Ring\\*$"
+      "\\*Embark \\(Collect\\|Live\\):.*\\*$"
 
-(shackle-mode 1)
+      "\\*diff-hl\\**")
+     :size 0.25
+     :slot 1)
+
+    (("\\*Find\\*$"
+      "\\*Finder\\*$"
+      "\\*Fd\\*$"
+
+      "\\*Kill Ring\\*$"
+      "\\*Embark \\(Collect\\|Live\\):.*\\*$"
+
+      "\\*diff-hl\\**")
+     :size 0.25
+     :slot 2))))
 
 ;;; popper
 (require 'popper)
