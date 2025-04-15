@@ -81,10 +81,13 @@
                      (apply #'generate-display-buffer-alist buffer-alist))
                  buffer-alists)))
 
-(add-list-to-list
- 'display-buffer-alist
- (generate-popup-window
-  '((("*One-Key*" "*Org Agenda*")))))
+(add-hook 'auto-side-windows-mode-hook
+          #'(lambda ()
+              (when (bound-and-true-p auto-side-windows-mode)
+                (add-list-to-list
+                 'display-buffer-alist
+                 (generate-popup-window
+                  '((("*One-Key*" "*Org Agenda*"))))))))
 
 ;; (add-list-to-list
 ;;  'display-buffer-alist
@@ -168,7 +171,7 @@
 (setq auto-side-windows-right-buffer-modes
       '(help-mode helpful-mode fanyi-mode))
 (setq auto-side-windows-right-alist
-      '((window-width . 75)))
+      '((window-width . 0.4)))
 
 (setq auto-side-windows-common-window-parameters
       '((mode-line-format . nil)
