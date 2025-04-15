@@ -52,7 +52,7 @@
                ("C-c L" . winner-redo)))
 
 ;;; window rule
-(cl-defun generate-display-buffer-alist (conditions &key (place 'bottom) (size 0.5) (slot 0))
+(cl-defun generate-display-buffer-alist (conditions &key popup (place 'bottom) (size 0.5) (slot 0))
   (when-let* ((conditions (if (listp conditions)
                               conditions
                             (list conditions))))
@@ -63,7 +63,9 @@
                           (cons 'derived-mode condition))
                          (t
                           condition))
-                  (display-buffer-in-side-window)
+                  ,(if popup
+                       '(display-buffer-pop-up-window)
+                     '(display-buffer-in-side-window))
                   ,(pcase place
                      ((or 'bottom 'top)
                       (cons 'window-height size))
@@ -84,7 +86,7 @@
  (generate-popup-window
   '(((help-mode helpful-mode fanyi-mode)
      :place right
-     :size 0.4
+     :size 75
      :slot 0)
 
     (("*One-Key*" "*Org Agenda*"))
@@ -92,11 +94,12 @@
      :size 0.25)
 
     (("\\*.*e?shell\\*" "^\\*.*vterm[inal]*.*\\*.*$" "*ielm*" sly-mrepl-mode)
+     :popup t
      :place bottom
      :size 0.25
      :slot -1)
 
-    ((compilation-mode cargo-process-mode compilation-mode)
+    ((compilation-mode cargo-process-mode)
      :place bottom
      :size 0.25
      :slot 0)
@@ -108,16 +111,7 @@
 
       "\\*Async Shell Command\\*$"
       "\\*Apropos\\*$"
-      "\\*Backtrace\\*$"
-
-      "\\*Find\\*$"
-      "\\*Finder\\*$"
-      "\\*Fd\\*$"
-
-      "\\*Kill Ring\\*$"
-      "\\*Embark \\(Collect\\|Live\\):.*\\*$"
-
-      "\\*diff-hl\\**")
+      "\\*Backtrace\\*$")
      :size 0.25
      :slot 1)
 
