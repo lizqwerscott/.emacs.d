@@ -84,47 +84,100 @@
 (add-list-to-list
  'display-buffer-alist
  (generate-popup-window
-  '(((help-mode helpful-mode fanyi-mode)
-     :place right
-     :size 75
-     :slot 0)
+  '((("*One-Key*" "*Org Agenda*")))))
 
-    (("*One-Key*" "*Org Agenda*"))
-    (("\\*Agenda Commands\\*" "\\*Org Select\\*" "\\*Capture\\*" "^CAPTURE-.*\\.org*" "\\*Calendar\\*$")
-     :size 0.25)
+;; (add-list-to-list
+;;  'display-buffer-alist
+;;  (generate-popup-window
+;;   '(((help-mode helpful-mode fanyi-mode)
+;;      :place right
+;;      :size 75)
 
-    (("\\*.*e?shell\\*" "^\\*.*vterm[inal]*.*\\*.*$" "*ielm*" sly-mrepl-mode)
-     :popup t
-     :place bottom
-     :size 0.25
-     :slot -1)
+;;     (("*One-Key*" "*Org Agenda*"))
+;;     (("\\*Agenda Commands\\*" "\\*Org Select\\*" "\\*Capture\\*" "^CAPTURE-.*\\.org*" "\\*Calendar\\*$")
+;;      :size 0.25)
 
-    ((compilation-mode cargo-process-mode)
-     :place bottom
-     :size 0.25
-     :slot 0)
+;;     (("\\*.*e?shell\\*" "^\\*.*vterm[inal]*.*\\*.*$" "*ielm*" sly-mrepl-mode)
+;;      :popup t
+;;      :place bottom
+;;      :size 0.25
+;;      :slot -1)
 
-    (("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|Messages\\|Bookmark List\\|Occur\\|eldoc\\)\\*"
-      "\\*\\(Flymake diagnostics\\|xref\\|Completions\\)"
-      "Output\\*$"
-      "\\*ert\\*$"
+;;     ((compilation-mode cargo-process-mode)
+;;      :place bottom
+;;      :size 0.25
+;;      :slot 0)
 
-      "\\*Async Shell Command\\*$"
-      "\\*Apropos\\*$"
-      "\\*Backtrace\\*$")
-     :size 0.25
-     :slot 1)
+;;     (("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|Messages\\|Bookmark List\\|Occur\\|eldoc\\)\\*"
+;;       "\\*\\(Flymake diagnostics\\|xref\\|Completions\\)"
+;;       "Output\\*$"
+;;       "\\*ert\\*$"
 
-    (("\\*Find\\*$"
-      "\\*Finder\\*$"
-      "\\*Fd\\*$"
+;;       "\\*Async Shell Command\\*$"
+;;       "\\*Apropos\\*$"
+;;       "\\*Backtrace\\*$")
+;;      :size 0.25
+;;      :slot 1)
 
-      "\\*Kill Ring\\*$"
-      "\\*Embark \\(Collect\\|Live\\):.*\\*$"
+;;     (("\\*Find\\*$"
+;;       "\\*Finder\\*$"
+;;       "\\*Fd\\*$"
 
-      "\\*diff-hl\\**")
-     :size 0.25
-     :slot 2))))
+;;       "\\*Kill Ring\\*$"
+;;       "\\*Embark \\(Collect\\|Live\\):.*\\*$"
+
+;;       "\\*diff-hl\\**")
+;;      :size 0.25
+;;      :slot 2))))
+
+(require 'auto-side-windows)
+(setq auto-side-windows-bottom-buffer-names
+      '("^\\*.*eshell.*\\*$" "^\\*.*shell.*\\*$" "^\\*.*term.*\\*$"
+        "^\\*.*vterm.*\\*$"
+        "*ielm*"
+
+        "\\*Agenda Commands\\*" "\\*Org Select\\*" "\\*Capture\\*" "^CAPTURE-.*\\.org*" "\\*Calendar\\*$"
+
+        "\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|Messages\\|Bookmark List\\|Occur\\|eldoc\\)\\*"
+        "\\*\\(Flymake diagnostics\\|xref\\|Completions\\)"
+        "Output\\*$"
+        "\\*ert\\*$"
+
+        "\\*Async Shell Command\\*$"
+        "\\*Apropos\\*$"
+        "\\*Backtrace\\*$"
+
+        "\\*Find\\*$"
+        "\\*Finder\\*$"
+        "\\*Fd\\*$"
+
+        "\\*Kill Ring\\*$"
+        "\\*Embark \\(Collect\\|Live\\):.*\\*$"
+
+        "\\*diff-hl\\**"
+        ))
+(setq auto-side-windows-bottom-buffer-modes
+      '(eshell-mode shell-mode term-mode vterm-mode sly-mrepl-mode comint-mode
+                    debugger-mode compilation-mode cargo-process-mode))
+(setq auto-side-windows-bottom-alist
+      '((window-height . 0.25)))
+
+
+(setq auto-side-windows-right-buffer-names
+      '("^\\*Metahelp\\*$"))
+(setq auto-side-windows-right-buffer-modes
+      '(help-mode helpful-mode fanyi-mode))
+(setq auto-side-windows-right-alist
+      '((window-width . 75)))
+
+(setq auto-side-windows-common-window-parameters
+      '((mode-line-format . nil)
+        (header-line-format . nil)))
+
+(setq window-sides-slots '(1 1 1 1))
+(setq window-sides-vertical nil)
+
+(auto-side-windows-mode 1)
 
 ;;; popper
 (require 'popper)

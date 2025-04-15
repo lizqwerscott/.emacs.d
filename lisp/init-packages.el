@@ -145,6 +145,7 @@
 
 (defvar *package-window-install-list*
   '(shackle
+    (auto-side-windows :fetcher github :repo "MArpogaus/auto-side-windows")
     popper
     ace-window
     (watch-other-window :fetcher github :repo "manateelazycat/watch-other-window")
