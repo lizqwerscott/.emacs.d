@@ -92,22 +92,16 @@
       (ignore-errors (isearch-done t t)))
     (consult-line query)))
 
-(defun my-occur-from-isearch ()
-  (interactive)
-  (let ((query (if isearch-regexp
-                   isearch-string
-                 (regexp-quote isearch-string))))
-    (isearch-update-ring isearch-string isearch-regexp)
-    (let (search-nonincremental-instead)
-      (ignore-errors (isearch-done t t)))
-    (occur query)))
-
 (with-eval-after-load 'isearch
   (keymap-sets isearch-mode-map
-               '(("<escape>" . isearch-exit)
-                 ("C-d" . isearch-forward-symbol-at-point)
-                 ("C-l" . my-isearch-consult-line-from-isearch)
-                 ("C-o" . my-occur-from-isearch))))
+               '(("<escape>" . isearch-exit)))
+
+  (with-eval-after-load 'casual-isearch
+    (transient-define-suffix isearch-consult-line ()
+      (interactive)
+      (call-interactively #'my-isearch-consult-line-from-isearch))
+    (transient-append-suffix 'casual-isearch-tmenu "u"
+      '("c" "Use consult line" isearch-consult-line))))
 
 ;;; Outline indent
 (require 'init-outline-indent)
