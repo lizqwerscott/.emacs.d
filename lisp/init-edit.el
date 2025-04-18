@@ -81,24 +81,33 @@
 (setq isearch-lazy-count t
       lazy-count-prefix-format "%s/%s ")
 
-(defvar my/isearch--direction nil)
+(defun my-isearch-consult-line-from-isearch ()
+  "Invoke `consult-line' from isearch."
+  (interactive)
+  (let ((query (if isearch-regexp
+                   isearch-string
+                 (regexp-quote isearch-string))))
+    (isearch-update-ring isearch-string isearch-regexp)
+    (let (search-nonincremental-instead)
+      (ignore-errors (isearch-done t t)))
+    (consult-line query)))
 
-(defun my/isearch-repeat (&optional arg)
-  (interactive "P")
-  (isearch-repeat my/isearch--direction arg))
+(defun my-occur-from-isearch ()
+  (interactive)
+  (let ((query (if isearch-regexp
+                   isearch-string
+                 (regexp-quote isearch-string))))
+    (isearch-update-ring isearch-string isearch-regexp)
+    (let (search-nonincremental-instead)
+      (ignore-errors (isearch-done t t)))
+    (occur query)))
 
 (with-eval-after-load 'isearch
-
-  (define-advice isearch-exit (:after nil)
-    (setq-local my/isearch--direction nil))
-  (define-advice isearch-repeat-forward (:after (_))
-    (setq-local my/isearch--direction 'forward))
-  (define-advice isearch-repeat-backward (:after (_))
-    (setq-local my/isearch--direction 'backward))
-
   (keymap-sets isearch-mode-map
-               '(("<return>" . my/isearch-repeat)
-                 ("<escape>" . isearch-exit))))
+               '(("<escape>" . isearch-exit)
+                 ("C-d" . isearch-forward-symbol-at-point)
+                 ("C-l" . my-isearch-consult-line-from-isearch)
+                 ("C-o" . my-occur-from-isearch))))
 
 ;;; Outline indent
 (require 'init-outline-indent)
