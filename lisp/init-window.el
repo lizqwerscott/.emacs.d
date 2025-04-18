@@ -52,135 +52,59 @@
                ("C-c L" . winner-redo)))
 
 ;;; window rule
-(cl-defun generate-display-buffer-alist (conditions &key popup (place 'bottom) (size 0.5) (slot 0))
-  (when-let* ((conditions (if (listp conditions)
-                              conditions
-                            (list conditions))))
-    (mapcar #'(lambda (condition)
-                `(,(cond ((stringp condition)
-                          condition)
-                         ((symbolp condition)
-                          (cons 'derived-mode condition))
-                         (t
-                          condition))
-                  ,(if popup
-                       '(display-buffer-pop-up-window)
-                     '(display-buffer-in-side-window))
-                  ,(pcase place
-                     ((or 'bottom 'top)
-                      (cons 'window-height size))
-                     ((or 'left 'right)
-                      (cons 'window-width size)))
-                  (side . ,place)
-                  (slot . ,slot)))
-            conditions)))
+(defun my-window-select-fit-size (window)
+  (select-window window)
+  (fit-window-to-buffer window
+                        (floor (frame-height) 3)
+                        10))
 
-(defun generate-popup-window (buffer-alists)
-  (apply #'append
-         (mapcar #'(lambda (buffer-alist)
-                     (apply #'generate-display-buffer-alist buffer-alist))
-                 buffer-alists)))
-
-(add-hook 'auto-side-windows-mode-hook
-          #'(lambda ()
-              (when (bound-and-true-p auto-side-windows-mode)
-                (add-list-to-list
-                 'display-buffer-alist
-                 (generate-popup-window
-                  '((("*One-Key*" "*Org Agenda*"))))))))
-
-;; (add-list-to-list
-;;  'display-buffer-alist
-;;  (generate-popup-window
-;;   '(((help-mode helpful-mode fanyi-mode)
-;;      :place right
-;;      :size 75)
-
-;;     (("*One-Key*" "*Org Agenda*"))
-;;     (("\\*Agenda Commands\\*" "\\*Org Select\\*" "\\*Capture\\*" "^CAPTURE-.*\\.org*" "\\*Calendar\\*$")
-;;      :size 0.25)
-
-;;     (("\\*.*e?shell\\*" "^\\*.*vterm[inal]*.*\\*.*$" "*ielm*" sly-mrepl-mode)
-;;      :popup t
-;;      :place bottom
-;;      :size 0.25
-;;      :slot -1)
-
-;;     ((compilation-mode cargo-process-mode)
-;;      :place bottom
-;;      :size 0.25
-;;      :slot 0)
-
-;;     (("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|Messages\\|Bookmark List\\|Occur\\|eldoc\\)\\*"
-;;       "\\*\\(Flymake diagnostics\\|xref\\|Completions\\)"
-;;       "Output\\*$"
-;;       "\\*ert\\*$"
-
-;;       "\\*Async Shell Command\\*$"
-;;       "\\*Apropos\\*$"
-;;       "\\*Backtrace\\*$")
-;;      :size 0.25
-;;      :slot 1)
-
-;;     (("\\*Find\\*$"
-;;       "\\*Finder\\*$"
-;;       "\\*Fd\\*$"
-
-;;       "\\*Kill Ring\\*$"
-;;       "\\*Embark \\(Collect\\|Live\\):.*\\*$"
-
-;;       "\\*diff-hl\\**")
-;;      :size 0.25
-;;      :slot 2))))
-
-(require 'auto-side-windows)
-(setq auto-side-windows-bottom-buffer-names
-      '("^\\*.*eshell.*\\*$" "^\\*.*shell.*\\*$" "^\\*.*term.*\\*$"
-        "^\\*.*vterm.*\\*$"
-        "*ielm*"
-
-        "\\*Agenda Commands\\*" "\\*Org Select\\*" "\\*Capture\\*" "^CAPTURE-.*\\.org*" "\\*Calendar\\*$"
-
-        "\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|Messages\\|Bookmark List\\|Occur\\|eldoc\\)\\*"
+(add-list-to-list
+ 'display-buffer-alist
+ '(;; bottom side window
+   ((or "\\*.*e?shell\\*" "^\\*.*vterm[inal]*.*\\*.*$" "*ielm*" (derived-mode . sly-mrepl-mode))
+    (display-buffer-in-side-window)
+    (side . bottom)
+    (slot . 0)
+    (dedicated . t)
+    (window-height . 0.25))
+   ((or "\\*Agenda Commands\\*" "\\*Org Select\\*")
+    (display-buffer-in-side-window)
+    (dedicated . t)
+    (side . bottom)
+    (slot . 0)
+    (window-parameters . ((mode-line-format . none))))
+   ((or "*One-Key*" "*Org Agenda*" "\\*Calendar\\*$")
+    (display-buffer-in-side-window)
+    (dedicated )
+    (side . bottom)
+    (slot . 0))
+   ;; right side window
+   ((or (derived-mode . help-mode) (derived-mode . helpful-mode) (derived-mode . fanyi-mode))
+    (display-buffer-in-side-window)
+    (dedicated . t)
+    (side . right)
+    (slot . 0)
+    (window-width . 0.4))
+   ;; bottom buffer (NOT side window)
+   ((or "\\(\\*Capture\\*\\|CAPTURE-.*\\)" "^CAPTURE-.*\\.org*")
+    (display-buffer-reuse-mode-window display-buffer-below-selected))
+   ((or (derived-mode . compilation-mode) (derived-mode . cargo-process-mode))
+    (display-buffer-reuse-mode-window display-buffer-at-bottom)
+    (window-height . 0.3)
+    (dedicated . t)
+    (preserve-size . (t . t))
+    (body-function . select-window))
+   ((or "\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|Messages\\|Bookmark List\\|Occur\\|eldoc\\)\\*"
         "\\*\\(Flymake diagnostics\\|xref\\|Completions\\)"
         "Output\\*$"
         "\\*ert\\*$"
 
         "\\*Async Shell Command\\*$"
-        "\\*Apropos\\*$"
-        "\\*Backtrace\\*$"
-
-        "\\*Find\\*$"
-        "\\*Finder\\*$"
-        "\\*Fd\\*$"
-
-        "\\*Kill Ring\\*$"
-        "\\*Embark \\(Collect\\|Live\\):.*\\*$"
-
-        "\\*diff-hl\\**"
-        ))
-(setq auto-side-windows-bottom-buffer-modes
-      '(eshell-mode shell-mode term-mode vterm-mode sly-mrepl-mode comint-mode
-                    debugger-mode compilation-mode cargo-process-mode))
-(setq auto-side-windows-bottom-alist
-      '((window-height . 0.25)))
-
-
-(setq auto-side-windows-right-buffer-names
-      '("^\\*Metahelp\\*$"))
-(setq auto-side-windows-right-buffer-modes
-      '(help-mode helpful-mode fanyi-mode))
-(setq auto-side-windows-right-alist
-      '((window-width . 0.4)))
-
-(setq auto-side-windows-common-window-parameters
-      '((mode-line-format . nil)
-        (header-line-format . nil)))
-
-(setq window-sides-slots '(1 1 1 1))
-(setq window-sides-vertical nil)
-
-(auto-side-windows-mode 1)
+        "\\*Apropos\\*$")
+    (display-buffer-reuse-mode-window display-buffer-at-bottom)
+    (dedicated . t)
+    (window-height . 0.25)
+    (body-function . my-window-select-fit-size))))
 
 ;;; popper
 (require 'popper)
