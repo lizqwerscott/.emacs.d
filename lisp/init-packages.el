@@ -118,7 +118,6 @@
     ligature
     dashboard
     doom-modeline
-    pretty-mode
     lisp-extra-font-lock
     highlight-function-calls
     focus

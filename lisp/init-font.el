@@ -75,10 +75,4 @@
               (when user/ligature
                 (global-ligature-mode))))
 
-;;; 替换符号
-(add-hooks '(emacs-lisp-mode lisp-mode)
-           #'(lambda ()
-               (require 'pretty-mode)
-               (pretty-mode 1)))
-
 (provide 'init-font)
