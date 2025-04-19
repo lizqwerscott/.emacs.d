@@ -67,7 +67,7 @@
     (slot . 0)
     (dedicated . t)
     (window-height . 0.25))
-   ((or "\\*Agenda Commands\\*" "\\*Org Select\\*")
+   ((or "\\*Agenda Commands\\*" "\\*Org Select\\*" "\\*vc-.*\\**")
     (display-buffer-in-side-window)
     (dedicated . t)
     (side . bottom)
