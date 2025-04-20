@@ -89,8 +89,9 @@
 ;;; lisp
 (add-hook 'before-save-hook
           #'(lambda ()
-              (when (and (equal major-mode 'elisp-mode)
-                       (equal major-mode 'lisp-mode))
+              (when (or (equal major-mode 'emacs-lisp-mode)
+                        (equal major-mode 'lisp-mode)
+                        (equal major-mode 'scheme-mode))
                 (call-interactively #'check-parens))))
 
 ;;; language
