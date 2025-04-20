@@ -71,7 +71,7 @@
   (when (with-current-buffer buffer
           (eq major-mode 'compilation-mode))
     (if (and (string-match "finished" string)
-           (not (string-match "^.*warning.*" string)))
+             (not (string-match "^.*warning.*" string)))
         (progn
           (message "Build finished :)")
           (run-with-timer 1 nil
