@@ -8,6 +8,7 @@
         (conf-mode . normal)
         (elfeed-show-mode . normal)
         (helpful-mode . normal)
+        (help-mode . normal)
         (cargo-process-mode . normal)
         (compilation-mode . normal)
         (messages-buffer-mode . normal)
