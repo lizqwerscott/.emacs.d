@@ -126,7 +126,8 @@
   ("Base"
    (("h" (find-file "~/") "Home")
     ("d" (find-file "~/Downloads") "Downloads")
-    ("f" (find-file "~/Documents/") "Documents"))
+    ("f" (find-file "~/Documents/") "Documents")
+    ("t" trashed "Trashed"))
    "Program"
    (("c" (find-file "~/.emacs.d") "Emacs Config")
     ("g" (find-file "~/github") "Github")

@@ -1,8 +1,8 @@
 ;;; dired
 (require 'dired)
-;; (setq trash-directory "~/.trashs/")
-;; (setq delete-by-moving-to-trash t)
-;; (setq dired-recursive-deletes 'always)
+(setq delete-by-moving-to-trash t)
+(setq dired-recursive-deletes 'always)
+(setq dired-recursive-copies 'always)
 (setq dired-auto-revert-buffer t)
 (setq dired-hide-details-hide-symlink-targets nil)
 (setq dired-dwim-target t)
@@ -67,6 +67,13 @@
 ;;; dired-sort
 (require 'dired-quick-sort)
 (dired-quick-sort-setup)
+
+;;; trashed
+(require 'trashed)
+(setq trashed-action-confirmer 'y-or-n-p
+      trashed-use-header-line t
+      trashed-sort-key '("Date deleted" . t)
+      trashed-date-format "%Y-%m-%d %H:%M:%S")
 
 ;;; Find file auto
 (defcustom user/find-file-auto-regexp-list '("\\.xlsx?\\'" "\\.pptx?\\'" "\\.docx?\\'" "\\.mp4\\'" "\\.app\\'")
