@@ -3,6 +3,8 @@
 (require 'ace-window)
 (add-to-list 'aw-ignored-buffers "*Ilist*")
 (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+(add-hook 'after-init-hook
+          #'ace-window-display-mode)
 
 (custom-set-faces
  '(aw-leading-char-face ((t (:inherit font-lock-keyword-face :foreground unspecified :bold t :height 3.0))))
