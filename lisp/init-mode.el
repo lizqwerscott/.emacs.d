@@ -17,7 +17,8 @@
                     (go-mode . go-ts-mode)
                     (csharp-mode . csharp-ts-mode)
                     (conf-toml-mode . toml-ts-mode)
-                    (js-json-mode . json-ts-mode)))
+                    (js-json-mode . json-ts-mode)
+                    (zig-mode . zig-ts-mode)))
 
 (add-hook 'web-mode-hook
           #'(lambda ()

@@ -227,6 +227,10 @@
   '(conda
     pyvenv))
 
+(defvar *package-zig-install-list*
+  '(zig-mode
+    zig-ts-mode))
+
 (defvar *package-unity-install-list*
   '((unity :fetcher github :repo "elizagamedev/unity.el")))
 
@@ -267,6 +271,7 @@
          *package-common-lisp-install-list*
          *package-web-install-list*
          *package-python-install-list*
+         *package-zig-install-list*
          (when user/unity
            *package-unity-install-list*)
          *package-sql-install-list*

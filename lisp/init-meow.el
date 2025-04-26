@@ -96,6 +96,14 @@
                   (concat "cabal run")))
            (require 'multi-vterm)
            (multi-vterm-run command)))
+        ((or 'zig-mode 'zig-ts-mode)
+         (let ((command (if project-path
+                            "zig build run"
+                          (concat "zig run "
+                                  (file-truename (buffer-file-name))))))
+           (setq command (compilation-read-command command))
+           (require 'multi-vterm)
+           (multi-vterm-run command)))
         ('emacs-lisp-mode (eval-buffer))
         (_ (if project-path
                (call-interactively #'projection-commands-build-project)
