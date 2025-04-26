@@ -93,6 +93,35 @@
 (advice-add 'find-file :around 'find-file-auto)
 
 ;;; Functions
+(when (version<= emacs-version "30.1")
+  ;;; from emacs 30.1
+  (defun shell-command-do-open (files)
+    "Open each of FILES using an external program.
+  This \"opens\" the file(s) using the external command that is most
+  appropriate for the file(s) according to the system conventions."
+    (let ((command shell-command-guess-open))
+      (when (and (memq system-type '(windows-nt))
+                 (equal command "start"))
+        (setq command "open"))
+      (if command
+          (cond
+           ((memq system-type '(ms-dos))
+            (dolist (file files)
+              (shell-command (concat command " " (shell-quote-argument file)))))
+           ((memq system-type '(windows-nt))
+            (dolist (file files)
+              (w32-shell-execute command (convert-standard-filename file))))
+           ((memq system-type '(cygwin))
+            (dolist (file files)
+              (call-process command nil nil nil file)))
+           ((memq system-type '(darwin))
+            (dolist (file files)
+              (start-process (concat command " " file) nil command file)))
+           (t
+            (dolist (file files)
+              (call-process command nil 0 nil file))))
+        (error "Open not supported on this system")))))
+
 (defun dired-copy-path ()
   "In dired, copy file path to kill-buffer.
 At 2nd time it copy current directory to kill-buffer."
