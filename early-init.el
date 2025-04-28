@@ -7,6 +7,11 @@
 (setq gc-cons-threshold most-positive-fixnum)
 (find-function-setup-keys)
 
+;; Avoid raising the *Messages* buffer if anything is still without
+;; lexical bindings
+(setq warning-minimum-level :error)
+(setq warning-suppress-types '((lexical-binding)))
+
 (let ((file-name-handler-alist nil))
   (add-to-list 'load-path
                (expand-file-name
