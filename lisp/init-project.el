@@ -192,7 +192,7 @@ Support Lisp, python, c++."
     ("o" projection-find-other-file "find other file")
     ("d" project-dired "dired")
     ("D" project-dired-dir "dired")
-    ("b" consult-project-buffer "buffer")
+    ("b" project-switch-to-buffer "buffer")
     ("k" project-kill-buffers "kill buffers"))
    "project"
    (("p" project-switch-project "switch other")
