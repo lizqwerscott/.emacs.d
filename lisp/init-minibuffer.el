@@ -85,6 +85,11 @@
         ;; consult--source-project-recent-file-hidden
         ))
 
+;; use narrow
+(setq consult-narrow-key "<")
+;; not auto preview
+(setq consult-preview-key "C-o")
+
 ;;; embark
 (require 'init-embark)
 
