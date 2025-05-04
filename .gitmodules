@@ -5,3 +5,6 @@ url = https://github.com/manateelazycat/lsp-bridge.git
 [submodule "site-lisp/multi-vterm"]
 	path = site-lisp/multi-vterm
 	url = git@github.com:lizqwerscott/multi-vterm.git
+[submodule "site-lisp/consult-omni"]
+	path = site-lisp/consult-omni
+	url = https://github.com/armindarvish/consult-omni.git

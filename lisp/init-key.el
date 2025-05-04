@@ -59,7 +59,8 @@
  (:key "p" :description "Color rg search symbol in project" :command color-rg-search-input-in-project :filename "init-color-rg")
  (:key "g" :description "Webjump" :command webjump :filename "init-webjump")
  (:key "f" :description "Search file in home" :command consult-fd-in-home)
- (:key "y" :description "Search YASsnippet" :command consult-yasnippet))
+ (:key "y" :description "Search YASsnippet" :command consult-yasnippet)
+ (:key "w" :description "Search in web" :command consult-omni-multi :filename "init-consult-omni"))
 
 (lazy-one-key-create-menu
  "Buffer"

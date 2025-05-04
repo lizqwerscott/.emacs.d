@@ -46,7 +46,9 @@
     gif-screencast
     keycast
     gnuplot
-    cal-china-x))
+    cal-china-x
+    consult-gh
+    consult-gh-forge))
 
 (defvar *package-language-mode-install-list*
   '(markdown-mode
