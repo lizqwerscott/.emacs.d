@@ -7,8 +7,8 @@
   (when (display-graphic-p)
     ;; Set default font
     (cl-loop for font in '("MonoLisa Lucius" "Source Code Pro" "Jetbrains Mono" "Cascadia Code" "Fira Code"
-                            "SF Mono" "Hack" "Menlo"
-                            "Monaco" "DejaVu Sans Mono" "Consolas")
+                           "SF Mono" "Hack" "Menlo"
+                           "Monaco" "DejaVu Sans Mono" "Consolas")
              when (font-installed-p font)
              return (set-face-attribute 'default nil
                                         :family font
@@ -26,7 +26,7 @@
     ;;                   (set-face-attribute 'mode-line-inactive nil :family font :height 120)))
 
     ;; Specify font for all unicode characters
-    (cl-loop for font in '("Segoe UI Symbol" "Symbola" "Symbol")
+    (cl-loop for font in '("Symbols Nerd Font Mono" "Segoe UI Symbol" "Symbola" "Symbol")
              when (font-installed-p font)
              return (if (< emacs-major-version 27)
                         (set-fontset-font "fontset-default" 'unicode font nil 'prepend)
@@ -44,7 +44,7 @@
                       (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
 
     ;; Specify font for Chinese characters
-    (cl-loop for font in '("LXGW WenKai" "LXGW Neo Xihei" "WenQuanYi Zen Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
+    (cl-loop for font in '("LXGW Neo XiHei Screen Full" "LXGW WenKai" "LXGW Neo Xihei" "WenQuanYi Zen Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
              when (font-installed-p font)
              return (progn
                       (setq face-font-rescale-alist `((,font . 1.2)))
