@@ -176,6 +176,6 @@
 (add-hooks '(lisp-mode emacs-lisp-mode)
            #'(lambda ()
                (require 'colourful)
-               (add-hook 'emacs-lisp-mode-hook 'colourful-mode)))
+               (colourful-mode)))
 
 (provide 'init-highlight)
