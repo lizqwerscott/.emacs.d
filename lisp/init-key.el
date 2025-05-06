@@ -62,10 +62,17 @@
  (:key "y" :description "Search YASsnippet" :command consult-yasnippet)
  (:key "w" :description "Search in web" :command consult-omni-multi :filename "init-consult-omni"))
 
+(defun ibuffer-refersh ()
+  (interactive)
+  (when-let* ((buffer (get-buffer "*Ibuffer*")))
+    (kill-buffer buffer))
+  (ibuffer))
+
 (lazy-one-key-create-menu
  "Buffer"
  (:key "b" :description "Switch buffer" :command consult-buffer)
  (:key "B" :description "Switch buffer other window" :command consult-buffer-other-window)
+ (:key "s" :description "ibuffer" :command ibuffer-refersh)
  (:key "k" :description "Kill buffer" :command kill-buffer-and-window)
  (:key "T" :description "Switch telega buffers" :command telega-switch-buffer :filename "init-telega")
  (:key "i" :description "Switch telega important chat" :command telega-switch-important-chat :filename "init-telega")
