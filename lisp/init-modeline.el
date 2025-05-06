@@ -34,7 +34,6 @@
     (setq doom-modeline-time-icon nil)
     (setq doom-modeline-buffer-file-name-style
           'auto)
-    (setq doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode))
     (setq display-time-string-forms
           '(24-hours ":" minutes " "))
     (add-hook 'after-init-hook
@@ -43,6 +42,9 @@
               #'(lambda ()
                   (display-time-mode)
                   (when doom-modeline-battery
-                    (display-battery-mode))))))
+                    (display-battery-mode))
+                  (org-count-words-mode)))
+    (add-hook 'org-mode-hook
+              'org-count-words-mode)))
 
 (provide 'init-modeline)
