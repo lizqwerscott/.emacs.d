@@ -19,6 +19,7 @@
 ;; (require 'init-eglot)
 
 ;;; Xref
+(setq xref-search-program 'ripgrep)
 (setq xref-show-xrefs-function 'consult-xref)
 (setq xref-show-definitions-function 'consult-xref)
 
