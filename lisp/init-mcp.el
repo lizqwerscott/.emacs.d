@@ -74,8 +74,11 @@
 (transient-define-prefix gptel-mcp-dispatch ()
   "Gptel mcp menu"
   [["Mcp server"
-    ("s" "Start all server" mcp-hub-start-all-server)
-    ("r" "Register all tool" gptel-mcp-register-tool)]
+    ("s" "Start all server" (lambda ()
+                              (interactive)
+                              (mcp-hub-start-all-server #'(lambda ()
+                                                            (message "start all server finish!")
+                                                            (gptel-mcp-register-tool)))))]
    ["Tools"
     ("a" "Active all" gptel-mcp-use-tool)
     ("c" "Deactivate all" gptel-mcp-close-use-tool)]]
