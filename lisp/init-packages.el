@@ -203,8 +203,8 @@
              '((minuet :fetcher github
                        :repo "milanglacier/minuet-ai.el"))))
           (when user/aider
-            '((aider :fetcher github
-                     :repo "tninja/aider.el")))))
+            '((aidermacs :fetcher github
+                         :repo "MatthewZMD/aidermacs")))))
 
 (defvar *package-rust-install-list*
   '(rust-mode

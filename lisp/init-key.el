@@ -146,7 +146,7 @@
  (:key "g" :description "gptel" :command gptel)
  (:key "G" :description "gptel menu" :command gptel-menu)
  (:key "h" :description "gptel aibo" :command gptel-aibo)
- (:key "a" :description "Aider" :command aider-transient-menu))
+ (:key "a" :description "Aider" :command aidermacs-transient-menu))
 
 (defun lsp-diagnostic ()
   (interactive)
