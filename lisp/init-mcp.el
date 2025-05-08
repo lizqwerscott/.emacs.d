@@ -34,7 +34,8 @@
     (mapcar #'(lambda (tool)
                 (apply #'gptel-make-tool
                        tool))
-            tools)))
+            tools))
+  (message "Register all mcp tool finished!"))
 
 (defun gptel-mcp-use-tool ()
   (interactive)
@@ -61,14 +62,27 @@
             tools)))
 
 (setq mcp-hub-servers
-      `(("github" . (
-                     :command "npx"
-                     :args ("-y" "@modelcontextprotocol/server-github")
-                     :env (:GITHUB_PERSONAL_ACCESS_TOKEN ,(lizqwer/api-key-from-auth-source "api.github.com" "lizqwerscott^mcp"))))
-        ("ddg-search" . (:command "uvx" :args ("duckduckgo-mcp-server")))))
+      `(,@(when-let* ((key (lizqwer/api-key-from-auth-source "api.github.com" "lizqwerscott^mcp")))
+            `(("github" . (
+                           :command "docker"
+                           :args ("run" "--rm" "-i" "-e" "GITHUB_PERSONAL_ACCESS_TOKEN" "ghcr.io/github/github-mcp-server")
+                           :env (:GITHUB_PERSONAL_ACCESS_TOKEN ,key)))))
+        ("ddg-search" . (:command "uvx" :args ("duckduckgo-mcp-server")))
+        ("sequential-thinking" . (:command "npx" :args ("-y" "@modelcontextprotocol/server-sequential-thinking")))
+        ("context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))))
 
-;; (setq mcp-hub-servers
-;;       '(("qdrant" . (:url "http://localhost:8000/sse"))))
+(transient-define-prefix gptel-mcp-dispatch ()
+  "Gptel mcp menu"
+  [["Mcp server"
+    ("s" "Start all server" mcp-hub-start-all-server)
+    ("r" "Register all tool" gptel-mcp-register-tool)]
+   ["Tools"
+    ("a" "Active all" gptel-mcp-use-tool)
+    ("c" "Deactivate all" gptel-mcp-close-use-tool)]]
+  [("q" "Quit" transient-quit-all)])
+
+(keymap-sets gptel-mode-map
+             '(("C-c m" . gptel-mcp-dispatch)))
 
 (provide 'init-mcp)
 ;;; init-mcp.el ends here

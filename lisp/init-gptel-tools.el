@@ -167,5 +167,10 @@
                      :description "The name of the function or variable whose documentation is to be retrieved"))
  :category "emacs")
 
+(setq gptel-tools
+      (list (gptel-get-tool
+             (list "emacs"
+                   "read_documentation"))))
+
 (provide 'init-gptel-tools)
 ;;; init-gptel-tools.el ends here
