@@ -104,7 +104,7 @@
 
 (defun my/ignore-elisp-keywords (cand)
   (or (not (keywordp cand))
-     (eq (char-after (car completion-in-region--data)) ?:)))
+      (eq (char-after (car completion-in-region--data)) ?:)))
 
 (defun my/setup-elisp ()
   (setq-local completion-at-point-functions
