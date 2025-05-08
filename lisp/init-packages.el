@@ -121,7 +121,8 @@
     ligature
     dashboard
     doom-modeline
-    (colourful :fetcher github :repo "apr3vau/colorful")
+    lisp-extra-font-lock
+    highlight-function-calls
     focus
     pulsar
     diff-hl

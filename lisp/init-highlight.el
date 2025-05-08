@@ -175,7 +175,7 @@
 ;;; Highlight lisp
 (add-hooks '(lisp-mode emacs-lisp-mode)
            #'(lambda ()
-               (require 'colourful)
-               (colourful-mode)))
+               (highlight-function-calls-mode 1)
+               (lisp-extra-font-lock-mode 1)))
 
 (provide 'init-highlight)
