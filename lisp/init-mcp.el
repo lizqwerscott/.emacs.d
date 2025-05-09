@@ -62,7 +62,11 @@
             tools)))
 
 (setq mcp-hub-servers
-      `(,@(when-let* ((key (lizqwer/api-key-from-auth-source "api.github.com" "lizqwerscott^mcp")))
+      `(,@(when-let* ((key (condition-case err
+                               (lizqwer/api-key-from-auth-source "api.github.com" "lizqwerscott^mcp")
+                             (error
+                              (message "%s" (error-message-string err))
+                              nil))))
             `(("github" . (
                            :command "docker"
                            :args ("run" "--rm" "-i" "-e" "GITHUB_PERSONAL_ACCESS_TOKEN" "ghcr.io/github/github-mcp-server")
