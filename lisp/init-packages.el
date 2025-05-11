@@ -188,7 +188,9 @@
             (gptel-aibo :fetcher github
                         :repo "dolmens/gptel-aibo")
             (mcp :fetcher github
-                 :repo "lizqwerscott/mcp.el"))
+                 :repo "lizqwerscott/mcp.el")
+            (gptel-mcp :fetcher github
+                       :repo "lizqwerscott/gptel-mcp.el"))
           (pcase user/ai-completion
             ('codeium
              '((codeium :fetcher github

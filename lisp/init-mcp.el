@@ -25,41 +25,7 @@
 ;;; Code:
 
 (require 'mcp-hub)
-
 (require 'gptel)
-
-(defun gptel-mcp-register-tool ()
-  (interactive)
-  (let ((tools (mcp-hub-get-all-tool :asyncp t :categoryp t)))
-    (mapcar #'(lambda (tool)
-                (apply #'gptel-make-tool
-                       tool))
-            tools))
-  (message "Register all mcp tool finished!"))
-
-(defun gptel-mcp-use-tool ()
-  (interactive)
-  (let ((tools (mcp-hub-get-all-tool :asyncp t :categoryp t)))
-    (mapcar #'(lambda (tool)
-                (let ((path (list (plist-get tool :category)
-                                  (plist-get tool :name))))
-                  (push (gptel-get-tool path)
-                        gptel-tools)))
-            tools)))
-
-(defun gptel-mcp-close-use-tool ()
-  (interactive)
-  (let ((tools (mcp-hub-get-all-tool :asyncp t :categoryp t)))
-    (mapcar #'(lambda (tool)
-                (let ((path (list (plist-get tool :category)
-                                  (plist-get tool :name))))
-                  (setq gptel-tools
-                        (cl-remove-if #'(lambda (tool)
-                                          (equal path
-                                                 (list (gptel-tool-category tool)
-                                                       (gptel-tool-name tool))))
-                                      gptel-tools))))
-            tools)))
 
 (setq mcp-hub-servers
       `(,@(when-let* ((key (condition-case err
@@ -75,19 +41,7 @@
         ("sequential-thinking" . (:command "npx" :args ("-y" "@modelcontextprotocol/server-sequential-thinking")))
         ("context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))))
 
-(transient-define-prefix gptel-mcp-dispatch ()
-  "Gptel mcp menu"
-  [["Mcp server"
-    ("s" "Start all server" (lambda ()
-                              (interactive)
-                              (mcp-hub-start-all-server #'(lambda ()
-                                                            (message "start all server finish!")
-                                                            (gptel-mcp-register-tool)))))]
-   ["Tools"
-    ("a" "Active all" gptel-mcp-use-tool)
-    ("c" "Deactivate all" gptel-mcp-close-use-tool)]]
-  [("q" "Quit" transient-quit-all)])
-
+(require 'gptel-mcp)
 (keymap-sets gptel-mode-map
              '(("C-c m" . gptel-mcp-dispatch)))
 
