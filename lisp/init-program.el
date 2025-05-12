@@ -70,21 +70,24 @@
 (setq compilation-max-output-line-length nil)
 
 (defun get-first-compilation-error ()
-  (interactive)
   (when (compilation-buffer-p (current-buffer))
     (compilation--ensure-parse (point-min))
-    (next-single-property-change (point-min) 'compilation-message nil (point-max))))
+    (save-excursion
+      (goto-char (point-min))
+      (= (point)
+         (next-single-property-change (point-min) 'compilation-message nil (point-max))))))
 
 (defun ar/compile-autoclose-or-jump-first-error (buffer string)
   "Hide successful builds window with BUFFER and STRING."
-  (when (with-current-buffer buffer
-          (eq major-mode 'compilation-mode))
-    (if (or (string-match "^.*warning.*" string)
-            (get-first-compilation-error))
-        (progn
-          (message "Compilation %s" string)
-          (call-interactively #'compilation-next-error))
-      (progn
+  (with-current-buffer buffer
+    (when (eq major-mode 'compilation-mode)
+      (if (or (string-match "^.*warning.*" string)
+              (get-first-compilation-error)
+              (string-match ".*exited abnormally.*" string))
+          (progn
+            (message "Compilation %s" string)
+            (goto-char (point-min))
+            (call-interactively #'compilation-next-error))
         (message "Build finished :)")
         (run-with-timer 1 nil
                         (lambda ()
