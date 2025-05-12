@@ -33,6 +33,7 @@
       aidermacs-default-model "deepseek/deepseek-chat"
       aidermacs-architect-model "deepseek/deepseek-chat"
       aidermacs-editor-model "deepseek/deepseek-chat"
+      aidermacs-extra-args (list "--chat-language" "zh-cn")
       ;; aidermacs-backend 'vterm
       )
 
