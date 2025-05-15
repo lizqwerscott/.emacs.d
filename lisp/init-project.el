@@ -155,6 +155,15 @@ buffer, are identical."
   (interactive (list (project--read-project-buffer)))
   (switch-to-buffer-other-window buffer-or-name))
 
+(defun project-edit-dir-local ()
+  (interactive)
+  (let* ((default-directory (project-root (project-current)))
+         (dir-locals-file (concat default-directory
+                                  ".dir-locals.el")))
+    (if (file-exists-p dir-locals-file)
+        (find-file dir-locals-file)
+      (call-interactively #'add-dir-local-variable))))
+
 ;;; Find Temp project
 (defvar temp-file-dir "~/temp/" "Set default temp file dir.")
 
@@ -233,6 +242,7 @@ Support Lisp, python, c++."
     ("k" project-kill-buffers "Kill buffers"))
    "Other"
    (("v" magit-project-status "magit")
+    ("E" project-edit-dir-local "Edit dir locals")
     ("c" project-compile "Compile")
     ("r" rsync-project-dispatch "Rsync")
     ("t" multi-vterm-project "Vterm")
