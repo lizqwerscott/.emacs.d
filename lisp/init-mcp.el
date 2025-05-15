@@ -41,9 +41,7 @@
         ("sequential-thinking" . (:command "npx" :args ("-y" "@modelcontextprotocol/server-sequential-thinking")))
         ("context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))))
 
-(require 'gptel-mcp)
-(keymap-sets gptel-mode-map
-             '(("C-c m" . gptel-mcp-dispatch)))
+(require 'gptel-integrations)
 
 (provide 'init-mcp)
 ;;; init-mcp.el ends here
