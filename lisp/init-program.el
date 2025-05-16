@@ -74,8 +74,13 @@
     (compilation--ensure-parse (point-min))
     (save-excursion
       (goto-char (point-min))
-      (= (point)
-         (next-single-property-change (point-min) 'compilation-message nil (point-max))))))
+      (condition-case err
+          (progn
+            (compilation-next-error 1)
+            (> (point)
+               (point-min)))
+        (error
+         nil)))))
 
 (defun ar/compile-autoclose-or-jump-first-error (buffer string)
   "Hide successful builds window with BUFFER and STRING."
