@@ -114,7 +114,8 @@
     (image-slicing :fetcher github :repo "ginqi7/image-slicing")))
 
 (defvar *package-ui-install-list*
-  '(nerd-icons
+  '((koishi-theme :fetcher github :repo "gynamics/koishi-theme.el")
+    nerd-icons
     nerd-icons-dired
     nerd-icons-completion
     page-break-lines
