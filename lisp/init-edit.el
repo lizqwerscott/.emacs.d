@@ -79,6 +79,7 @@
 
 ;;; isearch
 (setq isearch-lazy-count t
+      isearch-case-fold-search t
       lazy-count-prefix-format "%s/%s "
       search-whitespace-regexp ".*?")
 
