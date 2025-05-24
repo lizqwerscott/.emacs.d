@@ -5,7 +5,8 @@
         ("https://manateelazycat.github.io/feed.xml" blog)
         ("https://remacs.fun/index.xml" blog emacs)
         ("https://whatacold.io/zh-cn/rss.xml" blog)
-        ("http://feed.williamlong.info/" blog)))
+        ("http://feed.williamlong.info/" blog)
+        ("https://sachachua.com/blog/category/emacs-news/feed" emacs)))
 
 (setf url-queue-timeout 30)
 
