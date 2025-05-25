@@ -104,6 +104,9 @@
 
 (setq compilation-finish-functions (list #'ar/compile-autoclose-or-jump-first-error))
 
+;;; eat
+(require 'init-eat)
+
 ;;; lisp
 (add-hook 'before-save-hook
           #'(lambda ()

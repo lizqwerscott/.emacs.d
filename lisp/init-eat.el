@@ -1,6 +1,6 @@
-;;; init-completion-preview.el --- init completion preview  -*- lexical-binding: t; -*-
+;;; init-eat.el --- init eat package                 -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2024  lizqwer scott
+;; Copyright (C) 2025  lizqwer scott
 
 ;; Author: lizqwer scott <lizqwerscott@gmail.com>
 ;; Keywords: lisp
@@ -23,18 +23,22 @@
 ;;
 
 ;;; Code:
-(require 'completion-preview)
 
-;; Disable when meow beacon mode
-(advice-add #'meow-grab
-            :before
-            #'(lambda ()
-                (call-interactively #'completion-preview-mode)))
+(defun meomacs-eat-meow-setup ()
+  (add-hook 'meow-normal-mode-hook 'eat-emacs-mode nil t)
+  (add-hook 'meow-insert-mode-hook 'eat-char-mode nil t))
 
-(setq completion-preview-minimum-symbol-length 1)
-(add-list-to-list 'completion-preview-commands
-                  '(hungry-delete-backward
-                    outshine-self-insert-command))
+(with-eval-after-load "eat"
+  (define-key eat-char-mode-map (kbd "C-y") 'eat-yank)
+  ;; Replace semi-char mode with emacs mode
+  (advice-add 'eat-semi-char-mode :after 'eat-emacs-mode)
+  (add-hook 'eat-mode-hook 'meomacs-eat-meow-setup))
 
-(provide 'init-completion-preview)
-;;; init-completion-preview.el ends here
+;; For `eat-eshell-mode'.
+(add-hook 'eshell-load-hook #'eat-eshell-mode)
+
+;; For `eat-eshell-visual-command-mode'.
+(add-hook 'eshell-load-hook #'eat-eshell-visual-command-mode)
+
+(provide 'init-eat)
+;;; init-eat.el ends here

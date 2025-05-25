@@ -99,6 +99,7 @@
     wucuo
     projection
     eshell-prompt-extras
+    esh-help
     fish-completion
     dape
     citre

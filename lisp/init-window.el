@@ -63,7 +63,7 @@
 (add-list-to-list
  'display-buffer-alist
  '(;; bottom side window
-   ((or "\\*.*e?shell\\*" "^\\*.*vterm[inal]*.*\\*.*$" "*ielm*" (derived-mode . sly-mrepl-mode))
+   ((or "\\*.*e?shell\\*" "^\\*.*vterm[inal]*.*\\*.*$" "*ielm*" "*eat*" (derived-mode . sly-mrepl-mode))
     (display-buffer-in-side-window)
     (side . bottom)
     (slot . 0)
@@ -152,6 +152,7 @@
         "^\\*Process List\\*$" process-menu-mode
         list-environment-mode cargo-process-mode
 
+        "^\\*eat*\\$" eat-mode
         "^\\*.*eshell.*\\*.*$" eshell-mode
         "^\\*.*shell.*\\*.*$"
         "^\\*.*terminal.*\\*.*$"
