@@ -90,6 +90,37 @@
                                                  (if (= (file-user-uid) 0) " # " " $ ")))))
           (eshell t))))))
 
+(defun project-remote-compilation-buffer-name-function (name-of-mode)
+  (cond ((or (eq major-mode (intern-soft name-of-mode))
+             (eq major-mode (intern-soft (concat name-of-mode "-mode"))))
+  	     (buffer-name))
+  	    (t
+  	     (concat "*" "remote-" (downcase name-of-mode) "*"))))
+
+(defun rsync-project-remote-compile ()
+  (interactive)
+  (when-let* ((root (project-root (project-current t)))
+              (remote-config (rsync-project-get-remote-config root))
+              (ssh-config (cl-getf remote-config :ssh-config)))
+    (let* ((remote-user (cl-getf ssh-config :user))
+           (remote-host (cl-getf ssh-config :host))
+           (remote-port (cl-getf ssh-config :port))
+           (remote-dir (cl-getf ssh-config :remote-dir))
+           (default-directory (format "/ssh:%s%s:%s"
+                                      (if (and remote-user remote-host)
+                                          (format "%s@%s"
+                                                  remote-user
+                                                  remote-host)
+                                        remote-host)
+                                      (if remote-port
+                                          (if (not (= 22 remote-port))
+                                              (format "#%s" remote-port)
+                                            "")
+                                        "")
+                                      remote-dir))
+           (compilation-buffer-name-function #'project-remote-compilation-buffer-name-function))
+      (call-interactively #'compile))))
+
 (transient-define-suffix rsync-project-dispatch-term()
   (interactive)
   (call-interactively #'multi-vterm-project-remote))
@@ -99,10 +130,15 @@
   (require 'init-eshell)
   (call-interactively #'multi-eshell-project-remote))
 
+(transient-define-suffix rsync-project-dispatch-compile()
+  (interactive)
+  (call-interactively #'rsync-project-remote-compile))
+
 (transient-append-suffix 'rsync-project-dispatch '(-2 -1)
   ["Mics"
    :if rsync-project--check
    ("t" "Open Remote Term" rsync-project-dispatch-term)
-   ("e" "Open Remote Eshell" rsync-project-dispatch-eshell)])
+   ("e" "Open Remote Eshell" rsync-project-dispatch-eshell)
+   ("c" "Compile Remote" rsync-project-dispatch-compile)])
 
 (provide 'init-rsync)
