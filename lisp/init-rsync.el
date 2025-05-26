@@ -65,27 +65,30 @@
     (if (and eshell-buffer (not current-prefix-arg))
         (pop-to-buffer eshell-buffer (append display-buffer--same-window-action
                                              '((category . comint))))
-      (eshell t)
       (when-let* ((remote-config (rsync-project-get-remote-config root))
                   (ssh-config (cl-getf remote-config :ssh-config)))
         (let ((remote-user (cl-getf ssh-config :user))
               (remote-host (cl-getf ssh-config :host))
               (remote-port (cl-getf ssh-config :port))
-              (remote-dir (cl-getf ssh-config :remote-dir)))
-          (insert
-           (format "ssh -t %s %s 'cd ~/%s && exec $SHELL'"
-                   (if (and remote-user remote-host)
-                       (format "%s@%s"
-                               remote-user
-                               remote-host)
-                     remote-host)
-                   (if remote-port
-                       (if (not (= 22 remote-port))
-                           (format "-p %s" remote-port)
-                         "")
-                     "")
-                   remote-dir))
-          (eshell-send-input))))))
+              (remote-dir (cl-getf ssh-config :remote-dir))
+              (default-directory (format "/ssh:%s%s:%s"
+                                         (if (and remote-user remote-host)
+                                             (format "%s@%s"
+                                                     remote-user
+                                                     remote-host)
+                                           remote-host)
+                                         (if remote-port
+                                             (if (not (= 22 remote-port))
+                                                 (format "#%s" remote-port)
+                                               "")
+                                           "")
+                                         remote-dir))
+              (eshell-prompt-function (lambda ()
+                                        (concat (abbreviate-file-name (eshell/pwd))
+                                                (unless (eshell-exit-success-p)
+                                                  (format " [%d]" eshell-last-command-status))
+                                                (if (= (file-user-uid) 0) " # " " $ ")))))
+          (eshell t))))))
 
 (transient-define-suffix rsync-project-dispatch-term()
   (interactive)
@@ -93,6 +96,7 @@
 
 (transient-define-suffix rsync-project-dispatch-eshell()
   (interactive)
+  (require 'init-eshell)
   (call-interactively #'multi-eshell-project-remote))
 
 (transient-append-suffix 'rsync-project-dispatch '(-2 -1)
