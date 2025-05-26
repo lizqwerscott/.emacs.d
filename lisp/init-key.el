@@ -57,6 +57,7 @@
  (:key "b" :description "Bookmark" :command consult-bookmark)
  (:key "j" :description "Color rg search symbol" :command color-rg-search-input :filename "init-color-rg")
  (:key "p" :description "Color rg search symbol in project" :command color-rg-search-input-in-project :filename "init-color-rg")
+ (:key "r" :description "rg menu" :command rg-menu :filename "init-rg")
  (:key "g" :description "Webjump" :command webjump :filename "init-webjump")
  (:key "f" :description "Search file in home" :command consult-fd-in-home)
  (:key "y" :description "Search YASsnippet" :command consult-yasnippet)

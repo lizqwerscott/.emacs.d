@@ -14,6 +14,7 @@
         (messages-buffer-mode . normal)
         (eww-mode . normal)
         (color-rg-mode . insert)
+        (rg-mode . insert)
         (lsp-bridge-ref-mode . insert)
         (vterm-mode . insert)
         (Info-mode-hook . motion)))
