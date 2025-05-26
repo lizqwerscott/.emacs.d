@@ -258,7 +258,8 @@
             :branch "master")))
 
 (packages!
- '(vterm
+ '(eat
+   vterm
    (meow-vterm :fetcher github :repo "accelbread/meow-vterm")))
 
 (packages!
