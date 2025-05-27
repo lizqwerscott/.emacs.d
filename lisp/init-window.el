@@ -62,7 +62,15 @@
 
 (add-list-to-list
  'display-buffer-alist
- '(;; bottom side window
+ '(;; right side window
+   ((or (derived-mode . help-mode) (derived-mode . helpful-mode) (derived-mode . fanyi-mode))
+    (display-buffer-in-side-window)
+    (dedicated . t)
+    (side . right)
+    (slot . 0)
+    (window-width . 0.4)
+    (body-function . select-window))
+   ;; bottom side window
    ((or "\\*.*e?shell\\*" "^\\*.*vterm[inal]*.*\\*.*$" "*ielm*" "*eat*" (derived-mode . sly-mrepl-mode))
     (display-buffer-in-side-window)
     (side . bottom)
@@ -80,14 +88,6 @@
     (dedicated )
     (side . bottom)
     (slot . 0))
-   ;; right side window
-   ((or (derived-mode . help-mode) (derived-mode . helpful-mode) (derived-mode . fanyi-mode))
-    (display-buffer-in-side-window)
-    (dedicated . t)
-    (side . right)
-    (slot . 0)
-    (window-width . 0.4)
-    (body-function . select-window))
    ;; bottom buffer (NOT side window)
    ((or "\\(\\*Capture\\*\\|CAPTURE-.*\\)" "^CAPTURE-.*\\.org*")
     (display-buffer-reuse-mode-window display-buffer-below-selected))
