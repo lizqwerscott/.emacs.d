@@ -12,6 +12,8 @@
 (add-hook 'prog-mode-hook
           'rsync-project-mode)
 
+(rsync-project-setup-indicator)
+
 (defun project-remote-prefixed-buffer-name (mode)
   (concat "*"
           (if-let* ((proj (project-current nil)))
