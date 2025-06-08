@@ -112,14 +112,16 @@
 
 (define-key fingertip-mode-map (kbd "M-\"") 'fingertip-wrap-double-quote)
 (define-key fingertip-mode-map (kbd "M-'") 'fingertip-wrap-single-quote)
-(define-key fingertip-mode-map (kbd "M-[") 'fingertip-wrap-bracket)
+(when (display-graphic-p)
+  (define-key fingertip-mode-map (kbd "M-[") 'fingertip-wrap-bracket))
 (define-key fingertip-mode-map (kbd "M-{") 'fingertip-wrap-curly)
 (define-key fingertip-mode-map (kbd "M-(") 'fingertip-wrap-round)
 (define-key fingertip-mode-map (kbd "M-)") 'fingertip-unwrap)
 
 (define-key fingertip-mode-map (kbd "s-\"") 'fingertip-wrap-double-quote)
 (define-key fingertip-mode-map (kbd "s-'") 'fingertip-wrap-single-quote)
-(define-key fingertip-mode-map (kbd "s-[") 'fingertip-wrap-bracket)
+(when (display-graphic-p)
+  (define-key fingertip-mode-map (kbd "s-[") 'fingertip-wrap-bracket))
 (define-key fingertip-mode-map (kbd "s-{") 'fingertip-wrap-curly)
 (define-key fingertip-mode-map (kbd "s-(") 'fingertip-wrap-round)
 (define-key fingertip-mode-map (kbd "s-)") 'fingertip-unwrap)
