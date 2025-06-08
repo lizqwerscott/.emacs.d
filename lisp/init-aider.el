@@ -30,8 +30,8 @@
 (require 'aidermacs)
 (setq aidermacs-show-diff-after-change t
       aidermacs-use-architect-mode t
-      aidermacs-default-model "deepseek/deepseek-chat"
-      aidermacs-architect-model "deepseek/deepseek-chat"
+      aidermacs-default-model "deepseek/deepseek-reasoner"
+      aidermacs-architect-model "deepseek/deepseek-reasoner"
       aidermacs-editor-model "deepseek/deepseek-chat"
       aidermacs-extra-args (list "--chat-language" "zh-cn")
       ;; aidermacs-backend 'vterm
