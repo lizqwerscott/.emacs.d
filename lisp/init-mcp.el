@@ -38,6 +38,7 @@
                            :args ("run" "--rm" "-i" "-e" "GITHUB_PERSONAL_ACCESS_TOKEN" "ghcr.io/github/github-mcp-server")
                            :env (:GITHUB_PERSONAL_ACCESS_TOKEN ,key)))))
         ("ddg-search" . (:command "uvx" :args ("duckduckgo-mcp-server")))
+        ("fetch" . (:command "uvx" :args ("mcp-server-fetch")))
         ("sequential-thinking" . (:command "npx" :args ("-y" "@modelcontextprotocol/server-sequential-thinking")))
         ("context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))))
 
