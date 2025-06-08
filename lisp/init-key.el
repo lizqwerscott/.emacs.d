@@ -208,7 +208,7 @@
 
 (lazy-one-key-create-menu
  "Code"
- (:key "f" :description "Format code" :command apheleia-format-buffer :filename "init-format")
+ (:key "f" :description "Format code" :command format-code-buffer :filename "init-format")
  (:key "d" :description "Diagnostic" :command lsp-diagnostic)
  (:key "r" :description "Lsp rename" :command lsp-rename)
  (:key "R" :description "Lsp restart" :command lsp-restart)

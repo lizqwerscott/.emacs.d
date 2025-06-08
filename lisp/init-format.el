@@ -12,4 +12,9 @@
 (setf (alist-get 'cargo-fmt apheleia-formatters)
       '("cargo" "fmt"))
 
+(defun format-code-buffer ()
+  (interactive)
+  (call-interactively #'save-buffer)
+  (call-interactively #'apheleia-format-buffer))
+
 (provide 'init-format)
