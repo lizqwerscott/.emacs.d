@@ -44,9 +44,6 @@
                 (concat user-emacs-directory "lib")))
   ;; (setq toggle-debug-on-error t)
   (require 'init-utils)
-  (add-subdirs-to-load-path
-   (concat user-emacs-directory
-           "site-lisp/"))
 
   (setq custom-file (locate-user-emacs-file "custom.el"))
 
