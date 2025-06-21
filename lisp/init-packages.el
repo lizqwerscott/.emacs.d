@@ -260,7 +260,8 @@
 (packages!
  '(eat
    vterm
-   (meow-vterm :fetcher github :repo "accelbread/meow-vterm")))
+   (meow-vterm :fetcher github :repo "accelbread/meow-vterm")
+   (multi-vterm :fetcher github :repo "lizqwerscott/multi-vterm")))
 
 (packages!
  (append *package-base-install-list*
