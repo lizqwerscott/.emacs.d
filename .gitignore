@@ -19,3 +19,6 @@ lsp-bridge
 popweb
 tree-sitter/*
 librime
+straight
+!/straight/repos/
+!/straight/versions/default.el

@@ -19,12 +19,8 @@
       (remove 'telega-chat-mode-hook
               lsp-bridge-default-mode-hooks))
 
-(when (and (not display-graphic-p)
-         (equal user/lsp-client 'lsp-bridge))
+(when (not (display-graphic-p))
   (with-eval-after-load 'acm
-    (packages!
-     '((popon :fetcher git :url "https://codeberg.org/akib/emacs-popon.git")
-       (acm-terminal :fetcher git :url "https://github.com/twlz0ne/acm-terminal.git")))
     (require 'popon)
     (require 'acm-terminal)))
 

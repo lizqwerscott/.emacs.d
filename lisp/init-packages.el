@@ -9,7 +9,8 @@
     fussy
     (flx-rs
      :repo "jcs-elpa/flx-rs"
-     :fetcher github)
+     :host github
+     :files (:defaults "bin"))
     posframe
     request
     websocket
@@ -37,12 +38,12 @@
     trashed
     dirvish
     elisp-demos
-    (lazy-revert :fetcher github :repo "yilin-zhang/lazy-revert")
+    (lazy-revert :host github :repo "yilin-zhang/lazy-revert")
     (psearch
-     :fetcher github
+     :host github
      :repo "twlz0ne/psearch.el")
     heap
-    (p-search :repo "zkry/p-search" :fetcher github)
+    (p-search :repo "zkry/p-search" :host github)
     gif-screencast
     keycast
     gnuplot
@@ -63,9 +64,9 @@
     qml-mode))
 
 (defvar *package-edit-install-list*
-  '((meow :fetcher github :repo "meow-edit/meow")
+  '((meow :host github :repo "meow-edit/meow")
     meow-tree-sitter
-    (repeat-fu :fetcher codeberg :repo "ideasman42/emacs-repeat-fu")
+    (repeat-fu :host codeberg :repo "ideasman42/emacs-repeat-fu")
     grugru
     auto-rename-tag
     hungry-delete
@@ -76,16 +77,25 @@
     vundo
     outline-indent
     visual-replace
-    (fingertip :fetcher github :repo "manateelazycat/fingertip")))
+    (fingertip :host github :repo "manateelazycat/fingertip")))
 
 (defvar *package-program-install-list*
-  '(dumb-jump
+  `(dumb-jump
     yasnippet
     consult-yasnippet
     macrostep
-    eglot
-    (eglot-booster :fetcher github :repo "jdtsmith/eglot-booster")
-    consult-eglot
+    ,@(pcase user/lsp-client
+        ('eglot
+         '(eglot
+           (eglot-booster :host github :repo "jdtsmith/eglot-booster")
+           consult-eglot))
+        ('lsp-bridge
+         `((lsp-bridge :type git :host github :repo "manateelazycat/lsp-bridge"
+                       :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
+                       :build (:not compile))
+           ,@(when (not (display-graphic-p))
+               '((popon :fetcher git :url "https://codeberg.org/akib/emacs-popon.git")
+                 (acm-terminal :fetcher git :url "https://github.com/twlz0ne/acm-terminal.git"))))))
     corfu
     cape
     nerd-icons-corfu
@@ -103,19 +113,19 @@
     fish-completion
     dape
     citre
-    (xmake :fetcher github :repo "lizqwerscott/xmake-emacs")
-    (quicktype :fetcher github :repo "artawower/quicktype.el")
-    (color-rg :fetcher github
+    (xmake :host github :repo "lizqwerscott/xmake-emacs")
+    (quicktype :host github :repo "artawower/quicktype.el")
+    (color-rg :host github
               :repo "manateelazycat/color-rg")
-    (peek :fetcher sourcehut :repo "meow_king/peek")
+    (peek :host sourcehut :repo "meow_king/peek")
 
-    (auto-save :fetcher github :repo "manateelazycat/auto-save")
+    (auto-save :host github :repo "manateelazycat/auto-save")
     super-save
-    (rsync-project-mode :fetcher github :repo "lizqwerscott/rsync-project-mode")
-    (image-slicing :fetcher github :repo "ginqi7/image-slicing")))
+    (rsync-project-mode :host github :repo "lizqwerscott/rsync-project-mode")
+    (image-slicing :host github :repo "ginqi7/image-slicing")))
 
 (defvar *package-ui-install-list*
-  '((koishi-theme :fetcher github :repo "gynamics/koishi-theme.el")
+  '((koishi-theme :host github :repo "gynamics/koishi-theme.el")
     nerd-icons
     nerd-icons-dired
     nerd-icons-completion
@@ -137,12 +147,12 @@
     hl-todo
     imenu-list
     outshine
-    (indent-bars :fetcher github :repo "jdtsmith/indent-bars")
-    (awesome-tray :fetcher github
+    (indent-bars :host github :repo "jdtsmith/indent-bars")
+    (awesome-tray :host github
                   :repo "manateelazycat/awesome-tray")
-    (breadcrumb :fetcher github
+    (breadcrumb :host github
                 :repo "joaotavora/breadcrumb")
-    (highlight-matching-tag :fetcher github :repo "manateelazycat/highlight-matching-tag")
+    (highlight-matching-tag :host github :repo "manateelazycat/highlight-matching-tag")
     buffer-name-relative
     nerd-icons-ibuffer
     casual))
@@ -150,13 +160,13 @@
 (defvar *package-window-install-list*
   '(popper
     ace-window
-    (watch-other-window :fetcher github :repo "manateelazycat/watch-other-window")
+    (watch-other-window :host github :repo "manateelazycat/watch-other-window")
     ))
 
 (defvar *package-language-install-list*
   '(immersive-translate
     (sdcv
-     :fetcher github
+     :host github
      :repo "manateelazycat/sdcv")
     fanyi
     go-translate
@@ -164,7 +174,7 @@
     pyim
     pyim-basedict
     (pyim-tsinghua-dict
-     :fetcher github
+     :host github
      :repo "redguardtoo/pyim-tsinghua-dict")))
 
 (defvar *package-org-install-list*
@@ -178,34 +188,34 @@
     org-appear
     valign
     pangu-spacing
-    (org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent")
+    (org-modern-indent :host github :repo "jdtsmith/org-modern-indent")
     pdf-tools
-    (org-count-words :fetcher github :repo "Elilif/org-count-words")))
+    (org-count-words :host github :repo "Elilif/org-count-words")))
 
 (defvar *package-ai-install-list*
-  (append '((gptel :fetcher github
+  (append '((gptel :host github
                    :repo "karthink/gptel")
-            (gptel-quick :fetcher github
+            (gptel-quick :host github
                          :repo "karthink/gptel-quick")
-            (gptel-aibo :fetcher github
+            (gptel-aibo :host github
                         :repo "dolmens/gptel-aibo")
-            (mcp :fetcher github
+            (mcp :host github
                  :repo "lizqwerscott/mcp.el"))
           (pcase user/ai-completion
             ('codeium
-             '((codeium :fetcher github
+             '((codeium :host github
                         :repo "Exafunction/codeium.el")
-               (codeium-overlay :fetcher github
+               (codeium-overlay :host github
                                 :repo "tjohnman/codeium-overlay.el")))
             ('copilot
-             '((copilot :fetcher github
+             '((copilot :host github
                         :repo "zerolfx/copilot.el"
                         :branch "main")))
             ('minuet
-             '((minuet :fetcher github
+             '((minuet :host github
                        :repo "milanglacier/minuet-ai.el"))))
           (when user/aider
-            '((aidermacs :fetcher github
+            '((aidermacs :host github
                          :repo "MatthewZMD/aidermacs")))))
 
 (defvar *package-rust-install-list*
@@ -237,7 +247,7 @@
     zig-ts-mode))
 
 (defvar *package-unity-install-list*
-  '((unity :fetcher github :repo "elizagamedev/unity.el")))
+  '((unity :host github :repo "elizagamedev/unity.el")))
 
 (defvar *package-sql-install-list*
   '(sql-indent))
@@ -250,18 +260,20 @@
     code-stats
     ;; tabspaces
     docker
-    (screenshot :fetcher github :repo "tecosaur/screenshot")
-    (telega-url-shorten-nerd :fetcher github
+    (screenshot :host github :repo "tecosaur/screenshot")
+    (telega-url-shorten-nerd :host github
                              :repo "lizqwerscott/telega-url-shorten-nerd")
-    (telega :fetcher github
+    (telega :host github
             :repo "zevlg/telega.el"
-            :branch "master")))
+            :branch "master")
+    (consult-omni :type git :host github :repo "armindarvish/consult-omni" :branch "main" :files (:defaults "sources/*.el"))))
 
+(setq vterm-always-compile-module t)
 (packages!
  '(eat
    vterm
-   (meow-vterm :fetcher github :repo "accelbread/meow-vterm")
-   (multi-vterm :fetcher github :repo "lizqwerscott/multi-vterm")))
+   (meow-vterm :host github :repo "accelbread/meow-vterm")
+   (multi-vterm :host github :repo "lizqwerscott/multi-vterm")))
 
 (packages!
  (append *package-base-install-list*
