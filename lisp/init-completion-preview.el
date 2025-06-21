@@ -25,16 +25,20 @@
 ;;; Code:
 (require 'completion-preview)
 
-;; Disable when meow beacon mode
-(advice-add #'meow-grab
-            :before
-            #'(lambda ()
-                (call-interactively #'completion-preview-mode)))
-
 (setq completion-preview-minimum-symbol-length 1)
 (add-list-to-list 'completion-preview-commands
                   '(hungry-delete-backward
                     outshine-self-insert-command))
+
+(when user/completion-preview-mode-use
+  ;; Disable when meow beacon mode
+  (advice-add #'meow-grab
+              :before
+              #'(lambda ()
+                  (call-interactively #'completion-preview-mode)))
+
+  (add-hook 'prog-mode-hook #'completion-preview-mode)
+  (add-hook 'text-mode-hook #'completion-preview-mode))
 
 (provide 'init-completion-preview)
 ;;; init-completion-preview.el ends here

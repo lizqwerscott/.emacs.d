@@ -202,11 +202,6 @@
             (mcp :host github
                  :repo "lizqwerscott/mcp.el"))
           (pcase user/ai-completion
-            ('codeium
-             '((codeium :host github
-                        :repo "Exafunction/codeium.el")
-               (codeium-overlay :host github
-                                :repo "tjohnman/codeium-overlay.el")))
             ('copilot
              '((copilot :host github
                         :repo "zerolfx/copilot.el"

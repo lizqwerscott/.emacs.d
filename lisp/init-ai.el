@@ -33,8 +33,6 @@
 (pcase user/ai-completion
   ('copilot
    (require 'init-copilot))
-  ('codeium
-   (require 'init-codeium))
   ('minuet
    (require 'init-minuet-ai)))
 
@@ -42,8 +40,6 @@
   (pcase user/ai-completion
     ('copilot
      (copilot-accept-completion))
-    ('codeium
-     (codeium-overlay-tab-command))
     ('minuet
      (minuet-accept-suggestion))))
 

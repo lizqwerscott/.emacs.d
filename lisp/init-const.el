@@ -107,10 +107,9 @@
   :type 'boolean)
 
 (defcustom user/ai-completion nil
-  "use what ai to completion: codeium, copilot, minuet"
+  "use what ai to completion: copilot, minuet"
   :group 'user
-  :type '(choice (const :tag "codeium" codeium)
-                 (const :tag "copilot" copilot)
+  :type '(choice (const :tag "copilot" copilot)
                  (const :tag "minuet" minuet)))
 
 (defcustom user/aider nil
