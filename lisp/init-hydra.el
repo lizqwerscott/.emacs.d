@@ -155,7 +155,9 @@
    (("b" magit-blame "Blame")
     ("f" magit-find-file "Find git file")
     ("l" magit-log-buffer-file "File log")
-    ("h" vc-region-history "History"))))
+    ("h" vc-region-history "History")
+    ("v" magit-status "magit status")
+    ("d" magit-dispatch "magit dispatch"))))
 
 (pretty-hydra-define-e hydra-language
   (:title "Language" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
