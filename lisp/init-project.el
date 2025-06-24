@@ -241,7 +241,7 @@ Support Lisp, python, c++."
     ("B" project-switch-to-buffer-other-window "Switch buffer other window")
     ("k" project-kill-buffers "Kill buffers"))
    "Other"
-   (("v" magit-project-status "magit")
+   (("v" magit-project-status "Magit status")
     ("E" project-edit-dir-local "Edit dir locals")
     ("c" project-compile "Compile")
     ("r" rsync-project-dispatch "Rsync")
