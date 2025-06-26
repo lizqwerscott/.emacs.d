@@ -1,3 +1,7 @@
+(defvar *package-build-in-install-list*
+  '((org :type built-in)
+    (transient :type built-in)))
+
 (defvar *package-base-install-list*
   '(gcmh
     vertico
@@ -23,8 +27,7 @@
     pretty-hydra))
 
 (defvar *package-tool-install-list*
-  '(try
-    centered-cursor-mode
+  '(centered-cursor-mode
     sudo-edit
     interaction-log
     restclient
@@ -178,8 +181,7 @@
      :repo "redguardtoo/pyim-tsinghua-dict")))
 
 (defvar *package-org-install-list*
-  '((org :type built-in)
-    consult-notes
+  '(consult-notes
     org-bullets
     org-fancy-priorities
     org-roam
@@ -272,7 +274,8 @@
    (multi-vterm :host github :repo "lizqwerscott/multi-vterm")))
 
 (packages!
- (append *package-base-install-list*
+ (append *package-build-in-install-list*
+         *package-base-install-list*
          *package-tool-install-list*
          *package-language-mode-install-list*
          *package-edit-install-list*
