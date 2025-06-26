@@ -178,7 +178,8 @@
      :repo "redguardtoo/pyim-tsinghua-dict")))
 
 (defvar *package-org-install-list*
-  '(consult-notes
+  '((org :type built-in)
+    consult-notes
     org-bullets
     org-fancy-priorities
     org-roam

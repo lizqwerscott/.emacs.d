@@ -12,6 +12,8 @@
 (setq warning-minimum-level :error)
 (setq warning-suppress-types '((lexical-binding)))
 
+(setq straight-check-for-modifications '(watch-files find-when-checking))
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name

@@ -22,4 +22,5 @@ librime
 /straight/repos/
 /straight/build/
 /straight/modified/
+/straight/watcher
 /straight/build-cache.el
