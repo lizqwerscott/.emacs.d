@@ -250,8 +250,6 @@
 (defvar *package-ai-install-list*
   (append '((gptel :fetcher github
                    :repo "karthink/gptel")
-            ;; (gptel-quick :fetcher github
-            ;;              :repo "karthink/gptel-quick")
             (gptel-aibo :fetcher github
                         :repo "dolmens/gptel-aibo")
             (mcp :fetcher github

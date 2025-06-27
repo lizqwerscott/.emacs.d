@@ -105,28 +105,6 @@
 
 (global-set-key (kbd "C-c RET") #'gptel-send)
 
-(require 'gptel-quick)
-(setq gptel-quick-system-message
-      #'(lambda (count)
-          (let* ((lang (downcase (gptel--strip-mode-suffix major-mode)))
-                 (article (if (and lang (not (string-empty-p lang))
-                                 (memq (aref lang 0) '(?a ?e ?i ?o ?u)))
-                              "an" "a")))
-            (if (derived-mode-p 'prog-mode)
-                (format (concat "You are %s %s programmer.  "
-                                "Explain in %d words or fewer."
-                                "It is best to use Chinese for the explanation.")
-                        article lang count)
-              (concat
-               (if (string-empty-p lang)
-                   "You are an editor."
-                 (format "You are %s %s editor." article lang))
-               (format "Explain in %d words or fewer." count)
-               "It is best to use Chinese for the explanation.")))))
-
-(global-set-keys
- '((("M-?" "s-?") . gptel-quick)))
-
 (require 'init-gptel-aibo)
 
 (provide 'init-gptel)
