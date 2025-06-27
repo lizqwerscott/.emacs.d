@@ -1,19 +1,14 @@
-
-;; (setq-default inhibit-redisplay t
-;;               inhibit-message t)
-;; (add-hook 'window-setup-hook
-;;           (lambda ()
-;;             (setq-default inhibit-redisplay nil
-;;                           inhibit-message nil)
-;;             (redisplay)))
-
-;; (toggle-debug-on-error)
-;; 启动必须加载
+;; init.el -*- lexical-binding: t; -*-
 
 (when (file-exists-p custom-file)
   (load custom-file))
 
 (require 'init-packages)
+
+(require 'init-startup)
+(require 'lazy-load)
+(require 'one-key)
+(require 'init-font)
 
 (require 'init-mode)
 (require 'init-gcmh)
@@ -46,8 +41,8 @@
 
 (require 'init-org)
 ;; (require 'init-pangu)
-(require 'init-hugo)
-(require 'init-elfeed)
+;; (require 'init-hugo)
+;; (require 'init-elfeed)
 ;; (require 'init-reader)
 ;; (require 'init-paper)
 ;;(require 'crefactor)
@@ -70,4 +65,8 @@
   (autoload '+lizqwer/toggle-telega "init-telega" nil t)
   (+lizqwer/toggle-telega))
 
-;;; init.el ends here.
+;; Local Variables:
+;; no-byte-compile: t
+;; no-native-compile: t
+;; no-update-autoloads: t
+;; End:

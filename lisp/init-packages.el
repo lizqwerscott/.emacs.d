@@ -1,6 +1,56 @@
+;; elpaca packages configuration -*- lexical-binding: t; -*-
+(defvar elpaca-installer-version 0.11)
+(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+                              :ref nil :depth 1 :inherit ignore
+                              :files (:defaults "elpaca-test.el" (:exclude "extensions"))
+                              :build (:not elpaca--activate-package)))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+       (build (expand-file-name "elpaca/" elpaca-builds-directory))
+       (order (cdr elpaca-order))
+       (default-directory repo))
+  (add-to-list 'load-path (if (file-exists-p build) build repo))
+  (unless (file-exists-p repo)
+    (make-directory repo t)
+    (when (<= emacs-major-version 28) (require 'subr-x))
+    (condition-case-unless-debug err
+        (if-let* ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+                  ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
+                                                  ,@(when-let* ((depth (plist-get order :depth)))
+                                                      (list (format "--depth=%d" depth) "--no-single-branch"))
+                                                  ,(plist-get order :repo) ,repo))))
+                  ((zerop (call-process "git" nil buffer t "checkout"
+                                        (or (plist-get order :ref) "--"))))
+                  (emacs (concat invocation-directory invocation-name))
+                  ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+                                        "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+                  ((require 'elpaca))
+                  ((elpaca-generate-autoloads "elpaca" repo)))
+            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
+          (error "%s" (with-current-buffer buffer (buffer-string))))
+      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
+  (unless (require 'elpaca-autoloads nil t)
+    (require 'elpaca)
+    (elpaca-generate-autoloads "elpaca" repo)
+    (let ((load-source-file-function nil)) (load "./elpaca-autoloads"))))
+;; (add-hook 'after-init-hook #'elpaca-process-queues)
+(elpaca `(,@elpaca-order))
+
+(defun packages! (packages)
+  (dolist (package packages)
+    (elpaca--expand-declaration package 'nil)))
+
+(defvar *package-early-install-list*
+  '(no-littering
+    exec-path-from-shell
+
+    (lazy-load :fetcher github :repo "manateelazycat/lazy-load")
+    (one-key :fetcher github :repo "manateelazycat/one-key")))
+
 (defvar *package-build-in-install-list*
-  '((org :type built-in)
-    (transient :type built-in)))
+  '(transient))
 
 (defvar *package-base-install-list*
   '(gcmh
@@ -13,7 +63,7 @@
     fussy
     (flx-rs
      :repo "jcs-elpa/flx-rs"
-     :host github
+     :fetcher github
      :files (:defaults "bin"))
     posframe
     request
@@ -38,15 +88,16 @@
     diredfl
     dired-subtree
     dired-quick-sort
+    dired-collapse
     trashed
     dirvish
     elisp-demos
-    (lazy-revert :host github :repo "yilin-zhang/lazy-revert")
+    (lazy-revert :fetcher github :repo "yilin-zhang/lazy-revert")
     (psearch
-     :host github
+     :fetcher github
      :repo "twlz0ne/psearch.el")
     heap
-    (p-search :repo "zkry/p-search" :host github)
+    (p-search :repo "zkry/p-search" :fetcher github)
     gif-screencast
     keycast
     gnuplot
@@ -67,9 +118,9 @@
     qml-mode))
 
 (defvar *package-edit-install-list*
-  '((meow :host github :repo "meow-edit/meow")
+  '((meow :fetcher github :repo "meow-edit/meow")
     meow-tree-sitter
-    (repeat-fu :host codeberg :repo "ideasman42/emacs-repeat-fu")
+    (repeat-fu :fetcher codeberg :repo "ideasman42/emacs-repeat-fu")
     grugru
     auto-rename-tag
     hungry-delete
@@ -80,7 +131,7 @@
     vundo
     outline-indent
     visual-replace
-    (fingertip :host github :repo "manateelazycat/fingertip")))
+    (fingertip :fetcher github :repo "manateelazycat/fingertip")))
 
 (defvar *package-program-install-list*
   `(dumb-jump
@@ -89,11 +140,12 @@
     macrostep
     ,@(pcase user/lsp-client
         ('eglot
-         '(eglot
-           (eglot-booster :host github :repo "jdtsmith/eglot-booster")
+         '(flymake
+           eglot
+           (eglot-booster :fetcher github :repo "jdtsmith/eglot-booster")
            consult-eglot))
         ('lsp-bridge
-         `((lsp-bridge :type git :host github :repo "manateelazycat/lsp-bridge"
+         `((lsp-bridge :type git :fetcher github :repo "manateelazycat/lsp-bridge"
                        :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
                        :build (:not compile))
            ,@(when (not (display-graphic-p))
@@ -116,19 +168,19 @@
     fish-completion
     dape
     citre
-    (xmake :host github :repo "lizqwerscott/xmake-emacs")
-    (quicktype :host github :repo "artawower/quicktype.el")
-    (color-rg :host github
+    (xmake :fetcher github :repo "lizqwerscott/xmake-emacs")
+    (quicktype :fetcher github :repo "artawower/quicktype.el")
+    (color-rg :fetcher github
               :repo "manateelazycat/color-rg")
-    (peek :host sourcehut :repo "meow_king/peek")
+    (peek :fetcher sourcehut :repo "meow_king/peek")
 
-    (auto-save :host github :repo "manateelazycat/auto-save")
+    (auto-save :fetcher github :repo "manateelazycat/auto-save")
     super-save
-    (rsync-project-mode :host github :repo "lizqwerscott/rsync-project-mode")
-    (image-slicing :host github :repo "ginqi7/image-slicing")))
+    (rsync-project-mode :fetcher github :repo "lizqwerscott/rsync-project-mode")
+    (image-slicing :fetcher github :repo "ginqi7/image-slicing")))
 
 (defvar *package-ui-install-list*
-  '((koishi-theme :host github :repo "gynamics/koishi-theme.el")
+  '((koishi-theme :fetcher github :repo "gynamics/koishi-theme.el")
     nerd-icons
     nerd-icons-dired
     nerd-icons-completion
@@ -150,12 +202,12 @@
     hl-todo
     imenu-list
     outshine
-    (indent-bars :host github :repo "jdtsmith/indent-bars")
-    (awesome-tray :host github
+    (indent-bars :fetcher github :repo "jdtsmith/indent-bars")
+    (awesome-tray :fetcher github
                   :repo "manateelazycat/awesome-tray")
-    (breadcrumb :host github
+    (breadcrumb :fetcher github
                 :repo "joaotavora/breadcrumb")
-    (highlight-matching-tag :host github :repo "manateelazycat/highlight-matching-tag")
+    (highlight-matching-tag :fetcher github :repo "manateelazycat/highlight-matching-tag")
     buffer-name-relative
     nerd-icons-ibuffer
     casual))
@@ -163,13 +215,13 @@
 (defvar *package-window-install-list*
   '(popper
     ace-window
-    (watch-other-window :host github :repo "manateelazycat/watch-other-window")
+    (watch-other-window :fetcher github :repo "manateelazycat/watch-other-window")
     ))
 
 (defvar *package-language-install-list*
   '(immersive-translate
     (sdcv
-     :host github
+     :fetcher github
      :repo "manateelazycat/sdcv")
     fanyi
     go-translate
@@ -177,7 +229,7 @@
     pyim
     pyim-basedict
     (pyim-tsinghua-dict
-     :host github
+     :fetcher github
      :repo "redguardtoo/pyim-tsinghua-dict")))
 
 (defvar *package-org-install-list*
@@ -191,29 +243,29 @@
     org-appear
     valign
     pangu-spacing
-    (org-modern-indent :host github :repo "jdtsmith/org-modern-indent")
+    (org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent")
     pdf-tools
-    (org-count-words :host github :repo "Elilif/org-count-words")))
+    (org-count-words :fetcher github :repo "Elilif/org-count-words")))
 
 (defvar *package-ai-install-list*
-  (append '((gptel :host github
+  (append '((gptel :fetcher github
                    :repo "karthink/gptel")
-            (gptel-quick :host github
-                         :repo "karthink/gptel-quick")
-            (gptel-aibo :host github
+            ;; (gptel-quick :fetcher github
+            ;;              :repo "karthink/gptel-quick")
+            (gptel-aibo :fetcher github
                         :repo "dolmens/gptel-aibo")
-            (mcp :host github
+            (mcp :fetcher github
                  :repo "lizqwerscott/mcp.el"))
           (pcase user/ai-completion
             ('copilot
-             '((copilot :host github
+             '((copilot :fetcher github
                         :repo "zerolfx/copilot.el"
                         :branch "main")))
             ('minuet
-             '((minuet :host github
+             '((minuet :fetcher github
                        :repo "milanglacier/minuet-ai.el"))))
           (when user/aider
-            '((aidermacs :host github
+            '((aidermacs :fetcher github
                          :repo "MatthewZMD/aidermacs")))))
 
 (defvar *package-rust-install-list*
@@ -245,7 +297,7 @@
     zig-ts-mode))
 
 (defvar *package-unity-install-list*
-  '((unity :host github :repo "elizagamedev/unity.el")))
+  '((unity :fetcher github :repo "elizagamedev/unity.el")))
 
 (defvar *package-sql-install-list*
   '(sql-indent))
@@ -258,20 +310,22 @@
     code-stats
     ;; tabspaces
     docker
-    (screenshot :host github :repo "tecosaur/screenshot")
-    (telega-url-shorten-nerd :host github
+    (screenshot :fetcher github :repo "tecosaur/screenshot")
+    (telega-url-shorten-nerd :fetcher github
                              :repo "lizqwerscott/telega-url-shorten-nerd")
-    (telega :host github
+    (telega :fetcher github
             :repo "zevlg/telega.el"
             :branch "master")
-    (consult-omni :type git :host github :repo "armindarvish/consult-omni" :branch "main" :files (:defaults "sources/*.el"))))
+    (consult-omni :type git :fetcher github :repo "armindarvish/consult-omni" :branch "main" :files (:defaults "sources/*.el"))))
+
+(packages! *package-early-install-list*)
 
 (setq vterm-always-compile-module t)
 (packages!
  '(eat
    vterm
-   (meow-vterm :host github :repo "accelbread/meow-vterm")
-   (multi-vterm :host github :repo "lizqwerscott/multi-vterm")))
+   (meow-vterm :fetcher github :repo "accelbread/meow-vterm")
+   (multi-vterm :fetcher github :repo "lizqwerscott/multi-vterm")))
 
 (packages!
  (append *package-build-in-install-list*
@@ -296,5 +350,9 @@
          (when user/godot
            *package-godot-install-list*)
          *package-another-install-list*))
+
+(elpaca-process-queues)
+
+(elpaca-wait)
 
 (provide 'init-packages)
