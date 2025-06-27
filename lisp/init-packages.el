@@ -115,7 +115,8 @@
     elvish-mode
     git-modes
     csv-mode
-    qml-mode))
+    qml-mode
+    sxhkdrc-mode))
 
 (defvar *package-edit-install-list*
   '((meow :fetcher github :repo "meow-edit/meow")
