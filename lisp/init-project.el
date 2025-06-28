@@ -146,6 +146,56 @@ NAME is class name."
                                              completion-table nil t)))
     (project-switch-project project-directory)))
 
+(defun project-find-file-in-other-window (suggested-filename dirs project &optional include-all)
+  "Complete a file name in DIRS in PROJECT and visit the result.
+
+SUGGESTED-FILENAME is a file name, or part of it, which
+is used as part of \"future history\".
+
+If INCLUDE-ALL is non-nil, or with prefix argument when called
+interactively, include all files from DIRS, except for VCS
+directories listed in `vc-directory-exclusion-list'."
+  (let* ((vc-dirs-ignores (mapcar
+                           (lambda (dir)
+                             (concat dir "/"))
+                           vc-directory-exclusion-list))
+         (all-files
+          (if include-all
+              (mapcan
+               (lambda (dir) (project--files-in-directory dir vc-dirs-ignores))
+               dirs)
+            (project-files project dirs)))
+         (completion-ignore-case read-file-name-completion-ignore-case)
+         (default-directory (project-root project))
+         (file (project--read-file-name
+                project "Find file"
+                all-files nil 'file-name-history
+                suggested-filename)))
+    (if (string= file "")
+        (user-error "You didn't specify the file")
+      (find-file-other-window file))))
+
+(defun project-find-file-other-window (&optional include-all)
+  "Visit a file (with completion) in the current project.
+
+The filename at point (determined by `thing-at-point'), if any,
+is available as part of \"future history\".  If none, the current
+buffer's file name is used.
+
+If INCLUDE-ALL is non-nil, or with prefix argument when called
+interactively, include all files under the project root, except
+for VCS directories listed in `vc-directory-exclusion-list'."
+  (interactive "P")
+  (let* ((pr (project-current t))
+         (root (project-root pr))
+         (dirs (list root))
+         (project-files-relative-names t))
+    (project-find-file-in-other-window
+     (delq nil (list (and buffer-file-name (project--find-default-from
+                                            buffer-file-name pr))
+                     (thing-at-point 'filename)))
+     dirs pr include-all)))
+
 (defun project-switch-to-buffer-other-window (buffer-or-name)
   "Display buffer BUFFER-OR-NAME in the other window.
 When called interactively, prompts for a buffer belonging to the
@@ -206,6 +256,27 @@ Support Lisp, python, c++."
   (find-file (read-directory-name "find temp project:"
                                   temp-file-dir)))
 
+;;; Projection Type
+(put 'projection-commands-configure-project 'safe-local-variable #'stringp)
+(put 'projection-commands-build-project 'safe-local-variable #'stringp)
+(put 'projection-commands-test-project 'safe-local-variable #'stringp)
+(put 'projection-commands-run-project 'safe-local-variable #'stringp)
+(put 'projection-commands-package-project 'safe-local-variable #'stringp)
+(put 'projection-commands-install-project 'safe-local-variable #'stringp)
+
+(defvar projection-project-type-python-uv
+  (projection-type
+   :name 'python-uv
+   :predicate (defun projection-python-uv-project-p ()
+                (and (file-exists-p "pyproject.toml")
+                     (file-exists-p "uv.lock")))
+   :build "uv build"
+   :run (defun projection-python-uv-project-run-command ()
+          (concat "uv run " (file-truename (buffer-file-name))))))
+
+(add-to-list 'projection-project-types projection-project-type-python-uv)
+
+
 ;;; project-prefix-map
 ;; (defalias 'project-prefix-map project-prefix-map)
 
@@ -232,24 +303,29 @@ Support Lisp, python, c++."
     ("C-p z" project-forget-zombie-projects "Forget zombie")
     ("C-p a" project-remember-projects-under "Remember under"))
    "Find"
-   (("f" project-find-file "file")
+   (("f" project-find-file "Find file")
+    ("F" project-find-file-other-window "Find file in other window")
     ("o" projection-find-other-file "other file")
-    ("d" project-dired "project root")
-    ("D" project-dired-dir "in project root dir"))
+    ("d" project-dired-dir "Find dir in project root")
+    ("D" project-dired "Open project root dir"))
    "Buffer"
    (("b" project-switch-to-buffer "Switch buffer")
     ("B" project-switch-to-buffer-other-window "Switch buffer other window")
     ("k" project-kill-buffers "Kill buffers"))
+   "Build"
+   (("c c" projection-commands-build-project "Compile")
+    ("c r" projection-commands-run-project "Run")
+    ("c t" projection-commands-test-project "Test"))
    "Other"
    (("v" magit-project-status "Magit status")
     ("E" project-edit-dir-local "Edit dir locals")
-    ("c" project-compile "Compile")
     ("r" rsync-project-dispatch "Rsync")
     ("t" multi-vterm-project "Vterm")
     ("e" (lambda ()
            (interactive)
            (autoload 'eshell-project-toggle "init-eshell" nil t)
-           (eshell-project-toggle)) "Eshell"))))
+           (eshell-project-toggle))
+     "Eshell"))))
 
 (provide 'init-project)
 ;;; init-project.el ends heres.
