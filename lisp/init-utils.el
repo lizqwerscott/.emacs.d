@@ -158,13 +158,13 @@ The optional argument NEW-WINDOW is not used."
   "Lookup api key in the auth source.
 By default, the LLM host for the active backend is used as HOST,
 and \"apikey\" as USER."
-  (if-let ((secret
-            (plist-get
-             (car (auth-source-search
-                   :host (or host)
-                   :user (or user "apikey")
-                   :require '(:secret)))
-             :secret)))
+  (if-let* ((secret
+             (plist-get
+              (car (auth-source-search
+                    :host (or host)
+                    :user (or user "apikey")
+                    :require '(:secret)))
+              :secret)))
       (if (functionp secret)
           (encode-coding-string (funcall secret) 'utf-8)
         secret)
