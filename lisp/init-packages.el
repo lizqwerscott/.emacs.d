@@ -68,7 +68,6 @@
     posframe
     request
     websocket
-    ag
     rg
     xclip
     helpful
@@ -93,9 +92,6 @@
     dirvish
     elisp-demos
     (lazy-revert :fetcher github :repo "yilin-zhang/lazy-revert")
-    (psearch
-     :fetcher github
-     :repo "twlz0ne/psearch.el")
     heap
     (p-search :repo "zkry/p-search" :fetcher github)
     gif-screencast
@@ -166,7 +162,6 @@
     projection
     eshell-prompt-extras
     esh-help
-    fish-completion
     dape
     citre
     (xmake :fetcher github :repo "lizqwerscott/xmake-emacs")
@@ -198,7 +193,6 @@
     highlight-parentheses
     colorful-mode
     visual-fill-column
-    olivetti
     redacted
     hl-todo
     imenu-list
@@ -243,7 +237,6 @@
     ox-hugo
     org-appear
     valign
-    pangu-spacing
     (org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent")
     pdf-tools
     (org-count-words :fetcher github :repo "Elilif/org-count-words")))

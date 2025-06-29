@@ -40,7 +40,6 @@
 (require 'init-calender)
 
 (require 'init-org)
-;; (require 'init-pangu)
 ;; (require 'init-hugo)
 ;; (require 'init-elfeed)
 ;; (require 'init-reader)
