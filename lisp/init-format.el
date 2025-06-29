@@ -6,11 +6,14 @@
 (setf (alist-get 'python-ts-mode apheleia-mode-alist)
       '(isort black))
 
-(setf (alist-get 'rust-ts-mode apheleia-mode-alist)
-      'cargo-fmt)
+;; (setf (alist-get 'rust-ts-mode apheleia-mode-alist)
+;;       'cargo-fmt)
 
-(setf (alist-get 'cargo-fmt apheleia-formatters)
-      '("cargo" "fmt"))
+;; (setf (alist-get 'cargo-fmt apheleia-formatters)
+;;       '("cargo" "fmt"))
+
+(setf (alist-get 'rust-ts-mode apheleia-mode-alist)
+      'rustfmt)
 
 (defun format-code-buffer ()
   (interactive)
