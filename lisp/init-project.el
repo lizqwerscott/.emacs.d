@@ -257,13 +257,6 @@ Support Lisp, python, c++."
                                   temp-file-dir)))
 
 ;;; Projection Type
-(put 'projection-commands-configure-project 'safe-local-variable #'stringp)
-(put 'projection-commands-build-project 'safe-local-variable #'stringp)
-(put 'projection-commands-test-project 'safe-local-variable #'stringp)
-(put 'projection-commands-run-project 'safe-local-variable #'stringp)
-(put 'projection-commands-package-project 'safe-local-variable #'stringp)
-(put 'projection-commands-install-project 'safe-local-variable #'stringp)
-
 (defvar projection-project-type-python-uv
   (projection-type
    :name 'python-uv
@@ -315,7 +308,8 @@ Support Lisp, python, c++."
    "Build"
    (("c c" projection-commands-build-project "Compile")
     ("c r" projection-commands-run-project "Run")
-    ("c t" projection-commands-test-project "Test"))
+    ("c t" projection-commands-test-project "Test")
+    ("m" projection-multi-compile "Mutli compile"))
    "Other"
    (("v" magit-project-status "Magit status")
     ("E" project-edit-dir-local "Edit dir locals")
