@@ -214,6 +214,14 @@ buffer, are identical."
         (find-file dir-locals-file)
       (call-interactively #'add-dir-local-variable))))
 
+(defun project-add-to-safe-local-variable ()
+  (interactive)
+  (let* ((project-path (project-root (project-current))))
+    (customize-save-variable
+     'safe-local-variable-directories
+     (add-to-list 'safe-local-variable-directories
+                  (file-truename project-path)))))
+
 ;;; Find Temp project
 (defvar temp-file-dir "~/temp/" "Set default temp file dir.")
 
@@ -310,12 +318,15 @@ Support Lisp, python, c++."
     ("c r" projection-commands-run-project "Run")
     ("c t" projection-commands-test-project "Test")
     ("m" projection-multi-compile "Mutli compile"))
+   "Dir Locals"
+   (("e e" project-edit-dir-local "Edit")
+    ("e s" project-add-to-safe-local-variable "Trust")
+    ("e a" add-dir-local-variable "Add"))
    "Other"
    (("v" magit-project-status "Magit status")
-    ("E" project-edit-dir-local "Edit dir locals")
     ("r" rsync-project-dispatch "Rsync")
     ("t" multi-vterm-project "Vterm")
-    ("e" (lambda ()
+    ("s" (lambda ()
            (interactive)
            (autoload 'eshell-project-toggle "init-eshell" nil t)
            (eshell-project-toggle))
