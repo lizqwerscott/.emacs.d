@@ -141,6 +141,7 @@ At 2nd time it copy current directory to kill-buffer."
 ;;; Hook
 (add-hook 'dired-mode-hook
           #'(lambda ()
+              (dired-async-mode)
               (unless (bound-and-true-p dirvish-override-dired-mode)
                 (nerd-icons-dired-mode))
               (diredfl-mode)
