@@ -62,5 +62,10 @@
 (when (executable-find "emacs-lsp-booster")
   (eglot-booster-mode 1))
 
+;; Flycheck
+(require 'flycheck-eglot)
+(setf flycheck-eglot-exclusive nil)
+(global-flycheck-eglot-mode 1)
+
 (provide 'init-eglot)
 ;;; init-eglot.el ends here

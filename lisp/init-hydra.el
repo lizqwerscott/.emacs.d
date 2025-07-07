@@ -118,7 +118,7 @@
    "Debug"
    (("E" toggle-debug-on-error "debug on error" :toggle (bound-and-true-p debug-on-error)))
    "Program"
-   (("f" flymake-mode "flymake" :toggle t)
+   (("f" flycheck-mode "flycheck" :toggle t)
     ("u" unity-mode "unity develop" :toggle t))))
 
 (pretty-hydra-define-e hydra-jump-dir

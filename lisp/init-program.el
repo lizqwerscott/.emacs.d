@@ -26,23 +26,19 @@
 (setq xref-show-definitions-function 'consult-xref)
 
 ;;; check
-;; flymake
-(add-hook 'after-init-hook
-          #'flymake-mode)
+;; flycheck
+(require 'flycheck)
+(global-flycheck-mode)
 
-(setq flymake-no-changes-timeout nil
-      flymake-fringe-indicator-position 'right-fringe)
-
-(add-hook 'flymake-mode-hook
-          #'flymake-popon-mode)
-
-(custom-set-faces
- '(flymake-popon ((t :inherit default :height 0.85)))
- `(flymake-popon-posframe-border ((t :foreground ,(face-background 'posframe-border nil t)))))
-
-(setq flymake-popon-width 80
-      flymake-popon-posframe-border-width 1
-      flymake-popon-method (if (childframe-workable-p) 'posframe 'popon))
+;; flyover
+(require 'flyover)
+(add-hook 'flycheck-mode-hook #'flyover-mode)
+(setq flyover-use-theme-colors t
+      flyover-checkers '(flycheck)
+      flyover-show-at-eol t
+      flyover-virtual-line-icon (concat (nerd-icons-faicon "nf-fa-arrow_right_long")
+                                        " ")
+      flyover-virtual-line-type nil)
 
 ;;; debug
 (require 'init-dap)

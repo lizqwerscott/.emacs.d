@@ -137,10 +137,12 @@
     macrostep
     ,@(pcase user/lsp-client
         ('eglot
-         '(flymake
-           eglot
+         '(eglot
            (eglot-booster :fetcher github :repo "jdtsmith/eglot-booster")
-           consult-eglot))
+           consult-eglot
+           flycheck
+           consult-flycheck
+           flycheck-eglot))
         ('lsp-bridge
          `((lsp-bridge :type git :fetcher github :repo "manateelazycat/lsp-bridge"
                        :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
@@ -152,7 +154,7 @@
     cape
     nerd-icons-corfu
     eldoc-box
-    flymake-popon
+    (flyover :fetcher github :repo "konrad1977/flyover")
     magit
     magit-delta
     forge
