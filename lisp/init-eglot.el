@@ -64,7 +64,7 @@
 
 ;; Flycheck
 (require 'flycheck-eglot)
-(setf flycheck-eglot-exclusive nil)
+(setq-default flycheck-eglot-exclusive nil)
 (global-flycheck-eglot-mode 1)
 
 (provide 'init-eglot)
