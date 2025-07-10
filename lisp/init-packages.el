@@ -135,6 +135,7 @@
     yasnippet
     consult-yasnippet
     macrostep
+    package-lint
     ,@(pcase user/lsp-client
         ('eglot
          '(eglot
@@ -142,7 +143,8 @@
            consult-eglot
            flycheck
            consult-flycheck
-           flycheck-eglot))
+           flycheck-eglot
+           flycheck-package))
         ('lsp-bridge
          `((lsp-bridge :type git :fetcher github :repo "manateelazycat/lsp-bridge"
                        :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
