@@ -28,6 +28,7 @@
 ;;; check
 ;; flycheck
 (require 'flycheck)
+(setq flycheck-emacs-lisp-load-path 'inherit)
 (global-flycheck-mode)
 
 ;; flyover
