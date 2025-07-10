@@ -192,12 +192,10 @@ V is either nil or non-nil."
     ("h" "Hide Details" dired-hide-details-mode
      :description
      (lambda ()
-       (transient-show-checkbox-label dired-hide-details-mode "Hide Details"))
-     :transient t)
+       (transient-show-checkbox-label dired-hide-details-mode "Hide Details")))
     ("o" "Omit Mode" dired-omit-mode
      :description
-     (lambda () (transient-show-checkbox-label dired-omit-mode "Omit Mode"))
-     :transient t)]
+     (lambda () (transient-show-checkbox-label dired-omit-mode "Omit Mode")))]
    ["Sort By"
     ("n" "Name" casual-dired--sort-by-name :transient t)
     ("k" "Kind" casual-dired--sort-by-kind :transient t)
