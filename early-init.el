@@ -8,6 +8,8 @@
 (setq gc-cons-threshold most-positive-fixnum)
 (find-function-setup-keys)
 
+(add-to-list 'default-frame-alist '(background-color . "black"))
+
 (setq load-path-filter-function #'load-path-filter-cache-directory-files)
 
 ;; Avoid raising the *Messages* buffer if anything is still without
