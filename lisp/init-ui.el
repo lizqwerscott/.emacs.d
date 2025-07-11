@@ -66,6 +66,7 @@
 (custom-set-faces
  '(header-line ((t (:inherit t :foreground unspecified :background unspecified)))))
 
+(setq breadcrumb-imenu-max-length 100)
 (breadcrumb-mode)
 ;; (setq header-line-format nil)
 
