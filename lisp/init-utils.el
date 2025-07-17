@@ -170,4 +170,10 @@ and \"apikey\" as USER."
         secret)
     (user-error "No `api-key' found in the auth source")))
 
+;;;###autoload
+(defun find-custom-file()
+  "Open custom files."
+  (interactive)
+  (find-file custom-file))
+
 (provide 'init-utils)

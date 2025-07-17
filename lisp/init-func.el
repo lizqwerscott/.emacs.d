@@ -101,19 +101,6 @@
       (browse-url (concat "file://" file-name)))))
 
 ;;;###autoload
-(defun find-custom-file()
-  "Open custom files."
-  (interactive)
-  (unless (file-exists-p custom-file)
-    (if (file-exists-p centaur-custom-example-file)
-        (copy-file centaur-custom-example-file custom-file)
-      (user-error "The file `%s' doesn't exist" centaur-custom-example-file)))
-  (when (file-exists-p custom-file)
-    (find-file custom-file))
-  (when (file-exists-p centaur-custom-post-file)
-    (find-file-other-window centaur-custom-post-file)))
-
-;;;###autoload
 (defun +lizqwer/toggle-dark-theme ()
   "Toggle theme."
   (interactive)

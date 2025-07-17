@@ -104,7 +104,8 @@
    (("p" . "Find in project") . (lambda ()
                                   (interactive)
                                   (require 'project)
-                                  (ido-find-file-in-dir "~/MyProject")))))
+                                  (ido-find-file-in-dir "~/MyProject")))
+   (("c" . "Find custom file") . find-custom-file)))
 
 
 (defmacro open-dir (path)
