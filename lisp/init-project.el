@@ -62,6 +62,46 @@
 (add-to-list 'project-switch-commands '(project-dired "Dired") t)
 
 ;;; Menu
+(require 'transient)
+(transient-define-prefix project-dispatch ()
+  "Project dispatch menu"
+  [["Switch"
+    ("p" "Project" project-switch-project)
+    ("P" "Open project" project-switch-project-open)]
+   ["Manage"
+    ("C-p r" "Forget under" project-forget-projects-under)
+    ("C-p z" "Forget zombie" project-forget-zombie-projects)
+    ("C-p a" "Remember under" project-remember-projects-under)]]
+  [["Find"
+    ("f" "File" project-find-file)
+    ("F" "File OW" project-find-file-other-window)
+    ("o" "Other file" projection-find-other-file)
+    ("d" "Dir" project-dired-dir)]
+   ["Buffer"
+    ("b" "Switch" project-switch-to-buffer)
+    ("B" "Switch OW" project-switch-to-buffer-other-window)
+    ("k" "Kill" project-kill-buffers)]
+   ["Build"
+    ("c c" "Compile" projection-commands-build-project)
+    ("c r" "Run" projection-commands-run-project)
+    ("c t" "Test" projection-commands-test-project)
+    ("m" "Mutli compile" projection-multi-compile)]
+   ["Dir Locals"
+    ("e e" "Edit" project-edit-dir-local)
+    ("e s" "Trust" project-add-to-safe-local-variable)
+    ("e a" "Add" add-dir-local-variable)]
+   ["Other"
+    ("v" "Magit status" magit-project-status)
+    ("r" "Rsync" rsync-project-dispatch)
+    ("t" "Vterm" multi-vterm-project)
+    ("s""Eshell"
+     (lambda ()
+       (interactive)
+       (autoload 'eshell-project-toggle "init-eshell" nil t)
+       (eshell-project-toggle)))
+    ("D" "Open project root dir" project-dired)]]
+  [("q" "Quit" transient-quit-all)])
+
 (pretty-hydra-define-e hydra-project
   (:title "Project" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
   ("project"

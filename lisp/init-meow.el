@@ -248,7 +248,7 @@
    )
 
   (lazy-meow-leader-define-key
-   '(("p" . hydra-project/body) "init-project"))
+   '(("p" . project-dispatch) "init-project"))
 
   (meow-leader-define-key
    '("1" . delete-other-windows)
