@@ -1,6 +1,6 @@
-;;; init-go-translate.el --- init go translate package  -*- lexical-binding: t; -*-
+;;; init-gt.el --- init gt package                   -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2024  lizqwer scott
+;; Copyright (C) 2025  lizqwer scott
 
 ;; Author: lizqwer scott <lizqwerscott@gmail.com>
 ;; Keywords: lisp
@@ -24,7 +24,7 @@
 
 ;;; Code:
 
-(require 'go-translate)
+(require 'gt)
 (setq gt-langs '(en zh))
 
 (setq gt-default-translator
@@ -33,6 +33,5 @@
        :engines (list (gt-bing-engine)) ; 指定多引擎
        :render  (gt-buffer-render)))                            ; 配置渲染器
 
-
-(provide 'init-go-translate)
-;;; init-go-translate.el ends here
+(provide 'init-gt)
+;;; init-gt.el ends here

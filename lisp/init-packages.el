@@ -226,7 +226,7 @@
      :repo "manateelazycat/sdcv")
     fanyi
     (pdd :fetcher github :repo "lorniu/pdd.el")
-    (go-translate :fetcher github :repo "lorniu/go-translate")
+    (gt :fetcher github :repo "lorniu/gt.el")
     rime
     pyim
     pyim-basedict
