@@ -1,9 +1,9 @@
-;;; init-ai.el --- init ai package                   -*- lexical-binding: t; -*-
+;;; init-macher.el --- init macher package           -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2025  lizqwer scott
 
 ;; Author: lizqwer scott <lizqwerscott@gmail.com>
-;; Keywords: lisp, ai
+;; Keywords: lisp
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,28 +24,10 @@
 
 ;;; Code:
 
-(require 'init-gptel)
+(require 'macher)
+(setq macher-action-buffer-ui 'org)
 
-(when user/aider
-  (require 'init-aider))
+(macher-install)
 
-(require 'init-macher)
-
-;; (require 'init-codegeex)
-(pcase user/ai-completion
-  ('copilot
-   (require 'init-copilot))
-  ('minuet
-   (require 'init-minuet-ai)))
-
-(defun ai-complete ()
-  (pcase user/ai-completion
-    ('copilot
-     (copilot-accept-completion))
-    ('minuet
-     (minuet-accept-suggestion))))
-
-(require 'init-mcp)
-
-(provide 'init-ai)
-;;; init-ai.el ends here
+(provide 'init-macher)
+;;; init-macher.el ends here

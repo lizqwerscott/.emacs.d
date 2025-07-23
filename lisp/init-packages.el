@@ -254,7 +254,8 @@
             (gptel-aibo :fetcher github
                         :repo "dolmens/gptel-aibo")
             (mcp :fetcher github
-                 :repo "lizqwerscott/mcp.el"))
+                 :repo "lizqwerscott/mcp.el")
+            (macher :host github :repo "kmontag/macher"))
           (pcase user/ai-completion
             ('copilot
              '((copilot :fetcher github
