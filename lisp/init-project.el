@@ -78,8 +78,8 @@
     ("o" "Other file" projection-find-other-file)
     ("d" "Dir" project-dired-dir)]
    ["Buffer"
-    ("b" "Switch" project-switch-to-buffer)
-    ("B" "Switch OW" project-switch-to-buffer-other-window)
+    ("b" "Switch" consult-project-buffer)
+    ("B" "Switch OW" consult-project-buffer-other-window)
     ("k" "Kill" project-kill-buffers)]
    ["Build"
     ("c c" "Compile" projection-commands-build-project)
@@ -117,8 +117,8 @@
     ("d" project-dired-dir "Find dir in project root")
     ("D" project-dired "Open project root dir"))
    "Buffer"
-   (("b" project-switch-to-buffer "Switch buffer")
-    ("B" project-switch-to-buffer-other-window "Switch buffer other window")
+   (("b" consult-project-buffer "Switch buffer")
+    ("B" consult-project-buffer-other-window "Switch buffer other window")
     ("k" project-kill-buffers "Kill buffers"))
    "Build"
    (("c c" projection-commands-build-project "Compile")

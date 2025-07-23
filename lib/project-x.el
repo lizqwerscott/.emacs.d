@@ -250,6 +250,12 @@ buffer, are identical."
   (interactive (list (project--read-project-buffer)))
   (switch-to-buffer-other-window buffer-or-name))
 
+(defun consult-project-buffer-other-window ()
+  "Open project buffer in other window."
+  (interactive)
+  (let ((consult--buffer-display #'switch-to-buffer-other-window))
+    (consult-project-buffer)))
+
 (defun project-edit-dir-local ()
   "Edit project root dir local."
   (interactive)
