@@ -62,10 +62,18 @@
   :endpoint "/api/v1/chat/completions"
   :key #'gptel-api-key
   :models '(openrouter/auto google/gemini-2.0-flash-lite-preview-02-05:free deepseek/deepseek-r1:free deepseek/deepseek-chat:free))
+(gptel-make-openai "Aliyun"
+  :stream t
+  :protocol "https"
+  :host "dashscope.aliyuncs.com"
+  :endpoint "/compatible-mode/v1/chat/completions"
+  :key #'gptel-api-key
+  :models '(qwen3-coder-480b-a35b-instruct))
 
-(setq gptel-model 'deepseek-chat)
+(setq gptel-model 'qwen3-coder-480b-a35b-instruct)
+;; (setq gptel-model 'deepseek-reasoner)
 (setq gptel-backend
-      (gptel-get-backend "deepseek"))
+      (gptel-get-backend "Aliyun"))
 ;; (setq gptel-model 'claude-3-5-sonnet-20241022)
 ;; (setq gptel-backend
 ;;       (gptel-get-backend "Claude"))
