@@ -38,11 +38,17 @@ position of each item."
               (buffer (find-file-noselect path)))
     (with-current-buffer buffer
       (string-join
-       (mapcar (lambda (imenu)
-                 (concat (substring-no-properties (car imenu))
-                         " start pos: "
-                         (number-to-string (marker-position (cdr imenu)))))
-               (cdr (imenu--flatten-index-alist (imenu--make-index-alist) t)))
+       (cl-loop for (current . rest) on (cdr (imenu--flatten-index-alist (imenu--make-index-alist) t))
+                for next = (car rest)
+                collect (concat (substring-no-properties (car current))
+                                " [ start pos: "
+                                (number-to-string (marker-position (cdr current)))
+                                " end pos: "
+                                (number-to-string
+                                 (if next
+                                     (marker-position (cdr next))
+                                   (point-max)) )
+                                " ]"))
        "\n"))))
 
 (defun macher-context--outline-contents-for-file (path context)
@@ -78,6 +84,29 @@ otherwise returns (nil . nil)."
         (setf (macher-context-contents context) context-contents)
         content-pair))))
 
+(defun macher-context--part-contents-for-file (path context start end)
+  "Get or create content strings for PATH in the macher CONTEXT.
+
+Returns a cons cell \\=(orig-content new-content).
+
+PATH can be any absolute file path. By default, macher will only call
+this for paths within the CONTEXT's workspace.
+
+Returns a cons cell (orig-content . new-content) of strings for the file.
+If the orig-content is nil, the file is being created; if the new-content
+is nil, the file is being deleted.
+
+Also updates the CONTEXT's :contents alist if the relevant entry was not
+yet present. In that case, loads file contents if the file exists;
+otherwise returns (nil . nil)."
+  (cl-assert (macher-context-p context) nil "CONTEXT must be a macher-context struct")
+  ;; Normalize the path for consistent lookup.
+  (let* ((normalized-path (macher--normalize-path path))
+         (buffer (find-file-noselect normalized-path)))
+    (with-current-buffer buffer
+      (let ((content (buffer-substring start end)))
+        (cons content content)))))
+
 (defun my/read-tools (context make-tool-function)
   "Generate read-only tools for workspace operations with CONTEXT.
 
@@ -103,7 +132,14 @@ the global gptel registry when the request completes."
 Returns a cons cell (orig-content . new-content) of strings for the file.
 Also updates the context's :contents alist."
             (let ((full-path (funcall resolve-workspace-path file-path)))
-              (macher-context--outline-contents-for-file full-path context)))))
+              (macher-context--outline-contents-for-file full-path context))))
+         (get-file-content
+          (lambda (file-path start end)
+            "Get or create implementation contents for FILE-PATH, scoped to the current request.
+Returns a cons cell (orig-content . new-content) of strings for the file.
+Also updates the context's :contents alist."
+            (let ((full-path (funcall resolve-workspace-path file-path)))
+              (macher-context--part-contents-for-file full-path context start end)))))
     (list
      (funcall
       make-tool-function
@@ -122,13 +158,40 @@ Also updates the context's :contents alist."
       :description
       (concat
        "Read file outlines from the workspace. "
+       "The outlines contain the names of functions and classes in the file, as well as their starting and ending positions."
        "Returns the current outlines of a file. Use this ONLY when you need to see a file "
        "that wasn't included in the initial context, or to verify changes after editing. "
        "Do NOT use this to re-read files whose outlines were already provided in the request context.")
       :confirm nil
       :include nil
       :args
-      '((:name "path" :type string :description "Path to the file, relative to workspace root"))))))
+      '((:name "path" :type string :description "Path to the file, relative to workspace root")))
+     (funcall
+      make-tool-function
+      :name "read_file_content_in_workspace"
+      :function
+      `,(lambda (path start end)
+          "Read the contents of a file specified by PATH within the workspace."
+          (let* (;; Get implementation contents for this file.
+                 (contents (funcall get-file-content path start end))
+                 (new-content (cdr contents)))
+            ;; Check if the file exists for reading.
+            (if (not new-content)
+                (error (format "File '%s' not found in workspace or start end not find" path))
+              ;; Return the content directly.
+              new-content)))
+      :description
+      (concat
+       "Read file content from the workspace. "
+       "Returns the current content of a file. Use this ONLY when you need to see a file "
+       "that wasn't included in the initial context, or to verify changes after editing. "
+       "Do NOT use this to re-read files whose content were already provided in the request context.")
+      :confirm nil
+      :include nil
+      :args
+      '((:name "path" :type string :description "Path to the file, relative to workspace root")
+        (:name "start" :type number :description "The starting position of the file content to be retrieved")
+        (:name "end" :type number :description "The end position of the file content to be retrieved"))))))
 
 (provide 'macher-utils)
 ;;; macher-utils.el ends here
