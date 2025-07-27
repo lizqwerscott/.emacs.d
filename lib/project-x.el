@@ -275,6 +275,14 @@ buffer, are identical."
      (add-to-list 'safe-local-variable-directories
                   (file-truename project-path)))))
 
+;;;###autoload
+(defun consult-project-fd-dir ()
+  "Use fd find dir in project."
+  (interactive)
+  (let ((consult-fd-args (append consult-fd-args
+                                 (list
+                                  "--type directory"))))
+    (consult-fd (project-root (project-current)))))
 
 (provide 'project-x)
 ;;; project-x.el ends here
