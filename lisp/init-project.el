@@ -63,20 +63,29 @@
 
 ;;; Menu
 (require 'transient)
+(transient-define-prefix project-manage-dispatch ()
+  "Manage Project menu"
+  [["Manage"
+    ("r" "Forget under" project-forget-projects-under)
+    ("z" "Forget zombie" project-forget-zombie-projects)
+    ("a" "Remember under" project-remember-projects-under)]]
+  [("q" "Quit" transient-quit-one)])
+
 (transient-define-prefix project-dispatch ()
   "Project dispatch menu"
-  [["Switch"
-    ("p" "Project" project-switch-project)
-    ("P" "Open project" project-switch-project-open)]
-   ["Manage"
-    ("C-p r" "Forget under" project-forget-projects-under)
-    ("C-p z" "Forget zombie" project-forget-zombie-projects)
-    ("C-p a" "Remember under" project-remember-projects-under)]]
+  [["Project"
+    ("C-p" "Manage" project-manage-dispatch
+     :transient t)]
+   [" "
+    ("p" "Switch" project-switch-project)]
+   [" "
+    ("P" "Switch Open" project-switch-project-open)]]
   [["Find"
     ("f" "File" project-find-file)
     ("F" "File OW" project-find-file-other-window)
     ("o" "Other file" projection-find-other-file)
-    ("d" "Dir" project-dired-dir)]
+    ("d" "Dir" project-dired-dir)
+    ("D" "Dir Fuzzy" consult-project-fd-dir)]
    ["Buffer"
     ("b" "Switch" consult-project-buffer)
     ("B" "Switch OW" consult-project-buffer-other-window)
@@ -98,8 +107,7 @@
      (lambda ()
        (interactive)
        (autoload 'eshell-project-toggle "init-eshell" nil t)
-       (eshell-project-toggle)))
-    ("D" "Open project root dir" project-dired)]]
+       (eshell-project-toggle)))]]
   [("q" "Quit" transient-quit-all)])
 
 (pretty-hydra-define-e hydra-project
