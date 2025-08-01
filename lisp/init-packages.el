@@ -190,6 +190,9 @@
     ligature
     dashboard
     doom-modeline
+    ;; (punch-line :fetcher github :repo "konrad1977/punch-line"
+    ;;             :remotes ("fork" :repo "lizqwerscott/punch-line" :protocol ssh))
+    bufferfile
     lisp-extra-font-lock
     highlight-function-calls
     focus
