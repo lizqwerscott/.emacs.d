@@ -107,7 +107,7 @@
   :group 'user
   :type 'boolean)
 
-(defcustom user/lsp-client 'lsp-bridge
+(defcustom user/lsp-client 'eglot
   "The lsp client."
   :group 'user
   :type '(choice (const :tag "eglot" eglot)
