@@ -8,17 +8,14 @@
 (setf (alist-get 'python-ts-mode apheleia-mode-alist)
       '(isort black))
 
-;; (setf (alist-get 'rust-ts-mode apheleia-mode-alist)
-;;       'cargo-fmt)
-
-;; (setf (alist-get 'cargo-fmt apheleia-formatters)
-;;       '("cargo" "fmt"))
-
 (setf (alist-get 'rust-ts-mode apheleia-mode-alist)
       'rustfmt)
 
 (setf (alist-get 'rustfmt apheleia-formatters)
       '("rustfmt" "--quiet" "--emit" "stdout" "--edition" "2024"))
+
+(setf (alist-get 'google-java-format apheleia-formatters)
+      '("google-java-format" "--aosp" "-"))
 
 (defun format-code-buffer ()
   "Format now buffer."

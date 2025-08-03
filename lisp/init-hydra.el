@@ -118,8 +118,7 @@
    "Debug"
    (("E" toggle-debug-on-error "debug on error" :toggle (bound-and-true-p debug-on-error)))
    "Program"
-   (("f" flycheck-mode "flycheck" :toggle t)
-    ("u" unity-mode "unity develop" :toggle t))))
+   (("f" flycheck-mode "flycheck" :toggle t))))
 
 (pretty-hydra-define-e hydra-jump-dir
   (:title (pretty-hydra-title "Jump to directory" 'octicon "nf-oct-file_directory_open_fill") :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)

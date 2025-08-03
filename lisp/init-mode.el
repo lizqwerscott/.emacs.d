@@ -7,6 +7,8 @@
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
 (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-ts-mode))
+(when user/java
+  (add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode)))
 
 (add-list-to-list 'major-mode-remap-alist
                   '((sh-mode . bash-ts-mode)

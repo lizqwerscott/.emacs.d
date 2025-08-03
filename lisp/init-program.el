@@ -9,15 +9,6 @@
 
 ;;; Code:
 
-
-;;; Ctags
-
-;; (use-package citre
-;;   :ensure t)
-
-;;; Lsp Server
-;; (require 'init-eglot)
-
 ;;; project
 (add-hook 'after-init-hook 'global-projection-hook-mode)
 
@@ -114,15 +105,24 @@
 
 ;;; language
 (require 'init-elisp)
-(require 'init-python)
-(require 'init-haskell)
-(require 'init-c++)
-(require 'init-web)
-(require 'init-common-lisp)
-(require 'init-scheme)
-(require 'init-rust)
-(require 'init-sql)
-(require 'init-go)
+(when user/python
+  (require 'init-python))
+(when user/haskell
+  (require 'init-haskell))
+(when user/c++
+  (require 'init-c++))
+(when user/web
+  (require 'init-web))
+(when user/common-lisp
+  (require 'init-common-lisp))
+(when user/scheme
+  (require 'init-scheme))
+(when user/rust
+  (require 'init-rust))
+(when user/golang
+  (require 'init-go))
+(when user/sql
+  (require 'init-sql))
 (when user/godot
   (require 'init-godot))
 

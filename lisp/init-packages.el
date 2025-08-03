@@ -107,8 +107,6 @@
     log4j-mode
     just-mode
     yaml-mode
-    go-mode
-    haskell-mode
     elvish-mode
     git-modes
     csv-mode
@@ -272,39 +270,43 @@
             '((aidermacs :fetcher github
                          :repo "MatthewZMD/aidermacs")))))
 
-(defvar *package-rust-install-list*
-  '(rust-mode
-    cargo))
+(defvar *package-python-install-list*
+  '(conda
+    pyvenv))
+
+(defvar *package-haskell-install-list*
+  '(haskell-mode))
+
+(defvar *package-web-install-list*
+  '(web-mode
+    pnpm-mode))
 
 (defvar *package-common-lisp-install-list*
   '(common-lisp-snippets
     sly
     sly-quicklisp
-    sly-asdf
-    ))
+    sly-asdf))
 
 (defvar *package-scheme-install-list*
   '(geiser
     geiser-guile))
 
-(defvar *package-web-install-list*
-  '(web-mode
-    pnpm-mode
-    ))
+(defvar *package-rust-install-list*
+  '(rust-mode
+    cargo))
 
-(defvar *package-python-install-list*
-  '(conda
-    pyvenv))
+(defvar *package-go-install-list*
+  '(go-mode))
 
 (defvar *package-zig-install-list*
   '(zig-mode
     zig-ts-mode))
 
-(defvar *package-unity-install-list*
-  '((unity :fetcher github :repo "elizagamedev/unity.el")))
-
 (defvar *package-sql-install-list*
   '(sql-indent))
+
+(defvar *package-java-install-list*
+  '(groovy-mode))
 
 (defvar *package-godot-install-list*
   '(gdscript-mode))
@@ -343,16 +345,40 @@
          *package-language-install-list*
          *package-org-install-list*
          *package-ai-install-list*
-         *package-rust-install-list*
-         *package-common-lisp-install-list*
-         *package-web-install-list*
-         *package-python-install-list*
-         *package-zig-install-list*
-         (when user/unity
-           *package-unity-install-list*)
-         *package-sql-install-list*
+
+         (when user/python
+           *package-python-install-list*)
+
+         (when user/haskell
+           *package-haskell-install-list*)
+
+         (when user/web
+           *package-web-install-list*)
+
+         (when user/common-lisp
+           *package-common-lisp-install-list*)
+
+         (when user/scheme
+           *package-scheme-install-list*)
+
+         (when user/rust
+           *package-rust-install-list*)
+
+         (when user/golang
+           *package-go-install-list*)
+
+         (when user/zig
+           *package-zig-install-list*)
+
+         (when user/sql
+           *package-sql-install-list*)
+
+         (when user/java
+           *package-java-install-list*)
+
          (when user/godot
            *package-godot-install-list*)
+
          *package-another-install-list*))
 
 (elpaca-process-queues)
