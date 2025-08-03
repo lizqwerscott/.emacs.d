@@ -37,7 +37,6 @@
  (:key "b" :description "Toggle imenu list mode" :command imenu-list-smart-toggle)
  (:key "T" :description "Toggle transparent" :command +lizqwer/toggle-transparent :filename "init-func")
  (:key "e" :description "Toggle dark theme" :command +lizqwer/toggle-dark-theme :filename "init-func")
- (:key "p" :description "Toggle proxy" :command +lizqwer/toggle-proxy :filename "init-func")
  (:key "r" :description "Toggle redacted" :command redacted-mode)
  (:key "c" :description "Toggle center cursor" :command global-centered-cursor-mode)
  (:key "s" :description "Toggle interaction-log" :command interaction-log-mode :filename "interaction-log")

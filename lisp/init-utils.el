@@ -70,8 +70,8 @@
         ;; 目录下有 .el .so .dll 文件的路径才添加到 `load-path' 中, 提升Emacs启动速度
         (when (cl-some #'(lambda (subdir-file)
                            (and (file-regular-p (concat subdir-path subdir-file))
-                              ;; .so .dll 文件指非Elisp语言编写的Emacs动态库
-                              (member (file-name-extension subdir-file) '("el" "so" "dll"))))
+                                ;; .so .dll 文件指非Elisp语言编写的Emacs动态库
+                                (member (file-name-extension subdir-file) '("el" "so" "dll"))))
                        (directory-files subdir-path))
 
           ;; 注意：`add-to-list' 函数的第三个参数必须为 t , 表示加到列表末尾
@@ -80,16 +80,6 @@
 
         ;; 继续递归搜索子目录
         (add-subdirs-to-load-path subdir-path)))))
-
-;;;###autoload
-(defmacro with-proxy (&rest body)
-  `(let ((url-proxy-services (get-url-proxy)))
-     ,@body))
-
-;;;###autoload
-(defmacro with-request-proxy (&rest body)
-  `(let ((request-curl-options (nconc `("--proxy" ,(get-http-proxy)))))
-     ,@body))
 
 ;;;###autoload
 (defun +lizqwer/load-theme (new-theme)

@@ -98,8 +98,7 @@
 (pretty-hydra-define-e hydra-toggles
   (:title (pretty-hydra-title "Toggles" 'faicon "nf-fa-toggle_on") :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
   ("Basic"
-   (("p" +lizqwer/toggle-proxy "proxy" :toggle url-proxy-services)
-    ("c" global-centered-cursor-mode "centered cursor" :toggle t)
+   (("c" global-centered-cursor-mode "centered cursor" :toggle t)
     ("l" interaction-log-mode "interactive log" :toggle t)
     ("i" immersive-translate-auto-mode "immersive translate" :toggle t)
     ("t" +lizqwer/toggle-telega "telega" :toggle (get-buffer "*Telega Root*")))

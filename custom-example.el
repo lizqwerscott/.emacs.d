@@ -4,8 +4,6 @@
 ;;;       Put your own configurations in custom-post.el to override default configurations.
 ;;; Code:
 
-(setq user/proxy-host "127.0.0.1")
-
 (custom-set-variables
  )
 
