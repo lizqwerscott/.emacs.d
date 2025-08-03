@@ -8,5 +8,6 @@
             #'ielm)
 
 (add-hook 'emacs-lisp-mode-hook 'outshine-mode)
+(add-hook 'emacs-lisp-mode-hook 'eros-mode)
 
 (provide 'init-elisp)
