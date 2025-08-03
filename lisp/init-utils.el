@@ -103,24 +103,12 @@
                           :box nil
                           :inherit 'unspecified))))
 
-(defun browse-url-vivaldi (url &optional _new-window)
-  "Ask the Vivaldi WWW browser to load URL.
-Default to the URL around or before point.
-The optional argument NEW-WINDOW is not used."
-  (interactive (browse-url-interactive-arg "URL: "))
-  (setq url (browse-url-encode-url url))
-  (let* ((process-environment (browse-url-process-environment)))
-    (apply #'start-process
-           (concat "vivaldi " url) nil
-           "vivaldi"
-           (list url))))
-
 ;;; cons to list
 (defun single-cons-p (c)
   "判断 C 是否为单个 cons 对象（cdr 不是 cons 且不为 nil）。"
   (and (consp c)
-     (not (consp (cdr c)))
-     (not (null (cdr c)))))
+       (not (consp (cdr c)))
+       (not (null (cdr c)))))
 
 (defun cons-to-list-s (s)
   (if (single-cons-p s)

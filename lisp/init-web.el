@@ -9,15 +9,6 @@
 
 ;;; Code:
 
-;; vivaldi support
-(setq browse-url-browser-function
-      (if user/vivaldi-use
-          #'browse-url-vivaldi
-        (if sys/macp
-            #'browse-url-default-macosx-browser
-          #'browse-url-firefox)))
-
-
 (require 'web-mode)
 (setq web-mode-indent-style 4)
 (setq web-mode-imenu-regexp-list

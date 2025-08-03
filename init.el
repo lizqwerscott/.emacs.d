@@ -59,6 +59,13 @@
 (require 'init-citre)
 (require 'init-program)
 
+
+;; browse support
+(setq browse-url-browser-function
+      (if sys/macp
+          #'browse-url-default-macosx-browser
+        #'browse-url-firefox))
+
 (when (and user/telega-start (display-graphic-p))
   (message "start telega")
   (autoload '+lizqwer/toggle-telega "init-telega" nil t)
