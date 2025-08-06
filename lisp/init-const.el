@@ -36,7 +36,7 @@
   :group 'user
   :type 'string)
 
-(defcustom user/day-theme 'ef-spring
+(defcustom user/day-theme 'modus-operandi-tinted
   "Day theme name."
   :group 'user
   :type 'symbol)
