@@ -71,15 +71,16 @@
     ("a" "Remember under" project-remember-projects-under)]]
   [("q" "Quit" transient-quit-one)])
 
+
 (transient-define-prefix project-dispatch ()
   "Project dispatch menu"
-  [["Project"
-    ("C-p" "Manage" project-manage-dispatch
-     :transient t)]
-   [" "
-    ("p" "Switch" project-switch-project)]
-   [" "
-    ("P" "Switch Open" project-switch-project-open)]]
+  [
+   :class transient-row
+   :description "Project"
+   ("C-p" "Manage" project-manage-dispatch
+    :transient t)
+   ("p" "Switch" project-switch-project)
+   ("P" "Switch Open" project-switch-project-open)]
   [["Find"
     ("f" "File" project-find-file)
     ("F" "File OW" project-find-file-other-window)
