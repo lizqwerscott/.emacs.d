@@ -96,7 +96,7 @@
   (setq-local completion-at-point-functions
               `(cape-file
                 ,@(when citre-mode
-                    (list citre-completion-at-point))
+                    (list #'citre-completion-at-point))
                 eglot-completion-at-point)))
 
 (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
