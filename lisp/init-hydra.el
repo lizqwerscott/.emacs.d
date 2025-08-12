@@ -154,7 +154,7 @@
     ("f" magit-find-file "Find git file")
     ("l" magit-log-buffer-file "File log")
     ("h" vc-region-history "History")
-    ("v" magit-status "magit status")
+    ("v" unpackaged/magit-status "magit status")
     ("d" magit-dispatch "magit dispatch"))))
 
 (pretty-hydra-define-e hydra-language

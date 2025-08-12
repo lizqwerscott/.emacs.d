@@ -101,7 +101,7 @@
     ("e s" "Trust" project-add-to-safe-local-variable)
     ("e a" "Add" add-dir-local-variable)]
    ["Other"
-    ("v" "Magit status" magit-project-status)
+    ("v" "Magit status" unpackaged/magit-project-status)
     ("r" "Rsync" rsync-project-dispatch)
     ("t" "Vterm" multi-vterm-project)
     ("s""Eshell"
