@@ -111,42 +111,5 @@
        (eshell-project-toggle)))]]
   [("q" "Quit" transient-quit-all)])
 
-(pretty-hydra-define-e hydra-project
-  (:title "Project" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
-  ("project"
-   (("p" project-switch-project "Switch project")
-    ("P" project-switch-project-open "Switch to open project")
-    ("C-p r" project-forget-projects-under "Forget under")
-    ("C-p z" project-forget-zombie-projects "Forget zombie")
-    ("C-p a" project-remember-projects-under "Remember under"))
-   "Find"
-   (("f" project-find-file "Find file")
-    ("F" project-find-file-other-window "Find file in other window")
-    ("o" projection-find-other-file "other file")
-    ("d" project-dired-dir "Find dir in project root")
-    ("D" project-dired "Open project root dir"))
-   "Buffer"
-   (("b" consult-project-buffer "Switch buffer")
-    ("B" consult-project-buffer-other-window "Switch buffer other window")
-    ("k" project-kill-buffers "Kill buffers"))
-   "Build"
-   (("c c" projection-commands-build-project "Compile")
-    ("c r" projection-commands-run-project "Run")
-    ("c t" projection-commands-test-project "Test")
-    ("m" projection-multi-compile "Mutli compile"))
-   "Dir Locals"
-   (("e e" project-edit-dir-local "Edit")
-    ("e s" project-add-to-safe-local-variable "Trust")
-    ("e a" add-dir-local-variable "Add"))
-   "Other"
-   (("v" magit-project-status "Magit status")
-    ("r" rsync-project-dispatch "Rsync")
-    ("t" multi-vterm-project "Vterm")
-    ("s" (lambda ()
-           (interactive)
-           (autoload 'eshell-project-toggle "init-eshell" nil t)
-           (eshell-project-toggle))
-     "Eshell"))))
-
 (provide 'init-project)
 ;;; init-project.el ends heres.
