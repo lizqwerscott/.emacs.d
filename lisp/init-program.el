@@ -23,14 +23,21 @@
 (global-flycheck-mode)
 
 ;; flyover
-(require 'flyover)
-(add-hook 'flycheck-mode-hook #'flyover-mode)
-(setq flyover-use-theme-colors t
-      flyover-checkers '(flycheck)
-      flyover-show-at-eol t
-      flyover-virtual-line-icon (concat (nerd-icons-faicon "nf-fa-arrow_right_long")
-                                        " ")
-      flyover-virtual-line-type nil)
+(when user/flyoverp
+  (require 'flyover)
+  (add-hook 'flycheck-mode-hook #'flyover-mode)
+  (setq flyover-use-theme-colors t
+        flyover-checkers '(flycheck)
+        flyover-show-at-eol t
+        flyover-virtual-line-icon (concat (nerd-icons-faicon "nf-fa-arrow_right_long")
+                                          " ")
+        flyover-virtual-line-type nil))
+
+;; flycheck posframe
+(unless user/flyoverp
+  (require 'flycheck-posframe)
+  (add-hook 'flycheck-mode-hook
+            #'flycheck-posframe-mode))
 
 ;;; debug
 (require 'init-dap)

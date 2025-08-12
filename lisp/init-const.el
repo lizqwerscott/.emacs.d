@@ -113,6 +113,11 @@
   :type '(choice (const :tag "eglot" eglot)
                  (const :tag "lsp-bridge" lsp-bridge)))
 
+(defcustom user/flyoverp nil
+  "Enable flyover."
+  :group 'user
+  :type 'boolean)
+
 (defcustom user/dirvish t
   "Drivish support."
   :group 'user

@@ -143,7 +143,8 @@
            flycheck
            consult-flycheck
            flycheck-eglot
-           flycheck-package))
+           flycheck-package
+           flycheck-posframe))
         ('lsp-bridge
          `((lsp-bridge :type git :fetcher github :repo "manateelazycat/lsp-bridge"
                        :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
