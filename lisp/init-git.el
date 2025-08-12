@@ -45,5 +45,47 @@
 ;;; magit
 (require 'init-magit)
 
+;;; smerge
+;;; from https://github.com/alphapapa/unpackaged.el?tab=readme-ov-file#smerge-mode
+(require 'hydra)
+(defhydra unpackaged/smerge-hydra
+  (:color pink :hint nil :post (smerge-auto-leave))
+  "
+^Move^       ^Keep^               ^Diff^                 ^Other^
+^^-----------^^-------------------^^---------------------^^-------
+_n_ext       _B_ase               _<_: upper/base        _C_ombine
+_p_rev       _U_pper              _=_: upper/lower       _r_esolve
+^^           _L_ower              _>_: base/lower        _K_ill current
+^^           _A_ll                _R_efine
+^^           _RET_: current       _E_diff
+"
+  ("n" smerge-next)
+  ("p" smerge-prev)
+  ("B" smerge-keep-base)
+  ("U" smerge-keep-upper)
+  ("L" smerge-keep-lower)
+  ("A" smerge-keep-all)
+  ("RET" smerge-keep-current)
+  ("\C-m" smerge-keep-current)
+  ("<" smerge-diff-base-upper)
+  ("=" smerge-diff-upper-lower)
+  (">" smerge-diff-base-lower)
+  ("R" smerge-refine)
+  ("E" smerge-ediff :color blue)
+  ("C" smerge-combine-with-next)
+  ("r" smerge-resolve)
+  ("K" smerge-kill-current)
+  ("ZZ" (lambda ()
+          (interactive)
+          (save-buffer)
+          (bury-buffer))
+   "Save and bury buffer" :color blue)
+  ("q" nil "cancel" :color blue))
+
+(add-hook 'magit-diff-visit-file-hook
+          (lambda ()
+            (when smerge-mode
+              (unpackaged/smerge-hydra/body))))
+
 (provide 'init-git)
 ;;; init-git.el ends here
