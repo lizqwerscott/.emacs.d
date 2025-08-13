@@ -67,7 +67,11 @@ command was called, go to its unstaged changes section."
                        t)
                do (condition-case nil
                       (magit-section-forward)
-                    (error (cl-return (magit-status-goto-initial-section))))))))
+                    (error
+                     (cl-return
+                      (progn
+                        (goto-char (point-min))
+                        (magit-status-goto-initial-section)))))))))
 
 ;;;###autoload
 (defun unpackaged/magit-status ()
