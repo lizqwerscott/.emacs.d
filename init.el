@@ -46,7 +46,7 @@
 ;; (require 'init-paper)
 ;;(require 'crefactor)
 
-(require 'init-gt)
+(require 'init-language)
 
 (require 'init-rsync)
 (require 'init-code-stats)
