@@ -29,8 +29,6 @@
 
 (require 'macher-utils)
 
-(setq macher-read-tools-function #'my/read-tools)
-
 (macher-install)
 
 (provide 'init-macher)
