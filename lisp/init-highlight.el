@@ -81,6 +81,7 @@
  '(diff-hl-delete ((t (:inherit diff-removed :background unspecified)))))
 
 (keymap-set diff-hl-command-map "SPC" 'diff-hl-mark-hunk)
+(keymap-unset diff-hl-command-map "n")
 
 (setq-default fringes-outside-margins t)
 
