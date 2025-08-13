@@ -143,21 +143,6 @@
            (when user/dirvish
              (call-interactively #'dirvish))) "Dirvish"))))
 
-(pretty-hydra-define-e hydra-git
-  (:title "Git" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
-  ("hunk"
-   (("n" diff-hl-next-hunk "Next hunk" :exit nil)
-    ("p" diff-hl-previous-hunk "Previous hunk" :exit nil)
-    ("r" diff-hl-revert-hunk "Revert hunk" :exit nil)
-    ("s" diff-hl-show-hunk "Show hunk"))
-   "git"
-   (("b" magit-blame "Blame")
-    ("f" magit-find-file "Find git file")
-    ("l" magit-log-buffer-file "File log")
-    ("h" vc-region-history "History")
-    ("v" unpackaged/magit-status "magit status")
-    ("d" magit-dispatch "magit dispatch"))))
-
 (pretty-hydra-define-e hydra-language
   (:title "Language" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
   ("dict"

@@ -87,5 +87,24 @@ _p_rev       _U_pper              _=_: upper/lower       _r_esolve
             (when smerge-mode
               (unpackaged/smerge-hydra/body))))
 
+;;; menu
+(transient-define-prefix git-dispatch ()
+  "Git dispatch menu"
+  :transient-non-suffix 'transient--do-stay
+  [["Hunk"
+    ("n" "Next hunk" diff-hl-next-hunk  :transient t)
+    ("p" "Previous hunk" diff-hl-previous-hunk :transient t)
+    ("r" "Revert hunk" diff-hl-revert-hunk :transient t)
+    ("s" "Show hunk" diff-hl-show-hunk)]
+   ["Magit"
+    ("v" "magit status" unpackaged/magit-status)
+    ("d" "magit dispatch" magit-dispatch)
+    ("b" "Blame" magit-blame)
+    ("f" "Find git file" magit-find-file)]
+   ["Log"
+    ("oh" "Region history" vc-region-history)
+    ("ol" "File log" magit-log-buffer-file)]]
+  [("q" "Quit" transient-quit-one)])
+
 (provide 'init-git)
 ;;; init-git.el ends here

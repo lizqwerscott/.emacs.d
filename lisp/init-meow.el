@@ -238,7 +238,7 @@
    '("f" . one-key-menu-file)
    '("b" . one-key-menu-buffer)
    '("o" . one-key-menu-org)
-   '("v" . hydra-git/body)
+   '("v" . git-dispatch)
    '("l" . one-key-menu-workspace)
    '("z" . hydra-language/body)
    '("d" . hydra-jump-dir/body)
