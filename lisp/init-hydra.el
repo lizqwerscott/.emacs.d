@@ -146,8 +146,9 @@
 (pretty-hydra-define-e hydra-git
   (:title "Git" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
   ("hunk"
-   (("n" diff-hl-next-hunk "Next hunk")
-    ("p" diff-hl-previous-hunk "Previous hunk")
+   (("n" diff-hl-next-hunk "Next hunk" :exit nil)
+    ("p" diff-hl-previous-hunk "Previous hunk" :exit nil)
+    ("r" diff-hl-revert-hunk "Revert hunk" :exit nil)
     ("s" diff-hl-show-hunk "Show hunk"))
    "git"
    (("b" magit-blame "Blame")
