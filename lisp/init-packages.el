@@ -137,14 +137,16 @@
     package-lint
     ,@(pcase user/lsp-client
         ('eglot
-         '(eglot
+         `(eglot
            (eglot-booster :fetcher github :repo "jdtsmith/eglot-booster")
            consult-eglot
            flycheck
            consult-flycheck
            flycheck-eglot
            flycheck-package
-           flycheck-posframe))
+           ,@(if user/flyoverp
+                 '((flyover :fetcher github :repo "konrad1977/flyover"))
+               '(flycheck-posframe))))
         ('lsp-bridge
          `((lsp-bridge :type git :fetcher github :repo "manateelazycat/lsp-bridge"
                        :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
@@ -156,7 +158,6 @@
     cape
     nerd-icons-corfu
     eldoc-box
-    (flyover :fetcher github :repo "konrad1977/flyover")
     magit
     magit-delta
     forge
