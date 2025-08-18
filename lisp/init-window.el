@@ -94,7 +94,6 @@
    ((or (derived-mode . compilation-mode) (derived-mode . cargo-process-mode))
     (display-buffer-reuse-mode-window display-buffer-at-bottom)
     (window-height . 0.3)
-    (dedicated . t)
     (preserve-size . (t . t))
     (body-function . select-window))
    ((or "\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|Messages\\|Bookmark List\\|Occur\\|eldoc\\)\\*"
