@@ -1,3 +1,7 @@
+;;; init-meow.el ---                                 -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
 (require 'meow)
 (setq meow-esc-delay 0.001)
 (setq meow-keypad-leader-dispatch "C-c")
@@ -371,3 +375,4 @@
                 (define-key meow-insert-state-keymap (kbd "C-'") 'repeat-fu-execute))))
 
 (provide 'init-meow)
+;;; init-meow.el ends here
