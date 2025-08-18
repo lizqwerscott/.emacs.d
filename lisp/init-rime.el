@@ -41,11 +41,13 @@
       '(meow-normal-mode-p
         meow-motion-mode-p
         meow-keypad-mode-p
+        meow-beacon-mode-p
 
         rime-predicate-hydra-p
         rime-predicate-ace-window-p
 
         rime-predicate-prog-in-code-p
+        rime-predicate-org-in-src-block-p
 
         rime-predicate-after-alphabet-char-p
         rime-predicate-punctuation-after-space-cc-p))
