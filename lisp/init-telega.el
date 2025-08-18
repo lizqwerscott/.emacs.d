@@ -82,7 +82,7 @@
 (define-key telega-msg-button-map "l" nil)
 (define-key telega-msg-button-map (kbd "SPC") 'meow-keypad)
 (keymap-sets telega-chat-mode-map
-             '(("s-g r" . telega-chatbuf-read-all)))
+  '(("s-g r" . telega-chatbuf-read-all)))
 
 (setq telega-avatar-workaround-gaps-for '(return t))
 

@@ -106,10 +106,10 @@
 ;;; keymap
 
 (keymap-sets acm-mode-map
-             '(("C-n" . acm-select-next)
-               ("C-p" . acm-select-prev)
-               ("TAB" . +lsp-complete)
-               ("<tab>" . +lsp-complete)))
+  '(("C-n" . acm-select-next)
+    ("C-p" . acm-select-prev)
+    ("TAB" . +lsp-complete)
+    ("<tab>" . +lsp-complete)))
 
 (one-key-create-menu
  "Diagnostic"

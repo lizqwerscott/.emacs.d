@@ -33,20 +33,20 @@
 (setq vertico-count 20)
 
 (keymap-sets minibuffer-local-map
-             '(("M-s" . consult-history)
-               ("M-r" . consult-history)
-               ("C-i" . (lambda ()
-                          "Insert the currunt symbol."
-                          (interactive)
-                          (insert (save-excursion
-                                    (set-buffer (window-buffer (minibuffer-selected-window)))
-                                    (or (thing-at-point 'symbol t) "")))))))
+  '(("M-s" . consult-history)
+    ("M-r" . consult-history)
+    ("C-i" . (lambda ()
+               "Insert the currunt symbol."
+               (interactive)
+               (insert (save-excursion
+                         (set-buffer (window-buffer (minibuffer-selected-window)))
+                         (or (thing-at-point 'symbol t) "")))))))
 ;; Configure directory extension.
 (keymap-sets vertico-map
-             '(("RET" . vertico-directory-enter)
-               ("DEL" . vertico-directory-delete-char)
-               (("M-DEL" "s-DEL") . vertico-directory-up)
-               ("s-RET" . vertico-exit-input)))
+  '(("RET" . vertico-directory-enter)
+    ("DEL" . vertico-directory-delete-char)
+    (("M-DEL" "s-DEL") . vertico-directory-up)
+    ("s-RET" . vertico-exit-input)))
 
 (add-hook #'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
 

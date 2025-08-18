@@ -85,8 +85,8 @@
 
 (with-eval-after-load 'elpaca-manager
   (keymap-sets elpaca-manager-mode-map
-               '(("C-o" . elpaca-dispath)
-                 ("p" . previous-line))))
+    '(("C-o" . elpaca-dispath)
+      ("p" . previous-line))))
 
 (provide 'init-transient)
 ;;; init-transient.el ends here

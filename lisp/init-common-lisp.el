@@ -41,8 +41,8 @@ Nominally unique, but not enforced."
   (sly-quickload (project-name (project-current))))
 
 (keymap-sets sly-mode-map
-             '(("C-c q r" . sly-restart-inferior-lisp)
-               ("C-c q l" . load-lisp-project)))
+  '(("C-c q r" . sly-restart-inferior-lisp)
+    ("C-c q l" . load-lisp-project)))
 
 (add-hook 'sly-mode-hook
           #'(lambda ()

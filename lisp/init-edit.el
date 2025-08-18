@@ -43,10 +43,10 @@
 ;;; nxml
 (with-eval-after-load 'nxml-mode
   (keymap-sets nxml-mode-map
-               '(("C-s-f" . nxml-down-element)
-                 ("C-s-n" . nxml-forward-element)
-                 ("C-s-p" . nxml-backward-element)
-                 ("C-s-b" . nxml-backward-up-element))))
+    '(("C-s-f" . nxml-down-element)
+      ("C-s-n" . nxml-forward-element)
+      ("C-s-p" . nxml-backward-element)
+      ("C-s-b" . nxml-backward-up-element))))
 
 ;;; aggressive-indent
 (add-hooks '(emacs-lisp-mode lisp-mode)
@@ -96,7 +96,7 @@
 
 (with-eval-after-load 'isearch
   (keymap-sets isearch-mode-map
-               '(("<escape>" . isearch-exit)))
+    '(("<escape>" . isearch-exit)))
 
   (with-eval-after-load 'casual-isearch
     (transient-define-suffix isearch-consult-line ()

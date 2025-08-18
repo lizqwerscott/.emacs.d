@@ -50,8 +50,8 @@
 ;;; winner mode
 (winner-mode 1)
 (keymap-sets winner-mode-map
-             '(("C-c H" . winner-undo)
-               ("C-c L" . winner-redo)))
+  '(("C-c H" . winner-undo)
+    ("C-c L" . winner-redo)))
 
 ;;; window rule
 (defun my-window-select-fit-size (window)
@@ -116,9 +116,9 @@
       popper-display-control nil)
 
 (keymap-sets popper-mode-map
-             '(("C-h z" . popper-toggle)
-               ("C-<tab>" . popper-cycle)
-               ("C-M-<tab>" . popper-toggle-type)))
+  '(("C-h z" . popper-toggle)
+    ("C-<tab>" . popper-cycle)
+    ("C-M-<tab>" . popper-toggle-type)))
 
 (setq popper-reference-buffers
       '("\\*Messages\\*$"

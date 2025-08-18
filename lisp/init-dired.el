@@ -149,25 +149,25 @@ At 2nd time it copy current directory to kill-buffer."
 
 ;;; Keymap
 (keymap-sets dired-mode-map
-             '(("TAB" . dired-subtree-cycle)
-               ("e" . dired-toggle-read-only)
-               ("f" . (lambda ()
-                        (interactive)
-                        (consult-fd default-directory)))
-               ("F" . (lambda ()
-                        (interactive)
-                        (autoload 'consult-fd-dir "init-func" nil t)
-                        (consult-fd-dir)))
-               ("W" . dired-copy-path)
-               ("C-c +" . dired-create-empty-file)
-               ("M-n" . scroll-up-1/3)
-               ("M-p" . scroll-down-1/3)
-               ("h" . dired-up-directory)
-               ("C-c C-r" . dired-rsync)
-               ("C-c C-x" . dired-rsync-transient)
-               ("C-c e" . dired-do-open-default)
-               (("M-j" "s-j") . dired-other-window)
-               ("C-o" . dired-dispatch)))
+  '(("TAB" . dired-subtree-cycle)
+    ("e" . dired-toggle-read-only)
+    ("f" . (lambda ()
+             (interactive)
+             (consult-fd default-directory)))
+    ("F" . (lambda ()
+             (interactive)
+
+             (consult-fd-dir)))
+    ("W" . dired-copy-path)
+    ("C-c +" . dired-create-empty-file)
+    ("M-n" . scroll-up-1/3)
+    ("M-p" . scroll-down-1/3)
+    ("h" . dired-up-directory)
+    ("C-c C-r" . dired-rsync)
+    ("C-c C-x" . dired-rsync-transient)
+    ("C-c e" . dired-do-open-default)
+    (("M-j" "s-j") . dired-other-window)
+    ("C-o" . dired-dispatch)))
 
 ;;; Menu
 (defun transient-show--variable-to-checkbox (v)
@@ -225,10 +225,10 @@ V is either nil or non-nil."
          ("t" "~/.local/share/Trash/files/" "TrashCan"))))
 
     (keymap-sets dirvish-mode-map
-                 '(("a" . dirvish-quick-access)
-                   ("TAB" . dirvish-subtree-toggle)
-                   (("M-i" "s-i") . dirvish-layout-toggle)
-                   ("C-j" . dirvish-fd-jump))))
+      '(("a" . dirvish-quick-access)
+        ("TAB" . dirvish-subtree-toggle)
+        (("M-i" "s-i") . dirvish-layout-toggle)
+        ("C-j" . dirvish-fd))))
 
   (dirvish-override-dired-mode))
 

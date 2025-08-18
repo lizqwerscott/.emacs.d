@@ -10,13 +10,13 @@
 
 (with-eval-after-load 'eww
   (keymap-sets eww-mode-map
-               '(("M-n" . scroll-up-1/3)
-                 ("M-p" . scroll-down-1/3))))
+    '(("M-n" . scroll-up-1/3)
+      ("M-p" . scroll-down-1/3))))
 
 (with-eval-after-load 'compile
   (keymap-sets compilation-mode-map
-               '(("s-n" . compilation-next-error)
-                 ("s-p" . compilation-previous-error))))
+    '(("s-n" . compilation-next-error)
+      ("s-p" . compilation-previous-error))))
 
 ;; ###autoload
 (defmacro lazy-one-key-create-menu (title &rest keybinds)
@@ -259,7 +259,7 @@
 ;;; gif screenshot
 (with-eval-after-load 'gif-screencast
   (keymap-sets gif-screencast-mode-map
-               '(("<f8>" . gif-screencast-toggle-pause)
-                 ("<f9>" . gif-screencast-stop))))
+    '(("<f8>" . gif-screencast-toggle-pause)
+      ("<f9>" . gif-screencast-stop))))
 
 (provide 'init-key)

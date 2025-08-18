@@ -2,8 +2,8 @@
 
 (setq copilot-max-char 1000000)
 (keymap-sets copilot-completion-map
-             '(("<tab>" . copilot-accept-completion)
-               ("TAB" . copilot-accept-completion)))
+  '(("<tab>" . copilot-accept-completion)
+    ("TAB" . copilot-accept-completion)))
 
 (add-to-list 'copilot-disable-predicates
              #'(lambda ()
