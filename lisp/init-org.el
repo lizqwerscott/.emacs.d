@@ -8,8 +8,6 @@
 
 ;;; Code:
 
-;;; Base Org
-
 ;;; Org base
 (require 'org)
 
@@ -29,35 +27,11 @@
 (setq org-todo-keywords
       '((sequence "TODO(t)" "DOING(i)" "HANGUP(h)" "|" "DONE(d)" "CANCEL(c)")
         (sequence "⚑(T)" "🏴(I)" "❓(H)" "|" "✔(D)" "✘(C)")))
-;; (setq org-todo-keywords
-;;       '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d@/!)" "CANCEL(c@/!)")
-;;         (sequence "REPORT(r!)" "BUG(b@/!)" "|" "FIXED(f@/!)")))
-
-;; (setq org-list-demote-modify-bullet
-;;       (quote (("+" . "-")
-;;               ("-" . "+")
-;;               ("*" . "-")
-;;               ("1." . "-")
-;;               ("1)" . "-")
-;;               ("A)" . "-")
-;;               ("B)" . "-")
-;;               ("a)" . "-")
-;;               ("b)" . "-")
-;;               ("A." . "-")
-;;               ("B." . "-")
-;;               ("a." . "-")
-;;               ("b." . "-"))))
 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 4.0))
 (setq org-enforce-todo-dependencies t)
 
 ;;; Org function
-;; space ww
-(defun open-my-org-file ()
-  "打开我的org文件."
-  (interactive)
-  (dired "~/Documents/Org/"))
-
 (defun org-export-docx ()
   (interactive)
   (let ((docx-file (concat (file-name-sans-extension (buffer-file-name)) ".docx"))
@@ -93,10 +67,10 @@
 
 ;;; UI
 
-;;; Make invisible parts of Org elements appear visible
+;; Make invisible parts of Org elements appear visible
 (add-hook 'org-mode-hook 'org-appear-mode)
 
-;;; 中文标记隐藏空格
+;; 中文标记隐藏空格
 (font-lock-add-keywords 'org-mode
                         '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
                            (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))
@@ -137,37 +111,29 @@
         (?I . "Important")))
 (add-hook 'org-mode-hook #'org-fancy-priorities-mode)
 
-;; (require 'org-bars)
-;; (add-hook 'org-mode-hook
-;;           #'org-bars-mode)
-;; (add-hook 'org-mode-hook
-;;           #'org-num-mode)
-
-;; (setq org-bars-stars '(:empty "◉"
-;;                        :invisible "▶"
-;;                        :visible "▼"))
-
 (add-hook 'org-mode-hook
           #'visual-line-mode)
 
 (add-hook 'org-mode-hook
           #'org-modern-indent-mode 90)
 
-;;; Org key
-(define-key org-mode-map (kbd "C-c TAB") 'org-insert-item)
-(define-key org-mode-map (kbd "M-K") 'org-metaup)
-(define-key org-mode-map (kbd "M-J") 'org-metadown)
-(define-key org-mode-map (kbd "M-H") 'org-metaleft)
-(define-key org-mode-map (kbd "M-L") 'org-metaright)
+;;; keymap
+(keymap-sets org-mode-map
+  '(("C-c TAB" . "C-c TAB")
+    ("M-P" . org-metaup)
+    ("M-N" . org-metadown)
+    ("M-H" . org-metaleft)
+    ("M-L" . org-metaright)
 
-(define-key org-mode-map (kbd "s-<return>") 'org-meta-return)
-(define-key org-mode-map (kbd "s-K") 'org-metaup)
-(define-key org-mode-map (kbd "s-J") 'org-metadown)
-(define-key org-mode-map (kbd "s-H") 'org-metaleft)
-(define-key org-mode-map (kbd "s-L") 'org-metaright)
+    ("s-<return>" . org-meta-return)
+    ("s-P" . org-metaup)
+    ("s-N" . org-metadown)
+    ("s-H" . org-metaleft)
+    ("s-L" . org-metaright)))
 
-;;; Org capf
+;;; capf
 (defun my/org-capf ()
+  "Capf for org mode."
   (setq-local completion-at-point-functions
               `(cape-file
                 cape-emoji
@@ -178,7 +144,7 @@
 
 (add-hook 'org-mode-hook #'my/org-capf)
 
-;;; Org consult
+;;; another
 (setq consult-notes-file-dir-sources
       '(("Org"             ?o "~/Documents/Org/")))
 (setq consult-notes-org-headings-files
@@ -196,3 +162,4 @@
 (require 'init-org-reveal)
 
 (provide 'init-org)
+;;; init-org.el ends here.
