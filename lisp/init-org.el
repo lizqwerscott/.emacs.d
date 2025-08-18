@@ -119,7 +119,7 @@
 
 ;;; keymap
 (keymap-sets org-mode-map
-  '(("C-c TAB" . "C-c TAB")
+  '(("C-c TAB" . org-insert-item)
     ("M-P" . org-metaup)
     ("M-N" . org-metadown)
     ("M-H" . org-metaleft)
