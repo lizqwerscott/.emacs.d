@@ -45,6 +45,18 @@
 (setq eglot-stay-out-of
       '(imenu))
 
+;;; for language
+;; Python
+(add-to-list 'eglot-server-programs
+             `((python-mode python-ts-mode) . ("basedpyright-langserver" "--stdio" "--cancellationReceive=file:%FILEHASH%")))
+
+(setq-default eglot-workspace-configuration
+              '(:basedpyright (:typeCheckingMode "basic")))
+
+;; c++
+(add-to-list 'eglot-server-programs
+             `((c-mode c-ts-mode c++-mode c++-ts-mode objc-mode) . ("clangd" "--all-scopes-completion" "--clang-tidy" "--enable-config" "--header-insertion-decorators=0")))
+
 (add-hook 'prog-mode-hook
           #'(lambda ()
               (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode 'json-ts-mode)
