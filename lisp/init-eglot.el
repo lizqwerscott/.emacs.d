@@ -47,8 +47,18 @@
 
 ;;; for language
 ;; Python
+(defun random-hex-string (n)
+  "Generate random N len hex string."
+  (let ((str ""))
+    (dotimes (_ n str)
+      (setq str (format "%s%02x" str (random 256))))))
+
 (add-to-list 'eglot-server-programs
-             `((python-mode python-ts-mode) . ("basedpyright-langserver" "--stdio" "--cancellationReceive=file:%FILEHASH%")))
+             `((python-mode python-ts-mode) . ,(lambda (_interactive _project)
+                                                 (list "basedpyright-langserver"
+                                                       "--stdio"
+                                                       (format "--cancellationReceive=file:%s"
+                                                               (random-hex-string 21))))))
 
 (setq-default eglot-workspace-configuration
               '(:basedpyright (:typeCheckingMode "basic")))
