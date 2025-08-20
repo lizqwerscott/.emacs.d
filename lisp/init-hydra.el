@@ -127,7 +127,8 @@
            (interactive)
            (when user/dirvish
              (call-interactively #'dirvish)))
-     "Dirvish"))
+     "Dirvish")
+    ("t" trashed "Trashed"))
    "Search"
    (("s" (lambda ()
            (interactive)
