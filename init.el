@@ -30,8 +30,8 @@
 (require 'init-auto-revert)
 
 (require 'init-minibuffer)
-(require 'init-corfu)
-(require 'init-completion-preview)
+(require 'init-completion)
+
 (require 'init-snippet)
 (require 'init-tramp)
 

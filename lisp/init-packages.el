@@ -57,6 +57,7 @@
     vertico
     marginalia
     consult
+    consult-dir
     orderless
     embark
     embark-consult

@@ -122,26 +122,19 @@
 (pretty-hydra-define-e hydra-jump-dir
   (:title (pretty-hydra-title "Jump to directory" 'octicon "nf-oct-file_directory_open_fill") :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
   ("Base"
-   (("h" (find-file "~/") "Home")
-    ("d" (find-file "~/Downloads") "Downloads")
-    ("f" (find-file "~/Documents/") "Documents")
-    ("t" trashed "Trashed"))
-   "Program"
-   (("c" (find-file "~/.emacs.d") "Emacs Config")
-    ("g" (find-file "~/github") "Github")
-    ("p" (find-file "~/MyProject") "Project"))
+   (("d" consult-dir "Dirs")
+    ("v" (lambda ()
+           (interactive)
+           (when user/dirvish
+             (call-interactively #'dirvish)))
+     "Dirvish"))
    "Search"
    (("s" (lambda ()
            (interactive)
            (autoload 'consult-fd-dir "init-func" nil t)
            (consult-fd-dir)) "Fuzzy search Dir")
     ("j" dired-jump "Dired jump")
-    ("J" dired-jump-other-window "Dired jump other"))
-   "Dirvish"
-   (("v" (lambda ()
-           (interactive)
-           (when user/dirvish
-             (call-interactively #'dirvish))) "Dirvish"))))
+    ("J" dired-jump-other-window "Dired jump other"))))
 
 (pretty-hydra-define-e hydra-language
   (:title "Language" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
