@@ -69,7 +69,14 @@
 (add-to-list 'consult-dir-sources 'consult-dir--source-quick)
 
 ;;; embark
-(require 'init-embark)
+(add-hook 'embark-collect-mode
+          #'consult-preview-at-point-mode)
+
+(global-set-keys
+ '(("s-." . embark-act)
+   ("s-;" . embark-dwim)
+   ("C-h B" . embark-bindings)))
+
 
 (keymap-sets minibuffer-local-map
   '(("M-s" . consult-history)
