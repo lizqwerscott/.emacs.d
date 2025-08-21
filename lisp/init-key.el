@@ -188,8 +188,8 @@
  (:key "t" :description "Vterm" :command multi-vterm-open :filename "multi-vterm")
  (:key "m" :description "Media note" :command org-media-note-show-interface))
 
-;; ;;; ### Watch other window ###
-;; ;;; --- 滚动其他窗口
+;;; ### Watch other window ###
+;;; --- 滚动其他窗口
 (require 'watch-other-window)
 (global-set-keys
  '((("M-N" "s-N") . (lambda ()
