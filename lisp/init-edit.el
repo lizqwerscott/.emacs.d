@@ -239,43 +239,6 @@
   (interactive)
   (scroll-down (/ (window-body-height) 3)))
 
-;;; insert something
-(defun +lizqwer/insert-file-path (filename)
-  (interactive "*fInsert file path: \n")
-  (insert (expand-file-name filename)))
-
-(defun +lizqwer/insert-file-path-abbrev (filename)
-  (interactive "*fInsert file path: \n")
-  (insert (abbreviate-file-name (expand-file-name filename))))
-
-(defun +lizqwer/insert-file-path-relative (filename)
-  (interactive "*fInsert file path: \n")
-  (insert (file-relative-name filename)))
-
-(defun +lizqwer/insert-file-name (filename)
-  (interactive "fInsert file name: \n")
-  (insert (file-name-nondirectory filename)))
-
-(pretty-hydra-define-e hydra-insert-file
-  (:title "Insert file or path" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
-  ("path"
-   (("f" +lizqwer/insert-file-path "full")
-    ("r" +lizqwer/insert-file-path-relative "relative")
-    ("a" +lizqwer/insert-file-path-abbrev "abbrev"))
-   "name"
-   (("n" +lizqwer/insert-file-name "name"))))
-
-(one-key-create-menu
- "Insert-file-path"
- '((("f" . "insert full path") . +lizqwer/insert-file-path)
-   (("r" . "insert relative path") . +lizqwer/insert-file-path-relative)
-   (("a" . "insert abbrev path") . +lizqwer/insert-file-path-abbrev)))
-
-(one-key-create-menu
- "Insert-file"
- '((("p" . "insert file path") . one-key-menu-insert-file-path)
-   (("n" . "insert file name") . +lizqwer/insert-file-name)))
-
 ;;;###autoload
 (defun toggle-sub-word-or-super-word ()
   (interactive)

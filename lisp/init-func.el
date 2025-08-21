@@ -85,20 +85,13 @@ With prefix argument \\[universal-argument] insert the 48-bit value."
   (let ((buf (current-buffer)))
     (list-colors-display
      nil nil `(lambda (name)
-            (interactive)
-            (quit-window)
-            (with-current-buffer ,buf
-              (insert (apply #'color-rgb-to-hex
-                             (nconc (color-name-to-rgb name)
-                                    (unless (consp ',arg)
-                                      (list (or ,arg 2)))))))))))
-
-;;;###autoload
-(defun insert-import ()
-  (interactive)
-  (split-window-below)
-  (other-window 1)
-  (goto-char (point-min)))
+                (interactive)
+                (quit-window)
+                (with-current-buffer ,buf
+                  (insert (apply #'color-rgb-to-hex
+                                 (nconc (color-name-to-rgb name)
+                                        (unless (consp ',arg)
+                                          (list (or ,arg 2)))))))))))
 
 ;;;###autoload
 (defun consult-fd-dir ()

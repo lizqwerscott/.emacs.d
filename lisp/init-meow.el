@@ -246,7 +246,6 @@
    '("l" . one-key-menu-workspace)
    '("z" . hydra-language/body)
    '("d" . hydra-jump-dir/body)
-   '("i" . one-key-menu-insert)
    '("a" . one-key-menu-agenda)
    '("n" . one-key-menu-roam)
    )

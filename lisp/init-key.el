@@ -228,12 +228,6 @@
  (:key "t" :description "Vterm" :command multi-vterm-open :filename "multi-vterm")
  (:key "m" :description "Media note" :command org-media-note-show-interface))
 
-(lazy-one-key-create-menu
- "Insert"
- (:key "i" :description "Insert import" :command insert-import :filename "init-func")
- (:key "f" :description "Insert file" :command hydra-insert-file/body)
- (:key "j" :description "Insert json to type" :command quicktype))
-
 ;; ;;; ### Watch other window ###
 ;; ;;; --- 滚动其他窗口
 (require 'watch-other-window)
