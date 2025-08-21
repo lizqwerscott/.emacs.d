@@ -31,18 +31,6 @@
        one-key-key-alist))
     `(one-key-create-menu ,title (quote ,one-key-key-alist))))
 
-(lazy-one-key-create-menu
- "Toggle"
- (:key "t" :description "Toggle telega" :command +lizqwer/toggle-telega :filename "init-telega")
- (:key "b" :description "Toggle imenu list mode" :command imenu-list-smart-toggle)
- (:key "T" :description "Toggle transparent" :command +lizqwer/toggle-transparent :filename "init-func")
- (:key "e" :description "Toggle dark theme" :command +lizqwer/toggle-dark-theme :filename "init-func")
- (:key "r" :description "Toggle redacted" :command redacted-mode)
- (:key "c" :description "Toggle center cursor" :command global-centered-cursor-mode)
- (:key "s" :description "Toggle interaction-log" :command interaction-log-mode :filename "interaction-log")
- (:key "w" :description "Toggle sub word or super word" :command toggle-sub-word-or-super-word :filename "init-edit")
- (:key "i" :description "Toggle immersive-translate" :command immersive-translate-auto-mode :filename "init-immersive-translate"))
-
 (defun consult-fd-in-home ()
   (interactive)
   (consult-fd "~"))
@@ -106,34 +94,6 @@
                                   (require 'project)
                                   (ido-find-file-in-dir "~/MyProject")))
    (("c" . "Find custom file") . find-custom-file)))
-
-
-(defmacro open-dir (path)
-  `(lambda ()
-     (interactive)
-     (find-file ,path)))
-
-(one-key-create-menu
- "Directory"
- `((("h" . "Home Dir") . ,(open-dir "~/"))
-   (("c" . "Config Dir") . ,(open-dir "~/.emacs.d/"))
-   (("g" . "Github Dir") . ,(open-dir "~/github/"))
-   (("p" . "Project Dir") . ,(open-dir "~/MyProject/"))
-   (("d" . "Document Dir") . ,(open-dir "~/Documents/"))
-   (("s" . "Fuzzy search Dir") . consult-fd-dir)
-   (("v" . "Dirvish") . (lambda ()
-                          (interactive)
-                          (when user/dirvish
-                            (call-interactively #'dirvish))))
-   (("j" . "Dired jump") . dired-jump)
-   (("J" . "Dired jump other window") . dired-jump-other-window)))
-
-(one-key-create-menu
- "Git"
- '((("n" . "Next hunk") . diff-hl-next-hunk)
-   (("p" . "Previous hunk") . diff-hl-previous-hunk)
-   (("s" . "Show hunk") . diff-hl-show-hunk)
-   (("b" . "Blame") . magit-blame)))
 
 (lazy-one-key-create-menu
  "Useful"
