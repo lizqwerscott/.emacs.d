@@ -20,6 +20,8 @@
 (require 'init-transient)
 (require 'init-meow)
 
+(require 'init-func)
+
 (require 'init-ui)
 
 (require 'init-edit)

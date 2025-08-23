@@ -1,3 +1,7 @@
+;;; init-func.el --- init some functions             -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
 ;;; Look require cl package
 ;;;###autoload
 (defun +lizqwer/check-package-use-cl ()
@@ -101,4 +105,47 @@ With prefix argument \\[universal-argument] insert the 48-bit value."
                                   "--type directory"))))
     (consult-fd "~/")))
 
+;;;###autoload
+;; from https://xenodium.com/emacs-clone-git-repo-from-clipboard
+(defun ar/git-clone-clipboard-url (download-dir &optional depth)
+  "Clone git URL in clipboard asynchronously and open in Dired when finished.
+When called interactively, prompts for DOWNLOAD-DIR with ~/github as default.
+With DEPTH, clone with --depth=1."
+  (interactive (list (read-directory-name "Download directory: " "~/github/" nil t)
+                     current-prefix-arg))
+  (cl-assert (or (string-match-p "^\\(http\\|https\\|ssh\\)://" (current-kill 0))
+                 (string-match-p "^git@.*:" (current-kill 0)))
+             nil "No URL in clipboard")
+  (let* ((url (current-kill 0))
+         (project-dir (concat (file-name-as-directory download-dir)
+                              (file-name-base url)))
+         (default-directory download-dir)
+         (depth-arg (if depth "--depth=1" ""))
+         (command (format "git clone %s %s" depth-arg url))
+         (buffer (generate-new-buffer (format "*%s*" command)))
+         (proc))
+    (when (file-exists-p project-dir)
+      (if (y-or-n-p (format "%s exists. delete?" (file-name-base url)))
+          (delete-directory project-dir t)
+        (user-error "Bailed")))
+    (switch-to-buffer buffer)
+    (setq proc (start-process-shell-command (nth 0 (split-string command)) buffer command))
+    (with-current-buffer buffer
+      (setq default-directory download-dir)
+      (shell-command-save-pos-or-erase)
+      (require 'shell)
+      (shell-mode)
+      (view-mode +1))
+    (set-process-sentinel proc (lambda (process state)
+                                 (let ((output (with-current-buffer (process-buffer process)
+                                                 (buffer-string))))
+                                   (kill-buffer (process-buffer process))
+                                   (if (= (process-exit-status process) 0)
+                                       (progn
+                                         (message "finished: %s" command)
+                                         (dired project-dir))
+                                     (user-error (format "%s\n%s" command output))))))
+    (set-process-filter proc #'comint-output-filter)))
+
 (provide 'init-func)
+;;; init-func.el ends here
