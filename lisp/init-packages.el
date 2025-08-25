@@ -93,7 +93,6 @@
     dirvish
     elisp-demos
     eros
-    (lazy-revert :fetcher github :repo "yilin-zhang/lazy-revert")
     heap
     (p-search :repo "zkry/p-search" :fetcher github)
     gif-screencast

@@ -118,7 +118,6 @@
       )
 
 (customize-set-variable 'kill-do-not-save-duplicates t)
-(customize-set-variable 'auto-revert-interval 1)
 (setq ad-redefinition-action 'accept)
 
 (setq delete-old-versions t)
@@ -170,6 +169,9 @@
 
 ;;; Bookmark
 (setq bookmark-save-flag 1)
+
+;;; Auto Revert
+(global-auto-revert-mode)
 
 ;;; vc
 (setq vc-handled-backends '(Git))
