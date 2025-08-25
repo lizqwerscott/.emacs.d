@@ -20,9 +20,9 @@
 (defun format-code-buffer ()
   "Format now buffer."
   (interactive)
-  (call-interactively #'save-buffer)
+  (save-buffer)
   (call-interactively #'apheleia-format-buffer)
-  (call-interactively #'revert-buffer))
+  (revert-buffer t t))
 
 (provide 'init-format)
 ;;; init-format.el ends here.

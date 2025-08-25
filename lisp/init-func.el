@@ -147,5 +147,13 @@ With DEPTH, clone with --depth=1."
                                      (user-error (format "%s\n%s" command output))))))
     (set-process-filter proc #'comint-output-filter)))
 
+;; File and buffer
+(defun revert-this-buffer ()
+  "Revert the current buffer."
+  (interactive)
+  (unless (minibuffer-window-active-p (selected-window))
+    (revert-buffer t t)
+    (message "Reverted this buffer")))
+
 (provide 'init-func)
 ;;; init-func.el ends here
