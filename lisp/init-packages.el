@@ -158,6 +158,7 @@
     cape
     nerd-icons-corfu
     eldoc-box
+    (cond-let :fetcher github :repo "tarsius/cond-let")
     magit
     magit-delta
     git-link
