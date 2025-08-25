@@ -168,6 +168,9 @@
 ;;; Imenu
 (setq imenu-max-item-length 100)
 
+;;; Bookmark
+(setq bookmark-save-flag 1)
+
 ;;; vc
 (setq vc-handled-backends '(Git))
 
