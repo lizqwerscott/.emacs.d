@@ -7,4 +7,7 @@
 
 (advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update)
 
+(add-hooks '(help-mode helpful-mode)
+           #'visual-line-mode)
+
 (provide 'init-helpful)
