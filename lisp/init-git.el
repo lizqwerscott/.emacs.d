@@ -103,7 +103,9 @@ _p_rev       _U_pper              _=_: upper/lower       _r_esolve
     ("f" "Find git file" magit-find-file)]
    ["Log"
     ("oh" "Region history" vc-region-history)
-    ("ol" "File log" magit-log-buffer-file)]]
+    ("ol" "File log" magit-log-buffer-file)]
+   ["Link"
+    ("g" "Git Link" git-link-dispatch)]]
   [("q" "Quit" transient-quit-one)])
 
 (provide 'init-git)

@@ -160,6 +160,7 @@
     eldoc-box
     magit
     magit-delta
+    git-link
     forge
     difftastic
     devdocs
