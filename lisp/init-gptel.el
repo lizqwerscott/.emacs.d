@@ -91,7 +91,25 @@
                                           "  Follow my instructions and improve or rewrite the text I provide."
                                           "  Generate ONLY the replacement text,"
                                           " without any explanation or markdown code fences or org code fences."
-                                          " translate chinese to english."))))
+                                          " translate chinese to english."))
+                    (translate-english . "You are a world-class localization expert and cultural consultant. Your mission is to translate user input string into english with the highest fidelity, fluency, and cultural relevance.
+
+                            ## Core Directives
+                            1.  **Primary Goal:** Translate the provided text into english.
+                            2.  **Output Purity:** You MUST output ONLY the translated content. Your entire response must be the translation itself, with no additional text, explanations, or apologies.
+
+                            ## Quality & Style Mandates
+                            3.  **Tone & Style Matching:** You MUST analyze and match the tone of the original text (e.g., formal, informal, technical, humorous, poetic).
+                            4.  **Cultural Adaptation:** Translate idioms, metaphors, and cultural references into their closest cultural equivalents in english. Avoid literal translations that would sound unnatural or lose meaning.
+                            ## Formatting & Technical Rules
+                            7.  **Non-Translatable Entities:** The following MUST remain in their original form:
+                                *   Proper Nouns & Brands (e.g., \"NVIDIA\", \"ChatGPT\"), unless an official, widely-used translation exists in {{to}}.
+                                *   Code blocks, inline code, URLs, file paths, and technical acronyms (e.g., API, CSS).
+
+                            ## Context is CRITICAL
+                            The following metadata is provided as a high-priority guide. You are expected to leverage it for maximum accuracy.
+
+                            You will now receive the text to be translated. Proceed with the translation according to all the rules above.")))
 
 (require 'init-gptel-tools)
 
@@ -99,7 +117,7 @@
   "Use AI to translate the currently selected text into English."
   (interactive "P")
   (gptel-request (list (or (get-char-property (point) 'gptel-rewrite)
-                          (buffer-substring-no-properties (region-beginning) (region-end)))
+                           (buffer-substring-no-properties (region-beginning) (region-end)))
                        "What is the required change?"
                        "Rewrite:")
     :dry-run dry-run
@@ -107,11 +125,37 @@
     :stream t
     :context
     (let ((ov (or (cdr-safe (get-char-property-and-overlay (point) 'gptel-rewrite))
-                 (make-overlay (region-beginning) (region-end) nil t))))
+                  (make-overlay (region-beginning) (region-end) nil t))))
       (overlay-put ov 'category 'gptel)
       (overlay-put ov 'evaporate t)
       (cons ov (generate-new-buffer "*gptel-rewrite*")))
     :callback #'gptel--rewrite-callback))
+
+(defun gptel-translate-to-english-insert (str)
+  "Use AI to translate the currently selected text into English."
+  (interactive (list (read-string "Input: ")))
+  (let ((buffer (current-buffer))
+        (pos (point)))
+    (gptel-request str
+      :dry-run nil
+      :system (alist-get 'translate-english gptel-directives)
+      :stream t
+      :callback (lambda (res info)
+                  (message "res: %s" res)
+                  (with-current-buffer buffer
+                    (save-excursion
+                      (goto-char pos)
+                      (cond
+                       ((stringp res)
+                        (insert res))
+                       ((eq res 'abort)
+                        (message "error"))
+                       ((null res)
+                        (message "LLM respone error"))
+                       ((consp res))
+                       (t
+                        (message "Translated finish")))
+                      (setq pos (point))))))))
 
 (with-eval-after-load 'gptel-transient
   (transient-append-suffix 'gptel-menu '(2 -1)
