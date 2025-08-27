@@ -29,9 +29,12 @@
 
 (setq gt-default-translator
       (gt-translator
-       ;; :taker   (gt-taker :text 'buffer :pick 'paragraph)       ; 配置拾取器
-       :engines (list (gt-bing-engine)) ; 指定多引擎
-       :render  (gt-buffer-render)))                            ; 配置渲染器
+       :engines
+       (list (gt-google-engine :if '(and not-word))
+             (gt-bing-engine :if '(and not-word))
+             (gt-youdao-dict-engine :if '(word))
+             (gt-youdao-suggest-engine :if '(and word src:en)))
+       :render  (gt-buffer-render)))
 
 (provide 'init-gt)
 ;;; init-gt.el ends here
