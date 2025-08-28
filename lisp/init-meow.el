@@ -213,6 +213,8 @@
        ("u" . lsp-bridge-find-impl)
        ("U" . lsp-bridge-find-impl-other-window)))))
 
+;; meow while translate i into TAB
+(keymap-unset goto-map "TAB")
 (keymap-sets goto-map
   '(("f" . find-file-at-point)
     ("p" . goto-percent)
