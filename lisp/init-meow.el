@@ -129,7 +129,7 @@
   (if (bound-and-true-p sly-mode)
       (call-interactively #'sly-documentation)
     (if (or (equal major-mode 'emacs-lisp-mode)
-           (equal major-mode 'lisp-interaction-mode))
+            (equal major-mode 'lisp-interaction-mode))
         (helpful-at-point)
       (pcase user/lsp-client
         ('eglot
@@ -197,6 +197,32 @@
                 popper-reference-buffers)
       (popper--delete-popup (selected-window))
     (meow-quit)))
+
+(pcase user/lsp-client
+  ('eglot
+   (keymap-sets goto-map
+     '(("r" . find-references-with-sly)
+       ("d" . find-definition-with-sly)
+       ("D" . find-definition-with-sly-other-window)
+       ("u" . find-implementation-with-sly))))
+  ('lsp-bridge
+   (keymap-sets goto-map
+     '(("r" . lsp-bridge-find-references)
+       ("d" . find-definition-with-lsp-bridge)
+       ("D" . find-definition-with-lsp-bridge-other-window)
+       ("u" . lsp-bridge-find-impl)
+       ("U" . lsp-bridge-find-impl-other-window)))))
+
+(keymap-sets goto-map
+  '(("f" . find-file-at-point)
+    ("p" . goto-percent)
+    ("l" . consult-goto-line)
+    ("o" . consult-outline)
+    ("m" . consult-mark)
+    ("k" . consult-global-mark)
+    ("e" . consult-compile-error)
+    ("i" . consult-imenu)
+    ("I" . consult-imenu-multi)))
 
 (defun meow-setup ()
   ;; (meow-motion-overwrite-define-key
@@ -334,28 +360,19 @@
   (pcase user/lsp-client
     ('eglot
      (meow-normal-define-key
-      '("gr" . find-references-with-sly)
-      '("gd" . find-definition-with-sly)
-      '("gD" . find-definition-with-sly-other-window)
-      '("gi" . find-implementation-with-sly)
       '("C-o" . return-find-def-with-sly)))
     ('lsp-bridge
      (meow-normal-define-key
-      '("gr" . lsp-bridge-find-references)
-      '("gd" . find-definition-with-lsp-bridge)
-      '("gD" . find-definition-with-lsp-bridge-other-window)
-      '("gi" . lsp-bridge-find-impl)
-      '("gI" . lsp-bridge-find-impl-other-window)
       '("C-o" . return-find-def))))
+
+  (meow-normal-define-key
+   '("g" . "M-g"))
 
   (meow-normal-define-key
    '("C-;" . grugru)
    '("C-y" . meow-clipboard-yank)
    '("Q" . kill-now-buffer)
    '("?" . help-helpful-lsp-sly)
-   '("gf" . find-file-at-point)
-   '("gp" . goto-percent)
-   '("gl" . consult-goto-line)
    '("/" . consult-ripgrep)))
 
 (meow-vterm-enable)

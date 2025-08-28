@@ -129,7 +129,8 @@
     ("s-P" . org-metaup)
     ("s-N" . org-metadown)
     ("s-H" . org-metaleft)
-    ("s-L" . org-metaright)))
+    ("s-L" . org-metaright)
+    ("M-g o" . consult-org-heading)))
 
 ;;; capf
 (defun my/org-capf ()
