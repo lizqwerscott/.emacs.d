@@ -210,6 +210,9 @@
   ((emacs-lisp-mode lisp-mode)
    (symbol "when-let" "if-let")))
 
+(keymap-sets prog-mode-map
+  '(("C-;" . grugru)))
+
 ;;; add rectangle number lines
 ;;;###autoload
 (defun my/insert-number-lines (start-at end-at step format)

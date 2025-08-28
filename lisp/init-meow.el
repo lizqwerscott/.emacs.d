@@ -124,7 +124,7 @@
   (delete-window))
 
 (defun help-helpful-lsp-sly ()
-  "Help function with lsp and sly info"
+  "Help function with lsp and sly info."
   (interactive)
   (if (bound-and-true-p sly-mode)
       (call-interactively #'sly-documentation)
@@ -138,48 +138,6 @@
          (if (bound-and-true-p lsp-bridge-mode)
              (lsp-bridge-popup-documentation)
            (message "dont't know how to help")))))))
-
-(defun find-references-with-sly ()
-  (interactive)
-  (cond
-   ((bound-and-true-p sly-mode)
-    (call-interactively #'sly-edit-uses))
-   (t
-    (xref-find-references (thing-at-point 'symbol)))))
-
-(defun find-definition-with-sly ()
-  (interactive)
-  (cond
-   ((bound-and-true-p sly-mode)
-    (call-interactively #'sly-edit-definition))
-   (t
-    (xref-find-definitions (thing-at-point 'symbol)))))
-
-(defun find-definition-with-sly-other-window ()
-  (interactive)
-  (cond
-   ((bound-and-true-p sly-mode)
-    (call-interactively #'sly-edit-definition-other-window))
-   (t
-    (xref-find-definitions-other-window (thing-at-point 'symbol)))))
-
-(defun return-find-def-with-sly ()
-  (interactive)
-  (cond
-   ((bound-and-true-p sly-mode)
-    (call-interactively #'sly-pop-find-definition-stack))
-   (t
-    (call-interactively #'xref-go-back))))
-
-(defun find-implementation-with-sly ()
-  (interactive)
-  (cond
-   ((bound-and-true-p sly-mode)
-    (sly-who-calls (thing-at-point 'symbol)))
-   ((bound-and-true-p eglot-mode)
-    (call-interactively #'eglot-find-implementation))
-   (t
-    (message "This mode not support implementation."))))
 
 (defun match-in (pred lst)
   (catch 'found
@@ -201,17 +159,21 @@
 (pcase user/lsp-client
   ('eglot
    (keymap-sets goto-map
-     '(("r" . find-references-with-sly)
-       ("d" . find-definition-with-sly)
-       ("D" . find-definition-with-sly-other-window)
-       ("u" . find-implementation-with-sly))))
+     '(("r" . xref-find-references)
+       ("d" . xref-find-definitions)
+       ("D" . xref-find-definitions-other-window)
+       ("u" . eglot-find-implementation)))
+   (global-set-keys
+    '(("C-o" . xref-go-back))))
   ('lsp-bridge
    (keymap-sets goto-map
      '(("r" . lsp-bridge-find-references)
        ("d" . find-definition-with-lsp-bridge)
        ("D" . find-definition-with-lsp-bridge-other-window)
        ("u" . lsp-bridge-find-impl)
-       ("U" . lsp-bridge-find-impl-other-window)))))
+       ("U" . lsp-bridge-find-impl-other-window)))
+   (global-set-keys
+    '(("C-o" . return-find-def)))))
 
 ;; meow while translate i into TAB
 (keymap-unset goto-map "TAB")
@@ -359,20 +321,10 @@
    '("'" . repeat)
    '("<escape>" . ignore))
 
-  (pcase user/lsp-client
-    ('eglot
-     (meow-normal-define-key
-      '("C-o" . return-find-def-with-sly)))
-    ('lsp-bridge
-     (meow-normal-define-key
-      '("C-o" . return-find-def))))
-
   (meow-normal-define-key
    '("g" . "M-g"))
 
   (meow-normal-define-key
-   '("C-;" . grugru)
-   '("C-y" . meow-clipboard-yank)
    '("Q" . kill-now-buffer)
    '("?" . help-helpful-lsp-sly)
    '("/" . consult-ripgrep)))
@@ -380,6 +332,9 @@
 (meow-vterm-enable)
 (meow-setup)
 (meow-global-mode 1)
+
+(global-set-keys
+ '(("C-y" . meow-clipboard-yank)))
 
 ;; (require 'meow-tree-sitter)
 ;; (meow-tree-sitter-register-defaults)

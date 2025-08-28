@@ -42,7 +42,12 @@ Nominally unique, but not enforced."
 
 (keymap-sets sly-mode-map
   '(("C-c q r" . sly-restart-inferior-lisp)
-    ("C-c q l" . load-lisp-project)))
+    ("C-c q l" . load-lisp-project)
+    ("M-g r" . sly-edit-uses)
+    ("M-g d" . sly-edit-definition)
+    ("M-g D" . sly-edit-definition-other-window)
+    ("M-g u" . sly-who-calls)
+    ("C-o" . sly-pop-find-definition-stack)))
 
 (add-hook 'sly-mode-hook
           #'(lambda ()
