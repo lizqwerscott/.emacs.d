@@ -3,7 +3,7 @@
 ;;; Code:
 
 (require 'meow)
-(setq meow-esc-delay 0.001)
+(setq meow-keypad-meta-prefix nil)
 (setq meow-keypad-leader-dispatch "C-c")
 (setq meow-mode-state-list
       '((fundamental-mode . normal)
