@@ -171,6 +171,8 @@
 (setq bookmark-save-flag 1)
 
 ;;; Auto Revert
+(setopt global-auto-revert-non-file-buffers t
+        auto-revert-verbose nil)
 (global-auto-revert-mode)
 
 ;;; vc
