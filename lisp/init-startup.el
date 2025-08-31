@@ -67,6 +67,13 @@
 (setq save-place-forget-unreadable-files nil)
 
 ;;; Simple
+(setq column-number-mode t
+      line-number-mode t
+      kill-whole-line t               ; Kill line including '\n'
+      line-move-visual nil
+      track-eol t                     ; Keep cursor at end of lines. Require line-move-visual is nil.
+      set-mark-command-repeat-pop t)
+
 ;; Prettify the process list
 (with-no-warnings
   (defun my-list-processes--prettify ()
@@ -157,6 +164,20 @@
 (add-hook 'minibuffer-exit-hook
           #'(lambda ()
               (setq gc-cons-threshold 800000)))
+
+;; Optimization
+(when sys/win32p
+  (setq w32-get-true-file-attributes nil   ; decrease file IO workload
+        w32-use-native-image-API t         ; use native w32 API
+        w32-pipe-read-delay 0              ; faster IPC
+        w32-pipe-buffer-size 65536))       ; read more at a time (64K, was 4K)
+(unless sys/macp
+  (setq command-line-ns-option-alist nil))
+(unless sys/linuxp
+  (setq command-line-x-option-alist nil))
+
+;; Don't ping things that look like domain names.
+(setq ffap-machine-p-known 'reject)
 
 ;;; native comp
 (when (boundp 'native-comp-eln-load-path)
