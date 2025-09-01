@@ -25,23 +25,40 @@
                ,fn)))
 
 ;;;###autoload
-(defmacro keymap-sets (key-map key-bindings)
+(defmacro keymap-sets (key-maps key-bindings)
+  "Set keys in keymaps.
+KEY-MAPS is a list of keymaps.
+KEY-BINDINGS is a list of (KEYS . COMMAND) pairs, where KEYS can be a single key
+or a list of keys, and COMMAND is the command to bind to those keys."
+  (declare (indent 1))
+  `(dolist (key-map ,(if (listp key-maps)
+                         `(list ,@key-maps)
+                       `(list ,key-maps)))
+     (dolist (key-b ,key-bindings)
+       (when-let* ((keys (car key-b))
+                   (command (cdr key-b)))
+         (if (listp keys)
+             (dolist (key keys)
+               (keymap-set key-map
+                           key
+                           command))
+           (keymap-set key-map
+                       keys
+                       command))))))
+
+;;;###autoload
+(defmacro global-set-keys (key-bindings)
+  "Set keys in global keymap.
+KEY-BINDINGS is a list of (KEYS . COMMAND) pairs, where KEYS can be a single key
+or a list of keys, and COMMAND is the command to bind to those keys."
   (declare (indent 1))
   `(dolist (key-b ,key-bindings)
      (when-let* ((keys (car key-b))
                  (command (cdr key-b)))
        (if (listp keys)
            (dolist (key keys)
-             (keymap-set ,key-map
-                         key
-                         command))
-         (keymap-set ,key-map
-                     keys
-                     command)))))
-
-;;;###autoload
-(defun global-set-keys (key-bindings)
-  (keymap-sets (current-global-map) key-bindings))
+             (keymap-global-set key command))
+         (keymap-global-set keys command)))))
 
 ;;;###autoload
 (defun add-list-to-list (list-var elements)
