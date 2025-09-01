@@ -46,6 +46,17 @@
 
 (add-hook 'completion-list-mode-hook 'consult-preview-at-point-mode)
 
+(defun buffer-list-filter ()
+  "Get buffer list with filter."
+  (let ((buffers (buffer-list))
+        (res))
+    (dolist (buffer buffers)
+      (unless (string-match-p "*help" (buffer-name buffer))
+        (push buffer res)))
+    res))
+
+(setq consult-buffer-list-function #'buffer-list-filter)
+
 ;; consult dir
 (require 'consult-dir)
 ;; A function that returns a list of directories
