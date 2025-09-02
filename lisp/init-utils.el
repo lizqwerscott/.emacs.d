@@ -51,7 +51,7 @@ or a list of keys, and COMMAND is the command to bind to those keys."
   "Set keys in global keymap.
 KEY-BINDINGS is a list of (KEYS . COMMAND) pairs, where KEYS can be a single key
 or a list of keys, and COMMAND is the command to bind to those keys."
-  (declare (indent 1))
+  ;; (declare (indent 1))
   `(dolist (key-b ,key-bindings)
      (when-let* ((keys (car key-b))
                  (command (cdr key-b)))
