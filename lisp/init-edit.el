@@ -242,6 +242,14 @@
   (interactive)
   (scroll-down (/ (window-body-height) 3)))
 
+(defun scroll-other-window-up-1/3 ()
+  (interactive)
+  (scroll-other-window (/ (window-body-height) 3)))
+
+(defun scroll-other-window-down-1/3 ()
+  (interactive)
+  (scroll-other-window-down (/ (window-body-height) 3)))
+
 ;;;###autoload
 (defun toggle-sub-word-or-super-word ()
   (interactive)

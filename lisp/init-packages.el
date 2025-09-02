@@ -222,9 +222,7 @@
 
 (defvar *package-window-install-list*
   '(popper
-    ace-window
-    (watch-other-window :fetcher github :repo "manateelazycat/watch-other-window")
-    ))
+    ace-window))
 
 (defvar *package-language-install-list*
   '(immersive-translate
