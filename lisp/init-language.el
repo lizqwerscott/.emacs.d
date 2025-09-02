@@ -11,6 +11,12 @@
                      fanyi-youdao-thesaurus-provider
                      fanyi-longman-provider)))
 
+(global-set-keys
+ '(("C-c d f" . fanyi-dwim)
+   ("C-c d d" . fanyi-dwim2)
+   ("C-c d h" . fanyi-from-history)
+   ("C-c d s" . sdcv-search-pointer+)))
+
 (pretty-hydra-define-e hydra-language
   (:title "Language" :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
   ("dict"
