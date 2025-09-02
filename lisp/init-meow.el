@@ -188,6 +188,19 @@
     ("i" . consult-imenu)
     ("I" . consult-imenu-multi)))
 
+(keymap-sets search-map
+  '(("l" . consult-line)
+    ("L" . consult-line-multi)
+    ("u" . consult-isearch-history)
+    ("s" . rg-menu)
+    ("r" . rg)
+    ("t" . rg-literal)
+    ("p" . rg-project)
+    ("d" . rg-dwim)
+    ("w" . ("Search in Web" . consult-omni-multi))))
+
+(defalias 'search-map search-map)
+
 (defun meow-setup ()
   ;; (meow-motion-overwrite-define-key
   ;;  '("j" . meow-next)
@@ -220,17 +233,23 @@
    ;; '("8" . meow-digit-argument)
    ;; '("9" . meow-digit-argument)
    ;; '("0" . meow-digit-argument)
-   ;; '("/" . meow-keypad-describe-key)
+   '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet))
+
+  (meow-leader-define-key
+   '("f" . find-file)
+   '("F" . find-file-other-window))
+
+  (meow-leader-define-key
+   '("b" . consult-buffer)
+   '("B" . consult-buffer-other-window))
 
   (meow-leader-define-key
    '("w" . hydra-window/body)
    '("t" . hydra-toggles/body)
    '("u" . one-key-menu-useful)
    '("j" . one-key-menu-code)
-   '("s" . one-key-menu-search)
-   '("f" . one-key-menu-file)
-   '("b" . one-key-menu-buffer)
+   (cons "s" '("Search" . search-map))
    '("o" . one-key-menu-org)
    '("v" . git-dispatch)
    '("l" . one-key-menu-workspace)

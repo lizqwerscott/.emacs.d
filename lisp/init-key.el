@@ -8,7 +8,12 @@
    (("M-P" "s-P") . scroll-other-window-down-1/3)
    (("s-x" "M-x") . execute-extended-command)
    ("C-s-f" . forward-sexp)
-   ("C-s-b" . backward-sexp)))
+   ("C-s-b" . backward-sexp)
+
+   ("C-x C-r" . consult-recent-file)
+   ("C-x C-b" . ibuffer-refersh)))
+
+(keymap-unset ctl-x-map "C-k")
 
 (with-eval-after-load 'eww
   (keymap-sets eww-mode-map
