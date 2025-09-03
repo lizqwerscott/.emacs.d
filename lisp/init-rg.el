@@ -26,11 +26,17 @@
 
 (require 'rg)
 
+(defun quit-rg-window ()
+  (interactive)
+  (winner-undo)
+  (kill-buffer-and-window))
+
 (keymap-sets rg-mode-map
   '(("s-n" . compilation-next-error)
     ("s-p" . compilation-previous-error)
     ("s-N" . rg-next-file)
-    ("s-P" . rg-prev-file)))
+    ("s-P" . rg-prev-file)
+    ("Q" . quit-rg-window)))
 
 (provide 'init-rg)
 ;;; init-rg.el ends here

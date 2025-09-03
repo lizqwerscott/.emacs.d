@@ -192,6 +192,15 @@
  (:key "t" :description "Vterm" :command multi-vterm-open :filename "multi-vterm")
  (:key "m" :description "Media note" :command org-media-note-show-interface))
 
+;;; lazy load
+(lazy-load-global-keys
+ '(("M-s s" . rg-dwim)
+   ("M-s R" . rg-menu)
+   ("M-s r" . rg)
+   ("M-s t" . rg-literal)
+   ("M-s p" . rg-project))
+ "init-rg")
+
 ;;; symbol overlay
 (lazy-load-global-keys
  '(("M-i" . symbol-overlay-put)
