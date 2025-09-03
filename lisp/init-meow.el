@@ -186,7 +186,8 @@
     ("k" . consult-global-mark)
     ("e" . consult-compile-error)
     ("i" . consult-imenu)
-    ("I" . consult-imenu-multi)))
+    ("I" . consult-imenu-multi)
+    ("b" . consult-bookmark)))
 
 (keymap-sets search-map
   '(("l" . consult-line)
