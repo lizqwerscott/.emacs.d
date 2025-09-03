@@ -75,6 +75,9 @@
       trashed-sort-key '("Date deleted" . t)
       trashed-date-format "%Y-%m-%d %H:%M:%S")
 
+(global-set-keys
+ '(("C-x C-t" . trashed)))
+
 ;;; Find file auto
 (defcustom user/find-file-auto-regexp-list '("\\.xlsx?\\'" "\\.pptx?\\'" "\\.docx?\\'" "\\.mp4\\'" "\\.app\\'")
   "Open files via external program regexp list  when using find-file "
@@ -168,6 +171,9 @@ At 2nd time it copy current directory to kill-buffer."
     ("C-c e" . dired-do-open-default)
     (("M-j" "s-j") . dired-other-window)
     ("C-o" . dired-dispatch)))
+
+(global-set-keys
+ '(("C-x J" . dired-jump-other-window)))
 
 ;;; Menu
 (defun transient-show--variable-to-checkbox (v)

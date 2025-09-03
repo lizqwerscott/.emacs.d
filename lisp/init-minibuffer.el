@@ -79,6 +79,9 @@
 ;; Adding to the list of consult-dir sources
 (add-to-list 'consult-dir-sources 'consult-dir--source-quick)
 
+(global-set-keys
+ '(("C-x C-d" . consult-dir)))
+
 ;;; embark
 (add-hook 'embark-collect-mode
           #'consult-preview-at-point-mode)

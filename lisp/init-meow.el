@@ -192,12 +192,14 @@
   '(("l" . consult-line)
     ("L" . consult-line-multi)
     ("u" . consult-isearch-history)
-    ("s" . rg-menu)
+    ("s" . rg-dwim)
+    ("R" . rg-menu)
     ("r" . rg)
     ("t" . rg-literal)
     ("p" . rg-project)
-    ("d" . rg-dwim)
-    ("w" . ("Search in Web" . consult-omni-multi))))
+    ("w" . ("Search in Web" . consult-omni-multi))
+    ("f" . ("Search file" . consult-fd))
+    ("d" . ("Search dir" . consult-fd-dir))))
 
 (defalias 'search-map search-map)
 
