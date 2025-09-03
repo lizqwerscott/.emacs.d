@@ -35,10 +35,6 @@
 ;;; consult
 (require 'consult)
 
-(dolist (src consult-buffer-sources)
-  (unless (eq src 'consult--source-buffer)
-    (set src (plist-put (symbol-value src) :hidden t))))
-
 ;; use narrow
 (setq consult-narrow-key "<")
 ;; not auto preview
