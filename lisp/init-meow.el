@@ -117,12 +117,6 @@
                (call-interactively #'projection-commands-build-project)
              (call-interactively #'compile)))))))
 
-(defun kill-now-buffer ()
-  "Close the current buffer."
-  (interactive)
-  (kill-buffer (current-buffer))
-  (delete-window))
-
 (defun help-helpful-lsp-sly ()
   "Help function with lsp and sly info."
   (interactive)
@@ -342,7 +336,7 @@
    '("g" . "M-g"))
 
   (meow-normal-define-key
-   '("Q" . kill-now-buffer)
+   '("Q" . kill-buffer-and-window)
    '("?" . help-helpful-lsp-sly)
    '("/" . consult-ripgrep)))
 
