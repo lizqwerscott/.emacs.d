@@ -119,23 +119,5 @@
    "Program"
    (("f" flycheck-mode "flycheck" :toggle t))))
 
-(pretty-hydra-define-e hydra-jump-dir
-  (:title (pretty-hydra-title "Jump to directory" 'octicon "nf-oct-file_directory_open_fill") :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
-  ("Base"
-   (("d" consult-dir "Dirs")
-    ("v" (lambda ()
-           (interactive)
-           (when user/dirvish
-             (call-interactively #'dirvish)))
-     "Dirvish")
-    ("t" trashed "Trashed"))
-   "Search"
-   (("s" (lambda ()
-           (interactive)
-           (autoload 'consult-fd-dir "init-func" nil t)
-           (consult-fd-dir)) "Fuzzy search Dir")
-    ("j" dired-jump "Dired jump")
-    ("J" dired-jump-other-window "Dired jump other"))))
-
 (provide 'init-hydra)
 ;;; init-hydra.el ends here
