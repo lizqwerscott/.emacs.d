@@ -212,7 +212,6 @@
    '("u" . one-key-menu-useful)
    '("j" . one-key-menu-code)
    (cons "s" '("Search" . search-map))
-   '("v" . git-dispatch)
    '("l" . one-key-menu-workspace))
 
   (lazy-meow-leader-define-key
