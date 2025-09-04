@@ -194,37 +194,7 @@
 (defalias 'search-map search-map)
 
 (defun meow-setup ()
-  ;; (meow-motion-overwrite-define-key
-  ;;  '("j" . meow-next)
-  ;;  '("k" . meow-prev)
-  ;;  '("h" . meow-left)
-  ;;  '("l" . meow-right)
-  ;;  '("o" . meow-block)
-  ;;  '("x" . meow-line)
-  ;;  '("W" . meow-mark-symbol)
-  ;;  '("w" . meow-mark-word)
-  ;;  '("C-j" . (lambda ()
-  ;;              (interactive)
-  ;;              (dotimes (i 2)
-  ;;             (call-interactively 'meow-next))))
-  ;;  '("C-k" . (lambda ()
-  ;;              (interactive)
-  ;;              (dotimes (i 2)
-  ;;             (call-interactively 'meow-prev))))
-  ;;  '("<escape>" . ignore))
-
   (meow-leader-define-key
-   ;; Use SPC (0-9) for digit arguments.
-   ;; '("1" . meow-digit-argument)
-   ;; '("2" . meow-digit-argument)
-   ;; '("3" . meow-digit-argument)
-   ;; '("4" . meow-digit-argument)
-   ;; '("5" . meow-digit-argument)
-   ;; '("6" . meow-digit-argument)
-   ;; '("7" . meow-digit-argument)
-   ;; '("8" . meow-digit-argument)
-   ;; '("9" . meow-digit-argument)
-   ;; '("0" . meow-digit-argument)
    '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet))
 
@@ -260,9 +230,6 @@
    '("0" . delete-window)
    '("r" . run-or-compile))
 
-  (meow-define-keys 'insert
-    '("C-c i" . one-key-menu-insert))
-
   (meow-normal-define-key
    '("0" . meow-expand-0)
    '("9" . meow-expand-9)
@@ -291,7 +258,6 @@
    '("e" . meow-next-word)
    '("E" . meow-next-symbol)
    '("f" . meow-find)
-   ;; '("g" . meow-cancel-selection)
    '("G" . meow-grab)
    '("h" . meow-left)
    '("H" . meow-left-expand)
@@ -310,7 +276,6 @@
    '("p" . meow-yank)
    '("P" . meow-yank-pop)
    '("q" . my/meow-quit)
-   ;;   '("Q" . meow-goto-line)
    '("r" . meow-replace)
    '("R" . meow-swap-grab)
    '("d" . meow-kill)
@@ -318,14 +283,11 @@
    '("t" . meow-till)
    '("u" . meow-undo)
    '("U" . meow-undo-in-selection)
-   ;; '("v" . meow-visit)
    '("v" . meow-cancel-selection)
    '("w" . meow-mark-word)
    '("W" . meow-mark-symbol)
    '("x" . meow-line)
-   ;; '("X" . meow-goto-line)
    '("y" . meow-save)
-   ;; '("Y" . meow-sync-grab)
    '("Y" . meow-clipboard-save)
    '("z" . meow-pop-selection)
    '("'" . repeat)
