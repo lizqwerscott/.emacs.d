@@ -6,7 +6,6 @@
 ;; 增加IO性能
 (setq read-process-output-max (* 1024 1024 10))
 (setq gc-cons-threshold most-positive-fixnum)
-(find-function-setup-keys)
 
 (add-to-list 'default-frame-alist '(background-color . "black"))
 
