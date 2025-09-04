@@ -76,7 +76,7 @@ corresponding VALUE. Return the resulting prompt as a string."
           (insert content)
           (goto-char (point-min))
           (dolist (param params)
-            (let ((value (or (alist-get param params-alist)
+            (let ((value (or (alist-get param params-alist nil nil #'equal)
                              ""))
                   (placeholder (format "{{%s}}" param)))
               (while (search-forward placeholder nil t)
