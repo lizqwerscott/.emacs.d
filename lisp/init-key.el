@@ -192,7 +192,14 @@
  (:key "t" :description "Vterm" :command multi-vterm-open :filename "multi-vterm")
  (:key "m" :description "Media note" :command org-media-note-show-interface))
 
-;;; lazy load
+;;; bufferfile
+(lazy-load-global-keys
+ '(("C-x b r" . bufferfile-rename)
+   ("C-x b k" . bufferfile-delete)
+   ("C-x K" . bufferfile-delete))
+ "init-bufferfile")
+
+;;; rg
 (lazy-load-global-keys
  '(("M-s s" . rg-dwim)
    ("M-s R" . rg-menu)
