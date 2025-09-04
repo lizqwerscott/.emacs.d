@@ -86,6 +86,17 @@
         (gptel-get-backend "deepseek")))
 
 (require 'gptel)
+
+(require 'prompts)
+(setq prompt-templates
+      (get-all-prompts
+       (concat user-emacs-directory
+               "config/prompts")))
+
+;; (make-prompt (alist-get 'translate prompt-templates)
+;;              `(("to" . "english")
+;;                ("user_name" . "lizqwerscott")))
+
 (add-list-to-list 'gptel-directives
                   `((translate . ,(concat "You are a large language model and a writing assistant. Respond concisely."
                                           "  Follow my instructions and improve or rewrite the text I provide."
