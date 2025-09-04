@@ -212,13 +212,9 @@
    '("u" . one-key-menu-useful)
    '("j" . one-key-menu-code)
    (cons "s" '("Search" . search-map))
-   '("o" . one-key-menu-org)
    '("v" . git-dispatch)
    '("l" . one-key-menu-workspace)
-   '("z" . hydra-language/body)
-   '("a" . one-key-menu-agenda)
-   '("n" . one-key-menu-roam)
-   )
+   '("z" . hydra-language/body))
 
   (lazy-meow-leader-define-key
    '(("p" . project-dispatch) "init-project"))

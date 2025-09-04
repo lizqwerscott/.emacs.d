@@ -20,17 +20,4 @@
       "DOING"
     task-state))
 
-;;;###autoload
-(defun agenda-open-with-file (file)
-  `(lambda ()
-     (interactive)
-     (let ((org-agenda-files '(,file)))
-       (org-agenda))))
-
-(one-key-create-menu
- "agenda"
- `((("i" . "inbox agent") . ,(agenda-open-with-file "~/Documents/Org/inbox.org"))
-   (("t" . "idea agent") . ,(agenda-open-with-file "~/Documents/Org/tasks.org"))
-   (("a" . "all agent") . org-agenda)))
-
 (provide 'init-org-agenda)

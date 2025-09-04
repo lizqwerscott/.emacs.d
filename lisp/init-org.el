@@ -132,6 +132,11 @@
     ("s-L" . org-metaright)
     ("M-g o" . consult-org-heading)))
 
+(global-set-keys
+ '(("C-c c" . org-capture)
+   ("C-c a" . org-agenda)
+   ("M-s n" . consult-notes)))
+
 ;;; capf
 (defun my/org-capf ()
   "Capf for org mode."
@@ -161,6 +166,9 @@
 (require 'init-org-agenda)
 
 (require 'init-org-reveal)
+
+(global-set-keys
+ '(("s-v" . org-media-note-show-interface)))
 
 (provide 'init-org)
 ;;; init-org.el ends here.

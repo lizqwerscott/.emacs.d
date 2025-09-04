@@ -4,11 +4,14 @@
 (require 'find-lisp)
 (setq org-id-extra-files (find-lisp-find-files org-roam-directory "\.org$"))
 
-(one-key-create-menu
- "Roam"
- '((("f" . "Find roam node") . org-roam-node-find)
-   (("c" . "Capture roam node") . org-roam-capture)
-   (("i" . "Insert roam node") . org-roam-node-insert)
-   (("u" . "Show roam ui") . org-roam-ui-open)))
+(global-set-keys
+ '(("C-c n l" . org-roam-buffer-toggle)
+   ("C-c n f" . org-roam-node-find)
+   ("C-c n g" . org-roam-graph)
+   ("C-c n i" . org-roam-node-insert)
+   ("C-c n c" . org-roam-capture)
+   ("C-c n j" . org-roam-dailies-capture-today)
+
+   ("C-c n u" . org-roam-ui-mode)))
 
 (provide 'init-org-roam)
