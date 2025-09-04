@@ -210,7 +210,6 @@
    '("w" . hydra-window/body)
    '("t" . hydra-toggles/body)
    '("u" . one-key-menu-useful)
-   '("j" . one-key-menu-code)
    (cons "s" '("Search" . search-map))
    '("l" . one-key-menu-workspace))
 

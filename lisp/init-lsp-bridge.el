@@ -119,4 +119,11 @@
 
 (global-lsp-bridge-mode)
 
+(keymap-sets lsp-bridge-mode-map
+  '(("C-c j r" . lsp-bridge-rename)
+    ("C-c j R" . lsp-bridge-start-process)
+    ("C-c j a" . lsp-bridge-code-action)
+    ("C-c j s" . lsp-bridge-workspace-list-symbols)
+    ("C-c j p" . lsp-bridge-peek)))
+
 (provide 'init-lsp-bridge)

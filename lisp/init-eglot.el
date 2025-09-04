@@ -45,6 +45,19 @@
 (setq eglot-stay-out-of
       '(imenu))
 
+;;; keymap
+(defun eglot-restart ()
+  "Restart eglot."
+  (interactive)
+  (call-interactively #'eglot-shutdown)
+  (call-interactively #'eglot))
+
+(keymap-sets eglot-mode-map
+  '(("C-c j r" . eglot-rename)
+    ("C-c j R" . eglot-restart)
+    ("C-c j a" . eglot-code-actions)
+    ("C-c j s" . consult-eglot-symbols)))
+
 ;;; for language
 ;; Python
 (defun random-hex-string (n)

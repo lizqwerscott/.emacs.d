@@ -9,6 +9,11 @@
 
 ;;; Code:
 
+;;; format
+(lazy-load-global-keys
+ '(("C-c j f" . format-code-buffer))
+ "init-format")
+
 ;;; project
 (add-hook 'after-init-hook 'global-projection-hook-mode)
 
@@ -17,27 +22,32 @@
 (setq xref-show-definitions-function 'consult-xref)
 
 ;;; check
-;; flycheck
-(require 'flycheck)
-(setq flycheck-emacs-lisp-load-path 'inherit)
-(global-flycheck-mode)
+(pcase user/lsp-client
+  ('eglot
+   ;; flycheck
+   (require 'flycheck)
+   (setq flycheck-emacs-lisp-load-path 'inherit)
+   (global-flycheck-mode)
 
-;; flyover
-(when user/flyoverp
-  (require 'flyover)
-  (add-hook 'flycheck-mode-hook #'flyover-mode)
-  (setq flyover-use-theme-colors t
-        flyover-checkers '(flycheck)
-        flyover-show-at-eol t
-        flyover-virtual-line-icon (concat (nerd-icons-faicon "nf-fa-arrow_right_long")
-                                          " ")
-        flyover-virtual-line-type nil))
+   ;; flyover
+   (when user/flyoverp
+     (require 'flyover)
+     (add-hook 'flycheck-mode-hook #'flyover-mode)
+     (setq flyover-use-theme-colors t
+           flyover-checkers '(flycheck)
+           flyover-show-at-eol t
+           flyover-virtual-line-icon (concat (nerd-icons-faicon "nf-fa-arrow_right_long")
+                                             " ")
+           flyover-virtual-line-type nil))
 
-;; flycheck posframe
-(unless user/flyoverp
-  (require 'flycheck-posframe)
-  (add-hook 'flycheck-mode-hook
-            #'flycheck-posframe-mode))
+   ;; flycheck posframe
+   ;; (unless user/flyoverp
+   ;;   (require 'flycheck-posframe)
+   ;;   (add-hook 'flycheck-mode-hook
+   ;;             #'flycheck-posframe-mode))
+
+   (global-set-keys
+    '(("C-c j d" . consult-flycheck)))))
 
 ;;; debug
 (require 'init-dap)
