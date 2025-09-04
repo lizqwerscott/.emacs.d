@@ -28,6 +28,12 @@
   "All prompt templates.")
 
 (defun make-prompt-template (path &optional name)
+  "Create a prompt template from a file at PATH.
+Optional NAME specifies the template name, defaulting to the file's base name
+without extension. The template content is read from the file and all parameter
+placeholders of the form {{PARAM}} are extracted.
+Return a cons cell (NAME . (CONTENT . PARAMS)) where CONTENT is the template
+text as a string and PARAMS is a list of parameter names found in the template."
   (when-let* ((path (file-truename path)))
     (let ((name (if name
                     name
@@ -46,6 +52,9 @@
       (cons name (cons content params)))))
 
 (defun get-all-prompts (dir)
+  "Return a list of all prompt templates found in directory DIR.
+Search for files with extensions .txt, .md, or .org. Each template is created by
+=make-prompt-template' and returned as a cons cell (NAME . (CONTENT . PARAMS))."
   (let ((files (directory-files (file-truename dir) t "\\(\\.txt\\|\\.md\\|\\.org\\)$"))
         (res))
     (dolist (file files)
@@ -53,18 +62,27 @@
         (push template res)))
     res))
 
-(defun make-prompt (prompt-template params-alist)
+(defun make-prompt (prompt-template &optional params-alist)
+  "Generate a prompt from PROMPT-TEMPLATE by parameters from PARAMS-ALIST.
+PROMPT-TEMPLATE should be a cons cell (NAME . (CONTENT . PARAMS))
+as returned by `make-prompt-template'.
+PARAMS-ALIST is an alist where each element is (PARAM-NAME . VALUE).
+All occurrences of {{PARAM-NAME}} in the template content are replaced with the
+corresponding VALUE. Return the resulting prompt as a string."
   (let* ((content (car prompt-template))
          (params (cdr prompt-template)))
-    (with-temp-buffer
-      (insert content)
-      (goto-char (point-min))
-      (dolist (param params-alist)
-        (let ((placeholder (format "{{%s}}" (car param)))
-              (value (cdr param)))
-          (while (search-forward placeholder nil t)
-            (replace-match value))))
-      (buffer-string))))
+    (if params-alist
+        (with-temp-buffer
+          (insert content)
+          (goto-char (point-min))
+          (dolist (param params)
+            (let ((value (or (alist-get param params-alist)
+                             ""))
+                  (placeholder (format "{{%s}}" param)))
+              (while (search-forward placeholder nil t)
+                (replace-match value))))
+          (buffer-string))
+      content)))
 
 (provide 'prompts)
 ;;; prompts.el ends here

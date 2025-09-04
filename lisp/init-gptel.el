@@ -93,34 +93,16 @@
        (concat user-emacs-directory
                "config/prompts")))
 
-;; (make-prompt (alist-get 'translate prompt-templates)
-;;              `(("to" . "english")
-;;                ("user_name" . "lizqwerscott")))
-
 (add-list-to-list 'gptel-directives
                   `((translate . ,(concat "You are a large language model and a writing assistant. Respond concisely."
                                           "  Follow my instructions and improve or rewrite the text I provide."
                                           "  Generate ONLY the replacement text,"
                                           " without any explanation or markdown code fences or org code fences."
                                           " translate chinese to english."))
-                    (translate-english . "You are a world-class localization expert and cultural consultant. Your mission is to translate user input string into english with the highest fidelity, fluency, and cultural relevance.
-
-                            ## Core Directives
-                            1.  **Primary Goal:** Translate the provided text into english.
-                            2.  **Output Purity:** You MUST output ONLY the translated content. Your entire response must be the translation itself, with no additional text, explanations, or apologies.
-
-                            ## Quality & Style Mandates
-                            3.  **Tone & Style Matching:** You MUST analyze and match the tone of the original text (e.g., formal, informal, technical, humorous, poetic).
-                            4.  **Cultural Adaptation:** Translate idioms, metaphors, and cultural references into their closest cultural equivalents in english. Avoid literal translations that would sound unnatural or lose meaning.
-                            ## Formatting & Technical Rules
-                            7.  **Non-Translatable Entities:** The following MUST remain in their original form:
-                                *   Proper Nouns & Brands (e.g., \"NVIDIA\", \"ChatGPT\"), unless an official, widely-used translation exists in {{to}}.
-                                *   Code blocks, inline code, URLs, file paths, and technical acronyms (e.g., API, CSS).
-
-                            ## Context is CRITICAL
-                            The following metadata is provided as a high-priority guide. You are expected to leverage it for maximum accuracy.
-
-                            You will now receive the text to be translated. Proceed with the translation according to all the rules above.")))
+                    (docstr . ,(make-prompt (alist-get 'docstr prompt-templates) nil))
+                    (translate-english . ,(make-prompt (alist-get 'translate prompt-templates)
+                                                       '(("to" . "english")
+                                                         ("user_name" . "lizqwerscott"))))))
 
 (require 'init-gptel-tools)
 
