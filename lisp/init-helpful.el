@@ -4,7 +4,7 @@
    ("C-h k" . helpful-key)
    ("C-h v" . helpful-variable)
    ("C-h F" . helpful-function)
-   ("C-h C" . help-command))
+   ("C-h C" . helpful-command))
  "helpful")
 
 (advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update)
