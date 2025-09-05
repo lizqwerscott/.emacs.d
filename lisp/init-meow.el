@@ -190,7 +190,6 @@
   (meow-leader-define-key
    '("w" . hydra-window/body)
    '("t" . hydra-toggles/body)
-   '("u" . one-key-menu-useful)
    (cons "s" '("Search" . search-map))
    '("l" . one-key-menu-workspace))
 

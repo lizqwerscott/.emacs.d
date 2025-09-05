@@ -81,6 +81,10 @@
     (setf (alist-get 'left-fringe eldoc-box-frame-parameters) 8
           (alist-get 'right-fringe eldoc-box-frame-parameters) 8)))
 
+;;; devdocs
+(global-set-keys
+ '(("C-h C-d" . devdocs-lookup)))
+
 ;;; complile
 (setq compilation-scroll-output nil)
 (setq compilation-auto-jump-to-first-error nil)

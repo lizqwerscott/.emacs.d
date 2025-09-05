@@ -38,32 +38,6 @@
     '(("s-n" . compilation-next-error)
       ("s-p" . compilation-previous-error))))
 
-;; ###autoload
-(defmacro lazy-one-key-create-menu (title &rest keybinds)
-  (let (one-key-key-alist)
-    (dolist (ele keybinds)
-      (when (plist-get ele :filename)
-        (autoload (plist-get ele :command) (plist-get ele :filename) nil t))
-      (push
-       (if (plist-get ele :run)
-           (cons (cons (plist-get ele :key) (plist-get ele :description)) (plist-get ele :run))
-         (cons (cons (plist-get ele :key) (plist-get ele :description)) (plist-get ele :command)))
-       one-key-key-alist))
-    `(one-key-create-menu ,title (quote ,one-key-key-alist))))
-
-(lazy-one-key-create-menu
- "Useful"
- (:key "S" :description "Sudo edit find file" :command sudo-edit-find-file :filename "sudo-edit")
- (:key "D" :description "Docker" :command docker)
- (:key "p" :description "peek code" :command peek-overlay-dwim :filename "init-peek")
- (:key "d" :description "Devdocs" :command devdocs-lookup)
- (:key "s" :description "screenshot" :command screenshot)
- (:key "c" :description "Insert color" :command my-insert-color-hex :filename "init-func")
- (:key "g" :description "gptel" :command gptel)
- (:key "G" :description "gptel menu" :command gptel-menu)
- (:key "h" :description "gptel aibo" :command gptel-aibo)
- (:key "a" :description "Aider" :command aidermacs-transient-menu))
-
 ;;; bufferfile
 (lazy-load-global-keys
  '(("C-x b r" . bufferfile-rename)

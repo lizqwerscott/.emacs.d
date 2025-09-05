@@ -155,7 +155,10 @@
     ["Quick Tools"
      ("q t" "Translate select regions to english" gptel-translate-to-english)]))
 
-(global-set-key (kbd "C-c RET") #'gptel-send)
+(global-set-keys
+ '(("C-c RET" . gptel-send)
+   ("C-c u g" . gptel)
+   ("C-c u G" . gptel-menu)))
 
 (require 'init-gptel-aibo)
 
