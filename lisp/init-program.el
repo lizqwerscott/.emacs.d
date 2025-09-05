@@ -21,6 +21,10 @@
 (setq xref-show-xrefs-function 'consult-xref)
 (setq xref-show-definitions-function 'consult-xref)
 
+;; Use faster search tool
+(when (executable-find "rg")
+  (setq xref-search-program 'ripgrep))
+
 ;;; check
 (pcase user/lsp-client
   ('eglot
