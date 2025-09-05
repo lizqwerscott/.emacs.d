@@ -79,6 +79,7 @@ corresponding VALUE. Return the resulting prompt as a string."
             (let ((value (or (alist-get param params-alist nil nil #'equal)
                              ""))
                   (placeholder (format "{{%s}}" param)))
+              (goto-char (point-min))
               (while (search-forward placeholder nil t)
                 (replace-match value))))
           (buffer-string))
