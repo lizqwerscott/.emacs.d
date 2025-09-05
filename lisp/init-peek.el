@@ -1,6 +1,0 @@
-(require 'peek)
-;; (global-peek-mode 1)
-(set-face-attribute 'peek-overlay-content-face nil :background "#333333")
-;; (setq peek-enable-eldoc-message-integration t)
-;; (remove-hook 'eldoc-display-functions 'eldoc-display-in-buffer)
-(provide 'init-peek)

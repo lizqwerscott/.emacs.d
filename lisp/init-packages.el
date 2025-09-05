@@ -177,7 +177,6 @@
     (quicktype :fetcher github :repo "artawower/quicktype.el")
     (color-rg :fetcher github
               :repo "manateelazycat/color-rg")
-    (peek :fetcher sourcehut :repo "meow_king/peek")
 
     (auto-save :fetcher github :repo "manateelazycat/auto-save")
     super-save
