@@ -71,52 +71,6 @@
         (autoload func filename nil t)
         (meow-define-keys 'insert (cons key func))))))
 
-(one-key-create-menu
- "Rust"
- '((("r" . "Rust Run") . cargo-process-run)
-   (("c" . "Rust check") . cargo-process-clippy)
-   (("b" . "Rust Compile") . cargo-process-build)))
-
-(defun run-or-compile ()
-  "Run or compile this project or file."
-  (interactive)
-  (if (bound-and-true-p sly-mode)
-      (call-interactively #'sly-switch-mrepl)
-    (autoload 'project-root-path "init-project" nil t)
-    (let ((project-path (project-root-path)))
-      (pcase major-mode
-        ((or 'python-ts-mode 'python-mode)
-         (let ((command (concat (if project-path
-                                    (cond ((file-exists-p (file-name-concat project-path "uv.lock")) "uv run")
-                                          ((file-exists-p (file-name-concat project-path "pdm.lock")) "pdm run")
-                                          (t "python"))
-                                  "python")
-                                " "
-                                (file-truename (buffer-file-name)))))
-           (setq command (compilation-read-command command))
-           (require 'multi-vterm)
-           (multi-vterm-run command)))
-        ((or 'rust-ts-mode 'rust-mode) (one-key-menu-rust))
-        ('haskell-mode
-         (progn
-           (setq command
-                 (compilation-read-command
-                  (concat "cabal run")))
-           (require 'multi-vterm)
-           (multi-vterm-run command)))
-        ((or 'zig-mode 'zig-ts-mode)
-         (let ((command (if project-path
-                            "zig build run"
-                          (concat "zig run "
-                                  (file-truename (buffer-file-name))))))
-           (setq command (compilation-read-command command))
-           (require 'multi-vterm)
-           (multi-vterm-run command)))
-        ('emacs-lisp-mode (eval-buffer))
-        (_ (if project-path
-               (call-interactively #'projection-commands-build-project)
-             (call-interactively #'compile)))))))
-
 (defun help-helpful-lsp-sly ()
   "Help function with lsp and sly info."
   (interactive)
@@ -200,8 +154,7 @@
    '("1" . delete-other-windows)
    '("2" . split-window-below)
    '("3" . split-window-horizontally)
-   '("0" . delete-window)
-   '("r" . run-or-compile))
+   '("0" . delete-window))
 
   (meow-normal-define-key
    '("0" . meow-expand-0)

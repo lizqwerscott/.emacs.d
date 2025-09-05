@@ -43,6 +43,8 @@ Nominally unique, but not enforced."
 (keymap-sets sly-mode-map
   '(("C-c q r" . sly-restart-inferior-lisp)
     ("C-c q l" . load-lisp-project)
+    ("C-c r" . sly-switch-mrepl)
+    ("C-c C-p" . sly-switch-mrepl)
     ("M-g r" . sly-edit-uses)
     ("M-g d" . sly-edit-definition)
     ("M-g D" . sly-edit-definition-other-window)

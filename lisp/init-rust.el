@@ -23,6 +23,8 @@
 
 (add-hook 'rust-ts-mode-hook
           #'(lambda ()
+              (keymap-sets rust-ts-mode-map
+                '(("C-c r" . cargo-process-run)))
               (setq-local compile-command "cargo build")))
 
 (provide 'init-rust)

@@ -301,8 +301,7 @@
   '(go-mode))
 
 (defvar *package-zig-install-list*
-  '(zig-mode
-    zig-ts-mode))
+  '(zig-ts-mode))
 
 (defvar *package-sql-install-list*
   '(sql-indent))
