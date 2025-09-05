@@ -25,6 +25,13 @@
 (when (executable-find "rg")
   (setq xref-search-program 'ripgrep))
 
+(global-set-keys
+ '(("M-g r" . xref-find-references)
+   ("M-g d" . xref-find-definitions)
+   ("M-g D" . xref-find-definitions-other-window)
+
+   ("C-o" . xref-go-back)))
+
 ;;; check
 (pcase user/lsp-client
   ('eglot

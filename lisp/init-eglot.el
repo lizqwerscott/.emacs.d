@@ -56,7 +56,9 @@
   '(("C-c j r" . eglot-rename)
     ("C-c j R" . eglot-restart)
     ("C-c j a" . eglot-code-actions)
-    ("C-c j s" . consult-eglot-symbols)))
+    ("C-c j s" . consult-eglot-symbols)
+    
+    ("M-g u" . eglot-find-implementation)))
 
 ;;; for language
 ;; Python

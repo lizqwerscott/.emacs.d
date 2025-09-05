@@ -150,25 +150,6 @@
       (popper--delete-popup (selected-window))
     (meow-quit)))
 
-(pcase user/lsp-client
-  ('eglot
-   (keymap-sets goto-map
-     '(("r" . xref-find-references)
-       ("d" . xref-find-definitions)
-       ("D" . xref-find-definitions-other-window)
-       ("u" . eglot-find-implementation)))
-   (global-set-keys
-    '(("C-o" . xref-go-back))))
-  ('lsp-bridge
-   (keymap-sets goto-map
-     '(("r" . lsp-bridge-find-references)
-       ("d" . find-definition-with-lsp-bridge)
-       ("D" . find-definition-with-lsp-bridge-other-window)
-       ("u" . lsp-bridge-find-impl)
-       ("U" . lsp-bridge-find-impl-other-window)))
-   (global-set-keys
-    '(("C-o" . return-find-def)))))
-
 ;; meow while translate i into TAB
 (keymap-unset goto-map "TAB")
 (keymap-sets goto-map
