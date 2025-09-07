@@ -45,6 +45,7 @@
 
 ;;; modeline
 (require 'init-modeline)
+
 ;;; tab bar
 (require 'init-tab-bar)
 
