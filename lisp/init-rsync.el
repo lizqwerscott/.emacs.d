@@ -1,3 +1,7 @@
+;;; init-rsync.el --- rsync                          -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
 (require 'multi-vterm)
 (require 'vterm)
 
@@ -144,3 +148,4 @@
    ("c" "Compile Remote" rsync-project-dispatch-compile)])
 
 (provide 'init-rsync)
+;;; init-rsync.el ends here

@@ -1,3 +1,7 @@
+;;; init-code-stats.el --- code stats                -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
 (require 'code-stats)
 (setq code-stats-token
       (auth-source-pick-first-password :host "codestats.net"))
@@ -12,3 +16,4 @@
             (code-stats-sync :wait)))
 
 (provide 'init-code-stats)
+;;; init-code-stats.el ends here

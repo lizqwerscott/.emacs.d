@@ -1,4 +1,7 @@
-;;; Tramp
+;;; init-tramp.el --- tramp                          -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
 (require 'tramp)
 
 (setq tramp-verbose 0)
@@ -25,3 +28,5 @@
                   '("~/.guix-profile/bin" "~/.guix-profile/sbin" "/run/current-system/profile/bin" "/run/current-system/profile/sbin"))
 
 (provide 'init-tramp)
+;;; init-tramp.el ends here
+

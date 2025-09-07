@@ -1,3 +1,7 @@
+;;; init-helpful.el --- helpful                     -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
 (lazy-load-global-keys
  '(("C-h f" . helpful-callable)
    ("C-h C-f" . helpful-callable)
@@ -13,3 +17,4 @@
            #'visual-line-mode)
 
 (provide 'init-helpful)
+;;; init-helpful.el ends here

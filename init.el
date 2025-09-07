@@ -1,4 +1,6 @@
-;; init.el -*- lexical-binding: t; -*-
+;;; init.el --- init                                 -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
 
 (when (file-exists-p custom-file)
   (load custom-file))
@@ -76,3 +78,5 @@
 ;; no-native-compile: t
 ;; no-update-autoloads: t
 ;; End:
+
+;;; init.el ends here

@@ -1,4 +1,7 @@
-;;; early init
+;;; init-startup.el --- startup                      -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
 (setq load-prefer-newer noninteractive)
 
 ;;; Personal information
@@ -211,5 +214,6 @@
           (lambda ()
             (save-place-mode t)
             (recentf-mode t)))
+
 (provide 'init-startup)
 ;;; init-startup.el ends here.
