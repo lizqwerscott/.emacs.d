@@ -1,3 +1,7 @@
+;;; init-utils.el --- utils                          -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
 (require 'cl-lib)
 
 ;;;###autoload
@@ -172,3 +176,4 @@ and \"apikey\" as USER."
   (find-file custom-file))
 
 (provide 'init-utils)
+;;; init-utils.el ends here
