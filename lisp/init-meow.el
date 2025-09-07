@@ -143,7 +143,7 @@
 
   (meow-leader-define-key
    '("w" . hydra-window/body)
-   '("t" . hydra-toggles/body)
+   '("T" . hydra-toggles/body)
    (cons "s" '("Search" . search-map)))
 
   (lazy-meow-leader-define-key

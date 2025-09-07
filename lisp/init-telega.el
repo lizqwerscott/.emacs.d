@@ -1,4 +1,7 @@
-(require 'telega)
+;;; init-telega.el --- telega                        -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
 (require 'telega-url-shorten-nerd)
 (require 'telega-mnz)
 (require 'telega-chat)
@@ -78,12 +81,6 @@
     (progn (telega t)
            (message "启动Telega"))))
 
-(define-key telega-msg-button-map "k" nil)
-(define-key telega-msg-button-map "l" nil)
-(define-key telega-msg-button-map (kbd "SPC") 'meow-keypad)
-(keymap-sets telega-chat-mode-map
-  '(("s-g r" . telega-chatbuf-read-all)))
-
 (setq telega-avatar-workaround-gaps-for '(return t))
 
 (defun my/telega-chat-capf ()
@@ -94,4 +91,19 @@
                   #'cape-dabbrev))))
 (add-hook 'telega-chat-mode-hook #'my/telega-chat-capf)
 
+(define-key telega-msg-button-map "k" nil)
+(define-key telega-msg-button-map "l" nil)
+(define-key telega-msg-button-map (kbd "SPC") 'meow-keypad)
+
+(keymap-sets telega-prefix-map
+  '(("p" . telega-chatbuf-filter-search)
+    ("d" . telega-chat-remove-member)
+    ("m" . telega-describe-chat-members)
+    ("h" . telega-notifications-history)
+    ("x" . telega-chatbuf-thread-cancel)))
+
+(defalias 'telega-prefix-map telega-prefix-map)
+(keymap-global-set "C-c t" '("Telega" . telega-prefix-map))
+
 (provide 'init-telega)
+;;; init-telega.el ends here
