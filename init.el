@@ -11,7 +11,6 @@
 (require 'lazy-load)
 (require 'init-font)
 
-(require 'init-mode)
 (require 'init-gcmh)
 ;; (require 'init-auto-save)
 (require 'init-super-save)

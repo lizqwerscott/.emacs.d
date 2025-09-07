@@ -9,6 +9,25 @@
 
 ;;; Code:
 
+;;; Tree-Sitter
+(require 'treesit)
+(customize-set-variable 'treesit-font-lock-level 4)
+
+(treesit-font-lock-recompute-features
+ '(command string variable function operator bracket keyword))
+
+(add-list-to-list 'major-mode-remap-alist
+                  '((sh-mode . bash-ts-mode)
+                    (rust-mode . rust-ts-mode)
+                    (python-mode . python-ts-mode)
+                    (c++-mode . c++-ts-mode)
+                    (c-mode . c-ts-mode)
+                    (go-mode . go-ts-mode)
+                    (csharp-mode . csharp-ts-mode)
+                    (conf-toml-mode . toml-ts-mode)
+                    (js-json-mode . json-ts-mode)
+                    (zig-mode . zig-ts-mode)))
+
 ;;; format
 (lazy-load-global-keys
  '(("C-c j f" . format-code-buffer))
@@ -147,6 +166,17 @@ ARGS is ORIG-FN args."
                 (call-interactively #'check-parens))))
 
 ;;; language
+(add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
+(add-to-list 'auto-mode-alist '("\\.urdf\\'" . nxml-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-ts-mode))
+(when user/java
+  (add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode)))
+
+(add-hook 'json-mode-hook #'(lambda () (treesit-parser-create 'json)))
+(add-hook 'sh-mode-hook #'(lambda () (treesit-parser-create 'bash)))
+
 (require 'init-elisp)
 (when user/python
   (require 'init-python))
