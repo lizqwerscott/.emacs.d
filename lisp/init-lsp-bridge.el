@@ -111,12 +111,6 @@
     ("TAB" . +lsp-complete)
     ("<tab>" . +lsp-complete)))
 
-(one-key-create-menu
- "Diagnostic"
- '((("n" . "Next diagnostic") . lsp-bridge-diagnostic-jump-next)
-   (("p" . "Previous diagnostic") . lsp-bridge-diagnostic-jump-prev)
-   (("l" . "Show all diagnostic") . lsp-bridge-diagnostic-list)))
-
 (global-lsp-bridge-mode)
 
 (keymap-sets lsp-bridge-mode-map

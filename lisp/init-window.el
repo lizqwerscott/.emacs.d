@@ -83,7 +83,7 @@
     (side . bottom)
     (slot . 0)
     (window-parameters . ((mode-line-format . none))))
-   ((or "*One-Key*" "*Org Agenda*" "\\*Calendar\\*$")
+   ((or "*Org Agenda*" "\\*Calendar\\*$")
     (display-buffer-in-side-window)
     (dedicated )
     (side . bottom)

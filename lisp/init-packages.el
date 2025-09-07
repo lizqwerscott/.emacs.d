@@ -46,8 +46,7 @@
   '(no-littering
     exec-path-from-shell
 
-    (lazy-load :fetcher github :repo "manateelazycat/lazy-load")
-    (one-key :fetcher github :repo "manateelazycat/one-key")))
+    (lazy-load :fetcher github :repo "manateelazycat/lazy-load")))
 
 (defvar *package-build-in-install-list*
   '(transient))
