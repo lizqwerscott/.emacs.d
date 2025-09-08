@@ -69,5 +69,10 @@
     '(("<f8>" . gif-screencast-toggle-pause)
       ("<f9>" . gif-screencast-stop))))
 
+;;; vterm
+(with-eval-after-load 'vterm
+  (keymap-sets vterm-mode-map
+    '(("C-y" . vterm-yank))))
+
 (provide 'init-key)
 ;;; init-key.el ends here
