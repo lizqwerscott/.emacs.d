@@ -117,9 +117,72 @@
 (add-hook 'org-mode-hook
           #'org-modern-indent-mode 90)
 
+;;; menu
+(defun hot-expand (str &optional mod)
+  "Expand org template.
+
+STR is a structure template string recognised by org like <s. MOD is a
+string with additional parameters to add the begin line of the
+structure element. HEADER string includes more parameters that are
+prepended to the element after the #+HEADER: tag."
+  (let (text)
+    (when (region-active-p)
+      (setq text (buffer-substring (region-beginning) (region-end)))
+      (delete-region (region-beginning) (region-end)))
+    (insert str)
+    (if (fboundp 'org-try-structure-completion)
+        (org-try-structure-completion) ; < org 9
+      (progn
+        ;; New template expansion since org 9
+        (require 'org-tempo nil t)
+        (org-tempo-complete-tag)))
+    (when mod (insert mod) (forward-line))
+    (when text (insert text))))
+
+(pretty-hydra-define hydra-org-template
+  (:title (pretty-hydra-title "Org Template" 'sucicon "nf-custom-orgmode" :face 'nerd-icons-green)
+          :color blue :quit-key ("q" "C-g"))
+  ("Basic"
+   (("a" (hot-expand "<a") "ascii")
+    ("c" (hot-expand "<c") "center")
+    ("C" (hot-expand "<C") "comment")
+    ;; ("x" (hot-expand "<e") "example")
+    ("E" (hot-expand "<E") "export")
+    ("h" (hot-expand "<h") "html")
+    ("l" (hot-expand "<l") "latex")
+    ("n" (hot-expand "<n") "note")
+    ("o" (hot-expand "<q") "quote")
+    ("v" (hot-expand "<v") "verse"))
+   "Head"
+   (("i" (hot-expand "<i") "index")
+    ("A" (hot-expand "<A") "ASCII")
+    ("I" (hot-expand "<I") "INCLUDE")
+    ("H" (hot-expand "<H") "HTML")
+    ("L" (hot-expand "<L") "LaTeX"))
+   "Source"
+   (("s" (hot-expand "<s") "src")
+    ("e" (hot-expand "<s" "emacs-lisp") "emacs-lisp")
+    ("p" (hot-expand "<s" "python :results output") "python")
+    ("b" (hot-expand "<s" "bash") "bash")
+    ("C" (hot-expand "<s" "c++") "c++")
+    ("r" (hot-expand "<s" "rust") "rust")
+    ("S" (hot-expand "<s" "sh") "sh")
+    ("g" (hot-expand "<s" "go :imports '\(\"fmt\"\)") "golang")
+    ("x" (hot-expand "<s" "xml") "xml")
+    ("y" (hot-expand "<s" "ymal-ts") "yaml"))
+   "Misc"
+   (("m" (hot-expand "<s" "mermaid :file chart.png") "mermaid")
+    ("u" (hot-expand "<s" "plantuml :file chart.png") "plantuml")
+    ("Y" (hot-expand "<s" "ipython :session :exports both :results raw drawer\n$0") "ipython")
+    ("G" (hot-expand "<s" "gnuplot :results output :file ./result.png") "gnuplot")
+    ("P" (progn
+           (insert "#+HEADERS: :results output :exports both :shebang \"#!/usr/bin/env perl\"\n")
+           (hot-expand "<s" "perl")) "Perl tangled")
+    ("<" self-insert-command "ins"))))
+
 ;;; keymap
 (keymap-sets org-mode-map
-  '(("C-c TAB" . org-insert-item)
+  `(("C-c TAB" . org-insert-item)
     ("M-P" . org-metaup)
     ("M-N" . org-metadown)
     ("M-H" . org-metaleft)
@@ -130,7 +193,13 @@
     ("s-N" . org-metadown)
     ("s-H" . org-metaleft)
     ("s-L" . org-metaright)
-    ("M-g o" . consult-org-heading)))
+    ("M-g o" . consult-org-heading)
+    ("<" . ,(lambda ()
+              "Insert org template."
+              (interactive)
+              (if (or (region-active-p) (looking-back "^\s*" 1))
+                  (hydra-org-template/body)
+                (self-insert-command 1))))))
 
 (global-set-keys
  '(("C-c c" . org-capture)
