@@ -252,7 +252,8 @@
     valign
     (org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent")
     pdf-tools
-    (org-count-words :fetcher github :repo "Elilif/org-count-words")))
+    (org-count-words :fetcher github :repo "Elilif/org-count-words")
+    org-rich-yank))
 
 (defvar *package-ai-install-list*
   (append '((gptel :fetcher github

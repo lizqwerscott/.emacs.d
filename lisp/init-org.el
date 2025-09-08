@@ -117,6 +117,15 @@
 (add-hook 'org-mode-hook
           #'org-modern-indent-mode 90)
 
+;;; org rich yank
+(defun my-org-rich-yank-format-paste (language contents link)
+  "Based on `org-rich-yank--format-paste-default'."
+  (format "#+BEGIN_SRC %s\n%s\n#+END_SRC\n#+comment: %s"
+          language
+          (org-rich-yank--trim-nl contents)
+          link))
+(customize-set-variable 'org-rich-yank-format-paste #'my-org-rich-yank-format-paste)
+
 ;;; menu
 (defun hot-expand (str &optional mod)
   "Expand org template.
@@ -193,7 +202,10 @@ prepended to the element after the #+HEADER: tag."
     ("s-N" . org-metadown)
     ("s-H" . org-metaleft)
     ("s-L" . org-metaright)
+
+    ("C-M-y" . org-rich-yank)
     ("M-g o" . consult-org-heading)
+
     ("<" . ,(lambda ()
               "Insert org template."
               (interactive)
