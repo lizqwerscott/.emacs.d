@@ -80,6 +80,20 @@
 (global-set-keys
  '(("C-x C-d" . consult-dir)))
 
+;;; consult omni
+(with-eval-after-load 'consult-omni
+  (require 'consult-omni-sources)
+  (require 'consult-omni-embark)
+  (setq consult-omni-sources-modules-to-load
+        '(consult-omni-duckduckgo consult-omni-calc consult-omni-wikipedia consult-omni-gh))
+  (consult-omni-sources-load-modules)
+
+  (setq consult-omni-default-search-engine "DuckDuckGo")
+  (setq consult-omni-multi-sources '("calc" "DuckDuckGo API" "Wikipedia" "GitHub")))
+
+(global-set-keys
+ '(("M-s w" . ("Search in Web" . consult-omni-multi))))
+
 ;;; embark
 (add-hook 'embark-collect-mode
           #'consult-preview-at-point-mode)

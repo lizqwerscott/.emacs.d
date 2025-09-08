@@ -122,7 +122,6 @@
   '(("l" . consult-line)
     ("L" . consult-line-multi)
     ("u" . consult-isearch-history)
-    ("w" . ("Search in Web" . consult-omni-multi))
     ("f" . ("Search file" . consult-fd))
     ("d" . ("Search dir" . consult-fd-dir))))
 
