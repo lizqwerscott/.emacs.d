@@ -27,6 +27,12 @@
 (require 'macher)
 (setq macher-action-buffer-ui 'org)
 
+(setf (alist-get 'implement macher-actions-alist)
+      (apply-partially #'macher-action-from-region-or-input
+                       "To implement: "
+                       #'macher--implement-with-cursor-prompt
+                       'macher))
+
 (require 'macher-utils)
 
 (macher-install)

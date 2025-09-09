@@ -51,5 +51,65 @@ position of each item."
                                 " ]"))
        "\n"))))
 
+(defun my/get-surrounding-chars-with-cursor (&optional n-chars)
+  "Get content in cursor.
+N-CHARS is max size."
+  (let* ((n (or n-chars 500))
+         (pt (point))
+         (buf-min (point-min))
+         (buf-max (point-max))
+         (start-pos (max buf-min (- pt n)))
+         (end-pos   (min buf-max (+ pt n)))
+         before after)
+    (setq before (buffer-substring-no-properties start-pos pt))
+    (setq after  (buffer-substring-no-properties pt end-pos))
+    (concat before "{CURSOR}" after)))
+
+(defun macher--implement-with-cursor-prompt (input is-selected)
+  "Generate an implementation prompt for INPUT in the current buffer.
+
+IS-SELECTED specifies whether the input comes from the selected region."
+  (let* ((workspace (macher-workspace))
+         (filename (buffer-file-name))
+         (relpath
+          (when filename
+            (file-relative-name filename (macher--workspace-root workspace))))
+         (source-description
+          (cond
+           ;; No file associated with buffer.
+           ((null filename)
+            "")
+           ;; Directory case.
+           ((file-directory-p filename)
+            (format "The request was sent from the workspace directory `%s`. " relpath))
+           ;; Regular file case.
+           (t
+            (let* ((lang
+                    ;; Use gptel's internal mode formatting method, with a fallback on error in case
+                    ;; the method gets removed or the signature changes (errors should also be
+                    ;; picked up by tests, so we'll notice such a change eventually).
+                    (condition-case nil
+                        (gptel--strip-mode-suffix major-mode)
+                      (error
+                       (format-mode-line mode-name)))))
+              (format (concat
+                       "The request was sent from the %s file `%s` in the workspace. "
+                       "If the request text appears as a comment or placeholder in the file, "
+                       "replace it with the actual implementation. ")
+                      lang relpath))))))
+    (format (concat
+             "TASK: Implement the following request using workspace tools.\n\n"
+             "INSTRUCTIONS:\n"
+             "1. Read and understand the implementation request below\n"
+             "2. Use the workspace tools to edit files as needed\n"
+             "3. Create working, complete code that fulfills the request\n\n"
+             "%s"
+             "\n\nIMPLEMENTATION REQUEST:\n\n%s%s")
+            source-description
+            input
+            (unless is-selected
+              (format "\n\nCursor place content:\n\n%s"
+                      (my/get-surrounding-chars-with-cursor 500))))))
+
 (provide 'macher-utils)
 ;;; macher-utils.el ends here
