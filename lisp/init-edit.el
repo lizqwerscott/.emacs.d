@@ -9,6 +9,8 @@
 
 ;;; Code:
 
+(require 'lib-edit)
+
 ;;; can use superword-mode
 (add-hook 'prog-mode-hook
           'superword-mode)
@@ -116,14 +118,6 @@
 (add-hooks '(html-mode web-mode)
            #'auto-rename-tag-mode)
 
-(defun my/copy-current-line ()
-  "Copy the current line."
-  (interactive)
-  (kill-new
-   (string-trim
-    (buffer-substring (line-beginning-position)
-                      (line-end-position)))))
-
 ;;; grugru
 (grugru-default-setup)
 
@@ -155,53 +149,6 @@
    (symbol "True" "False"))
   ((emacs-lisp-mode lisp-mode)
    (symbol "when-let" "if-let")))
-
-;;; add rectangle number lines
-;;;###autoload
-(defun my/insert-number-lines (start-at end-at step format)
-  (interactive
-   (list (read-number "Number to count from: " 1)
-         (read-number "Number to count end: " 5)
-         (read-number "step: " 1)
-         (read-string "Format string: "
-                      "%d ")))
-  (save-excursion
-    (dolist (i (number-sequence start-at end-at step))
-      (insert (format format i))
-      (newline-and-indent))))
-
-;;; goto precent
-;;;###autoload
-(defun goto-percent (percent)
-  "Goto PERCENT of buffer."
-  (interactive "nGoto percent: ")
-  (goto-char (/ (* percent (point-max)) 100)))
-
-(defun scroll-up-1/3 ()
-  (interactive)
-  (scroll-up (/ (window-body-height) 3)))
-
-(defun scroll-down-1/3 ()
-  (interactive)
-  (scroll-down (/ (window-body-height) 3)))
-
-(defun scroll-other-window-up-1/3 ()
-  (interactive)
-  (scroll-other-window (/ (window-body-height) 3)))
-
-(defun scroll-other-window-down-1/3 ()
-  (interactive)
-  (scroll-other-window-down (/ (window-body-height) 3)))
-
-;;;###autoload
-(defun toggle-sub-word-or-super-word ()
-  (interactive)
-  (if subword-mode
-      (progn
-        (superword-mode)
-        (message "开启 super-word-mode"))
-    (subword-mode)
-    (message "开启 sub-word-mode")))
 
 (provide 'init-edit)
 ;;; init-edit.el ends here.
