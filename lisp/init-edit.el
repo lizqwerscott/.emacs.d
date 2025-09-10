@@ -106,7 +106,11 @@
       '("c" "Use consult line" isearch-consult-line))))
 
 ;;; Outline indent
-(require 'init-outline-indent)
+(with-eval-after-load 'outline-indent
+  (setq outline-indent-ellipsis " ▼"))
+
+(add-hooks '(python-mode python-ts-mode yaml-mode yaml-ts-mode nxml-mode)
+           #'outline-indent-minor-mode)
 
 ;;; Auto rename tag
 (add-hooks '(html-mode web-mode)
