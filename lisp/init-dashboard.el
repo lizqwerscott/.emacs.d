@@ -193,8 +193,7 @@
 
 (with-eval-after-load 'dashboard
   (keymap-sets dashboard-mode-map
-    '(("H" . browse-homepage)
-      ("S" . find-custom-file)
+    '(("S" . find-custom-file)
       ("P" . elpaca-manager)
       ("q" . quit-dashboard)
       ("h" . hydra-dashboard/body)
