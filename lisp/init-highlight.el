@@ -1,3 +1,7 @@
+;;; init-highlight.el --- init highlight             -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
 ;;; Highlight the current line
 (global-hl-line-mode 1)
 (add-hooks '(dashboard-mode eshell-mode shell-mode term-mode vterm-mode)
@@ -48,13 +52,6 @@
 
 (add-hooks '(python-mode python-ts-mode rust-mode rust-ts-mode c++-mode c++-ts-mode)
            #'indent-bars-mode)
-
-;; (add-hook 'prog-mode-hook
-;;           #'(lambda ()
-;;               (require 'highlight-indent-guides)
-;;               (setq highlight-indent-guides-auto-odd-face-perc 50)
-;;               (setq highlight-indent-guides-auto-even-face-perc 50)
-;;               (highlight-indent-guides-mode 1)))
 
 ;;; Colorize color names in buffers
 (setq colorful-use-prefix t)
@@ -114,51 +111,6 @@
 
 (diff-hl-flydiff-mode)
 
-;;; Pulse current line
-
-;; (use-package pulse
-;;   :ensure nil
-;;   :custom-face
-;;   (pulse-highlight-start-face ((t (:inherit region :background unspecified))))
-;;   (pulse-highlight-face ((t (:inherit region :background unspecified :extend t))))
-;;   :hook (((dumb-jump-after-jump imenu-after-jump) . my-recenter-and-pulse)
-;;          ((bookmark-after-jump magit-diff-visit-file next-error) . my-recenter-and-pulse-line))
-;;   :init
-;;   (with-no-warnings
-;;     (defun my-pulse-momentary-line (&rest _)
-;;       "Pulse the current line."
-;;       (pulse-momentary-highlight-one-line (point)))
-
-;;     (defun my-pulse-momentary (&rest _)
-;;       "Pulse the region or the current line."
-;;       (if (fboundp 'xref-pulse-momentarily)
-;;           (xref-pulse-momentarily)
-;;         (my-pulse-momentary-line)))
-
-;;     (defun my-recenter-and-pulse(&rest _)
-;;       "Recenter and pulse the region or the current line."
-;;       (recenter)
-;;       (my-pulse-momentary))
-
-;;     (defun my-recenter-and-pulse-line (&rest _)
-;;       "Recenter and pulse the current line."
-;;       (recenter)
-;;       (my-pulse-momentary-line))
-
-;;     (dolist (cmd '(recenter-top-bottom
-;;                    other-window switch-to-buffer
-;;                    aw-select toggle-window-split
-;;                    windmove-do-window-select
-;;                    pager-page-down pager-page-up
-;;                    treemacs-select-window
-;;                    symbol-overlay-basic-jump))
-;;       (advice-add cmd :after #'my-pulse-momentary-line))
-
-;;     (dolist (cmd '(pop-to-mark-command
-;;                    pop-global-mark
-;;                    goto-last-change))
-;;       (advice-add cmd :after #'my-recenter-and-pulse))))
-
 ;;; Pulse modified region
 (require 'init-pulsar)
 
@@ -168,11 +120,6 @@
               (require 'highlight-matching-tag)
               (highlight-matching-tag 1)))
 
-;; (use-package highlight-defined
-;;   :ensure t
-;;   ;; :hook (elisp-lisp-mode . highlight-defined-mode)
-;;   )
-
 ;;; Highlight lisp
 (add-hooks '(lisp-mode emacs-lisp-mode)
            #'(lambda ()
@@ -180,3 +127,4 @@
                (lisp-extra-font-lock-mode 1)))
 
 (provide 'init-highlight)
+;;; init-highlight.el ends here
