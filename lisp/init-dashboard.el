@@ -174,7 +174,7 @@
   (:title (pretty-hydra-title "Dashboard" 'mdicon "nf-md-view_dashboard")
           :color pink :quit-key ("q" "C-g"))
   ("Navigator"
-   (("P" elpaca-dispath "package manage" :exit t)
+   (("P" elpaca-manager "package manage" :exit t)
     ("S" find-custom-file "settings" :exit t))
    "Item"
    (("RET" widget-button-press "open" :exit t)
@@ -195,7 +195,7 @@
   (keymap-sets dashboard-mode-map
     '(("H" . browse-homepage)
       ("S" . find-custom-file)
-      ("P" . elpaca-dispath)
+      ("P" . elpaca-manager)
       ("q" . quit-dashboard)
       ("h" . hydra-dashboard/body)
       ("?" . hydra-dashboard/body))))

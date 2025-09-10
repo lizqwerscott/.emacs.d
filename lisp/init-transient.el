@@ -51,42 +51,5 @@
 (with-eval-after-load 'org-agenda
   (keymap-set org-agenda-mode-map "C-o" #'casual-agenda-tmenu))
 
-(transient-define-prefix elpaca-dispath ()
-  "Elpaca package manage dispatch"
-  [["Manage package"
-    ("e" "Pakcage manager" elpaca-manager)
-    ("t" "Try package" elpaca-try)
-    ("r" "Rebuild package" elpaca-rebuild)
-    ("d" "Delete package" elpaca-delete)]
-   ["Elpaca Ui"
-    ("s s" "Search package" elpaca-ui-search)
-    ("s i" "Search installed" elpaca-ui-search-installed)
-    ("s o" "Search orphaned" elpaca-ui-search-orphaned)
-    ("s t" "Search tried" elpaca-ui-search-tried)]
-   ["Update"
-    ("f f" "Fetch package" elpaca-fetch)
-    ("f a" "Fetch all package" elpaca-fetch-all)
-    ("m m" "Merge package" elpaca-merge)
-    ("m a" "Merge all package" elpaca-merge-all)
-    ("u u" "Update package" elpaca-update)
-    ("u a" "Update all package" elpaca-update-all)]
-   ["Package Info"
-    ("i" "Package Info" elpaca-info)
-    ("l" "Pakcage Log" elpaca-log)
-    ("b" "Browse package website" elpaca-browse)
-    ("v v" "Visit package" elpaca-visit)
-    ("v b"
-     "Vist package build"
-     (lambda ()
-       (interactive)
-       (let ((current-prefix-arg 1))
-         (call-interactively #'elpaca-visit))))]]
-  [("q" "Quit" transient-quit-all)])
-
-(with-eval-after-load 'elpaca-manager
-  (keymap-sets elpaca-manager-mode-map
-    '(("C-o" . elpaca-dispath)
-      ("p" . previous-line))))
-
 (provide 'init-transient)
 ;;; init-transient.el ends here
