@@ -182,8 +182,7 @@
 
     (auto-save :fetcher github :repo "manateelazycat/auto-save")
     super-save
-    (rsync-project-mode :fetcher github :repo "lizqwerscott/rsync-project-mode")
-    (image-slicing :fetcher github :repo "ginqi7/image-slicing")))
+    (rsync-project-mode :fetcher github :repo "lizqwerscott/rsync-project-mode")))
 
 (defvar *package-ui-install-list*
   '((koishi-theme :fetcher github :repo "gynamics/koishi-theme.el")

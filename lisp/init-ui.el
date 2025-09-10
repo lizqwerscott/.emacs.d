@@ -150,9 +150,6 @@
                  (window-parameters . ((no-delete-other-windows . t)
                                        (no-other-window . t))))))
 
-;;; Eww image slice
-(require 'init-image-slicing)
-
 ;;; Redacted
 ;; Enable `read-only-mode' to ensure that we don't change what we can't read.
 (add-hook 'redacted-mode-hook
