@@ -9,7 +9,7 @@
 ;;; Code:
 
 ;;; theme
-(require 'init-theme)
+(+lizqwer/load-theme user/night-theme)
 
 ;;; Optimization
 (setq idle-update-delay 1.0)
