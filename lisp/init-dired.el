@@ -2,6 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
+(require 'lib-dired)
+(require 'dired-menu)
+
 ;;; dired
 (require 'dired)
 (setq delete-by-moving-to-trash t)
@@ -11,6 +14,8 @@
 (setq dired-hide-details-hide-symlink-targets nil)
 (setq dired-dwim-target t)
 (setq dired-listing-switches "-AFhlv --group-directories-first")
+;; (setq dired-listing-switches
+;;       "-l --almost-all --human-readable --time-style=long-iso --group-directories-first --no-group")
 (unless user/dirvish
   (setq dired-movement-style 'bounded)
   (setq dired-kill-when-opening-new-dired-buffer t))
@@ -38,11 +43,10 @@
 (when sys/macp
   (setq insert-directory-program "/opt/homebrew/bin/gls"))
 
-;; (setq dired-listing-switches
-;;       "-l --almost-all --human-readable --time-style=long-iso --group-directories-first --no-group")
-
 ;; Enable the disabled dired commands
 (put 'dired-find-alternate-file 'disabled nil)
+
+(advice-add 'find-file :around 'find-file-auto)
 
 ;;; dired-aux
 (require 'dired-aux)
@@ -58,9 +62,9 @@
 (setq dired-omit-verbose nil)
 (setq dired-omit-files (rx string-start
                            (or ".DS_Store"
-                              ".cache"
-                              ".vscode"
-                              ".ccls-cache" ".clangd")
+                               ".cache"
+                               ".vscode"
+                               ".ccls-cache" ".clangd")
                            string-end))
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\..*$"))
@@ -81,69 +85,6 @@
 
 (global-set-keys
  '(("C-x C-t" . trashed)))
-
-;;; Find file auto
-(defcustom user/find-file-auto-regexp-list '("\\.xlsx?\\'" "\\.pptx?\\'" "\\.docx?\\'" "\\.mp4\\'" "\\.app\\'")
-  "Open files via external program regexp list  when using find-file "
-  :group 'user
-  :type 'list)
-
-(defun find-file-auto (orig-fun &rest args)
-  "Open files via external program when using find-file"
-  (let ((file (car args)))
-    (if (cl-find-if (lambda (regexp)
-                      (string-match regexp file))
-                    user/find-file-auto-regexp-list)
-        (shell-command-do-open
-         (list (file-truename file)))
-      (apply orig-fun args))))
-(advice-add 'find-file :around 'find-file-auto)
-
-;;; Functions
-(when (version<= emacs-version "30.1")
-  ;;; from emacs 30.1
-  (defun shell-command-do-open (files)
-    "Open each of FILES using an external program.
-  This \"opens\" the file(s) using the external command that is most
-  appropriate for the file(s) according to the system conventions."
-    (let ((command shell-command-guess-open))
-      (when (and (memq system-type '(windows-nt))
-                 (equal command "start"))
-        (setq command "open"))
-      (if command
-          (cond
-           ((memq system-type '(ms-dos))
-            (dolist (file files)
-              (shell-command (concat command " " (shell-quote-argument file)))))
-           ((memq system-type '(windows-nt))
-            (dolist (file files)
-              (w32-shell-execute command (convert-standard-filename file))))
-           ((memq system-type '(cygwin))
-            (dolist (file files)
-              (call-process command nil nil nil file)))
-           ((memq system-type '(darwin))
-            (dolist (file files)
-              (start-process (concat command " " file) nil command file)))
-           (t
-            (dolist (file files)
-              (call-process command nil 0 nil file))))
-        (error "Open not supported on this system")))))
-
-(defun dired-copy-path ()
-  "In dired, copy file path to kill-buffer.
-At 2nd time it copy current directory to kill-buffer."
-  (interactive)
-  (when-let* ((path (dired-file-name-at-point)))
-    (if (string= path (current-kill 0 1))
-        (setq path (dired-current-directory)))
-    (message path)
-    (kill-new path)))
-
-(defun dired-do-open-default ()
-  "Open the current default directory using the external app."
-  (interactive)
-  (shell-command-do-open
-   (list (file-truename default-directory))))
 
 ;;; Hook
 (add-hook 'dired-mode-hook
@@ -178,45 +119,6 @@ At 2nd time it copy current directory to kill-buffer."
 
 (global-set-keys
  '(("C-x J" . dired-jump-other-window)))
-
-;;; Menu
-(defun transient-show--variable-to-checkbox (v)
-  "Checkbox string representation of variable V.
-V is either nil or non-nil."
-  (if v "[x]" "[ ]"))
-
-(defun transient-show--prefix-label (label prefix)
-  "Label constructed with PREFIX and LABEL separated by a space."
-  (format "%s %s" prefix label))
-
-(defun transient-show-checkbox-label (v label)
-  "Checkbox label using variable V and LABEL."
-  (transient-show--prefix-label label (transient-show--variable-to-checkbox v)))
-
-(require 'casual-dired)
-
-;;;###autoload
-(transient-define-prefix dired-dispatch ()
-  "Dired dispatch menu"
-  [["Directory"
-    ("h" "Hide Details" dired-hide-details-mode
-     :description
-     (lambda ()
-       (transient-show-checkbox-label dired-hide-details-mode "Hide Details")))
-    ("o" "Omit Mode" dired-omit-mode
-     :description
-     (lambda () (transient-show-checkbox-label dired-omit-mode "Omit Mode")))]
-   ["Sort By"
-    ("n" "Name" casual-dired--sort-by-name :transient t)
-    ("k" "Kind" casual-dired--sort-by-kind :transient t)
-    ("l" "Date Last Opened" casual-dired--sort-by-date-last-opened
-     :transient t)
-    ("a" "Date Added" casual-dired--sort-by-date-added :transient t)
-    ("m" "Date Modified" casual-dired--sort-by-date-modified :transient t)
-    ("M" "Date Metadata Changed" casual-dired--sort-by-date-metadata-changed
-     :transient t)
-    ("s" "Size" casual-dired--sort-by-size :transient t)]]
-  [("q" "Quit" transient-quit-all)])
 
 ;;; dirvish
 (when user/dirvish
