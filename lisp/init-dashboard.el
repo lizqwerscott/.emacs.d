@@ -157,10 +157,7 @@
   (delete-other-windows)
 
   ;; Refresh dashboard buffer
-  (dashboard-refresh-buffer)
-
-  ;; Jump to the first section
-  (dashboard-goto-recent-files))
+  (dashboard-refresh-buffer))
 
 (defun quit-dashboard ()
   "Quit dashboard window."
