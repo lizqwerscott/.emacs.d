@@ -5,12 +5,6 @@
 (keymap-unset ctl-x-map "b")
 (keymap-unset ctl-x-map "C-k")
 
-(defun ibuffer-refersh ()
-  (interactive)
-  (when-let* ((buffer (get-buffer "*Ibuffer*")))
-    (kill-buffer buffer))
-  (ibuffer))
-
 (global-set-keys
  '(("RET" . newline-and-indent)
    ("S-<return>" . comment-indent-new-line)
@@ -24,7 +18,6 @@
    ("C-s-b" . backward-sexp)
 
    ("C-x C-r" . consult-recent-file)
-   ("C-x C-b" . ibuffer-refersh)
 
    ("C-x b g" . revert-buffer-quick)))
 

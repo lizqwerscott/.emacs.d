@@ -145,14 +145,6 @@
 ;;; Imenu list
 (require 'init-imenu-list)
 
-;;; Ibuffer
-(add-hook 'ibuffer-mode-hook #'nerd-icons-ibuffer-mode)
-(add-hook 'ibuffer-mode-hook
-          (lambda ()
-            (unless ibuffer-filter-groups
-              (require 'projection-ibuffer)
-              (ibuffer-projection-set-filter-groups))))
-
 ;;; Eww image slice
 (require 'init-image-slicing)
 
