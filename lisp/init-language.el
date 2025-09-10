@@ -21,5 +21,11 @@
 ;;; spell
 (require 'init-spell)
 
+;;; input
+(require 'init-pyim)
+(require 'init-rime)
+
+(setq default-input-method "rime")
+
 (provide 'init-language)
 ;;; init-language.el ends here
