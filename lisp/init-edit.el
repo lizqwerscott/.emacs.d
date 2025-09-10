@@ -124,64 +124,6 @@
     (buffer-substring (line-beginning-position)
                       (line-end-position)))))
 
-;;; insert trailing semi
-(defun insert-or-remove-trailing-char (&optional ch)
-  (interactive)
-  (let ((ch (or ch (read-char "Input char: ")))
-        (fn (lambda (ch)
-              (end-of-line)
-              (if (eq (char-before) ch)
-                  (delete-backward-char 1)
-                (insert-char ch)))))
-    (save-excursion
-      (if (region-active-p)
-          (save-restriction
-            (narrow-to-region (region-beginning) (region-end))
-            (deactivate-mark)
-            (goto-char (point-min))
-            (funcall fn ch)
-            (while (< (point) (- (point-max) 1))
-              (next-line)
-              (funcall fn ch)))
-        (funcall fn ch)))))
-
-(defun insert-or-remove-trailing-semi ()
-  (interactive)
-  (insert-or-remove-trailing-char ?\;))
-
-(defun insert-or-remove-trailing-comma ()
-  (interactive)
-  (insert-or-remove-trailing-char ?,))
-
-(defun insert-trailing-char (&optional ch)
-  (interactive)
-  (let ((ch (or ch (read-char "Input char: ")))
-        (fn (lambda (ch)
-              (end-of-line)
-              (unless (eq (char-before) ch)
-                (insert-char ch)))))
-    (save-excursion
-      (if (region-active-p)
-          (save-restriction
-            (narrow-to-region (region-beginning) (region-end))
-            (deactivate-mark)
-            (goto-char (point-min))
-            (funcall fn ch)
-            (while (< (point) (- (point-max) 1))
-              (next-line)
-              (funcall fn ch)))
-        (funcall fn ch)))))
-
-(defun insert-trailing-semi ()
-  (interactive)
-  (insert-trailing-char ?\;))
-
-(defun insert-trailing-semi-and-indent ()
-  (interactive)
-  (insert-trailing-char ?\;)
-  (forward-char)
-  (newline-and-indent))
-
 ;;; grugru
 (grugru-default-setup)
 
