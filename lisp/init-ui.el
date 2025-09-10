@@ -143,7 +143,12 @@
           'goto-address-prog-mode)
 
 ;;; Imenu list
-(require 'init-imenu-list)
+(with-eval-after-load 'imenu-list
+  (add-to-list 'display-buffer-alist
+               '("\\*Ilist\\*"
+                 (imenu-list-display-buffer)
+                 (window-parameters . ((no-delete-other-windows . t)
+                                       (no-other-window . t))))))
 
 ;;; Eww image slice
 (require 'init-image-slicing)
