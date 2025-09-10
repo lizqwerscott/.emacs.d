@@ -24,6 +24,8 @@
 
 ;;; Code:
 
+(require 'nerd-icons)
+
 (defvar *start-banner* (propertize ";;     *
 ;;      May the Code be with You!
 ;;     .                                 .
