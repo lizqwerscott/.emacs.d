@@ -1,3 +1,7 @@
+;;; init-spell.el --- spell                          -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
 (require 'wucuo)
 ;; (setq wucuo-flyspell-start-mode "normal")
 (setq ispell-program-name "aspell")
@@ -8,22 +12,23 @@
 (setq wucuo-spell-check-buffer-predicate
       (lambda ()
         (not (memq major-mode
-                 '(dired-mode
-                   log-edit-mode
-                   compilation-mode
-                   help-mode
-                   profiler-report-mode
-                   speedbar-mode
-                   gud-mode
-                   calc-mode
-                   Info-mode)))))
+                   '(dired-mode
+                     log-edit-mode
+                     compilation-mode
+                     help-mode
+                     profiler-report-mode
+                     speedbar-mode
+                     gud-mode
+                     calc-mode
+                     Info-mode)))))
 
 (add-hooks '(prog-mode text-mode)
            #'(lambda ()
                (wucuo-start)))
 
-(keymap-global-set "C-M-$" #'ispell-word)
-(keymap-global-set "s-$" #'ispell-word)
+(global-set-keys
+ '(("C-M-$" . ispell-word)
+   ("s-$" . ispell-word)))
 
 (provide 'init-spell)
 ;;; init-spell.el ends here.

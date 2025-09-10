@@ -18,5 +18,8 @@
    ("C-c d s" . sdcv-search-pointer+)
    ("C-c d e" . ("Translate to english" . gptel-translate-to-english-insert))))
 
+;;; spell
+(require 'init-spell)
+
 (provide 'init-language)
 ;;; init-language.el ends here
