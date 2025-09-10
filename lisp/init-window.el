@@ -1,3 +1,6 @@
+;;; init-window.el --- init window                   -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
 
 ;;; ace window
 (require 'ace-window)
@@ -55,6 +58,7 @@
 
 ;;; window rule
 (defun my-window-select-fit-size (window)
+  "My Auto fit WINDOW size."
   (select-window window)
   (fit-window-to-buffer window
                         (floor (frame-height) 3)
@@ -191,8 +195,8 @@
     "Close popper window via `C-g'."
     ;; `C-g' can deactivate region
     (when (and (called-interactively-p 'interactive)
-             (not (region-active-p))
-             popper-open-popup-alist)
+               (not (region-active-p))
+               popper-open-popup-alist)
       (let ((window (caar popper-open-popup-alist)))
         (when (window-live-p window)
           (delete-window window)))))
@@ -202,3 +206,4 @@
           #'popper-echo-mode)
 
 (provide 'init-window)
+;;; init-window.el ends here
