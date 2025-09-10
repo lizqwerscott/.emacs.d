@@ -2,8 +2,14 @@
 ;;; Commentary:
 ;;; Code:
 
+(defun eval-buffer-and-message ()
+  "Eval elisp buffer and message finish."
+  (interactive)
+  (eval-buffer)
+  (message "Eval buffer finish!"))
+
 (keymap-sets emacs-lisp-mode-map
-  '(("C-c r" . eval-buffer)))
+  '(("C-c r" . eval-buffer-and-message)))
 
 (keymap-sets (emacs-lisp-mode-map lisp-interaction-mode-map)
   '(("C-c C-p" . ielm)))
