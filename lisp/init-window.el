@@ -34,8 +34,8 @@
    "Split"
    (("3" split-window-right "horizontally")
     ("2" split-window-below "vertically")
-    ("t" rotate-window-layout-clockwise "Clockwise Rotate")
-    ("T" rotate-window-layout-counterclockwise "Counterclockwise Rotate"))
+    ("t" rotate-windows "Clockwise Rotate")
+    ("T" rotate-windows-back "Counterclockwise Rotate"))
    "Zoom"
    (("+" text-scale-increase "in")
     ("=" text-scale-increase "in")
