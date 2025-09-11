@@ -252,8 +252,5 @@ prepended to the element after the #+HEADER: tag."
 
 (require 'init-org-reveal)
 
-(global-set-keys
- '(("s-v" . org-media-note-show-interface)))
-
 (provide 'init-org)
 ;;; init-org.el ends here.
