@@ -1,5 +1,8 @@
+;;; init-org-roam.el --- org roam                    -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
 (setq org-roam-directory (file-truename "~/Documents/Org/roam/"))
-(org-roam-db-autosync-mode)
 
 (require 'find-lisp)
 (setq org-id-extra-files (find-lisp-find-files org-roam-directory "\.org$"))
@@ -16,6 +19,9 @@
          :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
          :unnarrowed t)))
 
+(with-eval-after-load 'org-roam
+  (org-roam-db-autosync-enable))
+
 (global-set-keys
  '(("C-c n l" . org-roam-buffer-toggle)
    ("C-c n f" . org-roam-node-find)
@@ -27,3 +33,4 @@
    ("C-c n u" . org-roam-ui-mode)))
 
 (provide 'init-org-roam)
+;;; init-org-roam.el ends here
