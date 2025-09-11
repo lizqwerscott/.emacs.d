@@ -35,8 +35,7 @@
             #'(lambda ()
                 (display-time-mode)
                 (when doom-modeline-battery
-                  (display-battery-mode))
-                (org-count-words-mode)))
+                  (display-battery-mode))))
   (add-hook 'org-mode-hook
             'org-count-words-mode))
 
