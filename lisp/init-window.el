@@ -50,6 +50,10 @@
 
 (add-to-list 'aw-dispatch-alist '(?w hydra-window/body) t)
 
+(global-set-keys
+ '((("s-o" "M-o") . ace-window)
+   ("C-c w" . hydra-window/body)))
+
 ;;; winner mode
 (winner-mode 1)
 (keymap-sets winner-mode-map

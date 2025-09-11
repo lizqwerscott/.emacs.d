@@ -15,7 +15,6 @@
 ;; (require 'init-auto-save)
 (require 'init-super-save)
 
-(require 'init-key)
 (require 'init-hydra)
 (require 'init-transient)
 (require 'init-meow)
@@ -38,6 +37,7 @@
 (require 'init-ibuffer)
 (require 'init-helpful)
 (require 'init-calender)
+(require 'init-tools)
 
 (require 'init-org)
 ;; (require 'init-hugo)

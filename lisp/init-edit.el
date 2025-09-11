@@ -150,5 +150,45 @@
   ((emacs-lisp-mode lisp-mode)
    (symbol "when-let" "if-let")))
 
+;;; bufferfile
+(keymap-unset ctl-x-map "b")
+(lazy-load-global-keys
+ '(("C-x b r" . bufferfile-rename)
+   ("C-x b k" . bufferfile-delete)
+   ("C-x K" . bufferfile-delete))
+ "init-bufferfile")
+
+;;; rg
+(lazy-load-global-keys
+ '(("M-s s" . rg-dwim)
+   ("M-s R" . rg-menu)
+   ("M-s r" . rg)
+   ("M-s t" . rg-literal)
+   ("M-s p" . rg-project))
+ "init-rg")
+
+;;; symbol overlay
+(lazy-load-global-keys
+ '(("M-i" . symbol-overlay-put)
+   ("s-i" . symbol-overlay-put))
+ "symbol-overlay")
+
+(keymap-unset ctl-x-map "C-k")
+
+(global-set-keys
+ '(("RET" . newline-and-indent)
+   ("S-<return>" . comment-indent-new-line)
+   (("s-n" "M-n") . scroll-up-1/3)
+   (("s-p" "M-p") . scroll-down-1/3)
+   (("M-N" "s-N") . scroll-other-window-up-1/3)
+   (("M-P" "s-P") . scroll-other-window-down-1/3)
+
+   ("M-g p" . goto-percent)
+
+   ("C-s-f" . forward-sexp)
+   ("C-s-b" . backward-sexp)
+
+   ("C-x b g" . revert-buffer-quick)))
+
 (provide 'init-edit)
 ;;; init-edit.el ends here.

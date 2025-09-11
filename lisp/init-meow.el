@@ -106,28 +106,8 @@
       (popper--delete-popup (selected-window))
     (meow-quit)))
 
-;; meow while translate i into TAB
-(keymap-unset goto-map "TAB")
 (keymap-sets goto-map
-  '(("f" . find-file-at-point)
-    ("p" . goto-percent)
-    ("l" . consult-goto-line)
-    ("o" . consult-outline)
-    ("m" . consult-mark)
-    ("k" . consult-global-mark)
-    ("e" . consult-compile-error)
-    ("i" . consult-imenu)
-    ("I" . consult-imenu-multi)
-    ("b" . consult-bookmark)))
-
-(keymap-sets search-map
-  '(("l" . consult-line)
-    ("L" . consult-line-multi)
-    ("u" . consult-isearch-history)
-    ("f" . ("Search file" . consult-fd))
-    ("d" . ("Search dir" . consult-fd-dir))))
-
-(defalias 'search-map search-map)
+  '(("f" . find-file-at-point)))
 
 (defvar-keymap find-map
   :doc "Keymap for find commands."
@@ -147,13 +127,8 @@
    '("F" . find-file-other-window))
 
   (meow-leader-define-key
-   '("b" . consult-buffer)
-   '("B" . consult-buffer-other-window))
-
-  (meow-leader-define-key
-   '("w" . hydra-window/body)
    '("T" . hydra-toggles/body)
-   (cons "s" '("Search" . search-map)))
+   '("s" . "M-s"))
 
   (lazy-meow-leader-define-key
    '(("p" . project-dispatch) "init-project"))

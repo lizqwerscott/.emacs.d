@@ -154,8 +154,18 @@ ARGS is ORIG-FN args."
 (advice-add #'previous-error-no-select :around #'not-split-window)
 (advice-add #'compile-goto-error :around #'not-split-window)
 
+(with-eval-after-load 'compile
+  (keymap-sets compilation-mode-map
+    '(("s-n" . compilation-next-error)
+      ("s-p" . compilation-previous-error))))
+
 ;;; eat
 (require 'init-eat)
+
+;;; vterm
+(with-eval-after-load 'vterm
+  (keymap-sets vterm-mode-map
+    '(("C-y" . vterm-yank))))
 
 ;;; lisp
 (add-hook 'before-save-hook
