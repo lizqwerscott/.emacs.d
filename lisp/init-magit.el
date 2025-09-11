@@ -90,3 +90,4 @@ command was called, go to its unstaged changes section."
   (unpackaged/open-magit-status #'magit-project-status))
 
 (provide 'init-magit)
+;;; init-magit.el ends here
