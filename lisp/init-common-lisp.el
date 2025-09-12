@@ -49,7 +49,9 @@ Nominally unique, but not enforced."
     ("M-g d" . sly-edit-definition)
     ("M-g D" . sly-edit-definition-other-window)
     ("M-g u" . sly-who-calls)
-    ("C-o" . sly-pop-find-definition-stack)))
+    ("C-o" . sly-pop-find-definition-stack)
+
+    ("C-h ?" . sly-documentation)))
 
 (add-hook 'sly-mode-hook
           #'(lambda ()

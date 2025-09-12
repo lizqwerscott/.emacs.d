@@ -126,6 +126,8 @@
     ("M-g u" . lsp-bridge-find-impl)
     ("M-g U" . lsp-bridge-find-impl-other-window)
 
+    ("C-h ?" . lsp-bridge-popup-documentation)
+
     ("C-o" . return-find-def)))
 
 (provide 'init-lsp-bridge)

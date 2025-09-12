@@ -85,5 +85,14 @@ not added."
               (cons-to-list-s (cdr c)))
       c)))
 
+(defun match-in (pred lst)
+  "Check if any element in LST satisfies the predicate PRED.
+
+Returns t if any element satisfies PRED, nil otherwise."
+  (catch 'found
+    (dolist (x lst)
+      (when (funcall pred x)
+        (throw 'found t)))))
+
 (provide 'lib-elisp-utils)
 ;;; lib-elisp-utils.el ends here

@@ -98,7 +98,11 @@
     ;;           #'eldoc-box-hover-at-point-mode)
 
     (setf (alist-get 'left-fringe eldoc-box-frame-parameters) 8
-          (alist-get 'right-fringe eldoc-box-frame-parameters) 8)))
+          (alist-get 'right-fringe eldoc-box-frame-parameters) 8)
+
+    (when (equal user/lsp-client 'eglot)
+      (global-set-keys
+       '(("C-h ?" . eldoc-box-help-at-point))))))
 
 ;;; devdocs
 (global-set-keys

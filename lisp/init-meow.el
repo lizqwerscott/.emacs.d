@@ -31,12 +31,23 @@
 (require 'mark-comment)
 (meow-thing-register 'comment #'mark-comment-inner-of-comment #'mark-comment-inner-of-comment)
 
-(setq wrap-keymap (let ((map (make-keymap)))
-                    (suppress-keymap map)
-                    (dolist (k '("(" "[" "{" "<"))
-                      (define-key map k #'insert-pair))
-                    map)
-      meow-char-thing-table '((?\( . round)
+(defvar-keymap find-map
+  :doc "Keymap for find commands."
+  "c" #'find-custom-file
+  "l" #'find-library
+  "v" #'find-variable)
+
+(defvar wrap-keymap
+  (let ((map (make-keymap)))
+    (suppress-keymap map)
+    (dolist (k '("(" "[" "{" "<"))
+      (define-key map k #'insert-pair))
+    map)
+  "Keymap for wrap.")
+
+(meow-normal-define-key (cons "\\" wrap-keymap))
+
+(setq meow-char-thing-table '((?\( . round)
                               (?\) . round)
                               (?\g .  string)
                               (?\[ . square)
@@ -53,49 +64,9 @@
                               (?p  . paragraph)
                               (?u . url)
                               (?c . comment)))
-(meow-normal-define-key (cons "\\" wrap-keymap))
-
-(defun lazy-meow-leader-define-key (&rest keybinds)
-  (let* ((meow-leader-keybinds))
-    (dolist (ele  keybinds)
-      (let ((func (cdar ele))
-            (key (caar ele))
-            (filename (cadr ele)))
-        (autoload func filename nil t)
-        (meow-define-keys 'leader (cons key func))))))
-
-(defun lazy-meow-insert-define-key (&rest keybinds)
-  (let* ((meow-insert-keybinds))
-    (dolist (ele  keybinds)
-      (let ((func (cdar ele))
-            (key (caar ele))
-            (filename (cadr ele)))
-        (autoload func filename nil t)
-        (meow-define-keys 'insert (cons key func))))))
-
-(defun help-helpful-lsp-sly ()
-  "Help function with lsp and sly info."
-  (interactive)
-  (if (bound-and-true-p sly-mode)
-      (call-interactively #'sly-documentation)
-    (if (or (equal major-mode 'emacs-lisp-mode)
-            (equal major-mode 'lisp-interaction-mode))
-        (helpful-at-point)
-      (pcase user/lsp-client
-        ('eglot
-         (eldoc-box-help-at-point))
-        ('lsp-bridge
-         (if (bound-and-true-p lsp-bridge-mode)
-             (lsp-bridge-popup-documentation)
-           (message "dont't know how to help")))))))
-
-(defun match-in (pred lst)
-  (catch 'found
-    (dolist (x lst)
-      (when (funcall pred x)
-        (throw 'found t)))))
 
 (defun my/meow-quit ()
+  "Meow quit."
   (interactive)
   (if (match-in #'(lambda (regex)
                     (buffer-match-p (if (symbolp regex)
@@ -117,7 +88,12 @@
 
 (defalias 'find-map find-map)
 
+(lazy-load-global-keys
+ '(("C-c p" . project-dispatch))
+ "init-project")
+
 (defun meow-setup ()
+  "Meow keymap setup."
   (meow-leader-define-key
    '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet))
@@ -129,9 +105,6 @@
   (meow-leader-define-key
    '("T" . hydra-toggles/body)
    '("s" . "M-s"))
-
-  (lazy-meow-leader-define-key
-   '(("p" . project-dispatch) "init-project"))
 
   (meow-leader-define-key
    '("1" . delete-other-windows)
@@ -209,7 +182,7 @@
   (meow-normal-define-key
    '("C-;" . grugru)
    '("Q" . kill-buffer-and-window)
-   '("?" . help-helpful-lsp-sly)
+   '("?" . "C-h ?")
    '("/" . consult-ripgrep)))
 
 (meow-vterm-enable)
@@ -222,6 +195,7 @@
 ;; (require 'meow-tree-sitter)
 ;; (meow-tree-sitter-register-defaults)
 
+(require 'repeat-fu)
 (setq repeat-fu-preset 'meow)
 (add-hook 'meow-mode-hook
           #'(lambda ()
