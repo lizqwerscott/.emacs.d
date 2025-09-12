@@ -90,5 +90,41 @@ For example, (goto-percent 50) moves to the middle of the buffer."
     (subword-mode)
     (message "开启 sub-word-mode")))
 
+(defun remember-init ()
+  "Remember current position and setup."
+  (interactive)
+  (point-to-register 8)
+  (message "Have remember one position"))
+
+(defun remember-jump ()
+  "Jump to latest position and setup."
+  (interactive)
+  (let ((tmp (point-marker)))
+    (jump-to-register 8)
+    (set-register 8 tmp))
+  (message "Have back to remember position"))
+
+(defun get-file-path ()
+  "Get file path."
+  (if (equal major-mode 'dired-mode)
+      default-directory
+    (buffer-file-name)))
+
+(defun +lizqwer/copy-file-name-to-clipboard ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (car (last (file-name-split (get-file-path))))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+
+(defun +lizqwer/copy-file-path-to-clipboard ()
+  "Copy the current buffer file path to the clipboard."
+  (interactive)
+  (let ((filepath (get-file-path)))
+    (when filepath
+      (kill-new filepath)
+      (message "Copied buffer file path '%s' to the clipboard." filepath))))
+
 (provide 'lib-edit)
 ;;; lib-edit.el ends here

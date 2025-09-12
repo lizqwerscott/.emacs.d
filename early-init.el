@@ -27,8 +27,6 @@
                (expand-file-name
                 (concat user-emacs-directory "lib")))
   ;; (setq toggle-debug-on-error t)
-  (require 'init-utils)
-
   (setq custom-file (locate-user-emacs-file "custom.el"))
 
   (require 'init-const)

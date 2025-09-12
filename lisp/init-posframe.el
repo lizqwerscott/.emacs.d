@@ -33,6 +33,10 @@
   "Default posframe border width.")
 
 (defun posframe-poshandler-frame-center-near-bottom (info)
+  "Position a posframe near the bottom center of the parent frame.
+
+INFO is a plist containing information about the parent frame and posframe.
+Returns a cons cell (X . Y) representing the position coordinates."
   (cons (/ (- (plist-get info :parent-frame-width)
               (plist-get info :posframe-width))
            2)

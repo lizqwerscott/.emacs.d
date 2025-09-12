@@ -55,6 +55,14 @@
 
 (setq consult-buffer-list-function #'buffer-list-filter)
 
+(defun consult-fd-dir ()
+  "Consult fd dir."
+  (interactive)
+  (let ((consult-fd-args (append consult-fd-args
+                                 (list
+                                  "--type directory"))))
+    (consult-fd "~/")))
+
 ;; meow while translate i into TAB
 (keymap-unset goto-map "TAB")
 

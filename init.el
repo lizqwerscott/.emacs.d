@@ -5,6 +5,9 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+(require 'lib-elisp-utils)
+(require 'lib-utils)
+
 (require 'init-packages)
 
 (require 'init-startup)
@@ -18,8 +21,6 @@
 (require 'init-hydra)
 (require 'init-transient)
 (require 'init-meow)
-
-(require 'init-func)
 
 (require 'init-ui)
 

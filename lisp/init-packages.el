@@ -42,6 +42,7 @@
 (elpaca `(,@elpaca-order))
 
 (defun packages! (packages)
+  "Install PACKAGES."
   (dolist (package packages)
     (elpaca--expand-declaration package 'nil)))
 

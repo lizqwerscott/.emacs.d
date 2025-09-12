@@ -190,5 +190,10 @@
 
    ("C-x b g" . revert-buffer-quick)))
 
+(with-eval-after-load 'init-meow
+  (meow-normal-define-key
+   '("<" . remember-init)
+   '(">" . remember-jump)))
+
 (provide 'init-edit)
 ;;; init-edit.el ends here.
