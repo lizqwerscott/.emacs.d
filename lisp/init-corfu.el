@@ -25,6 +25,7 @@
 ;;; Code:
 
 (defun +complete ()
+  "TAB complete."
   (interactive)
   (or ;; (tempel-complete t)
    (yas-expand)
@@ -86,6 +87,7 @@
 (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-nonexclusive)
 
 (defun my/eglot-capf-with-dabbrev ()
+  "Setup up eglot capf with dabbrev."
   (setq-local completion-at-point-functions
               `(cape-file
                 ,@(when citre-mode
@@ -99,6 +101,7 @@
               cape-dabbrev-min-length 5))
 
 (defun my/eglot-capf ()
+  "Setup up eglot capf."
   (setq-local completion-at-point-functions
               `(cape-file
                 ,@(when citre-mode
@@ -108,10 +111,14 @@
 (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)
 
 (defun my/ignore-elisp-keywords (cand)
+  "Capf ignore elisp keywords.
+
+CAND is candidate."
   (or (not (keywordp cand))
       (eq (char-after (car completion-in-region--data)) ?:)))
 
-(defun my/setup-elisp ()
+(defun my/elisp-capf ()
+  "Setup up elisp capf."
   (setq-local completion-at-point-functions
               `(,(cape-capf-super
                   (cape-capf-predicate
@@ -120,7 +127,7 @@
                   #'cape-dabbrev)
                 cape-file)
               cape-dabbrev-min-length 5))
-(add-hook 'emacs-lisp-mode-hook #'my/setup-elisp)
+(add-hook 'emacs-lisp-mode-hook #'my/elisp-capf)
 
 ;;; nerd icons corfu
 (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
