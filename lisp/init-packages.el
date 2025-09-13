@@ -46,6 +46,13 @@
   (dolist (package packages)
     (elpaca--expand-declaration package 'nil)))
 
+(defun wait-packages! (packages)
+  "Wait install PACKAGES."
+  (packages! packages)
+  (elpaca-process-queues)
+
+  (elpaca-wait))
+
 (defvar *package-early-install-list*
   '(no-littering
     exec-path-from-shell
@@ -195,8 +202,6 @@
     ligature
     dashboard
     doom-modeline
-    ;; (punch-line :fetcher github :repo "konrad1977/punch-line"
-    ;;             :remotes ("fork" :repo "lizqwerscott/punch-line" :protocol ssh))
     bufferfile
     lisp-extra-font-lock
     highlight-function-calls
@@ -275,50 +280,9 @@
             '((aidermacs :fetcher github
                          :repo "MatthewZMD/aidermacs")))))
 
-(defvar *package-python-install-list*
-  '(conda
-    pyvenv))
-
-(defvar *package-haskell-install-list*
-  '(haskell-mode))
-
-(defvar *package-web-install-list*
-  '(web-mode
-    pnpm-mode))
-
-(defvar *package-common-lisp-install-list*
-  '(common-lisp-snippets
-    sly
-    sly-quicklisp
-    sly-asdf))
-
-(defvar *package-scheme-install-list*
-  '(geiser
-    geiser-guile))
-
-(defvar *package-rust-install-list*
-  '(rust-mode
-    cargo))
-
-(defvar *package-go-install-list*
-  '(go-mode))
-
-(defvar *package-zig-install-list*
-  '(zig-ts-mode))
-
-(defvar *package-sql-install-list*
-  '(sql-indent))
-
-(defvar *package-java-install-list*
-  '(groovy-mode))
-
-(defvar *package-godot-install-list*
-  '(gdscript-mode))
-
 (defvar *package-another-install-list*
   '(elfeed
     code-stats
-    ;; tabspaces
     docker
     (screenshot :fetcher github :repo "tecosaur/screenshot")
     (telega-url-shorten-nerd :fetcher github
@@ -349,39 +313,6 @@
          *package-language-install-list*
          *package-org-install-list*
          *package-ai-install-list*
-
-         (when user/python
-           *package-python-install-list*)
-
-         (when user/haskell
-           *package-haskell-install-list*)
-
-         (when user/web
-           *package-web-install-list*)
-
-         (when user/common-lisp
-           *package-common-lisp-install-list*)
-
-         (when user/scheme
-           *package-scheme-install-list*)
-
-         (when user/rust
-           *package-rust-install-list*)
-
-         (when user/golang
-           *package-go-install-list*)
-
-         (when user/zig
-           *package-zig-install-list*)
-
-         (when user/sql
-           *package-sql-install-list*)
-
-         (when user/java
-           *package-java-install-list*)
-
-         (when user/godot
-           *package-godot-install-list*)
 
          *package-another-install-list*))
 

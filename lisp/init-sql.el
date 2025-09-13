@@ -1,11 +1,8 @@
 ;;; init-sql.el --- some sql packages                -*- lexical-binding: t; -*-
-
-;; Copyright (C) 2023  lizqwer scott
-
-;; Author: lizqwer scott <lizqwerscott@gmail.com>
-
 ;;; Commentary:
 ;;; Code:
+
+(wait-packages! '(sql-indent))
 
 (add-hook 'sql-mode-hook
           #'sqlind-minor-mode)

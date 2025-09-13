@@ -57,30 +57,8 @@
     ("C-c j R" . eglot-restart)
     ("C-c j a" . eglot-code-actions)
     ("C-c j s" . consult-eglot-symbols)
-    
+
     ("M-g u" . eglot-find-implementation)))
-
-;;; for language
-;; Python
-(defun random-hex-string (n)
-  "Generate random N len hex string."
-  (let ((str ""))
-    (dotimes (_ n str)
-      (setq str (format "%s%02x" str (random 256))))))
-
-(add-to-list 'eglot-server-programs
-             `((python-mode python-ts-mode) . ,(lambda (_interactive _project)
-                                                 (list "basedpyright-langserver"
-                                                       "--stdio"
-                                                       (format "--cancellationReceive=file:%s"
-                                                               (random-hex-string 21))))))
-
-(setq-default eglot-workspace-configuration
-              '(:basedpyright (:typeCheckingMode "basic")))
-
-;; c++
-(add-to-list 'eglot-server-programs
-             `((c-mode c-ts-mode c++-mode c++-ts-mode objc-mode) . ("clangd" "--all-scopes-completion" "--clang-tidy" "--enable-config" "--header-insertion-decorators=0")))
 
 (add-hook 'prog-mode-hook
           #'(lambda ()

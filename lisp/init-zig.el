@@ -2,6 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
+(wait-packages! '(zig-ts-mode))
+
+(add-to-list 'auto-mode-alist '("\\.zig\\'" . zig-ts-mode))
+
 (defun run-zig-project ()
   "Run zig project."
   (interactive)

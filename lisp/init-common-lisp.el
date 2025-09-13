@@ -1,3 +1,12 @@
+;;; init-common-lisp.el --- config common lisp       -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
+(wait-packages! '(common-lisp-snippets
+                  sly
+                  sly-quicklisp
+                  sly-asdf))
+
 ;; (require 'sly)
 (require 'sly-quicklisp)
 ;; (require 'sly-asdf)
@@ -59,3 +68,4 @@ Nominally unique, but not enforced."
                 (save-excursion (sly)))))
 
 (provide 'init-common-lisp)
+;;; init-common-lisp.el ends here

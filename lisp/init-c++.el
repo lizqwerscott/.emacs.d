@@ -17,6 +17,10 @@
           #'(lambda ()
               (c-toggle-auto-hungry-state)))
 
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               `((c-mode c-ts-mode c++-mode c++-ts-mode objc-mode) . ("clangd" "--all-scopes-completion" "--clang-tidy" "--enable-config" "--header-insertion-decorators=0"))))
+
 (with-eval-after-load 'cc-mode
   (autoload #'insert-trailing-semi-and-indent "insert-trailing-semi" nil t)
   (keymap-sets (c-mode-map c++-mode-map)

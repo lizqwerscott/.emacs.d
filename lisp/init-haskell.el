@@ -1,3 +1,8 @@
+;;; init-haskell.el --- config haskell package       -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
+(wait-packages! '(haskell-mode))
 
 (add-hook 'haskell-mode-hook
           #'interactive-haskell-mode)
@@ -20,3 +25,4 @@
       ("C-c C-p" . run-haskell))))
 
 (provide 'init-haskell)
+;;; init-haskell.el ends here

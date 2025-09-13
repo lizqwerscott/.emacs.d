@@ -25,8 +25,7 @@
                     (go-mode . go-ts-mode)
                     (csharp-mode . csharp-ts-mode)
                     (conf-toml-mode . toml-ts-mode)
-                    (js-json-mode . json-ts-mode)
-                    (zig-mode . zig-ts-mode)))
+                    (js-json-mode . json-ts-mode)))
 
 ;;; format
 (lazy-load-global-keys
@@ -185,35 +184,11 @@ ARGS is ORIG-FN args."
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-ts-mode))
-(when user/java
-  (add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode)))
 
 (add-hook 'json-mode-hook #'(lambda () (treesit-parser-create 'json)))
 (add-hook 'sh-mode-hook #'(lambda () (treesit-parser-create 'bash)))
 
 (require 'init-elisp)
-(when user/python
-  (require 'init-python))
-(when user/haskell
-  (require 'init-haskell))
-(when user/c++
-  (require 'init-c++))
-(when user/web
-  (require 'init-web))
-(when user/common-lisp
-  (require 'init-common-lisp))
-(when user/scheme
-  (require 'init-scheme))
-(when user/rust
-  (require 'init-rust))
-(when user/golang
-  (require 'init-go))
-(when user/zig
-  (require 'init-zig))
-(when user/sql
-  (require 'init-sql))
-(when user/godot
-  (require 'init-godot))
 
 (provide 'init-program)
 ;;; init-program.el ends heres.

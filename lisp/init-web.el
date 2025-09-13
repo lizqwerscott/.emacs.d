@@ -1,13 +1,9 @@
 ;;; init-web.el --- init web package                 -*- lexical-binding: t; -*-
-
-;; Copyright (C) 2022
-
-;; Author:  <lizqwerscott@gmail.com>
-
 ;;; Commentary:
-
-
 ;;; Code:
+
+(wait-packages! '(web-mode
+                  pnpm-mode))
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
@@ -30,13 +26,6 @@
               '(("\\(function\\) \\(.*\)\\)" 1 2 " > ")
                 ("\\(const\\) \\(.*\\)" 1 2 " ")
                 ("<\\(.*\\) ?\\(.*\\)>" 1 2 " "))))
-;; (pnpm-global-mode)
-
-;;; Json
-;; (use-package jsonian
-;;   :ensure t
-;;   :diminish t
-;;   :defer 2)
 
 ;;; typescript and react
 ;; (use-package typescript-mode

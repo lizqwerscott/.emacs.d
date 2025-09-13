@@ -1,3 +1,8 @@
+;;; init-rust.el --- rust config                     -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
+(wait-packages! '(rust-mode cargo))
 
 (add-hook #'rust-ts-mode-hook
           #'(lambda ()

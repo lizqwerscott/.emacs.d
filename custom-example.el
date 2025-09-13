@@ -4,6 +4,57 @@
 ;;;       Put your own configurations in custom-post.el to override default configurations.
 ;;; Code:
 
+
+;;; custom var default value
+(setq user/show-modeline t
+      user/dashboard t
+      user/logo (file-truename
+                 (concat user-emacs-directory
+                         "logos/gnu_color.xpm"))
+      user/day-theme 'modus-operandi-tinted
+      user/night-theme 'doom-dracula
+      user/start-fullscreen t
+      user/start-transparent nil
+      user/run-python-command "python"
+      user/completion-preview-mode-use nil
+      user/telega-start nil
+
+      user/java-lsp nil
+
+      user/ai-completion nil
+      user/aider nil
+
+      user/font-mac-size 230
+      user/font-win-size 110
+      user/font-linux-size 190
+      user/ligature nil
+      user/lsp-client 'eglot
+      user/flyoverp nil
+      user/dirvish t
+      )
+
+;;; use program language
+(add-hook 'after-init-hook
+          (lambda ()
+
+            (require 'init-c++)
+            (require 'init-python)
+
+            (require 'init-common-lisp)
+            ;; (require 'init-scheme)
+
+            ;; (require 'init-web)
+            ;; (require 'init-haskell)
+            ;; (require 'init-rust)
+            ;; (require 'init-go)
+            ;; (require 'init-zig)
+            ;; (require 'init-sql)
+            ;; (require 'init-java)
+
+            ;; (require 'init-godot)
+
+            ))
+
 (custom-set-variables
  )
 
