@@ -10,7 +10,7 @@
 ;;; Highlight matching parens
 (require 'paren)
 (setq show-paren-when-point-inside-paren t
-      show-paren-when-point-in-periphery t
+      show-paren-when-point-in-periphery nil
       show-paren-delay 0.2)
 (setq show-paren-style 'parenthesis
       show-paren-context-when-offscreen 'overlay)
@@ -20,8 +20,8 @@
 
 ;;; highlight parentheses
 (require 'highlight-parentheses)
-(setq highlight-parentheses-colors '("firebrick1" "firebrick3" "orange1" "orange3")
-      highlight-parentheses-attributes '((:underline t) (:underline t) (:underline t))
+(setq highlight-parentheses-colors '("firebrick1" "IndianRed1" "orange1" "orange3")
+      highlight-parentheses-attributes '((:underline t :weight bold))
       highlight-parentheses-delay 0.2)
 
 (add-hook 'minibuffer-setup-hook
