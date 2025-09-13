@@ -1,9 +1,9 @@
-;;; dired-menu.el --- dired menu                     -*- lexical-binding: t; -*-
+;;; lib-transient.el --- transient utils             -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2025  lizqwer scott
 
 ;; Author: lizqwer scott <lizqwerscott@gmail.com>
-;; Keywords: tools
+;; Keywords: lisp
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@
 ;;; Code:
 
 (require 'transient)
-(require 'casual-dired)
 
 (defun transient-show--variable-to-checkbox (v)
   "Checkbox string representation of variable V.
@@ -40,28 +39,22 @@ V is either nil or non-nil."
   "Checkbox label using variable V and LABEL."
   (transient-show--prefix-label label (transient-show--variable-to-checkbox v)))
 
-;;;###autoload
-(transient-define-prefix dired-dispatch ()
-  "Dired dispatch menu"
-  [["Directory"
-    ("h" "Hide Details" dired-hide-details-mode
-     :description
-     (lambda ()
-       (transient-show-checkbox-label dired-hide-details-mode "Hide Details")))
-    ("o" "Omit Mode" dired-omit-mode
-     :description
-     (lambda () (transient-show-checkbox-label dired-omit-mode "Omit Mode")))]
-   ["Sort By"
-    ("n" "Name" casual-dired--sort-by-name :transient t)
-    ("k" "Kind" casual-dired--sort-by-kind :transient t)
-    ("l" "Date Last Opened" casual-dired--sort-by-date-last-opened
-     :transient t)
-    ("a" "Date Added" casual-dired--sort-by-date-added :transient t)
-    ("m" "Date Modified" casual-dired--sort-by-date-modified :transient t)
-    ("M" "Date Metadata Changed" casual-dired--sort-by-date-metadata-changed
-     :transient t)
-    ("s" "Size" casual-dired--sort-by-size :transient t)]]
-  [("q" "Quit" transient-quit-all)])
+(defclass transient-toggle (transient-suffix)
+  ((toggle :initarg :toggle :initform nil)))
 
-(provide 'dired-menu)
-;;; dired-menu.el ends here
+(cl-defmethod transient-format-description ((obj transient-toggle))
+  "Get `c/transient-toggle' description.
+
+OBJ is `c/transient-toggle' object."
+  (when-let* ((toggle (oref obj toggle))
+              (desc (oref obj description))
+              (command (oref obj command)))
+    (if (equal toggle 't)
+        (transient-show-checkbox-label (if (boundp command)
+                                           command
+                                         (funcall command))
+                                       desc)
+      (transient-show-checkbox-label (funcall toggle) desc))))
+
+(provide 'lib-transient)
+;;; lib-transient.el ends here
