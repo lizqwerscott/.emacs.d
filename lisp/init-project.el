@@ -31,20 +31,6 @@
 ;;; config
 (setq project-find-functions '(project-try-vc my/project-try-local))
 
-;;; Projection Type
-(defvar projection-project-type-python-uv
-  (projection-type
-   :name 'python-uv
-   :predicate (defun projection-python-uv-project-p ()
-                (and (file-exists-p "pyproject.toml")
-                     (file-exists-p "uv.lock")))
-   :build "uv build"
-   :run (defun projection-python-uv-project-run-command ()
-          (concat "uv run " (file-truename (buffer-file-name))))))
-
-(add-to-list 'projection-project-types projection-project-type-python-uv)
-
-
 ;;; project-prefix-map
 ;; (defalias 'project-prefix-map project-prefix-map)
 

@@ -6,6 +6,19 @@
 
 (add-to-list 'auto-mode-alist '("\\.zig\\'" . zig-ts-mode))
 
+;;; Projection
+(with-eval-after-load 'init-project
+  (defvar projection-project-type-zig
+    (projection-type
+     :name 'zig
+     :predicate (defun projection-zig-project-p ()
+                  (file-exists-p "build.zig"))
+     :build "zig build"
+     :run "zig build run"
+     :test "zig build test"))
+
+  (add-to-list 'projection-project-types projection-project-type-zig))
+
 (defun run-zig-project ()
   "Run zig project."
   (interactive)
