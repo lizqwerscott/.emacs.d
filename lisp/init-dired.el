@@ -96,17 +96,13 @@
 
 (require 'lib-transient)
 (require 'casual-dired)
+
 ;;; Menu
-(transient-define-prefix dired-dispatch ()
+(pretty-transient-define-prefix dired-dispatch ()
   "Dired dispatch menu"
   [["Directory"
-    ("h" "Hide Details" dired-hide-details-mode
-     :description
-     (lambda ()
-       (transient-show-checkbox-label dired-hide-details-mode "Hide Details")))
-    ("o" "Omit Mode" dired-omit-mode
-     :description
-     (lambda () (transient-show-checkbox-label dired-omit-mode "Omit Mode")))]
+    ("h" "Hide Details" dired-hide-details-mode :toggle t :transient t)
+    ("o" "Omit Mode" dired-omit-mode :toggle t :transient t)]
    ["Sort By"
     ("n" "Name" casual-dired--sort-by-name :transient t)
     ("k" "Kind" casual-dired--sort-by-kind :transient t)
