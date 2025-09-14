@@ -81,6 +81,10 @@ The completion candidates include the Git status of each file."
 		    	(when file-path
 		    	  (find-file (expand-file-name file-path expanded-root)))))))))))
 
+;;; vc
+(setq vc-handled-backends '(Git)
+      vc-follow-symlinks t)
+
 ;;; ediff
 (setq ediff-split-window-function 'split-window-horizontally
       ediff-window-setup-function 'ediff-setup-windows-plain)
