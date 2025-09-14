@@ -13,7 +13,8 @@
 
 (keymap-sets (emacs-lisp-mode-map lisp-interaction-mode-map)
   '(("C-c C-p" . ielm)
-    ("C-h ?" . helpful-at-point)))
+    ("C-h ?" . helpful-at-point)
+    ("C-c e" . macrostep-expand)))
 
 (add-hook 'lisp-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
 (add-hook 'emacs-lisp-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
