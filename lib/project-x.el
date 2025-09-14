@@ -213,7 +213,7 @@ directories listed in `vc-directory-exclusion-list'."
          (completion-ignore-case read-file-name-completion-ignore-case)
          (default-directory (project-root project))
          (file (project--read-file-name
-                project "Find file"
+                project "Find file with other window"
                 all-files nil 'file-name-history
                 suggested-filename)))
     (if (string= file "")
