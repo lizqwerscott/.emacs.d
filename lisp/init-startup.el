@@ -77,6 +77,8 @@
       track-eol t                     ; Keep cursor at end of lines. Require line-move-visual is nil.
       set-mark-command-repeat-pop t)
 
+(setq-default show-trailing-whitespace nil)
+
 ;; Prettify the process list
 (with-no-warnings
   (defun my-list-processes--prettify ()
