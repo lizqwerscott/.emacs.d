@@ -2,8 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(when (file-exists-p custom-file)
-  (load custom-file))
+(and (file-readable-p custom-file) (load custom-file))
 
 (require 'lib-elisp-utils)
 (require 'lib-utils)

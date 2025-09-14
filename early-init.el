@@ -27,9 +27,9 @@
                (expand-file-name
                 (concat user-emacs-directory "lib")))
   ;; (setq toggle-debug-on-error t)
-  (setq custom-file (locate-user-emacs-file "custom.el"))
 
   (require 'init-const)
+  (require 'init-custom)
 
   (when sys/macp
     (add-to-list 'default-frame-alist '(undecorated-round . t)))
