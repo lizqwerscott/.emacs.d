@@ -63,6 +63,38 @@
                                   "--type directory"))))
     (consult-fd "~/")))
 
+(defun consult-buffer-with-target (target &optional sources)
+  "Enhanced `switch-to-buffer' command with support for virtual buffers.
+
+TARGET is consult buffer target place.
+
+The command supports recent files, bookmarks, views and project files as
+virtual buffers.  Buffers are previewed.  Narrowing to buffers (b), files (f),
+bookmarks (m) and project files (p) is supported via the corresponding
+keys.  In order to determine the project-specific files and buffers, the
+`consult-project-function' is used.  The virtual buffer SOURCES
+default to `consult-buffer-sources'.  See `consult--multi' for the
+configuration of the virtual buffer sources."
+  (interactive)
+  (let ((selected (consult--multi (or sources consult-buffer-sources)
+                                  :require-match
+                                  (confirm-nonexistent-file-or-buffer)
+                                  :prompt (format "Switch to in other %s: "
+                                                  (if target
+                                                      (symbol-name target)
+                                                    ""))
+                                  :history 'consult--buffer-history
+                                  :sort nil)))
+    ;; For non-matching candidates, fall back to buffer creation.
+    (unless (plist-get (cdr selected) :match)
+      (consult--buffer-action (car selected)))))
+
+(defun consult-buffer-other-window ()
+  "Variant of `consult-buffer', switching to a buffer in another window."
+  (interactive)
+  (let ((consult--buffer-display #'switch-to-buffer-other-window))
+    (consult-buffer-with-target 'window)))
+
 ;; meow while translate i into TAB
 (keymap-unset goto-map "TAB")
 

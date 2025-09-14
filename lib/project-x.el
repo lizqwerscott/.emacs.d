@@ -254,7 +254,8 @@ buffer, are identical."
   "Open project buffer in other window."
   (interactive)
   (let ((consult--buffer-display #'switch-to-buffer-other-window))
-    (consult-project-buffer)))
+    (consult--with-project
+      (consult-buffer-with-target 'window consult-project-buffer-sources))))
 
 (defun project-edit-dir-local ()
   "Edit project root dir local."
