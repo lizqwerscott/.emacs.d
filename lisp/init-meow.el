@@ -103,7 +103,6 @@
    '("F" . find-file-other-window))
 
   (meow-leader-define-key
-   '("T" . hydra-toggles/body)
    '("s" . "M-s"))
 
   (meow-leader-define-key

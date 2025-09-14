@@ -24,100 +24,41 @@
 
 ;;; Code:
 
-(with-eval-after-load 'posframe
-  (defun hydra-set-posframe-show-params ()
-    "Set hydra-posframe style."
-    (setq hydra-posframe-show-params
-          `( :left-fringe 8
-             :right-fringe 8
-             :internal-border-width 2
-             :internal-border-color ,(face-background 'posframe-border nil t)
-             :background-color ,(face-background 'tooltip nil t)
-             :foreground-color ,(face-foreground 'tooltip nil t)
-             :lines-truncate t
-             :poshandler posframe-poshandler-frame-center-near-bottom)))
-  (hydra-set-posframe-show-params)
-
-  (defun start-posframe ()
-    (require 'hydra)
-    (setq hydra-hint-display-type
-          'posframe))
-
-  (defun stop-posframe ()
-    (require 'hydra)
-    (setq hydra-hint-display-type
-          'lv)
-    (posframe-delete-all)))
-
-(require 'pretty-hydra)
-
-(defun icons-displayable-p ()
-  "Return non-nil if icons are displayable."
-  (or (featurep 'nerd-icons)
-     (require 'nerd-icons nil t)))
-
-(cl-defun pretty-hydra-title (title &optional icon-type icon-name
-                                    &key face height v-adjust)
-  "Add an icon in the hydra title."
-  (let ((face (or face `(:inherit highlight :reverse-video t)))
-        (height (or height 1.2))
-        (v-adjust (or v-adjust 0.0)))
-    (concat
-     (when (and (icons-displayable-p) icon-type icon-name)
-       (let ((f (intern (format "nerd-icons-%s" icon-type))))
-         (when (fboundp f)
-           (concat
-            (apply f (list icon-name :face face :height height :v-adjust v-adjust))
-            " "))))
-     (propertize title 'face face))))
-
-(defun pretty-hydra-define-add-exit (head-plist)
-  (mapcar-if #'(lambda (head)
-                 (mapcar-if-not #'(lambda (key)
-                                    (append key
-                                            (list :exit t)))
-                                head
-                                #'(lambda (v)
-                                    (cl-find :exit v :test #'eq))))
-             head-plist
-             #'listp))
-
-;;;###autoload
-(defmacro pretty-hydra-define-e (name body head-plist)
-  (declare (indent 1) (debug (form def-body)))
-  `(progn
-     (pretty-hydra-define ,name ,body
-       ,(if (cl-getf body :all-exit)
-            (pretty-hydra-define-add-exit head-plist)
-          head-plist))
-     ,@(when (cl-getf body :posframe)
-         (let ((name (symbol-name name)))
-           `((advice-add #',(intern (concat name "/body")) :before #'start-posframe)
-             (advice-add #',(intern (concat name "/nil")) :after #'stop-posframe)) ))))
-
+(require 'lib-hydra)
 (pretty-hydra-define-e hydra-toggles
-  (:title (pretty-hydra-title "Toggles" 'faicon "nf-fa-toggle_on") :color amaranth :quit-key ("C-g" "q" "<escape>") :all-exit t)
+  (:title (pretty-hydra-title "Toggles" 'faicon "nf-fa-toggle_on") :color amaranth :quit-key ("C-g" "q" "<escape>"))
   ("Basic"
-   (("c" global-centered-cursor-mode "centered cursor" :toggle t)
-    ("l" interaction-log-mode "interactive log" :toggle t)
+   (("w" toggle-sub-word-or-super-word "sub or super word" :toggle (bound-and-true-p subword-mode))
+    ("e" electric-pair-mode "electric pair" :toggle t)
+    ("a" global-aggressive-indent-mode "aggressive indent" :toggle t)
+    ("c" global-centered-cursor-mode "centered cursor" :toggle t)
     ("i" immersive-translate-auto-mode "immersive translate" :toggle t)
     ("t" +lizqwer/toggle-telega "telega" :toggle (get-buffer "*Telega Root*")))
+   "Highlight"
+   (("h l" global-hl-line-mode "line" :toggle t)
+    ("h p" show-paren-mode "paren" :toggle t)
+    ("h s" symbol-overlay-mode "symbol" :toggle t)
+    ("h r" colorful-mode "colorful" :toggle t)
+    ("h w" (setq-default show-trailing-whitespace (not show-trailing-whitespace)) "whitespace" :toggle show-trailing-whitespace)
+    ("h d" rainbow-delimiters-mode "delimiter" :toggle t)
+    ("h i" indent-bars-mode "indent" :toggle t))
    "Ui"
-   (("n" (display-line-numbers-mode (if display-line-numbers-mode -1 1))
-     "line number"
-     :toggle (bound-and-true-p display-line-numbers-mode))
+   (("n" display-line-numbers-mode "line number" :toggle t)
     ("d" +lizqwer/toggle-dark-theme "dark theme" :toggle (cl-find user/night-theme custom-enabled-themes))
     ("T" +lizqwer/toggle-transparent "transparent" :toggle (not (eq (frame-parameter (selected-frame) 'alpha-background) 100)))
     ("r" redacted-mode "redacted" :toggle t)
     ("b" imenu-list-smart-toggle "imenu list" :toggle imenu-list-minor-mode)
     ("k" keycast-log-mode "keycast" :toggle t))
-   "Edit"
-   (("w" toggle-sub-word-or-super-word "sub or super word" :toggle (bound-and-true-p subword-mode))
-    ("e" electric-pair-mode "electric pair" :toggle t))
-   "Debug"
-   (("E" toggle-debug-on-error "debug on error" :toggle (bound-and-true-p debug-on-error)))
    "Program"
-   (("f" flycheck-mode "flycheck" :toggle t))))
+   (("f" flycheck-mode "flycheck" :toggle t)
+    ("v" global-diff-hl-mode "gutter" :toggle t)
+    ("M" diff-hl-margin-mode "margin gutter" :toggle t)
+    ("E" toggle-debug-on-error "debug on error" :toggle (default-value 'debug-on-error))
+    ("Q" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit)))))
+
+(global-set-keys
+ '(("C-c T" . hydra-toggles/body)
+   ("<f6>" . hydra-toggles/body)))
 
 (provide 'init-hydra)
 ;;; init-hydra.el ends here
