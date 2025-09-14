@@ -59,6 +59,7 @@
     ("w" "Sub or super word" toggle-sub-word-or-super-word
      :toggle (lambda () (bound-and-true-p subword-mode)) :transient t)
     ("e" "Electric pair" electric-pair-mode :toggle t :transient t)
+    ("s" "Auto save" super-save-mode :toggle t :transient t)
     ("a" "Aggressive indent" global-aggressive-indent-mode :toggle t :transient t)
     ("c" "Centered cursor" global-centered-cursor-mode :toggle t :transient t)
     ("i" "Immersive translate" immersive-translate-auto-mode :toggle t :transient t)

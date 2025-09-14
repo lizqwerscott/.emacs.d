@@ -30,6 +30,7 @@
   ("Basic"
    (("w" toggle-sub-word-or-super-word "sub or super word" :toggle (bound-and-true-p subword-mode))
     ("e" electric-pair-mode "electric pair" :toggle t)
+    ("s" super-save-mode "auto save" :toggle t)
     ("a" global-aggressive-indent-mode "aggressive indent" :toggle t)
     ("c" global-centered-cursor-mode "centered cursor" :toggle t)
     ("i" immersive-translate-auto-mode "immersive translate" :toggle t)
