@@ -112,7 +112,7 @@ order from parent to child directories."
 
 ;;; ui
 (eval-when-compile
-  (require 'init-const))
+  (require 'init-custom))
 
 (defun +lizqwer/load-theme (new-theme)
   "Disable now theme, and load NEW-THEME."
