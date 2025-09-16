@@ -163,6 +163,29 @@ configuration of the virtual buffer sources."
 (add-hook 'embark-collect-mode
           #'consult-preview-at-point-mode)
 
+(defun elpaca-browse-1 (item)
+  "Get elpac menu ITEM url."
+  (interactive (list (intern (read-from-minibuffer "Input: "))))
+  (when-let* ((url (catch 'found
+                     (dolist (menu elpaca-menu-functions)
+                       (dolist (i (funcall menu 'index))
+                         (when (equal item (car i))
+                           (throw 'found (plist-get (cdr i) :url))))))))
+    (browse-url url)))
+
+(with-eval-after-load 'embark
+  (keymap-sets embark-library-map
+    '(("b" . elpaca-browse-1)
+      ("v" . elpaca-visit)))
+  (keymap-sets embark-buffer-map
+    '(("l" . eval-buffer)
+      ("B" . switch-to-buffer-other-window)))
+  (keymap-sets embark-file-map
+    '(("S" . sudo-edit-find-file)
+      ("F" . find-file-other-window)))
+  (keymap-sets embark-bookmark-map
+    '(("B" . bookmark-jump-other-window))))
+
 (global-set-keys
  '(("s-." . embark-act)
    ("s-;" . embark-dwim)
