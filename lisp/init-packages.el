@@ -41,6 +41,11 @@
 ;; (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
 
+(with-eval-after-load 'elpaca-ui
+  (keymap-sets elpaca-ui-mode-map
+    '(("p" . previous-line)
+      ("F" . elpaca-ui-mark-pull))))
+
 (defun packages! (packages)
   "Install PACKAGES."
   (dolist (package packages)
