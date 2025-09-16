@@ -195,14 +195,14 @@ prepended to the element after the #+HEADER: tag."
 ;;; keymap
 (keymap-sets org-mode-map
   `(("C-c TAB" . org-insert-item)
-    ("M-P" . org-metaup)
-    ("M-N" . org-metadown)
+    ("M-K" . org-metaup)
+    ("M-J" . org-metadown)
     ("M-H" . org-metaleft)
     ("M-L" . org-metaright)
 
     ("s-<return>" . org-meta-return)
-    ("s-P" . org-metaup)
-    ("s-N" . org-metadown)
+    ("s-K" . org-metaup)
+    ("s-J" . org-metadown)
     ("s-H" . org-metaleft)
     ("s-L" . org-metaright)
 
