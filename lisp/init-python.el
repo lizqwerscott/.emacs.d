@@ -46,10 +46,10 @@
 
   (add-to-list 'projection-project-types projection-project-type-python-uv))
 
-(defun run-python-file ()
-  "Run now python file."
-  (interactive)
-  (autoload 'project-root-path "init-project" nil t)
+(require 'project-x)
+
+(defun setting-python-compile-command ()
+  "Setting python default `compile-command'."
   (let* ((project-path (project-root-path))
          (command (concat (if project-path
                               (cond ((file-exists-p (file-name-concat project-path "uv.lock")) "uv run")
@@ -58,12 +58,14 @@
                             "python")
                           " "
                           (file-truename (buffer-file-name)))))
-    (setq command (compilation-read-command command))
-    (require 'multi-vterm)
-    (multi-vterm-run command)))
+    (setq-local compile-command
+                command)))
+
+(add-hooks '(python-mode python-ts-mode)
+           #'setting-python-compile-command)
 
 (keymap-sets (python-mode-map python-ts-mode-map)
-  '(("C-c r" . run-python-file)))
+  '(("C-c r" . project-run-command-with-vterm)))
 
 (provide 'init-python)
 ;;; init-python.el ends here

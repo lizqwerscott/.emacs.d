@@ -19,22 +19,24 @@
 
   (add-to-list 'projection-project-types projection-project-type-zig))
 
-(defun run-zig-project ()
-  "Run zig project."
-  (interactive)
-  (autoload 'project-root-path "init-project" nil t)
+(require 'project-x)
+
+(defun setting-zig-compile-command ()
+  "Setting zig default `compile-command'."
   (let* ((project-path (project-root-path))
          (command (if project-path
                       "zig build run"
                     (concat "zig run "
                             (file-truename (buffer-file-name))))))
-    (setq command (compilation-read-command command))
-    (require 'multi-vterm)
-    (multi-vterm-run command)))
+    (setq-local compile-command
+                command)))
+
+(add-hook 'zig-ts-mode-hook
+          #'setting-zig-compile-command)
 
 (with-eval-after-load 'zig-ts-mode
   (keymap-sets zig-ts-mode-map
-    '(("C-c r" . run-zig-project))))
+    '(("C-c r" . project-run-command-with-vterm))))
 
 (provide 'init-zig)
 ;;; init-zig.el ends here

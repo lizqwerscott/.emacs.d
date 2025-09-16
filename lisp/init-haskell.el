@@ -7,21 +7,20 @@
 (add-hook 'haskell-mode-hook
           #'interactive-haskell-mode)
 
-(defun run-haskell-project ()
-  "Run haskell project."
-  (interactive)
-  (setq command
-        (compilation-read-command
-         (concat "cabal run")))
-  (require 'multi-vterm)
-  (multi-vterm-run command))
+(defun setting-haskell-compile-command ()
+  "Setting haskell default `compile-command'."
+  (setq-local compile-command
+              "cabal run"))
+
+(add-hook 'haskell-mode-hook
+          #'setting-haskell-compile-command)
 
 (with-eval-after-load 'haskell-mode
 
   ;; (custom-set-variables '(haskell-process-type 'stack-ghci))
 
   (keymap-sets haskell-mode-map
-    '(("C-c r" . run-haskell-project)
+    '(("C-c r" . project-run-command-with-vterm)
       ("C-c C-p" . run-haskell))))
 
 (provide 'init-haskell)

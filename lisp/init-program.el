@@ -166,6 +166,14 @@ ARGS is ORIG-FN args."
 (require 'init-eat)
 
 ;;; vterm
+
+(defun project-run-command-with-vterm ()
+  "Run COMMAND in vterm."
+  (interactive)
+  (let ((command (compilation-read-command compile-command)))
+    (require 'multi-vterm)
+    (multi-vterm-run command)))
+
 (with-eval-after-load 'vterm
   (keymap-sets vterm-mode-map
     '(("C-y" . vterm-yank))))
