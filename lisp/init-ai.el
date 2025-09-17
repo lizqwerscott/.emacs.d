@@ -31,7 +31,6 @@
 
 (require 'init-macher)
 
-;; (require 'init-codegeex)
 (pcase user/ai-completion
   ('copilot
    (require 'init-copilot))
