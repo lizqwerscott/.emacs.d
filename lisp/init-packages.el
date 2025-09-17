@@ -192,8 +192,6 @@
     (quicktype :fetcher github :repo "artawower/quicktype.el")
     (color-rg :fetcher github
               :repo "manateelazycat/color-rg")
-
-    (auto-save :fetcher github :repo "manateelazycat/auto-save")
     super-save
     (rsync-project-mode :fetcher github :repo "lizqwerscott/rsync-project-mode")))
 

@@ -14,7 +14,6 @@
 (require 'init-font)
 
 (require 'init-gcmh)
-;; (require 'init-auto-save)
 (require 'init-super-save)
 
 (require 'init-hydra)
