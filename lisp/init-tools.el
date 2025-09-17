@@ -2,6 +2,15 @@
 ;;; Commentary:
 ;;; Code:
 
+;;; which-key
+
+(setq which-key-max-description-length 30
+      which-key-lighter nil
+      which-key-show-remaining-keys t
+      which-key-sort-order 'which-key-description-order)
+
+(which-key-mode)
+
 (with-eval-after-load 'eww
   (keymap-sets eww-mode-map
     '(("M-n" . scroll-up-1/3)

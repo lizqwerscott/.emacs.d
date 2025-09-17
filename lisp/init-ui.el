@@ -106,8 +106,6 @@
 
 ;; (require 'zone)
 ;; (zone-when-idle 600)
-
-(which-key-mode)
 (global-so-long-mode 1)
 
 ;;; Click to browse URL or to send to e-mail address
