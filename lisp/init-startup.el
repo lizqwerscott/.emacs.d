@@ -201,6 +201,13 @@
         auto-revert-verbose nil)
 (global-auto-revert-mode)
 
+;;; Emoji
+(setq emoji-alternate-names
+      '(("😂" "haha")
+        ("👍" "好" "hc" "hao")
+        ("🧐" "?" "啊" "a")
+        ("😭" "悲" "大哭" "bei" "bw")))
+
 ;;; exec path from shell
 (setq exec-path-from-shell-variables '("PATH" "MANPATH" "GOROOT" "GOPATH" "EDITOR" "PYTHONPATH"))
 
