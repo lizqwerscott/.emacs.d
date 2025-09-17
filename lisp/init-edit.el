@@ -56,9 +56,8 @@
 
 ;;; indent yank
 (require 'indent-yank)
-(add-hook 'prog-mode-hook
-          #'indent-yank-mode)
-(indent-yank-mode 1)
+(add-hooks '(python-mode python-ts-mode)
+           #'indent-yank-mode)
 
 ;;; Visual Replace
 (require 'visual-replace)
