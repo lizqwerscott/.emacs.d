@@ -190,8 +190,6 @@
     citre
     (xmake :fetcher github :repo "lizqwerscott/xmake-emacs")
     (quicktype :fetcher github :repo "artawower/quicktype.el")
-    (color-rg :fetcher github
-              :repo "manateelazycat/color-rg")
     super-save
     (rsync-project-mode :fetcher github :repo "lizqwerscott/rsync-project-mode")))
 
