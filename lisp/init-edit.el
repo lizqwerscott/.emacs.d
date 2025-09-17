@@ -153,8 +153,7 @@
 (keymap-unset ctl-x-map "b")
 (lazy-load-global-keys
  '(("C-x b r" . bufferfile-rename)
-   ("C-x b k" . bufferfile-delete)
-   ("C-x K" . bufferfile-delete))
+   ("C-x b k" . bufferfile-delete))
  "init-bufferfile")
 
 ;;; rg
@@ -181,6 +180,9 @@
    (("s-p" "M-p") . scroll-down-1/3)
    (("M-N" "s-N") . scroll-other-window-up-1/3)
    (("M-P" "s-P") . scroll-other-window-down-1/3)
+
+   ("C-x k" . kill-current-buffer)
+   ("C-x K" . kill-buffer)
 
    ("M-g p" . goto-percent)
 
