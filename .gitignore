@@ -1,4 +1,5 @@
 auto-save-list
+/eln-cache/
 custom.el
 pyim
 tmp/

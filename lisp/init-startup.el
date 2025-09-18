@@ -184,12 +184,6 @@
 ;; Don't ping things that look like domain names.
 (setq ffap-machine-p-known 'reject)
 
-;;; native comp
-(when (boundp 'native-comp-eln-load-path)
-  (startup-redirect-eln-cache
-   (expand-file-name "var/eln-cache"
-                     user-emacs-directory)))
-
 ;;; Imenu
 (setq imenu-max-item-length 100)
 
