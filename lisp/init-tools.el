@@ -23,16 +23,9 @@
       ("<f9>" . gif-screencast-stop))))
 
 ;;; proced
-(with-eval-after-load 'proced
-  (setq proced-enable-color-flag t
-        proced-tree-flag t
-        proced-auto-update-flag 'visible
-        proced-descend t
-        proced-filter 'user))
-
-(add-hook 'proced-mode-hook
-          #'(lambda ()
-              (proced-toggle-auto-update 1)))
+(setq proced-auto-update-flag 'visible
+      proced-auto-update-interval 3
+      proced-enable-color-flag t)
 
 (provide 'init-tools)
 ;;; init-tools.el ends here
