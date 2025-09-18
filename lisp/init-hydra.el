@@ -49,7 +49,8 @@
     ("T" +lizqwer/toggle-transparent "transparent" :toggle (not (eq (frame-parameter (selected-frame) 'alpha-background) 100)))
     ("r" redacted-mode "redacted" :toggle t)
     ("b" imenu-list-smart-toggle "imenu list" :toggle imenu-list-minor-mode)
-    ("k" keycast-log-mode "keycast" :toggle t))
+    ("k" keycast-log-mode "keycast" :toggle t)
+    ("o" outli-mode "Outline" :toggle t))
    "Program"
    (("f" flycheck-mode "flycheck" :toggle t)
     ("v" global-diff-hl-mode "gutter" :toggle t)

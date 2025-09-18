@@ -21,7 +21,6 @@
 (add-hook 'ielm-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
 
 
-(add-hook 'emacs-lisp-mode-hook 'outshine-mode)
 (add-hook 'emacs-lisp-mode-hook 'eros-mode)
 
 (provide 'init-elisp)

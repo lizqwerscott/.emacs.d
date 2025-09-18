@@ -216,7 +216,7 @@
     redacted
     hl-todo
     imenu-list
-    outshine
+    outli
     (indent-bars :fetcher github :repo "jdtsmith/indent-bars")
     (awesome-tray :fetcher github
                   :repo "manateelazycat/awesome-tray")
