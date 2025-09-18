@@ -238,6 +238,7 @@
     fanyi
     (pdd :fetcher github :repo "lorniu/pdd.el")
     (gt :fetcher github :repo "lorniu/gt.el")
+    unicode-math-input
     rime
     pyim
     pyim-basedict
