@@ -107,13 +107,17 @@ It only adds the semicolon if it's not already at the end of the line."
 
 ;;;###autoload
 (defun insert-trailing-semi-and-indent ()
-  "Insert a semicolon at the end of the current line and indent the next line.
+  "Insert a semicolon at the end of the current line and indent.
+
 It only adds the semicolon if it's not already present.
-After inserting the semicolon, it moves to the next line and indents it."
+After inserting the semicolon, it moves to the next line and indents it.
+If point is not at end of line or inside a comment, just insert semicolon."
   (interactive)
-  (insert-trailing-char ?\;)
-  (forward-char)
-  (newline-and-indent))
+  (if (or (not (eolp)) (nth 4 (syntax-ppss)))
+      (insert ?\;)
+    (insert-trailing-char ?\;)
+    (forward-char)
+    (newline-and-indent)))
 
 (provide 'insert-trailing-semi)
 ;;; insert-trailing-semi.el ends here
