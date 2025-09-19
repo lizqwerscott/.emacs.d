@@ -1,4 +1,6 @@
-;; init-format.el -*- lexical-binding: t; -*-
+;;; init-format.el --- init format                   -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
 
 (require 'apheleia)
 
