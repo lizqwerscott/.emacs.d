@@ -1,3 +1,7 @@
+;;; init-copilot.el --- init copilot                 -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
 (require 'copilot)
 
 (setq copilot-max-char 1000000)
@@ -13,3 +17,4 @@
            #'copilot-mode)
 
 (provide 'init-copilot)
+;;; init-copilot.el ends here
