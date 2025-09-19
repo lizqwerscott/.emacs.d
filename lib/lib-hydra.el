@@ -78,6 +78,7 @@ Returns a cons cell (X . Y) representing the position coordinates."
   (or (featurep 'nerd-icons)
       (require 'nerd-icons nil t)))
 
+
 (cl-defun pretty-hydra-title (title &optional icon-type icon-name
                                     &key face height v-adjust)
   "Add an icon in the hydra TITLE.
@@ -87,7 +88,7 @@ Returns a cons cell (X . Y) representing the position coordinates."
 - FACE is title face
 - HEIGHT is title height
 - V-ADJUST is adjust"
-  (let ((face (or face `(:inherit highlight :reverse-video t)))
+  (let ((face (or face 'mode-line-emphasis))
         (height (or height 1.2))
         (v-adjust (or v-adjust 0.0)))
     (concat
