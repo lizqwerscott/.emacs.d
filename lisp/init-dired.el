@@ -164,5 +164,11 @@
 
   (dirvish-override-dired-mode))
 
+;;; Local Variables
+
+;; Local Variables:
+;; eval: (outline-hide-sublevels 2)
+;; End:
+
 (provide 'init-dired)
 ;;; init-dired.el ends here

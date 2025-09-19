@@ -196,5 +196,11 @@
    '("<" . remember-init)
    '(">" . remember-jump)))
 
+;;; Local Variables
+
+;; Local Variables:
+;; eval: (outline-hide-sublevels 2)
+;; End:
+
 (provide 'init-edit)
 ;;; init-edit.el ends here.

@@ -249,5 +249,11 @@ targets."
     ("C-c C-c" . embark-collect)
     ("C-c C-e" . embark-export)))
 
+;;; Local Variables
+
+;; Local Variables:
+;; eval: (outline-hide-sublevels 2)
+;; End:
+
 (provide 'init-minibuffer)
 ;;; init-minibuffer.el ends here

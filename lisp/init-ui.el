@@ -131,5 +131,11 @@
             (read-only-mode
              (if redacted-mode 1 -1))))
 
+;;; Local Variables
+
+;; Local Variables:
+;; eval: (outline-hide-sublevels 2)
+;; End:
+
 (provide 'init-ui)
 ;;; init-ui.el ends here.

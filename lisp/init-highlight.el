@@ -126,5 +126,11 @@
                (highlight-function-calls-mode 1)
                (lisp-extra-font-lock-mode 1)))
 
+;;; Local Variables
+
+;; Local Variables:
+;; eval: (outline-hide-sublevels 2)
+;; End:
+
 (provide 'init-highlight)
 ;;; init-highlight.el ends here
