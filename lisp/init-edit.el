@@ -110,7 +110,7 @@
 (with-eval-after-load 'outline-indent
   (setq outline-indent-ellipsis " ▼"))
 
-(add-hooks '(python-mode python-ts-mode yaml-mode yaml-ts-mode nxml-mode)
+(add-hooks '(yaml-mode yaml-ts-mode nxml-mode)
            #'outline-indent-minor-mode)
 
 ;;; Auto rename tag
