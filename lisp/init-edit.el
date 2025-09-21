@@ -188,6 +188,9 @@
    (("M-N" "s-N") . scroll-other-window-up-1/3)
    (("M-P" "s-P") . scroll-other-window-down-1/3)
 
+   ("C-x C-n" . next-buffer)
+   ("C-x C-p" . previous-buffer)
+
    ("C-x k" . kill-current-buffer)
    ("C-x K" . kill-buffer)
 
