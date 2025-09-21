@@ -106,6 +106,12 @@
     (transient-append-suffix 'casual-isearch-tmenu "u"
       '("c" "Use consult line" isearch-consult-line))))
 
+;; repeat for isearch
+(defvar-keymap isearch-repeat-map
+  :repeat t
+  "s" #'isearch-repeat-forward
+  "r" #'isearch-repeat-backward)
+
 ;;; Outline indent
 (with-eval-after-load 'outline-indent
   (setq outline-indent-ellipsis " ▼"))
@@ -173,6 +179,7 @@
 
 (keymap-unset ctl-x-map "C-k")
 
+;;; keymap
 (global-set-keys
  '(("RET" . newline-and-indent)
    (("S-<return>" "C-<return>") . comment-indent-new-line)
@@ -195,6 +202,17 @@
   (meow-normal-define-key
    '("<" . remember-init)
    '(">" . remember-jump)))
+
+;; repeat for scroll up
+(defvar-keymap scroll-repeat-map
+  :repeat t
+  "n" #'scroll-up-1/3
+  "p" #'scroll-down-1/3)
+
+(defvar-keymap scroll-other-window-repeat-map
+  :repeat t
+  "n" #'scroll-other-window-up-1/3
+  "p" #'scroll-other-window-down-1/3)
 
 ;;; Local Variables
 
