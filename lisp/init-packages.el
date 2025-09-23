@@ -215,6 +215,7 @@
     visual-fill-column
     redacted
     hl-todo
+    consult-todo
     imenu-list
     outli
     (indent-bars :fetcher github :repo "jdtsmith/indent-bars")

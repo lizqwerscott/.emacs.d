@@ -2,6 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
+(setq hl-todo-require-punctuation t)
+(setq hl-todo-highlight-punctuation ":")
+
 (setq hl-todo-keyword-faces
       '(("HOLD"   . "#d0bf8f")
         ("TODO"   . "#cc9393")
@@ -17,43 +20,17 @@
         ("TEMP"   . "#d0bf8f")
         ("FIXME"  . "#cc9393")))
 
-(defun my/hl-todo-generate-rg-regexp ()
-  "Generate a regexp string for all TODO keywords.
-The regexp will match any of the keywords defined in `hl-todo-keyword-faces',
-surrounded by word boundaries."
-  (concat "\\s("
-          (string-join
-           (mapcar #'car
-                   hl-todo-keyword-faces)
-           "|")
-          ")\\s"))
-
-(require 'rg)
-
-(defun hl-todo-rg (regexp &optional files dir)
-  "Use `rg' to find all TODO or similar keywords.
-This function interactively prompts for file types and directory to search.
-REGEXP is the regular expression to search for.
-FILES is the file type pattern to limit the search.
-DIR is the base directory for the search."
-  (interactive
-   (progn
-     (unless (require 'rg nil t)
-       (error "`rg' is not installed"))
-     (let ((regexp (my/hl-todo-generate-rg-regexp)))
-       (list regexp
-             (rg-read-files)
-             (read-directory-name "Base directory: " nil default-directory t)))))
-  (rg regexp files dir))
-
-(defun hl-todo-rg-project ()
-  "Use `rg' to find all TODO or similar keywords in current project."
-  (interactive)
-  (unless (require 'rg nil t)
-    (error "`rg' is not installed"))
-  (rg-project (my/hl-todo-generate-rg-regexp) "everything"))
-
 (global-hl-todo-mode)
+
+;;; consult todo
+
+(with-eval-after-load 'consult-todo
+  (require 'lib-hl-todo)
+  (setq consult-todo-dir-function #'consult-todo--ripgrep))
+
+(lazy-load-global-keys
+ '(("M-g t" . consult-todo-project))
+ "consult-todo")
 
 (provide 'init-hl-todo)
 ;;; init-hl-todo.el ends here
