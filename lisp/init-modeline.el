@@ -24,6 +24,7 @@
 (if (and (display-graphic-p) (not user/show-modeline))
     (awesome-tray-mode)
   (require 'doom-modeline)
+  (setq doom-modeline-workspace-name nil)
   (setq doom-modeline-time-icon nil)
   (setq doom-modeline-buffer-file-name-style
         'buffer-name)
