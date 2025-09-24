@@ -126,7 +126,8 @@
     git-modes
     csv-mode
     qml-mode
-    sxhkdrc-mode))
+    sxhkdrc-mode
+    meson-mode))
 
 (defvar *package-edit-install-list*
   '((meow :fetcher github :repo "meow-edit/meow")
