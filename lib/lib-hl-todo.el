@@ -126,6 +126,7 @@ DIR is the base directory for the search."
                                              (buffer-substring-no-properties
                                               (prop-match-end it)
                                               (line-end-position))))))))))
+                   (compilation-sentinel proc event)
                    (if (null cache-p)
                        (condition-case nil
                            (consult-todo--dir result)
