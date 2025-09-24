@@ -120,7 +120,7 @@ configuration of the virtual buffer sources."
    ("M-s f" . ("Search file" . consult-fd))
    ("M-s d" . ("Search dir" . consult-fd-dir))))
 
-;; consult dir
+;;; consult dir
 (require 'consult-dir)
 ;; A function that returns a list of directories
 (defun consult-dir--quick-dir ()
@@ -230,6 +230,8 @@ targets."
  '(("s-." . embark-act)
    ("s-;" . embark-dwim)
    ("C-h B" . embark-bindings)))
+
+;;; Key-Binding
 
 (global-set-keys
  '((("s-x" "M-x") . execute-extended-command)))
