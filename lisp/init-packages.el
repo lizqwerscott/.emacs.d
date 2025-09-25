@@ -250,7 +250,7 @@
 
 (defvar *package-org-install-list*
   '(consult-notes
-    org-bullets
+    org-superstar
     org-fancy-priorities
     org-roam
     org-roam-ui
