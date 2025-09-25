@@ -7,8 +7,6 @@
 ;;; Commentary:
 
 ;;; Code:
-
-;;; Org base
 (require 'org)
 
 (setq org-default-notes-file "~/Documents/Org/index.org")
@@ -21,15 +19,12 @@
       org-pretty-entities nil
       org-hide-emphasis-markers t)
 
-(setq org-format-latex-options
-      (plist-put org-format-latex-options :scale 2.0))
-
+(setq org-enforce-todo-dependencies t)
 (setq org-todo-keywords
       '((sequence "TODO(t)" "DOING(i)" "HANGUP(h)" "|" "DONE(d)" "CANCEL(c)")
         (sequence "⚑(T)" "🏴(I)" "❓(H)" "|" "✔(D)" "✘(C)")))
 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 4.0))
-(setq org-enforce-todo-dependencies t)
 
 ;; Add new template
 (add-to-list 'org-structure-template-alist '("n" . "note"))
@@ -103,11 +98,9 @@
 ;;                                       :color "grey75"
 ;;                                       :style released-button))))
 
-(require 'valign)
 (setq valign-facy-bar t)
 (add-hook 'org-mode-hook #'valign-mode)
 
-(require 'org-fancy-priorities)
 (setq org-fancy-priorities-list
       '((?A . "A")
         (?B . "⬆")
