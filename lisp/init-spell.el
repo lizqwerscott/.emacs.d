@@ -2,13 +2,16 @@
 ;;; Commentary:
 ;;; Code:
 
-(require 'wucuo)
-;; (setq wucuo-flyspell-start-mode "normal")
+(with-eval-after-load 'flyspell
+  (set-face-attribute 'flyspell-incorrect nil :underline '(:color "Red1") :weight 'bold)
+  (set-face-attribute 'flyspell-duplicate nil :underline '(:color "OrangeRed") :weight 'bold))
+
 (setq ispell-program-name "aspell")
 ;; You could add extra option "--camel-case" for camel case code spell checking if Aspell 0.60.8+ is installed
 ;; @see https://github.com/redguardtoo/emacs.d/issues/796
 (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together" "--run-together-limit=16"))
 
+;; (setq wucuo-flyspell-start-mode "normal")
 (setq wucuo-spell-check-buffer-predicate
       (lambda ()
         (not (memq major-mode
