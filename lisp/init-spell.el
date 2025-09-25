@@ -2,36 +2,31 @@
 ;;; Commentary:
 ;;; Code:
 
-(with-eval-after-load 'flyspell
-  (set-face-attribute 'flyspell-incorrect nil :underline '(:color "Red1") :weight 'bold)
-  (set-face-attribute 'flyspell-duplicate nil :underline '(:color "OrangeRed") :weight 'bold))
+(setq jinx-languages "en_US")
+(with-eval-after-load 'jinx
+  (set-face-attribute 'jinx-misspelled nil :underline '(:color "OrangeRed") :weight 'bold)
 
-(setq ispell-program-name "aspell")
-;; You could add extra option "--camel-case" for camel case code spell checking if Aspell 0.60.8+ is installed
-;; @see https://github.com/redguardtoo/emacs.d/issues/796
-(setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together" "--run-together-limit=16"))
+  (add-list-to-list 'jinx-camel-modes
+                    '(c++-ts-mode))
+  (add-to-list 'jinx-exclude-regexps '(t "\\cc"))
 
-;; (setq wucuo-flyspell-start-mode "normal")
-(setq wucuo-spell-check-buffer-predicate
-      (lambda ()
-        (not (memq major-mode
-                   '(dired-mode
-                     log-edit-mode
-                     compilation-mode
-                     help-mode
-                     profiler-report-mode
-                     speedbar-mode
-                     gud-mode
-                     calc-mode
-                     Info-mode)))))
+  (setf (alist-get 'prog-mode jinx-include-faces)
+        '(prog-mode font-lock-comment-face
+                    font-lock-doc-face
+                    ;; font-lock-string-face
+                    ;; font-lock-function-name-face
+                    ;; font-lock-variable-name-face
+                    ))
 
-(add-hooks '(prog-mode text-mode)
-           #'(lambda ()
-               (wucuo-start)))
+  (add-to-list 'jinx-include-faces
+               '(c++-ts-mode font-lock-function-name-face
+                             font-lock-variable-name-face)))
+
+(add-hook 'emacs-startup-hook #'global-jinx-mode)
 
 (global-set-keys
- '(("C-M-$" . ispell-word)
-   ("s-$" . ispell-word)))
+ '(("C-M-$" . jinx-languages)
+   ("s-$" . jinx-correct)))
 
 (provide 'init-spell)
 ;;; init-spell.el ends here.

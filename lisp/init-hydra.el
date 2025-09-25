@@ -34,7 +34,8 @@
     ("a" global-aggressive-indent-mode "aggressive indent" :toggle t)
     ("c" global-centered-cursor-mode "centered cursor" :toggle t)
     ("i" immersive-translate-auto-mode "immersive translate" :toggle t)
-    ("t" +lizqwer/toggle-telega "telega" :toggle (get-buffer "*Telega Root*")))
+    ("t" +lizqwer/toggle-telega "telega" :toggle (get-buffer "*Telega Root*"))
+    ("p" global-jinx-mode "Spell check" :toggle (bound-and-true-p jinx-mode)))
    "Highlight"
    (("h l" global-hl-line-mode "line" :toggle t)
     ("h p" show-paren-mode "paren" :toggle t)

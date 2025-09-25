@@ -63,7 +63,8 @@
     ("a" "Aggressive indent" global-aggressive-indent-mode :toggle t :transient t)
     ("c" "Centered cursor" global-centered-cursor-mode :toggle t :transient t)
     ("i" "Immersive translate" immersive-translate-auto-mode :toggle t :transient t)
-    ("t" "Telega" +lizqwer/toggle-telega :toggle (lambda () (get-buffer "*Telega Root*")) :transient t)]
+    ("t" "Telega" +lizqwer/toggle-telega :toggle (lambda () (get-buffer "*Telega Root*")) :transient t)
+    ("p" "Spell check" global-jinx-mode :toggle (lambda () (bound-and-true-p jinx-mode)) :transient t)]
 
    ["Highlight"
     ("h l" "Line highlight" global-hl-line-mode :toggle t :transient t)

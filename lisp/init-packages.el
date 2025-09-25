@@ -181,7 +181,7 @@
     forge
     difftastic
     devdocs
-    wucuo
+    jinx
     compile-multi
     projection
     projection-multi
