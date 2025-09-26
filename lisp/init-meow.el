@@ -30,12 +30,6 @@
 (require 'mark-comment)
 (meow-thing-register 'comment #'mark-comment-inner-of-comment #'mark-comment-inner-of-comment)
 
-(defvar-keymap find-map
-  :doc "Keymap for find commands."
-  "c" #'find-custom-file
-  "l" #'find-library
-  "v" #'find-variable)
-
 (defvar wrap-keymap
   (let ((map (make-keymap)))
     (suppress-keymap map)
