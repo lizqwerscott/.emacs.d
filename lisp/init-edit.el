@@ -95,9 +95,25 @@
       (ignore-errors (isearch-done t t)))
     (consult-line query)))
 
+(defun isearch-yank-thing-at-point ()
+  "Isearch yank thing at point."
+  (interactive)
+  (if-let* ((word (thing-at-point 'word)))
+      (isearch-yank-string word)
+    (if-let* ((symbol (thing-at-point 'symbol)))
+        (isearch-yank-string word))))
+
+(defun isearch-yank-thing-at-point-and-forward ()
+  "Isearch yank thing at point and isearch forward."
+  (interactive)
+  (when (isearch-yank-thing-at-point)
+    (isearch-repeat-forward)))
+
 (with-eval-after-load 'isearch
   (keymap-sets isearch-mode-map
-    '(("<escape>" . isearch-exit)))
+    '(("<escape>" . isearch-exit)
+      ("C-w" . isearch-yank-thing-at-point-and-forward)
+      ("s-r" . isearch-toggle-regexp)))
 
   (with-eval-after-load 'casual-isearch
     (transient-define-suffix isearch-consult-line ()
