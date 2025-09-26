@@ -51,7 +51,9 @@
     ("r" redacted-mode "redacted" :toggle t)
     ("b" imenu-list-smart-toggle "imenu list" :toggle imenu-list-minor-mode)
     ("k" keycast-log-mode "keycast" :toggle t)
-    ("o" outli-mode "Outline" :toggle t))
+    ("o" outli-mode "Outline" :toggle t)
+    ("m t" display-time-mode "Modeline time" :toggle t)
+    ("m b" display-battery-mode "Modeline battery" :toggle t))
    "Program"
    (("f" flycheck-mode "flycheck" :toggle t)
     ("v" global-diff-hl-mode "gutter" :toggle t)

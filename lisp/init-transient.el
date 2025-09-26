@@ -91,7 +91,9 @@
     ("r" "Redacted mode" redacted-mode :toggle t :transient t)
     ("b" "Imenu list" imenu-list-smart-toggle :toggle (lambda () (bound-and-true-p imenu-list-minor-mode)) :transient t)
     ("k" "Keycast log" keycast-log-mode :toggle t :transient t)
-    ("o" "Outline" outli-mode :toggle t :transient t)]
+    ("o" "Outline" outli-mode :toggle t :transient t)
+    ("m t" "Modeline time" display-time-mode :toggle t :transient t)
+    ("m b" "Modeline battery" display-battery-mode :toggle t :transient t)]
 
    ["Program"
     ("f" "Flycheck" flycheck-mode :toggle t :transient t)
