@@ -16,7 +16,10 @@
    ("C-c d d" . fanyi-dwim2)
    ("C-c d h" . fanyi-from-history)
    ("C-c d s" . sdcv-search-pointer+)
-   ("C-c d e" . ("Translate to english" . gptel-translate-to-english-insert))))
+   ("C-c d e" . ("Translate to english" . (lambda ()
+                                            (interactive)
+                                            (activate-input-method default-input-method)
+                                            (call-interactively #'gptel-translate-to-english-insert))))))
 
 ;;; spell
 (require 'init-spell)
