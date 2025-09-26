@@ -113,7 +113,8 @@
   (keymap-sets isearch-mode-map
     '(("<escape>" . isearch-exit)
       ("C-w" . isearch-yank-thing-at-point-and-forward)
-      ("s-r" . isearch-toggle-regexp)))
+      ("s-r" . isearch-toggle-regexp)
+      ("C-v" . visual-replace-from-isearch)))
 
   (with-eval-after-load 'casual-isearch
     (transient-define-suffix isearch-consult-line ()
