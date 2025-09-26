@@ -86,6 +86,17 @@
       isearch-repeat-on-direction-change t
       isearch-wrap-pause nil)
 
+(defun my-occur-from-isearch ()
+  "Generate occur from isearch."
+  (interactive)
+  (let ((query (if isearch-regexp
+                   isearch-string
+                 (regexp-quote isearch-string))))
+    (isearch-update-ring isearch-string isearch-regexp)
+    (let (search-nonincremental-instead)
+      (ignore-errors (isearch-done t t)))
+    (occur query)))
+
 (defun my-isearch-consult-line-from-isearch ()
   "Invoke `consult-line' from isearch."
   (interactive)
@@ -114,17 +125,14 @@
 (with-eval-after-load 'isearch
   (keymap-sets isearch-mode-map
     '(("<escape>" . isearch-exit)
-      ("C-w" . isearch-yank-thing-at-point-and-forward)
       ("s-r" . isearch-toggle-regexp)
-      ("C-v" . visual-replace-from-isearch)
-      ("s-e" . isearch-edit-string)))
+      ("s-e" . isearch-edit-string)
 
-  (with-eval-after-load 'casual-isearch
-    (transient-define-suffix isearch-consult-line ()
-      (interactive)
-      (call-interactively #'my-isearch-consult-line-from-isearch))
-    (transient-append-suffix 'casual-isearch-tmenu "u"
-      '("c" "Use consult line" isearch-consult-line))))
+      ("C-w" . isearch-yank-thing-at-point-and-forward)
+
+      ("C-v" . visual-replace-from-isearch)
+      ("C-o" . my-occur-from-isearch)
+      ("C-j" . my-isearch-consult-line-from-isearch))))
 
 ;; repeat for isearch
 (defvar-keymap isearch-repeat-map

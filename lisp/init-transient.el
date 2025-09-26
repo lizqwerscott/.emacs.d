@@ -34,9 +34,6 @@
 ;; (with-eval-after-load 'dired
 ;;   (keymap-set dired-mode-map "C-o" #'casual-dired-tmenu))
 
-(with-eval-after-load 'isearch
-  (keymap-set isearch-mode-map "C-o" #'casual-isearch-tmenu))
-
 (with-eval-after-load 'ibuffer
   (keymap-set ibuffer-mode-map "C-o" #'casual-ibuffer-tmenu)
   (keymap-set ibuffer-mode-map "F" #'casual-ibuffer-filter-tmenu)
