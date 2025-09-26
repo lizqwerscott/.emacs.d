@@ -22,11 +22,17 @@
                '(c++-ts-mode font-lock-function-name-face
                              font-lock-variable-name-face)))
 
+(defun jinx-open-person-dict-dir ()
+  "Open person dict Dir."
+  (interactive)
+  (find-file (file-truename "~/.config/enchant/")))
+
 (add-hook 'emacs-startup-hook #'global-jinx-mode)
 
 (global-set-keys
  '(("C-M-$" . jinx-languages)
-   ("s-$" . jinx-correct)))
+   ("s-$" . jinx-correct)
+   ("C-c d c" . jinx-correct)))
 
 (provide 'init-spell)
 ;;; init-spell.el ends here.
