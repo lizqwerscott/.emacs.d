@@ -17,9 +17,15 @@
 
   (setq awesome-tray-date-format "%H:%M")
   (setq awesome-tray-active-modules
-        (if (string-match-p "Discharging" (shell-command-to-string "acpi"))
-            '("meow" "location" "buffer-name" "mode-name" "battery" "process" "git" "date")
-          '("meow" "location" "buffer-name" "mode-name" "process" "git" "date"))))
+        `("meow"
+          "location"
+          "buffer-name"
+          "mode-name"
+          ,@(unless (my/unsupport-battery-or-charging)
+              '("battery"))
+          "process"
+          "git"
+          "date")))
 
 (if (and (display-graphic-p) (not user/show-modeline))
     (awesome-tray-mode)
@@ -35,7 +41,8 @@
   (add-hook 'doom-modeline-mode-hook
             #'(lambda ()
                 (display-time-mode)
-                (when doom-modeline-battery
+                (when (and doom-modeline-battery
+                           (not (my/unsupport-battery-or-charging)))
                   (display-battery-mode))))
   (add-hook 'org-mode-hook
             'org-count-words-mode))
