@@ -76,7 +76,11 @@
   :protocol "https"
   :host "api-inference.modelscope.cn"
   :key #'gptel-api-key
-  :models '(Qwen/Qwen3-Coder-480B-A35B-Instruct))
+  :models '((Qwen/Qwen3-Coder-480B-A35B-Instruct
+             :description "这款模型在代理式编程、浏览器操作等任务上表现接近 Claude Sonnet，具备最高可扩展至百万级别的长上下文理解能力，并支持跨平台的代理式编程与特定函数调用格式。"
+             :capabilities (tool-use)
+             :context-window 200
+             :request-params (:temperature 0.7 :top_p 0.8 :top_k 20 :repetition_penalty 1.05))))
 
 (unless (bound-and-true-p gptel-model)
   (setq gptel-model 'deepseek-chat))
