@@ -24,12 +24,12 @@
 
 ;;; Code:
 
-(setq yas-snippet-dirs
-      (list
-       (expand-file-name "config/yasnippet/snippets/"
-                         user-emacs-directory)))
-(require 'yasnippet)
-(yas-global-mode 1)
+(setopt yas-snippet-dirs
+        (list
+         (expand-file-name "config/yasnippet/snippets/"
+                           user-emacs-directory)))
+(add-hook 'after-init-hook
+          #'yas-global-mode)
 
 (provide 'init-snippet)
 ;;; init-snippet.el ends here
