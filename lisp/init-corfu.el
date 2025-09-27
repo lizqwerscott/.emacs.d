@@ -90,7 +90,7 @@
   "Setup up eglot capf with dabbrev."
   (setq-local completion-at-point-functions
               `(cape-file
-                ,@(when citre-mode
+                ,@(when (bound-and-true-p citre-mode)
                     (list
                      (cape-capf-super
                       #'citre-completion-at-point
@@ -104,7 +104,7 @@
   "Setup up eglot capf."
   (setq-local completion-at-point-functions
               `(cape-file
-                ,@(when citre-mode
+                ,@(when (bound-and-true-p citre-mode)
                     (list #'citre-completion-at-point))
                 eglot-completion-at-point)))
 
