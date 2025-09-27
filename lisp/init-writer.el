@@ -112,6 +112,9 @@
     ("C-c n b e" . citar-denote-open-reference-entry)))
 
 ;;; denote-explore
+(defconst denote-id-regexp "@@\\([^.]*?\\)\\(==.*\\|--.*\\|__.*\\|@@.*\\|\\..*\\)*$"
+  "Regular expression to match the IDENTIFIER field in a file name.")
+
 (global-set-keys
  '(;; Statistics
    ("C-c n x c" . denote-explore-count-notes)
