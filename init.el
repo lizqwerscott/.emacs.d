@@ -41,9 +41,8 @@
 (require 'init-org)
 ;; (require 'init-hugo)
 ;; (require 'init-elfeed)
-;; (require 'init-reader)
-;; (require 'init-paper)
 ;;(require 'crefactor)
+(require 'init-writer)
 
 (require 'init-language)
 

@@ -16,7 +16,7 @@
       org-catch-invisible-edits 'smart
       org-startup-indented t
       org-startup-folded 'show2levels
-      org-pretty-entities nil
+      org-pretty-entities t
       org-hide-emphasis-markers t)
 
 (setq org-enforce-todo-dependencies t)
@@ -218,7 +218,8 @@ prepended to the element after the #+HEADER: tag."
 (global-set-keys
  '(("C-c c" . org-capture)
    ("C-c a" . org-agenda)
-   ("M-s n" . consult-notes)))
+   ("M-s n" . consult-notes)
+   ("M-s N" . consult-notes-search-in-all-notes)))
 
 ;;; capf
 (defun my/org-capf ()

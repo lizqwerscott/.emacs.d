@@ -259,9 +259,28 @@
     org-appear
     valign
     (org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent")
-    pdf-tools
     (org-count-words :fetcher github :repo "Elilif/org-count-words")
     org-rich-yank))
+
+(defvar *package-write-install-list*
+  '(nov
+    pdf-tools
+    ;; (reader :fetcher codeberg :repo "divyaranjan/emacs-reader"
+    ;;       	:files ("*.el" "render-core.so")
+    ;;       	:pre-build ("make" "all"))
+    biblio
+    citar
+    titlecase
+    denote
+    denote-menu
+    consult-denote
+    denote-journal
+    denote-org
+    denote-sequence
+    citar-embark
+    citar-denote
+    denote-explore
+    ox-epub))
 
 (defvar *package-ai-install-list*
   (append '((gptel :fetcher github
@@ -310,6 +329,8 @@
          *package-window-install-list*
          *package-language-install-list*
          *package-org-install-list*
+         *package-write-install-list*
+
          *package-ai-install-list*
 
          *package-another-install-list*))

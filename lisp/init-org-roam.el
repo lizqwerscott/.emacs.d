@@ -23,14 +23,14 @@
   (org-roam-db-autosync-enable))
 
 (global-set-keys
- '(("C-c n l" . org-roam-buffer-toggle)
-   ("C-c n f" . org-roam-node-find)
-   ("C-c n g" . org-roam-graph)
-   ("C-c n i" . org-roam-node-insert)
-   ("C-c n c" . org-roam-capture)
-   ("C-c n j" . org-roam-dailies-capture-today)
+ '(("C-c n n l" . org-roam-buffer-toggle)
+   ("C-c n n f" . org-roam-node-find)
+   ("C-c n n g" . org-roam-graph)
+   ("C-c n n i" . org-roam-node-insert)
+   ("C-c n n c" . org-roam-capture)
+   ("C-c n n j" . org-roam-dailies-capture-today)
 
-   ("C-c n u" . org-roam-ui-mode)))
+   ("C-c n n u" . org-roam-ui-mode)))
 
 (provide 'init-org-roam)
 ;;; init-org-roam.el ends here
