@@ -49,8 +49,13 @@
   :group 'user
   :type 'boolean)
 
+(defcustom user/telegap nil
+  "Is use telega."
+  :group 'user
+  :type 'boolean)
+
 (defcustom user/telega-start nil
-  "Is start telega."
+  "Is auto start telega."
   :group 'user
   :type 'boolean)
 

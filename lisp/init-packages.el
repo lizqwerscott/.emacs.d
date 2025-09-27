@@ -288,11 +288,6 @@
     code-stats
     docker
     (screenshot :fetcher github :repo "tecosaur/screenshot")
-    (telega-url-shorten-nerd :fetcher github
-                             :repo "lizqwerscott/telega-url-shorten-nerd")
-    (telega :fetcher github
-            :repo "zevlg/telega.el"
-            :branch "master")
     (consult-omni :type git :fetcher github :repo "armindarvish/consult-omni" :branch "main" :files (:defaults "sources/*.el"))))
 
 (packages! *package-early-install-list*)

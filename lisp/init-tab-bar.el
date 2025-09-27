@@ -21,14 +21,6 @@
                          tab-bar-format-align-right
                          +tab-bar-telega-icon))
 
-(add-hook 'telega-connection-state-hook #'+tab-bar-telega-icon-update)
-(add-hook 'telega-kill-hook #'+tab-bar-telega-icon-update)
-
-(advice-add #'telega--on-updateUnreadChatCount :after #'+tab-bar-telega-icon-update)
-(advice-add #'telega--on-updateChatUnreadMentionCount :after #'+tab-bar-telega-icon-update)
-(advice-add #'telega--on-updateChatUnreadReactionCount :after #'+tab-bar-telega-icon-update)
-(advice-add #'telega-msg-observable-p :after  #'+tab-bar-telega-icon-update)
-
 (tab-rename "Main")
 
 (global-set-keys
@@ -36,7 +28,6 @@
    ("C-c l b" . consult-buffer-other-tab)
    ("C-c l n" . ("Switch or Create Tab" . tab-bar-switch-or-create))
    ("C-c l k" . ("Close Tab" . tab-bar-close-tab))
-   ("C-c l t" . ("Chat Tab" . tab-bar-switch-or-create-chat))
    ("C-c l m" . ("Main Tab" .  tab-bar-switch-or-create-main))
    ("C-c l r" . ("Rss Tab" . tab-bar-switch-or-create-rss))))
 

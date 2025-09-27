@@ -52,6 +52,9 @@
 
 (require 'init-ai)
 
+(when user/telegap
+  (require 'init-telega))
+
 ;;; Programming
 (require 'init-git)
 (require 'init-lsp)
@@ -64,11 +67,6 @@
       (if sys/macp
           #'browse-url-default-macosx-browser
         #'browse-url-firefox))
-
-(when (and user/telega-start (display-graphic-p))
-  (message "start telega")
-  (autoload '+lizqwer/toggle-telega "init-telega" nil t)
-  (+lizqwer/toggle-telega))
 
 ;; Local Variables:
 ;; no-byte-compile: t
