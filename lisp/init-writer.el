@@ -74,9 +74,6 @@
         denote-link-description-function #'ews-denote-link-description-title-case
         denote-rename-buffer-mode 1)
 
-(custom-set-faces
- '(denote-faces-link ((t (:slant italic)))))
-
 ;; (add-hook 'dired-mode-hook
 ;;           #'denote-dired-mode)
 
