@@ -39,11 +39,11 @@
   :group 'files
   :link '(url-link :tag "Homepage" "https://lucidmanager.org/tags/emacs/"))
 
-(defcustom ews-bibtex-directory
-  (concat (file-name-as-directory (getenv "HOME")) "Documents/library")
+(defcustom ews-bibtex-directorys (list (concat (file-name-as-directory (getenv "HOME")) "Documents/notes")
+                                       (concat (file-name-as-directory (getenv "HOME")) "Documents/library"))
   "Location of BibTeX files and attachments."
   :group 'ews
-  :type 'directory)
+  :type '(list directory))
 
 (defcustom ews-denote-para-keywords
   '("projects" "areas" "resources" "archives")
@@ -76,22 +76,27 @@ Sublists indicate that one of the entries is required."
       (message "No missing executable files."))))
 
 ;;; BIBLIOGRAPHY
-(defvar ews-bibtex-files
-  (when (file-exists-p ews-bibtex-directory)
-    (directory-files ews-bibtex-directory t "^[A-Z|a-z|0-9].+.bib$"))
+(defun ews-bibtex-get-files ()
+  "Get all files in `ews-bibtex-directorys'."
+  (interactive)
+  (apply #'append
+         (mapcar (lambda (directory)
+                   (when (file-exists-p directory)
+                     (directory-files directory t "^[^.].*\\.bib$")))
+                 ews-bibtex-directorys)))
+
+(defvar ews-bibtex-files (ews-bibtex-get-files)
   "List of BibTeX files. Use `ews-bibtex-register' to configure.")
 
 ;;;###autoload
 (defun ews-bibtex-register ()
-  "Register the contents of the `ews-bibtex-directory' with `ews-bibtex-files`.
-Use when adding or removing a BibTeX file from or to `ews-bibtex-directory'."
+  "Register the contents of the `ews-bibtex-directorys' with `ews-bibtex-files`.
+Use when adding or removing a BibTeX file from or to `ews-bibtex-directorys'."
   (interactive)
-  (when (file-exists-p ews-bibtex-directory)
-    (let ((bib-files (directory-files ews-bibtex-directory t
-				      "^[A-Z|a-z|0-9].+.bib$")))
-      (setq ews-bibtex-files bib-files
-  	    org-cite-global-bibliography bib-files
-	    citar-bibliography bib-files)))
+  (let ((bib-files (ews-bibtex-get-files)))
+    (setq ews-bibtex-files bib-files
+  	      org-cite-global-bibliography bib-files
+	      citar-bibliography bib-files))
   (message "Registered:\n%s" (mapconcat #'identity ews-bibtex-files "\n")))
 
 (defun ews--bibtex-combined-biblio-lookup ()
@@ -127,7 +132,7 @@ Use when adding or removing a BibTeX file from or to `ews-bibtex-directory'."
 
 ;; Search for missing BibTeX attachments and filenames
 (defun ews--bibtex-extract-attachments ()
-  "Extract attachment file names from BibTeX files in `ews-bibtex-directory'."
+  "Extract attachment file names from BibTeX files in `ews-bibtex-directorys'."
   (ews-bibtex-register)
   (let ((attachments '()))
     (dolist (bibtex-file ews-bibtex-files)
@@ -138,18 +143,23 @@ Use when adding or removing a BibTeX file from or to `ews-bibtex-directory'."
           (let ((file-paths (split-string (match-string 1)
                                           "[[:space:]]*;[[:space:]]*")))
             (dolist (file-path file-paths)
-              (push (expand-file-name (string-trim file-path)
-                                      ews-bibtex-directory)
-                    attachments))))))
+              (let ((file-path (string-trim file-path)))
+                (unless (file-name-absolute-p file-path)
+                  (push (expand-file-name file-path
+                                          ews-bibtex-directory)
+                        attachments))))))))
     attachments))
 
 (defun ews--bibtex-extract-files ()
-  "List files recursively in `ews-bibtex-directory', excluding `.bib' and `.csl'."
+  "List files recursively in `ews-bibtex-directorys', excluding `.bib' and `.csl'."
   (seq-remove (lambda (file)
                 (or (string-suffix-p ".bib" file)
                     (string-suffix-p ".csl" file)))
               (mapcar 'expand-file-name
-                      (directory-files-recursively ews-bibtex-directory ""))))
+                      (apply #'append
+                             (mapcar (lambda (directory)
+                                       (directory-files-recursively directory ""))
+                                     ews-bibtex-directorys)))))
 
 ;;;###autoload
 (defun ews-bibtex-missing-files ()
