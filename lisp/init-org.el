@@ -108,6 +108,13 @@
   (interactive)
   (insert "#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup"))
 
+(defun org-toggle-display-emphasis-markers ()
+  "Toggle show emphasis markers."
+  (interactive)
+  (setq org-hide-emphasis-markers
+        (not org-hide-emphasis-markers))
+  (revert-buffer-quick))
+
 ;;; Org babel
 (org-babel-do-load-languages
  'org-babel-load-languages
