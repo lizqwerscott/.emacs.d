@@ -136,18 +136,19 @@ Use when adding or removing a BibTeX file from or to `ews-bibtex-directorys'."
   (ews-bibtex-register)
   (let ((attachments '()))
     (dolist (bibtex-file ews-bibtex-files)
-      (with-temp-buffer
-        (insert-file-contents bibtex-file)
-        (goto-char (point-min))
-        (while (re-search-forward "file.*=.*{\\([^}]+\\)}" nil t)
-          (let ((file-paths (split-string (match-string 1)
-                                          "[[:space:]]*;[[:space:]]*")))
-            (dolist (file-path file-paths)
-              (let ((file-path (string-trim file-path)))
-                (unless (file-name-absolute-p file-path)
-                  (push (expand-file-name file-path
-                                          ews-bibtex-directory)
-                        attachments))))))))
+      (let ((bibtex-directory (file-name-directory (file-truename bibtex-file))))
+        (with-temp-buffer
+          (insert-file-contents bibtex-file)
+          (goto-char (point-min))
+          (while (re-search-forward "file.*=.*{\\([^}]+\\)}" nil t)
+            (let ((file-paths (split-string (match-string 1)
+                                            "[[:space:]]*;[[:space:]]*")))
+              (dolist (file-path file-paths)
+                (let ((file-path (string-trim file-path)))
+                  (unless (file-name-absolute-p file-path)
+                    (push (expand-file-name file-path
+                                            bibtex-directory)
+                          attachments)))))))))
     attachments))
 
 (defun ews--bibtex-extract-files ()
