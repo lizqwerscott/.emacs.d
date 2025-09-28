@@ -29,6 +29,60 @@
 ;; Add new template
 (add-to-list 'org-structure-template-alist '("n" . "note"))
 
+;;; Org export
+(setopt org-export-with-drawers nil
+        org-export-with-todo-keywords nil
+        org-export-with-toc nil
+        org-export-with-smart-quotes t
+        org-export-date-timestamp-format "%e %B %Y")
+(require 'ox-org)
+
+;; Multiple LaTeX passes for bibliographies
+(setopt org-latex-pdf-process
+        '("pdflatex -interaction nonstopmode -output-directory %o %f"
+          "bibtex %b"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+;; Clean temporary files after export
+(setopt org-latex-logfiles-extensions
+        (quote ("lof" "lot" "tex~" "aux" "idx" "log" "out"
+                "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk"
+                "blg" "brf" "fls" "entoc" "ps" "spl" "bbl"
+                "tex" "bcf")))
+
+(with-eval-after-load 'ox-latex
+  (add-to-list
+   'org-latex-classes
+   '("ews"
+     "\\documentclass[11pt, twoside, hidelinks]{memoir}
+        \\setstocksize{9.25in}{7.5in}
+        \\settrimmedsize{\\stockheight}{\\stockwidth}{*}
+        \\setlrmarginsandblock{1.5in}{1in}{*}
+        \\setulmarginsandblock{1in}{1.5in}{*}
+        \\checkandfixthelayout
+        \\layout
+        \\setcounter{tocdepth}{0}
+        \\renewcommand{\\baselinestretch}{1.25}
+        \\setheadfoot{0.5in}{0.75in}
+        \\setlength{\\footskip}{0.8in}
+        \\chapterstyle{bianchi}
+        \\setsecheadstyle{\\normalfont \\raggedright \\textbf}
+        \\setsubsecheadstyle{\\normalfont \\raggedright \\emph}
+        \\setsubsubsecheadstyle{\\normalfont\\centering}
+        \\pagestyle{myheadings}
+        \\usepackage[font={small, it}]{caption}
+        \\usepackage{ccicons}
+        \\usepackage{ebgaramond}
+        \\usepackage[authoryear]{natbib}
+        \\bibliographystyle{apalike}
+        \\usepackage{svg}
+\\hyphenation{mini-buffer}"
+     ("\\chapter{%s}" . "\\chapter*{%s}")
+     ("\\section{%s}" . "\\section*{%s}")
+     ("\\subsection{%s}" . "\\subsection*{%s}")
+     ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+
 ;;; Org function
 (defun org-export-docx ()
   (interactive)
@@ -61,6 +115,7 @@
    (python . t)
    (latex . t)
    (gnuplot . t)
+   (dot . t)
    (shell . t)))
 
 ;;; UI

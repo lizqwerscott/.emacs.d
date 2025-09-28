@@ -57,6 +57,16 @@
 (global-set-keys
  '(("C-c n b o" . citar-open)))
 
+;; Export citations with Org Mode
+
+(require 'oc-natbib)
+(require 'oc-csl)
+
+(setq org-cite-global-bibliography ews-bibtex-files
+      org-cite-insert-processor 'citar
+      org-cite-follow-processor 'citar
+      org-cite-activate-processor 'citar)
+
 (citar-embark-mode)
 
 ;;; denote
