@@ -56,9 +56,6 @@
 
 ;;; winner mode
 (winner-mode 1)
-(keymap-sets winner-mode-map
-  '(("C-c H" . winner-undo)
-    ("C-c L" . winner-redo)))
 
 ;;; window rule
 (defun my-window-select-fit-size (window)
