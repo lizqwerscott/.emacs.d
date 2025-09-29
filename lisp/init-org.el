@@ -254,6 +254,21 @@ prepended to the element after the #+HEADER: tag."
            (hot-expand "<s" "perl")) "Perl tangled")
     ("<" self-insert-command "ins"))))
 
+(require 'lib-transient)
+(pretty-transient-define-prefix transient-org-toggles ()
+  "Transient org menu."
+  :transient-non-suffix 'transient--do-stay
+  [["Display"
+    ("l" "Display Link" org-toggle-link-display :toggle (lambda () (not org-link-descriptive)) :transient t)
+    ("m" "Hide Emphasis Markers" org-toggle-display-emphasis-markers :toggle (lambda () org-hide-emphasis-markers) :transient t)
+    ("e" "Display Pretty Entities" org-toggle-pretty-entities :toggle (lambda () org-pretty-entities) :transient t)
+    ("i" "Display inline images" org-toggle-inline-images :toggle (lambda () org-inline-image-overlays) :transient t)
+    ("v" "Toggle Valign" valign-mode :toggle t :transient t)]
+   ["Org Management"
+    ("p" "Set Property" org-set-property)
+    ("E" "Export" org-export-dispatch)]]
+  [("q" "Quit" transient-quit-one)])
+
 ;;; keymap
 (keymap-binds org-mode-map
   ("C-c TAB" . org-insert-item)
@@ -271,6 +286,7 @@ prepended to the element after the #+HEADER: tag."
   ("C-M-y" . org-rich-yank)
   ("M-g o" . consult-org-heading)
 
+  ("C-c o" . transient-org-toggles)
   ("<" . (lambda ()
            "Insert org template."
            (interactive)
