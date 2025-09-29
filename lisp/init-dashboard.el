@@ -143,6 +143,9 @@
                  'face 'font-lock-comment-face)))
   (advice-add #'dashboard-insert-footer :after #'my-dashboard-insert-copyright))
 
+(defvar dashboard-recover-layout-p nil
+  "Whether recovers the layout.")
+
 (defun open-dashboard ()
   "Open the *dashboard* buffer and jump to the first widget."
   (interactive)
