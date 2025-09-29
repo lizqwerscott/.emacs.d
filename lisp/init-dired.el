@@ -88,6 +88,7 @@
 ;;; Hook
 (add-hook 'dired-mode-hook
           #'(lambda ()
+              (dired-hide-details-mode)
               (dired-async-mode)
               (unless (bound-and-true-p dirvish-override-dired-mode)
                 (nerd-icons-dired-mode))
@@ -103,6 +104,9 @@
   [["Directory"
     ("h" "Hide Details" dired-hide-details-mode :toggle t :transient t)
     ("o" "Omit Mode" dired-omit-mode :toggle t :transient t)]
+   ["Highlight"
+    ("f" "Diredfl" diredfl-mode :toggle t :transient t)
+    ("d" "Denote dired" denote-dired-mode :toggle t :transient t)]
    ["Sort By"
     ("n" "Name" casual-dired--sort-by-name :transient t)
     ("k" "Kind" casual-dired--sort-by-kind :transient t)
