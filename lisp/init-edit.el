@@ -184,11 +184,15 @@
    (symbol "when-let" "if-let")))
 
 ;;; bufferfile
-(keymap-unset ctl-x-map "b")
 (lazy-load-global-keys
- '(("C-x b r" . bufferfile-rename)
-   ("C-x b k" . bufferfile-delete))
+ '(("C-x x r" . bufferfile-rename)
+   ("C-x x d" . bufferfile-delete))
  "init-bufferfile")
+
+;; Override Dired's rename behavior to use bufferfile rename functions,
+;; ensuring buffers visiting the renamed file are updated accordingly.
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "R" #'bufferfile-dired-do-rename))
 
 ;;; rg
 (lazy-load-global-keys
@@ -205,9 +209,11 @@
    ("s-i" . symbol-overlay-put))
  "symbol-overlay")
 
-(keymap-unset ctl-x-map "C-k")
-
 ;;; keymap
+
+(keymap-unset ctl-x-map "C-k")
+(keymap-unset ctl-x-map "C-x")
+
 (global-set-keys
  '(("RET" . newline-and-indent)
    (("S-<return>" "C-<return>") . comment-indent-new-line)
@@ -225,9 +231,7 @@
    ("M-g p" . goto-percent)
 
    ("C-s-f" . forward-sexp)
-   ("C-s-b" . backward-sexp)
-
-   ("C-x b g" . revert-buffer-quick)))
+   ("C-s-b" . backward-sexp)))
 
 (with-eval-after-load 'init-meow
   (meow-normal-define-key
