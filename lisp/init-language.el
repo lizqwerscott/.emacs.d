@@ -11,15 +11,15 @@
                      fanyi-youdao-thesaurus-provider
                      fanyi-longman-provider)))
 
-(global-set-keys
- '(("C-c d f" . fanyi-dwim)
-   ("C-c d d" . fanyi-dwim2)
-   ("C-c d h" . fanyi-from-history)
-   ("C-c d s" . sdcv-search-pointer+)
-   ("C-c d e" . ("Translate to english" . (lambda ()
-                                            (interactive)
-                                            (activate-input-method default-input-method)
-                                            (call-interactively #'gptel-translate-to-english-insert))))))
+(global-bind-keys
+ ("C-c d f" . fanyi-dwim)
+ ("C-c d d" . fanyi-dwim2)
+ ("C-c d h" . fanyi-from-history)
+ ("C-c d s" . sdcv-search-pointer+)
+ ("C-c d e" . ("Translate to english" . (lambda ()
+                                          (interactive)
+                                          (activate-input-method default-input-method)
+                                          (call-interactively #'gptel-translate-to-english-insert)))))
 
 ;;; spell
 (require 'init-spell)

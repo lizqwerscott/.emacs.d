@@ -177,8 +177,8 @@ _p_rev       _U_pper              _=_: upper/lower       _r_esolve
     ("g" "Git Link" git-link-dispatch)]]
   [("q" "Quit" transient-quit-one)])
 
-(global-set-keys
- '(("C-c v" . git-dispatch)))
+(global-bind-keys
+ ("C-c v" . git-dispatch))
 
 (provide 'init-git)
 ;;; init-git.el ends here

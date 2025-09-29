@@ -12,15 +12,15 @@
 (which-key-mode)
 
 (with-eval-after-load 'eww
-  (keymap-sets eww-mode-map
-    '(("M-n" . scroll-up-1/3)
-      ("M-p" . scroll-down-1/3))))
+  (keymap-binds eww-mode-map
+    ("M-n" . scroll-up-1/3)
+    ("M-p" . scroll-down-1/3)))
 
 ;;; gif screenshot
 (with-eval-after-load 'gif-screencast
-  (keymap-sets gif-screencast-mode-map
-    '(("<f8>" . gif-screencast-toggle-pause)
-      ("<f9>" . gif-screencast-stop))))
+  (keymap-binds gif-screencast-mode-map
+    ("<f8>" . gif-screencast-toggle-pause)
+    ("<f9>" . gif-screencast-stop)))
 
 ;;; proced
 (setq proced-auto-update-flag 'visible

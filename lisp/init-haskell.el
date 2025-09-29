@@ -19,9 +19,9 @@
 
   ;; (custom-set-variables '(haskell-process-type 'stack-ghci))
 
-  (keymap-sets haskell-mode-map
-    '(("C-c r" . project-run-command-with-vterm)
-      ("C-c C-p" . run-haskell))))
+  (keymap-binds haskell-mode-map
+    ("C-c r" . project-run-command-with-vterm)
+    ("C-c C-p" . run-haskell)))
 
 (provide 'init-haskell)
 ;;; init-haskell.el ends here

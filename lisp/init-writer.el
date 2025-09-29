@@ -37,12 +37,12 @@
 (with-eval-after-load 'bibtex
   (ews-bibtex-register))
 
-(global-set-keys
- '(("C-c n b r" . ews-bibtex-register)))
+(global-bind-keys
+ ("C-c n b r" . ews-bibtex-register))
 
 ;;; biblio
-(global-set-keys
- '(("C-c n b b" . ews-bibtex-biblio-lookup)))
+(global-bind-keys
+ ("C-c n b b" . ews-bibtex-biblio-lookup))
 
 ;;; citar
 (setopt citar-bibliography ews-bibtex-files)
@@ -54,8 +54,8 @@
               citar-indicator-notes-icons
               citar-indicator-links-icons)))
 
-(global-set-keys
- '(("C-c n b o" . citar-open)))
+(global-bind-keys
+ ("C-c n b o" . citar-open))
 
 ;; Export citations with Org Mode
 
@@ -77,20 +77,20 @@
 ;; (add-hook 'dired-mode-hook
 ;;           #'denote-dired-mode)
 
-(global-set-keys
- '(("C-c n d b" . denote-find-backlink)
-   ("C-c n d d" . denote-date)
-   ("C-c n d l" . denote-find-link)
-   ("C-c n d i" . denote-link-or-create)
-   ("C-c n d k" . denote-rename-file-keywords)
-   ("C-c n d n" . denote)
-   ("C-c n d r" . denote-rename-file)
-   ("C-c n d R" . denote-rename-file-using-front-matter)
-   ("C-c n d m" . denote-menu-list-notes)))
+(global-bind-keys
+ ("C-c n d b" . denote-find-backlink)
+ ("C-c n d d" . denote-date)
+ ("C-c n d l" . denote-find-link)
+ ("C-c n d i" . denote-link-or-create)
+ ("C-c n d k" . denote-rename-file-keywords)
+ ("C-c n d n" . denote)
+ ("C-c n d r" . denote-rename-file)
+ ("C-c n d R" . denote-rename-file-using-front-matter)
+ ("C-c n d m" . denote-menu-list-notes))
 
 ;;; denote-org
-(global-set-keys
- '(("C-c n d h" . denote-org-link-to-heading)))
+(global-bind-keys
+ ("C-c n d h" . denote-org-link-to-heading))
 
 (consult-notes-denote-mode)
 
@@ -98,51 +98,51 @@
 (with-eval-after-load 'consult-denote
   (consult-denote-mode 1))
 
-(global-set-keys
- '(("C-c n f" . consult-denote-find)
-   ("C-c n g" . consult-denote-grep)))
+(global-bind-keys
+ ("C-c n f" . consult-denote-find)
+ ("C-c n g" . consult-denote-grep))
 
 ;;; citar-denote
 (setopt citar-open-always-create-notes t
         citar-denote-subdir "literature")
 (citar-denote-mode)
 
-(global-set-keys
- '(("C-c n b c" . citar-create-note)
-   ("C-c n b n" . citar-denote-open-note)
-   ("C-c n b x" . citar-denote-nocite)))
+(global-bind-keys
+ ("C-c n b c" . citar-create-note)
+ ("C-c n b n" . citar-denote-open-note)
+ ("C-c n b x" . citar-denote-nocite))
 
-(keymap-sets org-mode-map
-  '(("C-c n b k" . citar-denote-add-citekey)
-    ("C-c n b K" . citar-denote-remove-citekey)
-    ("C-c n b d" . citar-denote-dwim)
-    ("C-c n b e" . citar-denote-open-reference-entry)))
+(keymap-binds org-mode-map
+  ("C-c n b k" . citar-denote-add-citekey)
+  ("C-c n b K" . citar-denote-remove-citekey)
+  ("C-c n b d" . citar-denote-dwim)
+  ("C-c n b e" . citar-denote-open-reference-entry))
 
 ;;; denote-explore
 (defconst denote-id-regexp "@@\\([^.]*?\\)\\(==.*\\|--.*\\|__.*\\|@@.*\\|\\..*\\)*$"
   "Regular expression to match the IDENTIFIER field in a file name.")
 
-(global-set-keys
- '(;; Statistics
-   ("C-c n x c" . denote-explore-count-notes)
-   ("C-c n x C" . denote-explore-count-keywords)
-   ("C-c n x b" . denote-explore-barchart-keywords)
-   ("C-c n x e" . denote-explore-barchart-filetypes)
-   ;; Random walks
-   ("C-c n x r" . denote-explore-random-note)
-   ("C-c n x l" . denote-explore-random-link)
-   ("C-c n x k" . denote-explore-random-keyword)
-   ("C-c n x x" . denote-explore-random-regex)
-   ;; Denote Janitor
-   ("C-c n x d" . denote-explore-identify-duplicate-notes)
-   ("C-c n x z" . denote-explore-zero-keywords)
-   ("C-c n x s" . denote-explore-single-keywords)
-   ("C-c n x o" . denote-explore-sort-keywords)
-   ("C-c n x w" . denote-explore-rename-keyword)
-   ;; Visualise denote
-   ("C-c n x n" . denote-explore-network)
-   ("C-c n x v" . denote-explore-network-regenerate)
-   ("C-c n x D" . denote-explore-barchart-degree)))
+(global-bind-keys
+ ;; Statistics
+ ("C-c n x c" . denote-explore-count-notes)
+ ("C-c n x C" . denote-explore-count-keywords)
+ ("C-c n x b" . denote-explore-barchart-keywords)
+ ("C-c n x e" . denote-explore-barchart-filetypes)
+ ;; Random walks
+ ("C-c n x r" . denote-explore-random-note)
+ ("C-c n x l" . denote-explore-random-link)
+ ("C-c n x k" . denote-explore-random-keyword)
+ ("C-c n x x" . denote-explore-random-regex)
+ ;; Denote Janitor
+ ("C-c n x d" . denote-explore-identify-duplicate-notes)
+ ("C-c n x z" . denote-explore-zero-keywords)
+ ("C-c n x s" . denote-explore-single-keywords)
+ ("C-c n x o" . denote-explore-sort-keywords)
+ ("C-c n x w" . denote-explore-rename-keyword)
+ ;; Visualise denote
+ ("C-c n x n" . denote-explore-network)
+ ("C-c n x v" . denote-explore-network-regenerate)
+ ("C-c n x D" . denote-explore-barchart-degree))
 
 (provide 'init-writer)
 ;;; init-writer.el ends here

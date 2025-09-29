@@ -161,10 +161,10 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
     ["Quick Tools"
      ("q t" "Translate select regions to english" gptel-translate-to-english)]))
 
-(global-set-keys
- '(("C-c RET" . gptel-send)
-   ("C-c u g" . gptel)
-   ("C-c u G" . gptel-menu)))
+(global-bind-keys
+ ("C-c RET" . gptel-send)
+ ("C-c u g" . gptel)
+ ("C-c u G" . gptel-menu))
 
 (require 'init-gptel-aibo)
 

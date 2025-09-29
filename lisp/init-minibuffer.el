@@ -17,12 +17,12 @@
 (setq vertico-count 15)
 
 ;; Configure directory extension.
-(keymap-sets vertico-map
-  '(("RET" . vertico-directory-enter)
-    ("DEL" . vertico-directory-delete-char)
-    (("M-DEL" "s-DEL") . vertico-directory-up)
-    ("s-RET" . vertico-exit-input)
-    ("C-j" . vertico-exit-input)))
+(keymap-binds vertico-map
+  ("RET" . vertico-directory-enter)
+  ("DEL" . vertico-directory-delete-char)
+  (("M-DEL" "s-DEL") . vertico-directory-up)
+  ("s-RET" . vertico-exit-input)
+  ("C-j" . vertico-exit-input))
 
 (add-hook #'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
 
@@ -98,27 +98,27 @@ configuration of the virtual buffer sources."
 ;; meow while translate i into TAB
 (keymap-unset goto-map "TAB")
 
-(global-set-keys
- '(("C-x C-r" . consult-recent-file)
-   ("M-y" . consult-yank-pop)
+(global-bind-keys
+ ("C-x C-r" . consult-recent-file)
+ ("M-y" . consult-yank-pop)
 
-   ("C-c b" . consult-buffer)
-   ("C-c B" . consult-buffer-other-window)
+ ("C-c b" . consult-buffer)
+ ("C-c B" . consult-buffer-other-window)
 
-   ("M-g l" . consult-goto-line)
-   ("M-g o" . consult-outline)
-   ("M-g m" . consult-mark)
-   ("M-g k" . consult-global-mark)
-   ("M-g e" . consult-compile-error)
-   ("M-g i" . consult-imenu)
-   ("M-g I" . consult-imenu-multi)
-   ("M-g b" . consult-bookmark)
+ ("M-g l" . consult-goto-line)
+ ("M-g o" . consult-outline)
+ ("M-g m" . consult-mark)
+ ("M-g k" . consult-global-mark)
+ ("M-g e" . consult-compile-error)
+ ("M-g i" . consult-imenu)
+ ("M-g I" . consult-imenu-multi)
+ ("M-g b" . consult-bookmark)
 
-   ("M-s l" . consult-line)
-   ("M-s L" . consult-line-multi)
-   ("M-s u" . consult-isearch-history)
-   ("M-s f" . ("Search file" . consult-fd))
-   ("M-s d" . ("Search dir" . consult-fd-dir))))
+ ("M-s l" . consult-line)
+ ("M-s L" . consult-line-multi)
+ ("M-s u" . consult-isearch-history)
+ ("M-s f" . ("Search file" . consult-fd))
+ ("M-s d" . ("Search dir" . consult-fd-dir)))
 
 ;;; consult dir
 (require 'consult-dir)
@@ -142,8 +142,8 @@ configuration of the virtual buffer sources."
 ;; Adding to the list of consult-dir sources
 (add-to-list 'consult-dir-sources 'consult-dir--source-quick)
 
-(global-set-keys
- '(("C-x C-d" . consult-dir)))
+(global-bind-keys
+ ("C-x C-d" . consult-dir))
 
 ;;; consult omni
 (with-eval-after-load 'consult-omni
@@ -156,8 +156,8 @@ configuration of the virtual buffer sources."
   (setq consult-omni-default-search-engine "DuckDuckGo")
   (setq consult-omni-multi-sources '("calc" "DuckDuckGo API" "Wikipedia" "GitHub")))
 
-(global-set-keys
- '(("M-s w" . ("Search in Web" . consult-omni-multi))))
+(global-bind-keys
+ ("M-s w" . ("Search in Web" . consult-omni-multi)))
 
 ;;; embark
 
@@ -214,42 +214,42 @@ targets."
     (browse-url url)))
 
 (with-eval-after-load 'embark
-  (keymap-sets embark-library-map
-    '(("b" . elpaca-browse-1)
-      ("v" . elpaca-visit)))
-  (keymap-sets embark-buffer-map
-    '(("l" . eval-buffer)
-      ("B" . switch-to-buffer-other-window)))
-  (keymap-sets embark-file-map
-    '(("S" . sudo-edit-find-file)
-      ("F" . find-file-other-window)))
-  (keymap-sets embark-bookmark-map
-    '(("B" . bookmark-jump-other-window))))
+  (keymap-binds embark-library-map
+    ("b" . elpaca-browse-1)
+    ("v" . elpaca-visit))
+  (keymap-binds embark-buffer-map
+    ("l" . eval-buffer)
+    ("B" . switch-to-buffer-other-window))
+  (keymap-binds embark-file-map
+    ("S" . sudo-edit-find-file)
+    ("F" . find-file-other-window))
+  (keymap-binds embark-bookmark-map
+    ("B" . bookmark-jump-other-window)))
 
-(global-set-keys
- '(("s-." . embark-act)
-   ("s-;" . embark-dwim)
-   ("C-h B" . embark-bindings)))
+(global-bind-keys
+ ("s-." . embark-act)
+ ("s-;" . embark-dwim)
+ ("C-h B" . embark-bindings))
 
 ;;; Key-Binding
 
-(global-set-keys
- '((("s-x" "M-x") . execute-extended-command)))
+(global-bind-keys
+ (("s-x" "M-x") . execute-extended-command))
 
-(keymap-sets minibuffer-local-map
-  '(("M-s" . consult-history)
-    ("M-r" . consult-history)
-    ("C-i" . (lambda ()
-               "Insert the currunt symbol."
-               (interactive)
-               (insert (save-excursion
-                         (set-buffer (window-buffer (minibuffer-selected-window)))
-                         (or (thing-at-point 'symbol t) "")))))
-    ("C-x C-d" . consult-dir)
-    ("C-x C-j" . consult-dir-jump-file)
+(keymap-binds minibuffer-local-map
+  ("M-s" . consult-history)
+  ("M-r" . consult-history)
+  ("C-i" . (lambda ()
+             "Insert the currunt symbol."
+             (interactive)
+             (insert (save-excursion
+                       (set-buffer (window-buffer (minibuffer-selected-window)))
+                       (or (thing-at-point 'symbol t) "")))))
+  ("C-x C-d" . consult-dir)
+  ("C-x C-j" . consult-dir-jump-file)
 
-    ("C-c C-c" . embark-collect)
-    ("C-c C-e" . embark-export)))
+  ("C-c C-c" . embark-collect)
+  ("C-c C-e" . embark-export))
 
 ;;; Local Variables
 

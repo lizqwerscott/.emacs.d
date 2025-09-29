@@ -64,8 +64,8 @@
 (add-hooks '(python-mode python-ts-mode)
            #'setting-python-compile-command)
 
-(keymap-sets (python-mode-map python-ts-mode-map)
-  '(("C-c r" . project-run-command-with-vterm)))
+(keymap-binds (python-mode-map python-ts-mode-map)
+  ("C-c r" . project-run-command-with-vterm))
 
 (provide 'init-python)
 ;;; init-python.el ends here

@@ -193,16 +193,16 @@
     ("g" dashboard-refresh-buffer "refresh" :exit t)
     ("Q" quit-dashboard "quit" :exit t))))
 
-(global-set-keys
- '(("<f2>" . open-dashboard)))
+(global-bind-keys
+ ("<f2>" . open-dashboard))
 
 (with-eval-after-load 'dashboard
-  (keymap-sets dashboard-mode-map
-    '(("S" . find-custom-file)
-      ("P" . elpaca-manager)
-      ("q" . quit-dashboard)
-      ("h" . hydra-dashboard/body)
-      ("?" . hydra-dashboard/body))))
+  (keymap-binds dashboard-mode-map
+    ("S" . find-custom-file)
+    ("P" . elpaca-manager)
+    ("q" . quit-dashboard)
+    ("h" . hydra-dashboard/body)
+    ("?" . hydra-dashboard/body)))
 
 (if user/dashboard
     (dashboard-setup-startup-hook)

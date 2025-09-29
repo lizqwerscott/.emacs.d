@@ -68,11 +68,11 @@
   (interactive)
   (gt--translate 'Text-Utility))
 
-(global-set-keys
- '(("C-c G"   . gt-translate-prompt)
-   ("C-c d t" . gt-translate)
-   ("C-c d G" . gt-translate-propt)
-   ("C-c d u" . gt-use-text-utility)))
+(global-bind-keys
+ ("C-c G"   . gt-translate-prompt)
+ ("C-c d t" . gt-translate)
+ ("C-c d G" . gt-translate-propt)
+ ("C-c d u" . gt-use-text-utility))
 
 (provide 'init-gt)
 ;;; init-gt.el ends here

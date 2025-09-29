@@ -70,8 +70,8 @@
       (popper--delete-popup (selected-window))
     (meow-quit)))
 
-(keymap-sets goto-map
-  '(("f" . find-file-at-point)))
+(keymap-binds goto-map
+  ("f" . find-file-at-point))
 
 (defvar-keymap find-map
   :doc "Keymap for find commands."
@@ -181,8 +181,8 @@
 (meow-setup)
 (meow-global-mode 1)
 
-(global-set-keys
- '(("C-y" . meow-clipboard-yank)))
+(global-bind-keys
+ ("C-y" . meow-clipboard-yank))
 
 ;; (require 'meow-tree-sitter)
 ;; (meow-tree-sitter-register-defaults)

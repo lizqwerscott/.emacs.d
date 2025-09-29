@@ -46,12 +46,12 @@
 (custom-set-faces
  '(corfu-border ((t (:inherit region :background unspecified)))))
 
-(keymap-sets corfu-map
-  '(("TAB" . +complete)
-    ;; ("[tab]" . +complete)
-    ("S-TAB" . corfu-previous)
-    ;; ("[backtab]" . corfu-previous)
-    ))
+(keymap-binds corfu-map
+  ("TAB" . +complete)
+  ;; ("[tab]" . +complete)
+  ("S-TAB" . corfu-previous)
+  ;; ("[backtab]" . corfu-previous)
+  )
 
 (pcase user/lsp-client
   ('eglot

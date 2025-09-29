@@ -11,8 +11,8 @@
     (kill-buffer buffer))
   (ibuffer))
 
-(global-set-keys
- '(("C-x C-b" . ibuffer-refersh)))
+(global-bind-keys
+ ("C-x C-b" . ibuffer-refersh))
 
 (add-hook 'ibuffer-mode-hook #'nerd-icons-ibuffer-mode)
 (add-hook 'ibuffer-mode-hook

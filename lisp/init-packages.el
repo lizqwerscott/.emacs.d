@@ -42,9 +42,9 @@
 (elpaca `(,@elpaca-order))
 
 (with-eval-after-load 'elpaca-ui
-  (keymap-sets elpaca-ui-mode-map
-    '(("p" . previous-line)
-      ("F" . elpaca-ui-mark-pull))))
+  (keymap-binds elpaca-ui-mode-map
+    ("p" . previous-line)
+    ("F" . elpaca-ui-mark-pull)))
 
 (defun packages! (packages)
   "Install PACKAGES."

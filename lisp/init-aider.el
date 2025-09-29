@@ -37,8 +37,8 @@
       ;; aidermacs-backend 'vterm
       )
 
-(global-set-keys
- '(("C-c u a" . aidermacs-transient-menu)))
+(global-bind-keys
+ ("C-c u a" . aidermacs-transient-menu))
 
 (provide 'init-aider)
 ;;; init-aider.el ends here

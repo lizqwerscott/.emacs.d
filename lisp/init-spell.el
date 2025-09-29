@@ -29,10 +29,10 @@
 
 (add-hook 'emacs-startup-hook #'global-jinx-mode)
 
-(global-set-keys
- '(("C-M-$" . jinx-languages)
-   ("s-$" . jinx-correct)
-   ("C-c d c" . jinx-correct)))
+(global-bind-keys
+ ("C-M-$" . jinx-languages)
+ ("s-$" . jinx-correct)
+ ("C-c d c" . jinx-correct))
 
 (provide 'init-spell)
 ;;; init-spell.el ends here.

@@ -37,8 +37,8 @@
                             '(citre-xref-backend
                               t)))))
 
-(keymap-sets citre-mode-map
-  '(("C-c j p" . citre-peek)))
+(keymap-binds citre-mode-map
+  ("C-c j p" . citre-peek))
 
 (provide 'init-citre)
 ;;; init-citre.el ends here

@@ -36,8 +36,8 @@
 
 (add-hook 'prog-mode-hook #'gptel-aibo-complete-mode)
 
-(global-set-keys
- '(("C-c u h" . gptel-aibo)))
+(global-bind-keys
+ ("C-c u h" . gptel-aibo))
 
 (provide 'init-gptel-aibo)
 ;;; init-gptel-aibo.el ends here

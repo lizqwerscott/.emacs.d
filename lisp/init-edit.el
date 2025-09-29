@@ -44,11 +44,11 @@
 
 ;;; nxml
 (with-eval-after-load 'nxml-mode
-  (keymap-sets nxml-mode-map
-    '(("C-s-f" . nxml-down-element)
-      ("C-s-n" . nxml-forward-element)
-      ("C-s-p" . nxml-backward-element)
-      ("C-s-b" . nxml-backward-up-element))))
+  (keymap-binds nxml-mode-map
+    ("C-s-f" . nxml-down-element)
+    ("C-s-n" . nxml-forward-element)
+    ("C-s-p" . nxml-backward-element)
+    ("C-s-b" . nxml-backward-up-element)))
 
 ;;; aggressive-indent
 (add-hooks '(emacs-lisp-mode lisp-mode)
@@ -123,16 +123,16 @@
     (isearch-repeat-forward)))
 
 (with-eval-after-load 'isearch
-  (keymap-sets isearch-mode-map
-    '(("<escape>" . isearch-exit)
-      ("s-r" . isearch-toggle-regexp)
-      ("s-e" . isearch-edit-string)
+  (keymap-binds isearch-mode-map
+    ("<escape>" . isearch-exit)
+    ("s-r" . isearch-toggle-regexp)
+    ("s-e" . isearch-edit-string)
 
-      ("C-w" . isearch-yank-thing-at-point-and-forward)
+    ("C-w" . isearch-yank-thing-at-point-and-forward)
 
-      ("C-v" . visual-replace-from-isearch)
-      ("C-o" . my-occur-from-isearch)
-      ("C-j" . my-isearch-consult-line-from-isearch))))
+    ("C-v" . visual-replace-from-isearch)
+    ("C-o" . my-occur-from-isearch)
+    ("C-j" . my-isearch-consult-line-from-isearch)))
 
 ;; repeat for isearch
 (defvar-keymap isearch-repeat-map
@@ -214,24 +214,24 @@
 (keymap-unset ctl-x-map "C-k")
 (keymap-unset ctl-x-map "C-x")
 
-(global-set-keys
- '(("RET" . newline-and-indent)
-   (("S-<return>" "C-<return>") . comment-indent-new-line)
-   (("s-n" "M-n") . scroll-up-1/3)
-   (("s-p" "M-p") . scroll-down-1/3)
-   (("M-N" "s-N") . scroll-other-window-up-1/3)
-   (("M-P" "s-P") . scroll-other-window-down-1/3)
+(global-bind-keys
+ ("RET" . newline-and-indent)
+ (("S-<return>" "C-<return>") . comment-indent-new-line)
+ (("s-n" "M-n") . scroll-up-1/3)
+ (("s-p" "M-p") . scroll-down-1/3)
+ (("M-N" "s-N") . scroll-other-window-up-1/3)
+ (("M-P" "s-P") . scroll-other-window-down-1/3)
 
-   ("C-x C-n" . next-buffer)
-   ("C-x C-p" . previous-buffer)
+ ("C-x C-n" . next-buffer)
+ ("C-x C-p" . previous-buffer)
 
-   ("C-x k" . kill-current-buffer)
-   ("C-x K" . kill-buffer)
+ ("C-x k" . kill-current-buffer)
+ ("C-x K" . kill-buffer)
 
-   ("M-g p" . goto-percent)
+ ("M-g p" . goto-percent)
 
-   ("C-s-f" . forward-sexp)
-   ("C-s-b" . backward-sexp)))
+ ("C-s-f" . forward-sexp)
+ ("C-s-b" . backward-sexp))
 
 (with-eval-after-load 'init-meow
   (meow-normal-define-key

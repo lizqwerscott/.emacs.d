@@ -58,8 +58,8 @@
 
 (setq elfeed-search-print-entry-function #'lucius/elfeed-search-print-entry--better-default)
 
-(keymap-sets elfeed-show-mode-map
-  '(("M-n" . scroll-up-1/3)
-    ("M-p" . scroll-down-1/3)))
+(keymap-binds elfeed-show-mode-map
+  ("M-n" . scroll-up-1/3)
+  ("M-p" . scroll-down-1/3))
 
 (provide 'init-elfeed)

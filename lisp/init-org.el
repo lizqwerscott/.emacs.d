@@ -255,38 +255,38 @@ prepended to the element after the #+HEADER: tag."
     ("<" self-insert-command "ins"))))
 
 ;;; keymap
-(keymap-sets org-mode-map
-  `(("C-c TAB" . org-insert-item)
-    ("M-K" . org-metaup)
-    ("M-J" . org-metadown)
-    ("M-H" . org-metaleft)
-    ("M-L" . org-metaright)
+(keymap-binds org-mode-map
+  ("C-c TAB" . org-insert-item)
+  ("M-K" . org-metaup)
+  ("M-J" . org-metadown)
+  ("M-H" . org-metaleft)
+  ("M-L" . org-metaright)
 
-    ("s-<return>" . org-meta-return)
-    ("s-K" . org-metaup)
-    ("s-J" . org-metadown)
-    ("s-H" . org-metaleft)
-    ("s-L" . org-metaright)
+  ("s-<return>" . org-meta-return)
+  ("s-K" . org-metaup)
+  ("s-J" . org-metadown)
+  ("s-H" . org-metaleft)
+  ("s-L" . org-metaright)
 
-    ("C-M-y" . org-rich-yank)
-    ("M-g o" . consult-org-heading)
+  ("C-M-y" . org-rich-yank)
+  ("M-g o" . consult-org-heading)
 
-    ("<" . ,(lambda ()
-              "Insert org template."
-              (interactive)
-              (if (or (region-active-p) (looking-back "^\s*" 1))
-                  (hydra-org-template/body)
-                (self-insert-command 1))))))
+  ("<" . (lambda ()
+           "Insert org template."
+           (interactive)
+           (if (or (region-active-p) (looking-back "^\s*" 1))
+               (hydra-org-template/body)
+             (self-insert-command 1)))))
 
-(global-set-keys
- '(("C-c c" . org-capture)
-   ("C-c a" . org-agenda)
+(global-bind-keys
+ ("C-c c" . org-capture)
+ ("C-c a" . org-agenda)
 
-   ("C-c L" . org-store-link)
-   ("C-c C-o" . org-open-at-point)
+ ("C-c L" . org-store-link)
+ ("C-c C-o" . org-open-at-point)
 
-   ("M-s n" . consult-notes)
-   ("M-s N" . consult-notes-search-in-all-notes)))
+ ("M-s n" . consult-notes)
+ ("M-s N" . consult-notes-search-in-all-notes))
 
 ;;; capf
 (defun my/org-capf ()

@@ -33,8 +33,8 @@
              #'(lambda ()
                  (bound-and-true-p meow-normal-mode)))
 
-(keymap-sets minuet-active-mode-map
-  '(("TAB" . minuet-accept-suggestion)))
+(keymap-binds minuet-active-mode-map
+  ("TAB" . mminuet-accept-suggestion))
 
 (add-hook 'prog-mode-hook
           #'minuet-auto-suggestion-mode)

@@ -52,13 +52,13 @@
   (call-interactively #'eglot-shutdown)
   (call-interactively #'eglot))
 
-(keymap-sets eglot-mode-map
-  '(("C-c j r" . eglot-rename)
-    ("C-c j R" . eglot-restart)
-    ("C-c j a" . eglot-code-actions)
-    ("C-c j s" . consult-eglot-symbols)
+(keymap-binds eglot-mode-map
+  ("C-c j r" . eglot-rename)
+  ("C-c j R" . eglot-restart)
+  ("C-c j a" . eglot-code-actions)
+  ("C-c j s" . consult-eglot-symbols)
 
-    ("M-g u" . eglot-find-implementation)))
+  ("M-g u" . eglot-find-implementation))
 
 (add-hook 'prog-mode-hook
           #'(lambda ()

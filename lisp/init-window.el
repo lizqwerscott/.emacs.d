@@ -51,9 +51,9 @@
 
 (add-to-list 'aw-dispatch-alist '(?w hydra-window/body) t)
 
-(global-set-keys
- '((("s-o" "M-o") . ace-window)
-   ("C-c w" . hydra-window/body)))
+(global-bind-keys
+ (("s-o" "M-o") . ace-window)
+ ("C-c w" . hydra-window/body))
 
 ;;; winner mode
 (winner-mode 1)
@@ -120,10 +120,10 @@
       popper-echo-dispatch-actions t
       popper-display-control nil)
 
-(keymap-sets popper-mode-map
-  '(("C-h z" . popper-toggle)
-    ("C-<tab>" . popper-cycle)
-    ("C-M-<tab>" . popper-toggle-type)))
+(keymap-binds popper-mode-map
+  ("C-h z" . popper-toggle)
+  ("C-<tab>" . popper-cycle)
+  ("C-M-<tab>" . popper-toggle-type))
 
 (setq popper-reference-buffers
       '("\\*Messages\\*$"

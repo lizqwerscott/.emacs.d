@@ -82,8 +82,8 @@
       trashed-sort-key '("Date deleted" . t)
       trashed-date-format "%Y-%m-%d %H:%M:%S")
 
-(global-set-keys
- '(("C-x C-t" . trashed)))
+(global-bind-keys
+ ("C-x C-t" . trashed))
 
 ;;; Hook
 (add-hook 'dired-mode-hook
@@ -116,29 +116,29 @@
   [("q" "Quit" transient-quit-all)])
 
 ;;; Keymap
-(keymap-sets dired-mode-map
-  '(("TAB" . dired-subtree-cycle)
-    ("e" . dired-toggle-read-only)
-    ("f" . (lambda ()
-             (interactive)
-             (consult-fd default-directory)))
-    ("F" . (lambda ()
-             (interactive)
+(keymap-binds dired-mode-map
+  ("TAB" . dired-subtree-cycle)
+  ("e" . dired-toggle-read-only)
+  ("f" . (lambda ()
+           (interactive)
+           (consult-fd default-directory)))
+  ("F" . (lambda ()
+           (interactive)
 
-             (consult-fd-dir)))
-    ("W" . dired-copy-path)
-    ("C-c +" . dired-create-empty-file)
-    ("M-n" . scroll-up-1/3)
-    ("M-p" . scroll-down-1/3)
-    ("h" . dired-up-directory)
-    ("C-c C-r" . dired-rsync)
-    ("C-c C-x" . dired-rsync-transient)
-    ("C-c e" . dired-do-open-default)
-    (("M-j" "s-j") . dired-other-window)
-    ("C-o" . dired-dispatch)))
+           (consult-fd-dir)))
+  ("W" . dired-copy-path)
+  ("C-c +" . dired-create-empty-file)
+  ("M-n" . scroll-up-1/3)
+  ("M-p" . scroll-down-1/3)
+  ("h" . dired-up-directory)
+  ("C-c C-r" . dired-rsync)
+  ("C-c C-x" . dired-rsync-transient)
+  ("C-c e" . dired-do-open-default)
+  (("M-j" "s-j") . dired-other-window)
+  ("C-o" . dired-dispatch))
 
-(global-set-keys
- '(("C-x J" . dired-jump-other-window)))
+(global-bind-keys
+ ("C-x J" . dired-jump-other-window))
 
 ;;; dirvish
 (when user/dirvish
@@ -156,11 +156,11 @@
          ("m" "/mnt/"                       "Drives")
          ("t" "~/.local/share/Trash/files/" "TrashCan"))))
 
-    (keymap-sets dirvish-mode-map
-      '(("a" . dirvish-quick-access)
-        ("TAB" . dirvish-subtree-toggle)
-        (("M-i" "s-i") . dirvish-layout-toggle)
-        ("C-j" . dirvish-fd))))
+    (keymap-binds dirvish-mode-map
+      ("a" . dirvish-quick-access)
+      ("TAB" . dirvish-subtree-toggle)
+      (("M-i" "s-i") . dirvish-layout-toggle)
+      ("C-j" . dirvish-fd)))
 
   (dirvish-override-dired-mode))
 

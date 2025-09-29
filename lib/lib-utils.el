@@ -34,39 +34,51 @@
                         "-hook"))
                ,fn)))
 
-(defmacro keymap-sets (key-maps key-bindings)
-  "Set keys in keymaps.
-KEY-MAPS is a list of keymaps.
+(defun keymap--bind (key-bindings &optional keymap)
+  "Set key in KEYMAP.
+KEY-BINDINGS is a list of (KEYS . COMMAND) pairs, where KEYS can be a single key
+or a list of keys, and COMMAND is the command to bind to those keys."
+  (apply #'append
+         (mapcar (lambda (key-binding)
+                   (pcase-let* ((`(,keys . ,command) key-binding))
+                     (mapcar (lambda (key)
+                               `(,(if keymap
+                                      #'keymap-set
+                                    #'keymap-global-set)
+                                 ,@(when keymap
+                                     (list keymap))
+                                 ,key
+                                 ,(if (and (listp command)
+                                           (not (equal (car command)
+                                                       'lambda)))
+                                      `(cons ,(car command) (function ,(cdr command)))
+                                    `(function ,command))))
+                             (if (listp keys)
+                                 keys
+                               (list keys)))))
+                 key-bindings)))
+
+(defmacro keymap-binds (keymaps &rest key-bindings)
+  "Set keys in KEYMAPS.
+KEY-MAPS is a list of keymap or a single keymap.
 KEY-BINDINGS is a list of (KEYS . COMMAND) pairs, where KEYS can be a single key
 or a list of keys, and COMMAND is the command to bind to those keys."
   (declare (indent 1))
-  `(dolist (key-map ,(if (listp key-maps)
-                         `(list ,@key-maps)
-                       `(list ,key-maps)))
-     (dolist (key-b ,key-bindings)
-       (when-let* ((keys (car key-b))
-                   (command (cdr key-b)))
-         (if (listp keys)
-             (dolist (key keys)
-               (keymap-set key-map
-                           key
-                           command))
-           (keymap-set key-map
-                       keys
-                       command))))))
+  `(progn
+     ,@(apply #'append
+              (mapcar (lambda (keymap)
+                        (keymap--bind key-bindings keymap))
+                      (if (listp keymaps)
+                          keymaps
+                        (list keymaps))))))
 
-(defmacro global-set-keys (key-bindings)
+(defmacro global-bind-keys (&rest key-bindings)
   "Set keys in global keymap.
 KEY-BINDINGS is a list of (KEYS . COMMAND) pairs, where KEYS can be a single key
 or a list of keys, and COMMAND is the command to bind to those keys."
   ;; (declare (indent 1))
-  `(dolist (key-b ,key-bindings)
-     (when-let* ((keys (car key-b))
-                 (command (cdr key-b)))
-       (if (listp keys)
-           (dolist (key keys)
-             (keymap-global-set key command))
-         (keymap-global-set keys command)))))
+  `(progn
+     ,@(keymap--bind key-bindings)))
 
 (defun add-subdirs-to-load-path (search-dir)
   "Add subdirectories of SEARCH-DIR to `load-path'.

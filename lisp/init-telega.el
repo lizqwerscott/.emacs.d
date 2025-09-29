@@ -79,24 +79,24 @@
     (setq telega-server-libs-prefix "/opt/homebrew/"))
 
   ;;; keymap
-  (keymap-sets telega-msg-button-map
-    '(("k" . nil)
-      ("l" . nil)
-      ("SPC" . meow-keypad)))
+  (keymap-binds telega-msg-button-map
+    ("k" . nil)
+    ("l" . nil)
+    ("SPC" . meow-keypad))
 
-  (keymap-sets telega-prefix-map
-    '(("p" . telega-chatbuf-filter-search)
-      ("d" . telega-chat-remove-member)
-      ("m" . telega-describe-chat-members)
-      ("h" . telega-notifications-history)
-      ("x" . telega-chatbuf-thread-cancel)))
+  (keymap-binds telega-prefix-map
+    ("p" . telega-chatbuf-filter-search)
+    ("d" . telega-chat-remove-member)
+    ("m" . telega-describe-chat-members)
+    ("h" . telega-notifications-history)
+    ("x" . telega-chatbuf-thread-cancel))
 
   (defalias 'telega-prefix-map telega-prefix-map)
 
-  (global-set-keys
-   '(("C-c t" . ("Telega" . telega-prefix-map))
+  (global-bind-keys
+   ("C-c t" . ("Telega" . telega-prefix-map))
 
-     ("C-c l t" . ("Chat Tab" . tab-bar-switch-or-create-chat))))
+   ("C-c l t" . ("Chat Tab" . tab-bar-switch-or-create-chat)))
 
   ;;; notification
   (add-hook 'telega-connection-state-hook #'+tab-bar-telega-icon-update)

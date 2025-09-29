@@ -35,8 +35,8 @@
           #'setting-zig-compile-command)
 
 (with-eval-after-load 'zig-ts-mode
-  (keymap-sets zig-ts-mode-map
-    '(("C-c r" . project-run-command-with-vterm))))
+  (keymap-binds zig-ts-mode-map
+    ("C-c r" . project-run-command-with-vterm)))
 
 (provide 'init-zig)
 ;;; init-zig.el ends here

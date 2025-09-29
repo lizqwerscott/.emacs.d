@@ -61,9 +61,9 @@
     ("E" toggle-debug-on-error "debug on error" :toggle (default-value 'debug-on-error))
     ("Q" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit)))))
 
-(global-set-keys
- '(("C-c T" . hydra-toggles/body)
-   ("<f6>" . hydra-toggles/body)))
+(global-bind-keys
+ ("C-c T" . hydra-toggles/body)
+ ("<f6>" . hydra-toggles/body))
 
 (provide 'init-hydra)
 ;;; init-hydra.el ends here
