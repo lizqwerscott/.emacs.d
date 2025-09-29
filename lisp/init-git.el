@@ -95,6 +95,13 @@ The completion candidates include the Git status of each file."
         ediff-merge-revisions-with-ancestor t
         ediff-show-clashes-only t))
 
+(add-hook 'ediff-startup-hook
+          (lambda ()
+            (dolist (buffer (list ediff-buffer-A ediff-buffer-B ediff-buffer-C))
+              (when buffer
+                (with-current-buffer buffer
+                  (outline-show-all))))))
+
 ;;; difftastic
 (require 'init-difftastic)
 
