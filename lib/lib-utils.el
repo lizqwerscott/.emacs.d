@@ -26,12 +26,46 @@
 
 (require 'cl-lib)
 
+(defun convert-mode-to-hook (mode)
+  "CONVERT MODE to hook."
+  (let ((name (symbol-name mode)))
+    (if (or (string-suffix-p "-hook" name)
+            (string-suffix-p "-functions" name))
+        mode
+      (intern (concat name "-hook")))))
+
+(defmacro setup-hooks (&rest modes-fns)
+  "Add fn in modes.
+MODES-FNS is a list of (modes . fn) pairs."
+  `(progn
+     ,@(apply #'append
+              (mapcar (lambda (modes-fn)
+                        (pcase-let* ((`(,modes . ,fn) modes-fn))
+                          (mapcar (lambda (mode)
+                                    `(add-hook (quote ,(convert-mode-to-hook mode)) (function ,fn)))
+                                  (if (listp modes)
+                                      modes
+                                    (list modes)))))
+                      modes-fns))))
+
+(defmacro with-hook (modes &rest body)
+  "Add lambda in MODES.
+BODY is lambda body."
+  (declare (indent 1))
+  `(let ((fn (lambda ()
+               ,@body)))
+     ,@(apply #'append
+              (mapcar (lambda (mode)
+                        `((add-hook (quote ,(convert-mode-to-hook mode))
+                                    (function fn))))
+                      (if (listp modes)
+                          modes
+                        (list modes))))))
+
 (defmacro add-hooks (modes fn)
   "Add FN in MODES hook."
   `(dolist (mode ,modes)
-     (add-hook (intern
-                (concat (symbol-name mode)
-                        "-hook"))
+     (add-hook (convert-mode-to-hook mode)
                ,fn)))
 
 (defun keymap--bind (key-bindings &optional keymap)
