@@ -74,6 +74,9 @@
         denote-link-description-function #'ews-denote-link-description-title-case
         denote-rename-buffer-mode 1)
 
+(setopt denote-templates
+        '((week-report . denote-week-report-template)))
+
 ;; (add-hook 'dired-mode-hook
 ;;           #'denote-dired-mode)
 
@@ -143,6 +146,35 @@
  ("C-c n x n" . denote-explore-network)
  ("C-c n x v" . denote-explore-network-regenerate)
  ("C-c n x D" . denote-explore-barchart-degree))
+
+;;; denote journal
+(defun denote-week-report-template ()
+  "Generate week template."
+  (concat "* 本周工作总结"
+          "\n\n"
+          "* 下周工作计划"))
+
+(defun denote-week-report-new-or-existing-entry ()
+  "Denote week report."
+  (interactive)
+  (let ((denote-journal-keyword (list "journal" "report"))
+        (denote-templates '((journal . denote-week-report-template)))
+        (denote-journal-interval 'weekly))
+    (call-interactively #'denote-journal-new-or-existing-entry)))
+
+;; (setopt denote-journal-signature
+;;         (lambda ()
+;;           (require 'denote-sequence)
+;;           (denote-sequence-get-new 'parent)))
+
+(add-hook 'calendar-mode-hook
+          #'denote-journal-calendar-mode)
+
+(global-bind-keys
+ ("C-c n j N" . ("New journal" . denote-journal-new-entry))
+ ("C-c n j n" . ("New or open journal" . denote-journal-new-or-existing-entry))
+ ("C-c n j l" . ("Link Journal" . denote-journal-link-create-entry))
+ ("C-c n j w" . ("Week report" . denote-week-report-new-or-existing-entry)))
 
 (provide 'init-writer)
 ;;; init-writer.el ends here
