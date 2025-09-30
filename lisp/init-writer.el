@@ -77,8 +77,11 @@
 (setopt denote-templates
         '((week-report . denote-week-report-template)))
 
-;; (add-hook 'dired-mode-hook
-;;           #'denote-dired-mode)
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (when (file-in-directory-p default-directory denote-directory)
+              (diredfl-mode -1)
+              (denote-dired-mode))))
 
 (global-bind-keys
  ("C-c n d b" . denote-find-backlink)
