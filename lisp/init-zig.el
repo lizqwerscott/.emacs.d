@@ -23,11 +23,12 @@
 
 (defun setting-zig-compile-command ()
   "Setting zig default `compile-command'."
-  (let* ((project-path (project-root-path))
-         (command (if project-path
-                      "zig build run"
-                    (concat "zig run "
-                            (file-truename (buffer-file-name))))))
+  (when-let* ((project-path (project-root-path))
+              (file-name (buffer-file-name))
+              (command (if project-path
+                           "zig build run"
+                         (concat "zig run "
+                                 (file-truename file-name)))))
     (setq-local compile-command
                 command)))
 
