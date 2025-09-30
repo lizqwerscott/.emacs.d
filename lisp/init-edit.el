@@ -189,10 +189,7 @@
    ("C-x x d" . bufferfile-delete))
  "init-bufferfile")
 
-;; Override Dired's rename behavior to use bufferfile rename functions,
-;; ensuring buffers visiting the renamed file are updated accordingly.
-(with-eval-after-load 'dired
-  (keymap-set dired-mode-map "R" #'bufferfile-dired-do-rename))
+(autoload #'bufferfile-dired-do-rename "bufferfile" nil t)
 
 ;;; rg
 (lazy-load-global-keys
