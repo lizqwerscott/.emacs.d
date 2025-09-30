@@ -77,6 +77,13 @@
 (setopt denote-templates
         '((week-report . denote-week-report-template)))
 
+(with-eval-after-load 'denote
+  ;; for fix `denote--file-has-backlinks-p', use old.
+  (advice-add #'denote--file-has-backlinks-p
+              :around
+              (lambda (_ &rest args)
+                (not (zerop (length (denote-get-backlinks (car args))))))))
+
 (add-hook 'dired-mode-hook
           (lambda ()
             (when (file-in-directory-p default-directory denote-directory)
