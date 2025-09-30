@@ -167,6 +167,7 @@
 (defun denote-week-report-new-or-existing-entry ()
   "Denote week report."
   (interactive)
+  (require 'denote-journal)
   (let ((denote-journal-keyword (list "journal" "report"))
         (denote-templates '((journal . denote-week-report-template)))
         (denote-journal-interval 'weekly))
@@ -184,7 +185,7 @@
 (global-bind-keys
  ("C-c n j N" . ("New journal" . denote-journal-new-entry))
  ("C-c n j n" . ("New or open journal" . denote-journal-new-or-existing-entry))
- ("C-c n j l" . ("Link Journal" . denote-journal-link-create-entry))
+ ("C-c n j l" . ("Link Journal" . denote-journal-link-or-create-entry))
  ("C-c n j w" . ("Week report" . denote-week-report-new-or-existing-entry)))
 
 (provide 'init-writer)
