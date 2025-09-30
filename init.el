@@ -35,7 +35,7 @@
 (require 'init-dired)
 (require 'init-ibuffer)
 (require 'init-helpful)
-(require 'init-calender)
+(require 'init-calendar)
 (require 'init-tools)
 
 (require 'init-org)
