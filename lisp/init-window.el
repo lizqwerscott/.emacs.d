@@ -95,7 +95,7 @@
     (side . bottom)
     (slot . 0))
    ;; bottom buffer (NOT side window)
-   ((or "\\(\\*Capture\\*\\|CAPTURE-.*\\)" "^CAPTURE-.*\\.org*")
+   ((or "*Org Agenda*" "\\(\\*Capture\\*\\|CAPTURE-.*\\)" "^CAPTURE-.*\\.org*")
     (display-buffer-reuse-mode-window display-buffer-below-selected))
    ((or (derived-mode . compilation-mode) (derived-mode . cargo-process-mode))
     (display-buffer-reuse-mode-window display-buffer-at-bottom)
