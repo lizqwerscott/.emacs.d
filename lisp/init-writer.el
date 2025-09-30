@@ -170,6 +170,7 @@
 ;;           (require 'denote-sequence)
 ;;           (denote-sequence-get-new 'parent)))
 
+(autoload #'denote-journal-calendar-mode "denote-journal" nil t)
 (add-hook 'calendar-mode-hook
           #'denote-journal-calendar-mode)
 
