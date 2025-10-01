@@ -34,6 +34,8 @@
    "Split"
    (("3" split-window-right "horizontally")
     ("2" split-window-below "vertically")
+    ("w 3" split-root-window-right "root horizontally")
+    ("w 2" split-root-window-below "root vertically")
     ("t" window-layout-transpose "Transpose Window Layout")
     ("r" rotate-windows "Clockwise Rotate")
     ("R" rotate-windows-back "Counterclockwise Rotate"))
