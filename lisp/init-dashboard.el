@@ -180,7 +180,8 @@
           :color pink :quit-key ("q" "C-g"))
   ("Navigator"
    (("P" elpaca-manager "package manage" :exit t)
-    ("S" find-custom-file "settings" :exit t))
+    ("S" find-custom-file "settings" :exit t)
+    ("I" find-init-file "init file" :exit t))
    "Item"
    (("RET" widget-button-press "open" :exit t)
     ("<tab>" widget-forward "next")
@@ -199,6 +200,7 @@
 (with-eval-after-load 'dashboard
   (keymap-binds dashboard-mode-map
     ("S" . find-custom-file)
+    ("I" . find-init-file)
     ("P" . elpaca-manager)
     ("q" . quit-dashboard)
     ("h" . hydra-dashboard/body)

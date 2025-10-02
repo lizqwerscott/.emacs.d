@@ -219,10 +219,15 @@ and \"apikey\" as USER."
 
 ;;; Tools
 
-(defun find-custom-file()
-  "Open custom files."
+(defun find-custom-file ()
+  "Open custom file."
   (interactive)
   (find-file custom-file))
+
+(defun find-init-file ()
+  "Open `emacs' init file."
+  (interactive)
+  (find-file (expand-file-name "init.el" user-emacs-directory)))
 
 (defun browse-this-file ()
   "Open the current file as a URL using `browse-url'."
