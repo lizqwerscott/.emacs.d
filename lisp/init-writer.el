@@ -84,6 +84,16 @@
               (lambda (_ &rest args)
                 (not (zerop (length (denote-get-backlinks (car args))))))))
 
+(with-eval-after-load 'org-capture
+  (add-to-list 'org-capture-templates
+               '("n" "新笔记 (使用 Denote)" plain
+                 (file denote-last-path)
+                 #'denote-org-capture
+                 :no-save t
+                 :immediate-finish nil
+                 :kill-buffer t
+                 :jump-to-captured t)))
+
 (add-hook 'dired-mode-hook
           (lambda ()
             (when (file-in-directory-p default-directory denote-directory)
@@ -194,7 +204,7 @@
   (let ((denote-journal-keyword (list "journal" "report"))
         (denote-templates '((journal . denote-week-report-template)))
         (denote-journal-interval 'weekly))
-    (call-interactively #'denote-journal-new-or-existing-entry)))
+    (denote-journal-new-or-existing-entry)))
 
 ;; (setopt denote-journal-signature
 ;;         (lambda ()
@@ -204,6 +214,14 @@
 (autoload #'denote-journal-calendar-mode "denote-journal" nil t)
 (add-hook 'calendar-mode-hook
           #'denote-journal-calendar-mode)
+
+(with-eval-after-load 'org-capture
+  (add-to-list 'org-capture-templates
+               '("j" "Journal" entry
+                 (file denote-journal-path-to-new-or-existing-entry)
+                 "* %U %?\n%i\n%a"
+                 :kill-buffer t
+                 :empty-lines 1)))
 
 (global-bind-keys
  ("C-c n j N" . ("New journal" . denote-journal-new-entry))
