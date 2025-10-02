@@ -105,6 +105,29 @@
 (global-bind-keys
  ("C-c n d h" . denote-org-link-to-heading))
 
+;; for Hugo export
+(with-eval-after-load 'denote
+  (advice-add 'denote-link-ol-export :around
+              (lambda (orig-fun link description format)
+                (if (and (eq format 'md)
+                         (eq org-export-current-backend 'hugo))
+                    (let* ((path (denote-get-path-by-id link))
+                           (export-file-name
+                            (or
+                             ;; Use export_file_name if it exists
+                             (when (file-exists-p path)
+                               (with-temp-buffer
+                                 (insert-file-contents path)
+                                 (goto-char (point-min))
+                                 (when (re-search-forward "^#\\+export_file_name: \\(.+\\)" nil t)
+                                   (match-string 1))))
+                             ;; Otherwise, use the original file's base name
+                             (file-name-nondirectory path))))
+                      (format "[%s]({{< relref \"%s\" >}})"
+                              description
+                              export-file-name))
+                  (funcall orig-fun link description format)))))
+
 (consult-notes-denote-mode)
 
 ;;; consult-denote

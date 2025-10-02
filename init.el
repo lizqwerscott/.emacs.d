@@ -39,7 +39,6 @@
 (require 'init-tools)
 
 (require 'init-org)
-;; (require 'init-hugo)
 ;; (require 'init-elfeed)
 ;;(require 'crefactor)
 (require 'init-writer)

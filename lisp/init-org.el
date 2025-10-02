@@ -84,6 +84,11 @@
      ("\\subsection{%s}" . "\\subsection*{%s}")
      ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
 
+(with-eval-after-load 'ox
+  (require 'ox-hugo)
+  (setq org-hugo-base-dir
+        (file-truename "~/MyProject/website/blog/")))
+
 ;;; Org function
 (defun org-export-docx ()
   (interactive)
