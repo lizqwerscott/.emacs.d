@@ -38,11 +38,11 @@
   (ews-bibtex-register))
 
 (global-bind-keys
- ("C-c n b r" . ews-bibtex-register))
+ ("C-c n q r" . ews-bibtex-register))
 
 ;;; biblio
 (global-bind-keys
- ("C-c n b b" . ews-bibtex-biblio-lookup))
+ ("C-c n q b" . ews-bibtex-biblio-lookup))
 
 ;;; citar
 (setopt citar-bibliography ews-bibtex-files)
@@ -55,7 +55,7 @@
               citar-indicator-links-icons)))
 
 (global-bind-keys
- ("C-c n b o" . citar-open))
+ ("C-c n q o" . citar-open))
 
 ;; Export citations with Org Mode
 
@@ -101,19 +101,27 @@
               (denote-dired-mode))))
 
 (global-bind-keys
- ("C-c n d b" . denote-find-backlink)
- ("C-c n d d" . denote-date)
- ("C-c n d l" . denote-find-link)
- ("C-c n d i" . denote-link-or-create)
- ("C-c n d k" . denote-rename-file-keywords)
- ("C-c n d n" . denote)
- ("C-c n d r" . denote-rename-file)
- ("C-c n d R" . denote-rename-file-using-front-matter)
- ("C-c n d m" . denote-menu-list-notes))
+ ("C-c n n" . denote)
+ ("C-c n N" . denote-date)
+
+ ("C-c n d" . denote-sort-dired)
+ ("C-c n r" . denote-rename-file)
+
+ ("C-c n i" . denote-link-or-create)
+ ("C-c n I" . denote-add-links)
+
+ ("C-c n l" . denote-find-link)
+
+ ("C-c n b" . denote-backlinks)
+ ("C-c n R" . denote-rename-file-using-front-matter))
+
+;;; denote menu
+(global-bind-keys
+ ("C-c n m" . denote-menu-list-notes))
 
 ;;; denote-org
 (global-bind-keys
- ("C-c n d h" . denote-org-link-to-heading))
+ ("C-c n h" . denote-org-link-to-heading))
 
 ;; for Hugo export
 (with-eval-after-load 'denote
@@ -154,15 +162,15 @@
 (citar-denote-mode)
 
 (global-bind-keys
- ("C-c n b c" . citar-create-note)
- ("C-c n b n" . citar-denote-open-note)
- ("C-c n b x" . citar-denote-nocite))
+ ("C-c n q c" . citar-create-note)
+ ("C-c n q n" . citar-denote-open-note)
+ ("C-c n q x" . citar-denote-nocite))
 
 (keymap-binds org-mode-map
-  ("C-c n b k" . citar-denote-add-citekey)
-  ("C-c n b K" . citar-denote-remove-citekey)
-  ("C-c n b d" . citar-denote-dwim)
-  ("C-c n b e" . citar-denote-open-reference-entry))
+  ("C-c n q k" . citar-denote-add-citekey)
+  ("C-c n q K" . citar-denote-remove-citekey)
+  ("C-c n q d" . citar-denote-dwim)
+  ("C-c n q e" . citar-denote-open-reference-entry))
 
 ;;; denote-explore
 (defconst denote-id-regexp "\\([0-9]\\{8\\}\\)\\(T[0-9]\\{6\\}\\)"
