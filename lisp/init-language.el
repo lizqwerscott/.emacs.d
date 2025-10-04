@@ -5,6 +5,10 @@
 ;;; gt
 (require 'init-gt)
 
+;;; immersive-translate
+
+(setopt immersive-translate-backend 'trans)
+
 ;;; fanyi
 (custom-set-variables
  '(fanyi-providers '(fanyi-haici-provider
