@@ -89,6 +89,8 @@
     marginalia
     consult
     consult-dir
+    bufferfile
+    bufferlo
     orderless
     embark
     embark-consult
@@ -220,7 +222,6 @@
     ligature
     dashboard
     doom-modeline
-    bufferfile
     lisp-extra-font-lock
     highlight-function-calls
     focus

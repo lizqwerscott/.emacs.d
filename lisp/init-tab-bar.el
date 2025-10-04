@@ -10,7 +10,6 @@
         tab-bar-new-tab-to 'rightmost
         tab-bar-tab-hints t
         tab-bar-show 1
-        tab-bar-new-tab-choice "*scratch*"
         tab-bar-tab-name-truncated-max 20
         tab-bar-auto-width t
         ;; Add spaces for tab-name

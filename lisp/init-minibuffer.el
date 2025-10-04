@@ -159,6 +159,72 @@ configuration of the virtual buffer sources."
 (global-bind-keys
  ("M-s w" . ("Search in Web" . consult-omni-multi)))
 
+;;; bufferlo
+
+;; modeline
+(with-eval-after-load 'bufferlo
+  (setq bufferlo-mode-line-prefix "🐃") ; "🐮"
+  (setq bufferlo-mode-line-set-active-prefix "Ⓢ")
+  (setq bufferlo-mode-line-frame-prefix "Ⓕ")
+  (setq bufferlo-mode-line-tab-prefix "Ⓣ")
+  (setq bufferlo-mode-line-left-prefix nil)
+  (setq bufferlo-mode-line-right-suffix nil))
+
+;; with consult
+(defvar my:bufferlo-consult--source-local-buffers
+  (list :name "Bufferlo Local Buffers"
+        :narrow   ?l
+        :category 'buffer
+        :face     'consult-buffer
+        :history  'buffer-name-history
+        :state    #'consult--buffer-state
+        :default  t
+        :items    (lambda () (consult--buffer-query
+                              :predicate #'bufferlo-local-buffer-p
+                              :sort 'visibility
+                              :as #'buffer-name)))
+  "Local Bufferlo buffer candidate source for `consult-buffer'.")
+
+(defvar my:bufferlo-consult--source-other-buffers
+  (list :name "Bufferlo Other Buffers"
+        :narrow   ?o
+        :category 'buffer
+        :face     'consult-buffer
+        :history  'buffer-name-history
+        :state    #'consult--buffer-state
+        :items    (lambda () (consult--buffer-query
+                              :predicate #'bufferlo-non-local-buffer-p
+                              :sort 'visibility
+                              :as #'buffer-name)))
+  "Non-local Bufferlo buffer candidate source for `consult-buffer'.")
+
+(defvar my:bufferlo-consult--source-all-buffers
+  (list :name "Bufferlo All Buffers"
+        :narrow   ?a
+        :hidden   t
+        :category 'buffer
+        :face     'consult-buffer
+        :history  'buffer-name-history
+        :state    #'consult--buffer-state
+        :items    (lambda () (consult--buffer-query
+                              :sort 'visibility
+                              :as #'buffer-name)))
+  "All Bufferlo buffer candidate source for `consult-buffer'.")
+
+;; add in the reverse order of display preference
+(add-to-list 'consult-buffer-sources 'my:bufferlo-consult--source-all-buffers)
+(add-to-list 'consult-buffer-sources 'my:bufferlo-consult--source-other-buffers)
+(add-to-list 'consult-buffer-sources 'my:bufferlo-consult--source-local-buffers)
+
+(with-eval-after-load 'consult
+  (delq 'consult--source-buffer consult-buffer-sources))
+
+;; with tab bar
+(setopt tab-bar-new-tab-choice #'bufferlo-create-local-scratch-buffer)
+
+(bufferlo-mode)
+(bufferlo-anywhere-mode)
+
 ;;; embark
 
 ;; embark with which-key
