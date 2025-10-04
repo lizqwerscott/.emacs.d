@@ -58,6 +58,22 @@
 
   (elpaca-wait))
 
+(defun +elpaca-with-github-straight-mirror (recipe)
+  "Replace github with emacs-straight in package RECIPE."
+  (when-let* ((source (plist-get recipe :source))
+              ((string-match-p "GNU ELPA" source))
+              (repo (plist-get recipe :repo))
+              (url (or (car-safe repo) repo))
+              ((string-match-p "github.com" url))
+              ((not (string-match-p "emacsmirror/gnu_elpa" url)))
+              ((not (string-match-p "emacs-mirror" url)))
+              (mirror (replace-regexp-in-string "https://github.com/\\([^/]+\\)/"
+                                                (concat "https://github.com/" "emacs-straight" "/")
+                                                url)))
+    (list :repo (if (consp repo) (cons mirror (cdr repo)) mirror))))
+
+(add-to-list 'elpaca-recipe-functions #'+elpaca-with-github-straight-mirror)
+
 (defvar *package-early-install-list*
   '(no-littering
     exec-path-from-shell
