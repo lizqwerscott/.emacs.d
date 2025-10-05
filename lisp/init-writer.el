@@ -140,10 +140,13 @@
                                  (when (re-search-forward "^#\\+export_file_name: \\(.+\\)" nil t)
                                    (match-string 1))))
                              ;; Otherwise, use the original file's base name
-                             (file-name-nondirectory path))))
-                      (format "[%s]({{< relref \"%s\" >}})"
-                              description
-                              export-file-name))
+                             (file-name-nondirectory path)))
+                           (ext (file-name-extension export-file-name)))
+                      (if (string= ext "org")
+                          (format "[%s]({{< relref \"%s\" >}})"
+                                  description
+                                  export-file-name)
+                        (format "![](/ox-hugo/%s)" export-file-name)))
                   (funcall orig-fun link description format)))))
 
 (consult-notes-denote-mode)
