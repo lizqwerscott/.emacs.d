@@ -149,6 +149,10 @@
                         (format "![](/ox-hugo/%s)" export-file-name)))
                   (funcall orig-fun link description format)))))
 
+(with-eval-after-load 'embark
+  (keymap-binds embark-defun-map
+    ("g" . org-dblock-update)))
+
 (consult-notes-denote-mode)
 
 ;;; consult-denote
