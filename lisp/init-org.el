@@ -25,7 +25,9 @@
       '((sequence "TODO(t)" "DOING(i)" "HANGUP(h)" "|" "DONE(d)" "CANCEL(c)")
         (sequence "⚑(T)" "🏴(I)" "❓(H)" "|" "✔(D)" "✘(C)")))
 
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 4.0))
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+
+(add-hook 'org-mode-hook #'org-cdlatex-mode)
 
 ;; Add new template
 (add-to-list 'org-structure-template-alist '("n" . "note"))
@@ -137,6 +139,7 @@
 
 ;; Make invisible parts of Org elements appear visible
 (add-hook 'org-mode-hook 'org-appear-mode)
+(add-hook 'org-mode-hook 'org-fragtog-mode)
 
 ;; 中文标记隐藏空格
 (font-lock-add-keywords 'org-mode

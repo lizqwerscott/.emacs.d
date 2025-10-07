@@ -274,6 +274,7 @@
     ox-reveal
     ox-hugo
     org-appear
+    org-fragtog
     valign
     (org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent")
     (org-count-words :fetcher github :repo "Elilif/org-count-words")
@@ -288,6 +289,7 @@
     ;;       	:pre-build ("make" "all"))
     biblio
     citar
+    (oxr :fetcher github :repo "bdarcus/oxr")
     titlecase
     denote
     denote-menu
@@ -298,7 +300,9 @@
     citar-embark
     citar-denote
     denote-explore
-    ox-epub))
+    ox-epub
+    auctex
+    cdlatex))
 
 (defvar *package-ai-install-list*
   (append '((gptel :fetcher github
