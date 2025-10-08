@@ -190,6 +190,21 @@ ARGS is ORIG-FN args."
                         (equal major-mode 'lisp-mode)
                         (equal major-mode 'scheme-mode))
                 (call-interactively #'check-parens))))
+;;; latex
+(defun +cdlatex-complete ()
+  "TAB complete."
+  (interactive)
+  (or (yas-expand)
+      (cdlatex-tab)))
+
+(with-eval-after-load 'cdlatex
+  (keymap-binds cdlatex-mode-map
+    ("TAB" . +cdlatex-complete)))
+
+(add-hook 'TeX-mode-hook
+          (lambda ()
+            (prettify-symbols-mode)
+            (cdlatex-mode)))
 
 ;;; language
 (add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
