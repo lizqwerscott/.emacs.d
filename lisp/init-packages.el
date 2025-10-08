@@ -301,7 +301,7 @@
     citar-denote
     denote-explore
     ox-epub
-    auctex
+    (auctex :fetcher github :repo "emacs-straight/auctex" :branch "master")
     cdlatex))
 
 (defvar *package-ai-install-list*
