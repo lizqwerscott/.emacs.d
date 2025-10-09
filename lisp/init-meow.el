@@ -165,7 +165,6 @@
    '("y" . meow-save)
    '("Y" . meow-clipboard-save)
    '("z" . meow-pop-selection)
-   '("'" . repeat)
    '("<escape>" . ignore))
 
   (meow-normal-define-key
