@@ -42,10 +42,10 @@
 
 ;; Multiple LaTeX passes for bibliographies
 (setopt org-latex-pdf-process
-        '("pdflatex -interaction nonstopmode -output-directory %o %f"
+        '("%latex -interaction nonstopmode -output-directory %o %f"
           "bibtex %b"
-          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+          "%latex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "%latex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
 ;; Clean temporary files after export
 (setopt org-latex-logfiles-extensions
