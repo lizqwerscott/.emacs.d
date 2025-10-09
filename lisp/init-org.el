@@ -223,6 +223,18 @@ prepended to the element after the #+HEADER: tag."
     (when mod (insert mod) (forward-line))
     (when text (insert text))))
 
+(with-eval-after-load 'oxr
+  ;; oxr insert absolute figure
+  (defun oxr-insert-absolute-figure ()
+    "Insert a new figure, with name and caption."
+    (interactive)
+    ;; TODO this inserts absolute paths ATM, which is not ideal.
+    (let ((image_file (read-file-name "Image file: ")))
+      (insert (oxr--metadata-prompt (oxr--get-name-prefix 'figure) t))
+      (org-insert-link 'file image_file))))
+
+(autoload #'oxr-insert-absolute-figure "oxr" nil t)
+
 (pretty-hydra-define hydra-org-template
   (:title (pretty-hydra-title "Org Template" 'sucicon "nf-custom-orgmode" :face 'nerd-icons-green)
           :color blue :quit-key ("q" "C-g"))
@@ -254,6 +266,13 @@ prepended to the element after the #+HEADER: tag."
     ("sg" (hot-expand "<s" "go :imports '\(\"fmt\"\)") "golang")
     ("sx" (hot-expand "<s" "xml") "xml")
     ("sy" (hot-expand "<s" "ymal-ts") "yaml"))
+   "Oxr"
+   (("oi" oxr-insert-ref "Ref")
+    ("on" oxr-insert-name "Name")
+    ("oe" oxr-insert-equation "Equation")
+    ("of" oxr-insert-absolute-figure "Figure")
+    ("ot" oxr-insert-table "Table")
+    ("os" oxr-insert-section "Section"))
    "Misc"
    (("m" (hot-expand "<s" "mermaid :file chart.png") "mermaid")
     ("u" (hot-expand "<s" "plantuml :file chart.png") "plantuml")
