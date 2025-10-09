@@ -191,6 +191,11 @@ ARGS is ORIG-FN args."
                         (equal major-mode 'scheme-mode))
                 (call-interactively #'check-parens))))
 ;;; latex
+
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+
 (defun +cdlatex-complete ()
   "TAB complete."
   (interactive)
