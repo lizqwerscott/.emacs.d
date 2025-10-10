@@ -319,7 +319,7 @@ prepended to the element after the #+HEADER: tag."
   ("<" . (lambda ()
            "Insert org template."
            (interactive)
-           (if (or (region-active-p) (looking-back "^\s*" 1))
+           (if (or (region-active-p) (looking-back "^\s*" (line-beginning-position)))
                (hydra-org-template/body)
              (self-insert-command 1)))))
 
