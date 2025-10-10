@@ -19,6 +19,10 @@
 (setf (alist-get 'google-java-format apheleia-formatters)
       '("google-java-format" "--aosp" "-"))
 
+;; latex
+(setf (alist-get 'latexindent apheleia-formatters)
+      '("latexindent" "--logfile=/dev/null" "-y=defaultIndent: \"  \""))
+
 (defun format-code-buffer ()
   "Format now buffer."
   (interactive)
