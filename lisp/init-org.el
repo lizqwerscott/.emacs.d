@@ -124,6 +124,24 @@
         (not org-hide-emphasis-markers))
   (revert-buffer-quick))
 
+(defun latex-math-from-calc ()
+  "Evaluate `calc' on the contents of line at point."
+  (interactive)
+  (cond ((region-active-p)
+         (let* ((beg (region-beginning))
+                (end (region-end))
+                (string (buffer-substring-no-properties beg end)))
+           (kill-region beg end)
+           (insert (calc-eval `(,string calc-language latex
+                                        calc-prefer-frac t
+                                        calc-angle-mode rad)))))
+        (t (let ((l (thing-at-point 'line)))
+             (end-of-line 1) (kill-line 0)
+             (insert (calc-eval `(,l
+                                  calc-language latex
+                                  calc-prefer-frac t
+                                  calc-angle-mode rad)))))))
+
 ;;; Org babel
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -333,7 +351,8 @@ prepended to the element after the #+HEADER: tag."
     ("I" "Display math" (lambda ()
                           (interactive)
                           (insert "\\[  \\]")
-                          (backward-char 3)))]
+                          (backward-char 3)))
+    ("L" "Convert to latex" latex-math-from-calc :if region-active-p)]
    ["Misc"
     (">" "ins" self-insert-command)]]
   [("q" "Quit" transient-quit-one)])
