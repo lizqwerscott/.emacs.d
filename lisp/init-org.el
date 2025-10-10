@@ -298,6 +298,46 @@ prepended to the element after the #+HEADER: tag."
     ("E" "Export" org-export-dispatch)]]
   [("q" "Quit" transient-quit-one)])
 
+(pretty-transient-define-prefix transient-org-line-template ()
+  "Transient org line menu."
+  [["Link"
+    ("l" "Normal" org-insert-link)
+    ("c" "Citre" org-cite-insert)
+    ("d" "Denote" denote-insert-link)]
+   ["Emphasize"
+    ("=" "Verbatim" (lambda ()
+                      (interactive)
+                      (org-emphasize ?=)))
+    ("~" "Code" (lambda ()
+                  (interactive)
+                  (org-emphasize ?~)))
+    ("+" "Delete" (lambda ()
+                    (interactive)
+                    (org-emphasize ?+)))
+    ("_" "Underline" (lambda ()
+                       (interactive)
+                       (org-emphasize ?_)))
+
+    ("/" "Italic" (lambda ()
+                    (interactive)
+                    (org-emphasize ?/)))
+    ("*" "Bold" (lambda ()
+                  (interactive)
+                  (org-emphasize ?*)))
+    ("e" "Emphasize" org-emphasize)]
+   ["Latex"
+    ("i" "Inline math" (lambda ()
+                         (interactive)
+                         (insert "\\(  \\)")
+                         (backward-char 3)))
+    ("I" "Display math" (lambda ()
+                          (interactive)
+                          (insert "\\[  \\]")
+                          (backward-char 3)))]
+   ["Misc"
+    (">" "ins" self-insert-command)]]
+  [("q" "Quit" transient-quit-one)])
+
 ;;; keymap
 (keymap-binds org-mode-map
   ("C-c TAB" . org-insert-item)
@@ -321,7 +361,8 @@ prepended to the element after the #+HEADER: tag."
            (interactive)
            (if (or (region-active-p) (looking-back "^\s*" (line-beginning-position)))
                (hydra-org-template/body)
-             (self-insert-command 1)))))
+             (self-insert-command 1))))
+  (">" . transient-org-line-template))
 
 (global-bind-keys
  ("C-c c" . org-capture)
