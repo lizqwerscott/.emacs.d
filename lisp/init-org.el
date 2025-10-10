@@ -256,10 +256,10 @@ prepended to the element after the #+HEADER: tag."
     ("H" (hot-expand "<H") "HTML")
     ("L" (hot-expand "<L") "LaTeX"))
    "Source"
-   (("ss" (hot-expand "<s") "src")
+   (("b" (hot-expand "<s" "bash") "bash")
+    ("ss" (hot-expand "<s") "src")
     ("se" (hot-expand "<s" "emacs-lisp") "emacs-lisp")
     ("sp" (hot-expand "<s" "python :results output") "python")
-    ("sb" (hot-expand "<s" "bash") "bash")
     ("sc" (hot-expand "<s" "c++") "c++")
     ("sr" (hot-expand "<s" "rust") "rust")
     ("sS" (hot-expand "<s" "sh") "sh")
@@ -267,11 +267,11 @@ prepended to the element after the #+HEADER: tag."
     ("sx" (hot-expand "<s" "xml") "xml")
     ("sy" (hot-expand "<s" "ymal-ts") "yaml"))
    "Oxr"
-   (("oi" oxr-insert-ref "Ref")
+   (("r" oxr-insert-ref "Ref")
+    ("f" oxr-insert-absolute-figure "Figure")
+    ("t" oxr-insert-table "Table")
     ("on" oxr-insert-name "Name")
     ("oe" oxr-insert-equation "Equation")
-    ("of" oxr-insert-absolute-figure "Figure")
-    ("ot" oxr-insert-table "Table")
     ("os" oxr-insert-section "Section"))
    "Misc"
    (("m" (hot-expand "<s" "mermaid :file chart.png") "mermaid")
