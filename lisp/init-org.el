@@ -289,8 +289,7 @@ prepended to the element after the #+HEADER: tag."
     ("sx" (hot-expand "<s" "xml") "xml")
     ("sy" (hot-expand "<s" "ymal-ts") "yaml"))
    "Oxr"
-   (("r" oxr-insert-ref "Ref")
-    ("f" oxr-insert-absolute-figure "Figure")
+   (("f" oxr-insert-absolute-figure "Figure")
     ("t" oxr-insert-table "Table")
     ("on" oxr-insert-name "Name")
     ("oe" oxr-insert-equation "Equation")
@@ -320,6 +319,7 @@ prepended to the element after the #+HEADER: tag."
 (pretty-transient-define-prefix transient-org-line-template ()
   "Transient org line menu."
   [["Link"
+    ("r" "Ref" oxr-insert-ref)
     ("l" "Normal" org-insert-link)
     ("c" "Citre" org-cite-insert)
     ("d" "Denote" denote-insert-link)]
