@@ -4,5 +4,6 @@
 # --
 #+OPTIONS: author:nil ^:{}
 #+HUGO_DRAFT: false
+#+hugo_paired_shortcodes: %sidenote
 #+HUGO_SECTION: posts/${1:`(format-time-string "%Y/%m" (when-let* ((date (org-collect-keywords '("date"))) (date-str (cadar date)) (time (org-read-date nil t date-str))) time))`}
 #+HUGO_CATEGORIES: $0

@@ -30,7 +30,7 @@
 (add-hook 'org-mode-hook #'org-cdlatex-mode)
 
 ;; Add new template
-(add-to-list 'org-structure-template-alist '("n" . "note"))
+(add-to-list 'org-structure-template-alist '("n" . "sidenote"))
 
 ;;; Org export
 (setopt org-export-with-drawers nil
@@ -91,7 +91,9 @@
   (setq org-hugo-base-dir
         (file-truename "~/MyProject/website/blog/")
         org-hugo-front-matter-format "yaml"
-        org-hugo-auto-set-lastmod t))
+        org-hugo-auto-set-lastmod t)
+  (add-to-list 'org-hugo-special-block-type-properties
+               '("sidenote" . (:trim-pre t :trim-post t))))
 
 ;;; Org function
 (defun org-export-docx ()
@@ -264,15 +266,17 @@ prepended to the element after the #+HEADER: tag."
     ("E" (hot-expand "<E") "export")
     ("h" (hot-expand "<h") "html")
     ("l" (hot-expand "<l") "latex")
-    ("n" (hot-expand "<n") "note")
+    ("n" (hot-expand "<n") "sidenote")
     ("x" (hot-expand "<q") "quote")
     ("v" (hot-expand "<v") "verse"))
    "Head"
    (("i" (hot-expand "<i") "index")
     ("A" (hot-expand "<A") "ASCII")
     ("I" (hot-expand "<I") "INCLUDE")
-    ("H" (hot-expand "<H") "HTML")
-    ("L" (hot-expand "<L") "LaTeX"))
+    ("H" (yas-expand-snippet (yas-lookup-snippet "hugo")) "Hugo")
+    ("L" (hot-expand "<L") "LaTeX")
+    ("S" (insert "#+STARTUP: ") "Startup")
+    ("P" (insert "#+STARTUP: latexpreview ") "Latex Preview"))
    "Source"
    (("b" (hot-expand "<s" "bash") "bash")
     ("ss" (hot-expand "<s") "src")
@@ -296,9 +300,6 @@ prepended to the element after the #+HEADER: tag."
     ("u" (hot-expand "<s" "plantuml :file chart.png") "plantuml")
     ("Y" (hot-expand "<s" "ipython :session :exports both :results raw drawer\n$0") "ipython")
     ("G" (hot-expand "<s" "gnuplot :results output :file ./result.png") "gnuplot")
-    ("P" (progn
-           (insert "#+HEADERS: :results output :exports both :shebang \"#!/usr/bin/env perl\"\n")
-           (hot-expand "<s" "perl")) "Perl tangled")
     ("<" self-insert-command "ins"))))
 
 (require 'lib-transient)
