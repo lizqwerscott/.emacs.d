@@ -23,21 +23,24 @@
 ;;
 
 ;;; Code:
-(require 'pulsar)
+(with-eval-after-load 'pulsar
+  (setq pulsar-pulse-region-functions
+        '(meow-yank))
 
-(setq pulsar-pulse-region-functions
-      '(meow-yank))
-
-(setq pulsar-resolve-pulse-function-aliases t)
-(setq pulsar-pulse t)
-(setq pulsar-delay 0.055)
-(setq pulsar-iterations 10)
-(setq pulsar-face 'pulsar-magenta)
-(setq pulsar-highlight-face 'pulsar-yellow)
+  (setq pulsar-resolve-pulse-function-aliases t)
+  (setq pulsar-pulse t)
+  (setq pulsar-delay 0.055)
+  (setq pulsar-iterations 10)
+  (setq pulsar-face 'pulsar-magenta)
+  (setq pulsar-highlight-face 'pulsar-yellow))
 
 (pulsar-global-mode 1)
 
 (add-hook 'next-error-hook #'pulsar-pulse-line)
+
+;; integration with the `consult' package:
+(add-hook 'consult-after-jump-hook #'pulsar-recenter-top)
+(add-hook 'consult-after-jump-hook #'pulsar-reveal-entry)
 
 ;; integration with the built-in `imenu':
 (add-hook 'imenu-after-jump-hook #'pulsar-recenter-top)
