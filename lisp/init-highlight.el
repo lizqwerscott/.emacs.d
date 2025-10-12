@@ -36,19 +36,23 @@
            #'symbol-overlay-mode)
 
 ;;; Highlight indentions
-(require 'indent-bars)
-(setq indent-bars-color '(highlight :face-bg t :blend 0.15)
-      indent-bars-pattern "."
-      indent-bars-width-frac 1
-      indent-bars-pad-frac 0.1
-      indent-bars-zigzag nil
-      indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
-      indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
-      indent-bars-display-on-blank-lines nil)
+(setopt indent-bars-color '(highlight :face-bg t :blend 0.225)
+        indent-bars-pattern "."
+        indent-bars-width-frac 1
+        indent-bars-pad-frac 0.1
+        indent-bars-zigzag nil
+        indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
+        indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
+        indent-bars-display-on-blank-lines t
+        indent-bars-prefer-character nil
 
-(setq indent-bars-treesit-support t
-      indent-bars-no-descend-string t
-      indent-bars-treesit-ignore-blank-lines-types '("module"))
+        indent-bars-treesit-support t
+        indent-bars-no-descend-string t
+        indent-bars-treesit-ignore-blank-lines-types '("module")
+        indent-bars-treesit-scope '((python function_definition class_definition for_statement if_statement with_statement while_statement)))
+
+(with-eval-after-load 'indent-bars
+  (require 'indent-bars-ts))
 
 (add-hooks '(python-mode python-ts-mode rust-mode rust-ts-mode c++-mode c++-ts-mode)
            #'indent-bars-mode)
