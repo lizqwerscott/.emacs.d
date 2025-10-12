@@ -52,12 +52,12 @@ MODES-FNS is a list of (modes . fn) pairs."
   "Add lambda in MODES.
 BODY is lambda body."
   (declare (indent 1))
-  `(let ((fn (lambda ()
-               ,@body)))
+  `(progn
      ,@(apply #'append
               (mapcar (lambda (mode)
                         `((add-hook (quote ,(convert-mode-to-hook mode))
-                                    (function fn))))
+                                    (function (lambda ()
+                                                ,@body)))))
                       (if (listp modes)
                           modes
                         (list modes))))))
