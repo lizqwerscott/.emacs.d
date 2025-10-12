@@ -224,11 +224,5 @@ ARGS is ORIG-FN args."
 
 (require 'init-elisp)
 
-;;; Local Variables
-
-;; Local Variables:
-;; eval: (outline-hide-sublevels 2)
-;; End:
-
 (provide 'init-program)
 ;;; init-program.el ends heres.

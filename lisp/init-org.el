@@ -425,11 +425,5 @@ prepended to the element after the #+HEADER: tag."
 
 (require 'init-org-reveal)
 
-;;; Local Variables
-
-;; Local Variables:
-;; eval: (outline-hide-sublevels 2)
-;; End:
-
 (provide 'init-org)
 ;;; init-org.el ends here.

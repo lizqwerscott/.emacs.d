@@ -246,11 +246,5 @@
   "n" #'scroll-other-window-up-1/3
   "p" #'scroll-other-window-down-1/3)
 
-;;; Local Variables
-
-;; Local Variables:
-;; eval: (outline-hide-sublevels 2)
-;; End:
-
 (provide 'init-edit)
 ;;; init-edit.el ends here.
