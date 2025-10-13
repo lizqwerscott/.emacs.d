@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: hugo-big-typeit
+# key: hugobigtypeit
+# --
+#+attr_shortcode: tag=h1 lifeLike=true loop=true
+#+begin_typeit
+$0
+#+end_typeit

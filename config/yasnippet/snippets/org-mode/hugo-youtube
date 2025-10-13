@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: hugo-youtube
+# key: hugoyt
+# --
+@@hugo:{{< youtubeLite id="$1" label="$2" >}}@@
+$0
