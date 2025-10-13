@@ -14,6 +14,10 @@
 (add-hook 'prog-mode-hook
           #'outli-mode)
 
+(with-hook outline-minor-mode
+  (meow-normal-define-key
+   '("@" . "C-c @")))
+
 ;;; Tree-Sitter
 (require 'treesit)
 (customize-set-variable 'treesit-font-lock-level 4)
