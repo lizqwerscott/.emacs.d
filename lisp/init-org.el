@@ -216,6 +216,11 @@
 (add-hook 'org-mode-hook
           #'org-modern-indent-mode 90)
 
+;; count word
+(with-hook org-mode
+  (when (buffer-file-name)
+    (org-count-words-mode)))
+
 ;;; org rich yank
 (defun my-org-rich-yank-format-paste (language contents link)
   "Based on `org-rich-yank--format-paste-default'."
