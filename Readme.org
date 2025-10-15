@@ -17,7 +17,7 @@ Main interface
 **** compile
 ***** Install dependencies
 #+begin_src bash
-  yay -S tree-sitter sqlite3
+  yay -S libgccjit tree-sitter sqlite3
 #+end_src
 ***** Compile
 #+begin_src bash
