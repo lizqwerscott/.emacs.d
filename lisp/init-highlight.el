@@ -77,14 +77,13 @@
  '(diff-hl-delete ((t (:inherit diff-removed :background unspecified)))))
 
 (with-eval-after-load 'diff-hl
-  (unless sys/macp
-    (setopt diff-hl-update-async t))
+  (setopt diff-hl-update-async t)
 
   (keymap-set diff-hl-command-map "SPC" 'diff-hl-mark-hunk)
   (keymap-unset diff-hl-command-map "n")
   (setq-default fringes-outside-margins t)
 
-  (diff-hl-flydiff-mode)
+  ;; (diff-hl-flydiff-mode)
 
   (with-no-warnings
     (defun my-diff-hl-fringe-bmp-function (_type _pos)
