@@ -269,8 +269,6 @@
   '(consult-notes
     org-superstar
     org-fancy-priorities
-    ;; org-roam
-    ;; org-roam-ui
     ox-reveal
     ox-hugo
     org-appear

@@ -431,9 +431,6 @@ prepended to the element after the #+HEADER: tag."
       '("~/Documents/Org/idea.org"
         "~/Documents/Org/quote.org"))
 (consult-notes-org-headings-mode)
-;; (consult-notes-org-roam-mode)
-
-;; (require 'init-org-roam)
 
 (require 'init-org-capture)
 
