@@ -42,6 +42,8 @@ Main interface
   ./configure --with-tree-sitter &&
   sudo make install -j16
 #+end_src
+*** Macos
+Install =homebrew=, use [[file:scripts/macos/emacs_setup.sh][emacs_setup.sh]] install, add =mps= arg install =feature/igc= branch
 ** Download source code:
 Use ssh:
 #+begin_src shell
@@ -136,7 +138,5 @@ Install dict in =/usr/share/dict/= path.
 #+begin_src bash
   sudo pacman -S words
 #+end_src
-* Update extensions:
-#+begin_src shell
-  git submodule foreach git pull --rebase
-#+end_src
+* Package manage
+Use ~elpaca-fetch-all~ and ~elpaca-merge-all~, detail look [[https://github.com/progfolio/elpaca/blob/master/doc/manual.md][Elpaca manual]]
