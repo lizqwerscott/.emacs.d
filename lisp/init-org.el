@@ -102,6 +102,10 @@
   (add-to-list 'org-hugo-special-block-type-properties
                '("sidenote" . (:trim-pre t :trim-post t))))
 
+(with-eval-after-load 'ox
+  (require 'ox-reveal)
+  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
+
 ;;; Org function
 (defun org-export-docx ()
   (interactive)
@@ -435,8 +439,6 @@ prepended to the element after the #+HEADER: tag."
 (require 'init-org-capture)
 
 (require 'init-org-agenda)
-
-(require 'init-org-reveal)
 
 (provide 'init-org)
 ;;; init-org.el ends here.
