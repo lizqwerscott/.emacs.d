@@ -173,12 +173,13 @@
 (add-hook 'org-mode-hook 'org-fragtog-mode)
 
 ;; 中文标记隐藏空格
-(font-lock-add-keywords 'org-mode
-                        '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
-                           (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))
-                          ("\\cc?\\( \\)?[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)\\cc"
-                           (2 (prog1 () (compose-region (match-beginning 2) (match-end 2) "")))))
-                        'append)
+(unless sys/macp
+  (font-lock-add-keywords 'org-mode
+                          '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
+                             (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))
+                            ("\\cc?\\( \\)?[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)\\cc"
+                             (2 (prog1 () (compose-region (match-beginning 2) (match-end 2) "")))))
+                          'append))
 
 (with-eval-after-load 'org-superstar
   (add-list-to-list 'org-superstar-todo-bullet-alist
