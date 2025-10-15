@@ -53,15 +53,6 @@ Use http:
 #+begin_src shell
   git clone https://github.com/lizqwerscott/.emacs.d.git  ~/.emacs.d/
 #+end_src
-** Fetch all submodules:
-#+begin_src shell
-
-  git submodule update --init --recursive
-
-  git submodule foreach git reset --hard
-
-  git submodule foreach git checkout master
-#+end_src
 ** Dependencies
 *** Need install some package
 1. xclip
@@ -140,3 +131,5 @@ Install dict in =/usr/share/dict/= path.
 #+end_src
 * Package manage
 Use ~elpaca-fetch-all~ and ~elpaca-merge-all~, detail look [[https://github.com/progfolio/elpaca/blob/master/doc/manual.md][Elpaca manual]]
+* custom
+copy =custom-example.el= to =custom.el=
