@@ -125,7 +125,7 @@ configuration of the virtual buffer sources."
 ;; A function that returns a list of directories
 (defun consult-dir--quick-dir ()
   "Return list of fasd dirs."
-  (list "~" "~/Downloads/" "~/Documents/" "~/MyProject/" "~/github/"))
+  (list "~/" "~/Downloads/" "~/Documents/" "~/MyProject/" "~/github/"))
 
 ;; A consult source that calls this function
 (defvar consult-dir--source-quick
