@@ -270,7 +270,7 @@ targets."
           #'consult-preview-at-point-mode)
 
 (defun elpaca-browse-1 (item)
-  "Get elpac menu ITEM url."
+  "Get elpaca menu ITEM url."
   (interactive (list (intern (read-from-minibuffer "Input: "))))
   (when-let* ((url (catch 'found
                      (dolist (menu elpaca-menu-functions)
@@ -306,7 +306,7 @@ targets."
   (("s-s" "M-s") . consult-history)
   (("s-r" "M-r") . consult-history)
   ("C-i" . (lambda ()
-             "Insert the currunt symbol."
+             "Insert the current symbol."
              (interactive)
              (insert (save-excursion
                        (set-buffer (window-buffer (minibuffer-selected-window)))
