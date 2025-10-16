@@ -90,6 +90,10 @@
     (pixel-scroll-precision-mode t)
   (pixel-scroll-mode t))
 
+;;; Inhibit Mouse
+(add-hook #'after-init-hook
+          #'inhibit-mouse-mode)
+
 ;;; Logo
 (setq fancy-splash-image user/logo)
 
