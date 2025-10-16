@@ -23,30 +23,37 @@
 ;;
 
 ;;; Code:
-(require 'transient)
-(keymap-set transient-map
-            "<escape>"
-            #'transient-quit-all)
+(with-eval-after-load 'transient
+  (keymap-binds transient-map
+    ("<escape>" . transient-quit-all)))
 
 (with-eval-after-load 'calc
-  (keymap-set calc-mode-map "C-o" #'casual-calc-tmenu))
-
-;; (with-eval-after-load 'dired
-;;   (keymap-set dired-mode-map "C-o" #'casual-dired-tmenu))
-
-(with-eval-after-load 'ibuffer
-  (keymap-set ibuffer-mode-map "C-o" #'casual-ibuffer-tmenu)
-  (keymap-set ibuffer-mode-map "F" #'casual-ibuffer-filter-tmenu)
-  (keymap-set ibuffer-mode-map "s" #'casual-ibuffer-sortby-tmenu))
+  (keymap-binds calc-mode-map
+    ("C-o" . casual-calc-tmenu)))
 
 (with-eval-after-load 'info
-  (keymap-set Info-mode-map "C-o" #'casual-info-tmenu))
+  (keymap-binds Info-mode-map
+    ("C-o" . casual-info-tmenu)))
 
 (with-eval-after-load 'bookmark
-  (keymap-set bookmark-bmenu-mode-map "C-o" #'casual-bookmarks-tmenu))
+  (keymap-binds bookmark-bmenu-mode-map
+    ("C-o" . casual-bookmarks-tmenu)))
+
+(with-eval-after-load 'ibuffer
+  (keymap-binds ibuffer-mode-map
+    ("C-o" . casual-ibuffer-tmenu)
+    ("F" . casual-ibuffer-filter-tmenu)
+    ("s" . casual-ibuffer-sortby-tmenu)))
+
+(with-eval-after-load 're-builder
+  (keymap-binds reb-mode-map
+    ("C-o" . casual-re-builder-tmenu))
+  (keymap-binds reb-lisp-mode-map
+    ("C-o" . casual-re-builder-tmenu)))
 
 (with-eval-after-load 'org-agenda
-  (keymap-set org-agenda-mode-map "C-o" #'casual-agenda-tmenu))
+  (keymap-binds org-agenda-mode-map
+    ("C-o" . casual-agenda-tmenu)))
 
 (require 'lib-transient)
 (pretty-transient-define-prefix transient-toggles ()
