@@ -91,7 +91,7 @@
   (pixel-scroll-mode t))
 
 ;;; Inhibit Mouse
-(add-hook #'after-init-hook
+(add-hook 'after-init-hook
           #'inhibit-mouse-mode)
 
 ;;; Logo
