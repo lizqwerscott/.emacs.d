@@ -183,27 +183,33 @@
 (defconst denote-id-regexp "\\([0-9]\\{8\\}\\)\\(T[0-9]\\{6\\}\\)"
   "Regular expression to match `denote-date-identifier-format'.")
 
+(defvar-keymap denote-explore-keymap
+  :doc "Denote explore keymap"
+  ;; Statistics
+  "c" #'denote-explore-count-notes
+  "C" #'denote-explore-count-keywords
+  "b" #'denote-explore-barchart-keywords
+  "e" #'denote-explore-barchart-filetypes
+  ;; Random walks
+  "r" #'denote-explore-random-note
+  "l" #'denote-explore-random-link
+  "k" #'denote-explore-random-keyword
+  "x" #'denote-explore-random-regex
+  ;; Denote Janitor
+  "d" #'denote-explore-identify-duplicate-notes
+  "z" #'denote-explore-zero-keywords
+  "s" #'denote-explore-single-keywords
+  "o" #'denote-explore-sort-keywords
+  "w" #'denote-explore-rename-keyword
+  ;; Visualise denote
+  "n" #'denote-explore-network
+  "v" #'denote-explore-network-regenerate
+  "D" #'denote-explore-barchart-degree)
+
+(defalias 'denote-explore-keymap denote-explore-keymap)
+
 (global-bind-keys
- ;; Statistics
- ("C-c n x c" . denote-explore-count-notes)
- ("C-c n x C" . denote-explore-count-keywords)
- ("C-c n x b" . denote-explore-barchart-keywords)
- ("C-c n x e" . denote-explore-barchart-filetypes)
- ;; Random walks
- ("C-c n x r" . denote-explore-random-note)
- ("C-c n x l" . denote-explore-random-link)
- ("C-c n x k" . denote-explore-random-keyword)
- ("C-c n x x" . denote-explore-random-regex)
- ;; Denote Janitor
- ("C-c n x d" . denote-explore-identify-duplicate-notes)
- ("C-c n x z" . denote-explore-zero-keywords)
- ("C-c n x s" . denote-explore-single-keywords)
- ("C-c n x o" . denote-explore-sort-keywords)
- ("C-c n x w" . denote-explore-rename-keyword)
- ;; Visualise denote
- ("C-c n x n" . denote-explore-network)
- ("C-c n x v" . denote-explore-network-regenerate)
- ("C-c n x D" . denote-explore-barchart-degree))
+ ("C-c n x" . ("Denote Explore" . denote-explore-keymap)))
 
 ;;; denote journal
 (defun denote-week-report-template ()
@@ -238,11 +244,17 @@
                  :kill-buffer t
                  :empty-lines 1)))
 
+(defvar-keymap denote-journal-keymap
+  :doc "Denote journal keymap"
+  "N" '("New journal" . denote-journal-new-entry)
+  "n" '("New or open journal" . denote-journal-new-or-existing-entry)
+  "l" '("Link Journal" . denote-journal-link-or-create-entry)
+  "w" '("Week report" . denote-week-report-new-or-existing-entry))
+
+(defalias 'denote-journal-keymap denote-journal-keymap)
+
 (global-bind-keys
- ("C-c n j N" . ("New journal" . denote-journal-new-entry))
- ("C-c n j n" . ("New or open journal" . denote-journal-new-or-existing-entry))
- ("C-c n j l" . ("Link Journal" . denote-journal-link-or-create-entry))
- ("C-c n j w" . ("Week report" . denote-week-report-new-or-existing-entry)))
+ ("C-c n j" . ("Denote Journal" . denote-journal-keymap)))
 
 (provide 'init-writer)
 ;;; init-writer.el ends here
