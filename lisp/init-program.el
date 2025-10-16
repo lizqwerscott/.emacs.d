@@ -214,7 +214,8 @@ ARGS is ORIG-FN args."
 (add-hook 'TeX-mode-hook
           (lambda ()
             (prettify-symbols-mode)
-            (cdlatex-mode)))
+            (cdlatex-mode)
+            (setq-local corfu-auto nil)))
 
 ;;; language
 (add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
