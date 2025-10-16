@@ -303,8 +303,8 @@ targets."
  (("s-x" "M-x") . execute-extended-command))
 
 (keymap-binds minibuffer-local-map
-  ("M-s" . consult-history)
-  ("M-r" . consult-history)
+  (("s-s" "M-s") . consult-history)
+  (("s-r" "M-r") . consult-history)
   ("C-i" . (lambda ()
              "Insert the currunt symbol."
              (interactive)
