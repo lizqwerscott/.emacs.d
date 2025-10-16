@@ -31,12 +31,10 @@
   '(transient-append-suffix 'magit-diff '(-1 -1)
      [("D" "Difftastic diff (dwim)" difftastic-magit-diff)
       ("S" "Difftastic show" difftastic-magit-show)]))
-(add-hook 'magit-blame-read-only-mode-hook
-          (lambda ()
-            (keymap-set magit-blame-read-only-mode-map
-                        "D" #'difftastic-magit-show)
-            (keymap-set magit-blame-read-only-mode-map
-                        "S" #'difftastic-magit-show)))
+(with-hook magit-blame-read-only-mode-hook
+  (keymap-binds magit-blame-read-only-mode-map
+    ("D" . difftastic-magit-show)
+    ("S" . difftastic-magit-show)))
 
 (provide 'init-difftastic)
 ;;; init-difftastic.el ends here
