@@ -49,6 +49,7 @@
 (add-to-list 'project-switch-commands '(magit-project-status "Git Status") t)
 (add-to-list 'project-switch-commands '(project-find-dir "Find Dir") t)
 (add-to-list 'project-switch-commands '(project-dired "Dired") t)
+(add-to-list 'project-switch-commands '(project-find-regexp "Regexp") t)
 
 ;;; Menu
 (require 'transient)
@@ -75,7 +76,8 @@
     ("F" "File OW" project-find-file-other-window)
     ("o" "Other file" projection-find-other-file)
     ("d" "Dir" project-dired-dir)
-    ("D" "Dir Fuzzy" consult-project-fd-dir)]
+    ("D" "Dir Fuzzy" consult-project-fd-dir)
+    ("g" "Regexp" project-find-regexp)]
    ["Buffer"
     ("b" "Switch" consult-project-buffer)
     ("B" "Switch OW" consult-project-buffer-other-window)
