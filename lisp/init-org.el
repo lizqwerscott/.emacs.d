@@ -236,7 +236,7 @@
             :before (lambda (_ &rest _)
                       (when-let* ((name (buffer-name))
                                   ((or (string-match-p "\\*Capture\\*" name)
-                                       (string-match-p "^CAPTURE-.*\\.org*" name))))
+                                       (string-match-p "^CAPTURE-.*" name))))
                         (org-count-words-mode -1))))
 
 ;;; org rich yank
