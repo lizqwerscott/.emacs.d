@@ -133,7 +133,8 @@
     gnuplot
     cal-china-x
     consult-gh
-    consult-gh-forge))
+    consult-gh-forge
+    backup-walker))
 
 (defvar *package-language-mode-install-list*
   '(markdown-mode

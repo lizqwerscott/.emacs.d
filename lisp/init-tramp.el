@@ -10,7 +10,7 @@
 (add-list-to-list 'recentf-exclude
                   tramp-file-name-regexp)
 (setq tramp-auto-save-directory temporary-file-directory
-      backup-directory-alist (list (cons tramp-file-name-regexp nil)))
+      tramp-backup-directory-alist nil)
 
 (defun my/project-remember-advice (fn pr &optional no-write)
   (let* ((remote? (file-remote-p (project-root pr)))
@@ -29,4 +29,3 @@
 
 (provide 'init-tramp)
 ;;; init-tramp.el ends here
-

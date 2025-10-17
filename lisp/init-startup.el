@@ -114,7 +114,6 @@
 
 (setq visible-bell nil
       inhibit-compacting-font-caches t  ; Don’t compact font caches during GC
-      make-backup-files nil             ; Forbide to make backup files
       auto-save-default nil             ; Disable auto save
 
       uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
@@ -126,10 +125,21 @@
       ring-bell-function 'ignore ; 禁止响铃
       )
 
+;; Backup files
+(setq backup-directory-alist `(("\\.env$" . nil)
+                               ("." . ,(expand-file-name
+                                        "var/backups/"
+                                        user-emacs-directory))))
+(setq delete-old-versions -1
+      version-control t)
+
+;;; for backup walker
+(defalias 'string-to-int 'string-to-number)  ; removed in 26.1
+(defalias 'display-buffer-other-window 'display-buffer)
+
 (customize-set-variable 'kill-do-not-save-duplicates t)
 (setq ad-redefinition-action 'accept)
 
-(setq delete-old-versions t)
 (setq create-lockfiles nil)
 
 (setq confirm-kill-processes nil)
