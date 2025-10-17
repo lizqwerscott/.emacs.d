@@ -218,15 +218,6 @@
           "\n\n"
           "* 下周工作计划"))
 
-(defun denote-week-report-new-or-existing-entry ()
-  "Denote week report."
-  (interactive)
-  (require 'denote-journal)
-  (let ((denote-journal-keyword (list "journal" "report"))
-        (denote-templates '((journal . denote-week-report-template)))
-        (denote-journal-interval 'weekly))
-    (denote-journal-new-or-existing-entry)))
-
 ;; (setopt denote-journal-signature
 ;;         (lambda ()
 ;;           (require 'denote-sequence)
@@ -236,42 +227,16 @@
 (add-hook 'calendar-mode-hook
           #'denote-journal-calendar-mode)
 
-(defun denote-journal-path-to-new-or-existing-entry-filter-report (&optional date interval)
-  "Return path to existing or new journal file.
-With optional DATE, do it for that date, else do it for today.  DATE is
-a string and has the same format as that covered in the documentation of
-the `denote' function.  It is internally processed by `denote-valid-date-p'.
-
-If there are multiple journal entries for the date, prompt for one among
-them using minibuffer completion.  If there is only one, return it.  If
-there is no journal entry, create it.
-
-With optional INTERVAL as a symbol among those accepted by
-`denote-journal-interval', match DATE to INTERVAL and then return the
-results accordingly.  If INTERVAL is nil, then it has the same measing
-as `daily', per `denote-journal-interval'."
-  (let* ((internal-date (denote-journal--date-in-interval-p (or date (current-time)) interval))
-         (files (cl-remove-if (lambda (file)
-                                (cl-find "report"
-                                         (denote-retrieve-front-matter-keywords-value file
-                                                                                      (denote-filetype-heuristics file))
-                                         :test #'equal))
-                              (denote-journal--get-entry internal-date interval)))
-         (denote-kill-buffers nil))
-    (if files
-        (denote-journal-select-file-prompt files)
-      (save-window-excursion
-        (denote-journal-new-entry date)
-        (save-buffer)
-        (buffer-file-name)))))
-
 (with-eval-after-load 'org-capture
+  (autoload #'denote-journal-path-to-new-or-existing-entry-filter-report "lib-denote-journal" nil t)
   (add-to-list 'org-capture-templates
                '("j" "Journal" entry
                  (file denote-journal-path-to-new-or-existing-entry-filter-report)
                  "* %U %?\n%i\n%a"
                  :kill-buffer t
                  :empty-lines 1)))
+
+(autoload #'denote-week-report-new-or-existing-entry "lib-denote-journal" nil t)
 
 (defvar-keymap denote-journal-keymap
   :doc "Denote journal keymap"
