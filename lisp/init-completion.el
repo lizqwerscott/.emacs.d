@@ -20,18 +20,27 @@
 
 (setq completion-cycle-threshold 4)
 
-;;; orderless
-(require 'orderless)
-(setq completion-styles '(orderless fussy)
-      completion-category-defaults nil
-      completion-category-overrides '((file (styles basic partial-completion)))
-      orderless-component-separator #'orderless-escapable-split-on-space)
-
 ;;; fussy
-;; flx-rs
-(require 'flx-rs)
-(setq fussy-score-fn 'fussy-flx-rs-score)
+
 (flx-rs-load-dyn)
+
+(setopt fussy-score-fn 'fussy-flx-rs-score
+        fussy-filter-fn 'fussy-filter-orderless-flex
+        fussy-use-cache t
+        fussy-compare-same-score-fn 'fussy-histlen->strlen<)
+
+(fussy-setup)
+(fussy-eglot-setup)
+
+(with-eval-after-load 'corfu
+  ;; For cache functionality.
+  (advice-add 'corfu--capf-wrapper :before 'fussy-wipe-cache)
+
+  (add-hook 'corfu-mode-hook
+            (lambda ()
+              (setq-local fussy-max-candidate-limit 5000
+                          fussy-default-regex-fn 'fussy-pattern-first-letter
+                          fussy-prefer-prefix nil))))
 
 ;;; corfu
 (require 'init-corfu)
