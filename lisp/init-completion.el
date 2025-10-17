@@ -18,7 +18,8 @@
   (setq read-extended-command-predicate
         #'command-completion-default-include-p))
 
-(setq completion-cycle-threshold 4)
+(setq completion-cycle-threshold 4
+      completions-detailed t)
 
 ;;; fussy
 
