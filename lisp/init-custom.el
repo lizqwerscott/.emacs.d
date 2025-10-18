@@ -2,15 +2,22 @@
 ;;; Commentary:
 ;;; Code:
 
+(defcustom user/quickdir (list "~/" "~/Downloads/" "~/Documents/" "~/MyProject/" "~/github/" user-emacs-directory)
+  "Quick dir list."
+  :group 'user
+  :type '(list dir))
+
 (defcustom user/show-modeline t
   "Show modeline."
   :group 'user
   :type 'boolean)
 
-(defcustom user/dashboard t
+(defcustom user/dashboard 'dashboard
   "Show dashboard."
   :group 'user
-  :type 'boolean)
+  :type '(choice (const :tag "dashboard" 'dashboard)
+                 (const :tag "scratch" 'scratch)
+                 (const :tag "enlight" 'enlight)))
 
 (defcustom user/logo (file-truename
                       (concat user-emacs-directory

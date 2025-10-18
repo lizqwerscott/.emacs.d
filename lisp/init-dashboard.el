@@ -206,10 +206,15 @@
     ("h" . hydra-dashboard/body)
     ("?" . hydra-dashboard/body)))
 
-(if user/dashboard
-    (dashboard-setup-startup-hook)
-  (add-hook 'after-init-hook
-            #'+evan/scratch-setup))
+(pcase user/dashboard
+  ('dashboard
+   (dashboard-setup-startup-hook))
+  ('scratch
+   (add-hook 'after-init-hook
+             #'+evan/scratch-setup))
+  ('enlight
+   (require 'init-enlight)
+   (setopt initial-buffer-choice #'enlight)))
 
 (provide 'init-dashboard)
 ;;; init-dashboard.el ends here

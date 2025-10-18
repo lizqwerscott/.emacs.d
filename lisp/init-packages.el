@@ -222,6 +222,8 @@
     page-break-lines
     ligature
     dashboard
+    (grid :fetcher github :repo "ichernyshovvv/grid.el")
+    enlight
     doom-modeline
     lisp-extra-font-lock
     highlight-function-calls
