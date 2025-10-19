@@ -54,6 +54,47 @@ Supported package managers are: package.el, straight.el and elpaca.el."
                          0)))
     (+ package-count straight-count elpaca-count)))
 
+(defun enlight-recent-files ()
+  "Get enlight recent files."
+  (require 'enlight-menu)
+  (add-hook 'enlight-after-insert-hook #'enlight-menu-first-button)
+  (let ((alist (cl-mapcar (lambda (f index)
+                            `(,(format "%s %s" (nerd-icons-icon-for-file f) f)
+                              (find-file ,f)
+                              ,(format "C-%d"
+                                       index)))
+                          (seq-take recentf-list 5)
+                          (number-sequence 1 5))))
+    (enlight-menu--apply-keys (list
+                               `("Recent files"
+                                 ,@alist)))
+    (grid-make-column
+     `(,(grid-make-box `(:align left :content "Recent files:" :width 0.5))
+       ,(grid-make-row
+         (list
+          (grid-make-column
+           (mapcar (lambda (item)
+                     (grid-make-row
+                      `((
+                         :align left
+                         :content ,(propertize (car item)
+                                               'menu-id (cl-incf enlight-menu-count)
+                                               'action (enlight--normalize-command (elt item 1))
+                                               'cursor-face 'enlight-menu-selected-face
+                                               'mouse-face 'enlight-menu-selected-face)
+                         :width 0.4))))
+                   alist))
+          (grid-make-column
+           (mapcar (lambda (item)
+                     (grid-make-row
+                      `((
+                         :align right
+                         :content ,(propertize (format "[%s]"
+                                                       (elt item 2))
+                                               'face 'enlight-menu-key)
+                         :width 0.1))))
+                   alist))))))))
+
 (defun enlight-init-info ()
   "Enlight init info."
   (propertize
@@ -75,16 +116,7 @@ Supported package managers are: package.el, straight.el and elpaca.el."
     (grid-make-box
      `(
        :content
-       ,(grid-make-row
-         `(,(enlight-menu
-             `(("Recent files:"
-                ,@(cl-mapcar (lambda (f index)
-                               `(,(format "%s. %s" index f)
-                                 (find-file ,f)
-                                 ,(format "C-%d"
-                                          index)))
-                             (seq-take recentf-list 5)
-                             (number-sequence 1 5)))))))
+       ,(enlight-recent-files)
        :align left
        :width 0.5))
     "\n"
