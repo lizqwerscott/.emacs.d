@@ -77,11 +77,12 @@ Supported package managers are: package.el, straight.el and elpaca.el."
                      (grid-make-row
                       `((
                          :align left
-                         :content ,(propertize (car item)
-                                               'menu-id (cl-incf enlight-menu-count)
-                                               'action (enlight--normalize-command (elt item 1))
-                                               'cursor-face 'enlight-menu-selected-face
-                                               'mouse-face 'enlight-menu-selected-face)
+                         :content ,(car item)
+                         ;; (propertize (car item)
+                         ;;             'menu-id (cl-incf enlight-menu-count)
+                         ;;             'action (enlight--normalize-command (elt item 1))
+                         ;;             'cursor-face 'enlight-menu-selected-face
+                         ;;             'mouse-face 'enlight-menu-selected-face)
                          :width 0.4))))
                    alist))
           (grid-make-column
@@ -102,6 +103,8 @@ Supported package managers are: package.el, straight.el and elpaca.el."
            " "
            (format "启动时长: %s" (emacs-init-time)))
    'face 'font-lock-comment-face))
+
+(setopt enlight-center-vertically nil)
 
 (custom-set-variables
  '(enlight-content
