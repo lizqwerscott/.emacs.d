@@ -24,20 +24,17 @@
 (setq frame-title-format '("Emacs - %b")
       icon-title-format frame-title-format)
 
-(setq default-frame-alist
-      `((alpha-background . ,(if user/start-transparent
-                                 90
-                               100))
-        ;; (fullscreen . maximized)
-        ))
-
 (setq initial-frame-alist
       '((top . 0.5)
         (left . 0.5)
         (width . 0.9)
         (height . 0.9)
-        ;; (fullscreen . maximized)
-        ))
+        (fullscreen)))
+
+(setf (alist-get 'alpha-background default-frame-alist)
+      (if user/start-transparent
+          90
+        100))
 
 (when user/start-fullscreen
   (unless sys/macp
