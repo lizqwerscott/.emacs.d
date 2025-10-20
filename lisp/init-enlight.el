@@ -24,23 +24,31 @@
            '(("Agenda"
               ("Agenda Week" (org-agenda nil "a") "a")
               ("Agenda Todo" (org-agenda nil "t") "t")
-              ("Calendar" calendar "C"))))
+              ("Calendar" calendar "C")
+              ("Tasks file" (find-file "~/Documents/Org/tasks.org") "T")
+              ("Denote Menu" denote-menu-list-notes "J"))))
          "   "
          ,(enlight-menu
            `(("Jump Config"
+              ("Custom file"
+               (find-file ,custom-file)
+               "S")
               ("Init file"
                (find-file ,user-init-file)
                "j")
               ("Config project"
                (project-switch-project user-emacs-directory)
                "c")
-              ("Package" elpaca-manager "P"))))
+              ("Package" elpaca-manager "P")
+              ("Restart" restart-emacs "R"))))
          "   "
          ,(enlight-menu
            `(("Quick"
               ("Projects" project-switch-project "p")
               ("Recents" consult-recent-file "r")
-              ("Dir" consult-dir "d"))))))
+              ("Dirs" consult-dir "d")
+              ("Notes" consult-notes "n")
+              ("Bookmarks" consult-bookmark "b"))))))
       :align 'center
       :width 0.5))
     "\n"
