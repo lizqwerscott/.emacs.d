@@ -203,7 +203,9 @@
 ;;; symbol overlay
 (lazy-load-global-keys
  '(("M-i" . symbol-overlay-put)
-   ("s-i" . symbol-overlay-put))
+   ("s-i" . symbol-overlay-put)
+   ("M-g n" . symbol-overlay-jump-next)
+   ("M-g p" . symbol-overlay-jump-prev))
  "symbol-overlay")
 
 ;;; keymap
@@ -225,7 +227,7 @@
  ("C-x k" . kill-current-buffer)
  ("C-x K" . kill-buffer)
 
- ("M-g p" . goto-percent)
+ ("M-g P" . goto-percent)
 
  ("C-s-f" . forward-sexp)
  ("C-s-b" . backward-sexp))
