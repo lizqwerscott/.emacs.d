@@ -33,7 +33,7 @@
 
 (setq eglot-ignored-server-capabilities
       '(:inlayHintProvider
-        :documentHighlightProvider
+        ;; :documentHighlightProvider
         :documentFormattingProvider
         :documentRangeFormattingProvider
         :documentOnTypeFormattingProvider
@@ -81,6 +81,53 @@
 (require 'flycheck-eglot)
 (setq-default flycheck-eglot-exclusive nil)
 (global-flycheck-eglot-mode 1)
+
+;; next eglot highligh from https://gist.github.com/jdtsmith/8b34f1459ca2a67debf943680f4896a4
+(defun my/eglot-next-highlight (&optional prev)
+  "Move to the next symbol highlighted by eglot.
+Relative position within the symbol is preserved.  Moves to the previous
+symbol if PREV is non-nil or called with a prefix argument.  Wraps at
+beginning and end of the symbol set."
+  (interactive "P")
+  (let* ((p (point)) (b (current-buffer))
+         (overlays (sort (seq-filter
+                          (lambda (o)
+                            (eq (overlay-buffer o) b))
+                          eglot--highlights)
+                         :key #'overlay-start))
+         (first (car overlays))
+         (offset 0) o done last)
+    (while (and overlays (not (eq done t)))
+      (setq o (car overlays))
+      (cond
+       ((or (not o) (not (overlayp o))) 'skip)
+       ((eq done 'next)
+        (goto-char (min (+ (overlay-start o) offset) (point-max)))
+        (setq done t))
+       ((and (>= p (overlay-start o))   ;current overlay
+             (<= p (overlay-end o)))
+        (setq offset (- p (overlay-start o)))
+        (if prev
+            (progn
+              (when last
+                (goto-char (min (+ (overlay-start last) offset) (point-max))))
+              (setq done t))
+          (setq done 'next)))
+       (t (setq last o)))
+      (setq overlays (cdr overlays)))
+    (when (not done) (user-error "No relevant eglot symbols found"))
+    (when-let* ((_ (if prev (not last) (eq done 'next))) ; we wrapped
+                (wrap (if prev (car (last overlays)) first)))
+      (goto-char (+ (overlay-start wrap) offset)))))
+
+(defun my/eglot-prev-highlight ()
+  "Eglot prev highligh."
+  (interactive)
+  (my/eglot-next-highlight 'prev))
+
+(keymap-binds eglot-mode-map
+  ("M-g ." . my/eglot-next-highlight)
+  ("M-g ," . my/eglot-prev-highlight))
 
 (provide 'init-eglot)
 ;;; init-eglot.el ends here
