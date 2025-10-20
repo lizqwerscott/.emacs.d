@@ -29,7 +29,8 @@
         (left . 0.5)
         (width . 0.9)
         (height . 0.9)
-        (fullscreen)))
+        ;; (fullscreen)
+        ))
 
 (setf (alist-get 'alpha-background default-frame-alist)
       (if user/start-transparent
