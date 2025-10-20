@@ -129,5 +129,11 @@ beginning and end of the symbol set."
   ("M-g ." . my/eglot-next-highlight)
   ("M-g ," . my/eglot-prev-highlight))
 
+(defvar-keymap eglot-highlight-repeat-map
+  :doc "Eglot highligh repeat map."
+  :repeat t
+  "n" #'my/eglot-next-highlight
+  "p" #'my/eglot-prev-highlight)
+
 (provide 'init-eglot)
 ;;; init-eglot.el ends here
