@@ -8,7 +8,7 @@
 
 (defface enlight-puper-bold
   '((t (:foreground "#ff78c6" :bold t)))
-  "Yellow bold face.")
+  "Puper bold face.")
 
 (defvar enlight-emacs-logo
   (propertize
@@ -30,11 +30,15 @@
 
 (defvar enlight-separator-line
   (propertize
-   (concat ". . "
+   (concat (make-string 2 ?\u00B7)
+           " "
            (make-string 20 #x2500)
-           " .. "
+           " "
+           (make-string 2 ?\u00B7)
+           " "
            (make-string 20 #x2500)
-           " . .")
+           " "
+           (make-string 2 ?\u00B7))
    'face 'font-lock-comment-face))
 
 (require 'grid)
@@ -57,19 +61,31 @@ Supported package managers are: package.el, straight.el and elpaca.el."
 (defun enlight-recent-files ()
   "Get enlight recent files."
   (require 'enlight-menu)
+  (require 'nerd-icons)
   (add-hook 'enlight-after-insert-hook #'enlight-menu-first-button)
   (let ((alist (cl-mapcar (lambda (f index)
-                            `(,(format "%s %s" (nerd-icons-icon-for-file f) f)
-                              (find-file ,f)
-                              ,(format "C-%d"
-                                       index)))
+                            (let ((file-dir (file-name-directory f))
+                                  (file-name (file-name-nondirectory f)))
+                              `(,(format "%s %s%s"
+                                         (nerd-icons-icon-for-file f)
+                                         (propertize
+                                          file-dir
+                                          'face 'font-lock-comment-face)
+                                         file-name)
+                                (find-file ,f)
+                                ,(format "C-%d"
+                                         index))))
                           (seq-take recentf-list 5)
                           (number-sequence 1 5))))
     (enlight-menu--apply-keys (list
                                `("Recent files"
                                  ,@alist)))
     (grid-make-column
-     `(,(grid-make-box `(:align left :content "Recent files:" :width 0.5))
+     `(,(grid-make-box `(:align left :content ,(concat "Recent "
+                                                       (propertize
+                                                        "files:"
+                                                        'face 'enlight-puper-bold))
+                                :width 0.5))
        ,(grid-make-row
          (list
           (grid-make-column
@@ -98,11 +114,22 @@ Supported package managers are: package.el, straight.el and elpaca.el."
 
 (defun enlight-init-info ()
   "Enlight init info."
-  (propertize
-   (concat (format "%s 个包被安装." (enlight-dashboard-init--packages-count))
-           " "
-           (format "启动时长: %s" (emacs-init-time)))
-   'face 'font-lock-comment-face))
+  (concat
+   (propertize
+    (number-to-string (enlight-dashboard-init--packages-count))
+    'face 'enlight-yellow-bold)
+   " "
+   (propertize
+    "个包被安装."
+    'face 'font-lock-comment-face)
+   " "
+   (propertize
+    "启动时长:"
+    'face 'font-lock-comment-face)
+   " "
+   (propertize
+    (format "%s" (emacs-init-time))
+    'face 'enlight-yellow-bold)))
 
 (setopt enlight-center-vertically nil)
 
