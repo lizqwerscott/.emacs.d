@@ -158,6 +158,26 @@
                                   calc-prefer-frac t
                                   calc-angle-mode rad)))))))
 
+(defun org-insert-item-auto-checkbox ()
+  "Org insert auto-checkbox item."
+  (interactive)
+  (org-insert-item
+   (and (org-in-item-p)
+        (save-excursion
+          (looking-back "\\].**" (line-beginning-position))))))
+
+(defun org-meta-return-auto (&optional arg)
+  "Insert a new heading or wrap a region in a table.
+Calls `org-insert-heading', `org-insert-item-auto-checkbox' or
+`org-table-wrap-region', depending on context.  When called with
+an argument, unconditionally call `org-insert-heading'."
+  (interactive "P")
+  (or (run-hook-with-args-until-success 'org-metareturn-hook)
+      (call-interactively (cond (arg #'org-insert-heading)
+				                ((org-at-table-p) #'org-table-wrap-region)
+				                ((org-in-item-p) #'org-insert-item-auto-checkbox)
+				                (t #'org-insert-heading)))))
+
 ;;; Org babel
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -399,13 +419,13 @@ prepended to the element after the #+HEADER: tag."
 
 ;;; keymap
 (keymap-binds org-mode-map
-  ("C-c TAB" . org-insert-item)
+  ("C-c TAB" . org-insert-item-auto-checkbox)
   ("M-K" . org-metaup)
   ("M-J" . org-metadown)
   ("M-H" . org-metaleft)
   ("M-L" . org-metaright)
 
-  ("s-<return>" . org-meta-return)
+  (("M-<return>" "s-<return>") . org-meta-return-auto)
   ("s-K" . org-metaup)
   ("s-J" . org-metadown)
   ("s-H" . org-metaleft)
