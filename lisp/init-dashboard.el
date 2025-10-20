@@ -213,9 +213,10 @@
    (add-hook 'after-init-hook
              #'+evan/scratch-setup))
   ('enlight
-   (with-hook after-init-hook
-     (require 'init-enlight)
-     (setopt initial-buffer-choice #'enlight))))
+   (add-hook 'window-setup-hook
+             (lambda ()
+               (require 'init-enlight)
+               (call-interactively #'enlight-open)))))
 
 (provide 'init-dashboard)
 ;;; init-dashboard.el ends here
