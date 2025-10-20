@@ -58,14 +58,49 @@ Supported package managers are: package.el, straight.el and elpaca.el."
                          0)))
     (+ package-count straight-count elpaca-count)))
 
+(defun shorten-file-path (file-path max-length)
+  "Shorten the file path FILE-PATH to a length not exceeding MAX-LENGTH.
+Keep the beginning directory and filename, and display only the first letter of
+each directory in the middle."
+  (let* ((dir-part (file-name-directory file-path))
+         (file-name (file-name-nondirectory file-path))
+         (dir-components (when dir-part
+                           (split-string (directory-file-name dir-part) "/" t))))
+    (if (<= (length file-path) max-length)
+        (cons dir-part file-name)
+      (let ((base-dir (car dir-components))
+            (remaining-dirs (cdr dir-components)))
+        (if (null remaining-dirs)
+            (cons dir-part file-name)
+          ;; 将中间目录转换为首字母缩写
+          (let* ((abbreviated-dirs (mapcar (lambda (dir)
+                                             (if (> (length dir) 0)
+                                                 (substring dir 0 1)
+                                               ""))
+                                           remaining-dirs))
+                 (middle-path (string-join abbreviated-dirs "/"))
+                 (shortened-dir (concat base-dir "/" middle-path "/")))
+            (if (<= (length (concat shortened-dir file-name)) max-length)
+                (cons shortened-dir file-name)
+              (let* ((base-length (+ (length base-dir) (length file-name) 2))
+                     (available-length (- max-length base-length))
+                     (dirs-to-keep (floor (/ available-length 2)))
+                     (kept-dirs (if (> dirs-to-keep 0)
+                                    (seq-take abbreviated-dirs dirs-to-keep)
+                                  '()))
+                     (final-middle (if kept-dirs
+                                       (concat (string-join kept-dirs "/") "/...")
+                                     "...")))
+                (cons (concat base-dir "/" final-middle "/")
+                      file-name)))))))))
+
 (defun enlight-recent-files ()
   "Get enlight recent files."
   (require 'enlight-menu)
   (require 'nerd-icons)
   (add-hook 'enlight-after-insert-hook #'enlight-menu-first-button)
   (let ((alist (cl-mapcar (lambda (f index)
-                            (let ((file-dir (file-name-directory f))
-                                  (file-name (file-name-nondirectory f)))
+                            (pcase-let* ((`(,file-dir . ,file-name) (shorten-file-path f 50)))
                               `(,(format "%s %s%s"
                                          (nerd-icons-icon-for-file f)
                                          (propertize
