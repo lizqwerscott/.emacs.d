@@ -81,7 +81,9 @@
     (lazy-load :fetcher github :repo "manateelazycat/lazy-load")))
 
 (defvar *package-build-in-install-list*
-  '(transient))
+  '(transient
+    (org :repo "https://code.tecosaur.net/tec/org-mode.git/"
+         :branch "dev")))
 
 (defvar *package-base-install-list*
   '(gcmh
