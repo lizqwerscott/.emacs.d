@@ -16,11 +16,6 @@
     ;; enlight-calendar "\n"
     (grid-make-box `( :align center :content ,enlight-separator-line :width 0.5))
     "\n"
-    ;; (grid-make-box
-    ;;  (:align center :content ,(enlight-recent-files-right) :width 0.5))
-    ,@(enlight-recent-files-left)
-    (grid-make-box `( :align center :content ,enlight-separator-line :width 0.5))
-    "\n"
     (grid-make-box
      (list
       :content
@@ -47,7 +42,14 @@
               ("Recents" consult-recent-file "r")
               ("Dir" consult-dir "d"))))))
       :align 'center
-      :width 0.5)))))
+      :width 0.5))
+    "\n"
+    (grid-make-box `( :align center :content ,enlight-separator-line :width 0.5))
+    "\n"
+    ;; (grid-make-box
+    ;;  (:align center :content ,(enlight-recent-files-right) :width 0.5))
+    ,@(enlight-recent-files-left)
+    )))
 
 (global-bind-keys
  ("<f2>" . enlight-open))
