@@ -20,8 +20,8 @@
 (keymap-binds vertico-map
   ("RET" . vertico-directory-enter)
   ("DEL" . vertico-directory-delete-char)
-  (("M-DEL" "s-DEL") . vertico-directory-up)
-  ("s-RET" . vertico-exit-input)
+  ("M-DEL" . vertico-directory-delete-word)
+  ("C-<backspace>" . delete-backward-char)
   ("C-j" . vertico-exit-input))
 
 (add-hook #'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)

@@ -425,7 +425,7 @@ prepended to the element after the #+HEADER: tag."
   ("M-H" . org-metaleft)
   ("M-L" . org-metaright)
 
-  (("M-<return>" "s-<return>") . org-meta-return-auto)
+  (("M-RET" "s-<return>") . org-meta-return-auto)
   ("s-K" . org-metaup)
   ("s-J" . org-metadown)
   ("s-H" . org-metaleft)
