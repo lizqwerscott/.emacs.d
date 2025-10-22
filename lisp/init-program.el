@@ -224,10 +224,14 @@ ARGS is ORIG-FN args."
 (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-ts-mode))
 
-(add-hook 'json-mode-hook #'(lambda () (treesit-parser-create 'json)))
+(require 'init-elisp)
+
+;; bash
 (add-hook 'sh-mode-hook #'(lambda () (treesit-parser-create 'bash)))
 
-(require 'init-elisp)
+;; json
+(add-hook 'json-mode-hook #'(lambda () (treesit-parser-create 'json)))
+(setq json-ts-mode-indent-offset 4)
 
 (provide 'init-program)
 ;;; init-program.el ends heres.
