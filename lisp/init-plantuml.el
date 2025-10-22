@@ -10,13 +10,20 @@
 ;; Enable plantuml-mode for Puml files
 (add-to-list 'auto-mode-alist '("\\.puml\\'" . plantuml-mode))
 
-(setopt plantuml-jar-path
-        (expand-file-name "var/plantuml/plantuml.jar"
-                          user-emacs-directory)
+(setopt plantuml-jar-path (expand-file-name "var/plantuml/plantuml.jar"
+                                            user-emacs-directory)
         plantuml-default-exec-mode 'jar)
 
 (when sys/macp
   (setopt plantuml-java-command "/opt/homebrew/opt/openjdk/bin/java"))
+
+;; for org
+(setopt org-plantuml-jar-path plantuml-jar-path)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ `(,@org-babel-load-languages
+   (plantuml . t)))
 
 (with-eval-after-load 'plantuml-mode
   (defun plantuml-convert (path output-type)
