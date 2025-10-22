@@ -53,6 +53,7 @@
 
             ;; (require 'init-godot)
 
+            ;; (require 'init-plantuml)
             ))
 
 (custom-set-variables
