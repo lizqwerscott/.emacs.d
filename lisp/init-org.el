@@ -340,7 +340,7 @@ prepended to the element after the #+HEADER: tag."
     ("sS" (hot-expand "<s" "sh") "sh")
     ("sg" (hot-expand "<s" "go :imports '\(\"fmt\"\)") "golang")
     ("sx" (hot-expand "<s" "xml") "xml")
-    ("sy" (hot-expand "<s" "ymal-ts") "yaml")
+    ("sy" (hot-expand "<s" "yaml-ts") "yaml")
     ("sh" (hot-expand "<h") "html"))
    "Oxr"
    (("f" oxr-insert-absolute-figure "Figure")
