@@ -276,6 +276,12 @@ buffer, are identical."
      (add-to-list 'safe-local-variable-directories
                   (file-truename project-path)))))
 
+(defun project-add-dir-local-variable ()
+  "Add new variable in project root dir local."
+  (interactive)
+  (let ((default-directory (project-root (project-current))))
+    (call-interactively #'add-dir-local-variable)))
+
 ;;;###autoload
 (defun consult-project-fd-dir ()
   "Use fd find dir in project."

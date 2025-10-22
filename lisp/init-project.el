@@ -90,7 +90,7 @@
    ["Dir Locals"
     ("e e" "Edit" project-edit-dir-local)
     ("e s" "Trust" project-add-to-safe-local-variable)
-    ("e a" "Add" add-dir-local-variable)]
+    ("e a" "Add" project-add-dir-local-variable)]
    ["Other"
     ("v" "Magit status" unpackaged/magit-project-status)
     ("r" "Rsync" rsync-project-dispatch)
