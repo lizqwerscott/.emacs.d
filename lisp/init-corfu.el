@@ -110,23 +110,15 @@
 
 (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)
 
-(defun my/ignore-elisp-keywords (cand)
-  "Capf ignore elisp keywords.
-
-CAND is candidate."
-  (or (not (keywordp cand))
-      (eq (char-after (car completion-in-region--data)) ?:)))
-
 (defun my/elisp-capf ()
   "Setup up elisp capf."
   (setq-local completion-at-point-functions
               `(,(cape-capf-super
-                  (cape-capf-predicate
-                   #'elisp-completion-at-point
-                   #'my/ignore-elisp-keywords)
+                  #'elisp-completion-at-point
                   #'cape-dabbrev)
                 cape-file)
               cape-dabbrev-min-length 5))
+
 (add-hook 'emacs-lisp-mode-hook #'my/elisp-capf)
 
 ;;; nerd icons corfu
