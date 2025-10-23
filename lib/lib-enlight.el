@@ -38,7 +38,7 @@
   :type 'number
   :group 'enlight)
 
-(defcustom enlight-file-path-max-length 50
+(defcustom enlight-file-path-max-length (* (frame-width) enlight-window-width-ratio)
   "Maximum length for displaying file paths in enlight."
   :type 'number
   :group 'enlight)
