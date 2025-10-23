@@ -233,5 +233,8 @@ ARGS is ORIG-FN args."
 (add-hook 'json-mode-hook #'(lambda () (treesit-parser-create 'json)))
 (setq json-ts-mode-indent-offset 4)
 
+;; yaml
+(require 'init-yaml)
+
 (provide 'init-program)
 ;;; init-program.el ends heres.

@@ -144,7 +144,7 @@
 (with-eval-after-load 'outline-indent
   (setq outline-indent-ellipsis " ▼"))
 
-(add-hooks '(yaml-mode yaml-ts-mode nxml-mode)
+(add-hooks '(yaml-ts-mode nxml-mode)
            #'outline-indent-minor-mode)
 
 ;;; Auto rename tag
