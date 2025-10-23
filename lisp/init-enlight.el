@@ -9,12 +9,12 @@
 (custom-set-variables
  `(enlight-content
    (concat
-    (grid-make-box `( :align center :content ,enlight-emacs-logo :width 0.5))
+    (grid-make-box `( :align center :content ,enlight-emacs-logo :width ,enlight-window-width-ratio))
     "\n"
-    (grid-make-box `( :align center :content ,(enlight-init-info) :width 0.5))
+    (grid-make-box `( :align center :content ,(enlight-init-info) :width ,enlight-window-width-ratio))
     "\n\n"
     ;; enlight-calendar "\n"
-    (grid-make-box `( :align center :content ,enlight-separator-line :width 0.5))
+    (grid-make-box `( :align center :content ,enlight-separator-line :width ,enlight-window-width-ratio))
     "\n"
     (grid-make-box
      (list
@@ -50,12 +50,12 @@
               ("Notes" consult-notes "n")
               ("Bookmarks" consult-bookmark "b"))))))
       :align 'center
-      :width 0.5))
+      :width ,enlight-window-width-ratio))
     "\n"
-    (grid-make-box `( :align center :content ,enlight-separator-line :width 0.5))
+    (grid-make-box `( :align center :content ,enlight-separator-line :width ,enlight-window-width-ratio))
     "\n"
     ;; (grid-make-box
-    ;;  (:align center :content ,(enlight-recent-files-right) :width 0.5))
+    ;;  (:align center :content ,(enlight-recent-files-right) :width ,enlight-window-width-ratio))
     ,@(enlight-recent-files-left)
     )))
 

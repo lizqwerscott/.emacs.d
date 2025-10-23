@@ -33,6 +33,16 @@
 
 (require 'recentf)
 
+(defcustom enlight-window-width-ratio 0.8
+  "Width ratio for enlight window relative to frame width."
+  :type 'number
+  :group 'enlight)
+
+(defcustom enlight-file-path-max-length 50
+  "Maximum length for displaying file paths in enlight."
+  :type 'number
+  :group 'enlight)
+
 (defface enlight-yellow-bold
   '((t (:foreground "#cabf00" :bold t)))
   "Yellow bold face."
@@ -181,7 +191,7 @@ each directory in the middle."
   "Get enlight recent files."
   (add-hook 'enlight-after-insert-hook #'enlight-menu-first-button)
   (let ((alist (cl-mapcar (lambda (f index)
-                            (pcase-let* ((`(,file-dir . ,file-name) (shorten-file-path f 100)))
+                            (pcase-let* ((`(,file-dir . ,file-name) (shorten-file-path f enlight-file-path-max-length)))
                               `(,(format "%s %s%s"
                                          (nerd-icons-icon-for-file f)
                                          (propertize
@@ -200,7 +210,7 @@ each directory in the middle."
                                                       (propertize
                                                        "files:"
                                                        'face 'enlight-puper-bold))
-                               :width 0.5))
+                               :width ,enlight-window-width-ratio))
       "\n"
       ,@(apply #'append
                (cl-mapcar (lambda (item)
@@ -214,7 +224,7 @@ each directory in the middle."
                                                                         shortkey)
                                                                 'face 'enlight-menu-key)
                                                     desc)
-                                  :width 0.5))
+                                  :width ,enlight-window-width-ratio))
                                "\n")))
                           alist)))))
 
