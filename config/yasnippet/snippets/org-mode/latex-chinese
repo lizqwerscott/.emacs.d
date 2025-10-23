@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: latex-chinese
+# key: latex-c
+# --
+#+latex_header: \usepackage{ctex}
+#+LATEX_COMPILER: xelatex
