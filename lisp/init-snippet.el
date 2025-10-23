@@ -31,5 +31,9 @@
 (add-hook 'after-init-hook
           #'yas-global-mode)
 
+(add-hook 'org-mode-hook
+          (lambda ()
+            (add-to-list 'completion-at-point-functions #'yasnippet-capf)))
+
 (provide 'init-snippet)
 ;;; init-snippet.el ends here

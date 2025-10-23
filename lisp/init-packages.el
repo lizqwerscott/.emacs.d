@@ -168,6 +168,7 @@
 (defvar *package-program-install-list*
   `(dumb-jump
     yasnippet
+    yasnippet-capf
     consult-yasnippet
     macrostep
     package-lint
