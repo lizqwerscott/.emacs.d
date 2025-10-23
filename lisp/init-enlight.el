@@ -37,14 +37,18 @@
                (find-file ,user-init-file)
                "j")
               ("Config project"
-               (project-switch-project user-emacs-directory)
+               (progn
+                 (require 'init-project)
+                 (project-switch-project user-emacs-directory))
                "c")
               ("Package" elpaca-manager "P")
               ("Restart" restart-emacs "R"))))
          "   "
          ,(enlight-menu
            `(("Quick"
-              ("Projects" project-switch-project "p")
+              ("Projects" (progn
+                            (require 'init-project)
+                            (call-interactively #'project-switch-project)) "p")
               ("Recents" consult-recent-file "r")
               ("Dirs" consult-dir "d")
               ("Notes" consult-notes "n")
