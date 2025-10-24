@@ -226,6 +226,8 @@
 
  ("C-x k" . kill-current-buffer)
  ("C-x K" . kill-buffer)
+ 
+ ("C-x x b" . browse-this-file)
 
  ("M-g P" . goto-percent)
 
