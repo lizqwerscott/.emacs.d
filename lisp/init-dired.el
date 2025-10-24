@@ -143,7 +143,8 @@
   ("C-o" . dired-dispatch))
 
 (global-bind-keys
- ("C-x J" . dired-jump-other-window))
+ ("C-x J" . dired-jump-other-window)
+ ("C-x x e" . dired-do-open-default))
 
 ;;; dirvish
 (when user/dirvish
