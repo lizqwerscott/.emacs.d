@@ -104,6 +104,34 @@ configuration of the virtual buffer sources."
 
 (setq consult--regexp-compiler #'consult--orderless-regexp-compiler)
 
+(defun define-minibuffer-key (key &rest defs)
+  "Define KEY conditionally in the minibuffer.
+DEFS is a plist associating completion categories to commands."
+  (define-key minibuffer-local-map key
+              (list 'menu-item nil defs :filter
+                    (lambda (d)
+                      (plist-get d (completion-metadata-get
+                                    (completion-metadata (minibuffer-contents)
+                                                         minibuffer-completion-table
+                                                         minibuffer-completion-predicate)
+                                    'category))))))
+
+(defun consult-find-for-minibuffer ()
+  "Search file with find, enter the result in the minibuffer."
+  (interactive)
+  (pcase-let* ((enable-recursive-minibuffers t)
+               (default-directory (file-name-directory (minibuffer-contents)))
+               (`(,prompt ,paths ,dir) (consult--directory-prompt "Fd" default-directory))
+               (default-directory dir)
+               (builder (consult--fd-make-builder paths))
+               (file (consult--find prompt builder (file-name-nondirectory (minibuffer-contents)))))
+    (delete-minibuffer-contents)
+    (insert (expand-file-name file default-directory))
+    (exit-minibuffer)))
+
+(define-minibuffer-key "\C-s"
+                       'file #'consult-find-for-minibuffer)
+
 ;; meow while translate i into TAB
 (keymap-unset goto-map "TAB")
 
