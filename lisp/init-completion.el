@@ -43,6 +43,10 @@
                           fussy-default-regex-fn 'fussy-pattern-first-letter
                           fussy-prefer-prefix nil))))
 
+;;; orderless
+(unless (memq 'orderless completion-styles)
+  (push 'orderless completion-styles))
+
 ;;; corfu
 (require 'init-corfu)
 
