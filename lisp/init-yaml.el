@@ -21,5 +21,9 @@
   "a" #'yaml-pro-ts-first-sibling
   "e" #'yaml-pro-ts-last-sibling)
 
+(with-eval-after-load 'yaml-pro
+  (keymap-unset yaml-pro-mode-map "C-c '")
+  (keymap-unset yaml-pro-ts-mode-map "C-c '"))
+
 (provide 'init-yaml)
 ;;; init-yaml.el ends here
