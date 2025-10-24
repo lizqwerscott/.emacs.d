@@ -110,15 +110,25 @@
   (require 'ox-epub))
 
 ;;; Org function
-(defun org-export-docx ()
-  (interactive)
+(defun org-export-docx (&optional template-select)
+  "Use pandoc convert org to Docx.
+
+if TEMPLATE-SELECT is not nil, select a template file."
+  (interactive "P")
   (let ((docx-file (concat (file-name-sans-extension (buffer-file-name)) ".docx"))
-        (template-file (expand-file-name "config/template/template.docx" user-emacs-directory)))
+        (template-file (file-truename
+                        (if template-select
+                            (read-file-name "Select Template file: "
+                                            (expand-file-name "config/template/"
+                                                              user-emacs-directory))
+                          (expand-file-name "config/template/template.docx" user-emacs-directory)))))
     (shell-command
      (format "pandoc %s -o %s --reference-doc=%s"
              (buffer-file-name)
              docx-file
-             template-file))
+             template-file)
+     (get-buffer-create "*Org export docx*")
+     (get-buffer-create "*Org export docx error*"))
     (message "Convert finish: %s" docx-file)))
 
 (defun org-toggle-display-emphasis-markers ()
