@@ -166,8 +166,7 @@
     (fingertip :fetcher github :repo "manateelazycat/fingertip")))
 
 (defvar *package-program-install-list*
-  `(dumb-jump
-    yasnippet
+  `(yasnippet
     yasnippet-capf
     consult-yasnippet
     macrostep
@@ -185,7 +184,8 @@
                  '((flyover :fetcher github :repo "konrad1977/flyover"))
                '(flycheck-posframe))))
         ('lsp-bridge
-         `((lsp-bridge :type git :fetcher github :repo "manateelazycat/lsp-bridge"
+         `(dumb-jump
+           (lsp-bridge :type git :fetcher github :repo "manateelazycat/lsp-bridge"
                        :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
                        :build (:not compile))
            ,@(when (not (display-graphic-p))
