@@ -184,8 +184,16 @@
 (global-bind-keys
  ("C-y" . meow-clipboard-yank))
 
-;; (require 'meow-tree-sitter)
-;; (meow-tree-sitter-register-defaults)
+(require 'meow-tree-sitter)
+
+(dolist (bind '((?a . "class")
+                (?f . "function")
+                (?t . "test")
+                (?y . "entry")
+                (?, . "parameter")))
+  (setq meow-char-thing-table (assoc-delete-all (car bind)
+                                                meow-char-thing-table))
+  (meow-tree-sitter-register-thing (car bind) (cdr bind)))
 
 (require 'repeat-fu)
 (setq repeat-fu-preset 'meow)
