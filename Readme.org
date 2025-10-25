@@ -133,3 +133,17 @@ Install dict in =/usr/share/dict/= path.
 Use ~elpaca-fetch-all~ and ~elpaca-merge-all~, detail look [[https://github.com/progfolio/elpaca/blob/master/doc/manual.md][Elpaca manual]]
 * custom
 copy =custom-example.el= to =custom.el=
+* Key
+| key     | description          |
+|---------+----------------------|
+| ~Space u~ | Ai                   |
+| ~Space v~ | Git                  |
+| ~Space l~ | Tab              |
+| ~Space j~ | Code                 |
+| ~Space t~ | Telega          |
+| ~Space d~ | Language             |
+| ~Space n~ | Note Manage          |
+| ~Space w~ | Window Manage        |
+| ~Space p~ | Project Menu         |
+| ~Space s~ | remap from ~M-s~, Search |
+| ~Space T~ | Open Toggles Menu (~<F2>~) |
