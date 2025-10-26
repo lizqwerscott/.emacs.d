@@ -24,6 +24,8 @@
 
 ;;; Code:
 (with-eval-after-load 'calendar
+  (setq calendar-week-start-day 1)
+  
   (keymap-binds calendar-mode-map
     ("f" . calendar-forward-day)
     ("b" . calendar-backward-day)
