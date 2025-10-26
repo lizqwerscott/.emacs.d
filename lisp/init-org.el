@@ -453,7 +453,11 @@ prepended to the element after the #+HEADER: tag."
 
 (global-bind-keys
  ("C-c c" . org-capture)
- ("C-c a" . org-agenda)
+ ("C-c A" . org-agenda)
+ ("C-c a" . (lambda ()
+              "Call Org agenda with `prot-org-custom-daily-agenda' configuration."
+              (interactive)
+              (org-agenda nil "A")))
 
  ("C-c L" . org-store-link)
  ("C-c C-o" . org-open-at-point)
