@@ -8,6 +8,8 @@
   (eval-buffer)
   (message "Eval buffer finish!"))
 
+(setopt elisp-fontify-semantically t)
+
 (keymap-binds (emacs-lisp-mode-map lisp-interaction-mode-map)
   ("C-c r" . eval-buffer-and-message)
   ("C-c C-p" . ielm)
@@ -17,7 +19,6 @@
 (add-hook 'lisp-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
 (add-hook 'emacs-lisp-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
 (add-hook 'ielm-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
-
 
 (add-hook 'emacs-lisp-mode-hook 'eros-mode)
 

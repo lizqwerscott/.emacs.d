@@ -121,7 +121,7 @@
   (highlight-matching-tag 1))
 
 ;;; Highlight lisp
-(with-hook (lisp-mode emacs-lisp-mode)
+(with-hook (lisp-mode)
   (highlight-function-calls-mode 1)
   (lisp-extra-font-lock-mode 1))
 
