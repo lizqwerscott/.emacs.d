@@ -48,39 +48,42 @@
 (advice-add 'find-file :around 'find-file-auto)
 
 ;;; dired-aux
-(require 'dired-aux)
-(setq dired-isearch-filenames 'dwim)
-(setq dired-create-destination-dirs 'ask)
-(setq dired-vc-rename-file t)
+(setopt dired-isearch-filenames 'dwim
+        dired-create-destination-dirs 'ask
+        dired-vc-rename-file t)
 
 ;;; dired-x
-(require 'dired-x)
-(setq dired-bind-vm nil)
-(setq dired-bind-man nil)
-(setq dired-bind-info nil)
-(setq dired-omit-verbose nil)
-(setq dired-omit-files (rx string-start
-                           (or ".DS_Store"
-                               ".cache"
-                               ".vscode"
-                               ".ccls-cache" ".clangd")
-                           string-end))
-(setq dired-omit-files
-      (concat dired-omit-files "\\|^\\..*$"))
+(setopt dired-bind-vm nil
+        dired-bind-man nil
+        dired-bind-info nil
+        dired-omit-verbose nil
+        dired-omit-files (rx string-start
+                             (or ".DS_Store"
+                                 ".cache"
+                                 ".vscode"
+                                 ".ccls-cache" ".clangd")
+                             string-end)
+        dired-omit-files (concat dired-omit-files "\\|^\\..*$"))
 
 ;;; dired-subtree
-(require 'dired-subtree)
+(setopt dired-subtree-use-backgrounds nil)
+
+(with-eval-after-load 'dired-subtree
+  (keymap-binds dired-mode-map
+    ("<tab>" . dired-subtree-toggle)
+    ("TAB" . dired-subtree-toggle)
+    ;; ("<backtab>" . dired-subtree-remove)
+    ;; ("S-TAB" . dired-subtree-remove)
+    ))
 
 ;;; dired-sort
-(require 'dired-quick-sort)
 (dired-quick-sort-setup)
 
 ;;; trashed
-(require 'trashed)
-(setq trashed-action-confirmer 'y-or-n-p
-      trashed-use-header-line t
-      trashed-sort-key '("Date deleted" . t)
-      trashed-date-format "%Y-%m-%d %H:%M:%S")
+(setopt trashed-action-confirmer 'y-or-n-p
+        trashed-use-header-line t
+        trashed-sort-key '("Date deleted" . t)
+        trashed-date-format "%Y-%m-%d %H:%M:%S")
 
 (global-bind-keys
  ("C-x C-t" . trashed))
@@ -93,6 +96,15 @@
               (unless (bound-and-true-p dirvish-override-dired-mode)
                 (nerd-icons-dired-mode))
               (dired-omit-mode)))
+
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (when (cl-find (file-truename default-directory)
+                           (mapcar #'file-truename
+                                   '("~/Downloads/"))
+                           :test #'string=)
+              (dired-auto-sort-dir)))
+          90)
 
 (diredfl-global-mode)
 
@@ -122,25 +134,30 @@
 
 ;;; Keymap
 (keymap-binds dired-mode-map
-  ("TAB" . dired-subtree-cycle)
   ("e" . dired-toggle-read-only)
   ("f" . (lambda ()
            (interactive)
            (consult-fd default-directory)))
   ("F" . (lambda ()
            (interactive)
-
            (consult-fd-dir)))
   ("W" . dired-copy-path)
   ("C-c +" . dired-create-empty-file)
-  ("M-n" . scroll-up-1/3)
-  ("M-p" . scroll-down-1/3)
+  ("C-+" . dired-create-empty-file)
   ("h" . dired-up-directory)
   ("C-c C-r" . dired-rsync)
   ("C-c C-x" . dired-rsync-transient)
   ("C-c e" . dired-do-open-default)
-  (("M-j" "s-j") . dired-other-window)
-  ("C-o" . dired-dispatch))
+  (("C-j" "M-j" "s-j") . dired-other-window)
+  ("C-o" . dired-dispatch)
+
+  ("/" . prot-dired-limit-regexp)
+  ("C-c C-l" . prot-dired-limit-regexp)
+
+  (("M-n" "s-n") . prot-dired-subdirectory-next)
+  (("M-p" "s-p") . prot-dired-subdirectory-previous)
+  ("C-c C-n" . prot-dired-subdirectory-next)
+  ("C-c C-p" . prot-dired-subdirectory-previous))
 
 (global-bind-keys
  ("C-x J" . dired-jump-other-window)

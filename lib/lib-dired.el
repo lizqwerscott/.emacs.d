@@ -89,5 +89,76 @@ At 2nd time it copy current directory to `kill-buffer'."
   (shell-command-do-open
    (list (file-truename default-directory))))
 
+(require 'casual-dired)
+
+(defun dired-auto-sort-dir ()
+  "Auto sort some dir."
+  (interactive)
+  (casual-dired--sort-by :date-added)
+  (goto-char (point-min))
+  (catch 'found
+    (while (not (eobp))
+      (let ((file (dired-get-filename nil t)))
+        (when (and file (not (file-directory-p file)))
+          (dired-goto-file file)
+          (throw 'found t)))
+      (forward-line 1)))
+  (when (not (eobp))
+    (dired-move-to-filename)))
+
+;;; from prot emacs config
+(defvar prot-dired--directory-header-regexp "^ +\\(.+\\):\n"
+  "Pattern to match Dired directory headings.")
+
+(defun prot-dired-subdirectory-next (&optional arg)
+  "Move to next or optional ARGth Dired subdirectory heading.
+For more on such headings, read `dired-maybe-insert-subdir'."
+  (interactive "p")
+  (let ((pos (point))
+        (subdir prot-dired--directory-header-regexp))
+    (goto-char (line-end-position))
+    (if (re-search-forward subdir nil t (or arg nil))
+        (progn
+          (goto-char (match-beginning 1))
+          (goto-char (line-beginning-position)))
+      (goto-char pos))))
+
+;;;###autoload
+(defun prot-dired-subdirectory-previous (&optional arg)
+  "Move to previous or optional ARGth Dired subdirectory heading.
+For more on such headings, read `dired-maybe-insert-subdir'."
+  (interactive "p")
+  (let ((pos (point))
+        (subdir prot-dired--directory-header-regexp))
+    (goto-char (line-beginning-position))
+    (if (re-search-backward subdir nil t (or arg nil))
+        (goto-char (line-beginning-position))
+      (goto-char pos))))
+
+(defvar prot-dired--limit-hist '()
+  "Minibuffer history for `prot-dired-limit-regexp'.")
+
+;;;###autoload
+(defun prot-dired-limit-regexp (regexp omit)
+  "Limit Dired to keep files matching REGEXP.
+
+With optional OMIT argument as a prefix (\\[universal-argument]),
+exclude files matching REGEXP.
+
+Restore the buffer with \\<dired-mode-map>`\\[revert-buffer]'."
+  (interactive
+   (list
+    (read-regexp
+     (concat "Files "
+             (when current-prefix-arg
+               (propertize "NOT " 'face 'warning))
+             "matching PATTERN: ")
+     nil 'prot-dired--limit-hist)
+    current-prefix-arg))
+  (dired-mark-files-regexp regexp)
+  (unless omit (dired-toggle-marks))
+  (dired-do-kill-lines)
+  (add-to-history 'prot-dired--limit-hist regexp))
+
 (provide 'lib-dired)
 ;;; lib-dired.el ends here
