@@ -10,6 +10,10 @@
 
 (setopt elisp-fontify-semantically t)
 
+(when (cl-find 'doom-dracula custom-enabled-themes)
+  (custom-set-faces
+   '(elisp-function ((t (:foreground "SpringGreen4"))))))
+
 (keymap-binds (emacs-lisp-mode-map lisp-interaction-mode-map)
   ("C-c r" . eval-buffer-and-message)
   ("C-c C-p" . ielm)
