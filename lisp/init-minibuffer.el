@@ -320,7 +320,16 @@ targets."
                            (throw 'found (plist-get (cdr i) :url))))))))
     (browse-url url)))
 
+(defun my/embark-duckduckgo-search (term)
+  "Embark search TERM in duckduckgo."
+  (interactive "sSearch Term: ")
+  (browse-url
+   (format "http://duckduckgo.com/?q=%s" term)))
+
 (with-eval-after-load 'embark
+  (keymap-binds embark-general-map
+    ("G" . my/embark-duckduckgo-search))
+
   (keymap-binds embark-library-map
     ("b" . elpaca-browse-1)
     ("v" . elpaca-visit))
