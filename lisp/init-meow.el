@@ -215,5 +215,15 @@ This command supports `meow-selection-command-fallback'."
                 (define-key meow-normal-state-keymap (kbd "C-'") 'repeat-fu-execute)
                 (define-key meow-insert-state-keymap (kbd "C-'") 'repeat-fu-execute))))
 
+;; (require 'meow-pyim-cjk)
+
+;; (advice-add #'meow-mark-thing
+;;             :override
+;;             #'meow-mark-thing-cjk)
+
+;; (advice-add #'meow-next-thing
+;;             :override
+;;             #'meow-next-thing-cjk)
+
 (provide 'init-meow)
 ;;; init-meow.el ends here
