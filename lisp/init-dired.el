@@ -98,11 +98,14 @@
 
 (add-hook 'dired-mode-hook
           (lambda ()
-            (when (cl-find (file-truename default-directory)
-                           (mapcar #'file-truename
-                                   '("~/Downloads/"))
-                           :test #'string=)
+            (when (dired-check-auto-sort-dir)
               (dired-auto-sort-dir)))
+          90)
+
+(add-hook 'dired-initial-position-hook
+          (lambda ()
+            (when (dired-check-auto-sort-dir)
+              (dired-jump-first-file)))
           90)
 
 (diredfl-global-mode)

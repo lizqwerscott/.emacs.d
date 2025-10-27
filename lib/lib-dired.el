@@ -89,12 +89,30 @@ At 2nd time it copy current directory to `kill-buffer'."
   (shell-command-do-open
    (list (file-truename default-directory))))
 
+;;; Auto sort and jump
+
+(defcustom dired-auto-sort-dir `(,(file-truename "~/Downloads/"))
+  "Dired auto sort dir.
+sort is date-added"
+  :group 'dired
+  :type '(list string))
+
 (require 'casual-dired)
+
+(defun dired-check-auto-sort-dir ()
+  "Check auto sort dir."
+  (cl-find (file-truename default-directory)
+           (mapcar #'file-truename
+                   dired-auto-sort-dir)
+           :test #'string=))
 
 (defun dired-auto-sort-dir ()
   "Auto sort some dir."
   (interactive)
-  (casual-dired--sort-by :date-added)
+  (casual-dired--sort-by :date-added))
+
+(defun dired-jump-first-file ()
+  "Dired jump first file."
   (goto-char (point-min))
   (catch 'found
     (while (not (eobp))
