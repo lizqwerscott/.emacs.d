@@ -6,9 +6,10 @@
 
 (setopt enlight-center-vertically nil)
 
-(custom-set-variables
- `(enlight-content
-   (concat
+(enlight--update
+ 'enlight-content
+ (eval
+  `(concat
     (grid-make-box `( :align center :content ,enlight-emacs-logo :width ,enlight-window-width-ratio))
     "\n"
     (grid-make-box `( :align center :content ,(enlight-init-info) :width ,enlight-window-width-ratio))
@@ -60,8 +61,7 @@
     "\n"
     ;; (grid-make-box
     ;;  (:align center :content ,(enlight-recent-files-right) :width ,enlight-window-width-ratio))
-    ,@(enlight-recent-files-left)
-    )))
+    ,@(enlight-recent-files-left))))
 
 (global-bind-keys
  ("<f2>" . enlight-open))
