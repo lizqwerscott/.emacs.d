@@ -68,13 +68,12 @@
 ;;; dired-subtree
 (setopt dired-subtree-use-backgrounds nil)
 
-(with-eval-after-load 'dired-subtree
-  (keymap-binds dired-mode-map
-    ("<tab>" . dired-subtree-toggle)
-    ("TAB" . dired-subtree-toggle)
-    ;; ("<backtab>" . dired-subtree-remove)
-    ;; ("S-TAB" . dired-subtree-remove)
-    ))
+(keymap-binds dired-mode-map
+  ("<tab>" . dired-subtree-toggle)
+  ("TAB" . dired-subtree-toggle)
+  ;; ("<backtab>" . dired-subtree-remove)
+  ;; ("S-TAB" . dired-subtree-remove)
+  )
 
 ;;; dired-sort
 (dired-quick-sort-setup)
