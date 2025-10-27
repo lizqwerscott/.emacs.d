@@ -113,6 +113,7 @@ sort is date-added"
 
 (defun dired-jump-first-file ()
   "Dired jump first file."
+  (interactive)
   (goto-char (point-min))
   (catch 'found
     (while (not (eobp))

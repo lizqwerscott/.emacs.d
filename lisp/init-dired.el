@@ -157,7 +157,9 @@
   (("M-n" "s-n") . prot-dired-subdirectory-next)
   (("M-p" "s-p") . prot-dired-subdirectory-previous)
   ("C-c C-n" . prot-dired-subdirectory-next)
-  ("C-c C-p" . prot-dired-subdirectory-previous))
+  ("C-c C-p" . prot-dired-subdirectory-previous)
+
+  ("J" . dired-jump-first-file))
 
 (global-bind-keys
  ("C-x J" . dired-jump-other-window)
