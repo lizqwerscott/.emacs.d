@@ -133,6 +133,8 @@
 (setq delete-old-versions -1
       version-control t)
 
+(setq url-automatic-caching t)
+
 ;;; for backup walker
 (defalias 'string-to-int 'string-to-number)  ; removed in 26.1
 (defalias 'display-buffer-other-window 'display-buffer)
