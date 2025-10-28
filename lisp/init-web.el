@@ -3,7 +3,8 @@
 ;;; Code:
 
 (wait-packages! '(web-mode
-                  pnpm-mode))
+                  pnpm-mode
+                  (highlight-matching-tag :fetcher github :repo "manateelazycat/highlight-matching-tag")))
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
@@ -26,6 +27,11 @@
               '(("\\(function\\) \\(.*\)\\)" 1 2 " > ")
                 ("\\(const\\) \\(.*\\)" 1 2 " ")
                 ("<\\(.*\\) ?\\(.*\\)>" 1 2 " "))))
+
+;;; Highlight web mode matching tag
+(with-hook web-mode
+  (require 'highlight-matching-tag)
+  (highlight-matching-tag 1))
 
 ;;; typescript and react
 ;; (use-package typescript-mode

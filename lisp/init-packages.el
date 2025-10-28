@@ -246,7 +246,6 @@
                   :repo "manateelazycat/awesome-tray")
     (breadcrumb :fetcher github
                 :repo "joaotavora/breadcrumb")
-    (highlight-matching-tag :fetcher github :repo "manateelazycat/highlight-matching-tag")
     nerd-icons-ibuffer
     casual
     inhibit-mouse))
