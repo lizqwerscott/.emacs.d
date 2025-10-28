@@ -163,7 +163,8 @@
     vundo
     outline-indent
     visual-replace
-    (fingertip :fetcher github :repo "manateelazycat/fingertip")))
+    (fingertip :fetcher github :repo "manateelazycat/fingertip")
+    puni))
 
 (defvar *package-program-install-list*
   `(yasnippet

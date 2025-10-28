@@ -19,14 +19,19 @@
 ;; (add-hook 'prog-mode-hook 'electric-pair-local-mode)
 ;; (add-hook 'conf-mode-hook 'electric-pair-local-mode)
 ;; (add-hook 'sly-mrepl-hook 'electric-pair-local-mode)
-(setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+(setq electric-pair-inhibit-predicate #'electric-pair-default-inhibit)
+
+(with-eval-after-load 'elec-pair
+  (add-to-list 'electric-pair-pairs '(?\{ . ?\})))
+
 (electric-pair-mode t)
 
 (advice-add #'meow-grab
             :before
             #'(lambda ()
                 (call-interactively #'electric-pair-mode)
-                (call-interactively #'fingertip-mode)))
+                ;; (call-interactively #'fingertip-mode)
+                ))
 
 (require 'hungry-delete)
 (setq hungry-delete-chars-to-skip " \t\f\v"
@@ -35,7 +40,10 @@
 (global-hungry-delete-mode t)
 
 ;;; fingertip
-(require 'init-fingertip)
+;; (require 'init-fingertip)
+
+;;; puni
+(require 'init-puni)
 
 ;;; vundo
 (require 'vundo)
