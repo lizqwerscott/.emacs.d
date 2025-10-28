@@ -226,7 +226,7 @@
 
  ("C-x k" . kill-current-buffer)
  ("C-x K" . kill-buffer)
- 
+
  ("C-x x b" . browse-this-file)
 
  ("M-g P" . goto-percent)
@@ -249,6 +249,17 @@
   :repeat t
   "n" #'scroll-other-window-up-1/3
   "p" #'scroll-other-window-down-1/3)
+
+;;; editkit
+(autoload #'editkit-transform-menu "editkit" nil t)
+(autoload #'editkit-rectangle-menu "editkit" nil t)
+
+(with-eval-after-load 'meow
+  (meow-normal-define-key
+   '("C-;" . editkit-transform-menu)))
+
+(global-bind-keys
+ ("C-c m" . editkit-rectangle-menu))
 
 (provide 'init-edit)
 ;;; init-edit.el ends here.

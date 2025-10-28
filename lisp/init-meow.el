@@ -183,7 +183,6 @@ This command supports `meow-selection-command-fallback'."
    (cons "F" find-map))
 
   (meow-normal-define-key
-   '("C-;" . grugru)
    '("Q" . kill-buffer-and-window)
    '("?" . "C-h ?")
    '("/" . consult-ripgrep)))

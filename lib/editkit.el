@@ -25,6 +25,7 @@
 ;;; Code:
 
 (require 'transient)
+(require 'grugru)
 
 (defun my-toggle-case-current-word ()
   "Toggle the case of the current word between lower, upper, and capitalized."
@@ -47,15 +48,13 @@
 (defun editkit--dwim-at-point (fn)
   "Dwim at point for FN."
   (interactive)
-  (if (use-region-p)
-      (funcall fn (region-beginning) (region-end))
-    (save-excursion
-      (let ((bounds (bounds-of-thing-at-point 'word))
-            (case-fold-search nil))
-        (when bounds
-          (let* ((beg (car bounds))
-                 (end (cdr bounds)))
-            (funcall fn beg end)))))))
+  (let ((case-fold-search nil))
+    (if (use-region-p)
+        (funcall fn (region-beginning) (region-end))
+      (when-let* ((bounds (bounds-of-thing-at-point 'word))
+                  (beg (car bounds))
+                  (end (cdr bounds)))
+        (funcall fn beg end)))))
 
 (defun editkit-capitalize-dwim-at-point ()
   "Capitalize dwim at point."
@@ -72,66 +71,74 @@
   (interactive)
   (editkit--dwim-at-point #'upcase-region))
 
-(transient-define-prefix editkit-menu ()
-  "Editkit menu."
-  :transient-non-suffix 'transient--do-stay
+(defun editkit-buffer-read-only-p ()
+  "Predicate for `buffer-read-only'."
+  (if buffer-read-only t nil))
+
+(transient-define-prefix editkit-rectangle-menu ()
+  "Editkit Rectangle menu."
   :refresh-suffixes t
-  ["Transform"
-   [("c" "Capitalize" editkit-capitalize-dwim-at-point :transient t)]
-
-   [("l" "Make Lower Case" editkit-downcase-dwim-at-point :transient t)
-    ("u" "Make Upper Case" editkit-upcase-dwim-at-point :transient t)]
-
-   [("q" "Done" transient-quit-all)]]
-
+  :transient-non-suffix 'transient--do-stay
   ["Rectangle"
    ["mark"
     ("m" "mark" rectangle-mark-mode :transient t)]
 
    ["edit"
-    ("k" "kill" kill-rectangle
-     :if-not casual-editkit-buffer-read-only-p
+    ("K" "kill" kill-rectangle
+     :if-not editkit-buffer-read-only-p
      :inapt-if-not use-region-p
      :transient t)
     ("c" "Copy" copy-rectangle-as-kill
      :inapt-if-not use-region-p
      :transient t)
     ("y" "Yank" yank-rectangle
-     :if-not casual-editkit-buffer-read-only-p
+     :if-not editkit-buffer-read-only-p
      :transient t)
     ("d" "Delete" delete-rectangle
-     :if-not casual-editkit-buffer-read-only-p
+     :if-not editkit-buffer-read-only-p
      :inapt-if-not use-region-p
      :transient t)]
 
    ["Replace"
     ("s" "String…" string-rectangle
-     :if-not casual-editkit-buffer-read-only-p
+     :if-not editkit-buffer-read-only-p
      :inapt-if-not use-region-p
      :transient t)
     ("i" "String Insert…" string-insert-rectangle
-     :if-not casual-editkit-buffer-read-only-p
+     :if-not editkit-buffer-read-only-p
      :inapt-if-not use-region-p
      :transient t)
     ("o" "Open Insert" open-rectangle
-     :if-not casual-editkit-buffer-read-only-p
+     :if-not editkit-buffer-read-only-p
      :inapt-if-not use-region-p
      :transient t)]
 
    ["Misc"
     ("N" "Number" rectangle-number-lines
-     :if-not casual-editkit-buffer-read-only-p
+     :if-not editkit-buffer-read-only-p
      :inapt-if-not use-region-p
      :transient t)
     ("C" "Clear" clear-rectangle
-     :if-not casual-editkit-buffer-read-only-p
+     :if-not editkit-buffer-read-only-p
      :inapt-if-not use-region-p
      :transient t)
     ("D" "Delete Leading Spaces" delete-whitespace-rectangle
-     :if-not casual-editkit-buffer-read-only-p
+     :if-not editkit-buffer-read-only-p
      :inapt-if-not use-region-p
      :transient t)
-    ("RET" "Done" transient-quit-all)]])
+    ("q" "Done" transient-quit-all)]])
+
+(transient-define-prefix editkit-transform-menu ()
+  "Editkit transform menu."
+  :transient-non-suffix 'transient--do-stay
+  ["Transform"
+   [("c" "Capitalize" editkit-capitalize-dwim-at-point :transient t)]
+
+   [("L" "Make Lower Case" editkit-downcase-dwim-at-point :transient t)
+    ("u" "Make Upper Case" editkit-upcase-dwim-at-point :transient t)]
+
+   [("g" "grugru" grugru :transient t)]]
+  [("q" "Done" transient-quit-all)])
 
 (provide 'editkit)
 ;;; editkit.el ends here
