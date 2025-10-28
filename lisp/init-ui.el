@@ -9,6 +9,9 @@
 ;;; Code:
 
 ;;; theme
+(add-to-list 'custom-theme-load-path
+             (locate-user-emacs-file "themes"))
+
 (+lizqwer/load-theme user/night-theme)
 
 ;;; Optimization

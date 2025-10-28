@@ -217,7 +217,8 @@
     (rsync-project-mode :fetcher github :repo "lizqwerscott/rsync-project-mode")))
 
 (defvar *package-ui-install-list*
-  '((koishi-theme :fetcher github :repo "gynamics/koishi-theme.el")
+  '(ef-themes
+    (koishi-theme :fetcher github :repo "gynamics/koishi-theme.el")
     doom-themes
     nerd-icons
     nerd-icons-dired
