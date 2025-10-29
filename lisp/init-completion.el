@@ -49,7 +49,6 @@
                   '((file (styles partial-completion orderless))
                     (project-file (styles orderless fussy))
                     (multi-category (styles orderless fussy basic))
-                    (consult-grep (styles orderless fussy basic))
                     (consult-location (styles orderless fussy basic))
                     (org-heading (styles orderless fussy basic))
                     (bookmark (styles orderless fussy basic))))
