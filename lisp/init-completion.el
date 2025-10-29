@@ -19,7 +19,8 @@
         #'command-completion-default-include-p))
 
 (setq completion-cycle-threshold 4
-      completions-detailed t)
+      completions-detailed t
+      completion-styles '(basic))
 
 ;;; fussy
 
@@ -44,8 +45,14 @@
                           fussy-prefer-prefix nil))))
 
 ;;; orderless
-(unless (memq 'orderless completion-styles)
-  (push 'orderless completion-styles))
+(add-list-to-list 'completion-category-overrides
+                  '((file (styles partial-completion orderless))
+                    (project-file (styles orderless fussy))
+                    (multi-category (styles orderless fussy basic))
+                    (consult-grep (styles orderless fussy basic))
+                    (consult-location (styles orderless fussy basic))
+                    (org-heading (styles orderless fussy basic))
+                    (bookmark (styles orderless fussy basic))))
 
 ;;; corfu
 (require 'init-corfu)
