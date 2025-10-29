@@ -97,8 +97,7 @@
                       #'cape-dabbrev)))
                 ,(cape-capf-super
                   #'eglot-completion-at-point
-                  #'cape-dabbrev))
-              cape-dabbrev-min-length 5))
+                  #'cape-dabbrev))))
 
 (defun my/eglot-capf ()
   "Setup up eglot capf."
@@ -116,8 +115,7 @@
               `(,(cape-capf-super
                   #'elisp-completion-at-point
                   #'cape-dabbrev)
-                cape-file)
-              cape-dabbrev-min-length 5))
+                cape-file)))
 
 (add-hook 'emacs-lisp-mode-hook #'my/elisp-capf)
 
