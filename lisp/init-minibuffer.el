@@ -16,17 +16,81 @@
 
 (setq vertico-count 15)
 
+(defun my/vertico-insert ()
+  (interactive)
+  (let* ((mb (minibuffer-contents-no-properties))
+         (lc (if (string= mb "") mb (substring mb -1))))
+    (cond ((string-match-p "^[/~:]" lc) (self-insert-command 1 ?/))
+          ((file-directory-p (vertico--candidate)) (vertico-insert))
+          (t (self-insert-command 1 ?/)))))
+
+;; Configure the display per command.
+;; Use a buffer with indices for imenu
+;; and a flat (Ido-like) menu for M-x.
+(setopt vertico-multiform-commands
+        '(;; (consult-imenu buffer indexed)
+          ))
+
+;; Configure the display per completion category.
+;; Use the grid display for files and a buffer
+;; for the consult-grep commands.
+(setq vertico-multiform-categories
+      '(;; (file grid)
+        ;; (project-file grid)
+        (consult-grep buffer)))
+
+;; highlight
+(defvar +vertico-transform-functions nil)
+
+(cl-defmethod vertico--format-candidate :around
+  (cand prefix suffix index start &context ((not +vertico-transform-functions) null))
+  (dolist (fun (ensure-list +vertico-transform-functions))
+    (setq cand (funcall fun cand)))
+  (cl-call-next-method cand prefix suffix index start))
+
+(defun +vertico-highlight-directory (file)
+  "If FILE ends with a slash, highlight it as a directory."
+  (if (string-suffix-p "/" file)
+      (propertize file 'face 'marginalia-file-priv-dir) ; or face 'dired-directory
+    file))
+
+;; function to highlight enabled modes similar to counsel-M-x
+(defun +vertico-highlight-enabled-mode (cmd)
+  "If MODE is enabled, highlight it as font-lock-constant-face."
+  (let ((sym (intern cmd)))
+    (if (or (eq sym major-mode)
+            (and
+             (memq sym minor-mode-list)
+             (boundp sym)))
+        (propertize cmd 'face 'font-lock-constant-face)
+      cmd)))
+
+;; add-to-list works if 'file isn't already in the alist
+;; setq can be used but will overwrite all existing values
+;; (add-to-list 'vertico-multiform-categories
+;;              '(file
+;;                ;; this is also defined in the wiki, uncomment if used
+;;                ;; (vertico-sort-function . vertico-sort-directories-first)
+;;                (+vertico-transform-functions . +vertico-highlight-directory)))
+(add-to-list 'vertico-multiform-commands
+             '(execute-extended-command
+               (+vertico-transform-functions . +vertico-highlight-enabled-mode)))
+
 ;; Configure directory extension.
 (keymap-binds vertico-map
   ("RET" . vertico-directory-enter)
   ("DEL" . vertico-directory-delete-char)
   ("M-DEL" . vertico-directory-delete-word)
   ("C-<backspace>" . delete-backward-char)
-  ("C-j" . vertico-exit-input))
+  ("C-j" . vertico-exit-input)
+  ("/" . my/vertico-insert))
 
 (add-hook #'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
 
 (vertico-mode 1)
+
+;; Enable vertico-multiform
+(vertico-multiform-mode)
 
 ;;; marginalia
 (marginalia-mode)
