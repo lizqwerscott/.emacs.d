@@ -9,18 +9,7 @@
              (require-theme 'modus-themes t))
   (require 'modus-themes))
 
-(defcustom modus-vivendi-catppuccin-mocha-palette-user nil
-  "Like the `modus-vivendi--palette' for user-defined entries.
-This is meant to extend the palette with custom named colors and/or
-semantic palette mappings.  Those may then be used in combination with
-palette overrides (also see `modus-themes-common-palette-overrides' and
-`modus-vivendi--palette-overrides')."
-  :group 'modus-themes
-  :package-version '(modus-themes . "4.5.0")
-  :type '(repeat (list symbol (choice symbol string)))
-  :link '(info-link "(modus-themes) Option to extend the palette for use with overrides"))
-
-(defcustom modus-vivendi-catppuccin-mocha-palette-overrides
+(defconst modus-vivendi-catppuccin-mocha-palette
   '((accent-0 "#89b4fa")
     (accent-1 "#89dceb")
     (bg-active bg-main)
@@ -99,30 +88,13 @@ palette overrides (also see `modus-themes-common-palette-overrides' and
     (type      "#f9e2af")
     (variable  "#fab387")
     (warning "#f9e2af"))
-  "Overrides for `modus-vivendi-palette'.
+  "The `modus-vivendi-catppuccin-mocha' palette.
+Color values have the form (COLOR-NAME HEX-VALUE) with the former
+as a symbol and the latter as a string.
 
-Mirror the elements of the aforementioned palette, overriding
-their value.
-
-For overrides that are shared across all of the Modus themes,
-refer to `modus-themes-common-palette-overrides'.
-
-Theme-specific overrides take precedence over shared overrides.
-The idea of common overrides is to change semantic color
-mappings, such as to make the cursor red.  Wherea theme-specific
-overrides can also be used to change the value of a named color,
-such as what hexadecimal RGB value the red-warmer symbol
-represents."
-  :group 'modus-themes
-  :package-version '(modus-themes . "4.0.0")
-  :version "30.1"
-  :type '(repeat (list symbol (choice symbol string)))
-  :link '(info-link "(modus-themes) Palette overrides"))
-
-(defconst modus-vivendi-cappuccin-mocha-custom-faces
-  '(
-    `(magit-section-highlight ((,c :background ,bg-alt)))
-    `(magit-diff-file-heading-highlight ((,c :inherit magit-diff-file-heading :background ,bg-alt)))))
+Semantic color mappings have the form (MAPPING-NAME COLOR-NAME)
+with both as symbols.  The latter is a color that already exists
+in the palette and is associated with a HEX-VALUE.")
 
 (defconst modus-vivendi-catppuccin-mocha-custom-faces
   '(`(change-log-acknowledgment ((,c :foreground "#b4befe")))
@@ -153,19 +125,33 @@ represents."
     `(tab-bar-tab-group-inactive ((,c :background "#1e1e2e" :foreground "#9399b2")))
     `(tab-bar-tab-inactive ((,c :background "#1e1e2e" :foreground "#a6adc8")))
     `(vc-dir-file ((,c :foreground "#89b4fa")))
-    `(vc-dir-header-value ((,c :foreground "#b4befe")))))
+    `(vc-dir-header-value ((,c :foreground "#b4befe"))))
+  "Face specs for use with `modus-vivendi-catppuccin-mocha'.")
+
+(defcustom modus-vivendi-catppuccin-mocha-palette-overrides nil
+  "Overrides for `modus-vivendi-catppuccin-mocha-palette'.
+
+Mirror the elements of the aforementioned palette, overriding
+their value.
+
+Theme-specific overrides take precedence over shared overrides.
+The idea of common overrides is to change semantic color
+mappings, such as to make the cursor red.  Wherea theme-specific
+overrides can also be used to change the value of a named color,
+such as what hexadecimal RGB value the red-warmer symbol
+represents."
+  :group 'modus-catppuccin-themes
+  :package-version '(modus-catppuccin-themes . "1.0.0")
+  :type '(repeat (list symbol (choice symbol string)))
+  :link '(info-link "(modus-catppuccin-themes) Palette overrides"))
 
 (modus-themes-theme
  'modus-vivendi-catppuccin-mocha
- 'modus-themes
- "Elegant, highly legible theme with a black background.
-Conforms with the highest legibility standard for color contrast
-between background and foreground in any given piece of text,
-which corresponds to a minimum contrast in relative luminance of
-7:1 (WCAG AAA standard)."
+ 'modus-catppuccin-themes
+ "Combine catppuccin-mocha theme with modus-vivendi."
  'dark
  'modus-themes-vivendi-palette
- 'modus-vivendi-catppuccin-mocha-palette-user
+ 'modus-vivendi-catppuccin-mocha-palette
  'modus-vivendi-catppuccin-mocha-palette-overrides
  'modus-vivendi-catppuccin-mocha-custom-faces)
 
