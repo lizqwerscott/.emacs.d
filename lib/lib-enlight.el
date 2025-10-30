@@ -43,6 +43,11 @@
   :type 'number
   :group 'enlight)
 
+(defcustom enlight-recent-file-length 5
+  "Recent file number."
+  :type 'number
+  :group 'enlight)
+
 (defface enlight-yellow-bold
   '((t (:foreground "#cabf00" :bold t)))
   "Yellow bold face."
@@ -201,8 +206,8 @@ each directory in the middle."
                                 (find-file ,f)
                                 ,(format "C-%d"
                                          index))))
-                          (seq-take recentf-list 5)
-                          (number-sequence 1 5))))
+                          (seq-take recentf-list enlight-recent-file-length)
+                          (number-sequence 1 enlight-recent-file-length))))
     (enlight-menu--apply-keys (list
                                `("Recent files"
                                  ,@alist)))
