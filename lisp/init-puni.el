@@ -9,6 +9,30 @@
   (forward-char 1)
   (newline-and-indent))
 
+(defun puni-wrap-single-quote (&optional n)
+  "Wrap the following S-expression with single quote brackets.
+If a ‘C-u’ prefix argument is given, wrap all S-expressions
+following the point until the end of the buffer or of the
+enclosing list.  If a numeric prefix argument N is given, wrap N
+S-expressions.  Automatically indent the newly wrapped
+S-expression."
+  (interactive "P")
+  (puni-wrap-next-sexps
+   (puni--parse-interactive-argument-for-wrap n)
+   "'" "'"))
+
+(defun puni-wrap-double-quote (&optional n)
+  "Wrap the following S-expression with double quote brackets.
+If a ‘C-u’ prefix argument is given, wrap all S-expressions
+following the point until the end of the buffer or of the
+enclosing list.  If a numeric prefix argument N is given, wrap N
+S-expressions.  Automatically indent the newly wrapped
+S-expression."
+  (interactive "P")
+  (puni-wrap-next-sexps
+   (puni--parse-interactive-argument-for-wrap n)
+   "\"" "\""))
+
 (require 'transient)
 (transient-define-prefix puni-sexp-menu ()
   "Puni sexp menu."
@@ -37,8 +61,11 @@
   (meow-normal-define-key
    '("(" . puni-wrap-round)
    '("s-[" . puni-wrap-square)
+   '("M-[" . puni-wrap-square)
    '("{" . puni-wrap-curly)
    '("<" . puni-wrap-angle)
+   '("\"" . puni-wrap-double-quote)
+   '("'" . puni-wrap-single-quote)
    '(")" . puni-splice)
    '("C-j" . puni-jump-out-pair-and-newline)
    '("X" . puni-sexp-menu)))
