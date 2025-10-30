@@ -33,7 +33,9 @@ V is either nil or non-nil."
 
 (defun transient-show--prefix-label (label prefix)
   "Label constructed with PREFIX and LABEL separated by a space."
-  (format "%s %s" prefix label))
+  (format "%s %s"
+          (propertize prefix 'face 'font-lock-keyword-face)
+          label))
 
 (defun transient-show-checkbox-label (v label)
   "Checkbox label using variable V and LABEL."
