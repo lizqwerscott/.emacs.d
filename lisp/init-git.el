@@ -102,6 +102,11 @@ The completion candidates include the Git status of each file."
                 (with-current-buffer buffer
                   (outline-show-all))))))
 
+(casual-ediff-install)
+(add-hook 'ediff-keymap-setup-hook
+          (lambda ()
+            (keymap-set ediff-mode-map "C-o" #'casual-ediff-tmenu)))
+
 ;;; difftastic
 (require 'init-difftastic)
 
@@ -174,7 +179,8 @@ _p_rev       _U_pper              _=_: upper/lower       _r_esolve
     ("ol" "File log" magit-log-buffer-file)]
    ["Git"
     ("b" "Switch Modified buffer" consult-switch-git-status-buffer)
-    ("g" "Git Link" git-link-dispatch)]]
+    ("g" "Git Link" git-link-dispatch)
+    ("e" "Ediff revision" casual-ediff-revision)]]
   [("q" "Quit" transient-quit-one)])
 
 (global-bind-keys
