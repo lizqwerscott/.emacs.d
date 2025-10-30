@@ -5,7 +5,7 @@
 (defun puni-jump-out-pair-and-newline ()
   "Puni jump out pair and newline."
   (interactive)
-  (puni-end-of-sexp)
+  (puni-mark-sexp-at-point)
   (forward-char 1)
   (newline-and-indent))
 
