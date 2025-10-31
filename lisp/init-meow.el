@@ -100,9 +100,8 @@ This command supports `meow-selection-command-fallback'."
   "l" #'find-library
   "v" #'find-variable)
 
-(lazy-load-global-keys
- '(("C-c p" . project-dispatch))
- "init-project")
+(global-bind-keys
+ ("<escape>" . keyboard-quit))
 
 (defun meow-setup ()
   "Meow keymap setup."
@@ -122,6 +121,9 @@ This command supports `meow-selection-command-fallback'."
    '("2" . split-window-below)
    '("3" . split-window-horizontally)
    '("0" . delete-window))
+
+  (meow-leader-define-key
+   '("p" . "C-x p"))
 
   (meow-normal-define-key
    '("0" . meow-expand-0)

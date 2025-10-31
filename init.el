@@ -54,6 +54,7 @@
   (require 'init-telega))
 
 ;;; Programming
+(require 'init-project)
 (require 'init-git)
 (require 'init-lsp)
 (require 'init-citre)

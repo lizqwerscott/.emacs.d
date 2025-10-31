@@ -24,83 +24,76 @@
 
 ;;; Code:
 
-(require 'project)
-(require 'project-x)
-(require 'projection)
+(with-eval-after-load 'project
+  (require 'project-x)
+  (require 'projection)
 
-;;; config
-(setq project-find-functions '(project-try-vc my/project-try-local))
-
-;;; project-prefix-map
-;; (defalias 'project-prefix-map project-prefix-map)
-
-;; (define-key mode-specific-map "p" 'project-prefix-map)
-(define-key project-prefix-map (kbd "F") #'project-find-file-other-window)
-(define-key project-prefix-map (kbd "b") #'consult-project-buffer)
-(define-key project-prefix-map (kbd "B") #'consult-project-buffer-other-window)
-(define-key project-prefix-map (kbd "v") #'magit-project-status)
-
-;;; project-switch-commands
-(setq project-switch-commands nil)
-(add-to-list 'project-switch-commands '(project-find-file "Find file") t)
-(add-to-list 'project-switch-commands '(project-find-file-other-window "Find file ow") t)
-(add-to-list 'project-switch-commands '(consult-project-buffer "switch to buffer") t)
-(add-to-list 'project-switch-commands '(consult-project-buffer-other-window "switch to buffer ow") t)
-(add-to-list 'project-switch-commands '(magit-project-status "Git Status") t)
-(add-to-list 'project-switch-commands '(project-find-dir "Find Dir") t)
-(add-to-list 'project-switch-commands '(project-dired "Dired") t)
-(add-to-list 'project-switch-commands '(project-find-regexp "Regexp") t)
+  (setq project-find-functions '(project-try-vc my/project-try-local)))
 
 ;;; Menu
-(require 'transient)
 (transient-define-prefix project-manage-dispatch ()
   "Manage Project menu"
-  [["Manage"
+  ["Project"
+   :description (lambda ()
+                  (let* ((project (project-current)))
+                    (if project
+                        (format "Project: %s" (nth 2 project))
+                      "Project")))
+   ["Manage"
     ("r" "Forget under" project-forget-projects-under)
     ("z" "Forget zombie" project-forget-zombie-projects)
     ("a" "Remember under" project-remember-projects-under)]]
   [("q" "Quit" transient-quit-one)])
 
+;;; project-prefix-map
+(defvar-keymap project-compile-map
+  :doc "Project compile map."
+  :prefix t
+  "c" '("Compile" . projection-commands-build-project)
+  "r" '("Run" . projection-commands-run-project)
+  "t" '("Test" . projection-commands-test-project))
 
-(transient-define-prefix project-dispatch ()
-  "Project dispatch menu"
-  [
-   :class transient-row
-   :description "Project"
-   ("C-p" "Manage" project-manage-dispatch
-    :transient t)
-   ("p" "Switch" project-switch-project)
-   ("P" "Switch Open" project-switch-project-open)]
-  [["Find"
-    ("f" "File" project-find-file)
-    ("F" "File OW" project-find-file-other-window)
-    ("o" "Other file" projection-find-other-file)
-    ("d" "Dir" project-dired-dir)
-    ("D" "Dir Fuzzy" consult-project-fd-dir)
-    ("g" "Regexp" project-find-regexp)]
-   ["Buffer"
-    ("b" "Switch" consult-project-buffer)
-    ("B" "Switch OW" consult-project-buffer-other-window)
-    ("k" "Kill" project-kill-buffers)]
-   ["Build"
-    ("c c" "Compile" projection-commands-build-project)
-    ("c r" "Run" projection-commands-run-project)
-    ("c t" "Test" projection-commands-test-project)
-    ("m" "Mutli compile" projection-multi-compile)]
-   ["Dir Locals"
-    ("e e" "Edit" project-edit-dir-local)
-    ("e s" "Trust" project-add-to-safe-local-variable)
-    ("e a" "Add" project-add-dir-local-variable)]
-   ["Other"
-    ("v" "Magit status" unpackaged/magit-project-status)
-    ("r" "Rsync" rsync-project-dispatch)
-    ("t" "Vterm" multi-vterm-project)
-    ("s""Eshell"
-     (lambda ()
-       (interactive)
-       (autoload 'eshell-project-toggle "init-eshell" nil t)
-       (eshell-project-toggle)))]]
-  [("q" "Quit" transient-quit-all)])
+(keymap-set project-prefix-map "c" '("Compile" . project-compile-map))
+
+(defvar-keymap project-dir-locals-map
+  :doc "Project dir-locals map."
+  :prefix t
+  "e" '("Edit" . project-edit-dir-local)
+  "s" '("Trust" . project-add-to-safe-local-variable)
+  "a" '("Add" . project-add-dir-local-variable))
+
+(keymap-set project-prefix-map "e" '("Dir Locals" . project-dir-locals-map))
+
+(keymap-unset project-prefix-map "C-b")
+(keymap-binds project-prefix-map
+  ("F" . project-find-file-other-window)
+  ("o" . projection-find-other-file)
+
+  ("b" . consult-project-buffer)
+  ("B" . consult-project-buffer-other-window)
+
+  ("m" . ("Multi compile" . projection-multi-compile))
+  ("R" . ("Rsync" . rsync-project-dispatch))
+  ("t" . ("Vterm" . multi-vterm-project))
+  ("s" . ("Eshell" . (lambda ()
+                       (interactive)
+                       (autoload 'eshell-project-toggle "init-eshell" nil t)
+                       (eshell-project-toggle))))
+  ("v" . unpackaged/magit-project-status)
+
+  ("M" . project-manage-dispatch)
+  ("P" . project-switch-project-open))
+
+;;; project-switch-commands
+(setq project-switch-commands
+      '((project-find-file "Find file")
+        (project-find-regexp "Find regexp")
+        (project-find-dir "Find Dir")
+        (project-dired "Dired")
+        (magit-project-status "Git")
+        (consult-project-buffer "Switch buffer")
+        (project-find-file-other-window "Find file(OW)")
+        (consult-project-buffer-other-window "Switch buffer(OW)")))
 
 (provide 'init-project)
 ;;; init-project.el ends heres.
