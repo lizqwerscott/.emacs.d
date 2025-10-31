@@ -76,6 +76,26 @@
              '(execute-extended-command
                (+vertico-transform-functions . +vertico-highlight-enabled-mode)))
 
+(defcustom vertico-show-arrow t
+  "Vertico arrow."
+  :group 'vertico
+  :type 'boolean)
+
+(defvar +vertico-current-arrow t)
+
+(cl-defmethod vertico--format-candidate :around
+  (cand prefix suffix index start &context ((and +vertico-current-arrow
+                                                 (not (bound-and-true-p vertico-flat-mode)))
+                                            (eql t)))
+  (setq cand (cl-call-next-method cand prefix suffix index start))
+  (let ((arrow (propertize (if (char-displayable-p ?») "» " "> ") 'face 'font-lock-keyword-face)))
+    (if (and (not (bound-and-true-p vertico-grid-mode))
+             vertico-show-arrow)
+        (if (= vertico--index index)
+            (concat arrow cand)
+          (concat "  " cand))
+      cand)))
+
 ;; Configure directory extension.
 (keymap-binds vertico-map
   ("RET" . vertico-directory-enter)
