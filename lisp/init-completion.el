@@ -46,7 +46,7 @@
 
 ;;; orderless
 (add-list-to-list 'completion-category-overrides
-                  '((file (styles partial-completion orderless))
+                  '((file (styles orderless fussy))
                     (project-file (styles orderless fussy))
                     (multi-category (styles orderless fussy basic))
                     (consult-location (styles orderless fussy basic))
