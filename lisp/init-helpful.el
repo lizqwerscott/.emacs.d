@@ -16,5 +16,10 @@
 (add-hooks '(help-mode helpful-mode)
            #'visual-line-mode)
 
+;;; for embark
+(with-eval-after-load 'embark
+  (keymap-binds embark-symbol-map
+    ("h" . helpful-symbol)))
+
 (provide 'init-helpful)
 ;;; init-helpful.el ends here
