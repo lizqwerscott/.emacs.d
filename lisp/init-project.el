@@ -90,7 +90,7 @@
         (project-find-regexp "Find regexp")
         (project-find-dir "Find Dir")
         (project-dired "Dired")
-        (magit-project-status "Git")
+        (unpackaged/magit-project-status "Git")
         (consult-project-buffer "Switch buffer")
         (project-find-file-other-window "Find file(OW)")
         (consult-project-buffer-other-window "Switch buffer(OW)")))
