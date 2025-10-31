@@ -3,12 +3,7 @@
 ;;; Code:
 
 (setq load-prefer-newer noninteractive)
-
-(setq native-comp-jit-compilation nil)
-(add-hook 'after-init-hook
-          (lambda ()
-            (setq native-comp-jit-compilation t)
-            (setq native-comp-async-query-on-exit t)))
+(setq native-comp-async-query-on-exit t)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
