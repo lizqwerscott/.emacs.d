@@ -82,8 +82,15 @@ This command supports `meow-selection-command-fallback'."
        (meow--highlight-regexp-in-buffer (car regexp-search-ring))
      (meow--maybe-highlight-num-positions))))
 
+(defun find-file-at-point-other-window ()
+  "Find file at point in other window."
+  (interactive)
+  (let ((ffap-file-finder #'find-file-other-window))
+    (find-file-at-point)))
+
 (keymap-binds goto-map
-  ("f" . find-file-at-point))
+  ("f" . find-file-at-point)
+  ("F" . find-file-at-point-other-window))
 
 (defvar-keymap find-map
   :doc "Keymap for find commands."
