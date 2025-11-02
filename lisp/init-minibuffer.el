@@ -345,7 +345,12 @@ DEFS is a plist associating completion categories to commands."
   (delq 'consult--source-buffer consult-buffer-sources))
 
 ;; with tab bar
-(setopt tab-bar-new-tab-choice #'bufferlo-create-local-scratch-buffer)
+(setopt tab-bar-new-tab-choice #'bufferlo-create-local-scratch-buffer
+        bufferlo-bookmark-tab-replace-policy 'new)
+
+(global-bind-keys
+ ("C-c l s" . ("Load save tab" . bufferlo-bookmark-tab-load))
+ ("C-c l K" . ("Kill save tab" . bufferlo-bookmark-close-current)))
 
 (bufferlo-mode)
 (bufferlo-anywhere-mode)
