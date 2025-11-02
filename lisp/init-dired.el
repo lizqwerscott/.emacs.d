@@ -87,6 +87,10 @@
 (global-bind-keys
  ("C-x C-t" . trashed))
 
+;;; dired preview
+(setopt dired-preview-max-size (* 10 (expt 2 20))
+        dired-preview-delay 0.1)
+
 ;;; Hook
 (add-hook 'dired-mode-hook
           #'(lambda ()
@@ -118,7 +122,8 @@
   "Dired dispatch menu"
   [["Directory"
     ("h" "Hide Details" dired-hide-details-mode :toggle t :transient t)
-    ("o" "Omit Mode" dired-omit-mode :toggle t :transient t)]
+    ("o" "Omit Mode" dired-omit-mode :toggle t :transient t)
+    ("P" "Preview mode(Global)" dired-preview-global-mode :toggle t :transient t)]
    ["Highlight"
     ("f" "Diredfl" diredfl-mode :toggle t :transient t)
     ("d" "Denote dired" denote-dired-mode :toggle t :transient t)]

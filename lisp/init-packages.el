@@ -124,6 +124,7 @@
     dired-subtree
     dired-quick-sort
     dired-collapse
+    dired-preview
     trashed
     dirvish
     elisp-demos
