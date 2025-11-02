@@ -220,7 +220,6 @@ ARGS is ORIG-FN args."
 ;;; language
 (add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
 (add-to-list 'auto-mode-alist '("\\.urdf\\'" . nxml-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-ts-mode))
 
@@ -235,6 +234,10 @@ ARGS is ORIG-FN args."
 
 ;; yaml
 (require 'init-yaml)
+
+;; markdown
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(setopt markdown-fontify-code-blocks-natively t)
 
 (provide 'init-program)
 ;;; init-program.el ends heres.
