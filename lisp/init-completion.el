@@ -51,7 +51,8 @@
                     (multi-category (styles orderless fussy basic))
                     (consult-location (styles orderless fussy basic))
                     (org-heading (styles orderless fussy basic))
-                    (bookmark (styles orderless fussy basic))))
+                    (bookmark (styles orderless fussy basic))
+                    (unicode-name (styles orderless fussy basic))))
 
 ;;; corfu
 (require 'init-corfu)
