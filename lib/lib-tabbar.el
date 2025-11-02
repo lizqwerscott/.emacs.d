@@ -75,5 +75,12 @@ TARGET-TAB-NAME is the new tab name."
   (tab-bar-switch-or-create "Rss")
   (call-interactively #'elfeed))
 
+(defun bookmark-jump-other-tab (bookmark)
+  "Jump BOOKMARK in other tab.
+See `jump-jump' for more."
+  (interactive (list (bookmark-completing-read "Jump to bookmark (in other tab)"
+                                               bookmark-current-bookmark)))
+  (bookmark-jump bookmark 'switch-to-buffer-other-tab))
+
 (provide 'lib-tabbar)
 ;;; lib-tabbar.el ends here
