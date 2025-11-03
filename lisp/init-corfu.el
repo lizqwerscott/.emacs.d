@@ -73,11 +73,9 @@
 
 ;;; cape
 (add-list-to-list 'completion-at-point-functions
-                  '(cape-dabbrev
-                    cape-file
+                  '(cape-file
                     cape-elisp-block
-                    cape-keyword
-                    cape-abbrev))
+                    cape-keyword))
 
 (require 'cape)
 
