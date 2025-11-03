@@ -169,5 +169,18 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
 
 (require 'init-gptel-aibo)
 
+(add-hook 'magit-mode-hook #'gptel-magit-install)
+
+(with-eval-after-load 'gptel-magit
+  (defun gptel-no-tool-wrap (orig-fn &rest args)
+    "Let ORIG-FN not use tools.
+ARGS is ORIG-FN args."
+    (let ((gptel-tools nil)
+          (gptel-use-tools nil))
+      (apply orig-fn args)))
+
+  (advice-add #'gptel-magit-commit-generate :around #'gptel-no-tool-wrap))
+
+
 (provide 'init-gptel)
 ;;; init-gptel.el ends here
