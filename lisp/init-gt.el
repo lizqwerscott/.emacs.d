@@ -68,6 +68,11 @@
   (interactive)
   (gt--translate 'Text-Utility))
 
+;; for embark
+(with-eval-after-load 'embark
+  (keymap-binds embark-region-map
+    ("t" . gt-translate)))
+
 (global-bind-keys
  ("C-c G"   . gt-translate-prompt)
  ("C-c d t" . gt-translate)
