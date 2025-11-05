@@ -24,9 +24,7 @@
       user/ai-completion nil
       user/aider nil
 
-      user/font-mac-size 230
-      user/font-win-size 110
-      user/font-linux-size 190
+      user/font-size 190
       user/ligature nil
       user/lsp-client 'eglot
       user/flyoverp nil

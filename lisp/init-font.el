@@ -2,12 +2,22 @@
 ;;; Commentary:
 ;;; Code:
 
+(defconst user/default-mac-font-size 230
+  "The default font size in mac.")
+
+(defconst user/default-win-font-size 110
+  "The default font size in windows.")
+
+(defconst user/default-linux-font-size 190
+  "The default font size in linux.")
+
 (defun font-installed-p (font-name)
   "Check if font with FONT-NAME is available."
   (find-font (font-spec :name font-name)))
 
-(defun setup-fonts ()
-  "Setup fonts."
+(defun setup-fonts (&optional font-size)
+  "Setup fonts.
+FONT-SIZE is the default font size."
   (when (display-graphic-p)
     ;; Set default font
     (cl-loop for font in '("MonoLisa Lucius" "Source Code Pro" "Jetbrains Mono" "Cascadia Code" "Fira Code"
@@ -16,10 +26,9 @@
              when (font-installed-p font)
              return (set-face-attribute 'default nil
                                         :family font
-                                        :height (cond (sys/macp user/font-mac-size)
-                                                      (sys/win32p user/font-win-size)
-                                                      (t user/font-linux-size))))
-
+                                        :height (if font-size
+                                                    font-size
+                                                  user/font-size)))
     ;; Set mode-line font
     ;; (cl-loop for font in '("Menlo" "SF Pro Display" "Helvetica")
     ;;          when (font-installed-p font)
@@ -54,9 +63,26 @@
                       (setq face-font-rescale-alist `((,font . 1.2)))
                       (set-fontset-font t 'han (font-spec :family font))))))
 
-(setup-fonts)
 (add-hook 'window-setup-hook #'setup-fonts)
 (add-hook 'server-after-make-frame-hook #'setup-fonts)
+
+(defun set-font-size (symbol value)
+  "Set font SYMBOL VALUE."
+  (set-default-toplevel-value symbol value)
+  (setup-fonts value))
+
+(defcustom user/font-size (cond (sys/macp user/default-mac-font-size)
+                                (sys/win32p user/default-win-font-size)
+                                (t user/default-linux-font-size))
+  "The font size."
+  :group 'user
+  :type 'number
+  :set #'set-font-size)
+
+(defcustom user/ligature nil
+  "Is use ligature."
+  :group 'user
+  :type 'boolean)
 
 ;;; 连体字体
 (with-eval-after-load 'ligature
@@ -74,11 +100,9 @@
                             "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
                             "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%")))
 
-(add-hook 'after-init-hook
-          #'(lambda ()
-              (when user/ligature
-                (global-ligature-mode))))
+(when user/ligature
+  (add-hook 'after-init-hook
+            #'global-ligature-mode))
 
 (provide 'init-font)
 ;;; init-font.el ends here
-

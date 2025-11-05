@@ -82,26 +82,6 @@
   :group 'user
   :type 'boolean)
 
-(defcustom user/font-mac-size 230
-  "The font size in mac."
-  :group 'user
-  :type 'number)
-
-(defcustom user/font-win-size 110
-  "The font size in windows."
-  :group 'user
-  :type 'number)
-
-(defcustom user/font-linux-size 190
-  "The font size in linux."
-  :group 'user
-  :type 'number)
-
-(defcustom user/ligature nil
-  "Is use ligature."
-  :group 'user
-  :type 'boolean)
-
 (defcustom user/lsp-client 'eglot
   "The lsp client."
   :group 'user
