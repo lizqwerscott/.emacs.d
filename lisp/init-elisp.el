@@ -8,7 +8,8 @@
   (eval-buffer)
   (message "Eval buffer finish!"))
 
-(setopt elisp-fontify-semantically t)
+(setopt elisp-fontify-semantically t
+        elisp-add-help-echo nil)
 
 (when (cl-find 'doom-dracula custom-enabled-themes)
   (custom-set-faces
