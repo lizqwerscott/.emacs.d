@@ -5,7 +5,6 @@
     \\usepackage[usenames]{color}
     \\usepackage{xeCJK}
     \\setCJKmainfont{LXGW WenKai}
-    \\setmainfont{PragmataPro}
     \[DEFAULT-PACKAGES]
     \[PACKAGES]
     \\pagestyle{empty}             % do not remove
@@ -32,7 +31,6 @@
   "\\documentclass{ctexart}
        \\usepackage[usenames]{color}
        \\setCJKmainfont{LXGW WenKai}
-       \\setmainfont{PragmataPro}
        \[DEFAULT-PACKAGES]
        \[PACKAGES]
        \\pagestyle{empty}             % do not remove
@@ -58,7 +56,6 @@
   "\\documentclass{ctexrep}
        \\usepackage[usenames]{color}
        \\setCJKmainfont{LXGW WenKai}
-       \\setmainfont{PragmataPro}
        \[DEFAULT-PACKAGES]
        \[PACKAGES]
        \\pagestyle{empty}             % do not remove
@@ -85,7 +82,6 @@
   "\\documentclass{ctexbook}
        \\usepackage[usenames]{color}
        \\setCJKmainfont{LXGW WenKai}
-       \\setmainfont{PragmataPro}
        \[DEFAULT-PACKAGES]
        \[PACKAGES]
        \\pagestyle{empty}             % do not remove
