@@ -62,36 +62,14 @@
                 "tex" "bcf")))
 
 (with-eval-after-load 'ox-latex
-  (add-to-list
+  (add-list-to-list
    'org-latex-classes
-   '("ews"
-     "\\documentclass[11pt, twoside, hidelinks]{memoir}
-        \\setstocksize{9.25in}{7.5in}
-        \\settrimmedsize{\\stockheight}{\\stockwidth}{*}
-        \\setlrmarginsandblock{1.5in}{1in}{*}
-        \\setulmarginsandblock{1in}{1.5in}{*}
-        \\checkandfixthelayout
-        \\layout
-        \\setcounter{tocdepth}{0}
-        \\renewcommand{\\baselinestretch}{1.25}
-        \\setheadfoot{0.5in}{0.75in}
-        \\setlength{\\footskip}{0.8in}
-        \\chapterstyle{bianchi}
-        \\setsecheadstyle{\\normalfont \\raggedright \\textbf}
-        \\setsubsecheadstyle{\\normalfont \\raggedright \\emph}
-        \\setsubsubsecheadstyle{\\normalfont\\centering}
-        \\pagestyle{myheadings}
-        \\usepackage[font={small, it}]{caption}
-        \\usepackage{ccicons}
-        \\usepackage{ebgaramond}
-        \\usepackage[authoryear]{natbib}
-        \\bibliographystyle{apalike}
-        \\usepackage{svg}
-\\hyphenation{mini-buffer}"
-     ("\\chapter{%s}" . "\\chapter*{%s}")
-     ("\\section{%s}" . "\\section*{%s}")
-     ("\\subsection{%s}" . "\\subsection*{%s}")
-     ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+   (when-let* ((filename (expand-file-name "config/template/org-latex-class.el"
+                                           user-emacs-directory))
+               ((file-exists-p filename)))
+     (with-temp-buffer
+       (insert-file-contents filename)
+       (read (current-buffer))))))
 
 (with-eval-after-load 'ox
   (require 'ox-hugo)
