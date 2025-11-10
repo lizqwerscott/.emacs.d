@@ -47,6 +47,12 @@
 
 (require 'init-rsync)
 (require 'init-code-stats)
+(require 'axis)
+(setq axis-db-location
+      (expand-file-name "var/axis-data.sqlite"
+                        user-emacs-directory))
+(add-hooks '(prog-mode text-mode)
+           #'axis-mode)
 
 (require 'init-ai)
 
