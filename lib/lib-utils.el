@@ -262,6 +262,7 @@ With prefix argument \\[universal-argument] insert the 48-bit value."
 ;; from https://xenodium.com/emacs-clone-git-repo-from-clipboard
 (defun ar/git-clone-clipboard-url (download-dir &optional depth)
   "Clone git URL in clipboard asynchronously and open in Dired when finished.
+Then auto jump in README file.
 When called interactively, prompts for DOWNLOAD-DIR with ~/github as default.
 With DEPTH, clone with --depth=1."
   (interactive (list (read-directory-name "Download directory: " "~/github/" nil t)
@@ -295,7 +296,10 @@ With DEPTH, clone with --depth=1."
                                    (if (= (process-exit-status process) 0)
                                        (progn
                                          (message "finished: %s" command)
-                                         (dired project-dir))
+                                         (dired project-dir)
+                                         (goto-char (point-min))
+                                         (when (re-search-forward "README" nil t)
+                                           (beginning-of-line)))
                                      (user-error (format "%s\n%s" command output))))))
     (set-process-filter proc #'comint-output-filter)))
 
