@@ -167,6 +167,9 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
  ("C-c u g" . gptel)
  ("C-c u G" . gptel-menu))
 
+(add-hook 'gptel-mode-hook
+          #'gptel-highlight-mode)
+
 (require 'init-gptel-aibo)
 
 (add-hook 'magit-mode-hook #'gptel-magit-install)
