@@ -180,7 +180,8 @@ _p_rev       _U_pper              _=_: upper/lower       _r_esolve
    ["Git"
     ("b" "Switch Modified buffer" consult-switch-git-status-buffer)
     ("g" "Git Link" git-link-dispatch)
-    ("e" "Ediff revision" casual-ediff-revision)]]
+    ("e" "Ediff revision" casual-ediff-revision)
+    ("c" "Clone form clipboard" ar/git-clone-clipboard-url)]]
   [("q" "Quit" transient-quit-one)])
 
 (global-bind-keys
