@@ -80,10 +80,13 @@
 
     (lazy-load :fetcher github :repo "manateelazycat/lazy-load")))
 
-(defvar *package-build-in-install-list*
-  '(transient
+(defvar *package-built-in-install-list*
+  '((transient :wait t)
     (org :repo "https://code.tecosaur.net/tec/org-mode.git/"
-         :branch "dev")))
+         :branch "dev"
+         :wait t)
+    (flymake :wait t)
+    (jsonrpc :wait t)))
 
 (defvar *package-base-install-list*
   '(gcmh
@@ -348,7 +351,7 @@
    (multi-vterm :fetcher github :repo "lizqwerscott/multi-vterm")))
 
 (packages!
- (append *package-build-in-install-list*
+ (append *package-built-in-install-list*
          *package-base-install-list*
          *package-tool-install-list*
          *package-language-mode-install-list*
