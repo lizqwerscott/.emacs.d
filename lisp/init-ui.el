@@ -60,10 +60,9 @@
 
 ;;; Line number
 (unless sys/win32p
-  (add-hooks '(prog-mode text-mode conf-mode)
-             #'(lambda ()
-                 (setq display-line-numbers-type 'relative)
-                 (display-line-numbers-mode 1))))
+  (setq display-line-numbers-type 'relative)
+  (add-hooks '(prog-mode)
+             #'display-line-numbers-mode))
 
 ;;; Suppress GUI features
 (setq use-file-dialog nil
