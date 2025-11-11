@@ -56,13 +56,23 @@ part-of-year, year."
                        (format "%s点%s" cn-hour cn-min)))
 
       ;; 2. 每15分钟
-      ('fifteen-minutes (let* ((rounded (/ (+ min 7) 15))
-                               (desc (nth rounded '("整" "一刻" "半" "三刻" "整")))
-                               ;; (next-hour (if (>= rounded 4) (1+ hour) hour))
+      ('fifteen-minutes (let* ((rounded (/ min 15))
+                               (past (mod min 15))
+                               (desc (nth rounded '("整" "一刻" "半" "三刻")))
                                (cn-hour (fuzzy-clock-zh--hour-to-word hour)))
-                          (if (>= rounded 4)
-                              (format "快%s点了" cn-hour)
-                            (format "%s点%s" cn-hour desc))))
+                          (if (and (= rounded 3)
+                                   (>= past 10))
+                              (format "快%s点了"
+                                      cn-hour)
+                            (format "%s点%s%s"
+                                    cn-hour
+                                    (if (and (not (= 0 past))
+                                             (= 0 rounded))
+                                        ""
+                                      desc)
+                                    (if (= 0 past)
+                                        ""
+                                      "左右")))))
 
       ;; 3. 半小时
       ('half-hour (let* ((half (if (< min 30) "整" "半"))
