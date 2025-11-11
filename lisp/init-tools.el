@@ -27,5 +27,10 @@
       proced-auto-update-interval 3
       proced-enable-color-flag t)
 
+;;; fuzzy clock
+(require 'fuzzy-clock-zh)
+(setq fuzzy-clock-zh-fuzziness 'fifteen-minutes)
+(fuzzy-clock-zh-mode 1)
+
 (provide 'init-tools)
 ;;; init-tools.el ends here
