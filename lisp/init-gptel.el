@@ -163,6 +163,68 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
     ["Quick Tools"
      ("q t" "Translate select regions to english" gptel-translate-to-english)]))
 
+(defun gptel-global-chat (message)
+  "Global chat with MESSAGE."
+  (interactive (list (read-string "Input: "
+                                  (if (and (use-region-p)
+                                           (equal major-mode 'emacs-lisp-mode))
+                                      "@emacs "
+                                    "")
+                                  nil nil
+                                  t)))
+  (let ((gptel-display-buffer-action '(nil
+                                       (display-buffer-reuse-mode-window display-buffer-at-bottom)
+                                       (body-function . select-window)))
+        (buffer-name "*global-chat*")
+        (prompt (format "%s%s"
+                        message
+                        (if (use-region-p)
+                            (format ":%s"
+                                    (buffer-substring (region-beginning)
+                                                      (region-end)))
+                          ""))))
+    (if (get-buffer buffer-name)
+        (with-current-buffer buffer-name
+          (goto-char (point-max))
+          (insert prompt)
+          (display-buffer (current-buffer) gptel-display-buffer-action))
+      (gptel buffer-name
+             nil
+             (concat "*** " prompt)))
+    (with-current-buffer buffer-name
+      (gptel-send))))
+
+(defun gptel-project-chat (message)
+  "Global chat with MESSAGE in project."
+  (interactive (list (read-string "Input: "
+                                  "@macher "
+                                  nil nil
+                                  t)))
+  (when-let* ((project (project-current))
+              (name (project-name project))
+              (root-dir (file-truename (project-root project)))
+              (gptel-display-buffer-action '(nil
+                                             (display-buffer-reuse-mode-window display-buffer-at-bottom)
+                                             (body-function . select-window)))
+              (buffer-name (format "*%s-chat %s*" name root-dir))
+              (prompt (format "%s%s"
+                              message
+                              (if (use-region-p)
+                                  (format ":"
+                                          (buffer-substring (region-beginning)
+                                                            (region-end)))
+                                ""))))
+    (if (get-buffer buffer-name)
+        (with-current-buffer buffer-name
+          (goto-char (point-max))
+          (insert prompt)
+          (display-buffer (current-buffer) gptel-display-buffer-action))
+      (gptel buffer-name
+             nil
+             (concat "*** " prompt)))
+    (with-current-buffer buffer-name
+      (gptel-send))))
+
 ;; preset
 (gptel-make-preset 'emacs
   :description "Emacs 大师"
@@ -176,7 +238,9 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
 (global-bind-keys
  ("C-c RET" . gptel-send)
  ("C-c u g" . gptel)
- ("C-c u G" . gptel-menu))
+ ("C-c u G" . gptel-menu)
+ ("C-c u c" . gptel-global-chat)
+ ("C-c u p" . gptel-project-chat))
 
 (add-hook 'gptel-mode-hook
           #'gptel-highlight-mode)
