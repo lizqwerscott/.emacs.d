@@ -317,6 +317,7 @@
   (append '((gptel :fetcher github
                    :repo "karthink/gptel")
             gptel-magit
+            (ragmacs :fetcher github :repo "positron-solutions/ragmacs")
             (gptel-aibo :fetcher github
                         :repo "dolmens/gptel-aibo")
             (mcp :fetcher github
