@@ -63,7 +63,7 @@ part-of-year, year."
                           (if (and (= rounded 3)
                                    (>= past 10))
                               (format "快%s点了"
-                                      cn-hour)
+                                      (fuzzy-clock-zh--hour-to-word (mod (1+ hour) 24)))
                             (format "%s点%s%s"
                                     cn-hour
                                     (if (and (not (= 0 past))
