@@ -255,11 +255,14 @@ If the buffer is empty, the prompt is prefixed with \"*** \".  If the buffer alr
 (gptel-make-preset 'emacs
   :description "Emacs 大师"
   :system (alist-get 'emacs gptel-directives)
-  :tools '("read_documentation"))
+  :tools '("read_documentation")
+  :use-tools t)
 
 (gptel-make-preset 'elisp-document
   :description "Elisp 文档大师"
-  :system (alist-get 'docstr gptel-directives))
+  :system (alist-get 'docstr gptel-directives)
+  :tools '("read_documentation")
+  :use-tools t)
 
 (global-bind-keys
  ("C-c RET" . gptel-send)
