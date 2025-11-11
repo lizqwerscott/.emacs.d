@@ -163,9 +163,44 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
     ["Quick Tools"
      ("q t" "Translate select regions to english" gptel-translate-to-english)]))
 
+(defun gptel--create-buffer (buffer-name prompt)
+  "Create or switch to a GPT session buffer and initialize it.  BUFFER-NAME is the name of the target buffer.  PROMPT is the prompt text to insert during initialization.
+
+This function performs the following operations:
+1. Create or switch to the buffer with the given name
+2. Set the major mode according to =gptel-default-mode'
+3. Validate and sanitize model configuration using =gptel--sanitize-model'
+4. Insert the prompt text at the end of the buffer
+5. Display the buffer using =gptel-display-buffer-action'
+6. Enable =gptel-mode' if not already active
+7. Send the initial request via =gptel-send'
+
+If the buffer is empty, the prompt is prefixed with \"*** \".  If the buffer already contains content, the prompt is appended at the end."
+  (with-current-buffer (get-buffer-create buffer-name)
+    (cond                               ;Set major mode
+     ((eq major-mode gptel-default-mode))
+     ((eq gptel-default-mode 'text-mode)
+      (text-mode)
+      (visual-line-mode 1))
+     (t (funcall gptel-default-mode)))
+    (gptel--sanitize-model :backend (default-value 'gptel-backend)
+                           :model (default-value 'gptel-model)
+                           :shoosh nil)
+    (goto-char (point-max))
+    (skip-chars-backward "\t\r\n")
+    (if (bobp)
+        (insert (concat "*** " prompt))
+      (goto-char (point-max))
+      (insert prompt))
+    (display-buffer (current-buffer) gptel-display-buffer-action)
+    (unless gptel-mode (gptel-mode 1))
+    (gptel-send)))
+
 (defun gptel-global-chat (message)
   "Global chat with MESSAGE."
-  (interactive (list (read-string "Input: "
+  (interactive (list (read-string (format "%s\nInput: "
+                                          (propertize "@emacs 可以读取 Emacs 文档\n@elisp-document 用来写 elisp 函数的文档"
+                                                      'face 'font-lock-comment-face))
                                   (if (and (use-region-p)
                                            (equal major-mode 'emacs-lisp-mode))
                                       "@emacs "
@@ -183,26 +218,20 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
                                     (buffer-substring (region-beginning)
                                                       (region-end)))
                           ""))))
-    (if (get-buffer buffer-name)
-        (with-current-buffer buffer-name
-          (goto-char (point-max))
-          (insert prompt)
-          (display-buffer (current-buffer) gptel-display-buffer-action))
-      (gptel buffer-name
-             nil
-             (concat "*** " prompt)))
-    (with-current-buffer buffer-name
-      (gptel-send))))
+    (gptel--create-buffer buffer-name prompt)))
 
-(defun gptel-project-chat (message)
-  "Global chat with MESSAGE in project."
-  (interactive (list (read-string "Input: "
-                                  "@macher "
-                                  nil nil
-                                  t)))
+(defun gptel-project-chat ()
+  "Global chat in project."
+  (interactive)
   (when-let* ((project (project-current))
               (name (project-name project))
               (root-dir (file-truename (project-root project)))
+              (message (read-string (format "%s\nInput: "
+                                            (propertize "@macher 可以读写文件全部工具\n@macher-ro 只能读取文件\n@macher-notools 没有工具"
+                                                        'face 'font-lock-comment-face))
+                                    "@macher "
+                                    nil nil
+                                    t))
               (gptel-display-buffer-action '(nil
                                              (display-buffer-reuse-mode-window display-buffer-at-bottom)
                                              (body-function . select-window)))
@@ -214,16 +243,7 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
                                           (buffer-substring (region-beginning)
                                                             (region-end)))
                                 ""))))
-    (if (get-buffer buffer-name)
-        (with-current-buffer buffer-name
-          (goto-char (point-max))
-          (insert prompt)
-          (display-buffer (current-buffer) gptel-display-buffer-action))
-      (gptel buffer-name
-             nil
-             (concat "*** " prompt)))
-    (with-current-buffer buffer-name
-      (gptel-send))))
+    (gptel--create-buffer buffer-name prompt)))
 
 ;; preset
 (gptel-make-preset 'emacs
