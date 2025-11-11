@@ -246,6 +246,12 @@ If the buffer is empty, the prompt is prefixed with \"*** \".  If the buffer alr
     (gptel--create-buffer buffer-name prompt)))
 
 ;; preset
+(gptel-make-preset 'default
+  :description "Default"
+  :system (alist-get 'default gptel-directives)
+  :tools nil
+  :use-tools nil)
+
 (gptel-make-preset 'emacs
   :description "Emacs 大师"
   :system (alist-get 'emacs gptel-directives)
