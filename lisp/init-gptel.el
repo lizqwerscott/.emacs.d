@@ -179,7 +179,7 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
         (prompt (format "%s%s"
                         message
                         (if (use-region-p)
-                            (format ":%s"
+                            (format ": %s"
                                     (buffer-substring (region-beginning)
                                                       (region-end)))
                           ""))))
@@ -210,7 +210,7 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
               (prompt (format "%s%s"
                               message
                               (if (use-region-p)
-                                  (format ":"
+                                  (format ": %s"
                                           (buffer-substring (region-beginning)
                                                             (region-end)))
                                 ""))))
