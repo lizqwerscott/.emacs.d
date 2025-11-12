@@ -221,24 +221,26 @@ N-CHARS is max size."
       (breadcrumb-imenu-crumbs)
     (which-function)))
 
-(defun gptel-global-chat (message)
-  "Global chat with MESSAGE."
-  (interactive (list (read-string (format "%s\nInput: "
-                                          (propertize "@emacs 可以读取 Emacs 文档\n@elisp-document 用来写 elisp 函数的文档\n@ragmacs 支持读取源码和变量\n@file-search 可以用来搜索文件"
-                                                      'face 'font-lock-comment-face))
-                                  (if (and (use-region-p)
-                                           (equal major-mode 'emacs-lisp-mode))
-                                      "@emacs "
-                                    "")
-                                  nil nil
-                                  t)))
+(defun gptel-global-chat (preset)
+  "Global chat with PRESET."
+  (interactive (list
+                (completing-read "Select main preset: " '(("Emacs" emacs) ("Elisp document" elisp-document) ("Ragmacs" ragmacs)))
+                ))
   (let* ((gptel-display-buffer-action '(nil
                                         (display-buffer-reuse-mode-window display-buffer-at-bottom)
                                         (body-function . select-window)))
          (buffer-name "*global-chat*")
          (cursor-thing (my/cursor-symbol))
          (cursor-function (my/cursor-function))
-         (prompt (format "%s%s%s"
+         (message (read-string (format "%s\nInput: @%s "
+                                       (propertize "主 Preset:\n@emacs 可以读取 Emacs 文档\n@elisp-document 用来写 elisp 函数的文档\n@ragmacs 支持读取源码和变量\n附加 Preset:\n@file-search 可以用来搜索文件"
+                                                   'face 'font-lock-comment-face)
+                                       preset)
+                               nil
+                               nil nil
+                               t))
+         (prompt (format "@%s %s%s%s"
+                         preset
                          message
                          (if cursor-thing
                              (format ": Cursor point: %s" cursor-thing)
