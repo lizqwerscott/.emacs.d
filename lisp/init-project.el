@@ -28,7 +28,8 @@
   (require 'project-x)
   (require 'projection)
 
-  (setq project-find-functions '(project-try-vc my/project-try-local)))
+
+  (add-hook 'project-find-functions #'my/project-try-local))
 
 ;;; Menu
 (transient-define-prefix project-manage-dispatch ()
