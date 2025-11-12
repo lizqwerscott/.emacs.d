@@ -200,7 +200,7 @@ If the buffer is empty, the prompt is prefixed with \"*** \".  If the buffer alr
 (defun gptel-global-chat (message)
   "Global chat with MESSAGE."
   (interactive (list (read-string (format "%s\nInput: "
-                                          (propertize "@emacs 可以读取 Emacs 文档\n@elisp-document 用来写 elisp 函数的文档\n@ragmacs 支持读取源码和变量"
+                                          (propertize "@emacs 可以读取 Emacs 文档\n@elisp-document 用来写 elisp 函数的文档\n@ragmacs 支持读取源码和变量\n@file-search 可以用来搜索文件"
                                                       'face 'font-lock-comment-face))
                                   (if (and (use-region-p)
                                            (equal major-mode 'emacs-lisp-mode))
@@ -252,6 +252,12 @@ If the buffer is empty, the prompt is prefixed with \"*** \".  If the buffer alr
   :system (alist-get 'default gptel-directives)
   :tools nil
   :use-tools nil)
+
+(gptel-make-preset 'file-search
+  :descr "file search"
+  :pre (lambda () (require 'ai-tools))
+  :tools '(:append ("find_files" "list_directory"))
+  :use-tools t)
 
 (gptel-make-preset 'emacs
   :description "Emacs 大师"

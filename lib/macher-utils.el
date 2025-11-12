@@ -111,5 +111,28 @@ IS-SELECTED specifies whether the input comes from the selected region."
               (format "\n\nCursor place content:\n\n%s"
                       (my/get-surrounding-chars-with-cursor 500))))))
 
+(require 'ai-tools)
+
+(defun macher--read-tools-with-ai-tools (context make-tool-function)
+  "Generate read-only tools for workspace operations with CONTEXT.
+
+CONTEXT is a `macher-context' struct with slots for workspace info.
+MAKE-TOOL-FUNCTION is a function that takes the same arguments as
+`gptel-make-tool' but must be used instead of `gptel-make-tool' to create tools.
+
+Returns a list of read-only tools that allow the LLM to inspect files
+in the workspace.
+
+Tools are created using MAKE-TOOL-FUNCTION so they can be properly removed from
+the global gptel registry when the request completes."
+  (append (macher--read-tools context make-tool-function)
+          (list
+           (gptel-get-tool
+            (list "filesystem"
+                  "list_directory"))
+           (gptel-get-tool
+            (list "filesystem"
+                  "find_files")))))
+
 (provide 'macher-utils)
 ;;; macher-utils.el ends here
