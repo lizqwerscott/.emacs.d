@@ -176,7 +176,8 @@ Default is 60 seconds (1 minute)."
   (let ((time (current-time)))
     (setq fuzzy-clock-zh-string
           (concat " "
-                  (fuzzy-clock-zh-time-string fuzzy-clock-zh-fuzziness time)))))
+                  (fuzzy-clock-zh-time-string fuzzy-clock-zh-fuzziness time)
+                  " "))))
 
 ;;;###autoload
 (define-minor-mode fuzzy-clock-zh-mode
