@@ -28,8 +28,8 @@
   (require 'project-x)
   (require 'projection)
 
-
-  (add-hook 'project-find-functions #'my/project-try-local))
+  (add-hook 'project-find-functions #'my/project-try-local)
+  (add-hook 'project-find-functions #'rc/find-root-for-eglot-for-clj))
 
 ;;; Menu
 (transient-define-prefix project-manage-dispatch ()

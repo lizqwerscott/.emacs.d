@@ -37,6 +37,18 @@
           (when-let* ((root (locate-dominating-file dir f)))
             (throw 'ret (cons 'local root))))))))
 
+;; from https://emacs-china.org/t/eglot-lsp-mode-workspace/30415/5?u=lizqwer
+(defun rc/find-root-for-eglot-for-clj (dir)
+  "Find the project root for Eglot in a Clojure project.
+
+Search DIR for a file named .eglot-root and return a cons cell of the form
+`(transient . ROOT)' if found, otherwise return nil. This function is intended
+to be used with `eglot-alternatives' to help Eglot locate the project root for
+Clojure development."
+  (when (bound-and-true-p eglot-lsp-context)
+    (let ((root (locate-dominating-file dir ".eglot-root")))
+	  (when root (cons 'transient root)))))
+
 (defun my/project-files-in-directory (dir)
   "Use `fd' to list files in DIR."
   (let* ((default-directory dir)
