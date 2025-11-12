@@ -197,6 +197,30 @@ If the buffer is empty, the prompt is prefixed with \"*** \".  If the buffer alr
     (unless gptel-mode (gptel-mode 1))
     (gptel-send)))
 
+(defun my/get-surrounding-chars-pos-with-cursor (buffer &optional n-chars)
+  "Get content with BUFFER cursor.
+N-CHARS is max size."
+  (let* ((n (or n-chars 500))
+         (pt (point))
+         (buf-min (point-min))
+         (buf-max (point-max))
+         (start-pos (max buf-min (- pt n)))
+         (end-pos   (min buf-max (+ pt n))))
+    (cons start-pos end-pos)))
+
+(defun my/cursor-symbol ()
+  "Get cursor thing."
+  (or (thing-at-point 'url)
+      (thing-at-point 'existing-filename)
+      (thing-at-point 'filename)
+      (thing-at-point 'symbol)))
+
+(defun my/cursor-function ()
+  "Get cursor function."
+  (if (featurep 'breadcrumb)
+      (breadcrumb-imenu-crumbs)
+    (which-function)))
+
 (defun gptel-global-chat (message)
   "Global chat with MESSAGE."
   (interactive (list (read-string (format "%s\nInput: "
@@ -208,17 +232,26 @@ If the buffer is empty, the prompt is prefixed with \"*** \".  If the buffer alr
                                     "")
                                   nil nil
                                   t)))
-  (let ((gptel-display-buffer-action '(nil
-                                       (display-buffer-reuse-mode-window display-buffer-at-bottom)
-                                       (body-function . select-window)))
-        (buffer-name "*global-chat*")
-        (prompt (format "%s%s"
-                        message
-                        (if (use-region-p)
-                            (format ": %s"
-                                    (buffer-substring (region-beginning)
-                                                      (region-end)))
-                          ""))))
+  (let* ((gptel-display-buffer-action '(nil
+                                        (display-buffer-reuse-mode-window display-buffer-at-bottom)
+                                        (body-function . select-window)))
+         (buffer-name "*global-chat*")
+         (cursor-thing (my/cursor-symbol))
+         (cursor-function (my/cursor-function))
+         (prompt (format "%s%s%s"
+                         message
+                         (if cursor-thing
+                             (format ": Cursor point: %s" cursor-thing)
+                           "")
+                         (if cursor-function
+                             (format ": Cursor function: %s" cursor-function)
+                           "")))
+         (bounds (if (use-region-p)
+                     (cons (region-beginning) (region-end))
+                   (my/get-surrounding-chars-pos-with-cursor (current-buffer))))
+         (gptel-context (append gptel-context
+                                (list
+                                 (list (current-buffer) :bounds (list bounds))))))
     (gptel--create-buffer buffer-name prompt)))
 
 (defun gptel-project-chat ()
