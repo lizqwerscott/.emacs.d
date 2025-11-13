@@ -98,9 +98,6 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 
 (advice-add 'orderless-regexp :around #'my-orderless-regexp)
 
-(add-hook 'text-mode-hook
-          #'pyim-isearch-mode)
-
 (require 'pyim-cstring-utils)
 (global-bind-keys
  (("M-f" "s-f") . pyim-forward-word)
