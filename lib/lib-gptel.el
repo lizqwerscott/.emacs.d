@@ -138,7 +138,8 @@ N-CHARS is max size."
          (preset (completing-read "Select main preset: "
                                   '((emacs)
                                     (elisp-document)
-                                    (ragmacs))
+                                    (ragmacs)
+                                    (python-program))
                                   nil t))
          (message (read-string (format "%s\nInput: @%s "
                                        (propertize "主 Preset:\n@emacs 可以读取 Emacs 文档\n@elisp-document 用来写 elisp 函数的文档\n@ragmacs 支持读取源码和变量\n附加 Preset:\n@file-search 可以用来搜索文件"

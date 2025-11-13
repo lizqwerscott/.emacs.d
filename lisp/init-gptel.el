@@ -189,6 +189,13 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
   :tools '("read_documentation")
   :use-tools t)
 
+(gptel-make-preset 'python-program
+  :description "Python 编程大师"
+  :pre (lambda () (require 'gptel-agent))
+  :system (make-prompt (alist-get 'program prompt-templates)
+                       '(("language" . "Python")))
+  :use-tools t)
+
 ;; ragmacs
 (gptel-make-preset 'ragmacs
   :description "Ragmacs"
