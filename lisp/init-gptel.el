@@ -172,7 +172,7 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
   :use-tools nil)
 
 (gptel-make-preset 'file-search
-  :descr "file search"
+  :description "file search"
   :pre (lambda () (require 'ai-tools))
   :tools '(:append ("find_files" "list_directory"))
   :use-tools t)
