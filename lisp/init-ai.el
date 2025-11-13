@@ -38,10 +38,7 @@
    (require 'init-minuet-ai))
   ('wingman
    (add-hook 'prog-mode-hook
-             #'wingman-mode)
-   (with-eval-after-load 'wingman
-     (add-to-list 'wingman-disable-predicates
-                #'meow-normal-mode-p))))
+             #'wingman-mode)))
 
 (defun ai-complete ()
   "Complete with the ai in corfu."
