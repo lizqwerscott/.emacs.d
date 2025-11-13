@@ -31,14 +31,42 @@
 
 (require 'init-macher)
 
-(pcase user/ai-completion
-  ('copilot
-   (require 'init-copilot))
-  ('minuet
-   (require 'init-minuet-ai))
-  ('wingman
-   (add-hook 'prog-mode-hook
-             #'wingman-mode)))
+(defun set-ai-completion (symbol value)
+  "Set font SYMBOL VALUE."
+  (dolist (mode '(python-ts-mode rust-ts-mode c++-ts-mode web-mode bash-ts-mode go-ts-mode csharp-mode csharp-ts-mode))
+    (remove-hook (intern (concat (symbol-name mode) "-hook"))
+                 #'copilot-mode))
+  (remove-hook 'prog-mode-hook #'minuet-auto-suggestion-mode)
+  (remove-hook 'prog-mode-hook #'wingman-mode)
+  (set-default-toplevel-value symbol value)
+  (wait-packages!
+   (pcase value
+     ('copilot
+      '((copilot :fetcher github
+                 :repo "zerolfx/copilot.el"
+                 :branch "main")))
+     ('minuet
+      '((minuet :fetcher github
+                :repo "milanglacier/minuet-ai.el")))
+     ('wingman
+      '((wingman :fetcher github :repo "mjrusso/wingman")))))
+  (pcase value
+    ('copilot
+     (require 'init-copilot))
+    ('minuet
+     (require 'init-minuet-ai))
+    ('wingman
+     (add-hook 'prog-mode-hook
+               #'wingman-mode))))
+
+(defcustom user/ai-completion nil
+  "Use what ai to completion: copilot, minuet, wingman."
+  :group 'user
+  :type '(choice (const :tag "none" nil)
+                 (const :tag "copilot" copilot)
+                 (const :tag "minuet" minuet)
+                 (const :tag "wingman" wingman))
+  :set #'set-ai-completion)
 
 (defun ai-complete ()
   "Complete with the ai in corfu."
