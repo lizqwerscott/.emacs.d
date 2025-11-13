@@ -330,7 +330,9 @@
                         :branch "main")))
             ('minuet
              '((minuet :fetcher github
-                       :repo "milanglacier/minuet-ai.el"))))
+                       :repo "milanglacier/minuet-ai.el")))
+            ('wingman
+             '((wingman :fetcher github :repo "mjrusso/wingman"))))
           (when user/aider
             '((aidermacs :fetcher github
                          :repo "MatthewZMD/aidermacs")))))
