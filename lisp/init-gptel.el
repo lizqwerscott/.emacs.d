@@ -164,123 +164,6 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
     ["Quick Tools"
      ("q t" "Translate select regions to english" gptel-translate-to-english)]))
 
-(defun gptel--create-buffer (buffer-name prompt)
-  "Create or switch to a GPT session buffer and initialize it.  BUFFER-NAME is the name of the target buffer.  PROMPT is the prompt text to insert during initialization.
-
-This function performs the following operations:
-1. Create or switch to the buffer with the given name
-2. Set the major mode according to =gptel-default-mode'
-3. Validate and sanitize model configuration using =gptel--sanitize-model'
-4. Insert the prompt text at the end of the buffer
-5. Display the buffer using =gptel-display-buffer-action'
-6. Enable =gptel-mode' if not already active
-7. Send the initial request via =gptel-send'
-
-If the buffer is empty, the prompt is prefixed with \"*** \".  If the buffer already contains content, the prompt is appended at the end."
-  (with-current-buffer (get-buffer-create buffer-name)
-    (cond                               ;Set major mode
-     ((eq major-mode gptel-default-mode))
-     ((eq gptel-default-mode 'text-mode)
-      (text-mode)
-      (visual-line-mode 1))
-     (t (funcall gptel-default-mode)))
-    (gptel--sanitize-model :backend (default-value 'gptel-backend)
-                           :model (default-value 'gptel-model)
-                           :shoosh nil)
-    (goto-char (point-max))
-    (skip-chars-backward "\t\r\n")
-    (if (bobp)
-        (insert (concat "*** " prompt))
-      (goto-char (point-max))
-      (insert prompt))
-    (display-buffer (current-buffer) gptel-display-buffer-action)
-    (unless gptel-mode (gptel-mode 1))
-    (gptel-send)))
-
-(defun my/get-surrounding-chars-pos-with-cursor (buffer &optional n-chars)
-  "Get content with BUFFER cursor.
-N-CHARS is max size."
-  (let* ((n (or n-chars 500))
-         (pt (point))
-         (buf-min (point-min))
-         (buf-max (point-max))
-         (start-pos (max buf-min (- pt n)))
-         (end-pos   (min buf-max (+ pt n))))
-    (cons start-pos end-pos)))
-
-(defun my/cursor-symbol ()
-  "Get cursor thing."
-  (or (thing-at-point 'url)
-      (thing-at-point 'existing-filename)
-      (thing-at-point 'filename)
-      (thing-at-point 'symbol)))
-
-(defun my/cursor-function ()
-  "Get cursor function."
-  (if (featurep 'breadcrumb)
-      (breadcrumb-imenu-crumbs)
-    (which-function)))
-
-(defun gptel-global-chat (preset)
-  "Global chat with PRESET."
-  (interactive (list
-                (completing-read "Select main preset: " '(("Emacs" emacs) ("Elisp document" elisp-document) ("Ragmacs" ragmacs)))
-                ))
-  (let* ((gptel-display-buffer-action '(nil
-                                        (display-buffer-reuse-mode-window display-buffer-at-bottom)
-                                        (body-function . select-window)))
-         (buffer-name "*global-chat*")
-         (cursor-thing (my/cursor-symbol))
-         (cursor-function (my/cursor-function))
-         (message (read-string (format "%s\nInput: @%s "
-                                       (propertize "主 Preset:\n@emacs 可以读取 Emacs 文档\n@elisp-document 用来写 elisp 函数的文档\n@ragmacs 支持读取源码和变量\n附加 Preset:\n@file-search 可以用来搜索文件"
-                                                   'face 'font-lock-comment-face)
-                                       preset)
-                               nil
-                               nil nil
-                               t))
-         (prompt (format "@%s %s%s%s"
-                         preset
-                         message
-                         (if cursor-thing
-                             (format ": Cursor point: %s" cursor-thing)
-                           "")
-                         (if cursor-function
-                             (format ": Cursor function: %s" cursor-function)
-                           "")))
-         (bounds (if (use-region-p)
-                     (cons (region-beginning) (region-end))
-                   (my/get-surrounding-chars-pos-with-cursor (current-buffer))))
-         (gptel-context (append gptel-context
-                                (list
-                                 (list (current-buffer) :bounds (list bounds))))))
-    (gptel--create-buffer buffer-name prompt)))
-
-(defun gptel-project-chat ()
-  "Global chat in project."
-  (interactive)
-  (when-let* ((project (project-current))
-              (name (project-name project))
-              (root-dir (file-truename (project-root project)))
-              (message (read-string (format "%s\nInput: "
-                                            (propertize "@macher 可以读写文件全部工具\n@macher-ro 只能读取文件\n@macher-notools 没有工具"
-                                                        'face 'font-lock-comment-face))
-                                    "@macher "
-                                    nil nil
-                                    t))
-              (gptel-display-buffer-action '(nil
-                                             (display-buffer-reuse-mode-window display-buffer-at-bottom)
-                                             (body-function . select-window)))
-              (buffer-name (format "*%s-chat %s*" name root-dir))
-              (prompt (format "%s%s"
-                              message
-                              (if (use-region-p)
-                                  (format ": %s"
-                                          (buffer-substring (region-beginning)
-                                                            (region-end)))
-                                ""))))
-    (gptel--create-buffer buffer-name prompt)))
-
 ;;; preset
 (gptel-make-preset 'default
   :description "Default"
@@ -308,11 +191,14 @@ N-CHARS is max size."
 
 ;; ragmacs
 (gptel-make-preset 'ragmacs
-  :descr "Ragmacs"
+  :description "Ragmacs"
   :pre (lambda () (require 'ragmacs))
   :system (alist-get 'ragmacs gptel-directives)
   :tools '("introspection")
   :use-tools t)
+
+(autoload #'gptel-global-chat "lib-gptel" nil t)
+(autoload #'gptel-project-chat "lib-gptel" nil t)
 
 (global-bind-keys
  ("C-c RET" . gptel-send)
