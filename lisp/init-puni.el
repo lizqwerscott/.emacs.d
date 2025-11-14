@@ -70,6 +70,10 @@ S-expression."
    '("C-j" . puni-jump-out-pair-and-newline)
    '("X" . puni-sexp-menu)))
 
+(with-eval-after-load 'puni-mode
+  (keymap-binds puni-mode-map
+    ("C-<backword>" . puni-backward-kill-word)))
+
 (add-hooks '(prog-mode-hook sgml-mode-hook nxml-mode-hook tex-mode-hook eval-expression-minibuffer-setup-hook yaml-ts-mode-hook)
            #'puni-mode)
 
