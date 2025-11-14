@@ -40,8 +40,16 @@
       super-save-all-buffers t)
 
 (add-list-to-list 'super-save-triggers
-                  '(ace-window unpackaged/magit-status unpackaged/magit-project-status multi-vterm-run))
-(add-to-list 'super-save-hook-triggers 'find-file-hook)
+                  '(ace-window
+                    unpackaged/magit-status unpackaged/magit-project-status multi-vterm-run
+                    consult-buffer
+                    consult-ripgrep
+                    project-find-regexp
+                    project-find-file
+                    project-switch-to-buffer))
+
+(add-list-to-list 'super-save-hook-triggers
+                  '(find-file-hook))
 
 (super-save-mode +1)
 
