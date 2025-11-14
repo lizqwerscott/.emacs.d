@@ -135,5 +135,8 @@
             (read-only-mode
              (if redacted-mode 1 -1))))
 
+;;; notification
+(setq knockknock-border-color (face-foreground 'font-lock-keyword-face))
+
 (provide 'init-ui)
 ;;; init-ui.el ends here.

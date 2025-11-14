@@ -326,7 +326,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
                 :repo "joaotavora/breadcrumb")
     nerd-icons-ibuffer
     casual
-    inhibit-mouse))
+    inhibit-mouse
+    (knockknock :fetcher github :repo "konrad1977/knockknock")))
 
 (defvar *package-window-install-list*
   '(popper
