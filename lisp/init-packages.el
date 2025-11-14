@@ -109,6 +109,43 @@
 
 (add-to-list 'elpaca-recipe-functions #'+elpaca-with-github-straight-mirror)
 
+(defun get-repo-info-from-url (url)
+  "Get repo info from URL.
+return (HOSTING-SITE OWNER REPO-NAME)。"
+  (let ((patterns
+         '((github . "https?://github\\.com/\\([^/]+\\)/\\([^/]+\\)\\(?:\\.git\\)?")
+           (gitlab . "https?://gitlab\\.com/\\([^/]+\\)/\\([^/]+\\)\\(?:\\.git\\)?")
+           (bitbucket . "https?://bitbucket\\.org/\\([^/]+\\)/\\([^/]+\\)\\(?:\\.git\\)?")
+           (sourcehut . "https?://git\\.sr\\.ht/~\\([^/]+\\)/\\([^/]+\\)")
+           (codeberg . "https?://codeberg\\.org/\\([^/]+\\)/\\([^/]+\\)\\(?:\\.git\\)?"))))
+    (catch 'found
+      (dolist (pattern patterns)
+        (let ((site (car pattern))
+              (regexp (cdr pattern)))
+          (when (string-match regexp url)
+            (throw 'found (list site
+                                (match-string 1 url)
+                                (match-string 2 url))))))
+      nil)))
+
+(defun elpaca-get-recipe-from-clipboard-url ()
+  "Elpaca get recipe from clipboard url."
+  (interactive)
+  (cl-assert (or (string-match-p "^\\(http\\|https\\|ssh\\)://" (current-kill 0))
+                 (string-match-p "^git@.*:" (current-kill 0)))
+             nil "No URL in clipboard")
+  (when-let* ((url (current-kill 0))
+              (info (get-repo-info-from-url url))
+              (fetcher (car info))
+              (owner (elt info 1))
+              (repo-name (elt info 2))
+              (repo-name (replace-regexp-in-string "\\.git$" "" repo-name)))
+    (insert (format "(%s :fetcher %s :repo \"%s/%s\")"
+                    repo-name
+                    fetcher
+                    owner
+                    repo-name))))
+
 (defvar *package-early-install-list*
   '(no-littering
     exec-path-from-shell
