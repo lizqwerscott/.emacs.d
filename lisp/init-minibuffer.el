@@ -100,8 +100,7 @@
 (keymap-binds vertico-map
   ("RET" . vertico-directory-enter)
   ("DEL" . vertico-directory-delete-char)
-  ("M-DEL" . vertico-directory-delete-word)
-  ("C-<backspace>" . delete-backward-char)
+  ("C-<backspace>" . vertico-directory-delete-word)
   ("C-j" . vertico-exit-input)
   ("/" . my/vertico-insert))
 
