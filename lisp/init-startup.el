@@ -16,6 +16,12 @@
 (add-to-list 'safe-local-eval-forms
              '(outline-hide-sublevels 2))
 
+(add-list-to-list 'trusted-content
+                  (list
+                   (abbreviate-file-name (expand-file-name "lisp/" user-emacs-directory))
+                   (abbreviate-file-name (expand-file-name "lib/" user-emacs-directory))
+                   (abbreviate-file-name (expand-file-name "theme/" user-emacs-directory))))
+
 ;;; Encoding
 ;; UTF-8 as the default coding system
 (when (fboundp 'set-charset-priority)

@@ -78,11 +78,6 @@
 (when (executable-find "emacs-lsp-booster")
   (eglot-booster-mode 1))
 
-;; Flycheck
-(require 'flycheck-eglot)
-(setq-default flycheck-eglot-exclusive nil)
-(global-flycheck-eglot-mode 1)
-
 ;; next eglot highligh from https://gist.github.com/jdtsmith/8b34f1459ca2a67debf943680f4896a4
 (defun my/eglot-next-highlight (&optional prev)
   "Move to the next symbol highlighted by eglot.

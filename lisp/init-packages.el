@@ -253,13 +253,9 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
          `(eglot
            (eglot-booster :fetcher github :repo "jdtsmith/eglot-booster")
            consult-eglot
-           flycheck
-           consult-flycheck
-           flycheck-eglot
-           flycheck-package
-           ,@(if user/flyoverp
-                 '((flyover :fetcher github :repo "konrad1977/flyover"))
-               '(flycheck-posframe))))
+           ,@(when user/flyoverp
+               '(flycheck
+                 (flyover :fetcher github :repo "konrad1977/flyover")))))
         ('lsp-bridge
          `(dumb-jump
            (lsp-bridge :type git :fetcher github :repo "manateelazycat/lsp-bridge"
