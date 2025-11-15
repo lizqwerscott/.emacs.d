@@ -60,10 +60,10 @@ Returns a cons cell (X . Y) representing the position coordinates."
            :foreground-color ,(face-foreground 'tooltip nil t)
            :lines-truncate t
            :poshandler posframe-poshandler-frame-center-near-bottom)))
-(hydra-set-posframe-show-params)
 
 (defun start-posframe ()
   "Start posframe."
+  (hydra-set-posframe-show-params)
   (setq hydra-hint-display-type
         'posframe))
 
