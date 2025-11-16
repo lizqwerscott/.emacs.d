@@ -100,7 +100,6 @@
     ("m b" "Modeline battery" display-battery-mode :toggle t :transient t)]
 
    ["Program"
-    ("f" "Flycheck" flycheck-mode :toggle t :transient t)
     ("v" "Diff-hl gutter" global-diff-hl-mode :toggle t :transient t)
     ("M" "Margin gutter" diff-hl-margin-mode :toggle t :transient t)
     ("E" "Debug on error" toggle-debug-on-error
