@@ -31,9 +31,7 @@
       '((top . 0.5)
         (left . 0.5)
         (width . 0.9)
-        (height . 0.9)
-        ;; (fullscreen)
-        ))
+        (height . 0.9)))
 
 (defun set-alpha-background (symbol value)
   "Set SYMBOL VALUE.
@@ -49,10 +47,27 @@ and update transparent."
   :type 'number
   :set #'set-alpha-background)
 
-(when user/start-fullscreen
-  (unless sys/macp
-    (add-hook 'after-init-hook
-              #'toggle-frame-fullscreen)))
+(defun set-fullscreenp (symbol value)
+  "Set SYMBOL VALUE."
+  (set-default-toplevel-value symbol value)
+  (when value
+    (add-list-to-list 'initial-frame-alist
+                      '((fullscreen . fullboth)
+                        (fullscreen-restore . ,fullscreen))))
+  (let* ((frame (selected-frame))
+         (fullscreen (frame-parameter frame 'fullscreen)))
+    (if value
+        (modify-frame-parameters frame `((fullscreen . fullboth) (fullscreen-restore . ,fullscreen)))
+      (let ((fullscreen-restore (frame-parameter frame 'fullscreen-restore)))
+	    (if (memq fullscreen-restore '(maximized fullheight fullwidth))
+	        (set-frame-parameter frame 'fullscreen fullscreen-restore)
+	      (set-frame-parameter frame 'fullscreen nil))))))
+
+(defcustom user/start-fullscreenp t
+  "Is fullscreen in start."
+  :group 'user
+  :type 'boolean
+  :set #'set-fullscreenp)
 
 ;;; modeline
 (require 'init-modeline)
