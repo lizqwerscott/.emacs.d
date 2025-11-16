@@ -26,16 +26,6 @@
   :group 'user
   :type 'string)
 
-(defcustom user/day-theme 'modus-operandi-tinted
-  "Day theme name."
-  :group 'user
-  :type 'symbol)
-
-(defcustom user/night-theme 'doom-dracula
-  "Night theme name."
-  :group 'user
-  :type 'symbol)
-
 (defcustom user/run-python-command "python"
   "A python command for Some package use python package."
   :group 'user
