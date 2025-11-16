@@ -47,6 +47,7 @@
 
 ;;; vundo
 (require 'vundo)
+(setq undo-limit (* 1 1024 1024))
 (setq vundo-glyph-alist vundo-unicode-symbols)
 (global-set-key (kbd "C-/") #'vundo)
 
