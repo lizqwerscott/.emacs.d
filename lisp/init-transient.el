@@ -106,7 +106,11 @@
     ("E" "Debug on error" toggle-debug-on-error
      :toggle (lambda () (default-value 'debug-on-error)) :transient t)
     ("Q" "Debug on quit" toggle-debug-on-quit
-     :toggle (lambda () (default-value 'debug-on-quit)) :transient t)]]
+     :toggle (lambda () (default-value 'debug-on-quit)) :transient t)]
+
+   ["Customize"
+    ("S" "Customize save variable" customize-save-variable)
+    ("C" "Customize set variable" customize-set-variable)]]
 
   [("q" "Quit" transient-quit-one)])
 

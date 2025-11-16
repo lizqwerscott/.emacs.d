@@ -59,7 +59,10 @@
     ("v" global-diff-hl-mode "gutter" :toggle t)
     ("M" diff-hl-margin-mode "margin gutter" :toggle t)
     ("E" toggle-debug-on-error "debug on error" :toggle (default-value 'debug-on-error))
-    ("Q" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit)))))
+    ("Q" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit)))
+   "Customize"
+   (("S" customize-save-variable "Customize save variable" :exit t)
+    ("C" customize-set-variable "Customize set variable" :exit t))))
 
 (global-bind-keys
  ("C-c T" . hydra-toggles/body)
