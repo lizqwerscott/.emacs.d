@@ -98,7 +98,8 @@ This command supports `meow-selection-command-fallback'."
   "c" #'find-custom-file
   "i" #'find-init-file
   "l" #'find-library
-  "v" #'find-variable)
+  "v" #'find-variable
+  "f" #'find-function)
 
 (global-bind-keys
  ("<escape>" . keyboard-quit))
