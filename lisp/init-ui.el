@@ -52,8 +52,7 @@ and update transparent."
   (set-default-toplevel-value symbol value)
   (when value
     (add-list-to-list 'initial-frame-alist
-                      '((fullscreen . fullboth)
-                        (fullscreen-restore . ,fullscreen))))
+                      '((fullscreen . fullboth))))
   (let* ((frame (selected-frame))
          (fullscreen (frame-parameter frame 'fullscreen)))
     (if value
