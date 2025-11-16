@@ -61,7 +61,8 @@
     ("Q" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit)))
    "Customize"
    (("S" customize-save-variable "Customize save variable" :exit t)
-    ("C" customize-set-variable "Customize set variable" :exit t))))
+    ("C" customize-set-variable "Customize set variable" :exit t)
+    ("G" customize-group "Customize set group" :exit t))))
 
 (global-bind-keys
  ("C-c T" . hydra-toggles/body)

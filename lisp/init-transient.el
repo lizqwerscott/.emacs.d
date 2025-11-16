@@ -109,7 +109,8 @@
 
    ["Customize"
     ("S" "Customize save variable" customize-save-variable)
-    ("C" "Customize set variable" customize-set-variable)]]
+    ("C" "Customize set variable" customize-set-variable)
+    ("G" "Customize set group" customize-group)]]
 
   [("q" "Quit" transient-quit-one)])
 
