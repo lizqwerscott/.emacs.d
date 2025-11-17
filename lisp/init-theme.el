@@ -36,16 +36,31 @@ PREVIEWP is preview the theme without enabling it permanently."
                                   (setq selected (and selected (intern-soft selected)))
                                   (or (and selected (car (memq selected avail-themes)))
                                       saved-theme))
+                        :state (lambda (action theme)
+                                 (with-selected-window (or (active-minibuffer-window)
+                                                           (selected-window))
+                                   (pcase action
+                                     ('return (customize-theme (or theme saved-theme) t))
+                                     ((and 'preview (guard theme)) (customize-theme theme t)))))
                         :default (symbol-name (or saved-theme 'default))))))
-  (when-let* ((table '(("Night" . user/night-theme)
-                       ("Day" . user/day-theme)))
-              (comp (consult--read table
-                                   :prompt "Theme Category: "
-                                   :require-match t))
-              (symbol (alist-get comp table nil nil #'equal)))
-    (when (cl-find (symbol-value symbol) custom-enabled-themes)
-      (+lizqwer/load-theme theme))
-    (customize-save-variable symbol theme)))
+  (when (eq theme 'default) (setq theme nil))
+  (when theme
+    (if previewp
+        (unless (eq theme (car custom-enabled-themes))
+          (mapc #'disable-theme custom-enabled-themes)
+          (unless (and (memq theme custom-known-themes) (get theme 'theme-settings))
+            (load-theme theme 'no-confirm 'no-enable))
+          (if (and (memq theme custom-known-themes) (get theme 'theme-settings))
+              (enable-theme theme)
+            (consult--minibuffer-message "%s is not a valid theme" theme)))
+      (when-let* ((table '(("Night" . user/night-theme)
+                           ("Day" . user/day-theme)))
+                  (comp (consult--read table
+                                       :prompt "Theme Category: "
+                                       :require-match t))
+                  (symbol (alist-get comp table nil nil #'equal)))
+        (+lizqwer/load-theme theme)
+        (customize-save-variable symbol theme)))))
 
 (+lizqwer/load-theme user/night-theme)
 
