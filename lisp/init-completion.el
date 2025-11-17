@@ -59,31 +59,35 @@
   (require 'flx-rs)
   (pcase-let* ((`(,prefix-items ,other-items) (split-string-with-prefix (string-trim query) "="))
                (other-query (string-join (mapcar #'car other-items) ""))
-               (score (when (fboundp 'flx-rs-score)
-                        (flx-rs-score (fussy-without-bad-char str) other-query args)))
+               (flx-score (when (fboundp 'flx-rs-score)
+                            (flx-rs-score (fussy-without-bad-char str) other-query args)))
                (prefix-score 0)
                (prefix-item-pos))
-    (dolist (item prefix-items)
-      (pcase-let* ((`(,query ,index) item)
-                   (score-pos (calc-chinese-score query str)))
-        (setq prefix-score
-              (+ prefix-score
-                 (* (float (1+ index))
-                    (car score-pos))))
-        (setq prefix-item-pos
-              (append prefix-item-pos
-                      (cdr score-pos)))))
-    (setq prefix-score (round prefix-score))
-    (if score
-        (append (list (+ prefix-score (car score)))
-                (sort (append (cdr score)
+    (when (string-match-p "\\cc" str)
+      (dolist (item prefix-items)
+        (pcase-let* ((`(,query ,index) item)
+                     (score-pos (calc-chinese-score query str))
+                     (all-len (+ (length prefix-items)
+                                 (length other-items))))
+          (cl-incf prefix-score
+                   (* (float (1+ (- all-len index)))
+                      (car score-pos)))
+          (setq prefix-item-pos
+                (append prefix-item-pos
+                        (cdr score-pos)))))
+      (setq prefix-score (round prefix-score)))
+    (if flx-score
+        (append (list (+ prefix-score (car flx-score)))
+                (sort (append (cdr flx-score)
                               prefix-item-pos)
                       '<))
-      (unless (= prefix-score 0)
-        (append (list prefix-score) prefix-item-pos)))))
+      (unless other-items
+        (unless (= prefix-score 0)
+          (append (list prefix-score) prefix-item-pos))))))
 
-(add-to-list 'fussy-whitespace-ok-fns
-             #'fussy-flx-rs-score-with-chinese)
+(with-eval-after-load 'fussy
+  (add-to-list 'fussy-whitespace-ok-fns
+               #'fussy-flx-rs-score-with-chinese))
 
 (setopt fussy-score-fn 'fussy-flx-rs-score-with-chinese
         fussy-filter-fn 'fussy-filter-orderless-flex
