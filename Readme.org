@@ -133,6 +133,10 @@ Install dict in =/usr/share/dict/= path.
 Use ~elpaca-fetch-all~ and ~elpaca-merge-all~, detail look [[https://github.com/progfolio/elpaca/blob/master/doc/manual.md][Elpaca manual]]
 * custom
 copy =custom-example.el= to =custom.el=
+
+Use ~customize-save-variable~ to set custom variables, and use ~customize-theme~ to select themes.
+You can use ~customize-group~ to view the options that can be set by users.
+
 * Key
 | key     | description          |
 |---------+----------------------|
