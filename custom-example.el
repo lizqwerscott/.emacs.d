@@ -11,20 +11,14 @@
       user/logo (file-truename
                  (concat user-emacs-directory
                          "logos/gnu_color.xpm"))
-      user/day-theme 'modus-operandi-tinted
-      user/night-theme 'doom-dracula
-      user/start-fullscreen t
-      user/start-transparent nil
       user/run-python-command "python"
       user/completion-preview-mode-use nil
       user/telega-start nil
 
       user/java-lsp nil
 
-      user/ai-completion nil
       user/aider nil
 
-      user/font-size 190
       user/ligature nil
       user/lsp-client 'eglot
       user/flyoverp nil
