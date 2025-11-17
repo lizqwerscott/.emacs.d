@@ -69,12 +69,13 @@
                      (score-pos (calc-chinese-score query str))
                      (all-len (+ (length prefix-items)
                                  (length other-items))))
-          (cl-incf prefix-score
-                   (* (float (1+ (- all-len index)))
-                      (car score-pos)))
-          (setq prefix-item-pos
-                (append prefix-item-pos
-                        (cdr score-pos)))))
+          (when score-pos
+            (cl-incf prefix-score
+                     (* (float (1+ (- all-len index)))
+                        (car score-pos)))
+            (setq prefix-item-pos
+                  (append prefix-item-pos
+                          (cdr score-pos))))))
       (setq prefix-score (round prefix-score)))
     (if flx-score
         (append (list (+ prefix-score (car flx-score)))
