@@ -92,7 +92,7 @@
 
 (setopt fussy-score-fn 'fussy-flx-rs-score-with-chinese
         fussy-filter-fn 'fussy-filter-orderless-flex
-        fussy-use-cache t
+        fussy-use-cache nil
         fussy-compare-same-score-fn 'fussy-histlen->strlen<)
 
 (fussy-setup)
@@ -100,7 +100,7 @@
 
 (with-eval-after-load 'corfu
   ;; For cache functionality.
-  (advice-add 'corfu--capf-wrapper :before 'fussy-wipe-cache)
+  ;; (advice-add 'corfu--capf-wrapper :before 'fussy-wipe-cache)
 
   (add-hook 'corfu-mode-hook
             (lambda ()
