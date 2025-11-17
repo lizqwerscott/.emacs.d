@@ -41,6 +41,22 @@
       (setq index (1+ index)))
     (list (reverse prefix-items) (reverse other-items))))
 
+(defun split-string-with-prefixs (query prefixs)
+  "Split QUERY with PREFIXS."
+  (let ((querys (split-string query))
+        (prefix-items)
+        (other-items)
+        (index 0))
+    (dolist (item querys)
+      (let ((prefix (cl-find item prefixs :test (lambda (item prefix) (string-prefix-p prefix item)))))
+        (if (and (stringp item)
+                 (> (length item) 0)
+                 prefix)
+            (push (list (substring item (length prefix)) index prefix) prefix-items)
+          (push (list item index) other-items)))
+      (setq index (1+ index)))
+    (list (reverse prefix-items) (reverse other-items))))
+
 (defun calc-chinese-score (query string)
   "Use QUERY and STRING calc score."
   (when-let* ((regexp (pyim-cregexp-build query)))
