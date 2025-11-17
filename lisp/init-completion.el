@@ -26,7 +26,66 @@
 
 (flx-rs-load-dyn)
 
-(setopt fussy-score-fn 'fussy-flx-rs-score
+(defun split-string-with-prefix (query prefix)
+  "Split QUERY with PREFIX."
+  (let ((querys (split-string query))
+        (prefix-items)
+        (other-items)
+        (index 0))
+    (dolist (item querys)
+      (if (and (stringp item)
+               (> (length item) 0)
+               (string= (substring item 0 1) prefix))
+          (push (list (substring item 1) index) prefix-items)
+        (push (list item index) other-items))
+      (setq index (1+ index)))
+    (list (reverse prefix-items) (reverse other-items))))
+
+(defun calc-chinese-score (query string)
+  "Use QUERY and STRING calc score."
+  (when-let* ((regexp (pyim-cregexp-build query)))
+    (string-match regexp string)
+    (pcase-let* ((`(,start ,end) (match-data))
+                 (len (length string)))
+      (when (< end len)
+        (list (+ (* 20 (/ (float (- end start))
+                          len))
+                 (* 8000 (/ (float start) len)))
+              start
+              end)))))
+
+(defun fussy-flx-rs-score-with-chinese (str query &rest args)
+  "Score STR for QUERY with ARGS using `flx-rs-score'."
+  (require 'flx-rs)
+  (pcase-let* ((`(,prefix-items ,other-items) (split-string-with-prefix (string-trim query) "="))
+               (other-query (string-join (mapcar #'car other-items) ""))
+               (score (when (fboundp 'flx-rs-score)
+                        (flx-rs-score (fussy-without-bad-char str) other-query args)))
+               (prefix-score 0)
+               (prefix-item-pos))
+    (dolist (item prefix-items)
+      (pcase-let* ((`(,query ,index) item)
+                   (score-pos (calc-chinese-score query str)))
+        (setq prefix-score
+              (+ prefix-score
+                 (* (float (1+ index))
+                    (car score-pos))))
+        (setq prefix-item-pos
+              (append prefix-item-pos
+                      (cdr score-pos)))))
+    (setq prefix-score (round prefix-score))
+    (if score
+        (append (list (+ prefix-score (car score)))
+                (sort (append (cdr score)
+                              prefix-item-pos)
+                      '<))
+      (unless (= prefix-score 0)
+        (append (list prefix-score) prefix-item-pos)))))
+
+(add-to-list 'fussy-whitespace-ok-fns
+             #'fussy-flx-rs-score-with-chinese)
+
+(setopt fussy-score-fn 'fussy-flx-rs-score-with-chinese
         fussy-filter-fn 'fussy-filter-orderless-flex
         fussy-use-cache t
         fussy-compare-same-score-fn 'fussy-histlen->strlen<)
@@ -45,14 +104,15 @@
                           fussy-prefer-prefix nil))))
 
 ;;; orderless
-(add-list-to-list 'completion-category-overrides
-                  '((file (styles orderless fussy))
-                    (project-file (styles orderless fussy))
-                    (multi-category (styles orderless fussy basic))
-                    (consult-location (styles orderless fussy basic))
-                    (org-heading (styles orderless fussy basic))
-                    (bookmark (styles orderless fussy basic))
-                    (unicode-name (styles orderless fussy basic))))
+(setopt orderless-matching-styles nil)
+;; (add-list-to-list 'completion-category-overrides
+;;                   '((file (styles orderless fussy))
+;;                     (project-file (styles orderless fussy))
+;;                     (multi-category (styles orderless fussy basic))
+;;                     (consult-location (styles orderless fussy basic))
+;;                     (org-heading (styles orderless fussy basic))
+;;                     (bookmark (styles orderless fussy basic))
+;;                     (unicode-name (styles orderless fussy basic))))
 
 ;;; corfu
 (require 'init-corfu)

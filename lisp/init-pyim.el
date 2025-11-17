@@ -92,11 +92,17 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 
 (global-set-key (kbd "C-\\") 'toggle-input-method)
 
-(defun my-orderless-regexp (orig-func component)
-  (let ((result (funcall orig-func component)))
-    (pyim-cregexp-build result)))
+(defun chinese-orderless-regexp (component)
+  "Match COMPONENT as a chinese regexp."
+  (condition-case nil
+      (pyim-cregexp-build
+       (progn (string-match-p component "")
+              component))
+    (invalid-regexp nil)))
 
-(advice-add 'orderless-regexp :around #'my-orderless-regexp)
+(with-eval-after-load 'orderless
+  (add-to-list 'orderless-affix-dispatch-alist
+               `(?= . ,#'chinese-orderless-regexp)))
 
 (require 'pyim-cstring-utils)
 (global-bind-keys
