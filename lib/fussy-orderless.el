@@ -132,6 +132,23 @@ ITEMS-LEN is all items length."
     (cons (apply #'+ (mapcar #'car filtered-lst))
           (apply #'append (mapcar #'cdr filtered-lst)))))
 
+(defun fussy-orderless-score-with-flx (str query &rest args)
+  "Score STR for QUERY with ARGS using orderless."
+  (require 'flx)
+  (pcase-let* ((keys (fussy-orderless--get-dispatch-key))
+               (`(,prefix-items ,normal-items ,len) (fussy-orderless--split-string-with-prefixs query keys))
+               (normal-query (string-join (mapcar #'car normal-items) ""))
+               (prefix-scores (fussy-orderless-score str prefix-items len))
+               (normal-scores (flx-score str normal-query)))
+    (if normal-scores
+        (if prefix-scores
+            (append (list (+ (car prefix-scores) (car normal-scores)))
+                    (sort (append (cdr normal-scores)
+                                  (cdr prefix-scores))
+                          '<))
+          normal-scores)
+      prefix-scores)))
+
 (defun fussy-orderless-score-with-flx-rs (str query &rest args)
   "Score STR for QUERY with ARGS using orderless."
   (require 'flx-rs)
