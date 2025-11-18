@@ -26,87 +26,13 @@
 
 (flx-rs-load-dyn)
 
-(defun split-string-with-prefix (query prefix)
-  "Split QUERY with PREFIX."
-  (let ((querys (split-string query))
-        (prefix-items)
-        (other-items)
-        (index 0))
-    (dolist (item querys)
-      (if (and (stringp item)
-               (> (length item) 0)
-               (string= (substring item 0 1) prefix))
-          (push (list (substring item 1) index) prefix-items)
-        (push (list item index) other-items))
-      (setq index (1+ index)))
-    (list (reverse prefix-items) (reverse other-items))))
-
-(defun split-string-with-prefixs (query prefixs)
-  "Split QUERY with PREFIXS."
-  (let ((querys (split-string query))
-        (prefix-items)
-        (other-items)
-        (index 0))
-    (dolist (item querys)
-      (let ((prefix (cl-find item prefixs :test (lambda (item prefix) (string-prefix-p prefix item)))))
-        (if (and (stringp item)
-                 (> (length item) 0)
-                 prefix)
-            (push (list (substring item (length prefix)) index prefix) prefix-items)
-          (push (list item index) other-items)))
-      (setq index (1+ index)))
-    (list (reverse prefix-items) (reverse other-items))))
-
-(defun calc-chinese-score (query string)
-  "Use QUERY and STRING calc score."
-  (when-let* ((regexp (pyim-cregexp-build query)))
-    (string-match regexp string)
-    (pcase-let* ((`(,start ,end) (match-data))
-                 (len (length string)))
-      (when (< end len)
-        (list (+ (* 20 (/ (float (- end start))
-                          len))
-                 (* 8000 (/ (float start) len)))
-              start
-              end)))))
-
-(defun fussy-flx-rs-score-with-chinese (str query &rest args)
-  "Score STR for QUERY with ARGS using `flx-rs-score'."
-  (require 'flx-rs)
-  (pcase-let* ((`(,prefix-items ,other-items) (split-string-with-prefix (string-trim query) "="))
-               (other-query (string-join (mapcar #'car other-items) ""))
-               (flx-score (when (fboundp 'flx-rs-score)
-                            (flx-rs-score (fussy-without-bad-char str) other-query args)))
-               (prefix-score 0)
-               (prefix-item-pos))
-    (when (string-match-p "\\cc" str)
-      (dolist (item prefix-items)
-        (pcase-let* ((`(,query ,index) item)
-                     (score-pos (calc-chinese-score query str))
-                     (all-len (+ (length prefix-items)
-                                 (length other-items))))
-          (when score-pos
-            (cl-incf prefix-score
-                     (* (float (1+ (- all-len index)))
-                        (car score-pos)))
-            (setq prefix-item-pos
-                  (append prefix-item-pos
-                          (cdr score-pos))))))
-      (setq prefix-score (round prefix-score)))
-    (if flx-score
-        (append (list (+ prefix-score (car flx-score)))
-                (sort (append (cdr flx-score)
-                              prefix-item-pos)
-                      '<))
-      (unless other-items
-        (unless (= prefix-score 0)
-          (append (list prefix-score) prefix-item-pos))))))
+(autoload #'fussy-orderless-score-with-flx-rs "fussy-orderless")
 
 (with-eval-after-load 'fussy
   (add-to-list 'fussy-whitespace-ok-fns
-               #'fussy-flx-rs-score-with-chinese))
+               #'fussy-orderless-score-with-flx-rs))
 
-(setopt fussy-score-fn 'fussy-flx-rs-score-with-chinese
+(setopt fussy-score-fn 'fussy-orderless-score-with-flx-rs
         fussy-filter-fn 'fussy-filter-orderless-flex
         fussy-use-cache nil
         fussy-compare-same-score-fn 'fussy-histlen->strlen<)
