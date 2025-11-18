@@ -37,7 +37,7 @@
                                                   (?, . fussy-orderless-initialism-score))
   "A affix dispatch alist for score."
   :group 'fussy
-  :type '(alist
+  :type `(alist
           :key-type character
           :value-type (choice
                        (const :tag "Chinese Regexp" ,#'fussy-orderless-chinese-regexp-score)
