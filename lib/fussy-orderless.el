@@ -29,9 +29,6 @@
 (require 'fussy)
 (require 'orderless)
 
-(require 'pyim)
-(require 'flx-rs)
-
 (defcustom fussy-orderless-affix-dispatch-alist '((?= . fussy-orderless-chinese-regexp-score)
                                                   (?! . fussy-orderless-not-score)
                                                   (?, . fussy-orderless-initialism-score))
@@ -68,8 +65,10 @@
 
 (defun fussy-orderless-chinese-regexp-score (string query)
   "Use QUERY and STRING calc chinese regexp score."
+  (require 'pyim)
   (when-let* (((string-match-p "\\cc" string))
-              (regexp (pyim-cregexp-build query)))
+              (regexp (when (fboundp 'pyim-cregexp-build)
+                        (pyim-cregexp-build query))))
     (string-match regexp string)
     (pcase-let* ((`(,start ,end) (match-data))
                  (len (length string)))
@@ -135,6 +134,7 @@ ITEMS-LEN is all items length."
 
 (defun fussy-orderless-score-with-flx-rs (str query &rest args)
   "Score STR for QUERY with ARGS using orderless."
+  (require 'flx-rs)
   (pcase-let* ((keys (fussy-orderless--get-dispatch-key))
                (`(,prefix-items ,normal-items ,len) (fussy-orderless--split-string-with-prefixs query keys))
                (normal-query (string-join (mapcar #'car normal-items) ""))
