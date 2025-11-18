@@ -133,13 +133,6 @@ ITEMS-LEN is all items length."
     (cons (apply #'+ (mapcar #'car filtered-lst))
           (apply #'append (mapcar #'cdr filtered-lst)))))
 
-;; (pcase-let* ((query "=hc")
-;;              (`(,prefix-items ,normal-items ,len) (fussy-orderless--split-string-with-prefixs query (fussy-orderless--get-dispatch-key))))
-;;   (message "p: %s, n: %s, l: %s" prefix-items normal-items len)
-;;   (fussy-orderless-score "大家好 robot hello"
-;;                          prefix-items
-;;                          len))
-
 (defun fussy-orderless-score-with-flx-rs (str query &rest args)
   "Score STR for QUERY with ARGS using orderless."
   (pcase-let* ((keys (fussy-orderless--get-dispatch-key))
@@ -156,8 +149,6 @@ ITEMS-LEN is all items length."
                           '<))
           normal-scores)
       prefix-scores)))
-
-;; (fussy-orderless-score-with-flx-rs "大家好 robot hello" "=hc")
 
 (provide 'fussy-orderless)
 ;;; fussy-orderless.el ends here
