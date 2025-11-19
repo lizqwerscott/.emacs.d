@@ -139,7 +139,7 @@ ITEMS-LEN is all items length."
                (`(,prefix-items ,normal-items ,len) (fussy-orderless--split-string-with-prefixs query keys))
                (normal-query (string-join (mapcar #'car normal-items) ""))
                (prefix-scores (fussy-orderless-score str prefix-items len))
-               (normal-scores (flx-score str normal-query)))
+               (normal-scores (flx-score str normal-query (car args))))
     (if normal-scores
         (if prefix-scores
             (append (list (+ (car prefix-scores) (car normal-scores)))
