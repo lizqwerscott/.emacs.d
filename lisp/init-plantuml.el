@@ -105,6 +105,24 @@ OUTPUT-TYPE is export file type."
                                 (dired-other-window dir))
                             (knockknock-alert :title "Export Error!" :icon "cod-error"))))))
 
+  (defvar cape--plantuml-keyword-properties
+    (list :annotation-function (lambda (_) " Keyword")
+          :company-kind (lambda (_) 'keyword)
+          :exclusive 'no
+          :category 'cape-plantuml-keyword)
+    "Completion extra properties for `cape-plantuml-keyword'.")
+
+  (defun cape--plantuml-keyword ()
+    "Perform keyword completion on word before cursor."
+    (interactive)
+    (when-let* ((keywords (hash-table-keys plantuml-kwdList)))
+      (let ((bounds (cape--bounds 'symbol)))
+        `(,(car bounds) ,(cdr bounds) ,keywords ,@cape--plantuml-keyword-properties ))))
+
+  (with-hook plantuml-mode-hook
+    (setq-local completion-at-point-functions
+                '(cape--plantuml-keyword)))
+
   (keymap-binds plantuml-mode-map
     ("C-c C-e" . plantuml-export)))
 
