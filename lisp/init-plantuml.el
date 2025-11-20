@@ -71,6 +71,7 @@ OUTPUT-TYPE is export file type."
                                  (completing-read "Select Type:"
                                                   '("svg" "png" "latex" ("EPS" . "eps") ("ASCII" . "xt")))
                                "png")))
+      (save-some-buffers)
       (knockknock-notify :title "Export..."
                          :message (format "Export %s.%s to %s"
                                           (file-name-base file-path)
