@@ -12,7 +12,8 @@
 
 (setopt plantuml-jar-path (expand-file-name "var/plantuml/plantuml.jar"
                                             user-emacs-directory)
-        plantuml-default-exec-mode 'jar)
+        plantuml-default-exec-mode 'jar
+        plantuml-indent-level 4)
 
 (when sys/macp
   (setopt plantuml-java-command "/opt/homebrew/opt/openjdk/bin/java"))
