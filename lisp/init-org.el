@@ -359,6 +359,24 @@ prepended to the element after the #+HEADER: tag."
     ("E" "Export" org-export-dispatch)]]
   [("q" "Quit" transient-quit-one)])
 
+(defun org-insert-or-surround (char)
+  "Insert or surround text with LaTeX-style delimiters.
+
+If the region is active, wrap the selected text with the delimiters specified by
+CHAR. Otherwise, insert the delimiters with space for text in between. The
+argument CHAR should be a cons cell (LEFT . RIGHT) where LEFT and RIGHT are the
+opening and closing delimiter characters respectively."
+  (if (use-region-p)
+      (let ((begin (region-beginning))
+            (end (region-end)))
+        (save-excursion
+          (goto-char begin)
+          (insert (format "\\%s " (car char)))
+          (goto-char (+ end 4))
+          (insert (format "\\%s" (cdr char)))))
+    (insert "\\%s  \\%s" (car char) (cdr char))
+    (backward-char 3)))
+
 (pretty-transient-define-prefix transient-org-line-template ()
   "Transient org line menu."
   [["Link"
@@ -390,12 +408,10 @@ prepended to the element after the #+HEADER: tag."
    ["Latex"
     ("i" "Inline math" (lambda ()
                          (interactive)
-                         (insert "\\(  \\)")
-                         (backward-char 3)))
+                         (org-insert-or-surround '("(" . ")"))))
     ("I" "Display math" (lambda ()
                           (interactive)
-                          (insert "\\[  \\]")
-                          (backward-char 3)))
+                          (org-insert-or-surround '("[" . "]"))))
     ("L" "Convert to latex" latex-math-from-calc :if region-active-p)]
    ["Misc"
     (">" "ins" self-insert-command)]]
