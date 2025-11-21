@@ -114,8 +114,8 @@
 
 The DRY-RUN parameter is set to t, indicating that it will not actually run, but only simulate the run."
   (interactive "P")
-  (let (((gptel-tools nil)
-         (gptel-use-tools nil)))
+  (let ((gptel-tools nil)
+        (gptel-use-tools nil))
     (gptel-request (list (or (get-char-property (point) 'gptel-rewrite)
                              (buffer-substring-no-properties (region-beginning) (region-end)))
                          "What is the required change?"
