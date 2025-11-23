@@ -274,6 +274,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     git-link
     forge
     difftastic
+    (blame-reveal :fetcher github :repo "LuciusChen/blame-reveal")
     devdocs
     jinx
     compile-multi
