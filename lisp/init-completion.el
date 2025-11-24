@@ -43,11 +43,12 @@
 
 (with-eval-after-load 'corfu
   ;; For cache functionality.
-  ;; (advice-add 'corfu--capf-wrapper :before 'fussy-wipe-cache)
+  (advice-add 'corfu--capf-wrapper :before 'fussy-wipe-cache)
 
   (add-hook 'corfu-mode-hook
             (lambda ()
-              (setq-local fussy-max-candidate-limit 5000
+              (setq-local fussy-score-fn 'flx-rs-score
+                          fussy-max-candidate-limit 5000
                           fussy-default-regex-fn 'fussy-pattern-first-letter
                           fussy-prefer-prefix nil))))
 
