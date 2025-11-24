@@ -20,6 +20,7 @@
 
 (setq completion-cycle-threshold 4
       completions-detailed t
+      completion-auto-help nil
       completion-styles '(basic))
 
 ;;; fussy
