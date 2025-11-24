@@ -179,15 +179,25 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
 
 (gptel-make-preset 'emacs
   :description "Emacs 大师"
+  :pre (lambda () (require 'ragmacs))
   :system (alist-get 'emacs gptel-directives)
-  :tools '("read_documentation")
+  :tools '(
+           "function_completions"
+           "command_completions"
+           "variable_completions"
+
+           "function_source"
+           "library_source"
+           "variable_source"
+
+           "variable_documentation"
+           "function_documentation"
+           )
   :use-tools t)
 
 (gptel-make-preset 'elisp-document
   :description "Elisp 文档大师"
-  :system (alist-get 'docstr gptel-directives)
-  :tools '("read_documentation")
-  :use-tools t)
+  :system (alist-get 'docstr gptel-directives))
 
 (gptel-make-preset 'python-program
   :description "Python 编程大师"
