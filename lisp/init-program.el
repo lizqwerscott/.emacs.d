@@ -90,11 +90,6 @@
         ;; flymake popon
         (setq flymake-popon-width 80)
 
-        (defface posframe-border
-          `((t (:inherit region)))
-          "Face used by the `posframe' border."
-          :group 'posframe)
-
         (custom-set-faces
          '(flymake-popon ((t :inherit default :height 0.85)))
          `(flymake-popon-posframe-border ((t :foreground ,(face-background 'posframe-border nil t)))))

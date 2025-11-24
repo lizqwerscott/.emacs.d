@@ -29,26 +29,6 @@
 (require 'posframe)
 (require 'lib-elisp-utils)
 
-(defface posframe-border
-  `((t (:inherit region)))
-  "Face used by the `posframe' border."
-  :group 'posframe)
-
-(defvar posframe-border-width 2
-  "Default posframe border width.")
-
-(defun posframe-poshandler-frame-center-near-bottom (info)
-  "Position a posframe near the bottom center of the parent frame.
-
-INFO is a plist containing information about the parent frame and posframe.
-Returns a cons cell (X . Y) representing the position coordinates."
-  (cons (/ (- (plist-get info :parent-frame-width)
-              (plist-get info :posframe-width))
-           2)
-        (/ (+ (plist-get info :parent-frame-height)
-              (* 2 (plist-get info :font-height)))
-           2)))
-
 (defun hydra-set-posframe-show-params ()
   "Set hydra-posframe style."
   (setq hydra-posframe-show-params
