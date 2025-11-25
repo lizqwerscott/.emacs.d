@@ -91,6 +91,7 @@
       (when (< end len)
         (list (+ (* 20 (/ (float (- end start))
                           len))
+                 (* 60 (- end start))
                  (* 80 (/ (float (- len start)) len)))
               start
               end)))))
