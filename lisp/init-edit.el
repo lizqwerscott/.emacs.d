@@ -192,6 +192,10 @@
   ((emacs-lisp-mode lisp-mode)
    (symbol "when-let" "if-let")))
 
+(with-eval-after-load 'meow
+  (meow-normal-define-key
+   '("C-;" . grugru)))
+
 ;;; bufferfile
 (lazy-load-global-keys
  '(("C-x x r" . bufferfile-rename)
@@ -261,12 +265,7 @@
   "p" #'scroll-other-window-down-1/3)
 
 ;;; editkit
-(autoload #'editkit-transform-menu "editkit" nil t)
 (autoload #'editkit-rectangle-menu "editkit" nil t)
-
-(with-eval-after-load 'meow
-  (meow-normal-define-key
-   '("C-;" . editkit-transform-menu)))
 
 (global-bind-keys
  ("C-c m" . editkit-rectangle-menu))
