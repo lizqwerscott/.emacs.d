@@ -24,6 +24,13 @@
 
 ;;; Code:
 
+(defun my/copy-no-properties ()
+  "Copy the mark place with no properties."
+  (interactive)
+  (when (use-region-p)
+    (kill-new
+     (buffer-substring-no-properties (region-beginning) (region-end)))))
+
 (defun my/copy-current-line ()
   "Copy the current line."
   (interactive)
