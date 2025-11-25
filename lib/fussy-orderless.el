@@ -63,12 +63,28 @@
       (setq index (1+ index)))
     (list (reverse prefix-items) (reverse other-items) (length querys))))
 
+(defvar fussy-orderless--chinese-regexp-cache (make-hash-table :test #'equal)
+  "Chinese regexp cache.")
+
+(defun fussy-orderless--chinese-cache-put (key value)
+  (let ((hash-key (secure-hash 'md5 key)))
+    (puthash hash-key value fussy-orderless--chinese-regexp-cache)))
+
+(defun fussy-orderless--chinese-cache-get (key)
+  (let ((hash-key (secure-hash 'md5 key)))
+    (gethash hash-key fussy-orderless--chinese-regexp-cache)))
+
 (defun fussy-orderless-chinese-regexp-score (string query)
   "Use QUERY and STRING calc chinese regexp score."
   (require 'pyim)
   (when-let* (((string-match-p "\\cc" string))
               (regexp (when (fboundp 'pyim-cregexp-build)
-                        (pyim-cregexp-build query))))
+                        (let* ((cache (fussy-orderless--chinese-cache-get query)))
+                          (if cache
+                              cache
+                            (let ((regexp (pyim-cregexp-build query)))
+                              (fussy-orderless--chinese-cache-put query regexp)
+                              regexp))))))
     (string-match regexp string)
     (pcase-let* ((`(,start ,end) (match-data))
                  (len (length string)))
