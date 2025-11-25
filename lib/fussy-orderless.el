@@ -128,9 +128,16 @@ ITEMS-LEN is all items length."
                                                score)))
                                     (cdr res)))))
                       prefix-items))
-         (filtered-lst (seq-filter 'identity lst)))
-    (cons (apply #'+ (mapcar #'car filtered-lst))
-          (apply #'append (mapcar #'cdr filtered-lst)))))
+         (filtered-lst (seq-filter 'identity lst))
+         (total-score 0)
+         (match-pos))
+    (dolist (item filtered-lst)
+      (setq total-score (+ total-score (car item)))
+      (setq match-pos
+            (append match-pos
+                    (cdr filtered-lst))))
+    (cons total-score
+          match-pos)))
 
 (defun fussy-orderless-score-with-flx (str query &rest args)
   "Score STR for QUERY with ARGS using orderless."
