@@ -19,6 +19,7 @@
 (show-paren-mode 1)
 
 ;;; highlight parentheses
+(require 'highlight-parentheses)
 (setopt highlight-parentheses-colors '("firebrick1" "IndianRed1" "orange1" "orange3")
         highlight-parentheses-attributes '((:underline t :weight bold))
         highlight-parentheses-delay 0.2)
