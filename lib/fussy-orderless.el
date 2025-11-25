@@ -67,10 +67,28 @@
   "Chinese regexp cache.")
 
 (defun fussy-orderless--chinese-cache-put (key value)
+  "Store VALUE in the Chinese regexp cache under KEY.
+
+KEY is a string used as the lookup key, and VALUE is the corresponding regexp
+pattern to store.
+
+The actual cache key is computed by applying `secure-hash' with MD5 algorithm to
+KEY for efficient storage and lookup.
+
+This function updates the hash table `fussy-orderless--chinese-regexp-cache'
+with the computed hash key and VALUE pair."
   (let ((hash-key (secure-hash 'md5 key)))
     (puthash hash-key value fussy-orderless--chinese-regexp-cache)))
 
 (defun fussy-orderless--chinese-cache-get (key)
+  "Retrieve the cached regexp value for KEY from the Chinese regexp cache.
+
+KEY is a string used as the lookup key.
+
+This function computes the MD5 hash of KEY using `secure-hash' and looks up the
+corresponding value in the hash table `fussy-orderless--chinese-regexp-cache'.
+
+Return the cached regexp pattern if found, or nil if no entry exists for KEY."
   (let ((hash-key (secure-hash 'md5 key)))
     (gethash hash-key fussy-orderless--chinese-regexp-cache)))
 
