@@ -88,11 +88,11 @@
 
 (require 'gptel)
 
-(require 'prompts)
-(setq prompt-templates
-      (get-all-prompts
-       (concat user-emacs-directory
-               "config/prompts")))
+(setopt agental-prompts-path
+        (list (concat user-emacs-directory
+                      "config/prompts")))
+
+(agental-prompts-update)
 
 (add-list-to-list 'gptel-directives
                   `((translate . ,(concat "You are a large language model and a writing assistant. Respond concisely."
@@ -100,11 +100,11 @@
                                           "  Generate ONLY the replacement text,"
                                           " without any explanation or markdown code fences or org code fences."
                                           " translate chinese to english."))
-                    (docstr . ,(make-prompt (alist-get 'docstr prompt-templates) nil))
-                    (ragmacs . ,(make-prompt (alist-get 'ragmacs prompt-templates) nil))
-                    (translate-english . ,(make-prompt (alist-get 'translate prompt-templates)
-                                                       '(("to" . "english")
-                                                         ("user_name" . "lizqwerscott"))))))
+                    (docstr . ,(agental-prompts-make 'docstr nil))
+                    (ragmacs . ,(agental-prompts-make 'ragmacs nil))
+                    (translate-english . ,(agental-prompts-make 'translate
+                                                                '(("to" . "english")
+                                                                  ("user_name" . "lizqwerscott"))))))
 
 (require 'init-gptel-tools)
 
@@ -176,7 +176,7 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
   :tools '(:append ("find_files" "list_directory"))
   :use-tools t)
 
-(let ((agent (alist-get 'emacs-agent prompt-templates)))
+(let ((agent (alist-get 'emacs-agent agental-prompts-templates)))
   (gptel-make-preset 'emacs
     :description (plist-get agent :description)
     :pre (lambda () (require 'ragmacs))
@@ -191,8 +191,8 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
 (gptel-make-preset 'python-program
   :description "Python 编程大师"
   :pre (lambda () (require 'gptel-agent))
-  :system (make-prompt (alist-get 'program prompt-templates)
-                       '(("language" . "Python")))
+  :system (agental-prompts-make 'program
+                                '(("language" . "Python")))
   :use-tools t)
 
 ;; ragmacs
@@ -203,15 +203,12 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
   :tools '("introspection")
   :use-tools t)
 
-(autoload #'gptel-global-chat "lib-gptel" nil t)
-(autoload #'gptel-project-chat "lib-gptel" nil t)
-
 (global-bind-keys
  ("C-c RET" . gptel-send)
  ("C-c u g" . gptel)
  ("C-c u G" . gptel-menu)
- ("C-c u c" . gptel-global-chat)
- ("C-c u p" . gptel-project-chat))
+ ("C-c u c" . agental-global-chat)
+ ("C-c u p" . agental-project-chat))
 
 (add-hook 'gptel-mode-hook
           #'gptel-highlight-mode)

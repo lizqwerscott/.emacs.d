@@ -393,6 +393,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
                          :files (:defaults "agents"))
             (gptel-aibo :fetcher github
                         :repo "dolmens/gptel-aibo")
+            (agental :fetcher github :repo "lizqwerscott/agental"
+                     :files (:defaults "prompts"))
             (mcp :fetcher github
                  :repo "lizqwerscott/mcp.el")
             (macher :host github :repo "kmontag/macher"))
