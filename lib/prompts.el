@@ -45,7 +45,7 @@ return as well.
 
 If PATH cannot be read or is not a valid file, return nil."
   (when-let* ((path (file-truename path)))
-    (let ((name (file-name-sans-extension (file-name-nondirectory path)))
+    (let ((name (intern (file-name-sans-extension (file-name-nondirectory path))))
           (params)
           (res))
       (with-temp-buffer
@@ -76,6 +76,7 @@ If PATH cannot be read or is not a valid file, return nil."
                           (val (pop tail)))
                       (pcase key
                         ((or :pre :post) (plist-put parsed-yaml key (eval (read val) t)))
+                        (:name (setq name (intern val)))
                         (:parents (plist-put parsed-yaml key
                                              (mapcar #'intern (ensure-list (read val)))))))))
 
@@ -94,14 +95,7 @@ If PATH cannot be read or is not a valid file, return nil."
         (setq res (append res
                           (list :system (buffer-substring-no-properties (point) (point-max))
                                 :params params))))
-
-      (plist-put res
-                 :name
-                 (intern (if (plist-get res :name)
-                             (plist-get res :name)
-                           name)))
-
-      res)))
+      (cons name res))))
 
 (defun get-all-prompts (dir)
   "Return a list of all prompt templates found in directory DIR.
@@ -111,7 +105,7 @@ Search for files with extensions .txt, .md, or .org. Each template is created by
         (res))
     (dolist (file files)
       (when-let* ((template (make-prompt-template file)))
-        (push (cons (plist-get template :name) template) res)))
+        (push template res)))
     res))
 
 (defun make-prompt (prompt-template &optional params-alist)
