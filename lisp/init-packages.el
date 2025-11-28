@@ -139,12 +139,13 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
               (fetcher (car info))
               (owner (elt info 1))
               (repo-name (elt info 2))
-              (repo-name (replace-regexp-in-string "\\.git$" "" repo-name)))
-    (insert (format "(%s :fetcher %s :repo \"%s/%s\")"
-                    repo-name
-                    fetcher
-                    owner
-                    repo-name))))
+              (repo-name (replace-regexp-in-string "\\.git$" "" repo-name))
+              (recipe (format "(%s :fetcher %s :repo \"%s/%s\")"
+                              repo-name
+                              fetcher
+                              owner
+                              repo-name)))
+    (insert recipe)))
 
 (defvar *package-early-install-list*
   '(no-littering
