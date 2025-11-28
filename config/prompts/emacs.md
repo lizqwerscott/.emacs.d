@@ -1,8 +1,7 @@
 ---
 name: emacs-agent
-description: The default emacs-agent
+description: Emacs 大师
 tools:
-  - read_documentation
   - function_completions
   - command_completions
   - variable_completions

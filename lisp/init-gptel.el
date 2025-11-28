@@ -101,7 +101,6 @@
                                           " without any explanation or markdown code fences or org code fences."
                                           " translate chinese to english."))
                     (docstr . ,(make-prompt (alist-get 'docstr prompt-templates) nil))
-                    (emacs . ,(make-prompt (alist-get 'emacs prompt-templates) nil))
                     (ragmacs . ,(make-prompt (alist-get 'ragmacs prompt-templates) nil))
                     (translate-english . ,(make-prompt (alist-get 'translate prompt-templates)
                                                        '(("to" . "english")
@@ -177,23 +176,13 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
   :tools '(:append ("find_files" "list_directory"))
   :use-tools t)
 
-(gptel-make-preset 'emacs
-  :description "Emacs 大师"
-  :pre (lambda () (require 'ragmacs))
-  :system (alist-get 'emacs gptel-directives)
-  :tools '(
-           "function_completions"
-           "command_completions"
-           "variable_completions"
-
-           "function_source"
-           "library_source"
-           "variable_source"
-
-           "variable_documentation"
-           "function_documentation"
-           )
-  :use-tools t)
+(let ((agent (alist-get 'emacs-agent prompt-templates)))
+  (gptel-make-preset 'emacs
+    :description (plist-get agent :description)
+    :pre (lambda () (require 'ragmacs))
+    :system (plist-get agent :system)
+    :tools (plist-get agent :tools)
+    :use-tools t))
 
 (gptel-make-preset 'elisp-document
   :description "Elisp 文档大师"

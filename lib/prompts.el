@@ -24,32 +24,84 @@
 
 ;;; Code:
 
+(require 'yaml)
+
 (defvar prompt-templates nil
   "All prompt templates.")
 
-(defun make-prompt-template (path &optional name)
+(defun make-prompt-template (path)
   "Create a prompt template from a file at PATH.
-Optional NAME specifies the template name, defaulting to the file's base name
-without extension. The template content is read from the file and all parameter
-placeholders of the form {{PARAM}} are extracted.
-Return a cons cell (NAME . (CONTENT . PARAMS)) where CONTENT is the template
-text as a string and PARAMS is a list of parameter names found in the template."
+
+The template content is read from the file and all parameter placeholders of the
+form {{PARAM}} are extracted.
+
+Return an plist with the following keys:
+- =name': The template name (derived from the file name without extension)
+- =params': List of parameter names found in the template
+- =content': The full template content as a string
+
+If there is a YAML configuration at the beginning of the file, include it in the
+return as well.
+
+If PATH cannot be read or is not a valid file, return nil."
   (when-let* ((path (file-truename path)))
-    (let ((name (if name
-                    name
-                  (intern (file-name-sans-extension (file-name-nondirectory path)))))
-          (content)
-          (params))
+    (let ((name (file-name-sans-extension (file-name-nondirectory path)))
+          (params)
+          (res))
       (with-temp-buffer
         (insert-file-contents path)
-        (setq content (buffer-string))
         (goto-char (point-min))
+
+        (when (looking-at-p "^---[ \t]*$")
+          (forward-line 1)
+          (let ((frontmatter-start (point)))
+
+            ;; Search for closing delimiter
+            (unless (re-search-forward "^---[ \t]*$" nil t)
+              (error "Malformed frontmatter: opening delimiter '---' found but no closing delimiter"))
+
+            ;; Extract frontmatter text (from start to beginning of closing delimiter)
+            (let* ((frontmatter-end (match-beginning 0))
+                   (frontmatter-str (buffer-substring-no-properties frontmatter-start frontmatter-end)))
+
+              ;; Parse YAML frontmatter
+              (let ((parsed-yaml (yaml-parse-string
+                                  frontmatter-str
+                                  :object-type 'plist
+                                  :object-key-type 'keyword
+                                  :sequence-type 'list)))
+                (let ((tail parsed-yaml))
+                  (while tail
+                    (let ((key (pop tail))
+                          (val (pop tail)))
+                      (pcase key
+                        ((or :pre :post) (plist-put parsed-yaml key (eval (read val) t)))
+                        (:parents (plist-put parsed-yaml key
+                                             (mapcar #'intern (ensure-list (read val)))))))))
+
+                ;; Validate all keys in the parsed YAML
+                (let ((current-plist parsed-yaml))
+                  (while current-plist
+                    (setq current-plist (cddr current-plist))))
+
+                (setq res (append res parsed-yaml))))))
+
         (while (search-forward-regexp "{{\\([^}]+\\)}}" nil t)
           (let ((param (match-string 1)))
             (unless (member param params)
               (push param params))))
-        (setq params (nreverse params)))
-      (cons name (cons content params)))))
+
+        (setq res (append res
+                          (list :system (buffer-substring-no-properties (point) (point-max))
+                                :params params))))
+
+      (plist-put res
+                 :name
+                 (intern (if (plist-get res :name)
+                             (plist-get res :name)
+                           name)))
+
+      res)))
 
 (defun get-all-prompts (dir)
   "Return a list of all prompt templates found in directory DIR.
@@ -59,7 +111,7 @@ Search for files with extensions .txt, .md, or .org. Each template is created by
         (res))
     (dolist (file files)
       (when-let* ((template (make-prompt-template file)))
-        (push template res)))
+        (push (cons (plist-get template :name) template) res)))
     res))
 
 (defun make-prompt (prompt-template &optional params-alist)
@@ -69,8 +121,8 @@ as returned by `make-prompt-template'.
 PARAMS-ALIST is an alist where each element is (PARAM-NAME . VALUE).
 All occurrences of {{PARAM-NAME}} in the template content are replaced with the
 corresponding VALUE. Return the resulting prompt as a string."
-  (let* ((content (car prompt-template))
-         (params (cdr prompt-template)))
+  (let* ((content (plist-get prompt-template :system))
+         (params (plist-get prompt-template :params)))
     (if params-alist
         (with-temp-buffer
           (insert content)
