@@ -85,19 +85,6 @@
                      :description "The name of the buffer whose contents are to be retrieved"))
  :category "emacs")
 
-
-(gptel-make-tool
- :function (lambda (directory)
-             (mapconcat #'identity
-                        (directory-files directory)
-                        "\n"))
- :name "list_directory"
- :description "List the contents of a given directory"
- :args (list '(:name "directory"
-                     :type "string"
-                     :description "The path to the directory to list"))
- :category "filesystem")
-
 (gptel-make-tool
  :function (lambda (parent name)
              (condition-case nil
