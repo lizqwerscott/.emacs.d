@@ -188,12 +188,13 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
   :description "Elisp 文档大师"
   :system (alist-get 'docstr gptel-directives))
 
-(gptel-make-preset 'python-program
-  :description "Python 编程大师"
-  :pre (lambda () (require 'gptel-agent))
-  :system (agental-prompts-make 'program
-                                '(("language" . "Python")))
-  :use-tools t)
+;; program agent
+(let ((agent (alist-get 'program-agent agental-prompts-templates)))
+  (gptel-make-preset 'program
+    :description (plist-get agent :description)
+    :system (plist-get agent :system)
+    :tools (plist-get agent :tools)
+    :use-tools t))
 
 ;; ragmacs
 (gptel-make-preset 'ragmacs

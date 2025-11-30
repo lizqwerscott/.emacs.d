@@ -245,5 +245,245 @@ Supports glob-style ignore patterns and optionally respects .gitignore and .aiig
                 :optional t))
  :category "filesystem")
 
+;;; edit tools
+(defun ai-tools--generate-patch-diff (path orig-content new-content)
+  "Generate a unified diff patch comparing ORIG-CONTENT and NEW-CONTENT for PATH.
+
+PATH is the file path for which to generate the diff.  ORIG-CONTENT is
+the original file content, which may be nil for new files.  NEW-CONTENT
+is the modified file content, which may be nil for deleted files.
+
+Return a unified diff string showing the changes between ORIG-CONTENT
+and NEW-CONTENT, or nil if the file has not changed.  The diff uses
+git-style headers and labels to properly handle file creations and
+deletions."
+  (let* (;; Get the path relative to the base directory.
+         (rel-path (file-truename path))
+         ;; Check if file has actually changed.
+         (file-changed-p (not (equal orig-content new-content)))
+         result)
+
+    ;; Only generate diff if the file has actually changed.
+    (when file-changed-p
+      (let ((temp-orig (make-temp-file "gptel-diff-orig"))
+            (temp-new (make-temp-file "gptel-diff-new")))
+
+        ;; Write original content (or empty file for new files).
+        (with-temp-buffer
+          (when orig-content
+            (insert orig-content))
+          (write-region (point-min) (point-max) temp-orig nil 'silent))
+
+        ;; Write new content or create empty file for deletions.
+        (with-temp-buffer
+          (when new-content
+            (insert new-content))
+          (write-region (point-min) (point-max) temp-new nil 'silent))
+
+        ;; Generate diff and append to result.
+        (with-temp-buffer
+          ;; Add the standard git diff header, which allows diff-mode to create new files.
+          (insert (format "diff --git a/%s b/%s\n" rel-path rel-path))
+
+          ;; Use diff to generate a unified patch with the correct file path.
+          (when (or orig-content new-content)
+            (call-process "diff"
+                          nil t nil "-u" "--label"
+                          (if orig-content
+                              (concat "a/" rel-path)
+                            ;; Use /dev/null to denote file creations.
+                            "/dev/null")
+                          "--label"
+                          (if new-content
+                              (concat "b/" rel-path)
+                            ;; Use /dev/null to denote file deletions.
+                            "/dev/null")
+                          temp-orig temp-new))
+
+          ;; Append the diff to the result.
+          (setq result (concat result (buffer-string))))
+
+        ;; Clean up the temp files.
+        (delete-file temp-orig)
+        (delete-file temp-new)))
+    result))
+
+
+(defun ai-tools--edit-string (content old-string new-string &optional replace-all)
+  "In CONTENT string, replace OLD-STRING with NEW-STRING.
+
+If REPLACE-ALL is non-nil, replace all occurrences. Otherwise, error if
+multiple matches exist and replace only single occurrences.
+
+Return the new content string if the replacement was successful, or signal
+an error if it was not."
+  (let ((case-fold-search nil))
+    ;; Error if old-string and new-string are identical
+    (when (string-equal old-string new-string)
+      (error "No changes to make: old_string and new_string are exactly the same"))
+    ;; Handle empty old-string specially.
+    (if (string-empty-p old-string)
+        (if (string-empty-p content)
+            ;; If content is empty, return the new string.
+            new-string
+          ;; If content is not empty and old-string is empty, throw an error.
+          (error "Cannot replace empty string in non-empty content"))
+      ;; Normal case: old-string is not empty.
+      (let* ((start 0)
+             (matches 0)
+             (match-positions '()))
+        ;; Count matches and collect positions.
+        (while (setq start (string-search old-string content start))
+          (setq matches (1+ matches))
+          (push start match-positions)
+          (setq start (+ start (length old-string))))
+
+        (cond
+         ((= matches 0)
+          (error "String to replace not found in file"))
+         ((and (> matches 1) (not replace-all))
+          (error
+           (concat
+            "Found %d matches of the string to replace, but replace_all is false. "
+            "To replace all occurrences, set replace_all to true. To replace only one "
+            "occurrence, please provide more context to uniquely identify the instance")
+           matches))
+         (t
+          ;; Perform replacement(s)
+          (if replace-all
+              ;; Replace all occurrences (work backwards to preserve positions)
+              (let ((result content))
+                (dolist (pos (sort match-positions '>))
+                  (setq result
+                        (concat
+                         (substring result 0 pos)
+                         new-string
+                         (substring result (+ pos (length old-string))))))
+                result)
+            ;; Replace single occurrence
+            (let ((match-pos (car (reverse match-positions))))
+              (concat
+               (substring content 0 match-pos)
+               new-string
+               (substring content (+ match-pos (length old-string))))))))))))
+
+
+(defun ai-tools--edit-file (path edits)
+  "Edit file in PATH with new content.
+
+PATH is the path to the file.
+
+EDITS is a vector of edit operations, each containing :old_string and
+:new_string. For compatibility with LLMs that don't support array arguments, a
+JSON string representing an array is also accepted.
+
+All edits are applied in sequence to the same file. Each edit requires exact
+whitespace matching. If any edit fails, the entire operation fails.
+
+Returns (content . new-content) on success. Signals an error if the file is not
+found or if the edit operation fails."
+  (unless (vectorp edits)
+    (if (stringp edits)
+        ;; Try to decode JSON string to vector.
+        (condition-case nil
+            (let ((decoded (json-parse-string edits :array-type 'vector :object-type 'plist)))
+              (if (vectorp decoded)
+                  (setq edits decoded)
+                (error
+                 "The 'edits' parameter must be an array, but the decoded JSON is not an array")))
+          (error
+           (error
+            "The 'edits' parameter must be an array of objects, or a valid JSON string representing an array")))
+      ;; Not a vector or string - invalid input.
+      (error "The 'edits' parameter must be an array of objects, not %s" (type-of edits))))
+  (let ((full-path (file-truename path)))
+    (if (file-exists-p full-path)
+        (when-let* ((content (with-temp-buffer (insert-file-contents full-path) (buffer-string)))
+                    (new-content content))
+          (cl-loop
+           for edit across edits do
+           (let ((old-text (plist-get edit :old_text))
+                 (new-text (plist-get edit :new_text))
+                 (replace-all (plist-get edit :replace_all)))
+
+             (unless (and old-text new-text)
+               (error
+                "Each edit must contain old_text and new_text properties"))
+             ;; Handle :json-false inputs for replace-all parameter.
+             (setq replace-all
+                   (and replace-all (not (eq replace-all :json-false))))
+             (setq new-content
+                   (ai-tools--edit-string new-content old-text new-text
+                                          replace-all))))
+          (cons content new-content))
+      (error "The '%s' file not find" path))))
+
+(defun ai-tools-edit-file-tool (path edits)
+  "Edit file in PATH with new content.
+
+PATH is the path to the file.
+
+EDITS is a vector of edit operations, each containing :old_string and
+:new_string. For compatibility with LLMs that don't support array
+arguments, a JSON string representing an array is also accepted.
+
+All edits are applied in sequence to the same file. Each edit requires
+exact whitespace matching. If any edit fails, the entire operation
+fails.
+
+Returns nil on success. Signals an error if the file is not found or if the edit
+operation fails."
+  (condition-case err
+      (pcase-let* ((`(,content . ,new-content) (ai-tools--edit-file path edits)))
+        ;; generate diff buffer
+        (let ((diff-buffer (get-buffer-create (format "*Diff for %s*" path)))
+              (diff-text (ai-tools--generate-patch-diff path content new-content)))
+          (if diff-text
+              (progn
+                (with-current-buffer diff-buffer
+                  (insert diff-text)
+                  (diff-mode))
+                (pop-to-buffer-same-window diff-buffer)
+                "Generate diff success.")
+            "Generate diff buffer error, new content same with orign content")))
+    (error
+     (error-message-string err))))
+
+(gptel-make-tool
+ :name "edit_file"
+ :function #'ai-tools-edit-file-tool
+ :description
+ (concat
+  "Make multiple exact string replacements in a single file. "
+  "Edits are applied sequentially in array order to the same file. "
+  "Each edit requires exact whitespace matching. Do NOT include line numbers in old_text or new_text. "
+  "If any edit fails, no changes are made. Returns null on success.")
+ :confirm nil
+ :include nil
+ :args
+ `((:name "path" :type string :description "Path to the file")
+   (:name
+    "edits"
+    :type array
+    :description "Array of edit operations to apply in sequence"
+    :items
+    (:type
+     object
+     :properties
+     (:old_text
+      (:type
+       string
+       :description
+       ,(concat
+         "Exact text to find and replace. Must match precisely including whitespace "
+         "and newlines. Do NOT include line numbers."))
+      :new_text (:type string :description "Text to replace the old_text with")
+      :replace_all
+      (:type
+       boolean
+       :description "If true, replace all occurrences. If false (default), error if multiple matches exist"))
+     :required ["old_text" "new_text"])))
+ :category "filesystem")
+
 (provide 'ai-tools)
 ;;; ai-tools.el ends here
