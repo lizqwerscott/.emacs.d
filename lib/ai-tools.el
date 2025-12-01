@@ -441,9 +441,25 @@ operation fails."
           (if diff-text
               (progn
                 (with-current-buffer diff-buffer
-                  (insert diff-text)
-                  (diff-mode))
-                (pop-to-buffer-same-window diff-buffer)
+                  (let ((was-read-only buffer-read-only))
+                    ;; Temporarily disable read-only mode to update the buffer.
+                    (when was-read-only
+                      (read-only-mode -1))
+                    (erase-buffer)
+                    (insert diff-text)
+                    (when was-read-only
+                      (read-only-mode 1)))
+
+                  (diff-mode)
+
+                  ;; Move to the beginning of the buffer.
+                  (goto-char (point-min)))
+
+                (display-buffer diff-buffer
+                                '(nil
+                                  (display-buffer-reuse-mode-window display-buffer-other-window)
+                                  (body-function . select-window)))
+
                 "Generate diff success.")
             "Generate diff buffer error, new content same with orign content")))
     (error
