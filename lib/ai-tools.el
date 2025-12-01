@@ -456,8 +456,7 @@ operation fails."
                   (goto-char (point-min)))
 
                 (display-buffer diff-buffer
-                                '(nil
-                                  (display-buffer-reuse-mode-window display-buffer-other-window)
+                                '(display-buffer-reuse-window
                                   (body-function . select-window)))
 
                 "Generate diff success.")
