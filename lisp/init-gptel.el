@@ -86,6 +86,13 @@
   :stream t
   :key #'gptel-api-key)
 
+(gptel-make-openai "Chatanywhere"
+  :stream t
+  :protocol "https"
+  :host "api.chatanywhere.tech"
+  :key #'gptel-api-key
+  :models '(deepseek-chat deepseek-ocr deepseek-r1 deepseek-v3.2 deepseek-v3.2-thinking gpt-4o-ca gpt-4.1-ca gpt-5.1-ca gpt-5-chat-latest-ca gpt-5.1-chat-latest-ca))
+
 (setq gptel-model 'deepseek-chat)
 (setq gptel-backend
       (gptel-get-backend "deepseek"))
