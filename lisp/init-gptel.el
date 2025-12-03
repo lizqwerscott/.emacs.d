@@ -82,6 +82,10 @@
              :context-window 200
              :request-params (:temperature 0.7 :top_p 0.8 :top_k 20 :repetition_penalty 1.05))))
 
+(gptel-make-gemini "Gemini"
+  :stream t
+  :key #'gptel-api-key)
+
 (setq gptel-model 'deepseek-chat)
 (setq gptel-backend
       (gptel-get-backend "deepseek"))
