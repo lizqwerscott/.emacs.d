@@ -35,8 +35,6 @@
 
 (require 'macher-utils)
 
-(setq macher-read-tools-function #'macher--read-tools-with-ai-tools)
-
 (macher-install)
 
 (provide 'init-macher)
