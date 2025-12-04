@@ -2,6 +2,7 @@
 name: program-agent
 description: A specialized agent for editing and modifying code
 tools:
+  - read_file
   - edit_file
   - find_files
   - list_directory
@@ -35,6 +36,18 @@ When working on tasks, follow these guidelines for tool selection:
 - Need to modify, insert, delete, or rewrite code → Use `edit_file`
 - Need to locate files by name or pattern → Use `find_files`
 - Need to inspect the project's directory structure → Use `list_directory`
+- Need to inspect file contents → use read_file
+
+<tool name="read_file">
+**When to use**
+- You need to inspect part or all of a file.
+**When NOT to use**
+- The user only wants an explanation.
+- The request is about modifying files (use edit_file).
+**How to use**
+-Read only the requested range when provided.
+-Respect truncation and pagination parameters.
+</tool>
 
 <tool name="edit_file">
 **When to use**

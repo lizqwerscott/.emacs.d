@@ -245,6 +245,243 @@ Supports glob-style ignore patterns and optionally respects .gitignore and .aiig
                 :optional t))
  :category "filesystem")
 
+;;; read file tools
+
+;; (defcustom ai-tools-max-read-length 1048576
+;;   "Maximum number of characters to read from a file.
+
+;; Non-nil means read at most this many characters from any file. If nil, read the
+;; entire file regardless of its size. This variable is used by the file reading
+;; tools in this package to limit memory usage when processing large files."
+;;   :type 'number)
+
+(defcustom ai-tools-max-read-length 100
+  "Maximum number of line to read from a file.
+
+Non-nil means read at most this many characters from any file. If nil, read the
+entire file regardless of its size. This variable is used by the file reading
+tools in this package to limit memory usage when processing large files."
+  :type 'number
+  :group 'ai-tools)
+
+(defun ai-tools--read-string (content &optional offset limit show-line-numbers)
+  "Read string CONTENT with optional line-number OFFSET and LIMIT.
+
+- CONTENT is the full string content to read from.
+
+- OFFSET, if provided, specifies the line number to start reading
+  from (1-based). For negative values, starts at that many lines before
+  the end of the file.
+
+- LIMIT, if provided, specifies the number of lines to read from the
+  start position. For negative values, the actual limit is computed as
+  (total_lines + limit). For example, with a 100-line file: limit=10
+  reads 10 lines, limit=-10 reads 90 lines (100 + (-10)).
+
+- SHOW-LINE-NUMBERS, if non-nil, formats output in cat -n style with
+  line numbers. Lines are formatted as \"[spaces for alignment][line
+  number][tab][line content]\".
+
+If neither OFFSET nor LIMIT is provided, returns the full content.
+
+If only OFFSET is provided, returns content from that line to the end.
+
+If only LIMIT is provided, returns the first LIMIT lines.
+
+If both are provided, returns LIMIT lines starting from OFFSET.
+
+Returns the processed content as a string."
+  (if (and (not offset) (not limit) (not show-line-numbers))
+      ;; Return full content if no parameters provided.
+      content
+    (let* ((lines (split-string content "\n"))
+           (num-lines (length lines))
+           (start-idx
+            (if offset
+                (cond
+                 ;; Negative offset: start at that many lines before the end.
+                 ((< offset 0)
+                  (max 0 (+ num-lines offset)))
+                 ;; Zero or positive offset: 1-based indexing (treat 0 as 1).
+                 (t
+                  (max 0 (min (1- (max 1 offset)) num-lines))))
+              0))
+           (actual-limit
+            (when limit
+              (cond
+               ;; Negative limit: equivalent to total lines - (negative limit value).
+               ((< limit 0)
+                (max 0 (+ num-lines limit)))
+               ;; Zero or positive limit: use as-is.
+               (t
+                limit))))
+           (end-idx
+            (if actual-limit
+                (min num-lines (+ start-idx actual-limit))
+              num-lines))
+           (selected-lines (seq-subseq lines start-idx end-idx)))
+      (cond
+       (show-line-numbers
+        ;; Format with line numbers (cat -n style).
+        (let* ((actual-start-line (1+ start-idx))
+               ;; `cat -n` includes the trailing newline if present, but doesn't number it. We
+               ;; handle this as a special case. If:
+               ;;
+               ;; - the last line is empty
+               ;; - we're looking at the actual last line of the content (i.e. not a blank line in
+               ;;   the middle)
+               ;; - there's more than one line (since `cat -n` on a completely blank file does show
+               ;;   line number 1
+               ;;
+               ;; then exclude the last line from the list of lines to be numbered, and add it back
+               ;; at the end.
+               (should-exclude-final-empty
+                (and (= end-idx num-lines) ; processing to end.
+                     (> (length selected-lines) 1) ; we have more than one line.
+                     (string-empty-p (car (last selected-lines))))) ; last line is empty.
+               (lines-to-number
+                (if should-exclude-final-empty
+                    (butlast selected-lines)
+                  selected-lines))
+               (max-line-num (+ actual-start-line (length lines-to-number) -1))
+               (line-num-width
+                (if (> (length lines-to-number) 0)
+                    (length (number-to-string max-line-num))
+                  1))
+               (formatted-lines
+                (cl-loop
+                 for
+                 line
+                 in
+                 lines-to-number
+                 for
+                 line-num
+                 from
+                 actual-start-line
+                 collect
+                 (format (concat "%" (number-to-string line-num-width) "d\t%s") line-num line)))
+               (result (string-join formatted-lines "\n")))
+          ;; Add the final trailing newline if we excluded the final empty line
+          (if should-exclude-final-empty
+              (concat result "\n")
+            result)))
+       ;; Regular format without line numbers.
+       (t
+        (string-join selected-lines "\n"))))))
+
+(defun ai-tools--read-file (path &optional offset limit show-line-numbers)
+  "Read the contents of a file specified by PATH.
+
+PATH is the path to the file, relative to the workspace root.
+
+OFFSET, if provided, specifies the line number to start reading
+from (1-based).
+
+LIMIT, if provided, specifies the number of lines to read.
+
+SHOW-LINE-NUMBERS, if non-nil, formats output in cat -n style with line numbers.
+
+Returns the file contents as a string, with optional
+offset/limit/show-line-numbers processing. For symlinks, returns the target
+path instead of following the link. Signals an error if the file is not
+found in the workspace."
+  (let* ((full-path (file-truename path)))
+    (if (file-exists-p full-path)
+        ;; Check if this is a symlink first (only for existing files).
+        (if (file-symlink-p full-path)
+            ;; For symlinks, return the target path instead of following the link.
+            (let ((target (file-symlink-p full-path)))
+              (format "Symlink target: %s" target))
+
+          ;; Normal/non-symlink handling.
+          ;; Some LLMs (for example qwen3-coder at time of writing) seem to have trouble invoking
+          ;; tools with integer inputs - they'll always pass e.g. '1.0' instead of '1'. Therefore we
+          ;; need to support float inputs, which in general we handle by rounding to the nearest
+          ;; integer.
+          (let* ((content (with-temp-buffer (insert-file-contents full-path) (buffer-string)))
+                 (parsed-offset
+                  (if offset
+                      (round offset)
+                    0))
+                 (parsed-limit
+                  (if limit
+                      (min (round limit) ai-tools-max-read-length)
+                    ai-tools-max-read-length))
+                 (processed-content
+                  (ai-tools--read-string content parsed-offset parsed-limit show-line-numbers)))
+            ;; Check if the processed content exceeds the maximum read length.
+            (if (> parsed-limit ai-tools-max-read-length)
+                ;; truncated file.
+                (concat
+                 "IMPORTANT: The file content has been truncated.\n"
+                 (format "Status: Showing lines %d-%d  of %d total lines.\n" parsed-offset (+ parsed-limit parsed-offset) parsed-limit)
+                 (format "Action: To read more of the file, you can use the 'offset' and 'limit' parameters in a subsequent 'read_file' call. For example, to read the next section of the file, use offset: %s.\n"
+                         (+ offset parsed-limit))
+                 (substring processed-content 0 ai-tools-max-read-length)
+                 "<truncated...>")
+              processed-content)))
+      (error "File not exists"))))
+
+(defun ai-tools-read-file-tool (path &optional offset limit show-line-numbers)
+  "Read the contents of a file specified by PATH.
+
+PATH is the path to the file, relative to the workspace root.
+
+OFFSET, if provided, specifies the line number to start reading
+from (1-based).
+
+LIMIT, if provided, specifies the number of lines to read.
+
+SHOW-LINE-NUMBERS, if non-nil, formats output in cat -n style with line numbers.
+
+Returns the file contents as a string, with optional
+offset/limit/show-line-numbers processing. For symlinks, returns the target
+path instead of following the link. Signals an error if the file is not
+found in the workspace."
+  (condition-case err
+      (ai-tools--read-file path offset limit show-line-numbers)
+    (error
+     (error-message-string err))))
+
+(gptel-make-tool
+ :name "read_file"
+ :function #'ai-tools-read-file-tool
+ :description
+ (concat
+  "Reads and returns the content of a specified file. If the file is large, the content will be truncated."
+  "The tool's response will clearly indicate if truncation has occurred and will provide details on how to read more of the file using the 'offset' and 'limit' parameters."
+  "Handles text files. For text files, it can read specific line ranges.")
+ :confirm nil
+ :include nil
+ :args
+ `((:name "path" :type string :description "Path to the file, relative to workspace root")
+   (:name
+    "offset"
+    :type number
+    :optional t
+    :description
+    ,(concat
+      "Optional: For text files, the 0-based line number to start reading from."
+      "Requires 'limit' to be set. Use for paginating through large files."))
+   (:name
+    "limit"
+    :type number
+    :optional t
+    :description
+    ,(concat
+      "Optional: For text files, maximum number of lines to read."
+      " Use with 'offset' to paginate through large files."
+      " If omitted, reads the entire file (if feasible, up to a default limit)."))
+   (:name
+    "show_line_numbers"
+    :type boolean
+    :optional t
+    :description
+    ,(concat
+      "Include line numbers in output (cat -n style: each line prefixed with right-aligned "
+      "line number and a tab character)")))
+ :category "filesystem")
+
 ;;; edit tools
 (defun ai-tools--generate-patch-diff (path orig-content new-content)
   "Generate a unified diff patch comparing ORIG-CONTENT and NEW-CONTENT for PATH.
