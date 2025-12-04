@@ -99,11 +99,14 @@
 
 (require 'gptel)
 
-(setopt agental-prompts-path
-        (list (concat user-emacs-directory
-                      "config/prompts")))
+(require 'agental-prompts)
+(add-to-list 'agental-prompts-path
+             (concat user-emacs-directory
+                     "config/prompts"))
 
 (agental-prompts-update)
+
+(agental-install)
 
 (add-list-to-list 'gptel-directives
                   `((translate . ,(concat "You are a large language model and a writing assistant. Respond concisely."
@@ -181,12 +184,6 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
   :tools nil
   :use-tools nil)
 
-(gptel-make-preset 'file-search
-  :description "file search"
-  :pre (lambda () (require 'ai-tools))
-  :tools '(:append ("find_files" "list_directory"))
-  :use-tools t)
-
 (let ((agent (alist-get 'emacs-agent agental-prompts-templates)))
   (gptel-make-preset 'emacs
     :description (plist-get agent :description)
@@ -197,15 +194,8 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
 
 (gptel-make-preset 'elisp-document
   :description "Elisp 文档大师"
-  :system (alist-get 'docstr gptel-directives))
-
-;; program agent
-(let ((agent (alist-get 'program-agent agental-prompts-templates)))
-  (gptel-make-preset 'program
-    :description (plist-get agent :description)
-    :system (plist-get agent :system)
-    :tools (plist-get agent :tools)
-    :use-tools t))
+  :system (alist-get 'docstr gptel-directives)
+  :use-tools t)
 
 ;; ragmacs
 (gptel-make-preset 'ragmacs
