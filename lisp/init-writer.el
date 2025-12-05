@@ -213,7 +213,8 @@
 ;;; denote journal
 (defun denote-week-report-template ()
   "Generate week template."
-  (concat "* 本周工作总结"
+  (concat "#+OPTIONS: tags:nil\n\n"
+          "* 本周工作总结"
           "\n\n"
           "* 下周工作计划"))
 
