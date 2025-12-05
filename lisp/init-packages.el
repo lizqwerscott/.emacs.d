@@ -157,9 +157,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
   '((transient :wait t)
     (org :repo "https://code.tecosaur.net/tec/org-mode.git/"
          :branch "dev"
-         :wait t)
-    (flymake :wait t)
-    (jsonrpc :wait t)))
+         :wait t)))
 
 (defvar *package-base-install-list*
   '(gcmh
@@ -251,8 +249,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     package-lint
     ,@(pcase user/lsp-client
         ('eglot
-         `(eglot
-           (eglot-booster :fetcher github :repo "jdtsmith/eglot-booster")
+         `((eglot-booster :fetcher github :repo "jdtsmith/eglot-booster")
            consult-eglot
            ,@(when user/flyoverp
                '(flycheck
