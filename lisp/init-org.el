@@ -154,6 +154,39 @@ an argument, unconditionally call `org-insert-heading'."
 				                ((org-in-item-p) #'org-insert-item-auto-checkbox)
 				                (t #'org-insert-heading)))))
 
+(defun org-get-export-file-paths ()
+  "Get all possible export file paths for current Org buffer.
+Returns an alist where keys are export formats and values are file paths."
+  (interactive)
+  (let ((paths '())
+        (formats '(("html" . ".html")
+                   ("latex" . ".tex")
+                   ("pdf" . ".pdf")
+                   ("markdown" . ".md")
+                   ("odt" . ".odt")
+                   ("org" . ".org")
+                   ("ascii" . ".txt")
+                   ("texinfo" . ".texi"))))
+    (dolist (format formats)
+      (let* ((backend (car format))
+             (extension (cdr format))
+             (output-file (org-export-output-file-name extension)))
+        (when (file-exists-p output-file)
+          (push (cons backend output-file) paths))))
+    paths))
+
+(defun org-list-export-file ()
+  "Open export files dired buffer."
+  (interactive)
+  (let* ((export-files (org-get-export-file-paths))
+         (files (mapcar #'cdr export-files)))
+    (cond
+     ((null files)
+      (message "No export files found for current buffer"))
+     (t
+      (dired (cons default-directory files))))))
+
+
 ;;; Org babel
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -356,7 +389,8 @@ prepended to the element after the #+HEADER: tag."
     ("v" "Toggle Valign" valign-mode :toggle t :transient t)]
    ["Org Management"
     ("p" "Set Property" org-set-property)
-    ("E" "Export" org-export-dispatch)]]
+    ("E" "Export" org-export-dispatch)
+    ("L" "List export file" org-list-export-file)]]
   [("q" "Quit" transient-quit-one)])
 
 (defun org-insert-or-surround (open close)
