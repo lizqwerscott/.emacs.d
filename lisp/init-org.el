@@ -289,28 +289,28 @@ Returns an alist where keys are export formats and values are file paths."
 (defun org-rich-yank-with-media ()
   "Yank, surrounded by #+BEGIN_SRC block with major mode of originating buffer."
   (interactive)
-  (let ((yankp))
+  (cl-block 'finish
     (when (gui-backend-get-selection 'CLIPBOARD 'image/png)
-      (condition-case err
-          (yank-media)
-        (user-error
-         (setq yankp t))))
-    (when yankp
-      (let* ((escaped-kill (org-escape-code-in-string (current-kill 0)))
-             (needs-initial-newline
-              (save-excursion
-                (re-search-backward "\\S " (line-beginning-position) 'noerror)))
-             (link (org-rich-yank--link))
-             (paste (funcall org-rich-yank-format-paste
-                             org-rich-yank--lang
-                             escaped-kill
-                             link)))
-        (when needs-initial-newline
-          (insert "\n"))
-        (insert
-         (if org-rich-yank-add-target-indent
-             (org-rich-yank-indent paste)
-           paste))))))
+      (condition-case _
+          (progn
+            (yank-media)
+            (cl-return-from 'finish t))
+        (user-error)))
+    (let* ((escaped-kill (org-escape-code-in-string (current-kill 0)))
+           (needs-initial-newline
+            (save-excursion
+              (re-search-backward "\\S " (line-beginning-position) 'noerror)))
+           (link (org-rich-yank--link))
+           (paste (funcall org-rich-yank-format-paste
+                           org-rich-yank--lang
+                           escaped-kill
+                           link)))
+      (when needs-initial-newline
+        (insert "\n"))
+      (insert
+       (if org-rich-yank-add-target-indent
+           (org-rich-yank-indent paste)
+         paste)))))
 
 (keymap-binds org-mode-map
   (("C-s-y" "C-M-y") . org-rich-yank-with-media)
