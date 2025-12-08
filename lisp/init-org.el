@@ -285,6 +285,37 @@ Returns an alist where keys are export formats and values are file paths."
           link))
 (customize-set-variable 'org-rich-yank-format-paste #'my-org-rich-yank-format-paste)
 
+(require 'org-rich-yank)
+(defun org-rich-yank-with-media ()
+  "Yank, surrounded by #+BEGIN_SRC block with major mode of originating buffer."
+  (interactive)
+  (let ((yankp))
+    (when (gui-backend-get-selection 'CLIPBOARD 'image/png)
+      (condition-case err
+          (yank-media)
+        (user-error
+         (setq yankp t))))
+    (when yankp
+      (let* ((escaped-kill (org-escape-code-in-string (current-kill 0)))
+             (needs-initial-newline
+              (save-excursion
+                (re-search-backward "\\S " (line-beginning-position) 'noerror)))
+             (link (org-rich-yank--link))
+             (paste (funcall org-rich-yank-format-paste
+                             org-rich-yank--lang
+                             escaped-kill
+                             link)))
+        (when needs-initial-newline
+          (insert "\n"))
+        (insert
+         (if org-rich-yank-add-target-indent
+             (org-rich-yank-indent paste)
+           paste))))))
+
+(keymap-binds org-mode-map
+  (("C-s-y" "C-M-y") . org-rich-yank-with-media)
+  (("C-s-p" "C-M-p") . org-rich-yank-with-media))
+
 ;;; menu
 (defun hot-expand (str &optional mod)
   "Expand org template.
