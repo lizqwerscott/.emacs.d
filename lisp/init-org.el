@@ -186,6 +186,21 @@ Returns an alist where keys are export formats and values are file paths."
      (t
       (dired (cons default-directory files))))))
 
+(defun my/org-open-links-in-dired ()
+  "Open all ‘file:’ links in Dired buffer."
+  (interactive)
+  (let* ((links
+          (org-element-map (org-element-parse-buffer) 'link
+            (lambda (link)
+              (when (string= (org-element-property :type link) "file")
+                (org-element-property :path link)))))
+         (abs-paths
+          (mapcar (lambda (path)
+                    (expand-file-name path default-directory))
+                  links)))
+    (if abs-paths
+        (dired abs-paths)
+      (message "No file links found in this buffer."))))
 
 ;;; Org babel
 (org-babel-do-load-languages
