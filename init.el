@@ -62,10 +62,9 @@
 ;;; Programming
 (require 'init-project)
 (require 'init-git)
-(require 'init-lsp)
 (require 'init-citre)
 (require 'init-program)
-
+(require 'init-lsp)
 
 ;; browse support
 (setq browse-url-browser-function
