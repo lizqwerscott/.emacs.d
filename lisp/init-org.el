@@ -497,7 +497,6 @@ OPEN and CLOSE. Otherwise, insert the delimiters with space for text in between.
   ("M-g n" . org-next-visible-heading)
   ("M-g p" . org-previous-visible-heading)
 
-  ("C-M-y" . org-rich-yank)
   ("M-g o" . consult-org-heading)
 
   ("C-c o" . transient-org-toggles)
