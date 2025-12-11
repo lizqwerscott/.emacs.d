@@ -366,7 +366,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     ;;       	:pre-build ("make" "all"))
     biblio
     citar
-    (oxr :fetcher github :repo "bdarcus/oxr")
+    (oxr :fetcher github :repo "liyingzhi/oxr" :branch "fix-insert-name")
     titlecase
     denote
     denote-menu
