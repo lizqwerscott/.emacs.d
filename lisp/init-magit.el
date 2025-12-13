@@ -28,7 +28,10 @@ It is assumed that the author has only one or two names."
         magit-revision-insert-related-refs nil)
   (setq magit-delta-hide-plus-minus-markers nil)
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
-  (setq magit-format-file-function #'magit-format-file-nerd-icons))
+  (setq magit-format-file-function #'magit-format-file-nerd-icons)
+
+  (add-hook 'magit-status-sections-hook
+            #'magit-insert-worktrees t))
 
 (with-eval-after-load 'magit-log
   ;; Set `magit-log-margin' value in :init as many other variables will be
