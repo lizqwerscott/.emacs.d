@@ -83,7 +83,9 @@
   ("v" . unpackaged/magit-project-status)
 
   ("M" . project-manage-dispatch)
-  ("P" . project-switch-project-open))
+  ("P" . project-switch-project-open)
+
+  ("C" . ("Emacs Config" . (lambda () (interactive) (project-switch-project user-emacs-directory)))))
 
 ;;; project-switch-commands
 (setq project-switch-commands
