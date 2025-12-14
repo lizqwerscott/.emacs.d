@@ -33,7 +33,7 @@ Main interface
   sudo apt install libgccjit0 libgccjit-10-dev libjansson4 libjansson-dev \
       gnutls-bin libtree-sitter-dev gcc-10 imagemagick libmagick++-dev \
       libwebp-dev webp libxft-dev libxft2 \
-      sqlite3
+      sqlite3 texinfo
 #+end_src
 **** Compile
 #+begin_src bash
