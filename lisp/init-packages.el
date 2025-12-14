@@ -322,7 +322,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     nerd-icons-ibuffer
     casual
     inhibit-mouse
-    (knockknock :fetcher github :repo "konrad1977/knockknock")))
+    (knockknock :fetcher github :repo "konrad1977/knockknock")
+    (nano-calendar :fetcher github :repo "rougier/nano-calendar")))
 
 (defvar *package-window-install-list*
   '(popper
