@@ -31,7 +31,8 @@
 
 (defcustom fussy-orderless-affix-dispatch-alist '((?= . fussy-orderless-chinese-regexp-score)
                                                   (?! . fussy-orderless-not-score)
-                                                  (?, . fussy-orderless-initialism-score))
+                                                  (?, . fussy-orderless-initialism-score)
+                                                  (?^ . fussy-orderless-literal-prefix-score))
   "A affix dispatch alist for score."
   :group 'fussy
   :type `(alist
@@ -40,6 +41,7 @@
                        (const :tag "Chinese Regexp" ,#'fussy-orderless-chinese-regexp-score)
                        (const :tag "Not" ,#'fussy-orderless-not-score)
                        (const :tag "Initialism" ,#'fussy-orderless-initialism-score)
+                       (const :tag "Literal prefix" ,#'fussy-orderless-literal-prefix-score)
                        (function :tag "Custom matching style"))))
 
 (defun fussy-orderless--get-dispatch-key ()
@@ -147,6 +149,16 @@ Return the cached regexp pattern if found, or nil if no entry exists for KEY."
         (cons score
               (cl-mapcan (lambda (p) (list p (1+ p)))
                          positions))))))
+
+(defun fussy-orderless-literal-prefix-score (string query)
+  "Use QUERY and STRING calc score."
+  (let* ((case-fold-search t)
+         (query-len (length query))
+         (string-len (length string)))
+    (when (and (> query-len 0) (>= string-len query-len))
+      (if (string-prefix-p query string case-fold-search)
+          (list (round (* 100 (/ (float query-len) string-len))) 0 query-len)
+        (list 0)))))
 
 (defun fussy-orderless-score (str prefix-items items-len)
   "Score STR for PREFIX-ITEMS using orderless.
