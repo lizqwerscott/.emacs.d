@@ -33,6 +33,8 @@
 
 (require 'recentf)
 
+(require 'denote)
+
 (defcustom enlight-window-width-ratio 0.8
   "Width ratio for enlight window relative to frame width."
   :type 'number
@@ -191,21 +193,24 @@ each directory in the middle."
                          :width 0.1))))
                    alist))))))))
 
-
 (defun enlight-recent-files-left ()
   "Get enlight recent files."
   (add-hook 'enlight-after-insert-hook #'enlight-menu-first-button)
   (let ((alist (cl-mapcar (lambda (f index)
-                            (pcase-let* ((`(,file-dir . ,file-name) (shorten-file-path f enlight-file-path-max-length)))
-                              `(,(format "%s %s%s"
-                                         (nerd-icons-icon-for-file f)
-                                         (propertize
-                                          file-dir
-                                          'face 'font-lock-comment-face)
-                                         file-name)
-                                (find-file ,f)
-                                ,(format "C-%d"
-                                         index))))
+                            `(,(concat
+                                (nerd-icons-icon-for-file f)
+                                " "
+                                (if (denote-file-has-denoted-filename-p f)
+                                    (concat "[D] " (denote-retrieve-filename-title f))
+                                  (pcase-let* ((`(,file-dir . ,file-name) (shorten-file-path f enlight-file-path-max-length)))
+                                    (format "%s%s"
+                                            (propertize
+                                             file-dir
+                                             'face 'font-lock-comment-face)
+                                            file-name))))
+                              (find-file ,f)
+                              ,(format "C-%d"
+                                       index)))
                           (seq-take recentf-list enlight-recent-file-length)
                           (number-sequence 1 enlight-recent-file-length))))
     (enlight-menu--apply-keys (list
