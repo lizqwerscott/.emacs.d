@@ -234,5 +234,7 @@ This command supports `meow-selection-command-fallback'."
 ;;             :override
 ;;             #'meow-next-thing-cjk)
 
+(require 'meow-smart-enter)
+
 (provide 'init-meow)
 ;;; init-meow.el ends here
