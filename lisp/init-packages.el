@@ -166,6 +166,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     consult
     consult-dir
     bufferfile
+    file-info
     bufferlo
     orderless
     embark

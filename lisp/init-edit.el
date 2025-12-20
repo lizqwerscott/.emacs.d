@@ -204,6 +204,10 @@
 
 (autoload #'bufferfile-dired-do-rename "bufferfile" nil t)
 
+;;; file info
+(global-bind-keys
+ ("C-x x I" . file-info-show))
+
 ;;; rg
 (lazy-load-global-keys
  '(("M-s s" . rg-dwim)
