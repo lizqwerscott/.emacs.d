@@ -24,55 +24,51 @@
 
 ;;; Code:
 
-(require 'dash)
+;;; eshell prompt
+(require 'em-dirs)
 
-(require 'eshell)
-(require 'esh-mode)
-(require 'project)
+(defun my/eshell-prompt-day ()
+  "Day Theme prompt."
+  (concat
+   (propertize "🦊 " 'face '(:foreground "#8B4513"))                       ;; 图标 - 深棕色
+   (propertize (user-login-name) 'face '(:foreground "#191970"))           ;; 用户名 - 藏青色
+   (propertize "@" 'face '(:foreground "#505050"))                         ;; 分隔符 - 深灰色
+   (propertize (file-name-nondirectory (eshell/pwd))                       ;; 目录名 - 深绿色
+               'face '(:foreground "#006400" :bold t :weight 'bold))
+   (propertize "/ > " 'face '(:foreground "#4B0082"))))
 
-;;; eshell toggle
-(defun eshell-toggle--new-buffer (buf-name)
-  "Init BUF-NAME."
-  (let ((default-directory (project-root (project-current t)))
-        (eshell-buffer-name buf-name))
-    (with-temp-buffer
-      (call-interactively #'eshell))))
+(defun my/eshell-prompt-night ()
+  "Night Theme prompt."
+  (let* ((faces '(font-lock-keyword-face    ; 图标
+                  font-lock-function-name-face ; 用户名
+                  font-lock-comment-face    ; 分隔符
+                  font-lock-string-face     ; 目录名
+                  font-lock-type-face))     ; 提示符
+         (colors (mapcar (lambda (face)
+                           (face-attribute face :foreground nil 'default))
+                         faces)))
+    (concat
+     (propertize "🦊 " 'face `(:foreground ,(nth 0 colors)))
+     (propertize (user-login-name) 'face `(:foreground ,(nth 1 colors)))
+     (propertize "@" 'face `(:foreground ,(nth 2 colors)))
+     (propertize (file-name-nondirectory (eshell/pwd))
+                 'face `(:foreground ,(nth 3 colors) :bold t))
+     (propertize " > " 'face `(:foreground ,(nth 4 colors))))))
 
-;;;###autoload
-(defun eshell-project-toggle ()
-  "Show eshell at the bottom of current window and cd to current buffer's path.
-Use popper manager eshell buffer."
-  (interactive)
-  (let ((buf-name (project-prefixed-buffer-name "eshell")))
-    (if (get-buffer buf-name)
-        ;; buffer is already created
-        (or (-some-> buf-name get-buffer-window delete-window)
-            (switch-to-buffer-other-window buf-name))
-      ;; buffer is not created, create it
-      (eshell-toggle--new-buffer buf-name))))
+(setopt eshell-prompt-function #'my/eshell-prompt-night)
 
-(defun eshell/clear ()
+;;; eshell `eldoc' support
+(setup-esh-help-eldoc)
+
+(defun eshell/clear-buffer ()
   "Clear the eshell buffer."
   (interactive)
   (recenter-top-bottom t))
 
-(keymap-set eshell-mode-map
-            "C-l"
-            #'eshell/clear)
-
-;;; eshell prompt
-(with-eval-after-load "esh-opt"
-  (autoload 'epe-theme-pipeline "eshell-prompt-extras")
-  (setq eshell-highlight-prompt nil
-        eshell-prompt-function 'epe-theme-pipeline))
-
-;;; eshell completion
-(when (and (executable-find "fish")
-           (require 'fish-completion nil t))
-  (global-fish-completion-mode))
-
-;;; eshell `eldoc' support
-(setup-esh-help-eldoc)
+(with-eval-after-load 'eshell
+  (keymap-set eshell-mode-map
+              "C-l"
+              #'eshell/clear-buffer))
 
 (add-hook 'eshell-mode-hook
           #'(lambda ()

@@ -76,10 +76,7 @@
   ("m" . ("Multi compile" . projection-multi-compile))
   ("R" . ("Rsync" . rsync-project-dispatch))
   ("t" . ("Vterm" . multi-vterm-project))
-  ("s" . ("Eshell" . (lambda ()
-                       (interactive)
-                       (autoload 'eshell-project-toggle "init-eshell" nil t)
-                       (eshell-project-toggle))))
+  ("s" . ("Eshell" . project-eshell))
   ("v" . unpackaged/magit-project-status)
 
   ("M" . project-manage-dispatch)
