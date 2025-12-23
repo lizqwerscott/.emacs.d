@@ -70,6 +70,10 @@
 (citar-embark-mode)
 
 ;;; denote
+(setq denote-directory
+      (list (file-truename "~/Documents/notes")
+            (file-truename "~/Documents/WorkShare/")))
+
 (setopt denote-sort-keywords t
         denote-link-description-function #'ews-denote-link-description-title-case
         denote-rename-buffer-mode 1)
@@ -96,12 +100,18 @@
 
 (add-hook 'dired-mode-hook
           (lambda ()
-            (when (file-in-directory-p default-directory denote-directory)
+            (when (catch 'found
+                    (dolist (dir (if (listp denote-directory)
+                                     denote-directory
+                                   (list denote-directory)))
+                      (when (file-in-directory-p default-directory dir)
+                        (throw 'found t))))
               (diredfl-mode -1)
               (denote-dired-mode))))
 
 (global-bind-keys
  ("C-c n n" . denote)
+ ("C-c n o" . denote-open-or-create)
  ("C-c n N" . denote-date)
 
  ("C-c n d" . denote-sort-dired)
@@ -152,8 +162,6 @@
 (with-eval-after-load 'embark
   (keymap-binds embark-defun-map
     ("g" . org-dblock-update)))
-
-(consult-notes-denote-mode)
 
 ;;; consult-denote
 (with-eval-after-load 'consult-denote
