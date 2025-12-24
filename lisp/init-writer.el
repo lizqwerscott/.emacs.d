@@ -74,6 +74,12 @@
       (list (file-truename "~/Documents/notes")
             (file-truename "~/Documents/WorkShare/")))
 
+(defun denote-get-first-denote-directory ()
+  "Get first denote directory."
+  (if (listp denote-directory)
+      denote-directory
+    (list denote-directory)))
+
 (setopt denote-sort-keywords t
         denote-link-description-function #'ews-denote-link-description-title-case
         denote-rename-buffer-mode 1)
@@ -101,9 +107,7 @@
 (add-hook 'dired-mode-hook
           (lambda ()
             (when (catch 'found
-                    (dolist (dir (if (listp denote-directory)
-                                     denote-directory
-                                   (list denote-directory)))
+                    (dolist (dir (denote-get-first-denote-directory))
                       (when (file-in-directory-p default-directory dir)
                         (throw 'found t))))
               (diredfl-mode -1)
@@ -163,6 +167,71 @@
   (keymap-binds embark-defun-map
     ("g" . org-dblock-update)))
 
+;;; consult notes for denote
+
+;; (add-list-to-list 'consult-notes-file-dir-sources
+;;                   (let ((dirs (if (listp denote-directory)
+;;                                   denote-directory
+;;                                 (list denote-directory))))
+;;                     (mapcar (lambda (dir)
+;;                               (list (format "Denote Notes(%s)" dir) ?d dir))
+;;                             dirs)))
+
+(require 'consult-notes-denote)
+(defun consult-notes-denote--items (denote-dir)
+  "Consult notes denote items.
+DENOTE-DIR is denote dir."
+  (let* ((max-width 0)
+		 (max-title-width (- (window-width (minibuffer-window)) consult-notes-denote-display-keywords-width))
+         (cands (mapcar (lambda (f)
+                          (let* ((id (denote-retrieve-filename-identifier f))
+                                 (title-1 (or (denote-retrieve-title-value f (denote-filetype-heuristics f))
+								              (denote-retrieve-filename-title f)))
+                                 (title (if consult-notes-denote-display-id
+                                            (concat id " " title-1)
+                                          title-1))
+                                 (dir (file-relative-name (file-name-directory f) denote-dir))
+                                 (keywords (denote-extract-keywords-from-path f)))
+                            (let ((current-width (string-width title)))
+                              (when (> current-width max-width)
+                                (setq max-width (min (+ consult-notes-denote-title-margin current-width)
+								                     max-title-width))))
+                            (propertize title 'denote-path f 'denote-keywords keywords)))
+                        (cl-remove-if-not (lambda (file)
+                                            (file-in-directory-p file denote-dir))
+                                          (funcall consult-notes-denote-files-function)))))
+    (mapcar (lambda (c)
+              (let* ((keywords (get-text-property 0 'denote-keywords c))
+                     (path (get-text-property 0 'denote-path c))
+                     (dirs (directory-file-name (file-relative-name (file-name-directory path) denote-dir))))
+                (concat c
+                        ;; align keywords
+                        (propertize " " 'display `(space :align-to (+ left ,(+ 2 max-width))))
+					    (propertize (funcall consult-notes-denote-display-keywords-function keywords) 'face 'consult-notes-name)
+					    (when consult-notes-denote-dir
+					      (propertize (funcall consult-notes-denote-display-dir-function dirs) 'face 'consult-notes-name))
+                        )))
+            cands)))
+
+(add-list-to-list 'consult-notes-all-sources
+                  (let ((dirs (if (listp denote-directory)
+                                  denote-directory
+                                (list denote-directory))))
+                    (mapcar (lambda (dir)
+                              (list :name (propertize (format "Denote Notes(%s)" dir)
+                                                      'face 'consult-notes-sep)
+                                    :narrow ?d
+                                    :category consult-notes-category
+                                    :annotate consult-notes-denote-annotate-function
+                                    :items (lambda ()
+                                             (consult-notes-denote--items dir))
+                                    ;; Custom preview
+                                    :state  #'consult-notes-denote--state
+                                    ;; Create new note on match fail
+                                    :new     #'consult-notes-denote--new-note
+                                    ))
+                            dirs)))
+
 ;;; consult-denote
 (with-eval-after-load 'consult-denote
   (consult-denote-mode 1))
@@ -188,6 +257,10 @@
   ("C-c n q e" . citar-denote-open-reference-entry))
 
 ;;; denote-explore
+(let ((denote-dir (denote-get-first-denote-directory)))
+  (setq denote-explore-network-directory
+        (expand-file-name "graphs/" denote-dir)))
+
 (defconst denote-id-regexp "\\([0-9]\\{8\\}\\)\\(T[0-9]\\{6\\}\\)"
   "Regular expression to match `denote-date-identifier-format'.")
 
