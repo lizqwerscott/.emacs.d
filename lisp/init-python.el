@@ -32,6 +32,8 @@
   (setq-default eglot-workspace-configuration
                 '(:basedpyright (:typeCheckingMode "basic"))))
 
+(add-to-list 'eglot-server-programs '((python-mode python-ts-mode) . ("ty" "server")))
+
 ;;; Projection
 (with-eval-after-load 'init-project
   (defvar projection-project-type-python-uv
