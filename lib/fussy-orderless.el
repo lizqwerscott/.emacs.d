@@ -175,14 +175,14 @@ ITEMS-LEN is all items length."
                                                score)))
                                     (cdr res)))))
                       prefix-items))
-         (filtered-lst (seq-filter 'identity lst))
          (total-score 0)
          (match-pos))
-    (dolist (item filtered-lst)
-      (setq total-score (+ total-score (car item)))
-      (setq match-pos
-            (append match-pos
-                    (cdr filtered-lst))))
+    (dolist (item lst)
+      (when item
+        (setq total-score (+ total-score (car item)))
+        (setq match-pos
+              (append match-pos
+                      (cdr item)))))
     (cons total-score
           match-pos)))
 
