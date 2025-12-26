@@ -53,6 +53,9 @@
                           fussy-prefer-prefix nil))))
 
 ;;; orderless
+(with-eval-after-load 'orderless
+  (add-to-list 'orderless-affix-dispatch-alist
+               `(?& . ,#'orderless-literal)))
 ;; (setopt orderless-matching-styles nil)
 ;; (add-list-to-list 'completion-category-overrides
 ;;                   '((file (styles orderless fussy))
