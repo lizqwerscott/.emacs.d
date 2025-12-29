@@ -32,7 +32,7 @@
    (if user/completion-preview-mode-use
        (completion-preview-insert))
    (ai-complete)
-   (corfu-next)))
+   (corfu-complete)))
 
 (require 'corfu)
 (setq corfu-auto t
