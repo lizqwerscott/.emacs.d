@@ -523,6 +523,8 @@ OPEN and CLOSE. Otherwise, insert the delimiters with space for text in between.
              (self-insert-command 1))))
   (">" . transient-org-line-template))
 
+(keymap-unset org-mode-map "C-c ;")
+
 (global-bind-keys
  ("C-c c" . org-capture)
  ("C-c A" . org-agenda)
