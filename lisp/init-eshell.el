@@ -70,10 +70,5 @@
               "C-l"
               #'eshell/clear-buffer))
 
-(add-hook 'eshell-mode-hook
-          #'(lambda ()
-              (corfu-mode -1)
-              (completion-preview-mode)))
-
 (provide 'init-eshell)
 ;;; init-eshell.el ends here
