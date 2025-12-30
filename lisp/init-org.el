@@ -140,7 +140,7 @@ if TEMPLATE-SELECT is not nil, select a template file."
   (org-insert-item
    (and (org-in-item-p)
         (save-excursion
-          (looking-back "\\].**" (line-beginning-position))))))
+          (looking-back "\\[[ xX]\\].**" (line-beginning-position))))))
 
 (defun org-meta-return-auto (&optional arg)
   "Insert a new heading or wrap a region in a table.
