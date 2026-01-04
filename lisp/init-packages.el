@@ -240,7 +240,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     outline-indent
     visual-replace
     (fingertip :fetcher github :repo "manateelazycat/fingertip")
-    puni))
+    puni
+    shift-number))
 
 (defvar *package-program-install-list*
   `(yasnippet
