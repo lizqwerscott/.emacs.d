@@ -162,6 +162,8 @@ See each function's documentation for details on their algorithms."
   "Set mode line color based on current buffer's project."
   (project-color-reset-modeline-colors)
   (let ((color (funcall project-color-function)))
+    (push (face-remap-add-relative 'tab-bar-tab :background color :foreground "white")
+          project-color-face-remap-cookies)
     (push (face-remap-add-relative 'tab-line-tab-current :background color :foreground "white")
           project-color-face-remap-cookies)
     (push (face-remap-add-relative 'mode-line-active :background color :foreground "white") project-color-face-remap-cookies)
