@@ -268,6 +268,10 @@
   "n" #'scroll-other-window-up-1/3
   "p" #'scroll-other-window-down-1/3)
 
+(keymap-binds buffer-navigation-repeat-map
+  ("n" . next-buffer)
+  ("p" . previous-buffer))
+
 ;;; editkit
 (autoload #'editkit-rectangle-menu "editkit" nil t)
 
