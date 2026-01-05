@@ -116,7 +116,7 @@ See each function's documentation for details on their algorithms."
 (defun project-color-background-grouped ()
   "Group projects by color categories based on parent directory."
   (let* ((project (project-current))
-         (dir (if project (project-root project) default-directory))
+         (dir (file-truename (if project (project-root project) default-directory)))
          (home (expand-file-name "~"))
          (relative-dir (if (string-prefix-p home dir)
                            (substring dir (length home))
