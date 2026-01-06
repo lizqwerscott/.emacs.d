@@ -212,7 +212,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     cal-china-x
     consult-gh
     consult-gh-forge
-    backup-walker))
+    backup-walker
+    detached))
 
 (defvar *package-language-mode-install-list*
   '(markdown-mode

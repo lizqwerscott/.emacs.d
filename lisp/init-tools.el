@@ -32,5 +32,9 @@
 (setq fuzzy-clock-zh-fuzziness 'fifteen-minutes)
 (fuzzy-clock-zh-mode 1)
 
+;;; detached
+
+(detached-init)
+
 (provide 'init-tools)
 ;;; init-tools.el ends here
