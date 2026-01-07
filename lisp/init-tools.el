@@ -34,7 +34,16 @@
 
 ;;; detached
 
+(require 'detached)
+
 (detached-init)
+
+(connection-local-set-profile-variables
+ 'remote-detached
+ '((detached-shell-program . "/bin/bash")
+   (detached-session-directory . "~/.detached/sessions")))
+
+(connection-local-set-profiles '(:application tramp :protocol "ssh") 'remote-detached)
 
 (provide 'init-tools)
 ;;; init-tools.el ends here
