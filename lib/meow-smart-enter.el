@@ -42,7 +42,9 @@
 If point is on a link, open it. Otherwise, do `org-return`."
   (interactive)
   (if (meow-smart-enter-org--at-link-p)
-      (org-open-at-point)
+      (condition-case nil
+          (org-open-at-point)
+        (user-error (org-return)))
     (org-return)))
 
 (defun meow-smart-enter-goto-address ()
