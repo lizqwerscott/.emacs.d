@@ -71,8 +71,11 @@
               #'eshell/clear-buffer))
 
 ;;; keymap
-(keymap-binds eshell-hist-mode-map
-  (("M-s" "s-s" "M-r" "s-r") . consult-history))
+(with-eval-after-load 'eshell
+  (keymap-binds eshell-mode-map
+    (("M-s" "s-s" "M-r" "s-r") . consult-history)
+    ("s-p" . eshell-previous-input)
+    ("s-n" . eshell-next-input)))
 
 (provide 'init-eshell)
 ;;; init-eshell.el ends here
