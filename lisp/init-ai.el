@@ -42,9 +42,7 @@
   (wait-packages!
    (pcase value
      ('copilot
-      '((copilot :fetcher github
-                 :repo "zerolfx/copilot.el"
-                 :branch "main")))
+      '(copilot))
      ('minuet
       '((minuet :fetcher github
                 :repo "milanglacier/minuet-ai.el")))
