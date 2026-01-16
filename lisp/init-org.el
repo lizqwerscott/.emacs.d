@@ -166,18 +166,6 @@
 (add-hook 'org-mode-hook
           #'org-modern-indent-mode 90)
 
-;; count word
-(with-hook org-mode
-  (when (buffer-file-name)
-    (org-count-words-mode)))
-
-(advice-add #'org-count-words-update-buffer-count
-            :before (lambda (_ &rest _)
-                      (when-let* ((name (buffer-name))
-                                  ((or (string-match-p "\\*Capture\\*" name)
-                                       (string-match-p "^CAPTURE-.*" name))))
-                        (org-count-words-mode -1))))
-
 ;;; org rich yank
 (defun my-org-rich-yank-format-paste (language contents link)
   "Based on `org-rich-yank--format-paste-default'."
