@@ -3,6 +3,7 @@
 ;;; Code:
 
 ;;; Highlight the current line
+(setopt global-hl-line-sticky-flag 'window)
 (global-hl-line-mode 1)
 (add-hooks '(dashboard-mode eshell-mode shell-mode term-mode vterm-mode)
            #'(lambda () (setq-local global-hl-line-mode nil)))
