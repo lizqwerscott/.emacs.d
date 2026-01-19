@@ -245,6 +245,7 @@
  ("C-x K" . kill-buffer)
 
  ("C-x x b" . browse-this-file)
+ ("C-x x c" . clone-indirect-buffer-other-window)
 
  ("M-g P" . goto-percent)
 
