@@ -298,6 +298,13 @@ prepended to the element after the #+HEADER: tag."
     ("G" (hot-expand "<s" "gnuplot :results output :file ./result.png") "gnuplot")
     ("<" self-insert-command "ins"))))
 
+(defun org-toggle-buffer-link-preview ()
+  "Toggle buffer link preview."
+  (interactive)
+  (if org-link-preview-overlays
+      (org-link-preview-clear)
+    (org-link-preview-region t)))
+
 (require 'lib-transient)
 (pretty-transient-define-prefix transient-org-toggles ()
   "Transient org menu."
@@ -306,7 +313,7 @@ prepended to the element after the #+HEADER: tag."
     ("l" "Display Link" org-toggle-link-display :toggle (lambda () (not org-link-descriptive)) :transient t)
     ("m" "Hide Emphasis Markers" org-toggle-display-emphasis-markers :toggle (lambda () org-hide-emphasis-markers) :transient t)
     ("e" "Display Pretty Entities" org-toggle-pretty-entities :toggle (lambda () org-pretty-entities) :transient t)
-    ("i" "Display inline images" org-toggle-inline-images :toggle (lambda () org-inline-image-overlays) :transient t)
+    ("i" "Buffer Link Preview" org-toggle-buffer-link-preview :toggle (lambda () org-link-preview-overlays) :transient t)
     ("v" "Toggle Valign" valign-mode :toggle t :transient t)]
    ["Org Management"
     ("p" "Set Property" org-set-property)
