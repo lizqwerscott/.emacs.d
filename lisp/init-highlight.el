@@ -46,15 +46,17 @@
         indent-bars-display-on-blank-lines t
         indent-bars-prefer-character nil
 
-        indent-bars-treesit-support t
         indent-bars-no-descend-string t
+        indent-bars-no-descend-lists '(?\[ ?\() ; prevent {} from being treated like lists!
+
+        indent-bars-treesit-support t
         indent-bars-treesit-ignore-blank-lines-types '("module")
         indent-bars-treesit-scope '((python function_definition class_definition for_statement if_statement with_statement while_statement)))
 
 (with-eval-after-load 'indent-bars
   (require 'indent-bars-ts))
 
-(add-hooks '(python-mode python-ts-mode rust-mode rust-ts-mode c++-mode c++-ts-mode)
+(add-hooks '(python-mode python-ts-mode rust-mode rust-ts-mode c++-mode c++-ts-mode yaml-ts-mode)
            #'indent-bars-mode)
 
 ;;; Colorize color names in buffers
