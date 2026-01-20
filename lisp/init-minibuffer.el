@@ -276,6 +276,7 @@ DEFS is a plist associating completion categories to commands."
   (list :name "Bufferlo Other Buffers"
         :narrow   ?o
         :category 'buffer
+        :hidden   t
         :face     'consult-buffer
         :history  'buffer-name-history
         :state    #'consult--buffer-state
@@ -299,12 +300,12 @@ DEFS is a plist associating completion categories to commands."
   "All Bufferlo buffer candidate source for `consult-buffer'.")
 
 ;; add in the reverse order of display preference
-(add-to-list 'consult-buffer-sources 'my:bufferlo-consult--source-all-buffers)
+;; (add-to-list 'consult-buffer-sources 'my:bufferlo-consult--source-all-buffers)
 (add-to-list 'consult-buffer-sources 'my:bufferlo-consult--source-other-buffers)
 (add-to-list 'consult-buffer-sources 'my:bufferlo-consult--source-local-buffers)
 
 (with-eval-after-load 'consult
-  (delq 'consult--source-buffer consult-buffer-sources))
+  (delq 'consult-source-buffer consult-buffer-sources))
 
 ;; with tab bar
 (setopt tab-bar-new-tab-choice "*scratch*"
@@ -411,7 +412,7 @@ targets."
 
   (("s-n" "M-n") . next-history-element)
   (("s-p" "M-p") . previous-history-element)
-  
+
   ("C-i" . (lambda ()
              "Insert the current symbol."
              (interactive)
