@@ -233,8 +233,8 @@ DENOTE-DIR is denote dir."
                             dirs)))
 
 ;;; consult-denote
-(with-eval-after-load 'consult-denote
-  (consult-denote-mode 1))
+(require 'consult-denote)
+(consult-denote-mode 1)
 
 (global-bind-keys
  ("C-c n f" . consult-denote-find)
