@@ -56,9 +56,12 @@ If point is on a link, open it. Otherwise, do `org-return`."
 (defun meow-smart-enter ()
   "Meow smart enter in normal state."
   (interactive)
-  (if (eq major-mode 'org-mode)
-      (meow-smart-enter-org)
-    (call-interactively #'newline-and-indent)))
+  (cond ((eq major-mode 'org-mode) (meow-smart-enter-org))
+        ((and (featurep 'telega-chat) (eq major-mode 'telega-chat-mode))
+         (require 'telega-chat)
+         (call-interactively #'telega-chatbuf-newline-or-input-send))
+        (t
+         (call-interactively #'newline-and-indent))))
 
 (define-key goto-address-highlight-keymap (kbd "RET") #'meow-smart-enter-goto-address)
 
