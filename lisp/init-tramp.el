@@ -42,5 +42,14 @@
 (add-list-to-list 'tramp-remote-path
                   '("~/.guix-profile/bin" "~/.guix-profile/sbin" "/run/current-system/profile/bin" "/run/current-system/profile/sbin"))
 
+(defun check-toggle-some-mode ()
+  (when (and buffer-file-name
+             (file-remote-p buffer-file-name))
+    (breadcrumb-local-mode -1)
+    (rsync-project-mode -1)))
+
+(add-hook 'text-mode-hook #'check-toggle-some-mode)
+(add-hook 'prog-mode-hook #'check-toggle-some-mode)
+
 (provide 'init-tramp)
 ;;; init-tramp.el ends here
