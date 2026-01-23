@@ -4,8 +4,23 @@
 
 (require 'tramp)
 
-(setq tramp-verbose 0)
-(setq tramp-chunksize 2000)
+(setq remote-file-name-inhibit-locks t
+      tramp-use-scp-direct-remote-copying t
+      remote-file-name-inhibit-auto-save-visited t)
+
+(setq tramp-copy-size-limit (* 1024 1024)
+      tramp-verbose 2
+      tramp-chunksize 2000)
+
+(connection-local-set-profile-variables
+ 'remote-direct-async-process
+ '((tramp-direct-async-process . t)))
+
+(connection-local-set-profiles
+ '(:application tramp :protocol "scp")
+ 'remote-direct-async-process)
+
+(setq magit-tramp-pipe-stty-settings 'pty)
 
 (add-list-to-list 'recentf-exclude
                   tramp-file-name-regexp)
