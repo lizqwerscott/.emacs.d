@@ -16,6 +16,9 @@
 (add-hook 'prog-mode-hook
           'rsync-project-mode)
 
+(with-hook my/tramp-remote-file-hook
+  (rsync-project-mode -1))
+
 (rsync-project-setup-indicator)
 
 (defun project-remote-prefixed-buffer-name (mode)

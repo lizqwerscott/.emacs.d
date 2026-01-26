@@ -78,6 +78,9 @@ and update transparent."
 (setq breadcrumb-imenu-max-length 100)
 (breadcrumb-mode)
 
+(with-hook my/tramp-remote-file-hook
+  (breadcrumb-mode -1))
+
 ;;; Line number
 (unless sys/win32p
   (setq display-line-numbers-type 'relative)
