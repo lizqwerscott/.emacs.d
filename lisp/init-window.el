@@ -77,6 +77,8 @@
     (side . right)
     (slot . 0)
     (window-width . 0.4)
+    (preserve-size t)
+    (window-preserve-size . 0.4)
     (body-function . select-window))
    ;; bottom side window
    ((or "\\*.*e?shell\\*" "^\\*.*vterm[inal]*.*\\*.*$" "*ielm*" "*eat*" (derived-mode . sly-mrepl-mode))
