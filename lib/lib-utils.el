@@ -76,12 +76,11 @@ or a list of keys, and COMMAND is the command to bind to those keys."
          (mapcar (lambda (key-binding)
                    (pcase-let* ((`(,keys . ,command) key-binding))
                      (mapcar (lambda (key)
-                               `(,(if keymap
-                                      #'keymap-set
-                                    #'keymap-global-set)
-                                 ,@(when keymap
-                                     (list keymap))
-                                 ,key
+                               `(define-key
+                                 (or (if (and ,keymap (symbolp ,keymap))
+                                         (symbol-value ,keymap) ,keymap)
+                                     global-map)
+                                 ,(if (vectorp key) key (read-kbd-macro key))
                                  ,(if (and (listp command)
                                            (not (equal (car command)
                                                        'lambda)))
