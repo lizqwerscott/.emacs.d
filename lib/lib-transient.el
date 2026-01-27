@@ -56,16 +56,23 @@ OBJ is `c/transient-toggle' object."
   "Process SUFFIX to convert :toggle t to proper format."
   (if (and (listp suffix) (>= (length suffix) 3))
       (pcase-let* ((`(,key ,description ,command . ,plist) suffix)
+                   (command (if (functionp command)
+                                command
+                              `(lambda () (interactive) ,command)))
                    (toggle-value (plist-get plist :toggle)))
-        (if toggle-value
-            (let* ((new-plist (copy-sequence plist))
-                   (toggle-func (if (eq toggle-value t)
-                                    `(lambda () (bound-and-true-p ,command))
-                                  toggle-value)))
-              (plist-put new-plist :class 'transient-toggle)
-              (plist-put new-plist :toggle toggle-func)
-              `(,key ,description ,command ,@new-plist))
-          suffix))
+        `(
+          ,key
+          ,description
+          ,command
+          ,@(if toggle-value
+                (let* ((new-plist (copy-sequence plist))
+                       (toggle-func (cond ((eq toggle-value t) `(lambda () (bound-and-true-p ,command)))
+                                          ((functionp toggle-value) toggle-value)
+                                          (t `(lambda () ,toggle-value)))))
+                  (plist-put new-plist :class 'transient-toggle)
+                  (plist-put new-plist :toggle toggle-func)
+                  new-plist)
+              plist)))
     suffix))
 
 (defun pretty-transient--process-group (group)
