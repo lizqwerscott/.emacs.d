@@ -79,7 +79,7 @@ and update transparent."
 (breadcrumb-mode)
 
 (with-hook my/tramp-remote-file-hook
-  (breadcrumb-mode -1))
+  (breadcrumb-local-mode -1))
 
 ;;; Line number
 (unless sys/win32p
