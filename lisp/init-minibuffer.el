@@ -180,13 +180,20 @@ DEFS is a plist associating completion categories to commands."
 
 ;; meow while translate i into TAB
 (keymap-unset goto-map "TAB")
+(global-unset-key (kbd "C-x C-r"))
 
 (global-bind-keys
- ("C-x C-r" . consult-recent-file)
+ (("C-c s-x" "C-c M-x") . consult-mode-command)
+
  ("M-y" . consult-yank-pop)
+
+ ([remap Info-search] . consult-info)
 
  ("C-c b" . consult-buffer)
  ("C-c B" . consult-buffer-other-window)
+
+ ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+ ("C-x r b" . consult-bookmark)
 
  ("M-g l" . consult-goto-line)
  ("M-g o" . consult-outline)
@@ -195,7 +202,6 @@ DEFS is a plist associating completion categories to commands."
  ("M-g e" . consult-compile-error)
  ("M-g i" . consult-imenu)
  ("M-g I" . consult-imenu-multi)
- ("M-g b" . consult-bookmark)
 
  ("M-s l" . consult-line)
  ("M-s L" . consult-line-multi)
