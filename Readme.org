@@ -63,6 +63,7 @@ Use http:
 6. [[https://github.com/zevlg/tgs2png][tgs2png]] for telega use
 7. dtach for detached
 8. tail for detached
+9. [[https://direnv.net/][direnv]] for env
 *** Need build [[https://github.com/lizqwerscott/tree-sitter-module][tree-sitter]] library
 **** clone build scripts
 ***** http

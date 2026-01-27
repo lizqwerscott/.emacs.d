@@ -9,6 +9,9 @@
 
 ;;; Code:
 
+;;; envrc
+(add-hook 'after-init-hook 'envrc-global-mode)
+
 ;;; outli
 (setq outli-allow-indented-headlines t)
 (add-hook 'prog-mode-hook
