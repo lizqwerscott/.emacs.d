@@ -17,8 +17,6 @@
 
       user/java-lsp nil
 
-      user/aider nil
-
       user/ligature nil
       user/lsp-client 'eglot
       user/dirvish t
