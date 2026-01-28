@@ -57,6 +57,9 @@
 
 (setopt eshell-prompt-function #'my/eshell-prompt-night)
 
+(with-eval-after-load 'esh-mode
+  (eshell-syntax-highlighting-global-mode +1))
+
 ;;; eshell `eldoc' support
 (setup-esh-help-eldoc)
 

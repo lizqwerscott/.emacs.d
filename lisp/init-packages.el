@@ -283,6 +283,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     projection
     projection-multi
     esh-help
+    eshell-syntax-highlighting
     dape
     citre
     (xmake :fetcher github :repo "lizqwerscott/xmake-emacs")
