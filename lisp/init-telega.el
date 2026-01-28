@@ -79,9 +79,9 @@
     (setq telega-server-libs-prefix "/opt/homebrew/"))
 
   ;;; keymap
+  (keymap-unset telega-msg-button-map "l")
+  (keymap-unset telega-msg-button-map "k")
   (keymap-binds telega-msg-button-map
-    ("k" . nil)
-    ("l" . nil)
     ("SPC" . meow-keypad))
 
   (keymap-binds telega-prefix-map
