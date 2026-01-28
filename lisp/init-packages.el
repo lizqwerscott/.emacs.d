@@ -392,16 +392,11 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
             (ragmacs :fetcher github :repo "positron-solutions/ragmacs")
             (gptel-agent :host github :repo "karthink/gptel-agent"
                          :files (:defaults "agents"))
-            (gptel-aibo :fetcher github
-                        :repo "dolmens/gptel-aibo")
             (agental :fetcher github :repo "lizqwerscott/agental"
                      :files (:defaults "prompts"))
             (mcp :fetcher github
                  :repo "lizqwerscott/mcp.el")
-            (macher :host github :repo "kmontag/macher"))
-          (when user/aider
-            '((aidermacs :fetcher github
-                         :repo "MatthewZMD/aidermacs")))))
+            (macher :host github :repo "kmontag/macher"))))
 
 (defvar *package-another-install-list*
   '(elfeed

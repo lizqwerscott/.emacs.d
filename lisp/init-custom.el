@@ -51,11 +51,6 @@
   :group 'user
   :type 'boolean)
 
-(defcustom user/aider nil
-  "Aider support."
-  :group 'user
-  :type 'boolean)
-
 (defcustom user/lsp-client 'eglot
   "The lsp client."
   :group 'user

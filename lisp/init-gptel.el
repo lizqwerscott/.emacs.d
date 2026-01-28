@@ -150,7 +150,9 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
   (let ((buffer (current-buffer))
         (pos (point))
         (gptel-tools nil)
-        (gptel-use-tools nil))
+        (gptel-use-tools nil)
+        (gptel-model 'deepseek-chat)
+        (gptel-backend (gptel-get-backend "Chatanywhere")))
     (gptel-request str
       :dry-run nil
       :system (alist-get 'translate-english gptel-directives)
@@ -214,8 +216,6 @@ The DRY-RUN parameter is set to t, indicating that it will not actually run, but
 
 (add-hook 'gptel-mode-hook
           #'gptel-highlight-mode)
-
-(require 'init-gptel-aibo)
 
 (add-hook 'magit-mode-hook #'gptel-magit-install)
 

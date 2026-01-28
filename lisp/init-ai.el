@@ -26,9 +26,6 @@
 
 (require 'init-gptel)
 
-(when user/aider
-  (require 'init-aider))
-
 (require 'init-macher)
 
 (defun set-ai-completion (symbol value)
