@@ -102,13 +102,7 @@
     ("E" "Debug on error" toggle-debug-on-error
      :toggle (default-value 'debug-on-error) :transient t)
     ("Q" "Debug on quit" toggle-debug-on-quit
-     :toggle (default-value 'debug-on-quit) :transient t)]
-
-   ["Customize"
-    ("S" "Customize save variable" customize-save-variable)
-    ("C" "Customize set variable" customize-set-variable)
-    ("G" "Customize set group" customize-group)]
-   ]
+     :toggle (default-value 'debug-on-quit) :transient t)]]
 
   [("q" "Quit" transient-quit-one)])
 
