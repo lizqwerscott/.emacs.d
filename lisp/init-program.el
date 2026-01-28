@@ -65,84 +65,39 @@
 ;;; check
 (pcase user/lsp-client
   ('eglot
-   (defun set-diagnostic-check (symbol value)
-     "Set SYMBOL to VALUE and update check."
-     (when (bound-and-true-p global-flycheck-mode)
-       (global-flycheck-mode nil))
-     (remove-hook 'prog-mode-hook
-                  #'flymake-mode)
-     (set-default-toplevel-value symbol value)
-     (pcase value
-       ('flymake
-        (wait-packages! '(flymake-popon))
-        ;; Check elisp with `load-path'
-        (defun my-elisp-flymake-byte-compile (fn &rest args)
-          "Wrapper for `elisp-flymake-byte-compile'."
-          (let ((elisp-flymake-byte-compile-load-path
-                 (append elisp-flymake-byte-compile-load-path load-path)))
-            (apply fn args)))
-        (advice-add 'elisp-flymake-byte-compile :around #'my-elisp-flymake-byte-compile)
+   ;; Check elisp with `load-path'
+   (defun my-elisp-flymake-byte-compile (fn &rest args)
+     "Wrapper for `elisp-flymake-byte-compile'."
+     (let ((elisp-flymake-byte-compile-load-path
+            (append elisp-flymake-byte-compile-load-path load-path)))
+       (apply fn args)))
+   (advice-add 'elisp-flymake-byte-compile :around #'my-elisp-flymake-byte-compile)
 
-        (setq flymake-no-changes-timeout nil
-              flymake-fringe-indicator-position 'right-fringe
-              flymake-margin-indicator-position 'right-margin)
+   (setq flymake-no-changes-timeout nil
+         flymake-fringe-indicator-position 'right-fringe
+         flymake-margin-indicator-position 'right-margin)
 
-        (setq flymake-indicator-type 'margins
-              flymake-margin-indicators-string
-              `((error "!" compilation-error) ;; Alternatives: », E, W, i, !, ?)
-                (warning "?" compilation-warning)
-                (note "i" compilation-info)))
+   (setq flymake-indicator-type 'margins
+         flymake-margin-indicators-string
+         `((error "!" compilation-error) ;; Alternatives: », E, W, i, !, ?)
+           (warning "?" compilation-warning)
+           (note "i" compilation-info)))
 
-        (add-hook 'prog-mode-hook
-                  #'flymake-mode)
+   (add-hook 'prog-mode-hook
+             #'flymake-mode)
 
-        ;; flymake popon
-        (setq flymake-popon-width 80)
+   ;; flymake popon
+   (setq flymake-popon-width 80)
 
-        (custom-set-faces
-         '(flymake-popon ((t :inherit default :height 0.85)))
-         `(flymake-popon-posframe-border ((t :foreground ,(face-background 'posframe-border nil t)))))
+   (custom-set-faces
+    '(flymake-popon ((t :inherit default :height 0.85)))
+    `(flymake-popon-posframe-border ((t :foreground ,(face-background 'posframe-border nil t)))))
 
-        (add-hook #'flymake-mode-hook
-                  #'flymake-popon-mode)
+   (add-hook #'flymake-mode-hook
+             #'flymake-popon-mode)
 
-        (global-bind-keys
-         ("C-c j d" . consult-flymake)))
-       ('flycheck
-        (wait-packages! '(flycheck consult-flycheck flycheck-eglot flycheck-package))
-        ;; flycheck
-        (require 'flycheck)
-        (setq flycheck-emacs-lisp-load-path 'inherit)
-        (global-flycheck-mode 1)
-
-        (require 'flycheck-eglot)
-        (setq-default flycheck-eglot-exclusive nil)
-        (global-flycheck-eglot-mode 1)
-
-        (global-bind-keys
-         ("C-c j d" . consult-flycheck)))))
-
-   (defcustom user/diagnostic 'flymake
-     "Diagnostic."
-     :group 'user
-     :type '(choice (const :tag "flymake" flymake)
-                    (const :tag "flycheck" flycheck))
-     :set #'set-diagnostic-check)
-
-   ;; flyover
-   (when user/flyoverp
-     (require 'flyover)
-     (pcase user/diagnostic
-       ('flymake
-        (add-hook 'flymake-mode-hook #'flyover-mode))
-       ('flycheck
-        (add-hook 'flycheck-mode-hook #'flyover-mode)))
-     (setq flyover-use-theme-colors t
-           flyover-checkers `(,user/diagnostic)
-           flyover-show-at-eol t
-           flyover-virtual-line-icon (concat (nerd-icons-faicon "nf-fa-arrow_right_long")
-                                             " ")
-           flyover-virtual-line-type nil))))
+   (global-bind-keys
+    ("C-c j d" . consult-flymake))))
 
 ;;; debug
 (require 'init-dap)

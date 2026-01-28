@@ -21,7 +21,6 @@
 
       user/ligature nil
       user/lsp-client 'eglot
-      user/flyoverp nil
       user/dirvish t
       )
 
