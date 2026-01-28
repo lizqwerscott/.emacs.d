@@ -20,6 +20,9 @@
 (setq fast-but-imprecise-scrolling t)
 (setq redisplay-skip-fontification-on-input t)
 
+(when sys/macp
+  (menu-bar-mode -1))
+
 ;;; Title
 (setq frame-title-format '("Emacs - %b")
       icon-title-format frame-title-format)
