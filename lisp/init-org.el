@@ -341,7 +341,7 @@ OPEN and CLOSE. Otherwise, insert the delimiters with space for text in between.
   "Transient org line menu."
   [["Link"
     ("r" "Ref" oxr-insert-ref)
-    ("l" "Normal" org-insert-link)
+    ("l" "Normal" ar/org-insert-link-dwim)
     ("c" "Citre" org-cite-insert)
     ("d" "Denote" denote-insert-link)]
    ["Emphasize"
@@ -377,6 +377,8 @@ OPEN and CLOSE. Otherwise, insert the delimiters with space for text in between.
 
   ("M-g n" . org-next-visible-heading)
   ("M-g p" . org-previous-visible-heading)
+
+  ("C-c C-l" . ar/org-insert-link-dwim)
 
   ("M-g o" . consult-org-heading)
 
