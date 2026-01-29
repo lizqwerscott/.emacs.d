@@ -333,9 +333,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
 
 (defvar *package-language-install-list*
   '(immersive-translate
-    (sdcv
-     :fetcher github
-     :repo "manateelazycat/sdcv")
+    quick-sdcv
     fanyi
     (pdd :fetcher github :repo "lorniu/pdd.el")
     (gt :fetcher github :repo "lorniu/gt.el")

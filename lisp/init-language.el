@@ -15,11 +15,19 @@
                      fanyi-youdao-thesaurus-provider
                      fanyi-longman-provider)))
 
+;;; dict
+(setopt quick-sdcv-dictionary-prefix-symbol "►"
+        quick-sdcv-ellipsis " ▼"
+        quick-sdcv-dictionary-data-dir (expand-file-name "config/dict" user-emacs-directory))
+
+(add-hook 'quick-sdcv-mode-hook #'goto-address-mode)
+
 (global-bind-keys
  ("C-c d f" . fanyi-dwim)
  ("C-c d d" . fanyi-dwim2)
  ("C-c d h" . fanyi-from-history)
- ("C-c d s" . sdcv-search-pointer+)
+ ("C-c d s" . quick-sdcv-search-at-point)
+ ("C-c d i" . quick-sdcv-search-input)
  ("C-c d e" . ("Translate to english" . (lambda ()
                                           (interactive)
                                           (activate-input-method default-input-method)
