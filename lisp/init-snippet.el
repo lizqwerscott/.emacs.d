@@ -27,7 +27,9 @@
 (setopt yas-snippet-dirs
         (list
          (expand-file-name "config/yasnippet/snippets/"
-                           user-emacs-directory)))
+                           user-emacs-directory))
+        yas-buffer-local-condition #'meow-insert-mode-p)
+
 (add-hook 'after-init-hook
           #'yas-global-mode)
 

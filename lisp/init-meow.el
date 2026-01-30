@@ -186,8 +186,7 @@ This command supports `meow-selection-command-fallback'."
    '("y" . meow-save)
    '("Y" . meow-clipboard-save)
    '("z" . meow-pop-selection)
-   '("<escape>" . ignore)
-   '("<tab>" . indent-for-tab-command))
+   '("<escape>" . ignore))
 
   (meow-normal-define-key
    '("g" . "M-g")

@@ -27,12 +27,13 @@
 (defun +complete ()
   "TAB complete."
   (interactive)
-  (or ;; (tempel-complete t)
-   (yas-expand)
-   (if user/completion-preview-mode-use
-       (completion-preview-insert))
-   (ai-complete)
-   (corfu-complete)))
+  (when (meow-insert-mode-p)
+    (or ;; (tempel-complete t)
+     (yas-expand)
+     (if user/completion-preview-mode-use
+         (completion-preview-insert))
+     (ai-complete)
+     (corfu-complete))))
 
 (require 'corfu)
 (setq corfu-auto t
