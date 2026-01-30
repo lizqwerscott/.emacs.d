@@ -240,63 +240,50 @@ prepended to the element after the #+HEADER: tag."
 
 (autoload #'oxr-insert-absolute-figure "oxr" nil t)
 
-(pretty-hydra-define hydra-org-template
-  (:title (pretty-hydra-title "Org Template" 'sucicon "nf-custom-orgmode" :face 'nerd-icons-green)
-          :color blue :quit-key ("q" "C-g"))
-  ("Basic"
-   (("a" (hot-expand "<a") "ascii")
-    ("c" (hot-expand "<c") "center")
-    ("C" (hot-expand "<C") "comment")
-    ("e" (hot-expand "<e") "example")
-    ("E" (hot-expand "<E") "export")
-    ("l" (hot-expand "<l") "latex")
-    ("x" (hot-expand "<q") "quote")
-    ("v" (hot-expand "<v") "verse")
-    ("b" (hot-expand "<s" "bash") "bash"))
-   "Head"
-   (("i" (hot-expand "<i") "index")
-    ("A" (hot-expand "<A") "ASCII")
-    ("I" (hot-expand "<I") "INCLUDE")
-    ("S" (insert "#+STARTUP: ") "Startup")
-
-    ("H" (yas-expand-snippet (yas-lookup-snippet "hugo")) "Hugo")
-
-    ("L" (hot-expand "<L") "LaTeX")
-    ("X" (yas-expand-snippet (yas-lookup-snippet "latex-chinese")) "Latex chinese")
-    ("P" (insert "#+STARTUP: latexpreview ") "Latex Preview")
-
-    ("Mb" (insert "#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup") "Html Bigblow Theme")
-    ("Mr" (insert "#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup") "Html Readtheorg Theme")
-    ("Mn" (insert "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://gongzhitaao.org/orgcss/org.css\"/>") "Html Normal Css"))
-   "Source"
-   (("ss" (hot-expand "<s") "src")
-    ("se" (hot-expand "<s" "emacs-lisp") "emacs-lisp")
-    ("sp" (hot-expand "<s" "python") "python")
-    ("sP" (hot-expand "<s" "python :results output") "python")
-    ("sc" (hot-expand "<s" "c++") "c++")
-    ("sr" (hot-expand "<s" "rust") "rust")
-    ("sS" (hot-expand "<s" "sh") "sh")
-    ("sg" (hot-expand "<s" "go :imports '\(\"fmt\"\)") "golang")
-    ("sx" (hot-expand "<s" "xml") "xml")
-    ("sy" (hot-expand "<s" "yaml-ts") "yaml")
-    ("sh" (hot-expand "<h") "html"))
-   "Oxr"
-   (("f" oxr-insert-absolute-figure "Figure")
-    ("t" oxr-insert-table "Table")
-    ("on" oxr-insert-name "Name")
-    ("oe" oxr-insert-equation "Equation")
-    ("os" oxr-insert-section "Section"))
-   "Hugo"
-   (("hn" (hot-expand "<n") "sidenote")
-    ("ht" (org-insert-structure-template "typeit") "typeit")
-    ("ha" (org-insert-structure-template "alert") "alert")
-    ("hl" (org-insert-structure-template "lead") "lead"))
-   "Misc"
-   (("m" (hot-expand "<s" "mermaid :file chart.png") "mermaid")
-    ("u" (hot-expand "<s" "plantuml :file chart.png") "plantuml")
-    ("Y" (hot-expand "<s" "ipython :session :exports both :results raw drawer\n$0") "ipython")
-    ("G" (hot-expand "<s" "gnuplot :results output :file ./result.png") "gnuplot")
-    ("<" self-insert-command "ins"))))
+(require 'lib-transient)
+(pretty-transient-define-prefix transient-org-template ()
+  "Transient org template menu."
+  [["Basic"
+    ("e" "example" (hot-expand "<e"))
+    ("l" "latex" (hot-expand "<l"))
+    ("x" "quote" (hot-expand "<q"))
+    ("v" "verse" (hot-expand "<v"))
+    ("b" "bash" (hot-expand "<s" "bash"))]
+   ["Head"
+    ("i" "index" (hot-expand "<i"))
+    ("I" "INCLUDE" (hot-expand "<I"))
+    ("S" "Startup" (insert "#+STARTUP: "))
+    ("H" "Hugo" (yas-expand-snippet (yas-lookup-snippet "hugo")))
+    ("L" "LaTeX" (hot-expand "<L"))
+    ("X" "Latex chinese" (yas-expand-snippet (yas-lookup-snippet "latex-chinese")))
+    ("P" "Latex Preview" (insert "#+STARTUP: latexpreview "))
+    ("Mb" "Html Bigblow Theme" (insert "#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup"))
+    ("Mr" "Html Readtheorg Theme" (insert "#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup"))
+    ("Mn" "Html Normal Css" (insert "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://gongzhitaao.org/orgcss/org.css\"/>"))]
+   ["Source"
+    ("ss" "src" (hot-expand "<s"))
+    ("se" "emacs-lisp" (hot-expand "<s" "emacs-lisp"))
+    ("sp" "python" (hot-expand "<s" "python"))
+    ("sP" "python" (hot-expand "<s" "python :results output"))
+    ("sc" "c++" (hot-expand "<s" "c++"))
+    ("sr" "rust" (hot-expand "<s" "rust"))
+    ("sy" "yaml" (hot-expand "<s" "yaml-ts"))]
+   ["Oxr"
+    ("f" "Figure" oxr-insert-absolute-figure)
+    ("t" "Table" oxr-insert-table)
+    ("on" "Name" oxr-insert-name)
+    ("oe" "Equation" oxr-insert-equation)
+    ("os" "Section" oxr-insert-section)]
+   ["Hugo"
+    ("hn" "sidenote" (hot-expand "<n"))
+    ("ht" "typeit" (org-insert-structure-template "typeit"))
+    ("ha" "alert" (org-insert-structure-template "alert"))
+    ("hl" "lead" (org-insert-structure-template "lead"))]
+   ["Misc"
+    ("u" "plantuml" (hot-expand "<s" "plantuml :file chart.png"))
+    ("G" "gnuplot" (hot-expand "<s" "gnuplot :results output :file ./result.png"))
+    ("<" "ins" self-insert-command)]]
+  [("q" "Quit" transient-quit-one)])
 
 (defun org-toggle-buffer-link-preview ()
   "Toggle buffer link preview."
@@ -305,7 +292,6 @@ prepended to the element after the #+HEADER: tag."
       (org-link-preview-clear)
     (org-link-preview-region t)))
 
-(require 'lib-transient)
 (pretty-transient-define-prefix transient-org-toggles ()
   "Transient org menu."
   :transient-non-suffix 'transient--do-stay
@@ -387,7 +373,7 @@ OPEN and CLOSE. Otherwise, insert the delimiters with space for text in between.
            "Insert org template."
            (interactive)
            (if (or (region-active-p) (looking-back "^\s*" (line-beginning-position)))
-               (hydra-org-template/body)
+               (transient-org-template)
              (self-insert-command 1))))
   (">" . transient-org-line-template))
 

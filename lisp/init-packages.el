@@ -182,9 +182,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     rg
     xclip
     helpful
-    which-key
-    hydra
-    pretty-hydra))
+    which-key))
 
 (defvar *package-tool-install-list*
   '(centered-cursor-mode

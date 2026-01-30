@@ -92,50 +92,54 @@
   (require 'forge))
 
 ;;; smerge
-;;; from https://github.com/alphapapa/unpackaged.el?tab=readme-ov-file#smerge-mode
-(require 'hydra)
-(defhydra unpackaged/smerge-hydra
-  (:color pink :hint nil :post (smerge-auto-leave))
-  "
-^Move^       ^Keep^               ^Diff^                 ^Other^
-^^-----------^^-------------------^^---------------------^^-------
-_n_ext       _B_ase               _<_: upper/base        _C_ombine
-_p_rev       _U_pper              _=_: upper/lower       _r_esolve
-^^           _L_ower              _>_: base/lower        _K_ill current
-^^           _A_ll                _R_efine
-^^           _RET_: current       _E_diff
-"
-  ("n" smerge-next)
-  ("p" smerge-prev)
-  ("B" smerge-keep-base)
-  ("U" smerge-keep-upper)
-  ("L" smerge-keep-lower)
-  ("A" smerge-keep-all)
-  ("RET" smerge-keep-current)
-  ("\C-m" smerge-keep-current)
-  ("<" smerge-diff-base-upper)
-  ("=" smerge-diff-upper-lower)
-  (">" smerge-diff-base-lower)
-  ("R" smerge-refine)
-  ("E" smerge-ediff :color blue)
-  ("C" smerge-combine-with-next)
-  ("r" smerge-resolve)
-  ("K" smerge-kill-current)
-  ("ZZ" (lambda ()
-          (interactive)
-          (save-buffer)
-          (bury-buffer))
-   "Save and bury buffer" :color blue)
-  ("q" nil "cancel" :color blue))
+(defun transient-smerge-quit-all ()
+  "Smerge menu quit."
+  (interactive)
+  (transient-quit-all)
+  (smerge-auto-leave))
+
+(transient-define-prefix transient-smerge-menu ()
+  "Smerge conflict resolution menu."
+  :transient-non-suffix 'transient--do-stay
+  [["Move"
+    ("n" "next" smerge-next :transient t)
+    ("p" "previous" smerge-prev :transient t)]
+   ["Keep"
+    ("B" "Base" smerge-keep-base :transient t)
+    ("U" "Upper" smerge-keep-upper :transient t)
+    ("L" "Lower" smerge-keep-lower :transient t)
+    ("A" "All" smerge-keep-all :transient t)
+    ("RET" "Current" smerge-keep-current :transient t)]
+   ["Diff"
+    ("<" "base/upper" smerge-diff-base-upper :transient t)
+    ("=" "upper/lower" smerge-diff-upper-lower :transient t)
+    (">" "base/lower" smerge-diff-base-lower :transient t)
+    ("R" "Refine conflict" smerge-refine :transient t)
+    ("E" "Ediff resolve"
+     (lambda ()
+       (interactive)
+       (smerge-ediff)
+       (transient-smerge-quit-all)))]
+   ["Other"
+    ("C" "Combine with next" smerge-combine-with-next :transient t)
+    ("r" "Resolve automatically" smerge-resolve :transient t)
+    ("K" "Kill current version" smerge-kill-current :transient t)]]
+  [[("ZZ" "Save and bury buffer"
+     (lambda ()
+       (interactive)
+       (save-buffer)
+       (bury-buffer)
+       (transient-smerge-quit-all)))]
+   [("q" "cancel" transient-smerge-quit-all)]])
 
 (add-hook 'magit-diff-visit-file-hook
           (lambda ()
             (when smerge-mode
-              (unpackaged/smerge-hydra/body))))
+              (transient-smerge-menu))))
 
 ;;; menu
 (transient-define-prefix git-dispatch ()
-  "Git dispatch menu"
+  "Git dispatch menu."
   :transient-non-suffix 'transient--do-stay
   [["Hunk"
     ("n" "Next hunk" diff-hl-next-hunk  :transient t)

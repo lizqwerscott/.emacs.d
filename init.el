@@ -16,7 +16,6 @@
 (require 'init-gcmh)
 (require 'init-super-save)
 
-(require 'init-hydra)
 (require 'init-transient)
 (require 'init-meow)
 

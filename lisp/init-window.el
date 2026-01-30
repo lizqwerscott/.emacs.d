@@ -14,48 +14,49 @@
  '(aw-minibuffer-leading-char-face ((t (:inherit font-lock-keyword-face :bold t :height 1.0))))
  '(aw-mode-line-face ((t (:inherit mode-line-emphasis :bold t)))))
 
-(pretty-hydra-define-e hydra-window
-  (:title (pretty-hydra-title "Window Management" 'faicon "nf-fa-th")
-          :foreign-keys warn :quit-key ("q" "C-g") :posframe t)
-  ("Actions"
-   (("TAB" other-window "switch")
-    ("x" ace-delete-window "delete")
-    ("X" ace-delete-other-windows "delete other" :exit t)
-    ("s" ace-swap-window "swap")
-    ("a" ace-select-window "select" :exit t)
-    ("m" toggle-frame-maximized "maximize" :exit t)
-    ("u" toggle-frame-fullscreen "fullscreen" :exit t))
-   "Resize"
-   (("h" shrink-window-horizontally "←")
-    ("j" enlarge-window "↓")
-    ("k" shrink-window "↑")
-    ("l" enlarge-window-horizontally "→")
-    ("n" balance-windows "balance"))
-   "Split"
-   (("3" split-window-right "horizontally")
-    ("2" split-window-below "vertically")
-    ("w 3" split-root-window-right "root horizontally")
-    ("w 2" split-root-window-below "root vertically")
-    ("t" window-layout-transpose "Transpose Window Layout")
-    ("r" rotate-windows "Clockwise Rotate")
-    ("R" rotate-windows-back "Counterclockwise Rotate"))
-   "Zoom"
-   (("+" text-scale-increase "in")
-    ("=" text-scale-increase "in")
-    ("-" text-scale-decrease "out")
-    ("0" (text-scale-increase 0) "reset"))
-   "Misc"
-   (("o" set-frame-font "frame font")
-    ("f" make-frame-command "new frame")
-    ("d" delete-frame "delete frame")
-    ("<left>" winner-undo "winner undo")
-    ("<right>" winner-redo "winner redo"))))
+(transient-define-prefix window-dispatch ()
+  "Window Management."
+  :transient-non-suffix 'transient--do-stay
+  [["Actions"
+    ("TAB" "switch" other-window :transient t)
+    ("x" "delete" ace-delete-window :transient t)
+    ("X" "delete other" ace-delete-other-windows)
+    ("s" "swap" ace-swap-window :transient t)
+    ("a" "select" ace-select-window)
+    ("m" "maximize" toggle-frame-maximized)
+    ("u" "fullscreen" toggle-frame-fullscreen)]
+   ["Resize"
+    ("h" "←" shrink-window-horizontally :transient t)
+    ("j" "↓" enlarge-window :transient t)
+    ("k" "↑" shrink-window :transient t)
+    ("l" "→" enlarge-window-horizontally :transient t)
+    ("n" "balance" balance-windows :transient t)]
+   ["Split"
+    ("3" "horizontally" split-window-right :transient t)
+    ("2" "vertically" split-window-below :transient t)
+    ("w 3" "root horizontally" split-root-window-right :transient t)
+    ("w 2" "root vertically" split-root-window-below :transient t)
+    ("t" "Transpose Window Layout" window-layout-transpose :transient t)
+    ("r" "Clockwise Rotate" rotate-windows :transient t)
+    ("R" "Counterclockwise Rotate" rotate-windows-back :transient t)]
+   ["Zoom"
+    ("+" "in" text-scale-increase :transient t)
+    ("=" "in" text-scale-increase :transient t)
+    ("-" "out" text-scale-decrease :transient t)
+    ("0" "reset" (lambda () (interactive) (text-scale-increase 0)) :transient t)]
+   ["Misc"
+    ("o" "frame font" set-frame-font :transient t)
+    ("f" "new frame" make-frame-command :transient t)
+    ("d" "delete frame" delete-frame :transient t)
+    ("<left>" "winner undo" winner-undo :transient t)
+    ("<right>" "winner redo" winner-redo :transient t)
+    ("q" "Quit" transient-quit-one)]])
 
-(add-to-list 'aw-dispatch-alist '(?w hydra-window/body) t)
+(add-to-list 'aw-dispatch-alist '(?w window-dispatch) t)
 
 (global-bind-keys
  (("s-o" "M-o") . ace-window)
- ("C-c w" . hydra-window/body))
+ ("C-c w" . window-dispatch))
 
 ;;; winner mode
 (winner-mode 1)

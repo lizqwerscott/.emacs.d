@@ -67,8 +67,13 @@
     ("a" "Aggressive indent" global-aggressive-indent-mode :toggle t :transient t)
     ("c" "Centered cursor" global-centered-cursor-mode :toggle t :transient t)
     ("i" "Immersive translate" immersive-translate-auto-mode :toggle t :transient t)
-    ("t" "Telega" +lizqwer/toggle-telega :toggle (get-buffer "*Telega Root*") :transient t)
-    ("p" "Spell check" global-jinx-mode :toggle (bound-and-true-p jinx-mode) :transient t)]
+    ("t" "Telega"
+     (progn
+       (autoload '+lizqwer/toggle-telega "lib-telega" nil t)
+       (+lizqwer/toggle-telega))
+     :toggle (get-buffer "*Telega Root*") :transient t)
+    ("p" "Spell check" global-jinx-mode :toggle
+     (bound-and-true-p jinx-mode) :transient t)]
 
    ["Highlight"
     ("h l" "Line highlight" global-hl-line-mode :toggle t :transient t)
@@ -105,6 +110,10 @@
      :toggle (default-value 'debug-on-quit) :transient t)]]
 
   [("q" "Quit" transient-quit-one)])
+
+(global-bind-keys
+ ("C-c T" . transient-toggles)
+ ("<f6>" . transient-toggles))
 
 (provide 'init-transient)
 ;;; init-transient.el ends here

@@ -29,43 +29,45 @@
 (custom-set-variables
  '(dape-buffer-window-arrangment 'right))
 
-(pretty-hydra-define-e hydra-dape
-  (:title (pretty-hydra-title "Debug" 'codicon "nf-cod-debug") :color pink :quit-key ("q" "C-g") :posframe t)
-  ("Stepping"
-   (("n" dape-next "next")
-    ("s" dape-step-in "step in")
-    ("o" dape-step-out "step out")
-    ("c" dape-continue "continue")
-    ("p" dape-pause "pause")
-    ;; ("k" dape-kill "kill")
-    ("r" dape-restart "restart")
-    ("D" dape-disconnect-quit "disconnect"))
-   "Switch"
-   (("i" dape-info "info")
-    ("R" dape-repl "repl")
-    ("m" dape-read-memory "memory")
-    ("t" dape-select-thread "thread")
-    ("S" dape-select-stack "stack")
-    ("w" dape-watch-dwim "memory"))
-   "Breakpoints"
-   (("b" dape-breakpoint-toggle "toggle")
-    ;; ("l" dape-breakpoint-log "log")
-    ("a" dape-breakpoint-log "log")
-    ("e" dape-breakpoint-expression "expression")
-    ("B" dape-breakpoint-remove-all "clear"))
-   "Debug"
-   (("d" dape "dape")
-    ("Q" dape-quit "quit" :exit t))))
-;; Save buffers on startup, useful for interpreted languages
-(add-hook 'dape-on-start-hooks
-          (defun dape--save-on-start ()
-            (save-some-buffers t t)))
+(require 'transient)
+(transient-define-prefix dape-dispatch ()
+  "Dape dispatch menu."
+  :transient-non-suffix 'transient--do-stay
+  [["Stepping"
+    ("s" "step in" dape-step-in :transient t)
+    ("o" "step out" dape-step-out :transient t)
+    ("c" "continue" dape-continue :transient t)
+    ("p" "pause" dape-pause :transient t)
+    ("r" "restart" dape-restart :transient t)
+    ("D" "disconnect" dape-disconnect-quit :transient t)]
+   ["Switch"
+    ("i" "info" dape-info :transient t)
+    ("R" "repl" dape-repl :transient t)
+    ("m" "memory" dape-memory :transient t)
+    ("t" "thread" dape-select-thread :transient t)
+    ("S" "stack" dape-select-stack :transient t)
+    ("w" "watch" dape-watch-dwim :transient t)]
+   ["Breakpoints"
+    ("b" "toggle" dape-breakpoint-toggle :transient t)
+    ("a" "log" dape-breakpoint-log :transient t)
+    ("e" "expression" dape-breakpoint-expression :transient t)
+    ("B" "clear" dape-breakpoint-remove-all :transient t)]
+   ["Debug"
+    ("d" "dape" dape :transient t)
+    ("Q" "quit" dape-quit)]]
+  [("q" "Done" transient-quit-all)])
 
-;; Display hydra on startup
-(add-hook 'dape-on-start-hooks
-          #'hydra-dape/body)
+(defun dape--save-on-start ()
+  "Dape save buffers on start."
+  (save-some-buffers t t))
 
-(global-set-key (kbd "<f5>") #'hydra-dape/body)
+(add-hook 'dape-start-hook #'dape--save-on-start)
+
+;; Display Dispatch on startup
+(add-hook 'dape-start-hook
+          #'dape-dispatch)
+
+(global-set-key (kbd "<f5>") #'dape-dispatch)
 
 (provide 'init-dap)
 ;;; init-dap.el ends here

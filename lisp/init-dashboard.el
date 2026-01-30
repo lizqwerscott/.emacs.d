@@ -175,24 +175,29 @@
        (setq dashboard-recover-layout-p nil)))
 
 ;;; menu
-(pretty-hydra-define hydra-dashboard
-  (:title (pretty-hydra-title "Dashboard" 'mdicon "nf-md-view_dashboard")
-          :color pink :quit-key ("q" "C-g"))
-  ("Navigator"
-   (("P" elpaca-manager "package manage" :exit t)
-    ("S" find-custom-file "settings" :exit t)
-    ("I" find-init-file "init file" :exit t))
-   "Item"
-   (("RET" widget-button-press "open" :exit t)
-    ("<tab>" widget-forward "next")
-    ("C-i" widget-forward "next")
-    ("<backtab>" widget-backward "previous")
-    ("C-n" next-line "next line")
-    ("C-p" previous-line "previous  line"))
-   "Misc"
-   (("<f2>" open-dashboard "open" :exit t)
-    ("g" dashboard-refresh-buffer "refresh" :exit t)
-    ("Q" quit-dashboard "quit" :exit t))))
+(transient-define-prefix dashboard-dispatch ()
+  "Dashboard menu."
+  :transient-non-suffix 'transient--do-stay
+
+  [["Navigator"
+    ("P" "package manage" elpaca-manager)
+    ("S" "settings" find-custom-file)
+    ("I" "init file" find-init-file)]
+
+   ["Item"
+    ("RET" "open" widget-button-press)
+    ("TAB" "next" widget-forward :transient t)
+    ("C-i" "next" widget-forward :transient t)
+    ("S-TAB" "previous" widget-backward :transient t)
+    ("C-n" "next line" next-line :transient t)
+    ("C-p" "previous line" previous-line :transient t)]
+
+   ["Misc"
+    ("<f2>" "open" open-dashboard)
+    ("g" "refresh" dashboard-refresh-buffer)
+    ("Q" "quit" quit-dashboard)]
+
+   [("q" "Done" transient-quit-all)]])
 
 (global-bind-keys
  ("<f2>" . open-dashboard))
@@ -203,8 +208,8 @@
     ("I" . find-init-file)
     ("P" . elpaca-manager)
     ("q" . quit-dashboard)
-    ("h" . hydra-dashboard/body)
-    ("?" . hydra-dashboard/body)))
+    ("h" . dashboard-dispatch)
+    ("?" . dashboard-dispatch)))
 
 (pcase user/dashboard
   ('dashboard
