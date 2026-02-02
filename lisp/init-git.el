@@ -149,6 +149,7 @@
    ["Magit"
     ("v" "magit status" unpackaged/magit-status)
     ("d" "magit dispatch" magit-dispatch)
+    ("i" "Init repo" magit-init)
     ("B" "Blame" magit-blame)
     ("f" "Find git file" magit-find-file)]
    ["Log"
