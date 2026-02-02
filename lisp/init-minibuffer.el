@@ -410,7 +410,8 @@ targets."
 ;;; Key-Binding
 
 (global-bind-keys
- (("s-x" "M-x") . execute-extended-command))
+ (("s-x" "M-x") . execute-extended-command)
+ (("s-X" "M-X") . execute-extended-command-for-buffer))
 
 (keymap-binds minibuffer-local-map
   (("s-s" "M-s") . consult-history)
