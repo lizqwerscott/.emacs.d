@@ -39,11 +39,11 @@
     (define-key map (kbd "RET") 'project-list-visit-project)
     (define-key map (kbd "g") 'project-list-refresh)
     (define-key map (kbd "q") 'quit-window)
-    (define-key map (kbd "d") 'project-list-forget-project)
+    (define-key map (kbd "o") 'project-list-open-project)
     (define-key map (kbd "k") 'project-list-forget-project)
     (define-key map (kbd "A") 'project-list-add-project)
-    (define-key map (kbd "n") 'next-line)
-    (define-key map (kbd "p") 'previous-line)
+    (define-key map (kbd "n") 'project-list-forward-line)
+    (define-key map (kbd "p") 'project-list-backward-line)
     map)
   "Keymap for `project-list-mode'.")
 
@@ -73,8 +73,11 @@
     (if (null projects)
         (insert "No known projects.\n")
       (insert (propertize (format "%-8s %-30s %s\n" "Type" "Name" "Path")
-                          'face 'bold))
-      (insert (propertize (make-string 80 ?-) 'face 'shadow))
+                          'face 'bold
+                          'project-list-title t))
+      (insert (propertize (make-string 80 ?-)
+                          'face 'shadow
+                          'project-list-title t))
       (insert "\n")
       (setq first-line-point (point))
       (dolist (project-root projects)
@@ -100,6 +103,12 @@
                   "\n"))))
     (goto-char first-line-point)))
 
+(defun project-list-open-project ()
+  "Use `dired' open project root dir."
+  (interactive)
+  (when-let* ((project (project-list-get-project-at-point)))
+    (dired-other-window project)))
+
 (defun project-list-visit-project ()
   "Visit the project at point."
   (interactive)
@@ -119,6 +128,51 @@
   (when-let* ((project (project-list-get-project-at-point)))
     (project-forget-project project)
     (project-list-refresh)))
+
+(defun project-list-skip-properties (props direction)
+  (while (and (not (eobp))
+	          (let ((hit nil))
+		        (dolist (prop props hit)
+		          (when (get-text-property (point) prop)
+		            (setq hit t)))))
+    (forward-line direction)
+    (beginning-of-line)))
+
+(defun project-list-backward-line (&optional arg)
+  "Move backwards ARG lines, wrapping around the list if necessary."
+  (interactive "P")
+  (or arg (setq arg 1))
+  (beginning-of-line)
+  (while (> arg 0)
+    (forward-line -1)
+    (when (get-text-property (point) 'project-list-title)
+      (goto-char (point-max))
+      (beginning-of-line))
+    ;; Handle the special case of no project list.
+    (when (get-text-property (point) 'project-list-title)
+      (forward-line 1)
+      (setq arg 1))
+    (decf arg)))
+
+(defun project-list-forward-line (&optional arg)
+  "Move forward ARG lines, wrapping around the list if necessary."
+  (interactive "P")
+  (or arg (setq arg 1))
+  (beginning-of-line)
+  (when (eobp)
+    (goto-char (point-min)))
+  (when (get-text-property (point) 'project-list-title)
+    (when (> arg 0)
+      (decf arg))
+    (project-list-skip-properties '(project-list-title) 1))
+  (if (< arg 0)
+      (project-list-backward-line (- arg))
+    (while (> arg 0)
+      (forward-line 1)
+      (when (eobp)
+	    (goto-char (point-min)))
+      (decf arg)
+      (project-list-skip-properties '(project-list-title) 1))))
 
 ;;;###autoload
 (defun project-list-projects ()
