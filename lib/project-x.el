@@ -29,9 +29,7 @@
 (defun my/project-try-local (dir)
   "Determine if DIR is a non-Git project."
   (catch 'ret
-    (let ((pr-flags '((".project")
-                      ("go.mod" "Cargo.toml" "pom.xml") ;; higher priority
-                      ("Makefile"))))
+    (let ((pr-flags '((".project"))))
       (dolist (current-level pr-flags)
         (dolist (f current-level)
           (when-let* ((root (locate-dominating-file dir f)))
