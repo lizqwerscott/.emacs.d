@@ -31,6 +31,8 @@
   (add-hook 'project-find-functions #'my/project-try-local)
   (add-hook 'project-find-functions #'rc/find-root-for-eglot-for-clj))
 
+(autoload #'project-list-projects "project-list" nil t nil)
+
 ;;; Menu
 (transient-define-prefix project-manage-dispatch ()
   "Manage Project menu"
@@ -82,7 +84,9 @@
   ("M" . project-manage-dispatch)
   ("P" . project-switch-project-open)
 
-  ("C" . ("Emacs Config" . (lambda () (interactive) (project-switch-project user-emacs-directory)))))
+  ("C" . ("Emacs Config" . (lambda () (interactive) (project-switch-project user-emacs-directory))))
+
+  ("l" . project-list-projects))
 
 ;;; project-switch-commands
 (setq project-switch-commands
