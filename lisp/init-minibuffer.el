@@ -228,8 +228,13 @@ DEFS is a plist associating completion categories to commands."
     :items    ,#'consult-dir--quick-dir)
   "Fasd directory source for `consult-dir'.")
 
-;; Adding to the list of consult-dir sources
-(add-to-list 'consult-dir-sources 'consult-dir--source-quick)
+(setq consult-dir-sources
+      '(consult-dir--source-quick
+        consult-dir--source-bookmark
+        consult-dir--source-default
+        consult-dir--source-recentf
+        consult-dir--source-project
+        consult-dir--source-tramp-local))
 
 (global-bind-keys
  ("C-x C-d" . consult-dir))
