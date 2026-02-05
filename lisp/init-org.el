@@ -41,6 +41,49 @@
 (with-eval-after-load 'yank-media
   (add-to-list 'yank-media-preferred-types 'image/tiff))
 
+;;; face and font
+
+(defun my/face-with-inherited-foreground (face-name &optional others)
+  "Return a face spec for FACE-NAME with bold and inherited foreground.
+OTHERS is a plist of additional face attributes to merge.
+
+This function creates a face specification that inherits from FACE-NAME
+but adds bold weight and ensures the foreground color is inherited
+from FACE-NAME's parent face."
+  `(,face-name ((t (:inherit bold :foreground ,(face-foreground face-name nil t) ,@others)))))
+
+(let* ((variable-tuple
+        (cond ((x-list-fonts "LXGW WenKai")         '(:font "LXGW WenKai"))
+              ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
+              (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro.")))))
+  (custom-theme-set-faces
+   'user
+   (my/face-with-inherited-foreground 'org-level-1 `(,@variable-tuple :height 1.25))
+   (my/face-with-inherited-foreground 'org-level-2 `(,@variable-tuple :height 1.1))
+   (my/face-with-inherited-foreground 'org-level-3 variable-tuple)
+   (my/face-with-inherited-foreground 'org-level-4 variable-tuple)
+   (my/face-with-inherited-foreground 'org-level-5 variable-tuple)
+   (my/face-with-inherited-foreground 'org-level-6 variable-tuple)
+   (my/face-with-inherited-foreground 'org-level-7 variable-tuple)
+   (my/face-with-inherited-foreground 'org-level-8 variable-tuple)
+   (my/face-with-inherited-foreground 'org-document-title `(,@variable-tuple :height 1.5 :underline nil))))
+
+(custom-theme-set-faces
+ 'user
+ `(variable-pitch ((t (:family "LXGW WenKai" :height ,(round (* 1.2 user/font-size)) :weight thin))))
+ `(fixed-pitch ((t ( :family "MonoLisa Lucius" :height ,user/font-size))))
+ `(modus-themes-fixed-pitch ((t ( :family "MonoLisa Lucius" :height ,user/font-size)))))
+
+(custom-theme-set-faces
+ 'user
+ '(org-document-info ((t (:foreground "dark orange"))))
+ '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+ '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+ '(org-link ((t (:foreground "royal blue" :underline t))))
+ '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8)))))
+
+(add-hook 'org-mode-hook #'variable-pitch-mode)
+
 ;;; Org export
 (setopt org-export-with-drawers nil
         org-export-with-todo-keywords nil
