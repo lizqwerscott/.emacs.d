@@ -370,7 +370,6 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     titlecase
     denote
     denote-menu
-    consult-denote
     denote-journal
     denote-org
     denote-sequence

@@ -234,14 +234,6 @@ DENOTE-DIR is denote dir."
                                     ))
                             dirs)))
 
-;;; consult-denote
-(require 'consult-denote)
-(consult-denote-mode 1)
-
-(global-bind-keys
- ("C-c n f" . consult-denote-find)
- ("C-c n g" . consult-denote-grep))
-
 ;;; citar-denote
 (setopt citar-open-always-create-notes t
         citar-denote-subdir "literature")
