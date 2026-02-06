@@ -74,6 +74,8 @@
       (list (file-truename "~/Documents/notes")
             (file-truename "~/Documents/WorkShare/")))
 
+(setq denote-excluded-directories-regexp "data") ; the data folder (with attachments) is excluded.
+
 (defun denote-get-denote-directory ()
   "Get first denote directory."
   (if (listp denote-directory)
