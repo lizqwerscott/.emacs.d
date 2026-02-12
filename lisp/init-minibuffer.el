@@ -195,6 +195,10 @@ DEFS is a plist associating completion categories to commands."
  ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
  ("C-x r b" . consult-bookmark)
 
+ ("C-x r s" . consult-register-store)
+ ("C-x r j" . consult-register-load)
+ ("C-x r r" . consult-register)
+
  ("M-g l" . consult-goto-line)
  ("M-g o" . consult-outline)
  ("M-g m" . consult-mark)
