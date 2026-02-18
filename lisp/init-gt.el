@@ -76,7 +76,7 @@
 (global-bind-keys
  ("C-c G"   . gt-translate-prompt)
  ("C-c d t" . gt-translate)
- ("C-c d G" . gt-translate-propt)
+ ("C-c d G" . gt-translate-prompt)
  ("C-c d u" . gt-use-text-utility))
 
 (provide 'init-gt)
