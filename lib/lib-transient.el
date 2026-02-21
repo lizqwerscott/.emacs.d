@@ -81,7 +81,10 @@ OBJ is `c/transient-toggle' object."
          (cl-loop for item across group
                   collect (cond
                            ((vectorp item) (pretty-transient--process-group item))
-                           ((listp item) (pretty-transient--process-suffix item))
+                           ((and (listp item)
+                                 (car item)
+                                 (stringp (car item)))
+                            (pretty-transient--process-suffix item))
                            (t item)))))
 
 (defmacro pretty-transient-define-prefix (name arglist &rest args)
