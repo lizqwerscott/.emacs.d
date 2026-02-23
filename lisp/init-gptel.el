@@ -109,6 +109,14 @@
   :key #'gptel-api-key
   :models '(deepseek-chat deepseek-ocr deepseek-r1 deepseek-v3.2 deepseek-v3.2-thinking gpt-4o-ca gpt-4.1-ca gpt-5.1-ca gpt-5-chat-latest-ca gpt-5.1-chat-latest-ca))
 
+(gptel-make-anthropic "MiniMax"
+  :stream t
+  :protocol "https"
+  :host "api.minimaxi.com"
+  :endpoint "/anthropic/v1/messages"
+  :key #'gptel-api-key
+  :models '(MiniMax-M2.5 MiniMax-M2.5-highspeed))
+
 (setq gptel-model 'deepseek-chat)
 (setq gptel-backend
       (gptel-get-backend "DeepSeek"))
