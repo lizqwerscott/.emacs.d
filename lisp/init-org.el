@@ -421,9 +421,6 @@ OPEN and CLOSE. Otherwise, insert the delimiters with space for text in between.
   ("s-H" . org-metaleft)
   ("s-L" . org-metaright)
 
-  ("M-g n" . org-next-visible-heading)
-  ("M-g p" . org-previous-visible-heading)
-
   ("C-c C-l" . ar/org-insert-link-dwim)
 
   ("M-g o" . consult-org-heading)

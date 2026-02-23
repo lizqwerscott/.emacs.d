@@ -123,8 +123,8 @@ beginning and end of the symbol set."
   (my/eglot-next-highlight 'prev))
 
 (keymap-binds eglot-mode-map
-  (("M-g n" "M-g .") . my/eglot-next-highlight)
-  (("M-g p" "M-g ,") . my/eglot-prev-highlight))
+  (("C-c C-n" "M-g .") . my/eglot-next-highlight)
+  (("C-c C-p" "M-g ,") . my/eglot-prev-highlight))
 
 (defvar-keymap eglot-highlight-repeat-map
   :doc "Eglot highligh repeat map."
