@@ -1,18 +1,31 @@
+;;; init-elfeed.el --- elfeed                              -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
+(wait-packages!
+ '(elfeed
+   elfeed-org))
+
+;; Load elfeed-org
+(require 'elfeed-org)
+
+;; Initialize elfeed-org
+;; This hooks up elfeed-org to read the configuration when elfeed
+;; is started with =M-x elfeed=
+(elfeed-org)
+
+;; Optionally specify a number of files containing elfeed
+;; configuration. If not set then the location below is used.
+;; Note: The customize interface is also supported.
+(setopt rmh-elfeed-org-files (list "~/Documents/Org/elfeed.org"))
+
+(setopt url-queue-timeout 30)
+
 (require 'elfeed)
 
-(setq elfeed-feeds
-      '(("https://emacstalk.codeberg.page/podcast/index.xml" blog emacs)
-        ("https://manateelazycat.github.io/feed.xml" blog)
-        ("https://remacs.fun/index.xml" blog emacs)
-        ("https://whatacold.io/zh-cn/rss.xml" blog)
-        ("http://feed.williamlong.info/" blog)
-        ("https://sachachua.com/blog/category/emacs-news/feed" emacs)))
-
-(setf url-queue-timeout 30)
-
 (defun nerd-icon-for-tags (tags)
-  "Generate Nerd Font icon based on tags.
-  Returns default if no match."
+  "Generate Nerd Font icon based on TAGS.
+Returns default if no match."
   (cond ((member "star" tags) (nerd-icons-faicon "nf-fa-star" :face '(:foreground "#FFD700")))
         ((member "youtube" tags)  (nerd-icons-faicon "nf-fa-youtube_play" :face '(:foreground "#FF0200")))
         ((member "instagram" tags) (nerd-icons-faicon "nf-fa-instagram" :face '(:foreground "#FF00B9")))
@@ -25,7 +38,7 @@
   (let* ((date (elfeed-search-format-date (elfeed-entry-date entry)))
          (date-width (car (cdr elfeed-search-date-format)))
          (title (concat (or (elfeed-meta entry :title)
-                           (elfeed-entry-title entry) "")
+                            (elfeed-entry-title entry) "")
                         ;; NOTE: insert " " for overlay to swallow
                         " "))
          (title-faces (elfeed-search--faces (elfeed-entry-tags entry)))
@@ -58,8 +71,5 @@
 
 (setq elfeed-search-print-entry-function #'lucius/elfeed-search-print-entry--better-default)
 
-(keymap-binds elfeed-show-mode-map
-  ("M-n" . scroll-up-1/3)
-  ("M-p" . scroll-down-1/3))
-
 (provide 'init-elfeed)
+;;; init-elfeed.el ends here

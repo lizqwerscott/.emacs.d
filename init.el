@@ -38,7 +38,6 @@
 (require 'init-tools)
 
 (require 'init-org)
-;; (require 'init-elfeed)
 ;;(require 'crefactor)
 (require 'init-writer)
 
@@ -54,6 +53,9 @@
            #'axis-mode)
 
 (require 'init-ai)
+
+(when user/elfeedp
+  (require 'init-elfeed))
 
 (when user/telegap
   (require 'init-telega))

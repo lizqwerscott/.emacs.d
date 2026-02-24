@@ -395,8 +395,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
             (macher :host github :repo "kmontag/macher"))))
 
 (defvar *package-another-install-list*
-  '(elfeed
-    code-stats
+  '(code-stats
     docker
     (screenshot :fetcher github :repo "tecosaur/screenshot")
     (consult-omni :type git :fetcher github :repo "armindarvish/consult-omni" :branch "main" :files (:defaults "sources/*.el"))))

@@ -36,6 +36,11 @@
   :group 'user
   :type 'boolean)
 
+(defcustom user/elfeedp nil
+  "Is use elfeed."
+  :group 'user
+  :type 'boolean)
+
 (defcustom user/telegap nil
   "Is use telega."
   :group 'user
