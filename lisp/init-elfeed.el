@@ -71,5 +71,15 @@ Returns default if no match."
 
 (setq elfeed-search-print-entry-function #'lucius/elfeed-search-print-entry--better-default)
 
+(defun tab-bar-switch-or-create-rss ()
+  "Create or switch elfeed tab bar."
+  (interactive)
+  (autoload 'tab-bar-switch-or-create "lib-tabbar" nil t)
+  (tab-bar-switch-or-create "Rss")
+  (call-interactively #'elfeed))
+
+(global-bind-keys
+ ("C-c l r" . ("Rss Tab" . tab-bar-switch-or-create-rss)))
+
 (provide 'init-elfeed)
 ;;; init-elfeed.el ends here

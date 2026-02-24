@@ -69,12 +69,6 @@ TARGET-TAB-NAME is the new tab name."
   (interactive)
   (tab-bar-switch-or-create "Main"))
 
-(defun tab-bar-switch-or-create-rss ()
-  "Create or switch elfeed tab bar."
-  (interactive)
-  (tab-bar-switch-or-create "Rss")
-  (call-interactively #'elfeed))
-
 (defun bookmark-jump-other-tab (bookmark)
   "Jump BOOKMARK in other tab.
 See `jump-jump' for more."

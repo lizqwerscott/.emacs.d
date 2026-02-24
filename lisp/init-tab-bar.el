@@ -29,8 +29,7 @@
  ("C-c l B" . bookmark-jump-other-tab)
  ("C-c l n" . ("Switch or Create Tab" . tab-bar-switch-or-create))
  ("C-c l k" . ("Close Tab" . tab-bar-close-tab))
- ("C-c l m" . ("Main Tab" .  tab-bar-switch-or-create-main))
- ("C-c l r" . ("Rss Tab" . tab-bar-switch-or-create-rss)))
+ ("C-c l m" . ("Main Tab" .  tab-bar-switch-or-create-main)))
 
 (provide 'init-tab-bar)
 ;;; init-tab-bar.el ends here
