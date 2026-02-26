@@ -69,6 +69,23 @@ TARGET-TAB-NAME is the new tab name."
   (interactive)
   (tab-bar-switch-or-create "Main"))
 
+(require 'project)
+(defun project-switch-project-other-tab (dir)
+  "Create or Switch project DIR tab bar."
+  (interactive (list (funcall project-prompter)))
+  (project-remember-project (project-current t dir))
+  (tab-bar-switch-or-create (project-name (project-current t dir)))
+  (let ((command (if (symbolp project-switch-commands)
+                     project-switch-commands
+                   (project--switch-project-command dir)))
+        (buffer (current-buffer)))
+    (unwind-protect
+        (progn
+          (setq-local project-current-directory-override dir)
+          (call-interactively command))
+      (with-current-buffer buffer
+        (kill-local-variable 'project-current-directory-override)))))
+
 (defun bookmark-jump-other-tab (bookmark)
   "Jump BOOKMARK in other tab.
 See `jump-jump' for more."
