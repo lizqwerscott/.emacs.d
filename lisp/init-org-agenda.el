@@ -9,10 +9,7 @@
                            ("~/Documents/Org/inbox.org" :maxlevel . 1)
                            ("~/Documents/Org/tasks.org" :maxlevel . 4)))
 (add-list-to-list 'org-agenda-files
-                  '("~/Documents/Org/idea.org"
-                    "~/Documents/Org/quote.org"
-                    "~/Documents/Org/tasks.org"
-                    "~/Documents/Org/archive.org"
+                  '("~/Documents/Org/tasks.org"
                     "~/Documents/Org/inbox.org"))
 
 (defun sodaware/switch-task-on-clock-start (task-state)
