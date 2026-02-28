@@ -116,7 +116,7 @@ continue, per `org-agenda-skip-function'."
       `(("A" "Daily agenda and top priority tasks"
          ,prot-org-custom-daily-agenda
          ((org-agenda-fontify-priorities nil)
-          (org-agenda-prefix-format "	 %t %s")
+          (org-agenda-prefix-format "%-2i %-20:c %t %s")
           (org-agenda-dim-blocked-tasks nil)))))
 
 (provide 'init-org-agenda)
