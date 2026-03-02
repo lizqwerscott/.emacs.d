@@ -43,15 +43,16 @@ If point is on a link, open it. Otherwise, do `org-return`."
   (interactive)
   (if (meow-smart-enter-org--at-link-p)
       (condition-case nil
-          (org-open-at-point)
-        (user-error (org-return)))
-    (org-return)))
+          (call-interactively #'org-open-at-point)
+        (user-error (call-interactively #'org-return)))
+    (call-interactively #'org-return)))
 
 (defun meow-smart-enter-goto-address ()
   "Goto address at point when meow normal mode."
   (interactive)
   (when (meow-normal-mode-p)
-    (call-interactively #'goto-address-at-point)))
+    (cond ((eq major-mode 'org-mode) (meow-smart-enter-org))
+          (t (call-interactively #'goto-address-at-point)))))
 
 (defun meow-smart-enter ()
   "Meow smart enter in normal state."
