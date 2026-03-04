@@ -288,9 +288,28 @@ DEFS is a plist associating completion categories to commands."
         :default  t
         :items    (lambda () (consult--buffer-query
                               :predicate #'bufferlo-local-buffer-p
+                              :filter t
+                              :exclude '("^\\*.*\\*$" "^magit.*:.*" "^ .*")
+                              :include nil
                               :sort 'visibility
                               :as #'buffer-name)))
   "Local Bufferlo buffer candidate source for `consult-buffer'.")
+
+(defvar my:bufferlo-consult--source-local-sepcial-buffers
+  (list :name "Bufferlo Local Special Buffers"
+        :narrow   ?s
+        :category 'buffer
+        :face     'consult-buffer
+        :history  'buffer-name-history
+        :state    #'consult--buffer-state
+        :default  t
+        :items    (lambda () (consult--buffer-query
+                              :predicate #'bufferlo-local-buffer-p
+                              :filter t
+                              :include '("^\\*.*\\*$" "^magit.*")
+                              :sort 'visibility
+                              :as #'buffer-name)))
+  "Sepical Local Bufferlo buffer candidate source for `consult-buffer'.")
 
 (defvar my:bufferlo-consult--source-other-buffers
   (list :name "Bufferlo Other Buffers"
@@ -322,6 +341,7 @@ DEFS is a plist associating completion categories to commands."
 ;; add in the reverse order of display preference
 ;; (add-to-list 'consult-buffer-sources 'my:bufferlo-consult--source-all-buffers)
 (add-to-list 'consult-buffer-sources 'my:bufferlo-consult--source-other-buffers)
+(add-to-list 'consult-buffer-sources 'my:bufferlo-consult--source-local-sepcial-buffers)
 (add-to-list 'consult-buffer-sources 'my:bufferlo-consult--source-local-buffers)
 
 (with-eval-after-load 'consult
