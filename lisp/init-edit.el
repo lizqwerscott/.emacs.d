@@ -133,7 +133,7 @@
 
 (with-eval-after-load 'isearch
   (keymap-binds isearch-mode-map
-    ("<escape>" . isearch-exit)
+    ("<escape>" . isearch-abort)
     ("s-r" . isearch-toggle-regexp)
     ("s-e" . isearch-edit-string)
 
@@ -148,6 +148,11 @@
   :repeat t
   "s" #'isearch-repeat-forward
   "r" #'isearch-repeat-backward)
+
+;; Center search results automatically during isearch
+(add-hook 'isearch-update-post-hook
+          (lambda ()
+            (recenter nil t)))
 
 ;;; Outline indent
 (with-eval-after-load 'outline-indent
