@@ -152,7 +152,8 @@
 ;; Center search results automatically during isearch
 (add-hook 'isearch-update-post-hook
           (lambda ()
-            (recenter nil t)))
+            (unless (pos-visible-in-window-p)
+              (recenter nil t))))
 
 ;;; Outline indent
 (with-eval-after-load 'outline-indent
