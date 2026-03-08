@@ -2,15 +2,15 @@
 ;;; Commentary:
 ;;; Code:
 
-(defvar elpaca-installer-version 0.11)
+(defvar elpaca-installer-version 0.12)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
-(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-sources-directory (expand-file-name "sources/" elpaca-directory))
 (defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
                               :ref nil :depth 1 :inherit ignore
                               :files (:defaults "elpaca-test.el" (:exclude "extensions"))
-                              :build (:not elpaca--activate-package)))
-(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+                              :build (:not elpaca-activate)))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-sources-directory))
        (build (expand-file-name "elpaca/" elpaca-builds-directory))
        (order (cdr elpaca-order))
        (default-directory repo))
@@ -92,22 +92,6 @@
   (elpaca-process-queues)
 
   (elpaca-wait))
-
-(defun +elpaca-with-github-straight-mirror (recipe)
-  "Replace github with emacs-straight in package RECIPE."
-  (when-let* ((source (plist-get recipe :source))
-              ((string-match-p "GNU ELPA" source))
-              (repo (plist-get recipe :repo))
-              (url (or (car-safe repo) repo))
-              ((string-match-p "github.com" url))
-              ((not (string-match-p "emacsmirror/gnu_elpa" url)))
-              ((not (string-match-p "emacs-mirror" url)))
-              (mirror (replace-regexp-in-string "https://github.com/\\([^/]+\\)/"
-                                                (concat "https://github.com/" "emacs-straight" "/")
-                                                url)))
-    (list :repo (if (consp repo) (cons mirror (cdr repo)) mirror))))
-
-(add-to-list 'elpaca-recipe-functions #'+elpaca-with-github-straight-mirror)
 
 (defun get-repo-info-from-url (url)
   "Get repo info from URL.
@@ -196,7 +180,6 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     diredfl
     dired-subtree
     dired-quick-sort
-    dired-collapse
     dired-preview
     trashed
     dirvish
@@ -315,11 +298,10 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     consult-todo
     imenu-list
     outli
-    (indent-bars :fetcher github :repo "jdtsmith/indent-bars")
+    indent-bars
     (awesome-tray :fetcher github
                   :repo "manateelazycat/awesome-tray")
-    (breadcrumb :fetcher github
-                :repo "joaotavora/breadcrumb")
+    breadcrumb
     nerd-icons-ibuffer
     casual
     inhibit-mouse
@@ -378,7 +360,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     citar-denote
     denote-explore
     ox-epub
-    (auctex :fetcher github :repo "emacs-straight/auctex" :branch "master")
+    auctex
     cdlatex))
 
 (defvar *package-ai-install-list*
@@ -407,7 +389,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
  '(eat
    vterm
    (meow-vterm :fetcher github :repo "accelbread/meow-vterm")
-   (multi-vterm :fetcher github :repo "lizqwerscott/multi-vterm")))
+   (multi-vterm :type git :fetcher github :repo "lizqwerscott/multi-vterm")
+   ))
 
 (packages!
  (append *package-built-in-install-list*
