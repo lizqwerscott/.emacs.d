@@ -24,21 +24,22 @@
 
 ;;; Code:
 
-(require 'lib-git)
+(autoload #'unpackaged/magit-status "lib-git" nil t)
+(autoload #'unpackaged/magit-project-status "lib-git" nil t)
+(autoload #'consult-switch-git-status-buffer "lib-git" nil t)
 
 ;;; vc
 (setq vc-handled-backends '(Git)
       vc-follow-symlinks t)
 
 ;;; ediff
-(setq ediff-split-window-function 'split-window-horizontally
-      ediff-window-setup-function 'ediff-setup-windows-plain)
+(setopt ediff-split-window-function 'split-window-horizontally
+        ediff-window-setup-function 'ediff-setup-windows-plain)
 
-(with-eval-after-load 'ediff
-  (setq ediff-keep-variants nil
+(setopt ediff-keep-variants nil
         ediff-make-buffers-readonly-at-startup nil
         ediff-merge-revisions-with-ancestor t
-        ediff-show-clashes-only t))
+        ediff-show-clashes-only t)
 
 (add-hook 'ediff-startup-hook
           (lambda ()
@@ -47,10 +48,12 @@
                 (with-current-buffer buffer
                   (outline-show-all))))))
 
-(casual-ediff-install)
-(add-hook 'ediff-keymap-setup-hook
-          (lambda ()
-            (keymap-set ediff-mode-map "C-o" #'casual-ediff-tmenu)))
+(with-eval-after-load 'ediff
+  (casual-ediff-install)
+  (add-hook 'ediff-keymap-setup-hook
+            (lambda ()
+              (keymap-set ediff-mode-map "C-o" #'casual-ediff-tmenu))))
+
 
 ;;; difftastic
 
@@ -94,6 +97,7 @@
   ;; Also reduce the author column width to 11 as the author name is being
   ;; abbreviated below.
   (setq magit-log-margin '(t age-abbreviated magit-log-margin-width :author 11))
+  (require 'lib-git)
   (advice-add 'magit-log-format-margin :filter-args #'+magit-log--abbreviate-author))
 
 (add-hook 'magit-mode-hook
