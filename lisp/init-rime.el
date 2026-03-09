@@ -30,7 +30,10 @@
   (custom-set-variables
    '(rime-librime-root "~/.emacs.d/librime/dist"))
   (custom-set-variables
-   '(rime-emacs-module-header-root "/opt/homebrew/include")))
+   `(rime-emacs-module-header-root
+     ,(if (file-exists-p "/Applications/Emacs.app/Contents/Resources/include/")
+          "/Applications/Emacs.app/Contents/Resources/include/"
+        "/opt/homebrew/include/"))))
 
 (if sys/macp
     (setq rime-user-data-dir "~/Library/Rime")
