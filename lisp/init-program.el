@@ -253,6 +253,7 @@ ARGS is ORIG-FN args."
 ;; markdown
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (setopt markdown-fontify-code-blocks-natively t)
+(add-hook 'markdown-mode-hook #'markdown-indent-mode)
 
 (provide 'init-program)
 ;;; init-program.el ends heres.

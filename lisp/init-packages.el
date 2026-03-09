@@ -165,6 +165,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
 
 (defvar *package-language-mode-install-list*
   '(markdown-mode
+    markdown-indent-mode
     log4j-mode
     just-mode
     elvish-mode
