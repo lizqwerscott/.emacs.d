@@ -53,7 +53,20 @@
             (keymap-set ediff-mode-map "C-o" #'casual-ediff-tmenu)))
 
 ;;; difftastic
-(require 'init-difftastic)
+
+;; Add commands to a `magit-difftastic'
+(eval-after-load 'magit-diff
+  '(transient-append-suffix 'magit-diff '(-1 -1)
+     [("D" "Difftastic diff (dwim)" difftastic-magit-diff)
+      ("S" "Difftastic show" difftastic-magit-show)]))
+
+(with-hook magit-blame-read-only-mode-hook
+  (keymap-binds magit-blame-read-only-mode-map
+    ("D" . difftastic-magit-show)
+    ("S" . difftastic-magit-show)))
+
+(unless (executable-find "difft")
+  (message "Not find difft, Need install difftastic."))
 
 ;;; diff-mode
 (with-eval-after-load 'diff-mode
