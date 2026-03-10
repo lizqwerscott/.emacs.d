@@ -262,12 +262,14 @@
 
 ;; repeat for scroll up
 (defvar-keymap scroll-repeat-map
-  :repeat t
+  :repeat (:hints ((scroll-up-1/3 . "next 1/3")
+                   (scroll-down-1/3 . "prev 1/3")))
   "n" #'scroll-up-1/3
   "p" #'scroll-down-1/3)
 
 (defvar-keymap scroll-other-window-repeat-map
-  :repeat t
+  :repeat (:hints ((scroll-other-window-up-1/3 . "next 1/3 (other)")
+                   (scroll-other-window-down-1/3 . "prev 1/3 (other)")))
   "n" #'scroll-other-window-up-1/3
   "p" #'scroll-other-window-down-1/3)
 
