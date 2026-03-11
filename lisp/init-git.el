@@ -48,12 +48,10 @@
                 (with-current-buffer buffer
                   (outline-show-all))))))
 
-(with-eval-after-load 'ediff
-  (casual-ediff-install)
-  (add-hook 'ediff-keymap-setup-hook
-            (lambda ()
-              (keymap-set ediff-mode-map "C-o" #'casual-ediff-tmenu))))
-
+(casual-ediff-install)
+(add-hook 'ediff-keymap-setup-hook
+          (lambda ()
+            (keymap-set ediff-mode-map "C-o" #'casual-ediff-tmenu)))
 
 ;;; difftastic
 
