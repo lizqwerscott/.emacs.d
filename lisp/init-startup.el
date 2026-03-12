@@ -261,5 +261,11 @@
   (add-hook 'after-init-hook
             #'server-mode))
 
+;;; native comp
+(add-hook 'after-init-hook
+          (lambda ()
+            (when-let* ((buffer (get-buffer "*Async-native-compile-log*")))
+              (switch-to-buffer-other-window buffer))))
+
 (provide 'init-startup)
 ;;; init-startup.el ends here.
