@@ -119,7 +119,7 @@
 
 (setq gptel-model 'deepseek-chat)
 (setq gptel-backend
-      (gptel-get-backend "DeepSeek"))
+      (gptel-get-backend "deepseek"))
 
 (require 'gptel)
 
