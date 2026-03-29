@@ -251,8 +251,6 @@
 
  ("M-g P" . goto-percent)
 
- ("C-s-f" . forward-sexp)
- ("C-s-b" . backward-sexp)
  ("s-\\" . cycle-spacing))
 
 (with-eval-after-load 'init-meow
