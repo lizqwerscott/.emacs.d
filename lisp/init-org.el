@@ -174,7 +174,7 @@ from FACE-NAME's parent face."
                       ("DOING"  . ?▶)
                       ("HANGUP" . ?⏸)
                       ("CANCEL" . ?✖))))
-(setq org-superstar-special-todo-items t)
+(setopt org-superstar-special-todo-items t)
 (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 
 ;; Make verbatim with highlight text background.
@@ -190,7 +190,7 @@ from FACE-NAME's parent face."
 ;;                                       :color "grey75"
 ;;                                       :style released-button))))
 
-(setq valign-facy-bar t)
+(setopt valign-fancy-bar t)
 (add-hook 'org-mode-hook #'valign-mode)
 
 (setopt org-fancy-priorities-list
