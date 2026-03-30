@@ -125,5 +125,22 @@ deletion, or > if it is flagged for displaying."
   (setq revert-buffer-function #'bookmark-bmenu--revert)
   (tabulated-list-init-header))
 
+;;; apropos
+(defvar-keymap apropos-prefix-keymap
+  :doc "Keymap for Apropos prefix commands"
+  :prefix t
+  "a" #'apropos
+  "d" #'apropos-documentation
+  "f" #'apropos-function
+  "c" #'apropos-command
+  "i" #'info-apropos
+  "u" #'apropos-user-option
+  "l" #'apropos-library
+  "v" #'apropos-variable
+  "V" #'apropos-value)
+
+(global-bind-keys
+ ("C-h C-a" . ("Apropos prefix" . apropos-prefix-keymap)))
+
 (provide 'init-tools)
 ;;; init-tools.el ends here
