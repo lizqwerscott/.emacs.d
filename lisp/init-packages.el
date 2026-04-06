@@ -327,6 +327,9 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     citar-denote
     denote-explore
     ox-epub
+    ox-gemini
+    gemini-mode
+    (elpher :fetcher github :repo "emacsmirror/elpher")
     auctex
     cdlatex))
 

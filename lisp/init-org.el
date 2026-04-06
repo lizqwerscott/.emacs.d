@@ -134,6 +134,9 @@ from FACE-NAME's parent face."
 (with-eval-after-load 'ox
   (require 'ox-epub))
 
+(with-eval-after-load 'ox
+  (require 'ox-gemini))
+
 ;;; Org babel
 (org-babel-do-load-languages
  'org-babel-load-languages
