@@ -133,5 +133,70 @@ For example, (goto-percent 50) moves to the middle of the buffer."
       (kill-new filepath)
       (message "Copied buffer file path '%s' to the clipboard." filepath))))
 
+(defun +lizqwer/insert-repeated-numbers (format-str &optional outer-brackets separator)
+  "Insert numbers based on format string.
+
+FORMAT-STR: Format string for numbers:
+  - Single number: 5 → generates 5 fixed values
+  - Range: 1..5 → generates 1 to 5
+  - Range with step: 1..10:2 → generates 1 to 10 with step 2
+  - Fixed value with count: 5*42 → generates 5 times 42
+  - Supports decimal numbers: 1.5..5.5, 0.1..1.0:0.2, 3*2.5
+
+SEPARATOR: String separator between numbers. If nil, auto-detect based on language.
+OUTER-BRACKETS: Type of outer brackets - 'square' for [], 'curly' for {}, 'paren' for (), or nil for none.
+               Automatically detects language if nil."
+  (interactive (let ((current-prefix-arg current-prefix-arg))
+                 (list (read-string "Number format (e.g., 5, 1..5, 1..10:2, 5*42, 1.5..5.5, 0.1..1.0:0.2, 3*2.5):")
+                       (when current-prefix-arg
+                         (let ((choice (completing-read "Bracket type (square/curly/paren/none): "
+                                                        '("square" "curly" "paren" "none") nil t)))
+                           (cond ((equal choice "square") 'square)
+                                 ((equal choice "curly") 'curly)
+                                 ((equal choice "paren") 'paren)
+                                 ((equal choice "none") nil)))))))
+  (let* ((numbers (cond
+                   ;; Fixed value with count: N*VALUE
+                   ((string-match "^\\([0-9]+\\(?:\\.[0-9]+\\)?\\)\\*\\([0-9]+\\(?:\\.[0-9]+\\)?\\)$" format-str)
+                    (let ((count (string-to-number (match-string 1 format-str)))
+                          (value (string-to-number (match-string 2 format-str))))
+                      (make-list count value)))
+                   ;; Range with step: START..END:STEP
+                   ((string-match "^\\([0-9]+\\(?:\\.[0-9]+\\)?\\)\\.\\.\\([0-9]+\\(?:\\.[0-9]+\\)?\\):\\\([0-9]+\\(?:\\.[0-9]+\\)?\\)$" format-str)
+                    (let ((start (string-to-number (match-string 1 format-str)))
+                          (end (string-to-number (match-string 2 format-str)))
+                          (step (string-to-number (match-string 3 format-str))))
+                      (number-sequence start end step)))
+                   ;; Simple range: START..END
+                   ((string-match "^\\([0-9]+\\(?:\\.[0-9]+\\)?\\)\\.\\.\\([0-9]+\\(?:\\.[0-9]+\\)?\\)$" format-str)
+                    (let ((start (string-to-number (match-string 1 format-str)))
+                          (end (string-to-number (match-string 2 format-str))))
+                      (number-sequence start end)))
+                   ;; Single number: generate that many fixed values
+                   ((string-match "^[0-9]+\\(?:\\.[0-9]+\\)?$" format-str)
+                    (let ((count (string-to-number format-str)))
+                      (make-list count 1)))
+                   (t (error "Invalid format string: %s" format-str))))
+         (lang (when (null outer-brackets)
+                 (cond
+                  ((derived-mode-p 'emacs-lisp-mode 'lisp-mode 'clojure-mode 'scheme-mode) 'paren)
+                  ((derived-mode-p 'c-mode 'c++-mode 'c++-ts-mode 'java-mode 'java-ts-mode 'js-ts-mode) 'curly)
+                  ((derived-mode-p 'python-mode 'python-ts-mode) 'square)
+                  ((derived-mode-p 'yaml-mode 'yaml-ts-mode) 'square)
+                  (t 'square))))
+         (bracket-type (or outer-brackets lang 'square))
+         (auto-sep (cond
+                    ((eq bracket-type 'paren) " ")
+                    (t ", ")))
+         (sep (or separator auto-sep))
+         (num-strs (mapcar 'number-to-string numbers))
+         (joined (mapconcat 'identity num-strs sep))
+         (result (cond
+                  ((eq bracket-type 'square) (format "[%s]" joined))
+                  ((eq bracket-type 'curly) (format "{%s}" joined))
+                  ((eq bracket-type 'paren) (format "(%s)" joined))
+                  (t joined))))
+    (insert result)))
+
 (provide 'lib-edit)
 ;;; lib-edit.el ends here
