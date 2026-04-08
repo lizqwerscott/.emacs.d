@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
+(setq window-combination-resize t)
+
 ;;; ace window
 (require 'ace-window)
 (add-to-list 'aw-ignored-buffers "*Ilist*")
@@ -60,6 +62,17 @@
 
 ;;; winner mode
 (winner-mode 1)
+
+(defun toggle-delete-other-windows ()
+  "Delete other windows in frame if any, or restore previous window config."
+  (interactive)
+  (if (and winner-mode
+           (equal (selected-window) (next-window)))
+      (winner-undo)
+    (delete-other-windows)))
+
+(global-bind-keys
+ (("C-c 1" "C-x 1") . toggle-delete-other-windows))
 
 ;;; window rule
 (defun my-window-select-fit-size (window)
