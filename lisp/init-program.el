@@ -183,6 +183,10 @@ ARGS is ORIG-FN args."
     ("s-n" . compilation-next-error)
     ("s-p" . compilation-previous-error)))
 
+(global-bind-keys
+ ("s-!" . shell-command)
+ ("s-&" . async-shell-command))
+
 ;;; eshell
 (require 'init-eshell)
 
