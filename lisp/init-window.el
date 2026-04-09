@@ -139,7 +139,7 @@
       popper-display-control nil)
 
 (keymap-binds popper-mode-map
-  ("C-h z" . popper-toggle)
+  ("C-h Z" . popper-toggle)
   ("C-<tab>" . popper-cycle)
   ("C-M-<tab>" . popper-toggle-type))
 

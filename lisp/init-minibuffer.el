@@ -266,6 +266,47 @@ DEFS is a plist associating completion categories to commands."
 (global-bind-keys
  ("M-g p" . ("Goto page" . consult-goto-page)))
 
+;;; consult popper buffer
+(defvar consult--popper-buffer-history nil)
+
+(defvar consult-source-popper-buffer
+  `( :name     "Popper Buffer"
+     :narrow   ?b
+     :category buffer
+     :face     consult-buffer
+     :history  buffer-name-history
+     :state    ,#'consult--buffer-state
+     :default  t
+     :items
+     ,(lambda ()
+        (let* ((current-group (when popper-group-function
+                                (funcall popper-group-function)))
+               (group-popups (alist-get current-group popper-buried-popup-alist nil nil 'equal))
+               (group-buffers (mapcar #'cdr group-popups)))
+          (mapcar (lambda (buffer) (cons (buffer-name buffer) buffer))
+                  group-buffers))))
+  "Popper Buffer source for `consult-buffer'.
+Only buffers returned by the `consult-buffer-list-function' are taken into
+account.")
+
+(defun consult-popper-buffer ()
+  "Switch to a Popper buffer using `consult-multi' interface."
+  (interactive)
+  (let* ((consult-preview-key 'any)
+         (consult--buffer-display 'display-buffer)
+         (selected (consult--multi '(consult-source-popper-buffer)
+                                   :require-match
+                                   (confirm-nonexistent-file-or-buffer)
+                                   :prompt "Switch to: "
+                                   :history 'consult--popper-buffer-history
+                                   :sort nil)))
+    ;; For non-matching candidates, fall back to buffer creation.
+    (unless (plist-get (cdr selected) :match)
+      (consult--buffer-action (car selected)))))
+
+(global-bind-keys
+ ("C-h z" . consult-popper-buffer))
+
 ;;; bufferlo
 
 ;; modeline
