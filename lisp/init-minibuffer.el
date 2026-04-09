@@ -269,13 +269,39 @@ DEFS is a plist associating completion categories to commands."
 ;;; consult popper buffer
 (defvar consult--popper-buffer-history nil)
 
+(defun consult--popper-buffer-preview ()
+  "Popper Buffer preview function."
+  (let ((orig-buf (window-buffer (consult--original-window)))
+        side-win)
+    (lambda (action cand)
+      (pcase action
+        ('return nil)
+        ('exit
+         (when (window-live-p side-win)
+           (delete-window side-win)))
+        ('preview
+         (cl-letf* (((symbol-function #'display-buffer-in-tab) #'ignore)
+                    ((symbol-function #'display-buffer-in-new-tab) #'ignore))
+           (let ((buf (and cand (get-buffer cand))))
+             (when (and (buffer-live-p buf)
+                        (not (buffer-match-p consult-preview-excluded-buffers buf)))
+               (when (and side-win (window-live-p side-win))
+                 (delete-window side-win))
+               (setq side-win (display-buffer buf))))))))))
+
+(defun consult--popper-buffer-action (buffer)
+  "Display Popper BUFFER via `display-buffer' function."
+  (select-window (display-buffer buffer)))
+
+(consult--define-state popper-buffer)
+
 (defvar consult-source-popper-buffer
   `( :name     "Popper Buffer"
      :narrow   ?b
      :category buffer
      :face     consult-buffer
      :history  buffer-name-history
-     :state    ,#'consult--buffer-state
+     :state    ,#'consult--popper-buffer-state
      :default  t
      :items
      ,(lambda ()
@@ -284,25 +310,20 @@ DEFS is a plist associating completion categories to commands."
                (group-popups (alist-get current-group popper-buried-popup-alist nil nil 'equal))
                (group-buffers (mapcar #'cdr group-popups)))
           (mapcar (lambda (buffer) (cons (buffer-name buffer) buffer))
-                  group-buffers))))
-  "Popper Buffer source for `consult-buffer'.
-Only buffers returned by the `consult-buffer-list-function' are taken into
-account.")
+                  (append group-buffers
+                          (when (popper-popup-p (current-buffer))
+                            (list (current-buffer))))))))
+  "Popper Buffer source for `consult-source-popper-buffer'.")
 
 (defun consult-popper-buffer ()
   "Switch to a Popper buffer using `consult-multi' interface."
   (interactive)
-  (let* ((consult-preview-key 'any)
-         (consult--buffer-display 'display-buffer)
-         (selected (consult--multi '(consult-source-popper-buffer)
-                                   :require-match
-                                   (confirm-nonexistent-file-or-buffer)
-                                   :prompt "Switch to: "
-                                   :history 'consult--popper-buffer-history
-                                   :sort nil)))
-    ;; For non-matching candidates, fall back to buffer creation.
-    (unless (plist-get (cdr selected) :match)
-      (consult--buffer-action (car selected)))))
+  (let ((consult-preview-key 'any))
+    (consult--multi '(consult-source-popper-buffer)
+                    :require-match t
+                    :prompt "Switch to: "
+                    :history 'consult--popper-buffer-history
+                    :sort nil)))
 
 (global-bind-keys
  ("C-h z" . consult-popper-buffer))
