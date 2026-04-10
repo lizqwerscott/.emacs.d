@@ -67,6 +67,9 @@
   (require 'telega-emoji)
   (telega-emoji-init)
 
+  (with-eval-after-load 'meow
+    (add-to-list 'meow-mode-state-list '(telega-root-mode . motion)))
+
   (setopt telega-chat-show-avatars t
           telega-emoji-use-images nil
           telega-sticker-animated-play t
