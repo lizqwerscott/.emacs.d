@@ -64,6 +64,8 @@
   (require 'telega-mnz)
   (require 'telega-chat)
   (require 'lib-telega)
+  (require 'telega-emoji)
+  (telega-emoji-init)
 
   (setopt telega-chat-show-avatars t
           telega-emoji-use-images nil

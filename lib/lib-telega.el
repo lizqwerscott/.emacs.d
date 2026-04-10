@@ -109,8 +109,9 @@ to refresh the icon and returns the updated value."
 
 (defun my/telega-chat-capf ()
   "Telega chat capf."
-  (setq-local completion-at-point-functions
-              `(cape-emoji
+  (setq-local corfu-auto-prefix 1
+              completion-at-point-functions
+              `(,@telega-completions-capf-functions
                 ,(cape-capf-super
                   #'cape-dict
                   #'cape-dabbrev))))
