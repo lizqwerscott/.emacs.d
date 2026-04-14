@@ -20,6 +20,7 @@
         (rg-mode . insert)
         (lsp-bridge-ref-mode . insert)
         (vterm-mode . insert)
+        (ghostel-mode . motion)
         (Info-mode-hook . motion)))
 (setq meow-use-clipboard t)
 (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
