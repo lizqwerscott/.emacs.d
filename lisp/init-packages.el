@@ -360,7 +360,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
    vterm
    (meow-vterm :fetcher github :repo "accelbread/meow-vterm")
    (multi-vterm :type git :fetcher github :repo "lizqwerscott/multi-vterm")
-   ))
+   (ghostel :fetcher github :repo "dakra/ghostel")))
 
 (packages!
  (append *package-built-in-install-list*
