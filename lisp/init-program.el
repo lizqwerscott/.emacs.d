@@ -206,6 +206,10 @@ ARGS is ORIG-FN args."
   (keymap-binds vterm-mode-map
     ("C-y" . vterm-yank)))
 
+;;; ghostel
+
+(add-hook 'ghostel-mode-hook #'meow-ghostel-mode)
+
 ;;; lisp
 (add-hook 'before-save-hook
           #'(lambda ()
