@@ -29,7 +29,7 @@
 (require 'fussy)
 (require 'orderless)
 
-(defcustom fussy-orderless-affix-dispatch-alist '((?= . fussy-orderless-chinese-regexp-score)
+(defcustom fussy-orderless-affix-dispatch-alist '((?= . fussy-orderless-rime-chinese-regexp-score)
                                                   (?! . fussy-orderless-not-score)
                                                   (?, . fussy-orderless-initialism-score)
                                                   (?^ . fussy-orderless-literal-prefix-score)
@@ -39,7 +39,7 @@
   :type `(alist
           :key-type character
           :value-type (choice
-                       (const :tag "Chinese Regexp" ,#'fussy-orderless-chinese-regexp-score)
+                       (const :tag "Chinese Regexp" ,#'fussy-orderless-rime-chinese-regexp-score)
                        (const :tag "Not" ,#'fussy-orderless-not-score)
                        (const :tag "Initialism" ,#'fussy-orderless-initialism-score)
                        (const :tag "Literal prefix" ,#'fussy-orderless-literal-prefix-score)
@@ -95,7 +95,7 @@ Return the cached regexp pattern if found, or nil if no entry exists for KEY."
     (gethash hash-key fussy-orderless--chinese-regexp-cache)))
 
 (defun fussy-orderless-chinese-regexp-score (string query)
-  "Use QUERY and STRING calc chinese regexp score."
+  "Use QUERY and STRING calc chinese regexp score with pyim."
   (require 'pyim)
   (when-let* (((string-match-p "\\cc" string))
               (regexp (when (fboundp 'pyim-cregexp-build)
@@ -115,6 +115,48 @@ Return the cached regexp pattern if found, or nil if no entry exists for KEY."
                  (* 80 (/ (float (- len start)) len)))
               start
               end)))))
+
+(defun fussy-orderless-match-all-occurrences (regexp string)
+  "Return a list of all matches of REGEXP in STRING."
+  (let ((start 0)
+        result)
+    (while (string-match regexp string start)
+      (let ((m-start (match-beginning 0))
+            (m-end (match-end 0)))
+        (push (cons m-start m-end) result)
+        (setq start m-end)))
+    (nreverse result)))
+
+(defun fussy-orderless-rime-chinese-regexp-score (string query)
+  "Use QUERY and STRING calc chinese regexp score with rime."
+  (require 'rime)
+  (when-let* (((string-match-p "\\cc" string))
+              (regexp (when (fboundp 'rime-chinese-orderless-regexp)
+                        (let* ((cache (fussy-orderless--chinese-cache-get query)))
+                          (if cache
+                              cache
+                            (let ((regexp (rime-chinese-orderless-regexp query)))
+                              (fussy-orderless--chinese-cache-put query regexp)
+                              regexp)))))
+              (matches (fussy-orderless-match-all-occurrences regexp string))
+              (len (length string))
+              (all-score 0))
+    (let ((match-pos nil)
+          (all-score 0))
+      (dolist (match matches)
+        (pcase-let* ((`(,start . ,end) match))
+          (when (< end len)
+            (setq all-score
+                  (+ all-score
+                     (+ (* 20 (/ (float (- end start))
+                                 len))
+                        (* 60 (- end start))
+                        (* 80 (/ (float (- len start)) len)))))
+            (setq match-pos
+                  (append match-pos
+                          (list start end))))))
+      (append (list all-score) match-pos))))
+
 
 (defun fussy-orderless-not-score (_ _)
   "Use QUERY and STRING calc score."
