@@ -117,13 +117,14 @@ Return the cached regexp pattern if found, or nil if no entry exists for KEY."
               end)))))
 
 (defun fussy-orderless-match-all-occurrences (regexp string)
-  "Return a list of all matches of REGEXP in STRING."
+  "Return a list of all matches of REGEXP in STRING.
+Each match is a list (START END MATCHED-STRING)."
   (let ((start 0)
         result)
     (while (string-match regexp string start)
       (let ((m-start (match-beginning 0))
             (m-end (match-end 0)))
-        (push (cons m-start m-end) result)
+        (push (list m-start m-end (substring string m-start m-end)) result)
         (setq start m-end)))
     (nreverse result)))
 
@@ -131,27 +132,35 @@ Return the cached regexp pattern if found, or nil if no entry exists for KEY."
   "Use QUERY and STRING calc chinese regexp score with rime."
   (require 'rime)
   (when-let* (((string-match-p "\\cc" string))
-              (regexp (when (fboundp 'rime-chinese-orderless-regexp)
-                        (let* ((cache (fussy-orderless--chinese-cache-get query)))
-                          (if cache
-                              cache
-                            (let ((regexp (rime-chinese-orderless-regexp query)))
-                              (fussy-orderless--chinese-cache-put query regexp)
-                              regexp)))))
+              (regexp-c (when (fboundp 'rime-candidates-regexp)
+                          (let* ((cache (fussy-orderless--chinese-cache-get query)))
+                            (if cache
+                                cache
+                              (let ((regexp (rime-candidates-regexp query)))
+                                (fussy-orderless--chinese-cache-put query regexp)
+                                regexp)))))
+              (regexp (car regexp-c))
               (matches (fussy-orderless-match-all-occurrences regexp string))
               (len (length string))
               (all-score 0))
-    (let ((match-pos nil)
-          (all-score 0))
+    (let* ((match-pos nil)
+           (all-score 0)
+           (candidates (cdr regexp-c))
+           (candidates-len (length candidates)))
       (dolist (match matches)
-        (pcase-let* ((`(,start . ,end) match))
-          (when (< end len)
-            (setq all-score
-                  (+ all-score
+        (pcase-let* ((`(,start ,end ,match-str) match)
+                     (index (cl-position match-str candidates :test #'equal)))
+          (when (<= end len)
+            (cl-incf all-score
                      (+ (* 20 (/ (float (- end start))
                                  len))
-                        (* 60 (- end start))
-                        (* 80 (/ (float (- len start)) len)))))
+                        (* 80 (/ (float (- len start)) len))
+                        (if candidates
+                            (* 100
+                               (if index
+                                   (/ (float (- candidates-len index)) candidates-len)
+                                 0))
+                          0)))
             (setq match-pos
                   (append match-pos
                           (list start end))))))

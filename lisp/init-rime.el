@@ -73,23 +73,29 @@
 (require 'im-cursor-chg)
 (cursor-chg-mode t)
 
-(defun rime-chinese-orderless-regexp (component)
+(defun rime-candidates-regexp (component)
   "Match COMPONENT as a chinese regexp."
   (unless rime--lib-loaded
     (unless (file-exists-p rime--module-path)
       (rime-compile-module))
     (rime--load-dynamic-module))
-  (condition-case nil
-      (let ((candidates (rime-lib-get-candidates-for-input component)))
-        (if candidates
-            (concat "\\("
-                    (mapconcat (lambda (cand)
-                                 (regexp-quote cand))
-                               candidates
-                               "\\|")
-                    "\\)")
-          "\\cc"))
-    (invalid-regexp nil)))
+  (let ((candidates (rime-lib-get-candidates-for-input component 100)))
+    (if candidates
+        (condition-case nil
+            (cons
+             (concat "\\("
+                     (mapconcat (lambda (cand)
+                                  (regexp-quote cand))
+                                candidates
+                                "\\|")
+                     "\\)")
+             candidates)
+          (invalid-regexp nil))
+      (list "\\cc"))))
+
+(defun rime-chinese-orderless-regexp (component)
+  "Match COMPONENT as a chinese regexp."
+  (car (rime-candidates-regexp component)))
 
 (with-eval-after-load 'orderless
   (add-to-list 'orderless-affix-dispatch-alist
