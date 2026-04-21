@@ -179,5 +179,50 @@ Restore the buffer with \\<dired-mode-map>`\\[revert-buffer]'."
   (dired-do-kill-lines)
   (add-to-history 'prot-dired--limit-hist regexp))
 
+;;;###autoload
+(defun dired-do-compress-to-1 ()
+  "Compress selected files and directories to an archive.
+Prompt for the archive file name.
+Choose the archiving command based on the archive file-name extension
+and `dired-compress-files-alist'."
+  (interactive nil dired-mode)
+  (message "files: %s" (dired-get-marked-files nil nil nil nil t))
+  (let* ((in-files (dired-get-marked-files nil nil nil nil t))
+         (default-compose-file (if (= (length in-files) 1)
+                                   (concat (file-name-base (car in-files))
+                                           ".zip")
+                                 ".zip"))
+         (out-file (expand-file-name (read-file-name "Compress to: " default-directory nil nil default-compose-file)))
+         (rule (cl-find-if
+                (lambda (x)
+                  (string-match (car x) out-file))
+                dired-compress-files-alist)))
+    (cond ((not rule)
+           (error
+            "No compression rule found for %s, see `dired-compress-files-alist'"
+            out-file))
+          ((and (file-exists-p out-file)
+                (not (y-or-n-p
+                      (format "%s exists, overwrite?"
+                              (abbreviate-file-name out-file)))))
+           (message "Compression aborted"))
+          (t
+           (when (zerop
+                  (dired-shell-command
+                   (format-spec (cdr rule)
+                                `((?o . ,(shell-quote-argument
+                                          (file-local-name out-file)))
+                                  (?i . ,(mapconcat
+                                          (lambda (in-file)
+                                            (shell-quote-argument
+                                             (file-relative-name in-file)))
+                                          in-files " "))))))
+             (message (ngettext "Compressed %d file to %s"
+			                    "Compressed %d files to %s"
+			                    (length in-files))
+                      (length in-files)
+                      (file-name-nondirectory out-file))))))
+  (dired-post-do-command))
+
 (provide 'lib-dired)
 ;;; lib-dired.el ends here

@@ -167,7 +167,9 @@
   ("J" . dired-jump-first-file)
 
   ("<" . beginning-of-buffer)
-  (">" . end-of-buffer))
+  (">" . end-of-buffer)
+
+  ("c" . dired-do-compress-to-1))
 
 (global-bind-keys
  ("C-x J" . dired-jump-other-window)
