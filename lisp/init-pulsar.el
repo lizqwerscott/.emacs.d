@@ -24,14 +24,11 @@
 
 ;;; Code:
 (with-eval-after-load 'pulsar
-  (setq pulsar-pulse-region-functions
-        '(meow-yank))
-
   (setq pulsar-resolve-pulse-function-aliases t)
-  (setq pulsar-pulse t)
   (setq pulsar-delay 0.055)
   (setq pulsar-iterations 10)
-  (setq pulsar-face 'pulsar-magenta)
+  (setq pulsar-face 'pulsar-green)
+  (setq pulsar-region-face 'pulsar-green)
   (setq pulsar-highlight-face 'pulsar-yellow))
 
 (pulsar-global-mode 1)
