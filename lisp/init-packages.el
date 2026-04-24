@@ -191,7 +191,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     visual-replace
     (fingertip :fetcher github :repo "manateelazycat/fingertip")
     puni
-    shift-number))
+    shift-number
+    comment-dwim-2))
 
 (defvar *package-program-install-list*
   `(yasnippet
