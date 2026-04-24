@@ -23,9 +23,15 @@
     ("<f9>" . gif-screencast-stop)))
 
 ;;; proced
-(setq proced-auto-update-flag 'visible
-      proced-auto-update-interval 3
+(setq proced-auto-update-interval 3
       proced-enable-color-flag t)
+
+(setq-default proced-auto-update-flag 'visible
+              proced-tree-flag t
+              proced-descend t
+              proced-format 'medium     ; can be changed interactively with `F'
+              proced-filter 'user       ;can be changed interactively with `f'
+              )
 
 ;;; fuzzy clock
 (require 'fuzzy-clock-zh)
