@@ -168,7 +168,7 @@ This command supports `meow-selection-command-fallback'."
    '("L" . meow-right-expand)
    '("m" . meow-join)
    '("n" . meow-search)
-   '("o" . meow-block)
+   '("o" . meow-tree-sitter-node)
    '("O" . meow-to-block)
    '("p" . meow-yank)
    '("P" . meow-yank-pop)
