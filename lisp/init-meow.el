@@ -83,6 +83,42 @@ This command supports `meow-selection-command-fallback'."
        (meow--highlight-regexp-in-buffer (car regexp-search-ring))
      (meow--maybe-highlight-num-positions))))
 
+(defun meow-tree-sitter-block ()
+  "Tree-sitter version of `meow-block'.
+Will automatically fall back to `meow-block' if no treesit parser is
+available."
+  (interactive)
+  (let ((p (point))
+        (m (mark))
+        (node (treesit-node-at (point))))
+    (if (or (equal major-mode 'emacs-lisp-mode)
+            (equal major-mode 'lisp-mode)
+            (equal major-mode 'lisp-data-mode)
+            (equal major-mode 'lisp-interaction-mode)
+            (null node))
+        ;; No tree-sitter data available.
+        (call-interactively #'meow-block)
+      ;; If the region is active, expand the node until it contains both point
+      ;; and mark. "Contain" requires that the node not be at the boundaries,
+      ;; which is how consistent expansion is guaranteed.
+      ;;
+      ;; NOTE: this is a bit hacky and inconsistent, might be better to refactor
+      ;; in the future.
+      (when (region-active-p)
+        (setq node (treesit-parent-until
+                    node (lambda (n)
+                           (or (< (treesit-node-start n)
+                                  p
+                                  (treesit-node-end n))
+                               (< (treesit-node-start n)
+                                  m
+                                  (treesit-node-end n)))))))
+      (thread-first
+        (meow--make-selection '(expand . block)
+                              (treesit-node-start node)
+                              (treesit-node-end node))
+        (meow--select t)))))
+
 (defun find-file-at-point-other-window ()
   "Find file at point in other window."
   (interactive)
@@ -168,7 +204,7 @@ This command supports `meow-selection-command-fallback'."
    '("L" . meow-right-expand)
    '("m" . meow-join)
    '("n" . meow-search)
-   '("o" . meow-tree-sitter-node)
+   '("o" . meow-tree-sitter-block)
    '("O" . meow-to-block)
    '("p" . meow-yank)
    '("P" . meow-yank-pop)
