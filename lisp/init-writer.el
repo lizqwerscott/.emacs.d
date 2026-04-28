@@ -326,5 +326,10 @@ DENOTE-DIR is denote dir."
 (global-bind-keys
  ("C-c n j" . ("Denote Journal" . denote-journal-keymap)))
 
+;;; denote-wordcloud
+
+(global-bind-keys
+ ("C-c n w" . denote-wordcloud))
+
 (provide 'init-writer)
 ;;; init-writer.el ends here

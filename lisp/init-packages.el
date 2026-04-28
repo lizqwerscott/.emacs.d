@@ -327,6 +327,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     citar-embark
     citar-denote
     denote-explore
+    (denote-wordcloud :fetcher codeberg :repo "treflip/denote-wordcloud")
     ox-epub
     ox-gemini
     gemini-mode
