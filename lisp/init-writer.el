@@ -234,6 +234,10 @@ DENOTE-DIR is denote dir."
                                     ))
                             dirs)))
 
+(global-bind-keys
+ ("C-c n s" . consult-notes)
+ ("C-c n g" . consult-notes-search-in-all-notes))
+
 ;;; citar-denote
 (setopt citar-open-always-create-notes t
         citar-denote-subdir "literature")
