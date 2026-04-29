@@ -164,6 +164,8 @@ configuration of the virtual buffer sources."
   (let ((consult--buffer-display #'switch-to-buffer-other-window))
     (consult-buffer-with-target 'window)))
 
+(plist-put consult-source-recent-file :hidden t)
+
 ;; for orderless
 (defun consult--orderless-regexp-compiler (input type &rest _config)
   (setq input (cdr (orderless-compile input)))
