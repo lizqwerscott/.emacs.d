@@ -88,6 +88,29 @@
 ;; not auto preview
 (setq consult-preview-key "C-o")
 
+(defun selected-region-or-symbol-at-point ()
+  "Return the selected region, otherwise return the symbol at point."
+  (if (region-active-p)
+      (buffer-substring-no-properties (region-beginning) (region-end))
+    (thing-at-point 'symbol t)))
+
+(consult-customize
+ consult-goto-line consult-xref consult-notes-search-in-all-notes :preview-key 'any
+ consult-line consult-line-multi
+ consult-ripgrep consult-git-grep consult-grep
+ :initial (selected-region-or-symbol-at-point)
+ :preview-key 'any)
+
+(defun my/consult--read (fn &rest args)
+  "Select initial texts in `consult--read'."
+  (minibuffer-with-setup-hook
+      (lambda ()
+        "Select initial texts."
+        (set-mark (point-max))
+        (goto-char (minibuffer-prompt-end)))
+    (apply fn args)))
+(advice-add #'consult--read :around #'my/consult--read)
+
 (add-hook 'completion-list-mode-hook 'consult-preview-at-point-mode)
 
 (defun buffer-list-filter ()
