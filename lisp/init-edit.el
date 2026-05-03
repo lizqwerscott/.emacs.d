@@ -211,6 +211,9 @@
  "init-bufferfile")
 
 (autoload #'bufferfile-dired-do-rename "bufferfile" nil t)
+(with-eval-after-load 'dired
+  (keymap-binds dired-mode-map
+    ("r" . bufferfile-dired-do-rename)))
 
 ;;; file info
 (global-bind-keys
