@@ -282,7 +282,7 @@ ARGS is normal score fn args."
   (pcase-let* ((keys (fussy-orderless--get-dispatch-key))
                (`(,prefix-items ,normal-items ,len) (fussy-orderless--split-string-with-prefixs query keys))
                (prefix-scores (fussy-orderless-score str prefix-items len))
-               (normal-scores (fussy-orderless-normal-score (string-trim (fussy-without-bad-char str)) normal-items len #'flx-score (car args))))
+               (normal-scores (fussy-orderless-normal-score (string-trim str) normal-items len #'flx-score (car args))))
     (if normal-scores
         (if prefix-scores
             (append (list (+ (car prefix-scores) (car normal-scores)))
@@ -299,7 +299,7 @@ ARGS is normal score fn args."
                (`(,prefix-items ,normal-items ,len) (fussy-orderless--split-string-with-prefixs query keys))
                (prefix-scores (fussy-orderless-score str prefix-items len))
                (normal-scores (when (fboundp 'flx-rs-score)
-                                (fussy-orderless-normal-score (string-trim (fussy-without-bad-char str)) normal-items len #'flx-rs-score args))))
+                                (fussy-orderless-normal-score (string-trim str) normal-items len #'flx-rs-score args))))
     (if normal-scores
         (if prefix-scores
             (append (list (+ (car prefix-scores) (car normal-scores)))
