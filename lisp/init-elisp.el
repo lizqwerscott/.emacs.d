@@ -21,10 +21,6 @@
   ("C-h ?" . helpful-at-point)
   ("C-c e" . macrostep-expand))
 
-(add-hook 'lisp-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
-(add-hook 'emacs-lisp-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
-(add-hook 'ielm-mode-hook #'(lambda () (treesit-parser-create 'elisp)))
-
 (add-hook 'emacs-lisp-mode-hook 'eros-mode)
 
 (provide 'init-elisp)
