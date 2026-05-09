@@ -97,8 +97,7 @@
               (dired-hide-details-mode)
               (dired-async-mode)
               (unless (bound-and-true-p dirvish-override-dired-mode)
-                (nerd-icons-dired-mode))
-              (dired-omit-mode)))
+                (nerd-icons-dired-mode))))
 
 (add-hook 'dired-mode-hook
           (lambda ()
