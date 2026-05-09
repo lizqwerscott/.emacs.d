@@ -132,7 +132,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     rg
     xclip
     helpful
-    which-key))
+    which-key
+    treesit-auto))
 
 (defvar *package-tool-install-list*
   '(centered-cursor-mode

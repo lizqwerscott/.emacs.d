@@ -65,7 +65,7 @@ Use http:
 8. tail for detached
 9. [[https://direnv.net/][direnv]] for env
 *** Need build tree-sitter library
-Use ~+treesit-install-all-languages~ install all languages.
+Use ~+treesit-install-required-language-grammars~ install required language grammars.
 *** Install language server
 Get list form [[https://github.com/manateelazycat/lsp-bridge][lsp bridge]]
 *** Need download sdcv dict
