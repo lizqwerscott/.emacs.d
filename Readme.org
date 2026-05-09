@@ -64,32 +64,8 @@ Use http:
 7. dtach for detached
 8. tail for detached
 9. [[https://direnv.net/][direnv]] for env
-*** Need build [[https://github.com/lizqwerscott/tree-sitter-module][tree-sitter]] library
-**** clone build scripts
-***** http
-#+begin_src bash
-  git clone https://github.com/lizqwerscott/tree-sitter-module.git -b more
-#+end_src
-***** ssh
-#+begin_src bash
-  git clone git@github.com:lizqwerscott/tree-sitter-module.git -b more
-#+end_src
-**** build
-#+begin_src bash
-  JOBS=16 ./batch.sh
-#+end_src
-**** copy library
-Copy generated library to "~/.emacs.d/tree-sitter"
-#+begin_src bash
-  mkdir -p ~/.emacs.d/tree-sitter/
-  cp -r ./dist/* ~/.emacs.d/tree-sitter/
-#+end_src
-**** rename gomod library
-The repository [[https://github.com/camdencheek/tree-sitter-go-mod][lib-tree-sitter-go-mod]] generates a library named `go-mod`, but internally it uses the name `gomod`. Since Emacs looks for `gomod`, we need to rename it accordingly.
-#+begin_src bash
-  cd ~/.emacs.d/tree-sitter/
-  mv libtree-sitter-go-mod.so libtree-sitter-gomod.so
-#+end_src
+*** Need build tree-sitter library
+Use ~+treesit-install-all-languages~ install all languages.
 *** Install language server
 Get list form [[https://github.com/manateelazycat/lsp-bridge][lsp bridge]]
 *** Need download sdcv dict
