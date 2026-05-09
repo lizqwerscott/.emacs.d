@@ -26,6 +26,8 @@
 (require 'treesit-auto)
 
 (setq treesit-auto-install 'prompt)
+(delete 'markdown treesit-auto-langs)
+
 (treesit-auto-add-to-auto-mode-alist 'all)
 (global-treesit-auto-mode)
 
