@@ -256,7 +256,12 @@
 
  ("M-g P" . goto-percent)
 
- ("s-\\" . cycle-spacing))
+ ("s-\\" . cycle-spacing)
+
+ ("C-c y n" . +lizqwer/copy-file-name-to-clipboard)
+ ("C-c y p" . +lizqwer/copy-file-path-to-clipboard)
+
+ ("C-c y f" . +lizqwer/copy-current-function-name-to-clipboard))
 
 (with-eval-after-load 'init-meow
   (meow-normal-define-key

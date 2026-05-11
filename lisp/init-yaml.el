@@ -23,7 +23,9 @@
 
 (with-eval-after-load 'yaml-pro
   (keymap-unset yaml-pro-mode-map "C-c '")
-  (keymap-unset yaml-pro-ts-mode-map "C-c '"))
+  (keymap-unset yaml-pro-ts-mode-map "C-c '")
+  (keymap-binds yaml-pro-ts-mode-map
+    ("C-c y f" . yaml-pro-copy-node-path-at-point)))
 
 (provide 'init-yaml)
 ;;; init-yaml.el ends here

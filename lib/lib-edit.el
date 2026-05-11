@@ -133,6 +133,17 @@ For example, (goto-percent 50) moves to the middle of the buffer."
       (kill-new filepath)
       (message "Copied buffer file path '%s' to the clipboard." filepath))))
 
+(defun +lizqwer/copy-current-function-name-to-clipboard ()
+  "Copy the name of the current function to the clipboard.
+
+Uses `which-function' to determine the current function name at point."
+  (interactive)
+  (let ((func-name (which-function)))
+    (if func-name
+        (progn
+          (kill-new func-name)
+          (message "Copied function name '%s' to the clipboard." func-name))
+      (user-error "No function name found at point"))))
 
 (defmacro +lizqwer-test-should-equal (format-string expected)
   "Test that FORMAT-STRING produces EXPECTED list of numbers."
