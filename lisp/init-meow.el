@@ -21,7 +21,7 @@
         (lsp-bridge-ref-mode . insert)
         (vterm-mode . insert)
         (ghostel-mode . insert)
-        (Info-mode-hook . motion)))
+        (Info-mode . motion)))
 (setq meow-use-clipboard t)
 (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
 
