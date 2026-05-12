@@ -79,7 +79,6 @@
         ;; If the current charactor entered is a uppercase letter.
         rime-predicate-current-uppercase-letter-p))
 
-(require 'im-cursor-chg)
 (cursor-chg-mode t)
 
 (defun rime-candidates-regexp (component)

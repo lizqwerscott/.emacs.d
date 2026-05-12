@@ -77,6 +77,7 @@ page."
         (funcall msg "Please enter a number."))
       nil)))
 
+;;;###autoload
 (defun consult-goto-page (&optional page)
   "Goto PAGE."
   (interactive "P")
@@ -102,7 +103,6 @@ page."
                                #'consult--minibuffer-message))))
                  (consult--jump (car pos))
                t)))))
-
 
 (provide 'consult-goto-page)
 ;;; consult-goto-page.el ends here

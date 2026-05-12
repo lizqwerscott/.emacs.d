@@ -26,3 +26,5 @@ librime
 /straight/watcher
 /straight/build-cache.el
 /elpaca/
+*.elc
+.user-lisp-autoloads.el

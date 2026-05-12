@@ -36,6 +36,7 @@
                         im-cursor-color
                       im-default-cursor-color)))
 
+;;;###autoload
 (define-minor-mode cursor-chg-mode
   "Toggle changing cursor color.
 With numeric ARG, turn cursor changing on if ARG is positive.

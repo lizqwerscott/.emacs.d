@@ -22,12 +22,10 @@
                `((c-mode c-ts-mode c++-mode c++-ts-mode objc-mode) . ("clangd" "--all-scopes-completion" "--clang-tidy" "--enable-config" "--header-insertion-decorators=0"))))
 
 (with-eval-after-load 'cc-mode
-  (autoload #'insert-trailing-semi-and-indent "insert-trailing-semi" nil t)
   (keymap-binds (c-mode-map c++-mode-map)
     (";" . insert-trailing-semi-and-indent)))
 
 (with-eval-after-load 'c-ts-mode
-  (autoload #'insert-trailing-semi-and-indent "insert-trailing-semi" nil t)
   (keymap-binds (c-ts-mode-map c++-ts-mode-map)
     (";" . insert-trailing-semi-and-indent)))
 

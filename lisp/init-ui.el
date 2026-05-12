@@ -165,7 +165,6 @@ and update transparent."
 (setq knockknock-border-color (face-foreground 'font-lock-keyword-face))
 
 ;;; project color
-(autoload #'global-project-color-mode "project-color" nil t)
 (global-project-color-mode)
 
 (provide 'init-ui)

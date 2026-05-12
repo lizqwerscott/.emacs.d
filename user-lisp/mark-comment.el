@@ -177,6 +177,7 @@ FORWARDP If it is t, search upward; if it is NIL, search downward."
           (goto-char p)
           (message "pos: %s" pre-comment-pos))))))
 
+;;;###autoload
 (defun mark-comment-inner-of-comment ()
   "Get comment start and end pos."
   (when (or (line-comment-p)
