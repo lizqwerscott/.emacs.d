@@ -33,31 +33,9 @@ S-expression."
    (puni--parse-interactive-argument-for-wrap n)
    "\"" "\""))
 
-(require 'transient)
-(transient-define-prefix puni-sexp-menu ()
-  "Puni sexp menu."
-  :transient-non-suffix 'transient--do-stay
-  ["Actions"
-   ["slurp & barf"
-    ("s f" "Slurp forward" puni-slurp-forward :transient t)
-    ("s b" "Slurp backward" puni-slurp-backward :transient t)
-    ("b f" "Barf forward" puni-barf-forward :transient t)
-    ("b b" "Barf backward" puni-barf-backward :transient t)]
-   ["Other"
-    ("r" "Raise" puni-raise :transient t)
-    ("c" "Convolute" puni-convolute :transient t)
-    ("p" "Split" puni-split :transient t)
-    ("t" "Transpose" puni-transpose :transient t)
-    ("S" "Squeeze" puni-squeeze :transient t)]
-   ["Move"
-    ("F" "Forward Sexp" puni-forward-sexp :transient t)
-    ("B" "Backward Sexp" puni-backward-sexp :transient t)
-    ("a" "Beginning Sexp" puni-beginning-of-sexp :transient t)
-    ("e" "End Sexp" puni-end-of-sexp :transient t)]]
-
-  [("q" "Quit" transient-quit-all)])
-
 (with-eval-after-load 'meow
+  (require 'meow-lisp-state)
+
   (meow-normal-define-key
    '("(" . puni-wrap-round)
    '("s-[" . puni-wrap-square)
@@ -68,7 +46,7 @@ S-expression."
    '("'" . puni-wrap-single-quote)
    '(")" . puni-splice)
    '("C-j" . puni-jump-out-pair-and-newline)
-   '("X" . puni-sexp-menu)))
+   '("X" . meow-lisp-mode)))
 
 (keymap-binds puni-mode-map
   ("C-<backword>" . puni-backward-kill-word)
