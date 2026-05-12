@@ -9,6 +9,11 @@
 
 (require 'init-packages)
 
+(let ((autoload-file (expand-file-name "user-lisp/.user-lisp-autoloads.el"
+                                       user-emacs-directory)))
+  (unless (file-exists-p autoload-file)
+    (prepare-user-lisp)))
+
 (require 'init-startup)
 (require 'lazy-load)
 (require 'init-font)
