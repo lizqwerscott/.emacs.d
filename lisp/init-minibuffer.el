@@ -106,8 +106,10 @@
   (minibuffer-with-setup-hook
       (lambda ()
         "Select initial texts."
-        (set-mark (point-max))
-        (goto-char (minibuffer-prompt-end)))
+        (when (> (- (point-max) (minibuffer-prompt-end))
+                 0)
+          (set-mark (point-max))
+          (goto-char (minibuffer-prompt-end))))
     (apply fn args)))
 (advice-add #'consult--read :around #'my/consult--read)
 
@@ -564,7 +566,9 @@ happens by default."
   ("C-x C-j" . consult-dir-jump-file)
 
   ("C-c C-c" . embark-collect)
-  ("C-c C-e" . embark-export))
+  ("C-c C-e" . embark-export)
+
+  ("C-y" . yank))
 
 (provide 'init-minibuffer)
 ;;; init-minibuffer.el ends here
