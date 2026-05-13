@@ -46,7 +46,7 @@ S-expression."
    '("'" . puni-wrap-single-quote)
    '(")" . puni-splice)
    '("C-j" . puni-jump-out-pair-and-newline)
-   '("X" . meow-lisp-mode)))
+   '("N" . meow-lisp-mode)))
 
 (keymap-binds puni-mode-map
   ("C-<backword>" . puni-backward-kill-word)
