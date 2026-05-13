@@ -66,6 +66,7 @@ report errors as appropriate for this kind of usage."
   '("c" . puni-barf-backward)
 
   '("u" . meow-undo)
+  '(";" . exchange-point-and-mark)
 
   '("d" . meow-kill)
 
