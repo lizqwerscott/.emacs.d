@@ -312,7 +312,7 @@ ARGS is normal score fn args."
       prefix-scores)))
 
 ;;;###autoload
-(defun fussy-with-orderless-score (candidates string &optional cache)
+(defun fussy-orderless-scores (candidates string &optional cache)
   "Score and propertize CANDIDATES using STRING.
 
 Use CACHE for scoring.
@@ -345,7 +345,7 @@ Set a text-property \='completion-score on candidates with their score.
     ;; Returns nil if empty.
     result))
 
-(defun fussy-filter-orderless-flex (string table pred point)
+(defun fussy-orderless-filter-orderless-flex (string table pred point)
   "Match STRING to the entries in TABLE.
 
 Use `orderless' for filtering by passing STRING, TABLE and PRED to
@@ -354,9 +354,9 @@ Use `orderless' for filtering by passing STRING, TABLE and PRED to
 to only use the `orderless-flex' pattern."
   (require 'orderless)
   (let ((orderless-matching-styles '(orderless-flex)))
-    (fussy-filter-orderless string table pred point)))
+    (fussy-orderless-filter string table pred point)))
 
-(defun fussy-filter-orderless (string table pred _point)
+(defun fussy-orderless-filter (string table pred _point)
   "Match STRING to the entries in TABLE.
 
 Use `orderless' for filtering by passing STRING, TABLE and PRED to
@@ -369,17 +369,14 @@ Use `orderless' for filtering by passing STRING, TABLE and PRED to
                  (orderless--compile string table pred)))
       (when-let* ((completions (orderless--filter
                                 prefix regexps ignore-case table pred)))
-        ;; (message "regexp: %s, prefix: %s, completions: %s" regexps prefix completions)
         (list completions regexps prefix)))))
 
 ;;;###autoload
 (defun fussy-setup-orderless ()
   "Set up `fussy' for `fzf-native'."
   (fussy-setup)
-  (setq fussy-filter-fn 'fussy-filter-orderless-flex)
-
-  (setq fussy-default-regex-fn 'fussy-pattern-default)
-  (setq fussy-score-ALL-fn 'fussy-with-orderless-score)
+  (setq fussy-filter-fn 'fussy-orderless-filter-orderless-flex)
+  (setq fussy-score-ALL-fn 'fussy-orderless-scores)
   (setq fussy-AND-component-separator " +")
   (setq fussy-use-cache nil))
 
