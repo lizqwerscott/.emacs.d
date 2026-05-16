@@ -27,17 +27,10 @@
 
 (flx-rs-load-dyn)
 
-(with-eval-after-load 'fussy
-  (add-to-list 'fussy-whitespace-ok-fns
-               #'fussy-orderless-score-with-flx-rs))
-
-(setopt fussy-score-fn 'fussy-orderless-score-with-flx-rs
-        fussy-filter-fn 'fussy-filter-orderless-flex
-        fussy-use-cache nil
-        fussy-max-word-length-to-score 5000
+(setopt fussy-max-word-length-to-score 5000
         fussy-compare-same-score-fn 'fussy-histlen->strlen<)
 
-(fussy-setup)
+(fussy-setup-orderless)
 (fussy-eglot-setup)
 
 (with-eval-after-load 'corfu

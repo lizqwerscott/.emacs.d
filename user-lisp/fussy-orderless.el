@@ -311,5 +311,77 @@ ARGS is normal score fn args."
           normal-scores)
       prefix-scores)))
 
+;;;###autoload
+(defun fussy-with-orderless-score (candidates string &optional cache)
+  "Score and propertize CANDIDATES using STRING.
+
+Use CACHE for scoring.
+
+Set a text-property \='completion-score on candidates with their score.
+`completion--adjust-metadata' later uses this \='completion-score for sorting."
+  (let ((result '()))
+    (dolist (x candidates)
+      (if (> (length x) fussy-max-word-length-to-score)
+          ;; Don't score x but don't filter it out either.
+          (unless fussy-filter-unscored-candidates
+            (push (copy-sequence x) result))
+        (let ((score (fussy-orderless-score-with-flx-rs x string cache)))
+          (fussy--debug "fn: %S candidate: %s query: %s score %S"
+                        'fussy-score x string score)
+          ;; Candidates with a score of N or less are filtered.
+          (when (fussy-valid-score-p score)
+            (setf x (copy-sequence x))
+            (put-text-property 0 1 'completion-score (car score) x)
+
+            ;; If we're using pcm highlight, we don't need to propertize the
+            ;; string here. This is faster than the pcm highlight but doesn't
+            ;; seem to work with `find-file'.
+            (when (fussy--should-propertize-p)
+              (setf
+               x (funcall fussy-propertize-fn x score)))
+            (push x result))
+
+          )))
+    ;; Returns nil if empty.
+    result))
+
+(defun fussy-filter-orderless-flex (string table pred point)
+  "Match STRING to the entries in TABLE.
+
+Use `orderless' for filtering by passing STRING, TABLE and PRED to
+
+`orderless-filter'.  _POINT is not used. This version sets up `orderless'
+to only use the `orderless-flex' pattern."
+  (require 'orderless)
+  (let ((orderless-matching-styles '(orderless-flex)))
+    (fussy-filter-orderless string table pred point)))
+
+(defun fussy-filter-orderless (string table pred _point)
+  "Match STRING to the entries in TABLE.
+
+Use `orderless' for filtering by passing STRING, TABLE and PRED to
+
+`orderless-filter'.  _POINT is not used."
+  (require 'orderless)
+  (when (and (fboundp 'orderless--filter)
+             (fboundp 'orderless--compile))
+    (pcase-let ((`(,prefix ,regexps ,ignore-case ,pred)
+                 (orderless--compile string table pred)))
+      (when-let* ((completions (orderless--filter
+                                prefix regexps ignore-case table pred)))
+        ;; (message "regexp: %s, prefix: %s, completions: %s" regexps prefix completions)
+        (list completions regexps prefix)))))
+
+;;;###autoload
+(defun fussy-setup-orderless ()
+  "Set up `fussy' for `fzf-native'."
+  (fussy-setup)
+  (setq fussy-filter-fn 'fussy-filter-orderless-flex)
+
+  (setq fussy-default-regex-fn 'fussy-pattern-default)
+  (setq fussy-score-ALL-fn 'fussy-with-orderless-score)
+  (setq fussy-AND-component-separator " +")
+  (setq fussy-use-cache nil))
+
 (provide 'fussy-orderless)
 ;;; fussy-orderless.el ends here
