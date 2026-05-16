@@ -288,14 +288,9 @@ ARGS is normal score fn args."
                (`(,prefix-items ,normal-items ,len) (fussy-orderless--split-string-with-prefixs query keys))
                (prefix-scores (fussy-orderless-score str prefix-items len))
                (normal-scores (fussy-orderless-normal-score str normal-items len #'flx-score (car args))))
-    (if normal-scores
-        (if prefix-scores
-            (append (list (+ (car prefix-scores) (car normal-scores)))
-                    (sort (append (cdr normal-scores)
-                                  (cdr prefix-scores))
-                          '<))
-          normal-scores)
-      prefix-scores)))
+    (list (+ (car prefix-scores) (car normal-scores))
+          (sort (cdr normal-scores) '<)
+          (cdr prefix-scores))))
 
 ;;;###autoload
 (defun fussy-orderless-score-with-flx-rs (str query &rest args)
@@ -306,14 +301,27 @@ ARGS is normal score fn args."
                (prefix-scores (fussy-orderless-score str prefix-items len))
                (normal-scores (when (fboundp 'flx-rs-score)
                                 (fussy-orderless-normal-score str normal-items len #'flx-rs-score args))))
-    (if normal-scores
-        (if prefix-scores
-            (append (list (+ (car prefix-scores) (car normal-scores)))
-                    (sort (append (cdr normal-scores)
-                                  (cdr prefix-scores))
-                          '<))
-          normal-scores)
-      prefix-scores)))
+    (list (+ (car prefix-scores) (car normal-scores))
+          (sort (cdr normal-scores) '<)
+          (cdr prefix-scores))))
+
+(defun fussy-orderless-highlight-prefix (str pos)
+  "Apply `orderless-match-faces' to STR at positions given by POS.
+
+POS is a list of integers representing character positions pairwise (start, end)
+in STR. Each pair is highlighted with a consecutive face from
+`orderless-match-faces', cycling through available faces starting from index 2."
+  (let* ((n (- (length orderless-match-faces) 2))
+         (i 0))
+    (dolist (item (seq-partition pos 2))
+      (pcase-let* ((`(,x ,y) item))
+        (add-face-text-property x y
+                                (aref orderless-match-faces
+                                      (+ (mod i n)
+                                         2))
+                                nil str)
+        (incf i)))
+    str))
 
 ;;;###autoload
 (defun fussy-orderless-scores (candidates string &optional cache)
@@ -329,23 +337,25 @@ Set a text-property \='completion-score on candidates with their score.
           ;; Don't score x but don't filter it out either.
           (unless fussy-filter-unscored-candidates
             (push (copy-sequence x) result))
-        (let ((score (fussy-orderless-score-with-flx-rs x string cache)))
+
+        (pcase-let* ((`(,score ,normal-position ,prefix-position) (fussy-orderless-score-with-flx-rs x string cache)))
           (fussy--debug "fn: %S candidate: %s query: %s score %S"
                         'fussy-score x string score)
           ;; Candidates with a score of N or less are filtered.
-          (when (fussy-valid-score-p score)
+          (when (fussy-valid-score-p (append (list score) normal-position))
             (setf x (copy-sequence x))
-            (put-text-property 0 1 'completion-score (car score) x)
+            (put-text-property 0 1 'completion-score score x)
 
             ;; If we're using pcm highlight, we don't need to propertize the
             ;; string here. This is faster than the pcm highlight but doesn't
             ;; seem to work with `find-file'.
             (when (fussy--should-propertize-p)
-              (setf
-               x (funcall fussy-propertize-fn x score)))
-            (push x result))
+              (setf x (funcall fussy-propertize-fn x (append (list score) normal-position))))
 
-          )))
+            (when prefix-position
+              (setf x (fussy-orderless-highlight-prefix x prefix-position)))
+
+            (push x result)))))
     ;; Returns nil if empty.
     result))
 
