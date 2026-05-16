@@ -254,16 +254,20 @@ ITEMS-LEN is all items length."
   "Score STR for NORMAL-ITEMS using NORMAL-SCORE-FN.
 ITEMS-LEN is all items length.
 ARGS is normal score fn args."
-  (let* ((lst (mapcar (lambda (item)
+  (let* ((trim-str (string-trim str))
+         (space-str-len (- (length str) (length trim-str)))
+         (lst (mapcar (lambda (item)
                         (pcase-let* ((`(,query ,index) item))
                           (when-let* ((res (apply normal-score-fn
-                                                  (append (list str query)
+                                                  (append (list trim-str query)
                                                           (list args))))
-                                      (score (car res)))
+                                      (score (car res))
+                                      (position (cdr res)))
                             (append (list
                                      (round (* (1+ (- items-len index))
                                                score)))
-                                    (cdr res)))))
+                                    (mapcar (lambda (i) (+ i space-str-len))
+                                            position)))))
                       normal-items))
          (total-score 0)
          (match-pos))
@@ -283,7 +287,7 @@ ARGS is normal score fn args."
   (pcase-let* ((keys (fussy-orderless--get-dispatch-key))
                (`(,prefix-items ,normal-items ,len) (fussy-orderless--split-string-with-prefixs query keys))
                (prefix-scores (fussy-orderless-score str prefix-items len))
-               (normal-scores (fussy-orderless-normal-score (string-trim str) normal-items len #'flx-score (car args))))
+               (normal-scores (fussy-orderless-normal-score str normal-items len #'flx-score (car args))))
     (if normal-scores
         (if prefix-scores
             (append (list (+ (car prefix-scores) (car normal-scores)))
@@ -301,7 +305,7 @@ ARGS is normal score fn args."
                (`(,prefix-items ,normal-items ,len) (fussy-orderless--split-string-with-prefixs query keys))
                (prefix-scores (fussy-orderless-score str prefix-items len))
                (normal-scores (when (fboundp 'flx-rs-score)
-                                (fussy-orderless-normal-score (string-trim str) normal-items len #'flx-rs-score args))))
+                                (fussy-orderless-normal-score str normal-items len #'flx-rs-score args))))
     (if normal-scores
         (if prefix-scores
             (append (list (+ (car prefix-scores) (car normal-scores)))
