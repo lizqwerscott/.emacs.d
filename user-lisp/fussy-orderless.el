@@ -372,8 +372,8 @@ Use `orderless' for filtering by passing STRING, TABLE and PRED to
         (list completions regexps prefix)))))
 
 ;;;###autoload
-(defun fussy-setup-orderless ()
-  "Set up `fussy' for `fzf-native'."
+(defun fussy-orderless-setup ()
+  "Set up `fussy' for orderless flx."
   (fussy-setup)
   (setq fussy-filter-fn 'fussy-orderless-filter-orderless-flex)
   (setq fussy-score-ALL-fn 'fussy-orderless-scores)
