@@ -9,9 +9,31 @@
 
 (require 'init-packages)
 
-(let ((autoload-file (expand-file-name "user-lisp/.user-lisp-autoloads.el"
-                                       user-emacs-directory)))
-  (unless (file-exists-p autoload-file)
+(defun check-user-lisp-change ()
+  "Change user lisp file change."
+  (interactive)
+  (let ((lisp-files (seq-remove (lambda (f) (string= f ".user-lisp-autoloads.el"))
+                                (directory-files user-lisp-directory nil (rx ".el" eos))))
+        (change-file))
+    (dolist (file-name lisp-files)
+      (let ((elc-file (expand-file-name (concat (file-name-base file-name) ".elc")
+                                        user-lisp-directory))
+            (file (expand-file-name file-name
+                                    user-lisp-directory)))
+        (if (file-exists-p elc-file)
+            (let ((file-mtime (file-attribute-modification-time (file-attributes file)))
+                  (elc-mtime (file-attribute-modification-time (file-attributes elc-file))))
+              (when (time-less-p elc-mtime file-mtime)
+                (push file change-file)))
+          (push file change-file))))
+    change-file))
+
+(let ((autoload-file (expand-file-name ".user-lisp-autoloads.el"
+                                       user-lisp-directory)))
+  (if (file-exists-p autoload-file)
+      (when (check-user-lisp-change)
+        (message "Re compile user-lisp file.")
+        (prepare-user-lisp nil nil t))
     (prepare-user-lisp)))
 
 (require 'init-startup)
