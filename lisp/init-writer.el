@@ -84,7 +84,7 @@
 
 (setopt denote-sort-keywords t
         denote-link-description-function #'ews-denote-link-description-title-case
-        denote-rename-buffer-mode 1)
+        denote-rename-buffer-mode t)
 
 (setopt denote-templates
         '((week-report . denote-week-report-template)))
