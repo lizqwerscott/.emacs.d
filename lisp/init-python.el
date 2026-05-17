@@ -71,7 +71,7 @@
            #'setting-python-compile-command)
 
 (keymap-binds (python-mode-map python-ts-mode-map)
-  ("C-c r" . project-run-command-with-vterm))
+  ("C-c r" . project-run-command-with-term))
 
 (provide 'init-python)
 ;;; init-python.el ends here

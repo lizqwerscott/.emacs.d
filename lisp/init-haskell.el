@@ -20,7 +20,7 @@
   ;; (custom-set-variables '(haskell-process-type 'stack-ghci))
 
   (keymap-binds haskell-mode-map
-    ("C-c r" . project-run-command-with-vterm)
+    ("C-c r" . project-run-command-with-term)
     ("C-c C-p" . run-haskell)))
 
 (provide 'init-haskell)

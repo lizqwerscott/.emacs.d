@@ -77,7 +77,6 @@
 
   ("m" . ("Multi compile" . projection-multi-compile))
   ("R" . ("Rsync" . rsync-project-dispatch))
-  ("t" . ("Vterm" . multi-vterm-project))
   ("s" . ("Eshell" . project-eshell))
   ("v" . unpackaged/magit-project-status)
 
