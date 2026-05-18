@@ -254,7 +254,7 @@ ITEMS-LEN is all items length."
   "Score STR for NORMAL-ITEMS using NORMAL-SCORE-FN.
 ITEMS-LEN is all items length.
 ARGS is normal score fn args."
-  (let* ((trim-str (string-trim str))
+  (let* ((trim-str (string-trim-left str))
          (space-str-len (- (length str) (length trim-str)))
          (lst (mapcar (lambda (item)
                         (pcase-let* ((`(,query ,index) item))
