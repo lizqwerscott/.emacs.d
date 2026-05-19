@@ -163,13 +163,12 @@ from FACE-NAME's parent face."
 (setq org-latex-preview-mode-update-delay 0.25)
 
 ;; 中文标记隐藏空格
-(unless sys/macp
-  (font-lock-add-keywords 'org-mode
-                          '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
-                             (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))
-                            ("\\cc?\\( \\)?[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)\\cc"
-                             (2 (prog1 () (compose-region (match-beginning 2) (match-end 2) "")))))
-                          'append))
+(font-lock-add-keywords 'org-mode
+                        '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
+                           (1 (prog1 () (put-text-property (match-beginning 1) (match-end 1) 'invisible t))))
+                          ("\\cc?\\( \\)?[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)\\cc"
+                           (2 (prog1 () (put-text-property (match-beginning 2) (match-end 2) 'invisible t)))))
+                        'append)
 
 (with-eval-after-load 'org-superstar
   (add-list-to-list 'org-superstar-todo-bullet-alist
