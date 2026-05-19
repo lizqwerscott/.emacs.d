@@ -85,14 +85,21 @@ This is used in the prompt sent to the LLM."
   :group 'gptel-translate)
 
 (defface gptel-translate-original-face
-  '((((background light)) :background "ivory")
-    (((background dark)) :background "gray20" :foreground "gray" :weight light))
-  "Used in the buffer's source text."
+  '((((background light)) :background "#fdf6e3" :foreground "#586e75" :slant italic)
+    (((background dark)) :background "#1e2329" :foreground "#839496" :slant italic)
+    (t :inherit shadow))
+  "Face for the source text in the translation buffer.
+In light themes it's a warm paper-like background; in dark themes
+a subdued dark tone. Italic helps separate it from the translation."
   :group 'gptel-translate)
 
 (defface gptel-translate-translation-face
-  '((t :background "slategray" :foreground "white" :extend t))
-  "Face for translated text in translation buffer."
+  '((((background light)) :background "#f0f4f8" :foreground "#1a1a1a" :extend t)
+    (((background dark)) :background "#1c2833" :foreground "#e0e0e0" :extend t)
+    (t :inherit default))
+  "Face for the translated text.
+A clean, slightly cool light-gray background in light themes,
+and a deep blue-gray in dark themes. High readability."
   :group 'gptel-translate)
 
 ;;; Prompt
