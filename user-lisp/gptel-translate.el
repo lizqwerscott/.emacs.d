@@ -60,7 +60,21 @@ This is used in the prompt sent to the LLM."
   :group 'gptel-translate
   :type 'string)
 
-(defcustom gptel-translate-user-prompt "You will be provided with text delimited by triple backticks, your task is to translate the wrapped text into %s. You should only output the translated text. \n```%s```"
+(defcustom gptel-translate-user-prompt (concat "You will be provided with text delimited by triple backticks, your task is to translate the wrapped text into {{to}}."
+                                               "## Quality & Style Mandates: \n"
+                                               "1. **Tone & Style Matching:** You MUST analyze and match the tone of the original text (e.g., formal, informal, technical, humorous, poetic).\n"
+                                               "2. **Cultural Adaptation:** Translate idioms, metaphors, and cultural references into their closest cultural equivalents in {{to}}."
+                                               "## Formatting & Technical Rules\n"
+                                               "1. **Non-Translatable Entities:** The following MUST remain in their original form:\n"
+                                               "* Proper Nouns & Brands (e.g., \"NVIDIA\", \"ChatGPT\"), unless an official, widely-used translation exists in {{to}}.\n"
+                                               "* Code blocks, inline code, URLs, file paths, and technical acronyms (e.g., API, CSS).\n"
+                                               "2. **Spacing Rule for Retained Original Text (applies when {{to}} is Chinese):**\n"
+                                               "For any entity that remains untranslated according to Rule 1, a single half-width space (U+0020) MUST be inserted between that entity and any adjacent Chinese character.\n"
+                                               "* A space is required both before and after the entity if both sides are Chinese characters.\n"
+                                               "* If the entity appears at the beginning of a sentence, no leading space is needed before it; if at the end, no trailing space is needed before the sentence‑ending punctuation.\n"
+                                               "* This rule also applies to inline code, URLs, file paths, and any other original‑form tokens.\n"
+                                               "Avoid literal translations that would sound unnatural or lose meaning."
+                                               "You should only output the translated text. \n```{{text}}```")
   "User prompt used by ChatGPT."
   :group 'gptel-translate
   :type 'string)
@@ -80,6 +94,25 @@ This is used in the prompt sent to the LLM."
   '((t :background "slategray" :foreground "white" :extend t))
   "Face for translated text in translation buffer."
   :group 'gptel-translate)
+
+;;; Prompt
+
+(defun gptel-translate-apply-prompt (prompt replaces)
+  "Replace {{key}} placeholders in PROMPT with values from REPLACES.
+REPLACES is an alist of (KEY . VALUE) pairs, e.g. (\"to\" . \"Chinese\").
+Each {{key}} in PROMPT is replaced with its corresponding VALUE.
+Returns the modified prompt string."
+  (if replaces
+      (let ((result prompt))
+        (pcase-dolist (`(,key . ,val) replaces)
+          (setq result
+                (replace-regexp-in-string
+                 (regexp-quote (format "{{%s}}" key))
+                 val
+                 result
+                 t t)))
+        result)
+    prompt))
 
 ;;; Internal helpers
 
@@ -137,7 +170,7 @@ Returns the buffer and a list of those markers."
                             (when (> n 1)
                               (insert "\n"))
                             (insert (propertize para 'face 'gptel-translate-original-face))
-                            (insert "\n\n")
+                            (insert "\n")
                             (point-marker))
                do (push slot markers)
                do (insert "\n"))
@@ -212,7 +245,9 @@ Show original text and translation side-by-side in a new buffer."
                       (gptel-translate--set-translation-status
                        result-buf slot nil)
                       (message "Translating paragraph %d/%d..." n total)
-                      (gptel-request (format gptel-translate-user-prompt gptel-translate-target-language para)
+                      (gptel-request (gptel-translate-apply-prompt gptel-translate-user-prompt
+                                                                   `(("to" . ,gptel-translate-target-language)
+                                                                     ("text" . ,para)))
                         :system gptel-translate-system-prompt
                         :stream nil
                         :callback
