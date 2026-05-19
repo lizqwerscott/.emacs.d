@@ -135,7 +135,8 @@ Returns the modified prompt string."
 
 (defun gptel-translate--collect-paragraphs (&optional beg end)
   "Collect paragraphs from buffer (or region BEG to END).
-Returns a list of paragraph strings in order."
+Returns a list of (STRING . POSITION) cons cells in order,
+where POSITION is the buffer position of the paragraph start."
   (let (paragraphs)
     (save-excursion
       (save-restriction
@@ -145,19 +146,21 @@ Returns a list of paragraph strings in order."
           (let ((start (point)))
             (forward-paragraph)
             (when (> (point) start)
-              (push (buffer-substring-no-properties start (point))
+              (push (cons (buffer-substring-no-properties start (point))
+                          start)
                     paragraphs))
             (skip-chars-forward "\n\t ")))))
     (nreverse paragraphs)))
 
-(defun gptel-translate--make-result-buffer (orig-name paragraphs)
+(defun gptel-translate--make-result-buffer (orig-name orig-buffer paragraphs)
   "Create and return a new buffer for translation results.
 ORIG-NAME is the source buffer name.
-PARAGRAPHS is a list of original paragraph strings.
+ORIG-BUFFER is the source buffer object.
+PARAGRAPHS is a list of (STRING . POSITION) cons cells.
 
-Each result entry gets a text property `gptel-translate-slot-marker'
-whose value is a marker pointing to the translation insertion point.
-Returns the buffer and a list of those markers."
+Each result entry has a text property `gptel-translate-orig-pos' whose
+value is the buffer position in ORIG-BUFFER where the original paragraph
+starts.  Returns the buffer and a list of slot markers."
   (let ((buf (generate-new-buffer
               (format "*translate %s*" orig-name)))
         markers)
@@ -171,12 +174,15 @@ Returns the buffer and a list of those markers."
              (list (propertize "Total: " 'face 'font-lock-keyword-face)
                    (propertize (format "%d" (length paragraphs)) 'face 'font-lock-keyword-face)
                    (propertize " paragraphs" 'face 'gptel-translate-header-desc-face))))
-      (cl-loop for para in paragraphs
+      (cl-loop for (para . pos) in paragraphs
                for n from 1
                for slot = (progn
                             (when (> n 1)
                               (insert "\n"))
-                            (insert (propertize para 'face 'gptel-translate-original-face))
+                            (insert
+                             (propertize para
+                                         'face 'gptel-translate-original-face
+                                         'gptel-translate-orig (cons orig-buffer pos)))
                             (insert "\n")
                             (point-marker))
                do (push slot markers)
@@ -184,14 +190,18 @@ Returns the buffer and a list of those markers."
       (setq markers (nreverse markers))
       (goto-char (point-min))
       (forward-line 2)
-      (read-only-mode 1))
+      (gptel-translate-result-mode))
     (cons buf markers)))
 
-(defun gptel-translate--set-translation-status (result-buf slot status)
+(defun gptel-translate--set-translation-status (orig result-buf slot status)
   "In RESULT-BUF at SLOT (a marker), insert STATUS text.
 STATUS can be a translated string, `nil' meaning \"translating...\",
 or an error string.  SLOT always points to the start of the
-translation insertion area."
+translation insertion area.
+
+ORIG is a cons cell (ORIG-BUFFER . POS) identifying the original
+source paragraph: ORIG-BUFFER is the buffer where the paragraph
+resides, and POS is its character position in that buffer."
   (with-current-buffer result-buf
     (let ((inhibit-read-only t)
           (pos (marker-position slot)))   ; remember the original start
@@ -208,7 +218,8 @@ translation insertion area."
           (insert (cond
                    ((null status) "<translating...>")
                    ((stringp status)
-                    (propertize status 'face 'gptel-translate-translation-face))
+                    (propertize status 'face 'gptel-translate-translation-face
+                                'gptel-translate-orig orig))
                    (t (format "<%s>" status))))
           ;; Move the marker back to the start of the inserted text
           (set-marker slot pos))))))
@@ -228,9 +239,10 @@ Show original text and translation side-by-side in a new buffer."
          (gptel-tools nil)
          (gptel-use-tools nil)
          (orig-name (buffer-name))
+         (orig-buffer (current-buffer))
          (paragraphs (gptel-translate--collect-paragraphs beg end))
          (total (length paragraphs))
-         (result-and-slots (gptel-translate--make-result-buffer orig-name paragraphs))
+         (result-and-slots (gptel-translate--make-result-buffer orig-name orig-buffer paragraphs))
          (result-buf (car result-and-slots))
          (slots (cdr result-and-slots))
          (done 0)
@@ -246,11 +258,12 @@ Show original text and translation side-by-side in a new buffer."
                   (if (>= idx total)
                       (message "Translation complete: %d ok, %d failed, %d total"
                                done failures total)
-                    (let* ((para (nth idx paragraphs))
+                    (let* ((para (car (nth idx paragraphs)))
+                           (orig-pos (cdr (nth idx paragraphs)))
+                           (orig (cons orig-buffer orig-pos))
                            (n (1+ idx))
                            (slot (nth idx slots)))
-                      (gptel-translate--set-translation-status
-                       result-buf slot nil)
+                      (gptel-translate--set-translation-status orig result-buf slot nil)
                       (message "Translating paragraph %d/%d..." n total)
                       (gptel-request (gptel-translate-apply-prompt gptel-translate-user-prompt
                                                                    `(("to" . ,gptel-translate-target-language)
@@ -262,14 +275,14 @@ Show original text and translation side-by-side in a new buffer."
                           (cond ((and (stringp response)
                                       (not (string-empty-p response)))
                                  (progn
-                                   (gptel-translate--set-translation-status
-                                    result-buf slot response)
+                                   (gptel-translate--set-translation-status orig result-buf slot response)
                                    (cl-incf done)
                                    (send-one (1+ idx))))
                                 ((consp response))
                                 ((eq response 'abort)
                                  (message "Translation aborted at paragraph %d" n))
                                 (t (progn (gptel-translate--set-translation-status
+                                           orig
                                            result-buf slot
                                            (format "<FAILED: %s>"
                                                    (if (null response)
@@ -278,6 +291,83 @@ Show original text and translation side-by-side in a new buffer."
                                           (cl-incf failures)
                                           (send-one (1+ idx)))))))))))
       (send-one 0))))
+
+;;; Mode
+
+(defvar gptel-translate-result-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "<") #'beginning-of-buffer)
+    (define-key map (kbd ">") #'end-of-buffer)
+    (define-key map (kbd "?") #'describe-mode)
+
+    (define-key map (kbd "RET") #'gptel-translate-jump-to-original)
+    
+    (define-key map (kbd "TAB") #'gptel-translate-next-paragraph)
+    (define-key map (kbd "<backtab>") #'gptel-translate-previous-paragraph)
+    map)
+  "Keymap for `gptel-translate-result-mode'.")
+
+(defun gptel-translate--orig-at-point ()
+  "Return the original buffer position at point, or nil."
+  (get-text-property (or (if (eobp) (1- (point)) (point))
+                         (point))
+                     'gptel-translate-orig))
+
+(defun gptel-translate--goto-orig-pos ()
+  "Jump to the original source position from the result buffer.
+Return non-nil on success."
+  (pcase-let* ((`(,buf . ,pos) (gptel-translate--orig-at-point)))
+    (when (and pos (buffer-live-p buf))
+      (switch-to-buffer-other-window buf)
+      (goto-char pos)
+      (recenter)
+      t)))
+
+(defun gptel-translate-jump-to-original ()
+  "Jump to the original source paragraph in its buffer.
+Requires the source buffer to still be alive."
+  (interactive)
+  (unless (gptel-translate--goto-orig-pos)
+    (message "No original source location for this paragraph")))
+
+(defun gptel-translate--find-paragraph-boundaries (&optional backward)
+  "Move to the next/previous original paragraph boundary.
+If BACKWARD is non-nil, search backward.  Return non-nil if moved.
+Puts point at the start of the original text."
+  (let ((fn (if backward #'previous-single-property-change
+              #'next-single-property-change)))
+    (let ((pos (funcall fn (point) 'face)))
+      (while (and pos (not (get-text-property pos 'gptel-translate-orig)))
+        (setq pos (funcall fn pos 'face)))
+      (when pos
+        (goto-char pos)))))
+
+(defun gptel-translate-next-paragraph ()
+  "Move to the next original paragraph in the result buffer."
+  (interactive)
+  (unless (gptel-translate--find-paragraph-boundaries)
+    (message "No next paragraph")))
+
+(defun gptel-translate-previous-paragraph ()
+  "Move to the previous original paragraph in the result buffer."
+  (interactive)
+  (unless (gptel-translate--find-paragraph-boundaries 'backward)
+    (message "No previous paragraph")))
+
+;;;###autoload
+(define-derived-mode gptel-translate-result-mode nil "GPTel-Translate"
+  "Major mode for viewing translation results.
+
+Provides syntax highlighting for original text and translated text,
+and a read-only view of the side-by-side translation buffer.  Press RET
+on an original paragraph to jump to its location in the source buffer.
+TAB and S-TAB move between original paragraphs.
+
+\\{gptel-translate-result-mode-map}"
+  :group 'gptel-translate
+  ;; (setq-local buffer-read-only t)
+  (read-only-mode 1)
+  (setq-local cursor-type nil))
 
 (provide 'gptel-translate)
 ;;; gptel-translate.el ends here
