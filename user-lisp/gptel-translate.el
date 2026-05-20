@@ -49,6 +49,12 @@ If nil, uses `gptel-model'."
                  (const :tag "Use default" nil))
   :group 'gptel-translate)
 
+(defcustom gptel-translate-streamp t
+  "Non-nil means stream the LLM output during translation.
+If nil, wait for the entire response before displaying it."
+  :type 'boolean
+  :group 'gptel-translate)
+
 (defcustom gptel-translate-target-language "Chinese"
   "Target language for translation.
 This is used in the prompt sent to the LLM."
@@ -205,7 +211,7 @@ starts.  Returns the buffer and a list of slot markers."
       (setq gptel-translate-progress 0))
     (cons buf markers)))
 
-(defun gptel-translate--set-translation-status (orig result-buf slot status)
+(defun gptel-translate--set-translation-status (orig result-buf slot insertp status)
   "In RESULT-BUF at SLOT (a marker), insert STATUS text.
 STATUS can be a translated string, `nil' meaning \"translating...\",
 or an error string.  SLOT always points to the start of the
@@ -220,21 +226,21 @@ resides, and POS is its character position in that buffer."
       (save-excursion
         (goto-char pos)
         ;; Delete previous content from pos to next blank line or buffer end
-        (let ((end (save-excursion
-                     (if (search-forward "\n\n" nil t)
-                         (match-beginning 0)
-                       (point-max)))))
-          (delete-region pos end))
+        (unless insertp
+          (let ((end (save-excursion
+                       (if (search-forward "\n\n" nil t)
+                           (match-beginning 0)
+                         (point-max)))))
+            (delete-region pos end)))
         ;; Insert new content
-        (let ((start (point)))
-          (insert (cond
-                   ((null status) "<translating...>")
-                   ((stringp status)
-                    (propertize status 'face 'gptel-translate-translation-face
-                                'gptel-translate-orig orig))
-                   (t (format "<%s>" status))))
-          ;; Move the marker back to the start of the inserted text
-          (set-marker slot pos))))))
+        (insert (cond
+                 ((null status) "<translating...>")
+                 ((stringp status)
+                  (propertize status 'face 'gptel-translate-translation-face
+                              'gptel-translate-orig orig))
+                 (t (format "<%s>" status))))
+        (when insertp
+          (set-marker slot (point)))))))
 
 ;;; Commands
 
@@ -275,33 +281,38 @@ Show original text and translation side-by-side in a new buffer."
                            (orig (cons orig-buffer orig-pos))
                            (n (1+ idx))
                            (slot (nth idx slots)))
-                      (gptel-translate--set-translation-status orig result-buf slot nil)
+                      (unless gptel-translate-streamp
+                        (gptel-translate--set-translation-status orig result-buf slot nil nil))
                       (gptel-request (gptel-translate-apply-prompt gptel-translate-user-prompt
                                                                    `(("to" . ,gptel-translate-target-language)
                                                                      ("text" . ,para)))
                         :system gptel-translate-system-prompt
-                        :stream nil
+                        :stream gptel-translate-streamp
                         :callback
                         (lambda (response _info)
                           (cond ((and (stringp response)
                                       (not (string-empty-p response)))
-                                 (progn
-                                   (gptel-translate--set-translation-status orig result-buf slot response)
+                                 (gptel-translate--set-translation-status orig result-buf slot gptel-translate-streamp response)
+                                 (unless gptel-translate-streamp
                                    (cl-incf done)
                                    (with-current-buffer result-buf
                                      (setq-local gptel-translate-failed failures)
                                      (setq-local gptel-translate-progress done))
                                    (send-one (1+ idx))))
                                 ((consp response))
-                                ((eq response 'abort)
-                                 (message "Translation aborted at paragraph %d" n))
+                                ((and gptel-translate-streamp (eq response t))
+                                 (cl-incf done)
+                                 (with-current-buffer result-buf
+                                   (setq-local gptel-translate-failed failures)
+                                   (setq-local gptel-translate-progress done))
+                                 (send-one (1+ idx)))
                                 (t (progn
                                      (cl-incf failures)
                                      (with-current-buffer result-buf
                                        (setq-local gptel-translate-failed failures))
                                      (gptel-translate--set-translation-status
                                       orig
-                                      result-buf slot
+                                      result-buf slot gptel-translate-streamp
                                       (format "<FAILED: %s>"
                                               (if (null response)
                                                   "no response"
