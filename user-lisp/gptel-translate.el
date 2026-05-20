@@ -296,14 +296,13 @@ Show original text and translation side-by-side in a new buffer."
 
 (defvar gptel-translate-result-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "<") #'beginning-of-buffer)
-    (define-key map (kbd ">") #'end-of-buffer)
-    (define-key map (kbd "?") #'describe-mode)
-
     (define-key map (kbd "RET") #'gptel-translate-jump-to-original)
 
     (define-key map (kbd "TAB") #'gptel-translate-next-paragraph)
+    (define-key map (kbd "n") #'gptel-translate-next-paragraph)
+
     (define-key map (kbd "<backtab>") #'gptel-translate-previous-paragraph)
+    (define-key map (kbd "p") #'gptel-translate-previous-paragraph)
     map)
   "Keymap for `gptel-translate-result-mode'.")
 
@@ -356,7 +355,7 @@ Puts point at the start of the original text."
     (message "No previous paragraph")))
 
 ;;;###autoload
-(define-derived-mode gptel-translate-result-mode nil "GPTel-Translate"
+(define-derived-mode gptel-translate-result-mode special-mode "GPTel-Translate"
   "Major mode for viewing translation results.
 
 Provides syntax highlighting for original text and translated text,
@@ -365,10 +364,7 @@ on an original paragraph to jump to its location in the source buffer.
 TAB and S-TAB move between original paragraphs.
 
 \\{gptel-translate-result-mode-map}"
-  :group 'gptel-translate
-  ;; (setq-local buffer-read-only t)
-  (read-only-mode 1)
-  (setq-local cursor-type nil))
+  :group 'gptel-translate)
 
 (provide 'gptel-translate)
 ;;; gptel-translate.el ends here
