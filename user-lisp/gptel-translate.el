@@ -301,7 +301,7 @@ Show original text and translation side-by-side in a new buffer."
     (define-key map (kbd "?") #'describe-mode)
 
     (define-key map (kbd "RET") #'gptel-translate-jump-to-original)
-    
+
     (define-key map (kbd "TAB") #'gptel-translate-next-paragraph)
     (define-key map (kbd "<backtab>") #'gptel-translate-previous-paragraph)
     map)
@@ -337,10 +337,11 @@ Puts point at the start of the original text."
   (let ((fn (if backward #'previous-single-property-change
               #'next-single-property-change)))
     (let ((pos (funcall fn (point) 'face)))
-      (while (and pos (not (get-text-property pos 'gptel-translate-orig)))
+      (while (and pos (not (memq (get-text-property pos 'face) '(gptel-translate-translation-face))))
         (setq pos (funcall fn pos 'face)))
       (when pos
-        (goto-char pos)))))
+        (goto-char pos)
+        (recenter)))))
 
 (defun gptel-translate-next-paragraph ()
   "Move to the next original paragraph in the result buffer."
