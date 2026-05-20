@@ -171,15 +171,6 @@ starts.  Returns the buffer and a list of slot markers."
               (format "*translate %s*" orig-name)))
         markers)
     (with-current-buffer buf
-      (setq header-line-format
-            (append
-             '(" ")
-             (list (propertize "Translation of " 'face 'gptel-translate-header-desc-face)
-                   (propertize orig-name 'face 'font-lock-keyword-face)
-                   (propertize " " 'face 'gptel-translate-header-desc-face))
-             (list (propertize "Total: " 'face 'font-lock-keyword-face)
-                   (propertize (format "%d" (length paragraphs)) 'face 'font-lock-keyword-face)
-                   (propertize " paragraphs" 'face 'gptel-translate-header-desc-face))))
       (cl-loop for (para . pos) in paragraphs
                for n from 1
                for slot = (progn
@@ -196,7 +187,16 @@ starts.  Returns the buffer and a list of slot markers."
       (setq markers (nreverse markers))
       (goto-char (point-min))
       (forward-line 2)
-      (gptel-translate-result-mode))
+      (gptel-translate-result-mode)
+      (setq header-line-format
+            (append
+             '(" ")
+             (list (propertize "Translation of " 'face 'gptel-translate-header-desc-face)
+                   (propertize orig-name 'face 'font-lock-keyword-face)
+                   (propertize "  " 'face 'gptel-translate-header-desc-face))
+             (list (propertize "Total: " 'face 'gptel-translate-header-desc-face)
+                   (propertize (format "%d" (length paragraphs)) 'face 'font-lock-keyword-face)
+                   (propertize " paragraphs" 'face 'gptel-translate-header-desc-face)))))
     (cons buf markers)))
 
 (defun gptel-translate--set-translation-status (orig result-buf slot status)
