@@ -79,6 +79,12 @@ This is used in the prompt sent to the LLM."
   :group 'gptel-translate
   :type 'string)
 
+(defcustom gptel-translate-followp t
+  "Model symbol for gptel translate requests.
+If nil, uses `gptel-model'."
+  :type 'boolean
+  :group 'gptel-translate)
+
 ;;; Faces
 (defface gptel-translate-header-desc-face '((t :inherit font-lock-variable-name-face))
   "Used in the buffer's `header-line-format' for description."
@@ -329,6 +335,16 @@ Requires the source buffer to still be alive."
   (unless (gptel-translate--goto-orig-pos)
     (message "No original source location for this paragraph")))
 
+(defun gptel-translate-source-buffer-jump ()
+  "Jump to the original source position in its window."
+  (interactive)
+  (pcase-let* ((`(,buf . ,pos) (gptel-translate--orig-at-point)))
+    (when (and pos (buffer-live-p buf))
+      (if-let* ((win (get-buffer-window buf)))
+          (with-selected-window win
+            (goto-char pos)
+            (recenter))))))
+
 (defun gptel-translate--find-paragraph-boundaries (&optional backward)
   "Move to the next/previous original paragraph boundary.
 If BACKWARD is non-nil, search backward.  Return non-nil if moved.
@@ -340,7 +356,9 @@ Puts point at the start of the original text."
         (setq pos (funcall fn pos 'face)))
       (when pos
         (goto-char pos)
-        (recenter)))))
+        (recenter)
+        (when gptel-translate-followp
+          (gptel-translate-source-buffer-jump))))))
 
 (defun gptel-translate-next-paragraph ()
   "Move to the next original paragraph in the result buffer."
