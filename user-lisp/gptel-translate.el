@@ -108,7 +108,21 @@ A clean, slightly cool light-gray background in light themes,
 and a deep blue-gray in dark themes. High readability."
   :group 'gptel-translate)
 
-;;; Prompt
+;;; VAR
+
+(defvar-local gptel-translate-orig-buffer-name ""
+  "Original buffer.")
+
+(defvar-local gptel-translate-progress 0
+  "Translate progress.")
+
+(defvar-local gptel-translate-failed 0
+  "Translate failed.")
+
+(defvar-local gptel-translate-paragraph-number 0
+  "Translate total paragraph number.")
+
+;;; Internal helpers
 
 (defun gptel-translate-apply-prompt (prompt replaces)
   "Replace {{key}} placeholders in PROMPT with values from REPLACES.
@@ -126,8 +140,6 @@ Returns the modified prompt string."
                  t t)))
         result)
     prompt))
-
-;;; Internal helpers
 
 (defun gptel-translate--resolve-backend ()
   "Return the backend to use for translation requests."
@@ -186,17 +198,11 @@ starts.  Returns the buffer and a list of slot markers."
                do (insert "\n"))
       (setq markers (nreverse markers))
       (goto-char (point-min))
-      (forward-line 2)
       (gptel-translate-result-mode)
-      (setq header-line-format
-            (append
-             '(" ")
-             (list (propertize "Translation of " 'face 'gptel-translate-header-desc-face)
-                   (propertize orig-name 'face 'font-lock-keyword-face)
-                   (propertize "  " 'face 'gptel-translate-header-desc-face))
-             (list (propertize "Total: " 'face 'gptel-translate-header-desc-face)
-                   (propertize (format "%d" (length paragraphs)) 'face 'font-lock-keyword-face)
-                   (propertize " paragraphs" 'face 'gptel-translate-header-desc-face)))))
+      (setq gptel-translate-orig-buffer-name orig-name)
+      (setq gptel-translate-orig-buffer orig-buffer)
+      (setq gptel-translate-paragraph-number (length paragraphs))
+      (setq gptel-translate-progress 0))
     (cons buf markers)))
 
 (defun gptel-translate--set-translation-status (orig result-buf slot status)
@@ -270,7 +276,6 @@ Show original text and translation side-by-side in a new buffer."
                            (n (1+ idx))
                            (slot (nth idx slots)))
                       (gptel-translate--set-translation-status orig result-buf slot nil)
-                      (message "Translating paragraph %d/%d..." n total)
                       (gptel-request (gptel-translate-apply-prompt gptel-translate-user-prompt
                                                                    `(("to" . ,gptel-translate-target-language)
                                                                      ("text" . ,para)))
@@ -283,19 +288,25 @@ Show original text and translation side-by-side in a new buffer."
                                  (progn
                                    (gptel-translate--set-translation-status orig result-buf slot response)
                                    (cl-incf done)
+                                   (with-current-buffer result-buf
+                                     (setq-local gptel-translate-failed failures)
+                                     (setq-local gptel-translate-progress done))
                                    (send-one (1+ idx))))
                                 ((consp response))
                                 ((eq response 'abort)
                                  (message "Translation aborted at paragraph %d" n))
-                                (t (progn (gptel-translate--set-translation-status
-                                           orig
-                                           result-buf slot
-                                           (format "<FAILED: %s>"
-                                                   (if (null response)
-                                                       "no response"
-                                                     "error")))
-                                          (cl-incf failures)
-                                          (send-one (1+ idx)))))))))))
+                                (t (progn
+                                     (cl-incf failures)
+                                     (with-current-buffer result-buf
+                                       (setq-local gptel-translate-failed failures))
+                                     (gptel-translate--set-translation-status
+                                      orig
+                                      result-buf slot
+                                      (format "<FAILED: %s>"
+                                              (if (null response)
+                                                  "no response"
+                                                "error")))
+                                     (send-one (1+ idx)))))))))))
       (send-one 0))))
 
 ;;; Mode
@@ -382,7 +393,21 @@ on an original paragraph to jump to its location in the source buffer.
 TAB and S-TAB move between original paragraphs.
 
 \\{gptel-translate-result-mode-map}"
-  :group 'gptel-translate)
+  :group 'gptel-translate
+  (setq header-line-format
+        `(" "
+          ,(propertize "Translation of " 'face 'gptel-translate-header-desc-face)
+          (:eval (propertize gptel-translate-orig-buffer-name 'face 'font-lock-keyword-face))
+          " "
+          ,(propertize "success: [" 'face 'gptel-translate-header-desc-face)
+          (:eval (propertize (format "%d/%d" gptel-translate-progress gptel-translate-paragraph-number)
+                             'face 'font-lock-keyword-face))
+          ,(propertize "]" 'face 'gptel-translate-header-desc-face)
+          (:eval
+           (unless (= gptel-translate-failed 0)
+             (list (propertize " failed: " 'face 'gptel-translate-header-desc-face)
+                   (propertize (format "%d" gptel-translate-failed)
+                               'face 'font-lock-keyword-face)))))))
 
 (provide 'gptel-translate)
 ;;; gptel-translate.el ends here
