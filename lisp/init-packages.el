@@ -293,7 +293,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     pyim-basedict
     (pyim-tsinghua-dict
      :fetcher github
-     :repo "redguardtoo/pyim-tsinghua-dict")))
+     :repo "redguardtoo/pyim-tsinghua-dict")
+    (gptel-translate :fetcher github :repo "lizqwerscott/gptel-translate" :files (:defaults "prompts"))))
 
 (defvar *package-org-install-list*
   '(consult-notes
