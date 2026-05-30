@@ -9,6 +9,11 @@
 
 (setopt immersive-translate-backend 'trans)
 
+;;; gptel transalte
+(global-bind-keys
+ ("C-c d b" . gptel-translate-buffer)
+ ("C-c d ." . gptel-translate-at-point))
+
 ;;; fanyi
 (custom-set-variables
  '(fanyi-providers '(fanyi-haici-provider
