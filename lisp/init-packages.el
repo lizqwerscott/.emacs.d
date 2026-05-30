@@ -340,7 +340,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
 (defvar *package-ai-install-list*
   (append '((gptel :fetcher github
                    :repo "karthink/gptel")
-            gptel-magit
+            (gptel-magit :host github :repo "roife/gptel-magit")
             (ragmacs :fetcher github :repo "positron-solutions/ragmacs")
             (gptel-agent :host github :repo "karthink/gptel-agent"
                          :files (:defaults "agents"))
