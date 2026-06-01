@@ -66,7 +66,6 @@
     ("s" "Auto save" super-save-mode :toggle t :transient t)
     ("a" "Aggressive indent" global-aggressive-indent-mode :toggle t :transient t)
     ("c" "Centered cursor" global-centered-cursor-mode :toggle t :transient t)
-    ("i" "Immersive translate" immersive-translate-auto-mode :toggle t :transient t)
     ("t" "Telega"
      (progn
        (autoload '+lizqwer/toggle-telega "lib-telega" nil t)

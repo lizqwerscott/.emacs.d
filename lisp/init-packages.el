@@ -282,8 +282,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     ace-window))
 
 (defvar *package-language-install-list*
-  '(immersive-translate
-    quick-sdcv
+  '(quick-sdcv
     fanyi
     (pdd :fetcher github :repo "lorniu/pdd.el")
     (gt :fetcher github :repo "lorniu/gt.el")

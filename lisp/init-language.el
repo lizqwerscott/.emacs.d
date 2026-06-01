@@ -5,10 +5,6 @@
 ;;; gt
 (require 'init-gt)
 
-;;; immersive-translate
-
-(setopt immersive-translate-backend 'trans)
-
 ;;; gptel transalte
 (global-bind-keys
  ("C-c d b" . gptel-translate-buffer)
