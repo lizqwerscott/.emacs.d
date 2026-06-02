@@ -162,7 +162,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     consult-gh-forge
     backup-walker
     detached
-    envrc))
+    envrc
+    scratch))
 
 (defvar *package-language-mode-install-list*
   '(markdown-mode
