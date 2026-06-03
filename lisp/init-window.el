@@ -54,7 +54,14 @@
     ("<right>" "winner redo" winner-redo :transient t)
     ("q" "Quit" transient-quit-one)]])
 
+(defun aw-other-window ()
+  "Wrap other window."
+  (interactive)
+  (setq this-command #'other-window)
+  (call-interactively #'other-window))
+
 (add-to-list 'aw-dispatch-alist '(?w window-dispatch) t)
+(add-to-list 'aw-dispatch-alist '(?o aw-other-window))
 
 (global-bind-keys
  (("s-o" "M-o") . ace-window)
