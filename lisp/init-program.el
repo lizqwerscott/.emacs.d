@@ -117,7 +117,9 @@ See `jf/treesit-language-available-p' for usage.")
            (note "i" compilation-info)))
 
    (add-hook 'prog-mode-hook
-             #'flymake-mode)
+             (lambda ()
+               (when (derived-mode-p 'lisp-mode 'emacs-lisp-mode)
+                 (flymake-mode))))
 
    ;; flymake popon
    (setq flymake-popon-width 80)

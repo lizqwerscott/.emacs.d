@@ -63,12 +63,9 @@
 
 (add-hook 'prog-mode-hook
           (lambda ()
-            (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode 'json-ts-mode)
+            (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode 'json-ts-mode 'plantuml-mode 'cmake-ts-mode)
               (eglot-ensure)))
           -100)
-
-(add-hooks '(markdown-mode yaml-ts-mode)
-           #'eglot-ensure)
 
 (require 'consult-eglot)
 (keymap-set eglot-mode-map
