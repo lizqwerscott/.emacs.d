@@ -46,21 +46,40 @@
 See `jf/treesit-language-available-p' for usage.")
 
 (defun jf/treesit-language-available-p (fn lang &rest rest)
-  "Caching around the CPU expensive `treesit-language-available-p'."
+  "Cache around the CPU expensive `treesit-language-available-p'.
+
+FN is the original `treesit-language-available-p' function,
+LANG is the language symbol, and REST are the remaining arguments.
+
+When `jf/treesit-language-refresh' sets the cache to `refreshed',
+it means the grammar was just installed so we force recomputation."
   ;; I did some profiling of `treesit-language-available-p', and found
   ;; that when moving around via consult (and therefore preview) this
   ;; function was contributing to 75% of the CPU time.  And it was run
   ;; each time.
-  (let ((cached-value
-         (gethash lang jf/treesit-lang-cache 'miss)))
-    (if (eq 'miss cached-value)
-        (let ((value
-               (apply fn lang rest)))
-          (puthash lang value jf/treesit-lang-cache)
-          value)
+  (let ((cached-value (gethash lang jf/treesit-lang-cache 'miss)))
+    (if (or (eq 'miss cached-value)
+            (eq 'refreshed cached-value))
+        ;; Cache miss or refreshed — recompute and cache the result.
+        (puthash lang (apply fn lang rest) jf/treesit-lang-cache)
       cached-value)))
 (advice-add #'treesit-language-available-p
             :around #'jf/treesit-language-available-p)
+
+(defun jf/treesit-language-refresh (fn lang &rest rest)
+  "Refresh the cached language availability status.
+
+When a language grammar is installed (via `treesit-install-language-grammar'),
+the cache created by `jf/treesit-language-available-p' becomes stale.
+This function invalidates the cache entry for LANG so that the next
+call to `jf/treesit-language-available-p' re-evaluates availability.
+
+FN is the original `treesit-install-language-grammar' function,
+LANG is the language symbol, and REST are the remaining arguments."
+  (apply fn lang rest)
+  (puthash lang 'refreshed jf/treesit-lang-cache))
+(advice-add #'treesit-install-language-grammar
+            :around #'jf/treesit-language-refresh)
 
 (require 'treesit)
 
