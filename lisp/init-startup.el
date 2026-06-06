@@ -12,6 +12,9 @@
 (setq no-littering-etc-directory
       (expand-file-name "config/" user-emacs-directory))
 (require 'no-littering)
+(eval-after-load 'treesit
+  `(when (treesit-available-p)
+     (setq treesit-extra-load-path nil)))
 
 (add-to-list 'safe-local-eval-forms
              '(outline-hide-sublevels 2))
