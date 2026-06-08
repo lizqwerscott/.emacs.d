@@ -57,11 +57,12 @@ it means the grammar was just installed so we force recomputation."
   ;; that when moving around via consult (and therefore preview) this
   ;; function was contributing to 75% of the CPU time.  And it was run
   ;; each time.
-  (let ((cached-value (gethash lang jf/treesit-lang-cache 'miss)))
+  (let* ((key (append (list lang) rest))
+         (cached-value (gethash key jf/treesit-lang-cache 'miss)))
     (if (or (eq 'miss cached-value)
             (eq 'refreshed cached-value))
         ;; Cache miss or refreshed — recompute and cache the result.
-        (puthash lang (apply fn lang rest) jf/treesit-lang-cache)
+        (puthash key (apply fn lang rest) jf/treesit-lang-cache)
       cached-value)))
 (advice-add #'treesit-language-available-p
             :around #'jf/treesit-language-available-p)
@@ -77,7 +78,8 @@ call to `jf/treesit-language-available-p' re-evaluates availability.
 FN is the original `treesit-install-language-grammar' function,
 LANG is the language symbol, and REST are the remaining arguments."
   (apply fn lang rest)
-  (puthash lang 'refreshed jf/treesit-lang-cache))
+  (puthash (append (list lang t)) 'refreshed jf/treesit-lang-cache)
+  (puthash (append (list lang)) 'refreshed jf/treesit-lang-cache))
 (advice-add #'treesit-install-language-grammar
             :around #'jf/treesit-language-refresh)
 
