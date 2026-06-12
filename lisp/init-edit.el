@@ -205,10 +205,14 @@
    '("C-;" . grugru)))
 
 ;;; bufferfile
+(setopt bufferfile-delete-switch-to 'parent-directory
+        bufferfile-verbose t
+        bufferfile-use-vc t)
+
 (lazy-load-global-keys
  '(("C-x x r" . bufferfile-rename)
    ("C-x x d" . bufferfile-delete))
- "init-bufferfile")
+ "bufferfile")
 
 (autoload #'bufferfile-dired-do-rename "bufferfile" nil t)
 (with-eval-after-load 'dired
