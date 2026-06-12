@@ -90,6 +90,10 @@ and update transparent."
   (add-hooks '(prog-mode)
              #'display-line-numbers-mode))
 
+;;; scrollview
+(setopt scrollview-visibility 'info)
+(global-scrollview-mode t)
+
 ;;; Suppress GUI features
 (setq use-file-dialog nil
       use-dialog-box nil
