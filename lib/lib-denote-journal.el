@@ -63,5 +63,74 @@ as `daily', per `denote-journal-interval'."
         (save-buffer)
         (buffer-file-name)))))
 
+
+(defun denote-journal--all-entries ()
+  "Return all journal entries sorted by date (ascending)."
+  (let ((denote-directory (denote-journal-directory))
+        (files (denote-directory-files nil nil nil nil t)))
+    (sort (cl-remove-if-not
+           (lambda (file)
+             (and (denote-journal-file-is-journal-p file)
+                  ;; optionally filter out "report" if needed
+                  t))
+           files)
+          (lambda (a b)
+            (string< (denote-retrieve-filename-identifier a)
+                     (denote-retrieve-filename-identifier b))))))
+
+(defun denote-journal--current-buffer-date ()
+  "Return the identifier date of the current buffer if it's a journal entry.
+Return nil otherwise."
+  (when-let* ((file (buffer-file-name))
+              (id (denote-retrieve-filename-identifier file)))
+    id))
+
+;;;###autoload
+(defun denote-journal-goto-previous-entry ()
+  "Go to the previous journal entry before the current one.
+If the current buffer is not a journal entry, jump to the most
+recent journal entry (the last one chronologically)."
+  (interactive)
+  (let* ((all (denote-journal--all-entries))
+         (current-id (denote-journal--current-buffer-date))
+         (target
+          (if current-id
+              ;; Find the entry before current
+              (catch 'found
+                (let ((prev nil))
+                  (dolist (f all)
+                    (let ((fid (denote-retrieve-filename-identifier f)))
+                      (when (string= fid current-id)
+                        (throw 'found prev))
+                      (setq prev f)))
+                  nil))
+            ;; Not on a journal entry → jump to latest
+            (car (last all)))))
+    (if (not target)
+        (user-error "No previous journal entry found")
+      (find-file target))))
+
+;;;###autoload
+(defun denote-journal-goto-next-entry ()
+  "Go to the next journal entry after the current one.
+If the current buffer is not a journal entry, signal an error."
+  (interactive)
+  (let* ((all (denote-journal--all-entries))
+         (current-id (denote-journal--current-buffer-date))
+         (target
+          (if current-id
+              (catch 'found
+                (let ((found-current nil))
+                  (dolist (f all)
+                    (when found-current
+                      (throw 'found f))
+                    (when (string= (denote-retrieve-filename-identifier f) current-id)
+                      (setq found-current t)))
+                  nil))
+            (user-error "Current buffer is not a journal entry"))))
+    (if (not target)
+        (user-error "No next journal entry found")
+      (find-file target))))
+
 (provide 'lib-denote-journal)
 ;;; lib-denote-journal.el ends here
