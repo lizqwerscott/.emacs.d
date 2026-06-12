@@ -63,7 +63,6 @@ as `daily', per `denote-journal-interval'."
         (save-buffer)
         (buffer-file-name)))))
 
-
 (defun denote-journal--all-entries ()
   "Return all journal entries sorted by date (ascending)."
   (let ((denote-directory (denote-journal-directory))
@@ -71,7 +70,7 @@ as `daily', per `denote-journal-interval'."
     (sort (cl-remove-if-not
            (lambda (file)
              (and (denote-journal-file-is-journal-p file)
-                  ;; optionally filter out "report" if needed
+                  (not (member (file-name-extension file) '("html" "pdf" "tex")))
                   t))
            files)
           (lambda (a b)
