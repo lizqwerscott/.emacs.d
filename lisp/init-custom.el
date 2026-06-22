@@ -62,7 +62,7 @@
   :type '(choice (const :tag "eglot" eglot)
                  (const :tag "lsp-bridge" lsp-bridge)))
 
-(defcustom user/dirvish t
+(defcustom user/dirvish nil
   "Drivish support."
   :group 'user
   :type 'boolean)

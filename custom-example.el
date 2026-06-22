@@ -7,7 +7,7 @@
 
 ;;; custom var default value
 (setq user/show-modeline t
-      user/dashboard t
+      user/dashboard 'dashboard
       user/logo (file-truename
                  (concat user-emacs-directory
                          "logos/gnu_color.xpm"))
@@ -19,7 +19,7 @@
 
       user/ligature nil
       user/lsp-client 'eglot
-      user/dirvish t
+      user/dirvish nil
       )
 
 ;;; use program language
