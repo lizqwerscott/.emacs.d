@@ -55,10 +55,13 @@ report errors as appropriate for this kind of usage."
 (meow-define-keys 'lisp
   '("l" . puni-forward-sexp)
   '("h" . puni-backward-sexp)
+  '("L" . "M-}")
+  '("H" . "M-{")
+
   '("j" . down-list)
-  '("k" . up-list)
-  '("K" . backward-up-list)
+  '("k" . backward-up-list)
   '("J" . backward-down-list)
+  '("K" . up-list)
 
   '("n" . puni-slurp-forward)
   '("b" . puni-barf-forward)

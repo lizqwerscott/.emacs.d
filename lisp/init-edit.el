@@ -251,6 +251,8 @@
  (("s-p" "M-p") . scroll-down-1/3)
  (("M-N" "s-N") . scroll-other-window-up-1/3)
  (("M-P" "s-P") . scroll-other-window-down-1/3)
+ (("s-}") . forward-paragraph)
+ (("s-{") . backward-paragraph)
 
  ("C-x k" . kill-current-buffer)
  ("C-x K" . kill-buffer)
