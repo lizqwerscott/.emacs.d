@@ -63,7 +63,8 @@
 
 (add-hook 'prog-mode-hook
           (lambda ()
-            (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode 'json-ts-mode 'plantuml-mode 'cmake-ts-mode)
+            (unless (or (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode 'json-ts-mode 'plantuml-mode 'cmake-ts-mode)
+                        buffer-read-only)
               (eglot-ensure)))
           -100)
 
