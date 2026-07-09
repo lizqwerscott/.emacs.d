@@ -339,7 +339,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     cdlatex))
 
 (defvar *package-ai-install-list*
-  (append '((gptel :fetcher github
+  (append '(agent-shell
+            (gptel :fetcher github
                    :repo "karthink/gptel")
             (gptel-magit :host github :repo "roife/gptel-magit")
             (ragmacs :fetcher github :repo "positron-solutions/ragmacs")
