@@ -85,7 +85,10 @@ or a list of keys, and COMMAND is the command to bind to those keys."
                                            (not (equal (car command)
                                                        'lambda)))
                                       `(cons ,(car command) (function ,(cdr command)))
-                                    `(function ,command))))
+                                    (if (and (symbolp command) (boundp command))
+                                        command
+                                      `(function ,command))
+                                    )))
                              (if (listp keys)
                                  keys
                                (list keys)))))
