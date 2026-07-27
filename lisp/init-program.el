@@ -318,7 +318,8 @@ ARGS is ORIG-FN args."
 (add-hook 'sh-mode-hook #'(lambda () (treesit-parser-create 'bash)))
 
 ;; json
-(add-hook 'json-mode-hook #'(lambda () (treesit-parser-create 'json)))
+(add-to-list 'auto-mode-alist '("\\.jsonc\\'" . json-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.jsonl\\'" . json-ts-mode))
 (setq json-ts-mode-indent-offset 4)
 
 ;; yaml
