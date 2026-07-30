@@ -79,6 +79,13 @@ FONT-SIZE is the default font size."
   :type 'number
   :set #'set-font-size)
 
+;;; nerd font
+(require 'nerd-icons)
+(when (display-graphic-p)
+  (unless (find-font (font-spec :name nerd-icons-font-family))
+    (nerd-icons-install-fonts t))
+  (nerd-icons-set-font))
+
 (defcustom user/ligature nil
   "Is use ligature."
   :group 'user
