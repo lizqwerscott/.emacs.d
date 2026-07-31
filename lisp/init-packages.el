@@ -163,7 +163,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     backup-walker
     detached
     envrc
-    scratch))
+    scratch
+    (tramp-rpc :fetcher github :repo "ArthurHeymans/emacs-tramp-rpc" :main "lisp/tramp-rpc.el" :files (:defaults "lisp/*.el"))))
 
 (defvar *package-language-mode-install-list*
   '(markdown-mode

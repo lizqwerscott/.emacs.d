@@ -56,5 +56,9 @@ Functions are called with no arguments.")
 
 (add-hook 'find-file-hook #'my/tramp-check-remote-file)
 
+;;; tramp rpc
+(require 'tramp-rpc)
+(setopt tramp-rpc-deploy-git-build-policy 'release)
+
 (provide 'init-tramp)
 ;;; init-tramp.el ends here
