@@ -257,6 +257,8 @@
  ("C-x k" . kill-current-buffer)
  ("C-x K" . kill-buffer)
 
+ ("C-x C-r" . restart-emacs)
+
  ("C-x x b" . browse-this-file)
  ("C-x x c" . clone-indirect-buffer-other-window)
 
