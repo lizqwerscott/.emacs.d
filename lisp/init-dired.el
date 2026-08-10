@@ -156,7 +156,6 @@
            (interactive)
            (consult-fd default-directory)))
   ("F" . consult-fd-dir)
-  ("W" . dired-copy-path)
   ("C-c +" . dired-create-empty-file)
   ("C-+" . dired-create-empty-file)
   ("h" . dired-up-directory)
@@ -179,7 +178,11 @@
   ("<" . beginning-of-buffer)
   (">" . end-of-buffer)
 
-  ("c" . dired-do-compress-to-1))
+  ("c" . dired-do-compress-to-1)
+
+  ("C-w" . diredp-move-files-named-in-kill-ring)
+  ("C-y" . diredp-yank-files)
+  ("W" . diredp-copy-abs-filenames-as-kill))
 
 (global-bind-keys
  ("C-x J" . dired-jump-other-window)
