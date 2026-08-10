@@ -349,7 +349,7 @@ DENOTE-DIR is denote dir."
 
 ;;; denote graph
 
-(setopt graph-fa2-engine '3d
+(setopt graph-fa2-engine '2d
         graph-fa2-framerate 60.0)
 
 (defun denote-graph-fa2-open-note (id)
@@ -383,6 +383,7 @@ DENOTE-DIR is denote dir."
               (push (cons source-id target-id) edges))))))
 
     (with-current-buffer buf
+      (special-mode)
       (add-hook 'graph-fa2-node-clicked-functions #'denote-graph-fa2-open-note nil t))
 
     (pop-to-buffer buf)
@@ -390,8 +391,11 @@ DENOTE-DIR is denote dir."
 
 (defun denote-link-graph--neighbors (file all-files)
   "Return Denote files adjacent to FILE.
-Combines outgoing links (FILE links to them) and backlinks
-(they link to FILE)."
+
+Combines outgoing links (FILE links to them) and backlinks (they link to FILE).
+
+ALL-FILES is a list of Denote files to search for linked targets; it is passed
+to `denote-get-links' to avoid re-scanning the directory."
   (let ((result nil)
         (seen (make-hash-table :test #'equal)))
     (dolist (nf (append (denote-get-links file all-files)
@@ -446,19 +450,32 @@ hops away (default 1: only directly connected nodes)."
                 (puthash nid t visited)
                 (push nid reachable)
                 (setq queue (append queue (list (cons nid (1+ d))))))))))
-      (let* ((nodes (mapcar
+      (let* ((degree (make-hash-table :test #'equal))
+             (_ (dolist (e edges)
+                  (let ((src (car e)) (tgt (cdr e)))
+                    (puthash src (1+ (gethash src degree 0)) degree)
+                    (puthash tgt (1+ (gethash tgt degree 0)) degree))))
+             (max-deg (max 1
+                           (apply #'max 0
+                                  (mapcar (lambda (id) (gethash id degree 0))
+                                          reachable))))
+             (nodes (mapcar
                      (lambda (id)
-                       (let ((file (gethash id file-by-id)))
+                       (let* ((file (gethash id file-by-id))
+                              (deg (gethash id degree 0))
+                              ;; 将度数归一化映射到半径范围 [8, 20]
+                              (r (+ 8.0 (* 12.0 (/ (float deg) max-deg)))))
                          (list :id id
                                :label (denote-retrieve-title-or-filename
                                        file (denote-filetype-heuristics file))
                                :colour (if (string= id focus-id)
-                                           "#f9e2af" ; 高亮焦点节点
+                                           "#f9e2af"
                                          "#89b4fa")
-                               :radius (if (string= id focus-id) 10.0 8.0))))
+                               :radius r)))
                      reachable))
              (buf (get-buffer-create "*denote-link-graph*")))
         (with-current-buffer buf
+          (special-mode)
           (add-hook 'graph-fa2-node-clicked-functions #'denote-graph-fa2-open-note nil t))
         (pop-to-buffer buf)
         (graph-fa2-start buf nodes edges)))))
