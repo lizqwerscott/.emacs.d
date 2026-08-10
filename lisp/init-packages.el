@@ -278,7 +278,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     inhibit-mouse
     (knockknock :fetcher github :repo "konrad1977/knockknock")
     (nano-calendar :fetcher github :repo "rougier/nano-calendar")
-    (scrollview :fetcher github :repo "roife/scrollview.el")))
+    (scrollview :fetcher github :repo "roife/scrollview.el")
+    (graph-fa2 :fetcher github :repo "elij/graph-fa2")))
 
 (defvar *package-window-install-list*
   '(popper
