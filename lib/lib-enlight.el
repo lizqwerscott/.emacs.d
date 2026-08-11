@@ -200,15 +200,24 @@ each directory in the middle."
                             `(,(concat
                                 (nerd-icons-icon-for-file f)
                                 " "
-                                (if (denote-file-has-denoted-filename-p f)
-                                    (concat "[D] " (denote-retrieve-filename-title f))
-                                  (pcase-let* ((`(,file-dir . ,file-name) (shorten-file-path f enlight-file-path-max-length)))
-                                    (format "%s%s"
-                                            (propertize
-                                             file-dir
-                                             'face 'font-lock-comment-face)
-                                            file-name))))
-                              (find-file ,f)
+                                (if (file-directory-p f)
+                                    (pcase-let* ((`(,file-dir . ,file-name) (shorten-file-path (directory-file-name f) enlight-file-path-max-length)))
+                                      (format "%s%s"
+                                              (propertize
+                                               file-dir
+                                               'face 'font-lock-comment-face)
+                                              file-name))
+                                  (if (denote-file-has-denoted-filename-p f)
+                                      (concat "[D] " (denote-retrieve-filename-title f))
+                                    (pcase-let* ((`(,file-dir . ,file-name) (shorten-file-path f enlight-file-path-max-length)))
+                                      (format "%s%s"
+                                              (propertize
+                                               file-dir
+                                               'face 'font-lock-comment-face)
+                                              file-name)))))
+                              (if (file-directory-p ,f)
+                                  (dired ,f)
+                                (find-file ,f))
                               ,(format "C-%d"
                                        index)))
                           (seq-take recentf-list enlight-recent-file-length)
