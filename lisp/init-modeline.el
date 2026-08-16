@@ -29,6 +29,9 @@
 
 (if (and (display-graphic-p) (not user/show-modeline))
     (awesome-tray-mode)
+  ;; fix doom modeline in master after https://github.com/emacs-mirror/emacs/commit/c6c4888ced296b6bda7752066df44d95f591cb06 commit
+  ;; doom modeline issue https://github.com/seagle0128/doom-modeline/issues/826
+  (add-hook 'find-file-hook #'(lambda () (setq-local deactivate-mark nil)) 100)
   (require 'doom-modeline)
   (setq doom-modeline-workspace-name nil)
   (setq doom-modeline-time-icon nil)
