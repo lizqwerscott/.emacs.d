@@ -172,7 +172,10 @@ and update transparent."
 (setq knockknock-border-color (face-foreground 'font-lock-keyword-face))
 
 ;;; project color
-(global-project-color-mode)
+;; (global-project-color-mode)
+
+;;; nyan-canvas-mode
+(nyan-canvas-mode)
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.

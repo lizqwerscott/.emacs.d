@@ -279,7 +279,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     (knockknock :fetcher github :repo "konrad1977/knockknock")
     (nano-calendar :fetcher github :repo "rougier/nano-calendar")
     (scrollview :fetcher github :repo "roife/scrollview.el")
-    (graph-fa2 :fetcher github :repo "elij/graph-fa2")))
+    (graph-fa2 :fetcher github :repo "elij/graph-fa2")
+    (nyan-canvas-mode :fetcher github :repo "lizqwerscott/nyan-canvas-mode" :files (:defaults "img"))))
 
 (defvar *package-window-install-list*
   '(popper
