@@ -249,32 +249,14 @@ ARGS is ORIG-FN args."
 ;;; eat
 (require 'init-eat)
 
-;;; vterm
-
-(defun project-run-command-with-vterm ()
-  "Run COMMAND in vterm."
-  (interactive)
-  (let ((command (compilation-read-command compile-command)))
-    (require 'multi-vterm)
-    (multi-vterm-run command)))
-
-(with-eval-after-load 'vterm
-  (keymap-binds vterm-mode-map
-    ("C-y" . vterm-yank)))
-
-(defalias 'project-run-command-with-term #'project-run-command-with-vterm)
-
-(keymap-binds project-prefix-map
-  ("t" . ("Term" . multi-vterm-project)))
-
 ;;; ghostel
 
 (add-hook 'ghostel-mode-hook #'meow-ghostel-mode)
 
-;; (defalias 'project-run-command-with-term #'ghostel-compile)
+(defalias 'project-run-command-with-term #'ghostel-compile)
 
-;; (keymap-binds project-prefix-map
-;;   ("t" . ("Term" . ghostel-project)))
+(keymap-binds project-prefix-map
+  ("t" . ("Term" . ghostel-project)))
 
 ;;; lisp
 (add-hook 'before-save-hook

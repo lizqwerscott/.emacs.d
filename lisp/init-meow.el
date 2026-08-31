@@ -19,7 +19,6 @@
         (eww-mode . normal)
         (rg-mode . insert)
         (lsp-bridge-ref-mode . insert)
-        (vterm-mode . insert)
         (ghostel-mode . insert)
         (Info-mode . motion)))
 (setq meow-use-clipboard t)
@@ -233,7 +232,6 @@ available."
    '("?" . "C-h ?")
    '("/" . consult-ripgrep)))
 
-(meow-vterm-enable)
 (meow-setup)
 (meow-global-mode 1)
 

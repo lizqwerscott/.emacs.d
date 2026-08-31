@@ -102,7 +102,7 @@
     (window-preserve-size . 0.4)
     (body-function . select-window))
    ;; bottom side window
-   ((or "\\*.*e?shell\\*" "^\\*.*vterm[inal]*.*\\*.*$" "^\\*.*ghostel\\*.*$" "*ielm*" "*eat*" (derived-mode . sly-mrepl-mode))
+   ((or "\\*.*e?shell\\*" "^\\*.*ghostel\\*.*$" "*ielm*" "*eat*" (derived-mode . sly-mrepl-mode))
     (display-buffer-in-side-window)
     (side . bottom)
     (slot . 0)
@@ -186,7 +186,6 @@
         "^\\*.*eshell.*\\*.*$" eshell-mode
         "^\\*.*shell.*\\*.*$"
         "^\\*.*terminal.*\\*.*$"
-        "^\\*.*vterm[inal]*.*\\*.*$"
         "^\\*.*ielm.*\\*.*$" ielm-mode
         "^\\*.*ghostel\\*.*$" ghostel-mode
 

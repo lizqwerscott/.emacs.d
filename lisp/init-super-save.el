@@ -41,7 +41,7 @@
 
 (add-list-to-list 'super-save-triggers
                   '(ace-window
-                    unpackaged/magit-status unpackaged/magit-project-status multi-vterm-run
+                    unpackaged/magit-status unpackaged/magit-project-status
                     consult-buffer
                     consult-ripgrep
                     project-find-regexp
