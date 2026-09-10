@@ -175,7 +175,9 @@ and update transparent."
 ;; (global-project-color-mode)
 
 ;;; nyan-canvas-mode
-(nyan-canvas-mode)
+(when (and (fboundp 'canvas-refresh)
+           (image-type-available-p 'canvas))
+  (nyan-canvas-mode))
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.
