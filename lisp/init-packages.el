@@ -339,7 +339,9 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     gemini-mode
     (elpher :fetcher github :repo "emacsmirror/elpher")
     auctex
-    cdlatex))
+    cdlatex
+    (textui :fetcher github :repo "yibie/textui")
+    (md-mode :fetcher github :repo "yibie/md-mode")))
 
 (defvar *package-ai-install-list*
   (append '(agent-shell
