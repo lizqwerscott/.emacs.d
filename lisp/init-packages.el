@@ -354,8 +354,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
             (agental :fetcher github :repo "lizqwerscott/agental"
                      :files (:defaults "prompts"))
             (mcp :fetcher github
-                 :repo "lizqwerscott/mcp.el")
-            (macher :host github :repo "kmontag/macher"))))
+                 :repo "lizqwerscott/mcp.el"))))
 
 (defvar *package-another-install-list*
   '(code-stats

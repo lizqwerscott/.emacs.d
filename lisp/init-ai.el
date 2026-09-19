@@ -26,8 +26,6 @@
 
 (require 'init-gptel)
 
-(require 'init-macher)
-
 (defun set-ai-completion (symbol value)
   "Set font SYMBOL VALUE."
   (dolist (mode '(python-ts-mode rust-ts-mode c++-ts-mode web-mode bash-ts-mode go-ts-mode csharp-mode csharp-ts-mode))
