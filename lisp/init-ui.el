@@ -177,6 +177,9 @@ and update transparent."
 ;;; nyan-canvas-mode
 (when (and (fboundp 'canvas-refresh)
            (image-type-available-p 'canvas))
+  
+  (wait-packages! '((nyan-canvas-mode :fetcher github :repo "lizqwerscott/nyan-canvas-mode" :files (:defaults "img"))))
+
   (nyan-canvas-mode))
 
 (provide 'init-ui)

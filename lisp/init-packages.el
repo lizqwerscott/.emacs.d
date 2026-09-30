@@ -280,7 +280,11 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     (nano-calendar :fetcher github :repo "rougier/nano-calendar")
     (scrollview :fetcher github :repo "roife/scrollview.el")
     (graph-fa2 :fetcher github :repo "elij/graph-fa2")
-    (nyan-canvas-mode :fetcher github :repo "lizqwerscott/nyan-canvas-mode" :files (:defaults "img"))))
+    (pale :fetcher codeberg
+          :repo "MonadicSheep/pale"
+          :branch "canvas"
+          :files (:defaults "Makefile" "*.c" "*.h" "*.m")
+          :build ((:after elpaca-build-link elpaca-build-pale-make)))))
 
 (defvar *package-window-install-list*
   '(popper
