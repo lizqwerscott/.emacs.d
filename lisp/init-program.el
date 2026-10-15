@@ -35,7 +35,7 @@
   "Install all required language grammar."
   (interactive)
   (treesit-install-language-grammar 'elisp)
-  (let ((treesit-auto-langs '(bash c cpp lua python rust zig yaml toml cmake)))
+  (let ((treesit-auto-langs '(bash c cpp lua python rust zig yaml toml cmake markdown markdown-inline)))
     (treesit-auto-install-all)))
 
 ;; from https://github.com/renzmann/treesit-auto/issues/135#issuecomment-3314598444
@@ -308,9 +308,18 @@ ARGS is ORIG-FN args."
 (require 'init-yaml)
 
 ;; markdown
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-(setopt markdown-fontify-code-blocks-natively t)
-(add-hook 'markdown-mode-hook #'markdown-indent-mode)
+(autoload 'markdown-ts-mode "markdown-ts-mode" nil t)
+
+(dolist (re '("\\.md\\'" "\\.mdx\\'" "\\.markdown\\'"))
+  (add-to-list 'auto-mode-alist (cons re 'markdown-ts-mode)))
+
+(add-hook 'markdown-ts-mode-hook
+          #'markdown-ts-appear-mode)
+
+(add-hook 'markdown-ts-mode-hook #'markdown-indent-mode)
+
+(with-eval-after-load 'markdown-ts-mode
+  (require 'markdown-ts-mode-x))
 
 (provide 'init-program)
 ;;; init-program.el ends heres.

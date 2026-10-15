@@ -344,8 +344,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     (elpher :fetcher github :repo "emacsmirror/elpher")
     auctex
     cdlatex
-    (textui :fetcher github :repo "yibie/textui")
-    (md-mode :fetcher github :repo "yibie/md-mode")))
+    markdown-ts-appear))
 
 (defvar *package-ai-install-list*
   (append '(agent-shell
