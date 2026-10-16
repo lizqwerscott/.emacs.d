@@ -279,12 +279,7 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     (knockknock :fetcher github :repo "konrad1977/knockknock")
     (nano-calendar :fetcher github :repo "rougier/nano-calendar")
     (scrollview :fetcher github :repo "roife/scrollview.el")
-    (graph-fa2 :fetcher github :repo "elij/graph-fa2")
-    (pale :fetcher codeberg
-          :repo "MonadicSheep/pale"
-          :branch "canvas"
-          :files (:defaults "Makefile" "*.c" "*.h" "*.m")
-          :build ((:after elpaca-build-link elpaca-build-pale-make)))))
+    (graph-fa2 :fetcher github :repo "elij/graph-fa2")))
 
 (defvar *package-window-install-list*
   '(popper
