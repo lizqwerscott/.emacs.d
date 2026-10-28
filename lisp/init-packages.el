@@ -105,9 +105,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
 
 (defvar *package-built-in-install-list*
   '((transient :wait t)
-    (org :repo "https://code.tecosaur.net/tec/org-mode.git/"
-         :branch "dev"
-         :wait t)))
+    (org :repo "https://git.savannah.gnu.org/git/emacs/org-mode.git"
+         :branch "main")))
 
 (defvar *package-base-install-list*
   '(gcmh
