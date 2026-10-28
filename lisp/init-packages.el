@@ -164,7 +164,8 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     detached
     envrc
     scratch
-    (tramp-rpc :fetcher github :repo "ArthurHeymans/emacs-tramp-rpc" :main "lisp/tramp-rpc.el" :files (:defaults "lisp/*.el"))))
+    (tramp-rpc :fetcher github :repo "ArthurHeymans/emacs-tramp-rpc" :main "lisp/tramp-rpc.el" :files (:defaults "lisp/*.el"))
+    isearch-mb))
 
 (defvar *package-language-mode-install-list*
   '(markdown-mode
