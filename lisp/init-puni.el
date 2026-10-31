@@ -55,7 +55,7 @@ S-expression."
   ("C-s-f" . puni-forward-sexp)
   ("C-s-b" . puni-backward-sexp))
 
-(add-hooks '(prog-mode-hook sgml-mode-hook nxml-mode-hook tex-mode-hook eval-expression-minibuffer-setup-hook yaml-ts-mode-hook)
+(add-hooks '(prog-mode-hook sgml-mode-hook nxml-mode-hook tex-mode-hook eval-expression-minibuffer-setup-hook yaml-ts-mode-hook toml-ts-mode-hook)
            #'puni-mode)
 
 (provide 'init-puni)
