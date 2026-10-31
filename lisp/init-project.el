@@ -85,7 +85,9 @@
 
   ("C" . ("Emacs Config" . (lambda () (interactive) (project-switch-project user-emacs-directory))))
 
-  ("l" . project-list-projects))
+  ("l" . project-list-projects)
+
+  ("=" . projection-format-project))
 
 ;;; project-switch-commands
 (setq project-switch-commands
