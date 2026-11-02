@@ -16,7 +16,7 @@
                                    "Monaco" "DejaVu Sans Mono" "Consolas")
   "The default font list.")
 
-(defconst user/default-zh-font-list '("LXGW WenKai Mono" "LXGW Neo XiHei Screen Full" "LXGW WenKai" "LXGW Neo Xihei" "WenQuanYi Zen Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
+(defconst user/default-zh-font-list '("LXGW WenKai Mono Screen" "LXGW WenKai Screen" "LXGW WenKai Mono" "LXGW Neo XiHei Screen Full" "LXGW WenKai" "LXGW Neo Xihei" "WenQuanYi Zen Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
   "The default zh font list.")
 
 (defconst user/default-mono-font "Maple Mono"
@@ -65,15 +65,22 @@ FONT-SIZE is the default font size."
                      (t
                       (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
 
+
+    ;; Force Emacs to search by using font-spec
+    (set-fontset-font t 'han (font-spec :script 'han) nil 'append)
+
     ;; Specify font for Chinese characters
     (cl-loop for font in user/default-zh-font-list
              when (font-installed-p font)
              return (progn
                       (my/font-set-rescale font 1)
+                      (set-fontset-font t 'han (font-spec :family font))
                       (my/font-set-rescale font
                                            (/ (* 2.0 (measure-font-pixel-width "h" user/default-mono-font user/font-size))
                                               (measure-font-pixel-width "汉" font user/font-size)))
-                      (set-fontset-font t 'han (font-spec :family font))))))
+                      (dolist (charset '(kana han cjk-misc bopomofo hangul))
+                        (set-fontset-font t charset
+                                          (font-spec :family font)))))))
 
 (defun measure-font-pixel-width (string &optional height font-family)
   "Return the pixel width of STRING at HEIGHT rendered in FONT-FAMILY.
@@ -102,10 +109,6 @@ newline-free substring is returned, as with `string-pixel-width'."
       (buffer-face-set (append (when height     (list :height height))
                                (when font-family (list :family font-family)))))
     (string-pixel-width string (current-buffer))))
-
-(defun measure-font-rescale (char1 char2 &optional font1 height1 font2 height2)
-  "Mesure font rescale."
-  )
 
 (defun my/font-set-rescale (font scale)
   "Set FONT SCALE."
