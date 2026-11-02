@@ -307,7 +307,6 @@ return (HOSTING-SITE OWNER REPO-NAME)。"
     ox-hugo
     org-appear
     org-fragtog
-    valign
     (org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent")
     (org-count-words :fetcher github :repo "Elilif/org-count-words")
     org-rich-yank

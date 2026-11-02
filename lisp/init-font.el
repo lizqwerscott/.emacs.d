@@ -11,6 +11,17 @@
 (defconst user/default-linux-font-size 190
   "The default font size in linux.")
 
+(defconst user/default-font-list '("MonoLisa Lucius" "Source Code Pro" "Jetbrains Mono" "Cascadia Code" "Fira Code"
+                                   "SF Mono" "Hack" "Menlo"
+                                   "Monaco" "DejaVu Sans Mono" "Consolas")
+  "The default font list.")
+
+(defconst user/default-zh-font-list '("LXGW WenKai Mono" "LXGW Neo XiHei Screen Full" "LXGW WenKai" "LXGW Neo Xihei" "WenQuanYi Zen Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
+  "The default zh font list.")
+
+(defconst user/default-mono-font "Maple Mono"
+  "The default mono font.")
+
 (defun font-installed-p (font-name)
   "Check if font with FONT-NAME is available."
   (find-font (font-spec :name font-name)))
@@ -20,9 +31,7 @@
 FONT-SIZE is the default font size."
   (when (display-graphic-p)
     ;; Set default font
-    (cl-loop for font in '("MonoLisa Lucius" "Source Code Pro" "Jetbrains Mono" "Cascadia Code" "Fira Code"
-                           "SF Mono" "Hack" "Menlo"
-                           "Monaco" "DejaVu Sans Mono" "Consolas")
+    (cl-loop for font in user/default-font-list
              when (font-installed-p font)
              return (set-face-attribute 'default nil
                                         :family font
@@ -57,11 +66,53 @@ FONT-SIZE is the default font size."
                       (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
 
     ;; Specify font for Chinese characters
-    (cl-loop for font in '("LXGW Neo XiHei Screen Full" "LXGW WenKai" "LXGW Neo Xihei" "WenQuanYi Zen Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
+    (cl-loop for font in user/default-zh-font-list
              when (font-installed-p font)
              return (progn
-                      (setq face-font-rescale-alist `((,font . 1.2)))
+                      (my/font-set-rescale font 1)
+                      (my/font-set-rescale font
+                                           (/ (* 2.0 (measure-font-pixel-width "h" user/default-mono-font user/font-size))
+                                              (measure-font-pixel-width "汉" font user/font-size)))
                       (set-fontset-font t 'han (font-spec :family font))))))
+
+(defun measure-font-pixel-width (string &optional height font-family)
+  "Return the pixel width of STRING at HEIGHT rendered in FONT-FAMILY.
+
+STRING is measured in a temporary buffer whose `default' face is
+remapped to the given HEIGHT and/or FONT-FAMILY, so the result
+reflects the actual glyph metrics of that font configuration.
+
+HEIGHT, if non-nil, is a face height spec: an integer is an
+absolute height in 1/10 pt (120 means 12 pt), while a float is a
+scale factor relative to the default face (1.5 means 1.5x).
+
+FONT-FAMILY, if non-nil, is a font family name such as
+\"Maple Mono\".  Either argument may be given alone; when both are
+nil, STRING is measured in the default face.
+
+This requires a graphical frame.  On a TTY frame Emacs falls back
+to character-width based estimation, which is independent of
+HEIGHT and FONT-FAMILY.
+
+If STRING contains newlines, the width of the widest
+newline-free substring is returned, as with `string-pixel-width'."
+  (declare (important-return-value t))
+  (with-temp-buffer
+    (when (or height font-family)
+      (buffer-face-set (append (when height     (list :height height))
+                               (when font-family (list :family font-family)))))
+    (string-pixel-width string (current-buffer))))
+
+(defun measure-font-rescale (char1 char2 &optional font1 height1 font2 height2)
+  "Mesure font rescale."
+  )
+
+(defun my/font-set-rescale (font scale)
+  "Set FONT SCALE."
+  (let ((entry (assoc font face-font-rescale-alist)))
+    (if entry
+        (setcdr entry scale)
+      (push `(,font . ,scale) face-font-rescale-alist))))
 
 (add-hook 'window-setup-hook #'setup-fonts)
 (add-hook 'server-after-make-frame-hook #'setup-fonts)

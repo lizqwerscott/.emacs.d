@@ -313,6 +313,13 @@ ARGS is ORIG-FN args."
 (dolist (re '("\\.md\\'" "\\.mdx\\'" "\\.markdown\\'"))
   (add-to-list 'auto-mode-alist (cons re 'markdown-ts-mode)))
 
+;; (setopt markdown-ts-appear-table-reveal 'table)
+
+(with-eval-after-load 'markdown-ts-mode
+  (custom-theme-set-faces
+   'user
+   `(markdown-ts-appear-table ((t :inherit fixed-pitch)))))
+
 (add-hook 'markdown-ts-mode-hook
           #'markdown-ts-appear-mode)
 

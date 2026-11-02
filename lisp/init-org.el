@@ -54,10 +54,9 @@ but adds bold weight and ensures the foreground color is inherited
 from FACE-NAME's parent face."
   `(,face-name ((t (:inherit bold :foreground ,(face-foreground face-name nil t) ,@others)))))
 
-(let* ((variable-tuple
-        (cond ((x-list-fonts "LXGW WenKai")         '(:font "LXGW WenKai"))
-              ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
-              (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro.")))))
+(let* ((variable-tuple `(:font ,(cl-loop for font in user/default-font-list
+                                         when (font-installed-p font)
+                                         return font))))
   (custom-theme-set-faces
    'user
    (my/face-with-inherited-foreground 'org-level-1 `(,@variable-tuple :height 1.25))
@@ -72,9 +71,12 @@ from FACE-NAME's parent face."
 
 (custom-theme-set-faces
  'user
- `(variable-pitch ((t (:family "LXGW WenKai" :height ,(round (* 1.2 user/font-size)) :weight thin))))
- `(fixed-pitch ((t ( :family "MonoLisa Lucius" :height ,user/font-size))))
- `(modus-themes-fixed-pitch ((t ( :family "MonoLisa Lucius" :height ,user/font-size)))))
+ `(variable-pitch ((t (:family ,(cl-loop for font in user/default-font-list
+                                         when (font-installed-p font)
+                                         return font)
+                               :height ,(round (*  1.2 user/font-size)) :weight thin))))
+ `(fixed-pitch ((t ( :family ,user/default-mono-font :height ,user/font-size))))
+ `(modus-themes-fixed-pitch ((t ( :family ,user/default-mono-font :height ,user/font-size)))))
 
 (custom-theme-set-faces
  'user
@@ -191,9 +193,6 @@ from FACE-NAME's parent face."
 ;;              '("~" (:box (:line-width 1
 ;;                                       :color "grey75"
 ;;                                       :style released-button))))
-
-(setopt valign-fancy-bar t)
-(add-hook 'org-mode-hook #'valign-mode)
 
 (setopt org-fancy-priorities-list
         '((?A . "⚡")
@@ -341,8 +340,7 @@ prepended to the element after the #+HEADER: tag."
     ("l" "Display Link" org-toggle-link-display :toggle (not org-link-descriptive) :transient t)
     ("m" "Hide Emphasis Markers" org-toggle-display-emphasis-markers :toggle org-hide-emphasis-markers :transient t)
     ("e" "Display Pretty Entities" org-toggle-pretty-entities :toggle org-pretty-entities :transient t)
-    ("i" "Buffer Link Preview" org-toggle-buffer-link-preview :toggle org-link-preview-overlays :transient t)
-    ("v" "Toggle Valign" valign-mode :toggle t :transient t)]
+    ("i" "Buffer Link Preview" org-toggle-buffer-link-preview :toggle org-link-preview-overlays :transient t)]
    ["Org Management"
     ("E" "Export" org-export-dispatch)
     ("L" "List export file" org-list-export-file)]]
