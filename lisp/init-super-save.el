@@ -27,14 +27,13 @@
 (require 'super-save)
 
 (setq super-save-auto-save-when-idle t
-      super-save-idle-duration 1
+      super-save-idle-duration 5
 
       super-save-remote-files nil
 
       super-save-exclude '(".gpg")
       super-save-silent t
 
-      super-save-delete-trailing-whitespace t
       super-save-delete-trailing-whitespace 'except-current-line
 
       super-save-all-buffers t)
