@@ -76,6 +76,7 @@ from FACE-NAME's parent face."
                                          return font)
                                :height ,(round (*  1.2 user/font-size)) :weight thin))))
  `(fixed-pitch ((t ( :family ,user/default-mono-font :height ,user/font-size))))
+ `(fixed-pitch-serif ((t ( :family ,user/default-mono-font :height ,user/font-size))))
  `(modus-themes-fixed-pitch ((t ( :family ,user/default-mono-font :height ,user/font-size)))))
 
 (custom-theme-set-faces

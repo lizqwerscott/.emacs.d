@@ -16,7 +16,7 @@
                                    "Monaco" "DejaVu Sans Mono" "Consolas")
   "The default font list.")
 
-(defconst user/default-zh-font-list '("LXGW WenKai Mono Screen" "LXGW WenKai Screen" "LXGW WenKai Mono" "LXGW Neo XiHei Screen Full" "LXGW WenKai" "LXGW Neo Xihei" "WenQuanYi Zen Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
+(defconst user/default-zh-font-list '("LXGW WenKai Mono" "LXGW WenKai Mono Screen" "LXGW WenKai Screen" "LXGW WenKai Mono" "LXGW Neo XiHei Screen Full" "LXGW WenKai" "LXGW Neo Xihei" "WenQuanYi Zen Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
   "The default zh font list.")
 
 (defconst user/default-mono-font "Maple Mono"
@@ -82,33 +82,38 @@ FONT-SIZE is the default font size."
                         (set-fontset-font t charset
                                           (font-spec :family font)))))))
 
-(defun measure-font-pixel-width (string &optional height font-family)
-  "Return the pixel width of STRING at HEIGHT rendered in FONT-FAMILY.
+(defun measure-font-pixel-width (string &optional font-family height)
+  "Return the pixel width of STRING rendered in FONT-FAMILY at HEIGHT.
 
-STRING is measured in a temporary buffer whose `default' face is
-remapped to the given HEIGHT and/or FONT-FAMILY, so the result
-reflects the actual glyph metrics of that font configuration.
+FONT-FAMILY is a family name string such as \"Maple Mono\".
+HEIGHT is a face height spec: an integer is an absolute height in
+1/10 pt (120 means 12 pt), while a float is a scale factor
+relative to the default face (1.5 means 1.5x).
 
-HEIGHT, if non-nil, is a face height spec: an integer is an
-absolute height in 1/10 pt (120 means 12 pt), while a float is a
-scale factor relative to the default face (1.5 means 1.5x).
+Either argument may be nil to keep the default; when both are nil,
+STRING is measured in the default face.
 
-FONT-FAMILY, if non-nil, is a font family name such as
-\"Maple Mono\".  Either argument may be given alone; when both are
-nil, STRING is measured in the default face.
-
-This requires a graphical frame.  On a TTY frame Emacs falls back
-to character-width based estimation, which is independent of
-HEIGHT and FONT-FAMILY.
-
-If STRING contains newlines, the width of the widest
-newline-free substring is returned, as with `string-pixel-width'."
+On a TTY frame falls back to character-width based estimation,
+independent of FONT-FAMILY and HEIGHT.  If STRING contains
+newlines, the width of the widest newline-free line is returned."
   (declare (important-return-value t))
-  (with-temp-buffer
-    (when (or height font-family)
-      (buffer-face-set (append (when height     (list :height height))
-                               (when font-family (list :family font-family)))))
-    (string-pixel-width string (current-buffer))))
+  (if (not (display-graphic-p))
+      (let ((max-width 0))
+        (dolist (line (split-string string "\n"))
+          (setq max-width (max max-width (string-width line))))
+        max-width)
+    (let* ((face-spec (append (when height     (list :height height))
+                              (when font-family (list :family font-family))))
+           (proper-string (if face-spec
+                              (propertize string 'face face-spec)
+                            string)))
+      (with-temp-buffer
+        (let (deactivate-mark)
+          (insert proper-string))
+        (add-text-properties
+         (point-min) (point-max)
+         '(display-line-numbers-disable t line-prefix "" wrap-prefix ""))
+        (car (buffer-text-pixel-size nil nil most-positive-fixnum))))))
 
 (defun my/font-set-rescale (font scale)
   "Set FONT SCALE."
